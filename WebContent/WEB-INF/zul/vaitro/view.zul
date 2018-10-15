@@ -52,7 +52,7 @@
 				</div>
 				<div zclass="col-md-6">
 					<div zclass="form-group right">
-						<x:a class="btn btn-blue mg-btn" zk:onClick="@command('saveVaiTro',list=vmArgs, attr='vaiTroQuery', wdn=wdn)">
+						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveVaiTro',list=vmArgs, attr='vaiTroQuery', wdn=wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>
