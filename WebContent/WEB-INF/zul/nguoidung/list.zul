@@ -1,0 +1,166 @@
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('vn.toancauxanh.service.NhanVienService')"
+	class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Quản trị hệ thống";
+		]]>
+	</zscript>
+	<style>
+		.pd-column-3s .col-md-7{
+			width:calc(58.33333333% - 10px);
+			padding:0;
+		}
+		.pd-column-3s .col-md-3{
+			width:calc(25% - 10px);
+			padding:0;
+			margin-left:15px;
+			margin-right:15px;
+		}
+		.pd-column-3s .col-md-2{
+			width:calc(16.66666667% - 10px);
+			padding:0;
+		}
+	</style>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Quản trị hệ thống
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box" style="display:flex;">
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/phongban">
+					<span>Quản lý phòng ban</span>
+				</x:a>
+			</div>
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble active" href="${execution.contextPath}/cp/nguoidung">
+					<span>Quản lý tài khoản người dùng</span>
+				</x:a>
+			</div>
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/vaitro">
+					<span>Quản lý vai trò</span>
+				</x:a>
+			</div>
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/quantrihethong/danhsachdanhmuc">
+					<span>Quản lý danh mục</span>
+				</x:a>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box">
+			<div zclass="row mg-top-no-line">
+					<div zclass="col-md-7">
+						<div zclass="form-group">
+							<span>Tài khoản người dùng</span> 
+							<textbox class="form-control" value="@bind(vm.arg.tukhoa)" onOK="@command('cmd', notify=vm, attr='targetQueryNhanVien')" placeholder="Nhập tài khoản người dùng.."></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<span>Phòng ban</span> 
+							<combobox readonly="true" model="@load(entry.phongBans.listPhongBanAndNull)" 
+								value="@load(vm.arg.phongban eq null ? 'Tất cả' : vm.arg.phongban.ten)" selectedItem="@bind(vm.arg.phongban)" class="his" placeholder="Chọn phòng ban" width="100%">
+								<template name="model">
+									<comboitem label="@load(each eq null ? 'Tất cả' : each.ten)" />
+								</template>
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-2">
+						<div zclass="form-group">
+							<x:button class="btn btn-blue mgn-top-26" onClick="@command('cmd', notify=vm, attr='targetQueryNhanVien')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+								<span>Tìm kiếm</span>
+							</x:button>
+						</div>
+					</div>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Danh sách tài khoản người dùng</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<grid id="grid" model="@load(vm.page(vm.targetQueryNhanVien).fetch())"
+						emptyMessage="Không có mục nào trong danh sách">
+						<columns>
+							<column label="STT" style="text-align:center" width="42px"/>
+							<column label="Tên" style="text-align:center" />
+							<column label="Email" style="text-align:center" />
+							<column label="Phòng ban" style="text-align:center" />
+							<column label="Vị trí" style="text-align:center" />
+							<column label="Thao tác" style="text-align:center"/>
+						</columns>
+						<template name="model">
+							<row viewModel="@id('item') @init(each)">
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
+								<a label="@load(each.hoVaTen)" zk:if="${entry.quyen.nguoidung_xem}"
+									onClick="@command('redirectPageAction', zul='nguoidung/show-edit-nguoi-dung.zul',vmArgs=vm,vm=item,readOnly=true)" class="link-title"/>
+								<label value="@load(item.email)"></label>
+								<label value="@load(item.phongBan.ten)"></label>
+								<label value="@load(item.vaiTroText)"></label>
+								<div class="thaotac" style="text-align:center">
+									<x:a label="Sửa" class="btn-thaotac left" zk:if="${entry.quyen.nguoidung_sua}" onClick="@command('redirectPageAction', zul='nguoidung/show-edit-nguoi-dung.zul',vmArgs=vm,vm=item,readOnly=false)">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${entry.quyen.nguoidung_xoa}"
+										onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQueryNhanVien')">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+						</template>
+						<foot visible="@load(vm.targetQueryNhanVien.fetchCount() gt 10)">
+							<footer span="6">
+								<div class="">
+									<paging pageSize="@load(vm.arg.pagesize)"
+										totalSize="@load(vm.targetQueryNhanVien.fetchCount())"
+										activePage="@bind(vm.arg.page)"
+										onPaging="@command('cmd', notify=vm, attr='targetQueryNhanVien')" />
+								</div>
+							</footer>
+						</foot>
+					</grid>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+							<x:button  class="btn bg-btn-tailieu btn-grey " zk:onClick="@command('xuatExcel', 
+	    							query=vm.vaiTroQuery, title='Tất cả vai trò')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xuat-excel.svg"/>
+								<span>Xuất excel</span>
+							</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:a  class="btn btn-blue" zk:if="${entry.quyen.nguoidung_them}" zk:onClick="@command('redirectPage', zul='nguoidung/show-add-nguoi-dung.zul',vmArgs=vm,vm=null)">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm mới</span>
+						</x:a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</window>

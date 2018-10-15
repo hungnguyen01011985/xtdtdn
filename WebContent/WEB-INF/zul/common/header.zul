@@ -1,0 +1,379 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<!-- <?variable-resolver class="org.zkoss.spring.DelegatingVariableResolver"?> -->
+<zk xmlns:n="native" xmlns:zk="zk" xmlns:x="xhtml" xmlns:u="zul" xmlns:w="client">
+	<zk:zscript><![CDATA[
+		entry = new vn.toancauxanh.service.BaseObject().core();
+		nhanVien = entry.nhanVien;
+		import java.awt.image.*;
+		BufferedImage image = new BufferedImage(400, 300, BufferedImage.TYPE_INT_ARGB);
+	]]></zk:zscript>	
+	<style>
+		.item-noti .notifi-mesg:hover {
+			color: #428bca;
+    		text-decoration: none;
+		}
+		.item-noti li:hover {
+			color: #428bca;
+    		text-decoration: none;
+    		background-color: #bce8f1;
+		}
+		.item-noti a:hover {
+    		text-decoration: none;
+		}
+		.item-noti span {
+			color: #428bca !important;
+			padding-right: 5px;
+		}
+		.item-noti .notifi-mesg {
+			margin: 0 10px !important;
+		}
+		.seeall {
+			text-align: center;
+			padding: 5px;
+			font-size: 13px;
+		}
+	</style>
+	<n:div class="bg-popup-box" onclick="toggleBell()">
+	</n:div>
+	<n:nav class="header-top-be">
+		<div class="box-header-left">
+			<div zclass="menu-header-logo">
+				<n:div>
+					<x:image href="${ctxPath}" class="logo-image" src="${contexPath}/assets/icon/logo-login.png"/>
+				</n:div>
+				<n:a class="nav-title-page" href="${ctxPath}/cp">
+					<n:h5 style="margin-top:10px;">Ban xúc tiến và</n:h5>
+					<n:h5>hỗ trợ đầu tư Đà Nẵng</n:h5>
+				</n:a>
+			</div>
+			<div class="box-header-imgbar">
+				<x:image href="${ctxPath}" width="19px" height="16px" src="${contexPath}/assets/icon-bxtdn/menu-top.svg" onclick="toggleMenuDesktop()"/>
+			</div>
+		</div>
+		<div style="display:flex;">
+		<n:ul class="box-bell" style="list-style:none;">
+			<n:li class="box-relative dropdown">
+				<n:div onclick="toggleBell()">
+					<x:image class="img-notify" href="${ctxPath}" width="18px" height="20px" src="${contexPath}/assets/icon-bxtdn/notification.svg"/>
+					<div class="number-box">
+						<x:span>3</x:span>
+					</div>
+				</n:div>
+				<n:ul class="dropdown-menu box-dropdown-bg" style="left:auto !important; right: -20px;">
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify"> có nhắc nhở trễ công việc </x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify"> của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+					<n:li class="container-notify">
+						<div class="image-notify">
+							<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
+						</div>
+						<div class="content-notify">
+							<div class="box-content-notify">
+								<x:span class="text-bold-notify">Đức Lâm</x:span>
+								<x:span class="text-regular-notify">có nhắc nhở trễ công việc</x:span>
+								<x:span class="text-bold-notify">"Danh sách khách hàng"</x:span>
+								<x:span class="text-regular-notify">của Hội thảo kết nối đầu tư Thái Lan - Đà Nẵng</x:span>
+							</div>
+							<div class="box-content-notify">
+								<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+							</div>
+						</div>
+					</n:li>
+				</n:ul>
+			</n:li>
+		</n:ul>
+		<div viewModel="@id('vm') @init(nhanVien)">
+			<n:ul class="nav box-user-fm">
+				<n:li class="dropdown pd-header-avarta" style="display: inline-block">
+					<n:a class="dropdown-toggle box-header-users" href="#">
+						<div class="avatar-home">
+			         		<image visible="@load(vm.avatarImage ne null)" content="@load(vm.avatarImage eq null ? image : vm.avatarImage)"></image>
+			         		<image visible="@load(vm.avatarImage eq null)" src="/assets/img/employeebig.png"></image>
+			         	</div>
+			         	<x:span>Nguyễn Liên Nhi</x:span>
+						<n:i class="fa fa-chevron-down"></n:i>
+					</n:a>
+					<n:ul class="dropdown-menu dropdown-menu-right dropdown-user">
+						<n:li>
+							<x:a class="info-user" onClick="@command('redirectEditUser', zul='thongtinnguoidung/add-view.zul',vmArgs=null,vm=vm)"
+								href="#">
+								<x:image class="img-trogiup img-info" src="${contexPath}/assets/img/front/nguoidung.svg"/>
+								Thông tin người dùng
+							</x:a>
+						</n:li>
+						<n:li class="divider"></n:li>
+						<n:li>
+							<x:a href="javascript:void(0);" class="info-user"
+								viewModel="@id('vm2') @init(entry.nhanViens)"
+								onClick="@command('logout')">
+								<n:i class="fa fa-sign-out fa-fw"></n:i>
+								Đăng xuất
+							</x:a>
+						</n:li>
+					</n:ul>
+					<!-- /.dropdown-user -->
+				</n:li>
+				<!-- /.dropdown -->
+			</n:ul>
+		</div>
+		</div>
+		<!-- /.navbar-top-links -->
+	</n:nav>
+	
+	<n:script>
+		function toggleMenuDesktop(){
+			if($( window ).width()> 768){
+				if($(".nav-side-menu").css("width")=="243px"){
+				
+					$(".text-menu").css("display","none");
+					
+					$(".nav-side-menu").css("width","50px");
+					
+					$(".img-menu").css("margin","0");
+					
+				}else{
+					$(".nav-side-menu").css("width","243px");
+					
+					$(".img-menu").css("margin","0 20px 0 10px");
+					
+					$(".text-menu").css("display","inline");
+				}
+			}else{
+			
+				if($(".nav-side-menu").css("height")=="0px"){
+				
+					$("html").css("overflow","overlay");
+					
+					$("body").css("overflow","overlay");
+					
+					$(".header-top-be").css("position","fixed");
+					
+					$(".header-top-be").css("z-index","2345");
+					
+					$(".nav-side-menu").css("height","calc(100vh - 60px)");
+					
+				}else{
+					$(".nav-side-menu").css("height","0px");
+					
+					$("html").css("overflow","visible");
+					
+					$("body").css("overflow","visible");
+					
+					$(".header-top-be").css("position","static");
+					
+				}
+			}
+			
+			
+		}
+		function toggleMenu(){
+			if($(".nav-side-menu").css("display")=="none"){
+			
+				$(".nav-side-menu").css("display","block");
+				
+				$("body").css("overflow","hidden");
+				
+			}else{
+				$(".nav-side-menu").css("display","none");
+				
+				$("body").css("overflow","auto");
+				
+			}
+		}
+		function toggleBell(){
+			if($( window ).width()> 500){
+				if($(".box-dropdown-bg").css("display")=="none"){
+				
+					$(".box-dropdown-bg").css("display","block");
+					
+					$(".bg-popup-box").css("display","block");
+					
+				}else{
+				
+					$(".box-dropdown-bg").css("display","none");
+					
+					$(".bg-popup-box").css("display","none");
+				}
+			}else{
+				if($(".box-dropdown-bg").css("display")=="none"){
+				
+					$(".box-dropdown-bg").css("display","block");
+					
+					$(".bg-popup-box").css("display","block");
+					
+					$("html").css("overflow","hidden");
+					
+					$("body").css("overflow","hidden");
+					
+				}else{
+					$(".box-dropdown-bg").css("display","none");
+					
+					$(".bg-popup-box").css("display","none");
+					
+					$("html").css("overflow","auto");
+					
+					$("body").css("overflow","auto");
+					
+				}
+			}
+			
+		}
+	</n:script>
+</zk>

@@ -1,0 +1,59 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native" xmlns:zk="zk" xmlns:x="xhtml" xmlns:u="zul">
+
+	<n:link
+		href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+		rel="stylesheet">
+	</n:link>
+	<zscript>
+		Session session = Sessions.getCurrent();
+	</zscript>
+	<style>
+		.active-icon { color: #f4f5f7; position: absolute; font-size:
+		25px; right: 0px; } .ac-icon1 { top: 8px; } .ac-icon2 { top:
+		66px; } .ac-icon3 { top: 120px; } .ac-icon4 { top: 180px; }
+		.ac-icon5 { top: 234px; } i { font-style: normal; }
+		.collapse{display:block;}
+	</style>
+	<div class="nav-side-menu">
+        <div class="menu-list">
+			<n:ul class="menu-content collapse out" role="menu">
+				<n:li class="${resource eq 'quanlygiaoviec' ? 'active-heder-li flex' : 'flex'}">
+					<n:a href="${execution.contextPath}/cp/quanlygiaoviec">
+						<x:span class="img-menu qlgv" zk:if="${resource ne 'quanlygiaoviec'}"></x:span>
+						<x:span class="img-menu qlgv"  zk:if="${resource eq 'quanlygiaoviec'}"></x:span>
+						<x:span class="text-menu">Quản lý giao việc</x:span>
+					</n:a>
+				</n:li>
+				<n:li class="${resource eq 'quanlydoanvao' ? 'active-heder-li flex' : 'flex'}">
+					<n:a href="${execution.contextPath}/cp/quanlydoanvao">
+						<x:span class="img-menu qldv" zk:if="${resource ne 'quanlydoanvao'}"></x:span>
+						<x:span class="img-menu qldv"  zk:if="${resource eq 'quanlydoanvao'}"></x:span>
+						<x:span class="text-menu">Quản lý đoàn vào</x:span>
+					</n:a>
+				</n:li>
+				<n:li class="${resource eq 'quanlyduan' ? 'active-heder-li flex' : 'flex'}">
+					<n:a href="${execution.contextPath}/cp/quanlyduan">
+						<x:span class="img-menu qlda" zk:if="${resource ne 'quanlyduan'}"></x:span>
+						<x:span class="img-menu qlda"  zk:if="${resource eq 'quanlyduan'}"></x:span>
+						<x:span class="text-menu">Quản lý dự án</x:span>
+					</n:a>
+				</n:li>
+				<n:li class="${resource eq 'baocaothongke' ? 'active-heder-li flex' : 'flex'}">
+					<n:a href="${execution.contextPath}/cp/quanlyduan">
+						<x:span class="img-menu bctk" zk:if="${resource ne 'ditich'}"></x:span>
+						<x:span class="img-menu bctk"  zk:if="${resource eq 'ditich'}"></x:span>
+						<x:span class="text-menu">Báo cáo thống kê</x:span>
+					</n:a>
+				</n:li>
+				<n:li class="${resource eq 'phongban' ? 'active-heder-li flex' : 'flex'}">
+					<n:a href="${execution.contextPath}/cp/phongban">
+						<x:span class="img-menu qlht" zk:if="${resource ne 'phongban'}"></x:span>
+						<x:span class="img-menu qlht"  zk:if="${resource eq 'phongban'}"></x:span>
+						<x:span class="text-menu">Quản trị hệ thống</x:span>
+					</n:a>
+				</n:li>
+			</n:ul>
+		</div>
+	</div>
+</zk>

@@ -1,0 +1,3 @@
+<?component name="view" inline="true" macroURI="view.zul"?>
+<view model="${entry.vaiTros.type().newInstance()}"  vmArgs="${arg.vmArgs}" save="Tạo mới vai trò người dùng" notify="${arg.vmArgs}" />
+

@@ -1,0 +1,126 @@
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('vn.toancauxanh.model.KeHoachLamViec')" class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Kế hoạch làm việc";
+		]]>
+	</zscript>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="page-here">
+						<span>Quản lý đoàn vào</span>
+						<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
+						<span class="active-title">Hội thảo kết nối đầu tư Đà Nẵng - Thái Lan</span>
+						<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
+						<span>Kế hoạch làm việc</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Kế hoạch làm việc
+					</n:span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box mg-bottom-15">
+			<!-- start -->
+			<div class="row mgn-lr-10">
+				<div class="row">
+					<div zclass="col-lg-12">
+						<div class="title-form">
+							<span>Thông tin kế hoạch làm việc</span>
+						</div>
+					</div>
+				</div>
+				<div class="row mg-and-bg-and-line">
+					<div class="pd-column-2">
+						<div zclass="col-md-8">
+							<div zclass="form-group">
+								<span class="pd-top-5">Tên đoàn</span> 
+								<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
+									<comboitem label="Testcase 1" />
+									<comboitem label="Testcase 2" />
+									<comboitem label="Testcase 3" />
+									<comboitem label="Testcase 4" />
+								</combobox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+						<div zclass="col-md-4">
+							<div zclass="form-group">
+								<span>Thời gian đến làm việc</span> 
+								<datebox format="dd/MM/yyyy" class="hv-db"
+										 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<grid id="grid" model="@load(vm.listCongViec)"
+					emptyMessage="Không có mục nào trong danh sách">
+					<columns>
+						<column label="STT" style="text-align:center" width="42px"/>
+						<column label="Nội dung công việc" style="text-align:center" />
+						<column label="Người thực hiện" style="text-align:center" />
+						<column label="Thời gian" style="text-align:center" />
+						<column label="Trạng thái" style="text-align:center" />
+						<column label="Ghi chú" style="text-align:center" />
+					</columns>
+					<template name="model">
+						<row >
+							<label value="@load(each.flag ? '-' : forEachStatus.index + 1)"></label>
+							<label value="@load(each.tenCongViec)" style="@load(each.flag ? '' : 'font-weight:bold')"></label>
+							<combobox visible="@load(each.flag)" readonly="true" model="@load(entry.nhanViens.tacGias)" selectedItem="@bind(vm.nguoiThucHien)" class="his reset-mg-pd" placeholder="Chọn người thực hiện" width="100%">
+								<template name="model">
+									<comboitem label="@load(each.hoVaTen)" />
+								</template>
+							</combobox>
+							<datebox visible="@load(each.flag)" format="dd/MM/yyyy" class="hv-db"
+										 onCreate="self.value = new Date()" value="@bind(vm.thoiGian)" width="100%" placeholder="Chọn ngày"/>
+							<combobox visible="@load(each.flag)" readonly="true" model="@load(vm.listTrangThaiCongViec)" selectedItem="@bind(each.trangThaiCongViec)" class="his" placeholder="Trạng thái" width="100%">
+								<template name="model">
+									<comboitem label="@load(each.text)" />
+								</template>
+							</combobox>
+							<label value="@load(each.flag ? '-' : each.ghiChu)"></label>
+						</row>
+					</template>
+				</grid>
+				
+				<div class="row mg-and-bg-and-line">
+					<div zclass="col-xs-6 flex-box">
+						<div zclass="form-group">
+							<x:button class="btn bg-btn-tailieu btn-grey">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+								<span>Đóng</span>
+							</x:button>
+						</div>
+						<div zclass="form-group pd-left-11">
+							<x:button class="btn bg-btn-tailieu btn-grey ">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xuat-excel.svg"/>
+								<span>Xuất kế hoạch</span>
+							</x:button>
+						</div>
+					</div>
+					<div zclass="col-xs-6">
+						<div zclass="form-group right">
+							<x:button class="btn btn-blue" zk:onClick="@command('saveKeHoachLamViec')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+								<span>Lưu</span>
+							</x:button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</window>

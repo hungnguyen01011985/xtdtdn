@@ -1,0 +1,167 @@
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" viewModel="@id('vm') @init('vn.toancauxanh.service.DoanVaoService')"
+	apply="org.zkoss.bind.BindComposer" class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Quản lí đoàn vào";
+		]]>
+	</zscript>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Quản lý đoàn vào
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Tìm kiếm</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">	
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<span>Tên đoàn</span> 
+							<textbox class="form-control" value="@bind(vm.arg.tukhoa)" placeholder="Nhập tên đoàn.."></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<span>Trạng thái</span> 
+							<combobox readonly="true" class="his" placeholder="Tất cả" width="100%" 
+							selectedItem="@bind(vm.arg.trangthai)" model="@load(vm.listTrangThaiTiepDoan)">
+								<template name="model">
+									<comboitem label="@load(each eq null ? 'Tất cả' : each.text)" />
+								</template>
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<span>Quốc gia</span> 
+							<combobox readonly="true" class="his" selectedIndex="@bind(vm.arg.quocgia)"
+								model="@load(entry.quocGias.listQuocGiaAndNull)" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(each.tenQuocGia eq null ? 'Tất cả' : each.tenQuocGia)" />
+								</template>
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<span>Thời gian đến làm việc từ ngày</span> 
+							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.arg.tungay)"
+								width="100%" placeholder="Chọn ngày"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<span>Đến ngày</span> 
+							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.arg.denngay)"
+								width="100%" placeholder="Chọn ngày"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+						<x:button class="btn bg-btn-tailieu primary btn-grey ">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
+							<span>Tìm kiếm lại</span>
+						</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:button class="btn primary btn-blue" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+							<span>Tìm kiếm</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box mg-bottom-15">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Danh sách kết quả tìm kiếm</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())" sclass="table-qldv"
+						emptyMessage="Không có mục nào trong danh sách">
+						<columns>
+							<column label="STT" width="45px"/>
+							<column label="Tên đoàn"/>
+							<column label="Trưởng đoàn" width="100px"/>
+							<column label="Số người" width="80px"/>
+							<column label="Danh sách đoàn" width="120px"/>
+							<column label="Nơi đoàn đi thăm họp" width="160px"/>
+							<column label="TG đến" width="90px"/>
+							<column label="Trạng thái" width="90px"/>
+							<column label="Tóm tắt nội dung KQLV" width="160px"/>
+							<column label="Thao tác" width="110px" />
+						</columns>
+						<template name="model">
+							<row>
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
+								<label value="@load(each.tenDoanVao)"></label>
+								<label value="@load(each.nguoiPhuTrach.hoVaTen)"></label>
+								<label value="@load(each.soNguoi)"></label>
+								<label value="@load(each.nguoiPhuTrach.hoVaTen)"></label>
+								<label value="@load(each.noiDoanDiTham)"></label>
+								<label value="@load(each.thoiGianDenLamViec) @converter('formatedDate',format='dd/MM/YYYY')"></label>
+								<label value="@load(each.trangThaiTiepDoan.text)"></label>
+								<label value="@load(each.tomTatNoiDungKQ)"></label>
+								<div class="thaotac" style="text-align:center">
+									<x:a label="Sửa" class="btn-thaotac left" href="${execution.contextPath}/cp/quanlydoanvao/capnhatketqua">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+						</template>
+					</grid>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+						<x:button  class="btn bg-btn-tailieu btn-grey ">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xuat-excel.svg"/>
+							<span>Xuất excel</span>
+						</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlydoanvao/add-view">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm mới đoàn vào</span>
+						</x:a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</window>

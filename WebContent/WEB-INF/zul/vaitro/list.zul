@@ -1,0 +1,122 @@
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('vn.toancauxanh.service.VaiTroService')" class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Quản trị hệ thống";
+		]]>
+	</zscript>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Quản trị hệ thống
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box" style="display:flex;">
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/phongban">
+					<span>Quản lý phòng ban</span>
+				</x:a>
+			</div>
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/nguoidung">
+					<span>Quản lý tài khoản người dùng</span>
+				</x:a>
+			</div>
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble active" href="${execution.contextPath}/cp/vaitro">
+					<span>Quản lý vai trò</span>
+				</x:a>
+			</div>
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/quantrihethong/danhsachdanhmuc">
+					<span>Quản lý danh mục</span>
+				</x:a>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box">
+			<div zclass="row mg-top-no-line">	
+					<div zclass="col-md-9">
+						<div zclass="form-group">
+							<span>Nhập tên vai trò người dùng</span> 
+							<textbox class="form-control" value="@bind(vm.arg.tukhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
+								 placeholder="Nhập tên vai trò.."></textbox>
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+								<span>Tìm kiếm</span>
+							</x:a>
+						</div>
+					</div>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Danh sách vai trò</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<grid id="grid" model="@load(vm.page(vm.vaiTroQuery).fetch())" 
+						emptyMessage="Không có mục nào trong danh sách">
+						<columns>
+							<column label="STT" style="text-align:center" width="42px"/>
+							<column label="Tên vai trò" />
+							<column label="Ngày cập nhật" width="140px" />
+							<column label="Thao tác" style="text-align:center" width="140px" />
+						</columns>
+						<template name="model">
+							<row viewModel="@id('item') @init(each)">
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.pageSize + vm.arg.page)" style="display:flex;justify-content:center;"></label>
+								<label value="@load(item.tenVaiTro)"></label>
+								<label value="@load(item.ngaySua) @converter('formatedDate',format='dd/MM/YYYY')"></label>
+								<div class="thaotac" style="text-align:center">
+									<x:a label="Sửa" class="btn-thaotac left" zk:if="${entry.nhanVien.quyens eq '[*]'}" onClick="@command('redirectPage', zul='vaitro/show-edit-vai-tro.zul',vmArgs=vm,vm=item)">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${entry.nhanVien.quyens eq '[*]'}"
+										onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='vaiTroQuery')">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+						</template>
+					</grid>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+							<x:button  class="btn bg-btn-tailieu btn-grey " zk:onClick="@command('xuatExcel', 
+	    							query=vm.vaiTroQuery, title='Tất cả vai trò')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xuat-excel.svg"/>
+								<span>Xuất excel</span>
+							</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:button class="btn btn-blue" zk:if="${entry.quyen.vaitro_them}" zk:onClick="@command('redirectPage', zul='vaitro/show-add-vai-tro.zul',vmArgs=vm,vm=null)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm mới</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</window>

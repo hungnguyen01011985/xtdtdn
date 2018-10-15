@@ -1,0 +1,172 @@
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
+	apply="org.zkoss.bind.BindComposer" class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Quản lí dự án";
+		]]>
+	</zscript>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Quản lý dự án
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Tìm kiếm</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div class="pd-column-3">
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Tên nhà đầu tư</span> 
+							<textbox class="form-control" value=""></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Giai đoạn xúc tiến</span> 
+							<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
+								<comboitem label="Testcase 1" />
+								<comboitem label="Testcase 2" />
+								<comboitem label="Testcase 3" />
+								<comboitem label="Testcase 4" />
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Lĩnh vực</span>
+							<combobox readonly="true" class="his"
+								placeholder="Loại lễ hội" width="100%">
+								<comboitem label="Testcase 1" />
+								<comboitem label="Testcase 2" />
+								<comboitem label="Testcase 3" />
+								<comboitem label="Testcase 4" />
+							</combobox>
+							<label zclass="error"
+								value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="pd-column-3">
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Người phụ trách</span> 
+							<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
+								<comboitem label="Testcase 1" />
+								<comboitem label="Testcase 2" />
+								<comboitem label="Testcase 3" />
+								<comboitem label="Testcase 4" />
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Thời gian xúc tiến từ ngày</span>
+							<datebox format="dd/MM/yyyy" class="hv-db"
+								onCreate="self.value = new Date()" width="100%"
+								placeholder="Chọn ngày" />
+							<label zclass="error"
+								value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Đến ngày</span>
+							<datebox format="dd/MM/yyyy" class="hv-db"
+								onCreate="self.value = new Date()" width="100%"
+								placeholder="Chọn ngày" />
+							<label zclass="error"
+								value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+						<x:button class="btn bg-btn-tailieu primary btn-grey ">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
+							<span>Tìm kiếm lại</span>
+						</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:button class="btn primary btn-blue ">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+							<span>Tìm kiếm</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Danh sách kết quả tìm kiếm</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+				<grid id="grid" 
+					emptyMessage="Không có mục nào trong danh sách">
+					<columns>
+						<column label="STT" width="42px"/>
+						<column label="Nhà đầu tư"/>
+						<column label="Lĩnh vực"/>
+						<column label="Giai đoạn xúc tiến"/>
+						<column label="Ngày bắt đầu"/>
+						<column label="Ngày kết thúc"/>
+						<column label="Người phụ trách"/>
+						<column label="Thao tác" width="140px" />
+					</columns>
+					<rows>
+						<row>
+							<label value="1"></label>
+							<label value="John Doe"></label>
+							<label value="John Doe"></label>
+							<label value="John Doe"></label>
+							<label value="John Doe"></label>
+							<label value="John Doe"></label>
+							<label value="John Doe"></label>
+							<div class="thaotac">
+								<x:a label="Xóa" class="btn-thaotac up-note">
+									<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+									<x:span>Xóa</x:span>
+								</x:a>
+							</div>
+						</row>
+					</rows>
+				</grid>
+			</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-12">
+					<div zclass="form-group right">
+						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlyduan/add-view">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm mới dự án</span>
+						</x:a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</window>

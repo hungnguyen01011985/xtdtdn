@@ -1,0 +1,187 @@
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
+	apply="org.zkoss.bind.BindComposer" class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Quản lí giao việc";
+		]]>
+	</zscript>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-here">
+						Quản lý giao việc
+					</n:span>
+					<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
+					<span class="active-title">Hội thảo kết nối đầu tư Đà Nẵng - Thái Lan</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Hội thảo kết nối đầu tư Đà Nẵng - Thái Lan
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Thông tin nhiệm vụ</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-left-no-line">
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Tên công việc</span> 
+							<textbox class="form-control" value="" placeholder="Nhập tên công việc.."></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Loại công việc</span> 
+							<textbox class="form-control" value="" placeholder="Nhập loại công việc.."></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Phòng chủ trì</span> 
+							<textbox class="form-control" value="" placeholder="Nhập phòng chủ trì"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Người phụ trách</span> 
+							<textbox class="form-control" value="" placeholder="Nhập người phụ trách.."></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Thời gian bắt đầu</span> 
+							<datebox format="dd/MM/yyyy" class="hv-db"
+									 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+			</div>
+			<div class="row mg-left-and-line">
+				<div zclass="col-md-12">
+					<div class="title-form">
+						<span>Đề xuất nhân sự tham gia</span>
+					</div>
+				</div>
+			</div>
+			<grid id="grid" 
+				emptyMessage="Không có mục nào trong danh sách">
+				<columns>
+					<column label="STT" style="text-align:center" width="42px"/>
+					<column label="Công việc" />
+					<column label="Người thực hiện" />
+					<column label="Tiến độ" />
+					<column label="Kế hoạch hoàn thành" />
+					<column label="Ngày hoàn thành" />
+					<column label="Tài liệu đính kèm" />
+					<column label="Cập nhật kết quả" width="100px" />
+				</columns>
+				<rows>
+					<row>
+						<label value="1" style="display:flex;justify-content:center;"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe" class="text-color-table text-color-red"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<div class="thaotac">
+							<x:a label="Xóa" class="btn-thaotac">
+								<x:image class="img-edit" title="Cập nhật" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+								<x:span class="text-bt-table text-edit">Cập nhật</x:span>
+							</x:a>
+						</div>
+					</row>
+					<row>
+						<label value="2" style="display:flex;justify-content:center;"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe" class="text-color-table text-color-blue"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<div class="thaotac">
+							<x:a label="Xóa" class="btn-thaotac">
+								<x:image class="img-edit" title="Cập nhật" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+								<x:span class="text-bt-table text-edit">Cập nhật</x:span>
+							</x:a>
+						</div>
+					</row>
+					<row>
+						<label value="3" style="display:flex;justify-content:center;"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe" class="text-color-table text-color-red"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<div class="thaotac">
+							<x:a label="Xóa" class="btn-thaotac">
+								<x:image class="img-edit" title="Cập nhật" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+								<x:span class="text-bt-table text-edit">Cập nhật</x:span>
+							</x:a>
+						</div>
+					</row>
+					<row>
+						<label value="4" style="display:flex;justify-content:center;"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe" class="text-color-table text-color-blue"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<label value="John Doe"></label>
+						<div class="thaotac">
+							<x:a label="Xóa" class="btn-thaotac">
+								<x:image class="img-edit" title="Cập nhật" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+								<x:span class="text-bt-table text-edit">Cập nhật</x:span>
+							</x:a>
+						</div>
+					</row>
+				</rows>
+			</grid>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6 flex-box">
+					<div zclass="form-group">
+						<x:button  class="btn bg-btn-tailieu primary btn-grey ">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+							<span>Đóng</span>
+						</x:button>
+					</div>
+					<div zclass="form-group pd-left-11">
+						<x:button  class="btn bg-btn-tailieu primary btn-grey ">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/nhac-nho.svg"/>
+							<span>Nhắc nhở</span>
+						</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:button  class="btn primary btn-blue ">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
+							<span>Cập nhật</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+</window>

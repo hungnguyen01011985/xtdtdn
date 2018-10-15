@@ -1,0 +1,160 @@
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
+	apply="org.zkoss.bind.BindComposer" class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Quản tri hệ thống";
+		]]>
+	</zscript>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Quản trị hệ thống
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box" style="display:flex;">
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/phongban">
+					<span>Quản lý phòng ban</span>
+				</x:a>
+			</div>
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/nguoidung">
+					<span>Quản lý tài khoản người dùng</span>
+				</x:a>
+			</div>
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/vaitro">
+					<span>Quản lý vai trò</span>
+				</x:a>
+			</div>
+			<div class="box-btn-qt">
+				<x:a class="btn-bubble active" href="${execution.contextPath}/cp/quantrihethong/danhsachdanhmuc">
+					<span>Quản lý danh mục</span>
+				</x:a>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box">
+			<div zclass="row mg-top-no-line">	
+				<div zclass="col-md-9">
+					<div zclass="form-group">
+						<span>Giai đoạn xúc tiến</span> 
+						<textbox class="form-control" value="" placeholder="Nhập tên giai đoạn xúc tiến.."></textbox>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				<div zclass="col-xs-3">
+					<div zclass="form-group">
+						<x:button class="btn btn-blue mgn-top-26">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+							<span>Tìm kiếm</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Danh mục giai đoạn xúc tiến đầu tư</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<grid id="grid" 
+						emptyMessage="Không có mục nào trong danh sách">
+						<columns>
+							<column label="STT" style="text-align:center" width="42px"/>
+							<column label="Giai đoạn xúc tiến đầu tư" style="text-align:center" />
+							<column label="Thao tác" style="text-align:center" width="140px" />
+						</columns>
+						<rows>
+							<row>
+								<label value="1" style="display:flex;justify-content:center;"></label>
+								<label value="Văn phòng" style="text-align:center; display: block;"></label>
+								<div class="thaotac" style="text-align:center">
+									<x:a label="Sửa" class="btn-thaotac left">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+							<row>
+								<label value="2" style="display:flex;justify-content:center;"></label>
+								<label value="Văn phòng" style="text-align:center; display: block;"></label>
+								<div class="thaotac" style="text-align:center">
+									<x:a label="Sửa" class="btn-thaotac left">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+							<row>
+								<label value="3" style="display:flex;justify-content:center;"></label>
+								<label value="Văn phòng" style="text-align:center; display: block;"></label>
+								<div class="thaotac" style="text-align:center">
+									<x:a label="Sửa" class="btn-thaotac left">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+							<row>
+								<label value="4" style="display:flex;justify-content:center;"></label>
+								<label value="Văn phòng" style="text-align:center; display: block;"></label>
+								<div class="thaotac" style="text-align:center">
+									<x:a label="Sửa" class="btn-thaotac left">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+						</rows>
+					</grid>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+					<div zclass="col-xs-6">
+						<div zclass="form-group">
+							<x:button  class="btn bg-btn-tailieu primary btn-grey ">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xuat-excel.svg"/>
+								<span>Xuất excel</span>
+							</x:button>
+						</div>
+					</div>
+					<div zclass="col-xs-6">
+						<div zclass="form-group right">
+							<x:button  class="btn primary btn-blue ">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+								<span>Thêm mới</span>
+							</x:button>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</window>
