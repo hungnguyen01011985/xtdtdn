@@ -26,7 +26,6 @@ public class KeHoachLamViec extends Model<KeHoachLamViec> {
 	private boolean flag;
 	private String tenCongViec = "";
 	private List<KeHoachLamViec> selectItems;
-	private NhanVien nguoiThucHienTemp;
 	private List<KeHoachLamViec> listCongViecTemp;
 
 	@Transient
@@ -46,15 +45,6 @@ public class KeHoachLamViec extends Model<KeHoachLamViec> {
 
 	public void setListCongViecTemp(List<KeHoachLamViec> listCongViecTemp) {
 		this.listCongViecTemp = listCongViecTemp;
-	}
-
-	@Transient
-	public NhanVien getNguoiThucHienTemp() {
-		return nguoiThucHienTemp;
-	}
-
-	public void setNguoiThucHienTemp(NhanVien nguoiThucHienTemp) {
-		this.nguoiThucHienTemp = nguoiThucHienTemp;
 	}
 
 	public KeHoachLamViec() {
