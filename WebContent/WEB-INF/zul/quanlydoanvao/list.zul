@@ -59,7 +59,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<span>Thời gian đến làm việc từ ngày</span> 
-							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.arg.tuNgay)"
+							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.tuNgay)"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -67,7 +67,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<span>Đến ngày</span> 
-							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.arg.denNgay)"
+							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.denNgay)"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
