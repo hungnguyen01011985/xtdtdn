@@ -1,10 +1,9 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
-<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('vn.toancauxanh.cms.service.PhongBanService')"
-	 class="form-list">
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('vn.toancauxanh.service.DanhMucService')" class="form-list">
 	<zscript>
 		<![CDATA[
-			page.title = "Quản trị hệ thống";
+			page.title = "Quản tri hệ thống";
 		]]>
 	</zscript>
 	<div> 
@@ -19,7 +18,7 @@
 		</div>
 		<div class="panel-box" style="display:flex;">
 			<div class="box-btn-qt">
-				<x:a class="btn-bubble active" href="${execution.contextPath}/cp/phongban">
+				<x:a class="btn-bubble" href="${execution.contextPath}/cp/phongban">
 					<span>Quản lý phòng ban</span>
 				</x:a>
 			</div>
@@ -34,7 +33,7 @@
 				</x:a>
 			</div>
 			<div class="box-btn-qt">
-				<x:a class="btn-bubble" href="${execution.contextPath}/cp/danhmuc">
+				<x:a class="btn-bubble active" href="${execution.contextPath}/cp/danhmuc">
 					<span>Quản lý danh mục</span>
 				</x:a>
 			</div>
@@ -42,22 +41,21 @@
 		
 		<div class="panel-box border-box">
 			<div zclass="row mg-top-no-line">	
-					<div zclass="col-md-9">
-						<div zclass="form-group">
-							<span>Nhập tên phòng ban</span> 
-							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
-								 placeholder="Nhập tên phòng ban.."></textbox>
-						</div>
+				<div zclass="col-md-9">
+					<div zclass="form-group">
+						<span>Tên lĩnh vực</span> 
+						<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
+							 placeholder="Nhập tên lĩnh vực dự án.."></textbox>
 					</div>
-
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
-								<span>Tìm kiếm</span>
-							</x:a>
-						</div>
+				</div>
+				<div zclass="col-xs-3">
+					<div zclass="form-group">
+						<x:button class="btn btn-blue mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+							<span>Tìm kiếm</span>
+						</x:button>
 					</div>
+				</div>
 			</div>
 		</div>
 		
@@ -65,7 +63,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<div class="title-form">
-						<span>Danh sách phòng ban</span>
+						<span>Danh mục lĩnh vực dự án</span>
 					</div>
 				</div>
 			</div>
@@ -75,9 +73,9 @@
 						emptyMessage="Không có mục nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
-							<column label="Phòng ban" style="text-align:center" />
+							<column label="Tên lĩnh vực dự án" style="text-align:center" />
 							<column label="Mô tả" style="text-align:center" width="800px" />
-							<column label="Thao tác" style="text-align:center" width="140px"/>
+							<column label="Thao tác" style="text-align:center" width="140px" />
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
@@ -85,7 +83,7 @@
 								<label value="@load(item.ten)"></label>
 								<label value="@load(item.moTa)"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('redirectPage', zul='phongban/show-edit-phong-ban.zul', vmArgs=vm, vm=item)">
+									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('redirectPage', zul='danhmuc/show-edit-danh-muc.zul', vmArgs=vm, vm=item)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
@@ -100,24 +98,23 @@
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
-				<div zclass="col-xs-6">
-					<div zclass="form-group">
-							<x:button  class="btn bg-btn-tailieu btn-grey " zk:onClick="@command('xuatExcel', 
-		    							query=vm.targetQuery, title='Tất cả phòng ban')">
+					<div zclass="col-xs-6">
+						<div zclass="form-group">
+							<x:button  class="btn bg-btn-tailieu btn-grey ">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xuat-excel.svg"/>
 								<span>Xuất excel</span>
 							</x:button>
+						</div>
+					</div>
+					<div zclass="col-xs-6">
+						<div zclass="form-group right">
+							<x:button  class="btn btn-blue" zk:onClick="@command('redirectPage', zul='danhmuc/show-add-danh-muc.zul', vmArgs=vm, vm=null)">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+								<span>Thêm mới</span>
+							</x:button>
+						</div>
 					</div>
 				</div>
-				<div zclass="col-xs-6">
-					<div zclass="form-group right">
-						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='phongban/show-add-phong-ban.zul', vmArgs=vm, vm=null)">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
-							<span>Thêm mới phòng ban</span>
-						</x:button>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </window>

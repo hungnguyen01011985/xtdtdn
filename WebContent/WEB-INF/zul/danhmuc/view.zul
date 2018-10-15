@@ -3,7 +3,7 @@
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
 		closable="true" title="${arg.save}"
 		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
-		whatever="@load(false,after='savePhongBan') @converter('vn.toancauxanh.service.DetachConverter')"
+		whatever="@load(false,after='saveDanhMuc') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
 		
 			<zscript><![CDATA[
@@ -15,9 +15,9 @@
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div zclass="col-md-12">
 					<div zclass="form-group">
-						<span class="pd-top-5 flex">Tên phòng ban<n:small class="required"> *</n:small></span> 
-						<textbox class="form-control" value="@load(vm.ten)@save(vm.ten, before='savePhongBan') @validator(vm.validateTenPhongBan)"
-						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"	placeholder="Nhập tên phòng ban..."></textbox>
+						<span class="pd-top-5 flex">Tên lĩnh vực<n:small class="required"> *</n:small></span> 
+						<textbox class="form-control" value="@load(vm.ten)@save(vm.ten, before='saveDanhMuc') @validator(vm.validateTenDanhMuc)"
+						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"	placeholder="Nhập tên lĩnh vực..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -39,7 +39,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('savePhongBan', list=vmArgs, attr='targetQuery', wdn=wdn)">
+						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveDanhMuc', list=vmArgs, attr='targetQuery', wdn=wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>
