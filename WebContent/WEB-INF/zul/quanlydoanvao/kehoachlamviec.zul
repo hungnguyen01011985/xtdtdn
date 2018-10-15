@@ -65,7 +65,7 @@
 						</div>
 					</div>
 				</div>
-				<grid id="grid" model="@load(vm.listCongViec)"
+				<grid id="grid" model="@load(vm.listCongViecTemp)"
 					emptyMessage="Không có mục nào trong danh sách">
 					<columns>
 						<column label="STT" style="text-align:center" width="42px"/>
@@ -79,13 +79,13 @@
 						<row >
 							<label value="@load(each.flag ? '-' : forEachStatus.index + 1)"></label>
 							<label value="@load(each.tenCongViec)" style="@load(each.flag ? '' : 'font-weight:bold')"></label>
-							<combobox visible="@load(each.flag)" readonly="true" model="@load(entry.nhanViens.tacGias)" selectedItem="@bind(vm.nguoiThucHien)" class="his reset-mg-pd" placeholder="Chọn người thực hiện" width="100%">
+							<combobox visible="@load(each.flag)" readonly="true" model="@load(entry.nhanViens.tacGias)" selectedItem="@bind(each.nguoiThucHien)" class="his reset-mg-pd" placeholder="Chọn người thực hiện" width="100%">
 								<template name="model">
 									<comboitem label="@load(each.hoVaTen)" />
 								</template>
 							</combobox>
-							<datebox visible="@load(each.flag)" format="dd/MM/yyyy" class="hv-db"
-										 onCreate="self.value = new Date()" value="@bind(vm.thoiGian)" width="100%" placeholder="Chọn ngày"/>
+							<datebox visible="@load(each.flag)" format="dd/MM/yyyy" class="hv-db" value="@bind(each.thoiGian)"
+								 width="100%" placeholder="Chọn ngày"/>
 							<combobox visible="@load(each.flag)" readonly="true" model="@load(vm.listTrangThaiCongViec)" selectedItem="@bind(each.trangThaiCongViec)" class="his" placeholder="Trạng thái" width="100%">
 								<template name="model">
 									<comboitem label="@load(each.text)" />

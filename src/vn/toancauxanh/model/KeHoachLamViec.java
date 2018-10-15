@@ -26,6 +26,36 @@ public class KeHoachLamViec extends Model<KeHoachLamViec> {
 	private boolean flag;
 	private String tenCongViec = "";
 	private List<KeHoachLamViec> selectItems;
+	private NhanVien nguoiThucHienTemp;
+	private List<KeHoachLamViec> listCongViecTemp;
+
+	@Transient
+	public List<KeHoachLamViec> getListCongViecTemp() {
+		if (listCongViecTemp == null) {
+			listCongViecTemp = new ArrayList<KeHoachLamViec>();
+			listCongViecTemp.add(new KeHoachLamViec(null, null, null, null, null, false, "Nhân sự làm việc"));
+			listCongViecTemp.add(new KeHoachLamViec(null, null, null, null, null, true, "Chuyên viên"));
+			listCongViecTemp
+					.add(new KeHoachLamViec(null, null, null, null, null, true, "Lãnh đạo, người được phân công"));
+			listCongViecTemp.add(new KeHoachLamViec(null, null, null, null, null, false, "Công tác hậu cần"));
+			listCongViecTemp
+					.add(new KeHoachLamViec(null, null, null, null, null, true, "Chuẩn bị phòng họp (nếu cần)"));
+		}
+		return listCongViecTemp;
+	}
+
+	public void setListCongViecTemp(List<KeHoachLamViec> listCongViecTemp) {
+		this.listCongViecTemp = listCongViecTemp;
+	}
+
+	@Transient
+	public NhanVien getNguoiThucHienTemp() {
+		return nguoiThucHienTemp;
+	}
+
+	public void setNguoiThucHienTemp(NhanVien nguoiThucHienTemp) {
+		this.nguoiThucHienTemp = nguoiThucHienTemp;
+	}
 
 	public KeHoachLamViec() {
 
@@ -99,7 +129,7 @@ public class KeHoachLamViec extends Model<KeHoachLamViec> {
 	public void setTenCongViec(String tenCongViec) {
 		this.tenCongViec = tenCongViec;
 	}
-	
+
 	@Transient
 	public List<KeHoachLamViec> getSelectItems() {
 		return selectItems;
@@ -118,24 +148,26 @@ public class KeHoachLamViec extends Model<KeHoachLamViec> {
 		return list;
 	}
 
-	@Transient
-	public List<KeHoachLamViec> getListCongViec() {
-		List<KeHoachLamViec> list = new ArrayList<KeHoachLamViec>();
-		list.add(new KeHoachLamViec(trangThaiCongViec, ghiChu, thoiGian, nguoiThucHien, doanVao, false,
-				"Nhân sự làm việc"));
-		list.add(new KeHoachLamViec(trangThaiCongViec, ghiChu, thoiGian, nguoiThucHien, doanVao, true, "Chuyên viên"));
-		list.add(new KeHoachLamViec(trangThaiCongViec, ghiChu, thoiGian, nguoiThucHien, doanVao, true,
-				"Lãnh đạo, người được phân công"));
-		list.add(new KeHoachLamViec(trangThaiCongViec, ghiChu, thoiGian, nguoiThucHien, doanVao, false,
-				"Công tác hậu cần"));
-		list.add(new KeHoachLamViec(trangThaiCongViec, ghiChu, thoiGian, nguoiThucHien, doanVao, true,
-				"Chuẩn bị phòng họp (nếu cần)"));
+	public List<KeHoachLamViec> editKehoachLamViec(List<KeHoachLamViec> list) {
+		if (doanVao != null) {
+			List<KeHoachLamViec> listData = find(KeHoachLamViec.class)
+					.where(QKeHoachLamViec.keHoachLamViec.doanVao.id.eq(doanVao.getId())).fetch();
+			for (int i = 0; i < listData.size(); i++) {
+				list.get(i).setNguoiThucHien(listData.get(i).getNguoiThucHien());
+				list.get(i).setThoiGian(listData.get(i).getThoiGian());
+				list.get(i).setTrangThaiCongViec(listData.get(i).getTrangThaiCongViec());
+				list.get(i).setGhiChu(listData.get(i).getGhiChu());
+			}
+		}
 		return list;
 	}
 
 	// doanvao_id,...
 	@Command
 	public void saveKeHoachLamViec() {
-
+		for (KeHoachLamViec keHoachLamViec : listCongViecTemp) {
+			keHoachLamViec.saveNotShowNotification();
+		}
+		showNotification("Lưu thành công!", "", "success");
 	}
 }
