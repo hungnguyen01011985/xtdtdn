@@ -75,8 +75,8 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDOANVAO = "";
 	@Value("${url.quanlygiaoviec}")
 	public String QUANLYGIAOVIEC = "";
-	@Value("${url.danhmuc}")
-	public String QUANLYDANHMUC = "";
+	@Value("${url.linhVucDuAn}")
+	public String QUANLYLINHVUCDUAN = "";
 	@Value("${url.phongban}")
 	public String QUANLYPHONGBAN = "";
 
@@ -158,16 +158,16 @@ public class Entry extends BaseObject<Object> {
 	@Value("${url.nguoidung}" + ":" + "${action.xem}")
 	public String NGUOIDUNGXEM;
 
-	@Value("${url.danhmuc}" + ":" + "${action.list}")
-	public String DANHMUCLIST;
-	@Value("${url.danhmuc}" + ":" + "${action.them}")
-	public String DANHMUCTHEM;
-	@Value("${url.danhmuc}" + ":" + "${action.sua}")
-	public String DANHMUCSUA;
-	@Value("${url.danhmuc}" + ":" + "${action.xoa}")
-	public String DANHMUCXOA;
-	@Value("${url.danhmuc}" + ":" + "${action.xem}")
-	public String DANHMUCXEM;
+	@Value("${url.linhVucDuAn}" + ":" + "${action.list}")
+	public String LINHVUCDUANLIST;
+	@Value("${url.linhVucDuAn}" + ":" + "${action.them}")
+	public String LINHVUCDUANTHEM;
+	@Value("${url.linhVucDuAn}" + ":" + "${action.sua}")
+	public String LINHVUCDUANSUA;
+	@Value("${url.linhVucDuAn}" + ":" + "${action.xoa}")
+	public String LINHVUCDUANXOA;
+	@Value("${url.linhVucDuAn}" + ":" + "${action.xem}")
+	public String LINHVUCDUANXEM;
 
 	@Value("${url.donvihanhchinh}" + ":" + "${action.list}")
 	public String DONVIHANHCHINHLIST;
@@ -209,7 +209,7 @@ public class Entry extends BaseObject<Object> {
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, DONVIHANHCHINH, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
-				QUANLYDANHMUC }; //
+				QUANLYLINHVUCDUAN }; //
 	}
 
 	public String[] getACTIONS() {
