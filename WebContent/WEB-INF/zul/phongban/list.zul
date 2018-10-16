@@ -8,37 +8,7 @@
 		]]>
 	</zscript>
 	<div> 
-		<div class="panel-box">
-			<div zclass="row">
-				<div zclass="col-lg-12">
-					<n:span class="page-header-title">
-						Quản trị hệ thống
-					</n:span>
-				</div>
-			</div>
-		</div>
-		<div class="panel-box" style="display:flex;">
-			<div class="box-btn-qt">
-				<x:a class="btn-bubble active" href="${execution.contextPath}/cp/phongban">
-					<span>Quản lý phòng ban</span>
-				</x:a>
-			</div>
-			<div class="box-btn-qt">
-				<x:a class="btn-bubble" href="${execution.contextPath}/cp/nguoidung">
-					<span>Quản lý tài khoản người dùng</span>
-				</x:a>
-			</div>
-			<div class="box-btn-qt">
-				<x:a class="btn-bubble" href="${execution.contextPath}/cp/vaitro">
-					<span>Quản lý vai trò</span>
-				</x:a>
-			</div>
-			<div class="box-btn-qt">
-				<x:a class="btn-bubble" href="${execution.contextPath}/cp/danhmuc">
-					<span>Quản lý danh mục</span>
-				</x:a>
-			</div>
-		</div>
+		<include src="/WEB-INF/zul/common/panel.zul"></include>
 		
 		<div class="panel-box border-box">
 			<div zclass="row mg-top-no-line">	

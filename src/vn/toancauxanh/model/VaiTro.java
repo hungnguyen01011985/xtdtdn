@@ -197,11 +197,11 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().QUANLYPHONGBANTHEM);
 		quyens1.add(core().QUANLYPHONGBANXOA);
 
-		quyens1.add(core().DANHMUCLIST);
-		quyens1.add(core().DANHMUCXEM);
-		quyens1.add(core().DANHMUCTHEM);
-		quyens1.add(core().DANHMUCSUA);
-		quyens1.add(core().DANHMUCXOA);
+		quyens1.add(core().LINHVUCDUANLIST);
+		quyens1.add(core().LINHVUCDUANXEM);
+		quyens1.add(core().LINHVUCDUANTHEM);
+		quyens1.add(core().LINHVUCDUANSUA);
+		quyens1.add(core().LINHVUCDUANXOA);
 
 		quyens1.add(core().DONVIHANHCHINHXEM);
 		quyens1.add(core().DONVIHANHCHINHTHEM);
@@ -257,11 +257,11 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYPHONGBANTHEM);
 				quyens1.add(core().QUANLYPHONGBANXOA);
 
-				quyens1.add(core().DANHMUCLIST);
-				quyens1.add(core().DANHMUCXEM);
-				quyens1.add(core().DANHMUCTHEM);
-				quyens1.add(core().DANHMUCSUA);
-				quyens1.add(core().DANHMUCXOA);
+				quyens1.add(core().LINHVUCDUANLIST);
+				quyens1.add(core().LINHVUCDUANXEM);
+				quyens1.add(core().LINHVUCDUANTHEM);
+				quyens1.add(core().LINHVUCDUANSUA);
+				quyens1.add(core().LINHVUCDUANXOA);
 
 				quyens1.add(core().DONVIHANHCHINHXEM);
 				quyens1.add(core().DONVIHANHCHINHTHEM);
@@ -309,11 +309,11 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYPHONGBANTHEM);
 				quyens1.add(core().QUANLYPHONGBANXOA);
 
-				quyens1.add(core().DANHMUCLIST);
-				quyens1.add(core().DANHMUCXEM);
-				quyens1.add(core().DANHMUCTHEM);
-				quyens1.add(core().DANHMUCSUA);
-				quyens1.add(core().DANHMUCXOA);
+				quyens1.add(core().LINHVUCDUANLIST);
+				quyens1.add(core().LINHVUCDUANXEM);
+				quyens1.add(core().LINHVUCDUANTHEM);
+				quyens1.add(core().LINHVUCDUANSUA);
+				quyens1.add(core().LINHVUCDUANXOA);
 
 				quyens1.add(core().DONVIHANHCHINHXEM);
 				quyens1.add(core().DONVIHANHCHINHTHEM);
@@ -360,11 +360,11 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYPHONGBANTHEM);
 				quyens1.add(core().QUANLYPHONGBANXOA);
 
-				quyens1.add(core().DANHMUCLIST);
-				quyens1.add(core().DANHMUCXEM);
-				quyens1.add(core().DANHMUCTHEM);
-				quyens1.add(core().DANHMUCSUA);
-				quyens1.add(core().DANHMUCXOA);
+				quyens1.add(core().LINHVUCDUANLIST);
+				quyens1.add(core().LINHVUCDUANXEM);
+				quyens1.add(core().LINHVUCDUANTHEM);
+				quyens1.add(core().LINHVUCDUANSUA);
+				quyens1.add(core().LINHVUCDUANXOA);
 
 				quyens1.add(core().DONVIHANHCHINHXEM);
 				quyens1.add(core().DONVIHANHCHINHTHEM);
