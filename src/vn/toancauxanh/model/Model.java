@@ -18,6 +18,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Store;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.util.SystemPropertyUtils;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -25,6 +26,7 @@ import org.zkoss.bind.annotation.Default;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -125,6 +127,43 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 									if (beanObject != Model.this) {
 										BindUtils.postNotifyChange(null, null, Model.this, "*");
 									}
+								}
+							}
+						}
+					});
+		}
+
+	}
+
+	@Command
+	public void deleteTrangThaiConfirmAndNotifyAndCheck(final @BindingParam("notify") Object beanObject,
+			final @BindingParam("attr") @Default(value = "*") String attr, @BindingParam("type") final String type) {
+		if (!checkInUse()) {
+			Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+					new EventListener<Event>() {
+						@Override
+						public void onEvent(final Event event) {
+							if (Messagebox.ON_OK.equals(event.getName())) {
+								Long count = 0l;
+								if ("phongban".equals(type)) {
+									count = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(Model.this.id))
+											.fetchCount();
+								}
+								if ("vaitro".equals(type)) {
+									count = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.id.eq(Model.this.id))
+											.fetchCount();
+								}
+								if (count == 0) {
+									doDelete(true);
+									showNotification("Xóa thành công!", "", "success");
+									if (beanObject != null) {
+										BindUtils.postNotifyChange(null, null, beanObject, attr);
+										if (beanObject != Model.this) {
+											BindUtils.postNotifyChange(null, null, Model.this, "*");
+										}
+									}
+								} else {
+									showNotification("Xóa không thành công. Dữ liệu đang được sử dụng!", "", "warning");
 								}
 							}
 						}
