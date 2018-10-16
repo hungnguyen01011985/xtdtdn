@@ -1,6 +1,6 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('vn.toancauxanh.service.DanhMucService')" class="form-list">
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('vn.toancauxanh.service.LinhVucDuAnService')" class="form-list">
 	<zscript>
 		<![CDATA[
 			page.title = "Quản tri hệ thống";

@@ -302,8 +302,8 @@ public class Entry extends BaseObject<Object> {
 		return new DoanVaoService();
 	}
 
-	public final DanhMucService getDanhMucs() {
-		return new DanhMucService();
+	public final LinhVucDuAnService getLinhVucs() {
+		return new LinhVucDuAnService();
 	}
 	// end
 
