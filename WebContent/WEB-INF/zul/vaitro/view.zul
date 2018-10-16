@@ -15,7 +15,9 @@
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div zclass="col-md-12">
 					<div zclass="form-group">
-						<span class="pd-top-5 flex">Tên vai trò<n:small class="required"> *</n:small></span> 
+						<div class="flex">
+							<x:span class="issue-search">Tên vai trò<n:small class="required"> *</n:small></x:span>
+						</div>
 						<textbox class="form-control" value="@load(vm.tenVaiTro) @save(vm.tenVaiTro, before='saveVaiTro') @validator(vm.validateTenVaiTro)"
 							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập tên vai trò..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />

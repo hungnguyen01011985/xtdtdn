@@ -1020,7 +1020,7 @@ ul.z-tabs-content {
 	background:white !important;
 	height:auto !important;
 }
-.z-window-content {
+.form-list .z-window-content {
 	padding: 0px !important;
 	background:rgba(121, 149, 216, 0.1);
 	height:calc(100vh - 60px);
@@ -1400,7 +1400,6 @@ body {
 
 .required{
 	color : red;
-	padding-left:5px;
 	line-height: 18px;
 }
 
