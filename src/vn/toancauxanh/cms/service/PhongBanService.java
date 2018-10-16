@@ -18,12 +18,12 @@ import vn.toancauxanh.service.ExcelUtil;
 public class PhongBanService extends BasicService<PhongBan> {
 
 	public JPAQuery<PhongBan> getTargetQuery() {
-		String param = MapUtils.getString(argDeco(), "tukhoa", "").trim();
+		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		JPAQuery<PhongBan> q = find(PhongBan.class);
 
 		if (param != null && !param.isEmpty() && !"".equals(param)) {
-			String tukhoa = "%" + param + "%";
-			q.where(QPhongBan.phongBan.ten.like(tukhoa));
+			String tuKhoa = "%" + param + "%";
+			q.where(QPhongBan.phongBan.ten.like(tuKhoa));
 		}
 
 		q.orderBy(QPhongBan.phongBan.ngaySua.desc());

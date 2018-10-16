@@ -1,0 +1,3 @@
+<?component name="view" inline="true" macroURI="view.zul"?>
+<view model="${entry.linhVucs.type().newInstance()}"  vmArgs="${arg.vmArgs}" save="Tạo mới lĩnh vực dự án" />
+

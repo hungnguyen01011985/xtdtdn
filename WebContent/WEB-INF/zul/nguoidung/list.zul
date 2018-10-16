@@ -61,7 +61,7 @@
 					<div zclass="col-md-7">
 						<div zclass="form-group">
 							<span>Tài khoản người dùng</span> 
-							<textbox class="form-control" value="@bind(vm.arg.tukhoa)" onOK="@command('cmd', notify=vm, attr='targetQueryNhanVien')" placeholder="Nhập tài khoản người dùng.."></textbox>
+							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQueryNhanVien')" placeholder="Nhập tài khoản người dùng.."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 						<div zclass="form-group">
 							<span>Phòng ban</span> 
 							<combobox readonly="true" model="@load(entry.phongBans.listPhongBanAndNull)" 
-								value="@load(vm.arg.phongban eq null ? 'Tất cả' : vm.arg.phongban.ten)" selectedItem="@bind(vm.arg.phongban)" class="his" placeholder="Chọn phòng ban" width="100%">
+								value="@load(vm.arg.phongBan eq null ? 'Tất cả' : vm.arg.phongBan.ten)" selectedItem="@bind(vm.arg.phongBan)" class="his" placeholder="Chọn phòng ban" width="100%">
 								<template name="model">
 									<comboitem label="@load(each eq null ? 'Tất cả' : each.ten)" />
 								</template>

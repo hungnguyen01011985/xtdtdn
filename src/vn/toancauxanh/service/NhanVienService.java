@@ -22,7 +22,6 @@ import org.zkoss.zk.ui.Sessions;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.model.NhanVien;
-import vn.toancauxanh.model.PhongBan;
 import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.QVaiTro;
 import vn.toancauxanh.model.VaiTro;
@@ -48,10 +47,10 @@ public final class NhanVienService extends BasicService<NhanVien> {
 	}
 
 	public JPAQuery<NhanVien> getTargetQueryNhanVien() {
-		String paramTrangThai = MapUtils.getString(argDeco(), Labels.getLabel("param.trangthai"), "").trim();
-		String tuKhoa = MapUtils.getString(argDeco(), Labels.getLabel("param.tukhoa"), "").trim();
+		String paramtrangThai = MapUtils.getString(argDeco(), "trangThai", "").trim();
+		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		Long paramVaiTro = (Long) argDeco().get(Labels.getLabel("param.vaitro"));
-		Long paramPhongBan = (Long) argDeco().get("phongban");
+		Long paramPhongBan = (Long) argDeco().get("phongBan");
 
 		JPAQuery<NhanVien> q = find(NhanVien.class);
 		q.where(QNhanVien.nhanVien.email.ne("admin@greenglobal.vn"));
@@ -69,8 +68,8 @@ public final class NhanVienService extends BasicService<NhanVien> {
 			q.where(QNhanVien.nhanVien.phongBan.id.eq(paramPhongBan));
 		}
 
-		if (paramTrangThai != null && !paramTrangThai.isEmpty()) {
-			q.where(QNhanVien.nhanVien.trangThai.eq(paramTrangThai));
+		if (paramtrangThai != null && !paramtrangThai.isEmpty()) {
+			q.where(QNhanVien.nhanVien.trangThai.eq(paramtrangThai));
 		}
 		q.orderBy(QNhanVien.nhanVien.trangThai.asc());
 		return q.orderBy(QNhanVien.nhanVien.id.desc());

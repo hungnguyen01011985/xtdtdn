@@ -63,12 +63,12 @@ public final class VaiTroService extends BasicService<VaiTro> {
 	public JPAQuery<VaiTro> getVaiTroQuery() {
 		// Nếu ban đầu chưa có dữ liệu sẽ tự động lưu dữ liệu vai trò mặc định xuống DB
 		bootstrap();
-		String param = MapUtils.getString(argDeco(), "tukhoa", "").trim();
-		String trangThai = MapUtils.getString(argDeco(), "trangthai", "");
+		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
+		String trangThai = MapUtils.getString(argDeco(), "trangThai", "");
 		JPAQuery<VaiTro> q = find(VaiTro.class).where(QVaiTro.vaiTro.trangThai.ne(core().TT_DA_XOA));
 		if (param != null && !param.isEmpty()) {
-			String tukhoa = "%" + param + "%";
-			q.where(QVaiTro.vaiTro.tenVaiTro.like(tukhoa));
+			String tuKhoa = "%" + param + "%";
+			q.where(QVaiTro.vaiTro.tenVaiTro.like(tuKhoa));
 		}
 		if (!trangThai.isEmpty()) {
 			q.where(QVaiTro.vaiTro.trangThai.eq(trangThai));

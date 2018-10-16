@@ -42,7 +42,7 @@ public class Entry extends BaseObject<Object> {
 	public String TT_DA_XOA = "";
 	@Value("${trangthai.khongapdung}")
 	public String TT_KHONG_AP_DUNG = "";
-	
+
 	@Value("${filestore.root}")
 	public String FOLDER_ROOT = "";
 	@Value("${filestore.files}")
@@ -65,7 +65,7 @@ public class Entry extends BaseObject<Object> {
 	@Value("${action.them}")
 	public String THEM = ""; // duoc them
 	@Value("${action.giaoviec}")
-	public String GIAOVIEC =""; // duoc giao viec
+	public String GIAOVIEC = ""; // duoc giao viec
 	@Value("${action.nhacnho}")
 	public String NHACNHO = "";
 
@@ -79,26 +79,26 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDANHMUC = "";
 	@Value("${url.phongban}")
 	public String QUANLYPHONGBAN = "";
-	
+
 	@Value("${url.nguoidung}")
 	public String NGUOIDUNG = "";
 	@Value("${url.phanquyen}")
 	public String PHANQUYEN = "";
 	@Value("${url.donvihanhchinh}")
 	public String donvihanhchinh = "";
-	
+
 	@Value("${url.donvihanhchinh}")
 	public String DONVIHANHCHINH = "";
-	
+
 	@Value("${url.vaitro}")
 	public String VAITRO = "";
-	
+
 	// uend
 	public char CHAR_CACH = ':';
 	public String CACH = CHAR_CACH + "";
 
 	// Thêm các tùy chọn vai trò của chức năng tương ứng
-	
+
 	@Value("${url.quanlyduan}" + ":" + "${action.list}")
 	public String QUANLYDUANLIST;
 	@Value("${url.quanlyduan}" + ":" + "${action.xem}")
@@ -113,7 +113,7 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDUANGIAOVIEC;
 	@Value("${url.quanlyduan}" + ":" + "${action.nhacnho}")
 	public String QUANLYDUANNHACNHO;
-	
+
 	@Value("${url.quanlydoanvao}" + ":" + "${action.list}")
 	public String QUANLYDOANVAOLIST;
 	@Value("${url.quanlydoanvao}" + ":" + "${action.xem}")
@@ -124,7 +124,7 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDOANVAOSUA;
 	@Value("${url.quanlydoanvao}" + ":" + "${action.xoa}")
 	public String QUANLYDOANVAOXOA;
-	
+
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.list}")
 	public String QUANLYGIAOVIECLIST;
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.xem}")
@@ -135,7 +135,7 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYGIAOVIECXOA;
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.them}")
 	public String QUANLYGIAOVIECTHEM;
-	
+
 	@Value("${url.phongban}" + ":" + "${action.list}")
 	public String QUANLYPHONGBANLIST;
 	@Value("${url.phongban}" + ":" + "${action.them}")
@@ -146,7 +146,7 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYPHONGBANSUA;
 	@Value("${url.phongban}" + ":" + "${action.xoa}")
 	public String QUANLYPHONGBANXOA;
-	
+
 	@Value("${url.nguoidung}" + ":" + "${action.list}")
 	public String NGUOIDUNGLIST;
 	@Value("${url.nguoidung}" + ":" + "${action.them}")
@@ -157,7 +157,7 @@ public class Entry extends BaseObject<Object> {
 	public String NGUOIDUNGXOA;
 	@Value("${url.nguoidung}" + ":" + "${action.xem}")
 	public String NGUOIDUNGXEM;
-	
+
 	@Value("${url.danhmuc}" + ":" + "${action.list}")
 	public String DANHMUCLIST;
 	@Value("${url.danhmuc}" + ":" + "${action.them}")
@@ -168,7 +168,7 @@ public class Entry extends BaseObject<Object> {
 	public String DANHMUCXOA;
 	@Value("${url.danhmuc}" + ":" + "${action.xem}")
 	public String DANHMUCXEM;
-	
+
 	@Value("${url.donvihanhchinh}" + ":" + "${action.list}")
 	public String DONVIHANHCHINHLIST;
 	@Value("${url.donvihanhchinh}" + ":" + "${action.them}")
@@ -179,7 +179,6 @@ public class Entry extends BaseObject<Object> {
 	public String DONVIHANHCHINHXOA;
 	@Value("${url.donvihanhchinh}" + ":" + "${action.sua}")
 	public String DONVIHANHCHINHSUA;
-	
 
 	@Value("${url.phanquyen}" + ":" + "${action.xem}")
 	public String PHANQUYENXEM;
@@ -209,7 +208,8 @@ public class Entry extends BaseObject<Object> {
 
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
-		return new String[] {NGUOIDUNG, DONVIHANHCHINH, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN, QUANLYDANHMUC}; //
+		return new String[] { NGUOIDUNG, DONVIHANHCHINH, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
+				QUANLYDANHMUC }; //
 	}
 
 	public String[] getACTIONS() {
@@ -273,17 +273,17 @@ public class Entry extends BaseObject<Object> {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + rsc + "&action=lietke&file=/WEB-INF/zul/" + rsc + "/" + path
 				+ ".zul";
 	}
-	
+
 	@RequestMapping(value = "/cp/{path:.+$}/view/{id:\\d+}")
 	public String view(@PathVariable String path, @PathVariable Long id) {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
-				+ "/view-page.zul&id="+id;
+				+ "/view-page.zul&id=" + id;
 	}
-	
+
 	@RequestMapping(value = "/cp/thongke/{path:.+$}/{id:\\d+}")
 	public String viewThongKe(@PathVariable String path, @PathVariable Long id) {
 		return "forward:/WEB-INF/zul/home.zul?resource=thongke&action=lietke&file=/WEB-INF/zul/thongke/" + path
-				+ ".zul&id="+id;
+				+ ".zul&id=" + id;
 	}
 
 	@RequestMapping(value = "/cp/{path:.+$}/edit/{id:\\d+}")
@@ -291,16 +291,19 @@ public class Entry extends BaseObject<Object> {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
 				+ "/add-page.zul&id=" + id;
 	}
-	
-	
-	
+
 	// Ban xúc tiến
 	// start
 	public final PhongBanService getPhongBans() {
 		return new PhongBanService();
 	}
+
 	public final DoanVaoService getDoanVaos() {
 		return new DoanVaoService();
+	}
+
+	public final LinhVucDuAnService getLinhVucs() {
+		return new LinhVucDuAnService();
 	}
 	// end
 
@@ -315,8 +318,8 @@ public class Entry extends BaseObject<Object> {
 	public final VaiTroService getVaiTros() {
 		return new VaiTroService();
 	}
-	
-	public final QuocGia getQuocGias(){
+
+	public final QuocGia getQuocGias() {
 		return new QuocGia();
 	}
 
@@ -351,27 +354,30 @@ public class Entry extends BaseObject<Object> {
 	public final HomeService getHomes() {
 		return new HomeService();
 	}
-	
+
 	public final GopYPhanMemService getGopYPhanMem() {
 		return new GopYPhanMemService();
 	}
+
 	@RequestMapping(value = "/{type:.+$}/{id:\\d+}")
-	public String showDetail( @PathVariable("type") String type, @PathVariable("id") String id) {
-		return "forward:/frontend/home/home.zhtml?type=" + type + "&id="+id;
+	public String showDetail(@PathVariable("type") String type, @PathVariable("id") String id) {
+		return "forward:/frontend/home/home.zhtml?type=" + type + "&id=" + id;
 	}
+
 	@RequestMapping(value = "/")
 	public String showHome() {
 		return "forward:/frontend/home/home.zhtml";
 	}
+
 	@RequestMapping(value = "/search")
 	public String showHomeSearch() {
 		return "forward:/frontend/home/search.zhtml";
 	}
-	
+
 	public final DonViService getDonVis() {
 		return new DonViService();
 	}
-	
+
 	public final DonViHanhChinhService getDonViHanhChinhs() {
 		return new DonViHanhChinhService();
 	}
