@@ -46,15 +46,14 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="issue-search">Phòng ban<n:small class="required"> *</n:small></x:span>
+									<x:span class="issue-search">Phòng ban</x:span>
 								</div>
 								<combobox readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
-									selectedItem="@bind(vm.phongBan)@save(vm.phongBan, before='saveNhanVien')@validator(vm.validatePhongBan)" class="his" placeholder="Chọn phòng ban" width="100%">
+									selectedItem="@bind(vm.phongBan)" class="his" placeholder="Chọn phòng ban" width="100%">
 									<template name="model">
 										<comboitem label="@load(each.ten)" />
 									</template>
 								</combobox>
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-6">
