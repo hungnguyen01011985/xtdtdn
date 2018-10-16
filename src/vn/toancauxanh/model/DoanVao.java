@@ -292,9 +292,14 @@ public class DoanVao extends Model<DoanVao> {
 		return new AbstractValidator() {
 			@Override
 			public void validate(final ValidationContext ctx) {
-				Integer soNguoi = Integer.parseInt((String) ctx.getProperty().getValue());
-				if (soNguoi < 0) {
-					addInvalidMessage(ctx, "Số người không được nhỏ hơn 0");
+				Integer soNguoi = 0;
+				try {
+					soNguoi = Integer.parseInt((String) ctx.getProperty().getValue());
+				} catch (NumberFormatException e) {
+					addInvalidMessage(ctx, "Bạn phải nhập số");
+				}
+				if (soNguoi < 1) {
+					addInvalidMessage(ctx, "Số người không được nhỏ hơn 1");
 				}
 			}
 		};
