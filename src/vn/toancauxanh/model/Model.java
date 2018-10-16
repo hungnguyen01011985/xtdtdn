@@ -120,8 +120,6 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 						@Override
 						public void onEvent(final Event event) {
 							if (Messagebox.ON_OK.equals(event.getName())) {
-
-								System.out.println(Model.this.id);
 								doDelete(true);
 								showNotification("Xóa thành công!", "", "success");
 								if (beanObject != null) {
@@ -148,10 +146,12 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 							if (Messagebox.ON_OK.equals(event.getName())) {
 								Long count = 0l;
 								if ("phongban".equals(type)) {
-									count = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(Model.this.id)).fetchCount();
+									count = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(Model.this.id))
+											.fetchCount();
 								}
 								if ("vaitro".equals(type)) {
-									count = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.id.eq(Model.this.id)).fetchCount();
+									count = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.id.eq(Model.this.id))
+											.fetchCount();
 								}
 								if (count == 0) {
 									doDelete(true);
@@ -162,7 +162,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 											BindUtils.postNotifyChange(null, null, Model.this, "*");
 										}
 									}
-								}else {
+								} else {
 									showNotification("Xóa không thành công. Dữ liệu đang được sử dụng!", "", "warning");
 								}
 							}
