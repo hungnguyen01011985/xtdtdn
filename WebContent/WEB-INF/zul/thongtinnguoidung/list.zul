@@ -38,7 +38,9 @@
 					<div class="row">
 						<div zclass="col-md-6">
 							<div zclass="form-group">
-								<span class="pd-top-5 flex">Họ và tên<n:small class="required"> *</n:small></span> 
+								<div class="flex">
+									<x:span class="issue-search">Họ và tên<n:small class="required"> *</n:small></x:span>
+								</div> 
 								<textbox class="form-control" readonly="${readOnly}" value="@bind(vm.hoVaTen)@save(vm.hoVaTen, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập tên người dùng..."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -46,7 +48,9 @@
 						</div>
 						<div zclass="col-md-6" >
 							<div zclass="form-group">
-								<span class="pd-top-5 flex">Vai trò người dùng<n:small class="required"> *</n:small></span> 
+								<div class="flex">
+									<x:span class="issue-search">Vai trò người dùng<n:small class="required"> *</n:small></x:span>
+								</div>
 								<combobox width="100%" class="hv-textbox" readonly="true" disabled="${readOnly}"
 									model="@load(entry.vaiTros.vaiTroQuery.fetch())" placeholder="-Chọn-"
 									selectedItem="@bind(vm.vaiTro) @save(vm.vaiTro, before='saveNhanVien') @validator(vm.validateVaiTro)">
@@ -57,9 +61,13 @@
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
+					</div>
+					<div class="row">
 						<div zclass="col-md-6">
 							<div zclass="form-group">
-								<span class="pd-top-5 flex">Phòng ban<n:small class="required"> *</n:small></span> 
+								<div class="flex">
+									<x:span class="issue-search">Phòng ban<n:small class="required"> *</n:small></x:span>
+								</div> 
 								<combobox readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
 									selectedItem="@bind(vm.phongBan)@save(vm.phongBan, before='saveNhanVien')@validator(vm.validatePhongBan)" class="his" placeholder="Chọn phòng ban" width="100%">
 									<template name="model">
@@ -71,7 +79,9 @@
 						</div>
 						<div zclass="col-md-6">
 							<div zclass="form-group">
-								<span class="pd-top-5 flex">Địa chỉ email<n:small class="required"> *</n:small></span>
+								<div class="flex">
+									<x:span class="issue-search">Địa chỉ email<n:small class="required"> *</n:small></x:span>
+								</div>
 								<textbox class="form-control" readonly="${readOnly}"
 									width="100%" maxlength="255"
 									value="@bind(vm.email) @save(vm.email, before={'saveNhanVien'}) @validator(vm.validatorEmail)"
@@ -79,6 +89,8 @@
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
+					</div>
+					<div class="row">
 						<div zclass="col-md-12">
 							<div zclass="form-group">
 								<x:span class="issue-search">Số điện thoại</x:span>
@@ -90,6 +102,8 @@
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
+					</div>
+					<div class="row">
 						<div zclass="col-md-12" if="${!readOnly and !vm.noId()}">
 							<div zclass="form-group">
 								<div class="checkbox checkbox-primary">
@@ -97,10 +111,14 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="row">
 						<div if="${vm.noId()}">
 							<div zclass="col-md-6">
 								<div zclass="form-group">
-									<x:span class="issue-search">Mật khẩu<n:small class="required">*</n:small></x:span>
+									<div class="flex">
+										<x:span class="issue-search">Mật khẩu<n:small class="required"> *</n:small></x:span>
+									</div>
 									<textbox class="form-control" readonly="${readOnly }"
 										width="100%" type="password" 
 										value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" />
@@ -109,7 +127,9 @@
 							</div>
 							<div zclass="col-md-6">
 								<div zclass="form-group">
-									<x:span class="issue-search">Nhập lại mật khẩu<n:small class="required">*</n:small></x:span>
+									<div class="flex">
+										<x:span class="issue-search">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
+									</div>
 									<textbox class="form-control" readonly="${readOnly }"
 										width="100%" type="password"
 										value="@bind(vm.matKhau2) @save(vm.matKhau2, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty', password=vm.matKhauEdit)" />
@@ -118,10 +138,14 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="row">
 						<div if="${!vm.noId()}">
 							<div zclass="col-md-6" visible="@load(vm.changePass)">
 								<div zclass="form-group">
-									<x:span class="issue-search">Mật khẩu mới<n:small class="required">*</n:small></x:span>
+									<div class="flex">
+										<x:span class="issue-search">Mật khẩu mới<n:small class="required"> *</n:small></x:span>
+									</div>
 									<textbox class="form-control" readonly="${readOnly }"
 										width="100%" type="password" value="@bind(vm.matKhauUpdate) @save(vm.matKhauUpdate, before='updateNhanVien') @validator(vm.validateMatKhauMoiEdit)"
 											onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"/>
@@ -130,7 +154,9 @@
 							</div>
 							<div zclass="col-md-6" visible="@load(vm.changePass)">
 								<div zclass="form-group">
-									<x:span class="issue-search">Nhập lại mật khẩu</x:span>
+									<div class="flex">
+										<x:span class="issue-search">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
+									</div>
 									<textbox class="form-control" readonly="${readOnly }"
 										width="100%" type="password" value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='updateNhanVien') @validator(vm.validateMatKhauMoi, pass = vm.matKhauUpdate)"
 										onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" />

@@ -48,16 +48,16 @@
 					<div zclass="col-md-9">
 						<div zclass="form-group">
 							<div class="flex">
-								<span>Tên đoàn<n:small class="required"> *</n:small></span>
+								<x:span class="issue-search">Tên đoàn<n:small class="required"> *</n:small></x:span>
 							</div>
 							<textbox id="ten" class="form-control" placeholder="Nhập tên đoàn.."
-							value="@bind(vm.tenDoanVao) @save(vm.tenDoanVao,before='saveDoanVao') @validator(vm.validatorTenDoan)"></textbox>
+							value="@bind(vm.tenDoanVao) @save(vm.tenDoanVao,before='saveDoanVao') @validator(vm.validatorTenDoan)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<span>Quốc gia</span> 
+							<x:span class="issue-search">Quốc gia</x:span>
 							<combobox id="cbbQuocGia" model="@load(entry.quocGias.listQuocGiaAndNull)" placeholder="Tất cả"
 								readonly="true" class="his" width="100%" onCreate="@command('loadQuocGia')" selectedItem="@bind(vm.quocGiaTemp)" onSelect="@command('selectQuocGia')">
 								<template name="model">
@@ -74,16 +74,16 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<div class="flex">
-								<span>Số người<n:small class="required"> *</n:small></span>
+								<x:span class="issue-search">Số người<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control" value="@bind(vm.soNguoi) @save(vm.soNguoi,before='saveDoanVao') @validator(vm.validatorSoNguoi)"></textbox>
+							<textbox class="form-control" placeholder="0" value="@bind(vm.soNguoi) @save(vm.soNguoi,before='saveDoanVao') @validator(vm.validatorSoNguoi)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<span>Thời gian đến làm việc</span>
+							<x:span class="issue-search">Thời gian đến làm việc<n:small class="required"> *</n:small></x:span>
 							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.thoiGianDenLamViec)"
 								 onCreate="self.value = new Date()" width="100%"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -93,11 +93,11 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<div class="flex">
-								<span>Người phụ trách<n:small class="required"> *</n:small></span>
+								<x:span class="issue-search">Người phụ trách<n:small class="required"> *</n:small></x:span>
 							</div>
 							<combobox model="@load(entry.nhanViens.tacGias)"
 								readonly="true" class="his" width="100%" selectedItem="@bind(vm.nguoiPhuTrach)" placeholder="Chọn người"
-								value="@bind(vm.nguoiPhuTrach.hoVaTen) @save(vm.nguoiPhuTrach.hoVaTen ,before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
+								value="@bind(vm.nguoiPhuTrach.hoVaTen) @save(vm.nguoiPhuTrach.hoVaTen ,before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())">
 								<template name="model">
 									<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>
 								</template>
@@ -109,9 +109,9 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<div class="flex">
-								<span>Nơi đoàn đi thăm<n:small class="required"> *</n:small></span> 
+								<x:span class="issue-search">Nơi đoàn đi thăm<n:small class="required"> *</n:small></x:span> 
 							</div>
-							<textbox class="form-control" value="@bind(vm.noiDoanDiTham) @save(vm.noiDoanDiTham,before='saveDoanVao') @validator(vm.validatorNoiDoanDiTham)" placeholder="Nhập nơi đi thăm..."></textbox>
+							<textbox class="form-control" value="@bind(vm.noiDoanDiTham) @save(vm.noiDoanDiTham,before='saveDoanVao') @validator(vm.validatorNoiDoanDiTham)" placeholder="Nhập nơi đi thăm..." onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -143,14 +143,14 @@
 				<div class="row mg-left-no-line">
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<span>Link</span> 
+							<x:span class="issue-search">Link</x:span> 
 							<textbox class="form-control txt-link-tailieu" value="@bind(vm.link)" placeholder="Nhập link tham khảo..."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<span>Tài liệu đính kèm</span>
+							<x:span class="issue-search">Tài liệu đính kèm</x:span>
 							<button visible="@load(!vm.checkTaiLieu)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia())"

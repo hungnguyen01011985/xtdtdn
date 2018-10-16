@@ -15,7 +15,9 @@
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div zclass="col-md-12">
 					<div zclass="form-group">
-						<span class="pd-top-5 flex">Tên lĩnh vực<n:small class="required"> *</n:small></span> 
+						<div class="flex">
+							<x:span class="issue-search">Tên lĩnh vực dự án<n:small class="required"> *</n:small></x:span>
+						</div>
 						<textbox class="form-control" value="@load(vm.ten)@save(vm.ten, before='saveLinhVucDuAn') @validator(vm.validateTenLinhVucDuAn)"
 						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"	placeholder="Nhập tên lĩnh vực..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -23,7 +25,7 @@
 				</div>
 				<div zclass="col-md-12">
 					<div zclass="form-group">
-						<span>Mô tả</span> 
+						<x:span class="issue-search">Mô tả</x:span>
 						<textbox class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..."></textbox>
 					</div>
 				</div>
