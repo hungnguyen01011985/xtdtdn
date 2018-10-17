@@ -58,18 +58,19 @@
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
-								<x:span class="issue-search">Đơn vị</x:span> 
-								<textbox class="form-control" value="" placeholder="Nhập đơn vị.."></textbox>
+								<x:span class="issue-search">Chức danh</x:span>  
+								<textbox class="form-control" value="" placeholder="Nhập chức danh.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
-								<x:span class="issue-search">Đối tượng</x:span>  
-								<textbox class="form-control" value="" placeholder="Nhập đối tượng.."></textbox>
+								<x:span class="issue-search">Đơn vị</x:span> 
+								<textbox class="form-control" value="" placeholder="Nhập đơn vị.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
+						
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<x:span class="issue-search">Quốc gia</x:span>  
