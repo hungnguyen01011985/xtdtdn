@@ -1,36 +1,13 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
-<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('vn.toancauxanh.model.KeHoachLamViec')" class="form-list">
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
+	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="${arg.save}"
+	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')" class="content-popup">
 	<zscript>
 		<![CDATA[
 			page.title = "Kế hoạch làm việc";
 		]]>
 	</zscript>
 	<div> 
-		<div class="panel-box">
-			<div zclass="row">
-				<div zclass="col-lg-12">
-					<div class="page-here">
-						<span>Quản lý đoàn vào</span>
-						<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
-						<span class="active-title">Hội thảo kết nối đầu tư Đà Nẵng - Thái Lan</span>
-						<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
-						<span>Kế hoạch làm việc</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="panel-box">
-			<div zclass="row">
-				<div zclass="col-lg-12">
-					<n:span class="page-header-title">
-						Kế hoạch làm việc
-					</n:span>
-				</div>
-			</div>
-		</div>
-		
 		<div class="panel-box border-box mg-bottom-15">
 			<!-- start -->
 			<div class="row mgn-lr-10">
@@ -45,13 +22,8 @@
 					<div class="pd-column-2">
 						<div zclass="col-md-8">
 							<div zclass="form-group">
-								<span class="pd-top-5">Tên đoàn</span> 
-								<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
-									<comboitem label="Testcase 1" />
-									<comboitem label="Testcase 2" />
-									<comboitem label="Testcase 3" />
-									<comboitem label="Testcase 4" />
-								</combobox>
+								<span>Tên đoàn</span> 
+								<textbox class="form-control" value="" placeholder="Nhập tên đoàn.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>

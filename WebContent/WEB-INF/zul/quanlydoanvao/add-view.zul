@@ -124,7 +124,7 @@
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tao-ke-hoach-lam-viec.svg"/>
 								<span>Tạo kế hoạch làm việc</span>
 							</x:a>
-							<x:a  class="btn bg-btn-tailieu mg-btn-top btn-width mg-btn" href="${execution.contextPath}/cp/quanlydoanvao/danhsachthanhvien">
+							<x:a  class="btn bg-btn-tailieu mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul',vmArgs=vm,vm=null)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/danh-sach-thanh-vien.svg"/>
 								<span>Danh sách thành viên</span>
 							</x:a>
@@ -150,7 +150,7 @@
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<x:span class="issue-search">Tài liệu đính kèm</x:span>
+							<x:span class="issue-search">CV tiếp đoàn A</x:span>
 							<button visible="@load(!vm.checkTaiLieu)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia())"
