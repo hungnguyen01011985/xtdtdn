@@ -236,6 +236,16 @@ public class BaseObject<T> extends CoreObject<T> {
 	}
 	
 	@Command
+	public void redirectPageDoanVao(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
+			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom) {
+		Map<String, Object> args = new HashMap<>();
+		args.put("vmArgs", vmArgs);
+		args.put("vm", vm);
+		args.put("nhom", nhom);
+		Executions.createComponents(zul, null, args);
+	}
+	
+	@Command
 	public void redirectPageAction(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
 			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom, @BindingParam("readOnly") boolean readOnly) {
 		System.out.println("readOnly: " + readOnly);

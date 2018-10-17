@@ -177,7 +177,7 @@ public class DoanVao extends Model<DoanVao> {
 	}
 
 	@Command
-	public void selectQuocGia(@BindingParam("quocgia") QuocGia ob) {
+	public void selectQuocGia() {
 		if (getQuocGiaTemp() != null) {
 			setQuocGia(getQuocGiaTemp().getId());
 		}
