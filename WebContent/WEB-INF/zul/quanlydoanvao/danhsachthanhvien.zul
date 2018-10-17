@@ -51,28 +51,28 @@
 				<div class="row mg-and-bg-and-line">
 						<div zclass="col-md-4">
 							<div zclass="form-group">
-								<span>Họ và tên</span> 
+								<x:span class="issue-search">Họ và tên</x:span>  
 								<textbox class="form-control" value="" placeholder="Nhập tên.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
-								<span>Đơn vị</span> 
-								<textbox class="form-control" value="" placeholder="Nhập tên.."></textbox>
+								<x:span class="issue-search">Đơn vị</x:span> 
+								<textbox class="form-control" value="" placeholder="Nhập đơn vị.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
-								<span>Đối tượng</span> 
+								<x:span class="issue-search">Đối tượng</x:span>  
 								<textbox class="form-control" value="" placeholder="Nhập đối tượng.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group">
-							<span>Quốc gia</span> 
+							<x:span class="issue-search">Quốc gia</x:span>  
 							<combobox readonly="true" class="his" placeholder="Chọn quốc gia" width="100%">
 								<comboitem label="Testcase 1" />
 								<comboitem label="Testcase 2" />
@@ -84,14 +84,14 @@
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group">
-							<span>Email</span> 
+							<x:span class="issue-search">Email</x:span>  
 							<textbox class="form-control" value="" placeholder="Nhập email.."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group">
-							<span>Điện thoại</span> 
+							<x:span class="issue-search">Số điện thoại</x:span>  
 							<textbox class="form-control" value="" placeholder="Nhập số điện thoại.."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -120,15 +120,9 @@
 		
 		<div class="panel-box border-box mg-bottom-15">
 			<div zclass="row">
-				<div zclass="col-lg-12 flex" style="justify-content: space-between">
+				<div zclass="col-lg-12">
 					<div class="title-form">
 						<span>Danh sách thành viên đoàn</span>
-					</div>
-					<div>
-						<x:button class="btn bg-btn-tailieu btn-grey" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-them-moi-thanh-vien-doan.zul',vmArgs=vm,vm=null)">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
-							<span>Thêm thành viên đoàn</span>
-						</x:button>
 					</div>
 				</div>
 			</div>
@@ -138,9 +132,9 @@
 					emptyMessage="Không có mục nào trong danh sách">
 					<columns>
 						<column label="STT" style="text-align:left" width="42px"/>
-						<column label="Họ và tên" style="text-align:left" />
+						<column label="Họ và tên" style="text-align:left" width="200px" />
+						<column label="Chức danh" style="text-align:left" />
 						<column label="Đơn vị" style="text-align:left" />
-						<column label="Đối tượng" style="text-align:left" />
 						<column label="Quốc gia" style="text-align:left" />
 						<column label="Email" style="text-align:left" />
 						<column label="Số điện thoại" style="text-align:left" />
