@@ -239,4 +239,14 @@ public class QuocGia {
 		return list;
 	}
 
+	public String getTenQuocGia(int key) {
+		String name = "";
+		for (QuocGia obj : getBootstrap()) {
+			if (obj.getId() == key) {
+				name = obj.getTenQuocGia();
+				return name;
+			}
+		}
+		return "";
+	}
 }

@@ -1,35 +1,12 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
-<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" class="form-list">
-	<zscript>
-		<![CDATA[
-			page.title = "Danh sách thành viên";
-		]]>
-	</zscript>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
+	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="${arg.save}"
+	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')" class="content-popup">
+	<zscript><![CDATA[
+				vmArgs = arg.get("vmArgs");
+				strSave = arg.get("save");
+			]]></zscript> 
 	<div> 
-		<div class="panel-box">
-			<div zclass="row">
-				<div zclass="col-lg-12">
-					<div class="page-here">
-						<span>Quản lý đoàn vào</span>
-						<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
-						<span class="active-title">Thêm mới đoàn vào</span>
-						<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
-						<span>Danh sách thành viên</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="panel-box">
-			<div zclass="row">
-				<div zclass="col-lg-12">
-					<n:span class="page-header-title">
-						Danh sách thành viên
-					</n:span>
-				</div>
-			</div>
-		</div>
 		
 		<div class="panel-box border-box mg-bottom-15">
 			<!-- start -->
@@ -37,26 +14,21 @@
 				<div class="row">
 					<div zclass="col-lg-12">
 						<div class="title-form">
-							<span>Thông tin kế hoạch làm việc</span>
+							<span>Thông tin đoàn vào</span>
 						</div>
 					</div>
 				</div>
 				<div class="row mg-and-bg-and-line">
 						<div zclass="col-md-8">
 							<div zclass="form-group">
-								<span class="pd-top-5">Tên đoàn</span> 
-								<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
-									<comboitem label="Testcase 1" />
-									<comboitem label="Testcase 2" />
-									<comboitem label="Testcase 3" />
-									<comboitem label="Testcase 4" />
-								</combobox>
+								<x:span class="issue-search">Tên đoàn</x:span> 
+								<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên đoàn.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
-								<span>Thời gian đến làm việc</span> 
+								<x:span class="issue-search">Thời gian đến làm việc</x:span> 
 								<datebox format="dd/MM/yyyy" class="hv-db"
 										 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -65,6 +37,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="panel-box border-box mg-bottom-15">
 			<!-- start -->
 			<div class="row mgn-lr-10">
@@ -85,13 +58,8 @@
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
-								<span class="pd-top-5">Đơn vị</span> 
-								<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
-									<comboitem label="Testcase 1" />
-									<comboitem label="Testcase 2" />
-									<comboitem label="Testcase 3" />
-									<comboitem label="Testcase 4" />
-								</combobox>
+								<span>Đơn vị</span> 
+								<textbox class="form-control" value="" placeholder="Nhập tên.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -104,7 +72,7 @@
 						</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group">
-							<span class="pd-top-5">Quốc gia</span> 
+							<span>Quốc gia</span> 
 							<combobox readonly="true" class="his" placeholder="Chọn quốc gia" width="100%">
 								<comboitem label="Testcase 1" />
 								<comboitem label="Testcase 2" />
@@ -152,9 +120,15 @@
 		
 		<div class="panel-box border-box mg-bottom-15">
 			<div zclass="row">
-				<div zclass="col-lg-12">
+				<div zclass="col-lg-12 flex" style="justify-content: space-between">
 					<div class="title-form">
-						<span>Danh sách kết quả tìm kiếm</span>
+						<span>Danh sách thành viên đoàn</span>
+					</div>
+					<div>
+						<x:button class="btn bg-btn-tailieu btn-grey" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-them-moi-thanh-vien-doan.zul',vmArgs=vm,vm=null)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm thành viên đoàn</span>
+						</x:button>
 					</div>
 				</div>
 			</div>
@@ -246,17 +220,11 @@
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
-				<div zclass="col-xs-6 flex-box">
+				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button  class="btn bg-btn-tailieu btn-grey ">
+						<x:button class="btn bg-btn-tailieu btn-grey ">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 							<span>Đóng</span>
-						</x:button>
-					</div>
-					<div zclass="form-group pd-left-11">
-						<x:button  class="btn bg-btn-tailieu btn-grey ">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xuat-excel.svg"/>
-							<span>Xuất excel</span>
 						</x:button>
 					</div>
 				</div>
