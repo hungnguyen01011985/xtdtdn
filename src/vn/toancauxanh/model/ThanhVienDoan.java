@@ -5,7 +5,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 
@@ -90,18 +89,6 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 
 	public void setDoanVao(DoanVao doanVao) {
 		this.doanVao = doanVao;
-	}
-
-	@Command
-	public void saveThanhVienDoan(@BindingParam("list") final Object listObject,
-			@BindingParam("attr") final String attr) {
-		setHoVaTen(getHoVaTen().trim().replaceAll("\\s+", " "));
-		setDonVi(getDonVi().trim().replaceAll("\\s+", " "));
-		setChucDanh(getChucDanh().trim().replaceAll("\\s+", " "));
-		setEmail(getEmail().trim().replaceAll("\\s+", ""));
-		setSoDienThoai(getSoDienThoai().trim().replaceAll("\\s+", ""));
-		save();
-		BindUtils.postNotifyChange(null, null, listObject, attr);
 	}
 
 	@Command

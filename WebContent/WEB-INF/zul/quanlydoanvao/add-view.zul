@@ -8,7 +8,6 @@
 		<![CDATA[
 				String id = execution.getParameter("id");
 		        vn.toancauxanh.model.DoanVao vm = new vn.toancauxanh.service.DoanVaoService().getDoanVaoById(id);
-		        vn.toancauxanh.service.ThanhVienDoanService vmsv = entry.thanhVienDoans;
 		]]>
 	</zscript>
 	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"
@@ -125,7 +124,7 @@
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tao-ke-hoach-lam-viec.svg"/>
 								<span>Tạo kế hoạch làm việc</span>
 							</x:a>
-							<x:a  class="btn bg-btn-tailieu mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul',vmArgs=vmsv,vm=null)">
+							<x:a  class="btn bg-btn-tailieu mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul',vm = vm)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/danh-sach-thanh-vien.svg"/>
 								<span>Danh sách thành viên</span>
 							</x:a>
