@@ -19,14 +19,14 @@
 							<x:span class="issue-search">Tên lĩnh vực dự án<n:small class="required"> *</n:small></x:span>
 						</div>
 						<textbox class="form-control" value="@load(vm.ten)@save(vm.ten, before='saveLinhVucDuAn') @validator(vm.validateTenLinhVucDuAn)"
-						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"	placeholder="Nhập tên lĩnh vực..."></textbox>
+						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveLinhVucDuAn', list=vmArgs, attr='targetQuery', wdn=wdn)"	placeholder="Nhập tên lĩnh vực..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<x:span class="issue-search">Mô tả</x:span>
-						<textbox class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..."></textbox>
+						<textbox class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveLinhVucDuAn', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
 			</div>

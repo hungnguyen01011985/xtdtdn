@@ -19,14 +19,14 @@
 							<x:span class="issue-search">Tên phòng ban<n:small class="required"> *</n:small></x:span>
 						</div>
 						<textbox class="form-control" value="@load(vm.ten)@save(vm.ten, before='savePhongBan') @validator(vm.validateTenPhongBan)"
-						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"	placeholder="Nhập tên phòng ban..."></textbox>
+						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('savePhongBan', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên phòng ban..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<x:span class="issue-search">Mô tả</x:span> 
-						<textbox class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..."></textbox>
+						<textbox class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('savePhongBan', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
 			</div>

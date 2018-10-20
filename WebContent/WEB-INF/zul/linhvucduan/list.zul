@@ -10,19 +10,19 @@
 		<include src="/WEB-INF/zul/common/panel.zul"></include>
 		<div class="panel-box border-box">
 			<div zclass="row mg-top-no-line">	
-				<div zclass="col-md-9">
+				<div zclass="col-md-10">
 					<div zclass="form-group">
-						<span>Tên lĩnh vực</span> 
+						<x:span class="issue-search">Tên lĩnh vực</x:span> 
 						<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
 							 placeholder="Nhập tên lĩnh vực dự án.."></textbox>
 					</div>
 				</div>
-				<div zclass="col-xs-3">
+				<div zclass="col-md-2">
 					<div zclass="form-group">
-						<x:button class="btn btn-blue mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+						<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
-						</x:button>
+						</x:a>
 					</div>
 				</div>
 			</div>
