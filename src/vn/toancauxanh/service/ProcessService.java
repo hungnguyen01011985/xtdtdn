@@ -37,7 +37,6 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().setNguoiGiaoViec(model.getNguoiTao());
 		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
-		((ExecutionEntity) execution).setVariable("userPopup", null);
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
@@ -107,7 +106,7 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void redirectGiaiDoanDuAnById(Long id) {
-		Executions.sendRedirect(Executions.getCurrent().getContextPath()+"/cp/quanlyduan/giaidoan/"+id);
+		Executions.sendRedirect("/cp/quanlyduan/giaidoan/"+id);
 	}
 	
 	public void luuDuLieuDonVi(GiaiDoanDuAn giaiDoanDuAn) {
