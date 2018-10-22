@@ -828,4 +828,16 @@ public class NhanVien extends Model<NhanVien> {
 		Executions.createComponents(zul, null, args);
 
 	}
+	
+	@Transient
+	public List<String> getListNhom() {
+		List<String> listNhom = new ArrayList<>();
+		for (VaiTro vaiTro : getVaiTros()) {
+			listNhom.add(vaiTro.getAlias());
+		}
+		if (listNhom.isEmpty()) {
+			listNhom.add("*");
+		}
+		return listNhom;
+	}
 }

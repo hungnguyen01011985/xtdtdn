@@ -1989,6 +1989,10 @@ filter: saturate(0.3);
 	width:100vw;
 	
 }
+.rest-content-wd .z-window-content{
+	height:auto !important;
+	overflow: inherit !important;
+}
 .popup-vaitro{
 	max-width:600px;
 	

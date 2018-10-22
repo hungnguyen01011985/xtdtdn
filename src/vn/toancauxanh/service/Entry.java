@@ -4,12 +4,14 @@ package vn.toancauxanh.service;
 import java.io.File;
 import javax.sql.DataSource;
 
+import org.camunda.bpm.engine.ProcessEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.config.ResourceNotFoundException;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -226,6 +228,10 @@ public class Entry extends BaseObject<Object> {
 	@Autowired
 	DataSource dataSource;
 
+	@Autowired
+	@Lazy
+	ProcessEngine processEngine;
+	
 	public Entry() {
 		super();
 		setCore();
@@ -292,9 +298,24 @@ public class Entry extends BaseObject<Object> {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
 				+ "/add-page.zul&id=" + id;
 	}
+	
+	@RequestMapping(value = "/cp/{path:.+$}/giaidoan/{id:\\d+}")
+	public String giaidoan(@PathVariable String path, @PathVariable Long id) {
+		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
+				+ "/giaidoan.zul&id=" + id;
+	}
 
 	// Ban xúc tiến
 	// start
+	
+	public final ProcessEngine getProcess() {
+		return processEngine;
+	}
+	
+	public final ProcessService getProcessService() {
+		return new ProcessService();
+	}
+	
 	public final PhongBanService getPhongBans() {
 		return new PhongBanService();
 	}

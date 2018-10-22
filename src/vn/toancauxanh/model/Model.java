@@ -3,6 +3,9 @@ package vn.toancauxanh.model;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.logging.Logger;
 
@@ -13,12 +16,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+import org.camunda.bpm.engine.impl.pvm.PvmTransition;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.task.IdentityLink;
+import org.camunda.bpm.engine.task.Task;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Store;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.util.SystemPropertyUtils;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -26,7 +32,6 @@ import org.zkoss.bind.annotation.Default;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -252,7 +257,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 		return "label label-default";
 	}
 
-	protected String businessKey() {
+	public String businessKey() {
 		return getClass().getName() + "@" + getId();
 	}
 
@@ -443,5 +448,85 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 			date = cal.getTime();
 		}
 		return date;
+	}
+	
+	@Transient
+	public Task getCurrentTask() {
+		List<Task> listPage = core().getProcess().getTaskService()
+				.createTaskQuery().processInstanceBusinessKey(businessKey())
+				.orderByTaskCreateTime().desc().listPage(0, 1);
+		return listPage.isEmpty() ? null : listPage.get(0);
+	}
+	
+	@Transient
+	public boolean isMyTask() {
+		if (getCurrentTask() != null) {
+			List<IdentityLink> identities = core().getProcess()
+					.getTaskService().getIdentityLinksForTask(getCurrentTask().getId());
+			for (IdentityLink identity : identities) {
+				if (core().getNhanVien().getListNhom().contains(identity.getGroupId())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	@Command
+	public void doAction(@BindingParam("flow") final PvmTransition flow, 
+			@BindingParam("list") final Object listObject, 
+			@BindingParam("attr") final String attr,
+			@BindingParam("vm") final Object vm,
+			@BindingParam("wdn") final Window wdn) {
+		if(wdn != null) {
+			wdn.detach();
+		}
+		System.out.println("Zô doAction");
+		System.out.println("flow:"+flow.getId());
+		System.out.println("currentTassk: "+getCurrentTask().getId());
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("flow", flow.getId());
+		variables.put("model", this);
+		variables.put("list", listObject);
+		variables.put("attr", attr);
+		if(vm != null) {
+			variables.put("vm", vm);
+		}
+		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+		
+	}
+	
+	@Command
+	public void doActionWithKey(@BindingParam("flow") final PvmTransition flow, 
+			@BindingParam("processDefinitionKey") final String processDefinitionKey,
+			@BindingParam("list") final Object listObject, 
+			@BindingParam("attr") final String attr, 
+			@BindingParam("wdn") final Window wdn) {
+		System.out.println("Zô doActionWithKey");
+		System.out.println("Flow"+flow.getId());
+		System.out.println("processDefinitionKey:"+processDefinitionKey);
+		Task task = null;
+		if (getCurrentTask() == null) {
+			save();
+			ProcessInstance processInstance = core()
+				.getProcess()
+				.getRuntimeService()
+				.startProcessInstanceByKey(processDefinitionKey, businessKey());
+			task = core()
+					.getProcess()
+					.getTaskService()
+					.createTaskQuery()
+	                .processInstanceId(processInstance.getId())
+	                //.taskCandidateGroup("dev-managers")
+	                .singleResult();
+		} else {
+			task = getCurrentTask();
+		}
+ 		Map<String, Object> variables = new HashMap<>();
+		variables.put("flow", flow.getId());
+		variables.put("model", this);
+		variables.put("list", listObject);
+		variables.put("attr", attr);
+		core().getProcess().getTaskService().complete(task.getId(), variables);
 	}
 }
