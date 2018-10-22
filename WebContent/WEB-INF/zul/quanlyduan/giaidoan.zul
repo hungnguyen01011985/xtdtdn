@@ -1,0 +1,181 @@
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
+	apply="org.zkoss.bind.BindComposer" class="form-list">
+	<zscript>
+		page.title = "Xúc tiến dự án";
+	</zscript>
+	<zscript>
+		<![CDATA[
+			String id = execution.getParameter("id");
+			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
+		]]>
+	</zscript>
+	<div viewModel="@id('vm') @init(vm)"> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="page-here">
+						<span>Quản lý dự án</span> > <span>Công ty TNHH A</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Dự án của nhà đầu tư công ty TNHH A
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Thông tin dự án</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<div zclass="form-group">
+						<span>Tên dự án</span>
+						<textbox class="form-control" maxlength="255" value="@bind(vm.tenDuAn)"/> 
+					</div>
+				</div>
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Người phụ trách</span> 
+						<combobox readonly="true" class="his" width="100%" value="@bind(vm.nguoiPhuTrach.hoVaTen)">
+							<comboitem label="Testcase 1" />
+							<comboitem label="Testcase 2" />
+							<comboitem label="Testcase 3" />
+							<comboitem label="Testcase 4" />
+						</combobox>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Ngày bắt đầu xúc tiến</span>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)"
+							 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Lĩnh vực</span>
+						<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
+							<comboitem label="Testcase 1" />
+							<comboitem label="Testcase 2" />
+							<comboitem label="Testcase 3" />
+							<comboitem label="Testcase 4" />
+						</combobox>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Địa điểm</span>
+						<textbox class="form-control" value="@bind(vm.diaDiem)"></textbox>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Quy mô dự án</span>
+						<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
+							<comboitem label="Testcase 1" />
+							<comboitem label="Testcase 2" />
+							<comboitem label="Testcase 3" />
+							<comboitem label="Testcase 4" />
+						</combobox>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Tổng vốn đầu tư(vnđ)</span>
+						<textbox class="form-control" ></textbox>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-12">
+					<div zclass="form-group">
+						<span>Mục tiêu dự án</span>
+						<textbox class="form-control" rows="3" value="@bind(mucTieuDuAn)"></textbox>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Diện tích sử dụng đất(ha)</span>
+						<textbox class="form-control" value="@bind(vm.dienTichSuDungDat)"></textbox>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-9">
+					<div zclass="form-group">
+						<span>Mức độ cạnh tranh</span>
+						<textbox class="form-control" value="@bind(vm.mucDoCanhTranh)"></textbox>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Mức độ ưu tiên</span>
+						<combobox readonly="true" selectedItem="@bind(vm.mucDoUuTien)"
+							class="his" placeholder="Chọn" width="100%">
+							<!-- <template name="model">
+								<comboitem label="@load(each.text)"></comboitem>
+							</template> -->
+						</combobox>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Khả năng đầu tư</span>
+						<combobox readonly="true" selectedItem="@bind(vm.khaNangDauTu)"
+							 class="his" placeholder="Chọn" width="100%">
+							<!-- <template name="model">
+								<comboitem label="@load(each.text)"></comboitem>
+							</template> -->
+						</combobox>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-6">
+					<div zclass="form-group">
+						<span>VB đề nghị của NĐT</span>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- include -->
+		<include src="${vm.getSrc()}"></include>
+		
+</div>
+</window>
