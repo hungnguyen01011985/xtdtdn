@@ -130,16 +130,6 @@
 				</div>
 					
 				<div zclass="col-xs-9">
-					<div  zclass="form-group right flex" children="@load(entry.processService.getTransitions(vm.currentTask))" if="${vm.myTask}">
-						<template name="children">
-							<x:button onClick="@command('doAction', flow=each, list=vmArgs, attr='targetQuery')" 
-								class="btn btn-blue mg-btn">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-								<span>${each.getProperty('name')}</span>
-							</x:button>
-						</template>
-					</div>
-					
 					<div zclass="form-group right flex">
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
 								class="btn btn-blue mg-btn">
@@ -151,6 +141,18 @@
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Giao việc</span>
+						</x:button>
+						
+						<x:button onClick="@command('luuGiaiDoan1')"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Lưu dữ liệu giai đoạn một</span>
+						</x:button>
+						
+						<x:button onClick="@command('luuGiaiDoan1VaTiepTuc')"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Lưu dữ liệu giai đoạn một và tiếp tục giai đoạn hai</span>
 						</x:button>
 					</div>
 					

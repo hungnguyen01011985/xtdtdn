@@ -634,7 +634,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${userPopup == 'task_NguoiPhuTrach'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="seqFlow_validateGD1TiepTuc" name="Tiếp tục giai đoạn hai" sourceRef="ExclusiveGateway_06m6egx" targetRef="ServiceTask_16inqqe">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${flow == 'seqFlow_validateGD1TiepTuc'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${userPopup == 'task_LuuVaGiaiDoan2'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0q1rfi2" sourceRef="ExclusiveGateway_05u28v9" targetRef="ServiceTask_16k2phd" />
     <bpmn:sequenceFlow id="SequenceFlow_1h39uel" name="Dữ liệu để tiếp tục giai đoạn hai không hợp lệ" sourceRef="ExclusiveGateway_04l71ir" targetRef="ExclusiveGateway_1lblyc2">
@@ -677,7 +677,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0ei6h72" sourceRef="task_GiaoViec" targetRef="Task_1vopk7j" />
     <bpmn:sequenceFlow id="SequenceFlow_1vec4wn" sourceRef="ServiceTask_1mhrn6z" targetRef="ExclusiveGateway_16xez2l" />
     <bpmn:sequenceFlow id="seqFlow_validateGD1" name="Lưu dữ liệu giai đoạn một" sourceRef="ExclusiveGateway_06m6egx" targetRef="ServiceTask_1mfraoe">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${flow == 'seqFlow_validateGD1'}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${userPopup == 'task_LuuGiaiDoan1'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="ServiceTask_16inqqe" name="&#10;&#10;Validate dữ liệu giai đoạn một và tiếp tục giai đoạn hai&#10;" camunda:expression="${entry.processService.validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(execution)}">
       <bpmn:incoming>seqFlow_validateGD1TiepTuc</bpmn:incoming>
