@@ -1,7 +1,7 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" class="content-popup"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="${arg.save}"
-		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" width="65%"
+		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" width="70%"
 		whatever="@load(false,after='savePhongBan') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
 			<zscript><![CDATA[

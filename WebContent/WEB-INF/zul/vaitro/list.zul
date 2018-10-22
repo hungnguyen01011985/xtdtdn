@@ -11,14 +11,14 @@
 		
 		<div class="panel-box border-box">
 			<div zclass="row mg-top-no-line">	
-					<div zclass="col-md-9">
+					<div zclass="col-md-10">
 						<div zclass="form-group">
-							<span>Nhập tên vai trò người dùng</span> 
+							<x:span class="issue-search">Nhập tên vai trò người dùng</x:span> 
 							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='vaiTroQuery')"
 								 placeholder="Nhập tên vai trò.."></textbox>
 						</div>
 					</div>
-					<div zclass="col-md-3">
+					<div zclass="col-md-2">
 						<div zclass="form-group">
 							<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='vaiTroQuery')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
@@ -69,16 +69,7 @@
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
-				<div zclass="col-xs-6">
-					<div zclass="form-group">
-							<x:button  class="btn bg-btn-tailieu btn-grey " zk:onClick="@command('xuatExcel', 
-	    							query=vm.vaiTroQuery, title='Tất cả vai trò')">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xuat-excel.svg"/>
-								<span>Xuất excel</span>
-							</x:button>
-					</div>
-				</div>
-				<div zclass="col-xs-6">
+				<div zclass="col-md-12">
 					<div zclass="form-group right">
 						<x:button class="btn btn-blue" zk:if="${entry.quyen.vaitro_them}" zk:onClick="@command('redirectPage', zul='vaitro/show-add-vai-tro.zul',vmArgs=vm,vm=null)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>

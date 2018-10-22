@@ -1,2 +1,2 @@
 <?component name="danhsachthanhvien" inline="true" macroURI="danhsachthanhvien.zul"?>
-<danhsachthanhvien model="${entry.doanVaos.type().newInstance()}"  vmArgs="${arg.vmArgs}" save="Danh sách thành viên" />
+<danhsachthanhvien model="${arg.vm}" save="Danh sách thành viên" />

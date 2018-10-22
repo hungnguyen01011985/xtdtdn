@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
@@ -22,7 +24,9 @@ import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.QuocGia;
 import vn.toancauxanh.gg.model.enums.TrangThaiEnum;
@@ -41,13 +45,13 @@ public class DoanVao extends Model<DoanVao> {
 	private Date thoiGianDenLamViec = new Date();
 	private NhanVien nguoiPhuTrach = new NhanVien();
 	private List<KeHoachLamViec> listKeHoachLamViec;
-	private List<ThanhVien> listThanhVien;
 	private String link;
 	private TepTin taiLieu;
 	private TepTin congVanChiDaoUB;
 	private boolean checkTaiLieu;
 	private QuocGia quocGiaTemp;
-	
+	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
+
 	public void setQuocGiaTemp(QuocGia quocGiaTemp) {
 		this.quocGiaTemp = quocGiaTemp;
 	}
@@ -109,10 +113,6 @@ public class DoanVao extends Model<DoanVao> {
 		this.listKeHoachLamViec = listKeHoachLamViec;
 	}
 
-	public void setListThanhVien(List<ThanhVien> listThanhVien) {
-		this.listThanhVien = listThanhVien;
-	}
-
 	public String getLink() {
 		return link;
 	}
@@ -171,18 +171,18 @@ public class DoanVao extends Model<DoanVao> {
 	public void setyKienChiDao(String yKienChiDao) {
 		this.yKienChiDao = yKienChiDao;
 	}
-	
+
 	public void setCheckTaiLieu(boolean checkTaiLieu) {
 		this.checkTaiLieu = checkTaiLieu;
 	}
 
 	@Command
-	public void selectQuocGia(@BindingParam("quocgia") QuocGia ob) {
+	public void selectQuocGia() {
 		if (getQuocGiaTemp() != null) {
 			setQuocGia(getQuocGiaTemp().getId());
 		}
 	}
-	
+
 	@Command
 	public void loadQuocGia() {
 		QuocGia qg = new QuocGia();
@@ -193,7 +193,7 @@ public class DoanVao extends Model<DoanVao> {
 			BindUtils.postNotifyChange(null, null, this, "quocGiaTemp");
 		}
 	}
-	
+
 	@Command
 	public void uploadFile(@BindingParam("medias") final Object medias) {
 		Media media = (Media) medias;
@@ -222,7 +222,7 @@ public class DoanVao extends Model<DoanVao> {
 					"Có tệp không đúng định dạng", "danger");
 		}
 	}
-	
+
 	@Command
 	public void deleteFile(@BindingParam("vm") DoanVao ob) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
@@ -239,41 +239,55 @@ public class DoanVao extends Model<DoanVao> {
 					}
 				});
 	}
-	
+
 	@Command
 	public void saveDoanVao() {
-		if (getTaiLieu() != null) {
-			getTaiLieu().save();
-		}
-		save();
-		redirectPageList("/cp/quanlydoanvao", null);
+		DoanVao doanVao = this;
+		transactioner().execute(new TransactionCallbackWithoutResult() {
+			@Override
+			protected void doInTransactionWithoutResult(TransactionStatus status) {
+				if (!listThanhVienDoan.isEmpty() && listThanhVienDoan != null) {
+					for (ThanhVienDoan thanhVienDoan : listThanhVienDoan) {
+						thanhVienDoan.setDoanVao(doanVao);
+						thanhVienDoan.saveNotShowNotification();
+					}
+				}
+				if (!listXoaThanhVienDoan.isEmpty() && listXoaThanhVienDoan != null) {
+					for (ThanhVienDoan thanhVienDoan : listXoaThanhVienDoan) {
+						thanhVienDoan.setDoanVao(doanVao);
+						thanhVienDoan.setDaXoa(true);
+						thanhVienDoan.saveNotShowNotification();
+					}
+				}
+				if (getTaiLieu() != null) {
+					getTaiLieu().save();
+				}
+				save();
+				redirectPageList("/cp/quanlydoanvao", null);
+			}
+		});
 	}
-	
+
 	@Command
 	public void redirectPageList(@BindingParam("url") String url, @BindingParam("vm") DoanVao vm) {
 		Executions.getCurrent().sendRedirect(url);
 	}
-	
+
 	@Transient
 	public QuocGia getQuocGiaTemp() {
 		return quocGiaTemp;
 	}
-	
+
 	@Transient
 	public List<KeHoachLamViec> getListKeHoachLamViec() {
 		return listKeHoachLamViec;
 	}
-	
-	@Transient
-	public List<ThanhVien> getListThanhVien() {
-		return listThanhVien;
-	}
-	
+
 	@Transient
 	public boolean isCheckTaiLieu() {
 		return checkTaiLieu;
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidatorTenDoan() {
 		return new AbstractValidator() {
@@ -286,7 +300,7 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		};
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidatorSoNguoi() {
 		return new AbstractValidator() {
@@ -304,7 +318,7 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		};
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidatorNoiDoanDiTham() {
 		return new AbstractValidator() {
@@ -316,5 +330,143 @@ public class DoanVao extends Model<DoanVao> {
 				}
 			}
 		};
+	}
+
+	@Transient
+	public ThanhVienDoan getThanhVienDoanTemp() {
+		return thanhVienDoanTemp;
+	}
+
+	public void setThanhVienDoanTemp(ThanhVienDoan thanhVienDoanTemp) {
+		this.thanhVienDoanTemp = thanhVienDoanTemp;
+	}
+
+	private List<ThanhVienDoan> listThanhVienDoan = new ArrayList<ThanhVienDoan>();
+	private List<ThanhVienDoan> listThanhVienTheoDoan = new ArrayList<ThanhVienDoan>();
+	private List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam = new ArrayList<ThanhVienDoan>();
+	private List<ThanhVienDoan> listXoaThanhVienDoan = new ArrayList<ThanhVienDoan>();
+
+	@Transient
+	public List<ThanhVienDoan> getListXoaThanhVienDoan() {
+		return listXoaThanhVienDoan;
+	}
+
+	public void setListXoaThanhVienDoan(List<ThanhVienDoan> listXoaThanhVienDoan) {
+		this.listXoaThanhVienDoan = listXoaThanhVienDoan;
+	}
+
+	private boolean flag;
+
+	@Transient
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
+	private boolean bind;
+
+	@Transient
+	public List<ThanhVienDoan> getListThanhVienDoan() {
+		if (!bind) {
+			listThanhVienDoan.addAll(getListThanhVienTheoDoan());
+			bind = true;
+		} else {
+			listThanhVienDoan.addAll(getListTaoMoiThanhVienDoanLuuTam());
+			listTaoMoiThanhVienDoanLuuTam.removeAll(getListTaoMoiThanhVienDoanLuuTam());
+		}
+		return listThanhVienDoan;
+	}
+
+	public void setListThanhVienDoan(List<ThanhVienDoan> listThanhVienDoan) {
+		this.listThanhVienDoan = listThanhVienDoan;
+	}
+
+	@Transient
+	public List<ThanhVienDoan> getListThanhVienTheoDoan() {
+		if (getId() != null) {
+			listThanhVienTheoDoan = find(ThanhVienDoan.class).where(QThanhVienDoan.thanhVienDoan.doanVao.id.eq(getId()))
+					.orderBy(QThanhVienDoan.thanhVienDoan.ngaySua.desc()).fetch();
+		}
+		return listThanhVienTheoDoan;
+	}
+
+	@Transient
+	public List<ThanhVienDoan> getListTaoMoiThanhVienDoanLuuTam() {
+		return listTaoMoiThanhVienDoanLuuTam;
+	}
+
+	public void setListTaoMoiThanhVienDoanLuuTam(List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam) {
+		this.listTaoMoiThanhVienDoanLuuTam = listTaoMoiThanhVienDoanLuuTam;
+	}
+
+	@Command
+	public void saveThanhVienDoan() {
+		if (flag) {
+			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
+			flag = false;
+			BindUtils.postNotifyChange(null, null, this, "flag");
+		} else {
+			List<ThanhVienDoan> listThanhVienDoan = getListTaoMoiThanhVienDoanLuuTam();
+			listThanhVienDoan.add(getThanhVienDoanTemp());
+			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
+		}
+		reset();
+	}
+
+	@Command
+	public void deleteThanhVienDoan(@BindingParam("item") final ThanhVienDoan thanhVienDoan,
+			@BindingParam("vm") final DoanVao doanVao) {
+		if (!checkInUse()) {
+			Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+					new EventListener<Event>() {
+						@Override
+						public void onEvent(Event event) throws Exception {
+							if (Messagebox.ON_OK.equals(event.getName())) {
+								showNotification("Xóa thành công!", "", "success");
+								if (thanhVienDoan != null) {
+									doanVao.getListThanhVienDoan().remove(thanhVienDoan);
+									if (!thanhVienDoan.noId()) {
+										listXoaThanhVienDoan.add(thanhVienDoan);
+									}
+								}
+								BindUtils.postNotifyChange(null, null, doanVao, "listThanhVienDoan");
+								BindUtils.postNotifyChange(null, null, this, "listXoaThanhVienDoan");
+							}
+						}
+					});
+		}
+	}
+	
+	public void reset(){
+		thanhVienDoanTemp = new ThanhVienDoan();
+		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+		Clients.evalJavaScript("getFocus()");
+	}
+
+	@Command
+	public void reset(@BindingParam("vm") final DoanVao doanVao) {
+		thanhVienDoanTemp = new ThanhVienDoan();
+		flag = false;
+		BindUtils.postNotifyChange(null, null, doanVao, "flag");
+		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+		Clients.evalJavaScript("getFocus()");
+	}
+
+	@Command
+	public void editThanhVienDoan(@BindingParam("item") ThanhVienDoan thanhVienDoan) {
+		thanhVienDoanTemp = thanhVienDoan;
+		flag = true;
+		BindUtils.postNotifyChange(null, null, this, "flag");
+		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+		Clients.evalJavaScript("getFocus()");
+	}
+
+	@Command
+	public void saveDanhSachThanhVienDoan(@BindingParam("wdn") final Window wdn) {
+		showNotification("Lưu thành công!", "", "success");
+		wdn.detach();
 	}
 }

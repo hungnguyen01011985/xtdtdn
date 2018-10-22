@@ -114,7 +114,7 @@
 							<column label="Tóm tắt nội dung" width="200px"/>
 							<column label="Thời gian đến" width="110px"/>
 							<column label="Nơi đoàn đi thăm" width="200px"/>
-							<column label="Trạng thái"/>
+							<column label="Trạng thái" width="90px"/>
 							<column label="Thao tác" width="140px"/>
 						</columns>
 						<template name="model">

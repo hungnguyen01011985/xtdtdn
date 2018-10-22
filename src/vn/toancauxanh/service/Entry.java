@@ -29,6 +29,7 @@ import vn.toancauxanh.cms.service.LanguageService;
 import vn.toancauxanh.cms.service.PhongBanService;
 import vn.toancauxanh.cms.service.ThamSoService;
 import vn.toancauxanh.gg.model.QuocGia;
+import vn.toancauxanh.model.ThanhVienDoan;
 import vn.toancauxanh.model.VaiTro;
 
 @SuppressWarnings({ "deprecation", "unused" })
@@ -304,6 +305,10 @@ public class Entry extends BaseObject<Object> {
 
 	public final LinhVucDuAnService getLinhVucs() {
 		return new LinhVucDuAnService();
+	}
+
+	public final ThanhVienDoanService getThanhVienDoans(){
+		return new ThanhVienDoanService();
 	}
 	// end
 
