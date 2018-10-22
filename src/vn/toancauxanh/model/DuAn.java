@@ -246,6 +246,22 @@ public class DuAn extends Model<DuAn>{
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
 	
+	@Command
+	public void luuDuLieuGiaiDoanHai() {
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("model", this);
+		variables.put("goTask", "luuDuLieuGiaiDoanHai");
+		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+	}
+	
+	@Command
+	public void tiepTucGiaiDoanBa() {
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("model", this);
+		variables.put("goTask", "tiepTucGiaiDoanBa");
+		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+	}
+	
 	@Transient
 	public String getSrc() {
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.name().equals(getGiaiDoanXucTien().name())) {
