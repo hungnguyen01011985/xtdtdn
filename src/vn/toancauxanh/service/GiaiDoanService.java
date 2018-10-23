@@ -12,7 +12,6 @@ public class GiaiDoanService extends BasicService<GiaiDoanDuAn>{
 					.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(idDuAn))
 					.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
 			if (q.fetch().size() > 0) {
-				System.out.println("OKKKKKKKKKKKKKKKK");
 				return q.fetchFirst();
 			}
 		}

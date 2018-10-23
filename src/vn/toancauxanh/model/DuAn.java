@@ -248,6 +248,22 @@ public class DuAn extends Model<DuAn>{
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
 	
+	@Command
+	public void luuGiaiDoan1() {
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("model", this);
+		variables.put("userPopup", "task_LuuGiaiDoan1");
+		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+	}
+	
+	@Command
+	public void luuGiaiDoan1VaTiepTuc() {
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("model", this);
+		variables.put("userPopup", "task_LuuVaGiaiDoan2");
+		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+	}
+	
 	@Transient
 	public String getSrc() {
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.name().equals(getGiaiDoanXucTien().name())) {
