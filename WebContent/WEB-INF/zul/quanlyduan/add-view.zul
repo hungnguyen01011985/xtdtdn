@@ -90,7 +90,8 @@
 				<div class="col-md-9">
 					<div zclass="form-group">
 						<span>Tên công việc</span>
-						<textbox class="form-control" value="@bind(vm.tenCongViec)@save(vm.tenCongViec ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+						<textbox class="form-control" placeholder="Nhập tên công việc" value="@bind(vm.tenCongViec)@save(vm.tenCongViec ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -106,7 +107,8 @@
 				<div class="col-md-12">
 					<div zclass="form-group">
 						<span>Ý kiến chỉ đạo</span>
-						<textbox class="form-control" rows="3" value="@bind(vm.yKienChiDao)@save(vm.yKienChiDao, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+						<textbox class="form-control" rows="3" placeholder="Nhập ý kiến chỉ đạo" value="@bind(vm.yKienChiDao)@save(vm.yKienChiDao, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
