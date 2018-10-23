@@ -13,8 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
@@ -261,5 +263,44 @@ public class DuAn extends Model<DuAn>{
 			return "quanlyduan/giaidoan4.zul";
 		}
 		return null;
+	}
+	
+	@Transient
+	public AbstractValidator getValidator() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				validateNgayHoanThanh(ctx);
+			}
+			private boolean validateNgayHoanThanh(final ValidationContext ctx){
+				Boolean type = (Boolean) ctx.getValidatorArg("type");
+				boolean result = true;
+				if (type) {
+					Date dateStart = (Date) ctx.getValidatorArg("dateStart");
+					Date endDate = (Date) ctx.getProperty().getValue();
+					if (endDate == null) {
+						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành không được rỗng");
+						result = false;
+					}
+					if (dateStart != null && endDate != null && dateStart.compareTo(endDate) >= 0) {
+						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành phải lớn hơn hoặc bằng ngày bắt đầu xúc tiến");
+						result = false;
+					}
+					return result;
+				}else {
+					Date endDate = (Date) ctx.getValidatorArg("endDate");
+					Date dateStart = (Date) ctx.getProperty().getValue();
+					if (dateStart == null) {
+						addInvalidMessage(ctx, "dateStart", "Ngày bắt đầu xúc tiến không được rỗng");
+						result = false;
+					}
+					if (dateStart != null && endDate != null && dateStart.compareTo(endDate) >= 0) {
+						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành phải lớn hơn hoặc bằng ngày bắt đầu xúc tiến");
+						result = false;
+					}
+				}
+				return result;
+			}
+		};
 	}
 }

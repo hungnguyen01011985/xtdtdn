@@ -107,7 +107,6 @@ public class BaseValid extends AbstractValidator {
 
 	private boolean validatePasswords(final ValidationContext ctx) {
 		final Object retype = ctx.getValidatorArg("password");
-		//System.out.println("retype: " + retype);
 		boolean result;
 		if (retype == null) {
 			result = true;
@@ -200,7 +199,6 @@ public class BaseValid extends AbstractValidator {
 		final Boolean flag = (Boolean) ctx.getValidatorArg("flagNamSinh");
 		String namSinhStr = (String) ctx.getValidatorArg("namSinh");
 		Date now = new Date();
-		//System.out.println("namSinhStr: " + namSinhStr);
 		if (flag == null || flag==false) {
 			return true;
 		}
@@ -225,7 +223,6 @@ public class BaseValid extends AbstractValidator {
 		Date now = new Date();
 		Date ngaySinh = (Date) ctx.getValidatorArg("ngaySinhConstraint");
 		int namSinh = 0;
-		//System.out.println("namSinh valid: " + namSinh);
 		final Boolean flag = (Boolean) ctx.getValidatorArg("flagBirth");
 		if (flag == null || flag==false) {
 			return true;
@@ -237,13 +234,10 @@ public class BaseValid extends AbstractValidator {
 			}
 		}
 		if (ngaySinh == null && namSinh == 0) {
-		//	System.out.println("x1");
 			addInvalidMessage(ctx, messg);
 			result = false;
 		} else {
-			//System.out.println("x2");
 			if (ngaySinh != null) {
-				//System.out.println("x3");
 				if (ngaySinh.after(now)) {
 					addInvalidMessage(ctx, messg1);
 					result = false;
@@ -252,7 +246,6 @@ public class BaseValid extends AbstractValidator {
 					result = false;
 				}
 			} else if (namSinh > 0) {
-				//System.out.println("x4");
 				int nam = 0;
 				try {
 					nam = namSinh;
@@ -264,7 +257,6 @@ public class BaseValid extends AbstractValidator {
 						result = false;
 					}
 				} catch (Exception e) {
-					//System.out.println(e.getMessage());
 					addInvalidMessage(ctx, "errNgaySinh", "Năm sinh không đúng");
 					result = false;
 				}

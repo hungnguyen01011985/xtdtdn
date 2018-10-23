@@ -45,7 +45,8 @@
 				<div class="col-md-12">
 					<div zclass="form-group">
 						<span>Tên dự án</span>
-						<textbox class="form-control" value="@bind(vm.tenDuAn)"></textbox>
+						<textbox class="form-control" placeholder="Nhập tên dự án" value="@bind(vm.tenDuAn)@save(vm.tenDuAn, before={'doAction','doActionWithKey'})@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
+							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -53,7 +54,7 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Người giao việc</span> 
-						<textbox class="form-control" value="" disabled="true"></textbox>
+						<textbox class="form-control" value="@bind(vm.nhanVien.hoVaTen)" disabled="true"></textbox>
 					</div>
 				</div>
 				
@@ -74,9 +75,8 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Ngày BĐ xúc tiến: Từ ngày</span> 
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)"
-							 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)@save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'})@validator(vm.validator, endDate = vm.ngayHoanThanh, type = false)" width="100%" placeholder="Chọn ngày"/>
+						<label zclass="error" value="@load(vmsgs['dateStart'])" />
 					</div>
 				</div>
 				
@@ -90,7 +90,7 @@
 				<div class="col-md-9">
 					<div zclass="form-group">
 						<span>Tên công việc</span>
-						<textbox class="form-control" value="@bind(vm.tenCongViec)"></textbox>
+						<textbox class="form-control" value="@bind(vm.tenCongViec)@save(vm.tenCongViec ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -98,16 +98,15 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Ngày hoàn thành</span> 
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayHoanThanh)"
-							 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayHoanThanh)@save(vm.ngayHoanThanh, before={'doAction','doActionWithKey'})@validator(vm.validator, dateStart = vm.ngayBatDauXucTien, type = true)" width="100%" placeholder="Chọn ngày"/>
+						<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 					</div>
 				</div>
 				
 				<div class="col-md-12">
 					<div zclass="form-group">
 						<span>Ý kiến chỉ đạo</span>
-						<textbox class="form-control" rows="3" value="@bind(vm.yKienChiDao)"></textbox>
+						<textbox class="form-control" rows="3" value="@bind(vm.yKienChiDao)@save(vm.yKienChiDao, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
