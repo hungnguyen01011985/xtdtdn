@@ -25,8 +25,6 @@ import vn.toancauxanh.gg.model.enums.MucDoUuTien;
 @Table(name="duan")
 public class DuAn extends Model<DuAn>{
 	private String tenDuAn;
-	private String tenCongViec;
-	private String yKienChiDao;
 	private String linhVuc;
 	private String diaDiem;
 	private String quyMoDuAn;
@@ -38,12 +36,11 @@ public class DuAn extends Model<DuAn>{
 	private KhaNangDauTu khaNangDauTu;
 	private NhanVien nguoiPhuTrach = new NhanVien();
 	private GiaiDoanXucTien giaiDoanXucTien = GiaiDoanXucTien.GIAI_DOAN_MOT;
-	private Date ngayHoanThanh;
 	private Date ngayBatDauXucTien;
 	private TepTin taiLieu;
 	private TepTin vanBanNDT;
 	private GiaiDoanDuAn giaiDoanDuAn;
-	private GiaoViec giaoViec;
+	private GiaoViec giaoViec = new GiaoViec();
 	
 	public DuAn() {
 		
@@ -90,30 +87,6 @@ public class DuAn extends Model<DuAn>{
 
 	public void setGiaiDoanXucTien(GiaiDoanXucTien giaiDoanXucTien) {
 		this.giaiDoanXucTien = giaiDoanXucTien;
-	}
-
-	public String getTenCongViec() {
-		return tenCongViec;
-	}
-
-	public void setTenCongViec(String tenCongViec) {
-		this.tenCongViec = tenCongViec;
-	}
-
-	public Date getNgayHoanThanh() {
-		return ngayHoanThanh;
-	}
-
-	public void setNgayHoanThanh(Date ngayHoanThanh) {
-		this.ngayHoanThanh = ngayHoanThanh;
-	}
-
-	public String getyKienChiDao() {
-		return yKienChiDao;
-	}
-
-	public void setyKienChiDao(String yKienChiDao) {
-		this.yKienChiDao = yKienChiDao;
 	}
 
 	@ManyToOne
@@ -236,31 +209,37 @@ public class DuAn extends Model<DuAn>{
 	}
 	
 	@Command
-	public void savePhuTrach(@BindingParam("wdn") final Window wdn,@BindingParam("list") final Object list) {
+	public void savePhuTrach(@BindingParam("wdn") final Window wdn,@BindingParam("list") final Object list, @BindingParam("attr") final String attr) {
 		wdn.detach();
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
 		variables.put("list", list);
-		variables.put("userPopup", "task_NguoiPhuTrach");
+		variables.put("attr", attr);
+		variables.put("goTask", "task_nguoiPhuTrach");
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
 	
 	@Command
-	public void luuGiaiDoan1() {
+	public void saveGiaoViec(@BindingParam("wdn") final Window wdn,@BindingParam("list") final Object list, @BindingParam("attr") final String attr) {
+		wdn.detach();
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
-		variables.put("userPopup", "task_LuuGiaiDoan1");
+		variables.put("goTask", "task_giaoViec");
+		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
 	
 	@Command
-	public void luuGiaiDoan1VaTiepTuc() {
+	public void goTask(@BindingParam("task") final String task) {
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
-		variables.put("userPopup", "task_LuuVaGiaiDoan2");
+		if(task != null) {
+			variables.put("goTask", task);
+		}
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
+	
 	
 	@Transient
 	public String getSrc() {

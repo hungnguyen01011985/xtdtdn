@@ -6,6 +6,7 @@
 	</zscript>
 	<zscript>
 		<![CDATA[
+		         
 			String id = execution.getParameter("id");
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
 			String giaiDoanXucTien = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT.getText();
@@ -53,7 +54,7 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Người giao việc</span> 
-						<textbox class="form-control" value="" disabled="true"></textbox>
+						<textbox class="form-control" value="@load(entry.nhanVien.hoVaTen)" disabled="true"></textbox>
 					</div>
 				</div>
 				
@@ -75,7 +76,7 @@
 					<div zclass="form-group">
 						<span>Ngày BĐ xúc tiến: Từ ngày</span> 
 						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)"
-							 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
+							  width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -90,7 +91,7 @@
 				<div class="col-md-9">
 					<div zclass="form-group">
 						<span>Tên công việc</span>
-						<textbox class="form-control" value="@bind(vm.tenCongViec)"></textbox>
+						<textbox class="form-control" value="@bind(vm.giaoViec.tenCongViec)"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -98,8 +99,8 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Ngày hoàn thành</span> 
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayHoanThanh)"
-							 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaoViec.hanThucHien)"
+							  width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -107,7 +108,7 @@
 				<div class="col-md-12">
 					<div zclass="form-group">
 						<span>Ý kiến chỉ đạo</span>
-						<textbox class="form-control" rows="3" value="@bind(vm.yKienChiDao)"></textbox>
+						<textbox class="form-control" rows="3" value="@bind(vm.giaoViec.yKienChiDao)"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>

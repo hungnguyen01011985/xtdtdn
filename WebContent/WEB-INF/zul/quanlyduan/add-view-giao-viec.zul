@@ -2,16 +2,13 @@
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
 		closable="true" title="${arg.save}"
-		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
-		whatever="@load(false,after='savePhongBan') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
-		
 			<zscript><![CDATA[
 				vmArgs = arg.get("vmArgs");
 				strSave = arg.get("save");
 			]]></zscript> 
 			
-		<div class="w-popup-content-medium">
+		<div class="w-popup-content-medium" style="margin:0 15px;">
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div zclass="col-md-6">
 					<div zclass="form-group">
@@ -28,7 +25,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Giai đoạn</x:span>
 						</div>
-						<textbox class="form-control" value="@bind(vm.tenDuAn)" disabled="true"></textbox>
+						<textbox class="form-control" value="@bind(vm.giaiDoanXucTien.text)" disabled="true"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -38,7 +35,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Người giao</x:span>
 						</div>
-						<textbox class="form-control" value="@bind(vm.tenDuAn)" disabled="true"></textbox>
+						<textbox class="form-control" value="" disabled="true"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -48,7 +45,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Người được giao</x:span>
 						</div>
-						<textbox class="form-control" value="@load(vm.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
+						<textbox class="form-control" value="@load(vm.nguoiPhuTrach.hoVaTen)"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -58,7 +55,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Tên công việc</x:span>
 						</div>
-						<textbox class="form-control" value="@bind(vm.tenDuAn)"></textbox>
+						<textbox class="form-control" value="@bind(vm.giaoViec.tenCongViec)"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -68,8 +65,8 @@
 						<div class="flex">
 							<x:span class="issue-search">Ngày giao</x:span>
 						</div>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayGiao)"
-							 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
+							  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.ngayGiao)"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -79,7 +76,8 @@
 						<div class="flex">
 							<x:span class="issue-search">Hạn thực hiện</x:span>
 						</div>
-						<textbox class="form-control" value="@bind(vm.tenDuAn)" disabled="true"></textbox>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
+							  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.hanThucHien)"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -89,7 +87,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Ý kiến chỉ đạo</x:span>
 						</div>
-						<textbox class="form-control" value="@bind(vm.tenDuAn)" rows="3"></textbox>
+						<textbox class="form-control" value="@bind(vm.giaoViec.yKienChiDao)" rows="3"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -106,7 +104,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('savePhuTrach',wdn=wdn, list=vm)">
+						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveGiaoViec',wdn=wdn, list=vm)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>

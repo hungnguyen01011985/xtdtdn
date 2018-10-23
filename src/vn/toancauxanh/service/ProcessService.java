@@ -16,11 +16,14 @@ import org.camunda.bpm.engine.task.Task;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.zk.ui.Executions;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.model.DonViDuAn;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaiDoanDuAn;
 import vn.toancauxanh.model.GiaoViec;
+import vn.toancauxanh.model.QGiaiDoanDuAn;
 
 public class ProcessService extends BasicService<Object>{
 	
@@ -31,12 +34,12 @@ public class ProcessService extends BasicService<Object>{
 	public void luuDuLieuDuAnVaBatDauXucTien(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.save();
-		model.setGiaoViec(new GiaoViec());
 		model.getGiaoViec().setDuAn(model);
 		model.getGiaoViec().setNgayGiao(new Date());
 		model.getGiaoViec().setNguoiGiaoViec(model.getNguoiTao());
 		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
+		model.getGiaoViec().save();
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
@@ -56,10 +59,12 @@ public class ProcessService extends BasicService<Object>{
 		model.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.save();
 		model.getGiaiDoanDuAn().setDuAn(model);
+		model.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaiDoanDuAn().save();
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 		luuDuLieuDonVi(model.getGiaiDoanDuAn());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		((ExecutionEntity) execution).setVariable("thoiHanGiaiDoanMot", sdf.format(new Date()));
+		((ExecutionEntity) execution).setVariable("thoiHanGiaiDoanMot", sdf.format(model.getNgayBatDauXucTien()));
+		System.out.println("Ngay bat dau:"+sdf.format(model.getNgayBatDauXucTien()));
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
@@ -71,6 +76,8 @@ public class ProcessService extends BasicService<Object>{
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_HAI);
 		model.save();
+		model.getGiaiDoanDuAn().setDuAn(model);
+		model.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaiDoanDuAn().save();
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
@@ -86,14 +93,21 @@ public class ProcessService extends BasicService<Object>{
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
-		model.save();
-		if (((ExecutionEntity) execution).getVariable("userPopup") != null) {
-			((ExecutionEntity) execution).removeVariable("userPopup");
-		}
+		model.getNguoiPhuTrach().save();
+	}
+	
+	public void giaoViecDuAn(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		model.getGiaoViec().setDuAn(model);
+		model.getGiaoViec().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
+		model.getGiaoViec().setNguoiGiaoViec(core().getNhanVien());
+		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
+		model.getGiaoViec().save();
 	}
 	
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(model.getGiaiDoanXucTien())) {
 			((ExecutionEntity) execution).setVariable("isDangOGiaiDoannMot", true);
 			return;
@@ -101,9 +115,24 @@ public class ProcessService extends BasicService<Object>{
 		((ExecutionEntity) execution).setVariable("isDangOGiaiDoannMot", false);
 	}
 	
+	public void validateDuLieuGiaiDoanBaVaKetThucDuAn(Execution execution) {
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBaVaKetThucDuAn", true);
+	}
+	
+	public void validateDuLieuGiaiDoanHai(Execution execution) {
+		System.out.println("validate du liueu gd 2");
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanHaiHopLe", true);
+	}
+	
 	public void thongBaoTreHannGiaiDoanMot(Execution execution) {
 		System.out.println("tre han nha");
 	}
+	
+	public void validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
+		System.out.println("validate du liueu gd 2");
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBaHopLe", true);
+	}
+	
 	
 	public void redirectGiaiDoanDuAnById(Long id) {
 		Executions.sendRedirect("/cp/quanlyduan/giaidoan/"+id);
@@ -113,10 +142,40 @@ public class ProcessService extends BasicService<Object>{
 		for(DonViDuAn s : giaiDoanDuAn.getDonViDuAn()) {
 			s.setGiaiDoanDuAn(giaiDoanDuAn);
 			s.save();
-			if (s.getDonVi() != null) {
-
-			}
 		}
+	}
+	
+	public void luuDuLieuQuayLaiGiaiDoanMot(Execution execution) {
+		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_HAI);
+		duAn.getGiaiDoanDuAn().save();
+		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
+				.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.eq(duAn))
+				.where(QGiaiDoanDuAn.giaiDoanDuAn.trangThai.ne(core().TT_DA_XOA));
+		for(GiaiDoanDuAn s : q.fetch()) {
+			s.doDelete(true);
+		}
+		duAn.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
+		duAn.save();
+		redirectGiaiDoanDuAnById(duAn.getId());
+	}
+	
+	public void luuDuLieuGIaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
+		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		duAn.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_BA);
+		duAn.save();
+		duAn.getGiaiDoanDuAn().setDuAn(duAn);
+		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_HAI);
+		duAn.getGiaiDoanDuAn().save();
+		redirectGiaiDoanDuAnById(duAn.getId());
+	}
+	
+	public void luuDuLieuGiaiDoanHai(Execution execution) {
+		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		duAn.getGiaiDoanDuAn().setDuAn(duAn);
+		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_HAI);
+		duAn.getGiaiDoanDuAn().save();
+		redirectGiaiDoanDuAnById(duAn.getId());
 	}
 	
 	public List<PvmTransition> getTransitions(Task task) {
