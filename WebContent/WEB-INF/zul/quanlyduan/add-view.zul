@@ -6,6 +6,7 @@
 	</zscript>
 	<zscript>
 		<![CDATA[
+		         
 			String id = execution.getParameter("id");
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
 			String giaiDoanXucTien = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT.getText();
@@ -53,7 +54,7 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Người giao việc</span> 
-						<textbox class="form-control" value="" disabled="true"></textbox>
+						<textbox class="form-control" value="@load(entry.nhanVien.hoVaTen)" disabled="true"></textbox>
 					</div>
 				</div>
 				

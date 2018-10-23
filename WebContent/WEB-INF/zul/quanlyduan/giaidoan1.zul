@@ -5,7 +5,7 @@
 	</zscript>
 	<zscript>
 		<![CDATA[
-		    vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId());
+		    vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
 			vm.setGiaiDoanDuAn(item);
 			list = new vn.toancauxanh.service.DonViDuAnService().getListDonViById(item.getId());
 			if (list != null){

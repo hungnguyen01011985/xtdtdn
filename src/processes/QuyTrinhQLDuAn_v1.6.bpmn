@@ -221,7 +221,6 @@
     <bpmn:sequenceFlow id="seqFlow_validateGD1" name="Lưu dữ liệu giai đoạn một" sourceRef="ExclusiveGateway_06m6egx" targetRef="ServiceTask_1mfraoe">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_luuGiaiDoanMot'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_12igmge" sourceRef="ParallelGateway_16vebs2" targetRef="IntermediateCatchEvent_0saec3c" />
     <bpmn:serviceTask id="ServiceTask_16inqqe" name="&#10;&#10;Validate dữ liệu giai đoạn một và tiếp tục giai đoạn hai&#10;" camunda:expression="${entry.processService.validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(execution)}">
       <bpmn:incoming>seqFlow_validateGD1TiepTuc</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0w4yiqy</bpmn:outgoing>
@@ -518,7 +517,7 @@
       <bpmn:incoming>SequenceFlow_15vabh6</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1rq9yjy</bpmn:outgoing>
       <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_1e2mpec">
-        <bpmn:condition xsi:type="bpmn:tFormalExpression" />
+        <bpmn:condition xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanHai.equals(now())}</bpmn:condition>
       </bpmn:conditionalEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:serviceTask id="ServiceTask_0rnp5zq" name="Kiểm tra đang ở giai đoạn hai" camunda:expression="${entry.processService.kiemTraDangOGiaiDoanHai(execution)}">
@@ -686,6 +685,7 @@
       <bpmn:incoming>SequenceFlow_10e3h3j</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ireszk</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_12igmge" sourceRef="ParallelGateway_16vebs2" targetRef="IntermediateCatchEvent_0saec3c" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1lwxicr">
