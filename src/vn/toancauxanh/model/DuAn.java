@@ -246,16 +246,16 @@ public class DuAn extends Model<DuAn>{
 	
 	@Transient
 	public String getSrc() {
-		if (GiaiDoanXucTien.GIAI_DOAN_MOT.name().equals(getGiaiDoanXucTien().name())) {
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien())) {
 			return "quanlyduan/giaidoan1.zul";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_HAI.name().equals(getGiaiDoanXucTien().name())) {
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(getGiaiDoanXucTien())) {
 			return "quanlyduan/giaidoan2.zul";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BA.name().equals(getGiaiDoanXucTien().name())) {
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(getGiaiDoanXucTien())) {
 			return "quanlyduan/giaidoan3.zul";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BON.name().equals(getGiaiDoanXucTien().name())) {
+		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(getGiaiDoanXucTien())) {
 			return "quanlyduan/giaidoan4.zul";
 		}
 		return null;

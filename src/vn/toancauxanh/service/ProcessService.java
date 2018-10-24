@@ -64,7 +64,6 @@ public class ProcessService extends BasicService<Object>{
 		SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 		luuDuLieuDonVi(model.getGiaiDoanDuAn());
 		((ExecutionEntity) execution).setVariable("thoiHanGiaiDoanMot", sdf.format(model.getNgayBatDauXucTien()));
-		System.out.println("Ngay bat dau:"+sdf.format(model.getNgayBatDauXucTien()));
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
@@ -120,16 +119,13 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void validateDuLieuGiaiDoanHai(Execution execution) {
-		System.out.println("validate du liueu gd 2");
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanHaiHopLe", true);
 	}
 	
 	public void thongBaoTreHannGiaiDoanMot(Execution execution) {
-		System.out.println("tre han nha");
 	}
 	
 	public void validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
-		System.out.println("validate du liueu gd 2");
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBaHopLe", true);
 	}
 	
