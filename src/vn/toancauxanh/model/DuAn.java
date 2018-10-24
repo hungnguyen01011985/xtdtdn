@@ -13,8 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.sys.ValidationMessages;
+import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
@@ -243,18 +246,61 @@ public class DuAn extends Model<DuAn>{
 	
 	@Transient
 	public String getSrc() {
-		if (GiaiDoanXucTien.GIAI_DOAN_MOT.name().equals(getGiaiDoanXucTien().name())) {
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien())) {
 			return "quanlyduan/giaidoan1.zul";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_HAI.name().equals(getGiaiDoanXucTien().name())) {
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(getGiaiDoanXucTien())) {
 			return "quanlyduan/giaidoan2.zul";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BA.name().equals(getGiaiDoanXucTien().name())) {
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(getGiaiDoanXucTien())) {
 			return "quanlyduan/giaidoan3.zul";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BON.name().equals(getGiaiDoanXucTien().name())) {
+		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(getGiaiDoanXucTien())) {
 			return "quanlyduan/giaidoan4.zul";
 		}
 		return null;
+	}
+	
+	@Transient
+	public AbstractValidator getValidator() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+				if (vmsgs != null) {
+					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
+					vmsgs.clearMessages(ctx.getBindContext().getComponent());
+				}
+				validateNgayHoanThanh(ctx);
+			}
+			private boolean validateNgayHoanThanh(final ValidationContext ctx){
+				Boolean type = (Boolean) ctx.getValidatorArg("type");
+				Date endDate = (Date) ctx.getValidatorArg("endDate");
+				Date dateStart = (Date) ctx.getValidatorArg("dateStart");
+				boolean result = true;
+				if (type) {
+					Date checkDate = (Date) ctx.getProperty().getValue();
+					if (checkDate == null) {
+						addInvalidMessage(ctx, "dateStart", "Ngày bắt đầu xúc tiến không được rỗng");
+						result = false;
+					}
+					if (checkDate != null && endDate != null && checkDate.compareTo(endDate) > 0) {
+						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành phải lớn hơn hoặc bằng ngày bắt đầu xúc tiến");
+						result = false;
+					}
+				}else {
+					Date checkDate = (Date) ctx.getProperty().getValue();
+					if (checkDate == null) {
+						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành không được rỗng");
+						result = false;
+					}
+					if (dateStart != null && checkDate != null && dateStart.compareTo(checkDate) > 0) {
+						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành phải lớn hơn hoặc bằng ngày bắt đầu xúc tiến");
+						result = false;
+					}
+				}
+				return result;
+			}
+		};
 	}
 }

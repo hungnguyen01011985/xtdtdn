@@ -481,9 +481,6 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 		if(wdn != null) {
 			wdn.detach();
 		}
-		System.out.println("Zô doAction");
-		System.out.println("flow:"+flow.getId());
-		System.out.println("currentTassk: "+getCurrentTask().getId());
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("flow", flow.getId());
 		variables.put("model", this);
@@ -502,9 +499,6 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 			@BindingParam("list") final Object listObject, 
 			@BindingParam("attr") final String attr, 
 			@BindingParam("wdn") final Window wdn) {
-		System.out.println("Zô doActionWithKey");
-		System.out.println("Flow"+flow.getId());
-		System.out.println("processDefinitionKey:"+processDefinitionKey);
 		Task task = null;
 		if (getCurrentTask() == null) {
 			save();
