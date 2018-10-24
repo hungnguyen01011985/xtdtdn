@@ -6,7 +6,6 @@
 	</zscript>
 	<zscript>
 		<![CDATA[
-		         
 			String id = execution.getParameter("id");
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
 			String giaiDoanXucTien = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT.getText();

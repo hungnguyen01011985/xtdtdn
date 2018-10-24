@@ -240,7 +240,6 @@ public class DuAn extends Model<DuAn>{
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
 	
-	
 	@Transient
 	public String getSrc() {
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.name().equals(getGiaiDoanXucTien().name())) {
@@ -257,4 +256,5 @@ public class DuAn extends Model<DuAn>{
 		}
 		return null;
 	}
+	
 }

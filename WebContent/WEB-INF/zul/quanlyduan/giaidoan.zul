@@ -8,6 +8,8 @@
 		<![CDATA[
 			String id = execution.getParameter("id");
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
+			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
+			vm.setGiaiDoanDuAn(item);
 		]]>
 	</zscript>
 	<div viewModel="@id('vm') @init(vm)"> 
@@ -141,9 +143,6 @@
 						<span>Mức độ ưu tiên</span>
 						<combobox readonly="true" selectedItem="@bind(vm.mucDoUuTien)"
 							class="his" placeholder="Chọn" width="100%">
-							<!-- <template name="model">
-								<comboitem label="@load(each.text)"></comboitem>
-							</template> -->
 						</combobox>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />
@@ -174,8 +173,23 @@
 				
 			</div>
 		</div>
-		<!-- include -->
 		<include src="${vm.getSrc()}"></include>
+		
+		<n:script>
+		function toggleTabPanel(doiTuong){
+			var zz =  $(doiTuong).parent();
+			if($(zz).find(".content-tab-panel").css("height")=="0px"){
+				$(".zz").css("height","auto");
+				$(zz).find(".content-tab-panel").css("height","auto");
+				$(zz).find(".content-tab-panel").css("visibility","visible");
+			}else{
+				$(".zz").css("height","49px");
+				$(zz).find(".content-tab-panel").css("height","0px");
+				$(zz).find(".content-tab-panel").css("visibility","hidden");
+			}
+			
+		}
+	</n:script>
 		
 </div>
 </window>
