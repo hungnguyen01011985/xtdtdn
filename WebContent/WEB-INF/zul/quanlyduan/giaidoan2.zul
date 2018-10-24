@@ -1,14 +1,5 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd">
-	<zscript>
-		page.title = "Xúc tiến dự án";
-	</zscript>
-	<zscript>
-		<![CDATA[
-		        vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), vm.getGiaiDoanXucTien());
-				vm.setGiaiDoanDuAn(item);
-		]]>
-	</zscript>
 	<div> 
 		<div class="panel-box border-box mg-bottom-15">
 		
@@ -26,18 +17,18 @@
 						<div class="plan-line">
 						</div>
 						<div class="plan-item">
-							<div class="plan-number plan-number-active">
-								<span>1</span>
+							<div class="plan-number plan-number-completed">
+								<x:image src="${contexPath}/assets/icon-bxtdn/check-qua-giai-doan.svg"/>
 							</div>
-							<div class="plan-title plan-title-active">
+							<div class="plan-title">
 								<span>Giới thiệu địa điểm thực hiện dự án</span>
 							</div>
 						</div>
 						<div class="plan-item">
-							<div class="plan-number">
+							<div class="plan-number plan-number-active">
 								<span>2</span>
 							</div>
-							<div class="plan-title">
+							<div class="plan-title plan-title-active">
 								<span>Khảo sát thực tế địa điểm dự án</span>
 							</div>
 						</div>
@@ -63,13 +54,13 @@
 			
 			<div class="row mg-top-no-line">
 				<div zclass="col-md-12">
-					<div class="title-small-page mgn-bt-0">
+					<div class="title-small-page" style="margin-bottom:0;">
 						<span>Khảo sát thực tế</span>
 					</div>
 				</div>
 				
-				<div zclass="col-md-4">
-					<div zclass="form-group mg-top-8">
+				<div zclass="col-md-3">
+					<div zclass="form-group">
 						<span>Ngày khảo sát</span>
 						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayKhaoSat)"
 							 width="100%" placeholder="Chọn ngày"/>
@@ -79,9 +70,9 @@
 				</div>
 
 				<div zclass="col-md-12">
-					<div zclass="form-group mg-top-8">
+					<div zclass="form-group">
 						<span>Ghi chú</span>
-						<textbox class="form-control" rows="3" value="@bind(vm.giaiDoanDuAn.ghiChu)"></textbox>
+						<textbox class="form-control" rows="4" value="@bind(vm.giaiDoanDuAn.ghiChu)"></textbox>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
@@ -101,11 +92,11 @@
 			</div>
 		<div class="row mg-and-bg-and-line">
 			<div zclass="col-md-12">
-					<div class="title-small-page mgn-bt-0">
+					<div class="title-small-page" style="margin-bottom:0;">
 						<span>Văn bản đồng ý địa điểm</span>
 					</div>
 				</div>
-				<div zclass="col-md-4">
+				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Ngày phát hành CV</span> 
 						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCVGD2)"
@@ -172,20 +163,5 @@
 			</div>
 		</div>
 	</div>
-	<n:script>
-		function toggleTabPanel(doiTuong){
-			var zz =  $(doiTuong).parent();
-			if($(zz).find(".content-tab-panel").css("height")=="0px"){
-				$(".zz").css("height","auto");
-				$(zz).find(".content-tab-panel").css("height","auto");
-				$(zz).find(".content-tab-panel").css("visibility","visible");
-			}else{
-				$(".zz").css("height","49px");
-				$(zz).find(".content-tab-panel").css("height","0px");
-				$(zz).find(".content-tab-panel").css("visibility","hidden");
-			}
-			
-		}
-	</n:script>
 </div>
 </window>

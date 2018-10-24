@@ -243,7 +243,6 @@ public class DuAn extends Model<DuAn>{
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
 	
-	
 	@Transient
 	public String getSrc() {
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien())) {

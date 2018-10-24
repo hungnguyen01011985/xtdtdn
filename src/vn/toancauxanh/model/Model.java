@@ -464,6 +464,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 			List<IdentityLink> identities = core().getProcess()
 					.getTaskService().getIdentityLinksForTask(getCurrentTask().getId());
 			for (IdentityLink identity : identities) {
+				System.out.println(identity.getGroupId());
 				if (core().getNhanVien().getListNhom().contains(identity.getGroupId())) {
 					return true;
 				}
@@ -513,6 +514,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 	                .processInstanceId(processInstance.getId())
 	                //.taskCandidateGroup("dev-managers")
 	                .singleResult();
+			System.out.println("Add task"+task.getId());
 		} else {
 			task = getCurrentTask();
 		}
