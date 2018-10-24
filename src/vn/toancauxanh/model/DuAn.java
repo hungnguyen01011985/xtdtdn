@@ -275,26 +275,26 @@ public class DuAn extends Model<DuAn>{
 			}
 			private boolean validateNgayHoanThanh(final ValidationContext ctx){
 				Boolean type = (Boolean) ctx.getValidatorArg("type");
+				Date endDate = (Date) ctx.getValidatorArg("endDate");
+				Date dateStart = (Date) ctx.getValidatorArg("dateStart");
 				boolean result = true;
 				if (type) {
-					Date dateStart = (Date) ctx.getValidatorArg("dateStart");
-					Date endDate = (Date) ctx.getProperty().getValue();
-					if (endDate == null) {
-						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành không được rỗng");
+					Date checkDate = (Date) ctx.getProperty().getValue();
+					if (checkDate == null) {
+						addInvalidMessage(ctx, "dateStart", "Ngày bắt đầu xúc tiến không được rỗng");
 						result = false;
 					}
-					if (dateStart != null && endDate != null && dateStart.compareTo(endDate) >= 0) {
+					if (checkDate != null && endDate != null && checkDate.compareTo(endDate) > 0) {
 						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành phải lớn hơn hoặc bằng ngày bắt đầu xúc tiến");
 						result = false;
 					}
 				}else {
-					Date endDate = (Date) ctx.getValidatorArg("endDate");
-					Date dateStart = (Date) ctx.getProperty().getValue();
-					if (dateStart == null) {
-						addInvalidMessage(ctx, "dateStart", "Ngày bắt đầu xúc tiến không được rỗng");
+					Date checkDate = (Date) ctx.getProperty().getValue();
+					if (checkDate == null) {
+						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành không được rỗng");
 						result = false;
 					}
-					if (dateStart != null && endDate != null && dateStart.compareTo(endDate) >= 0) {
+					if (dateStart != null && checkDate != null && dateStart.compareTo(checkDate) > 0) {
 						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành phải lớn hơn hoặc bằng ngày bắt đầu xúc tiến");
 						result = false;
 					}
