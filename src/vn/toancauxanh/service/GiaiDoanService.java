@@ -10,9 +10,9 @@ public class GiaiDoanService extends BasicService<GiaiDoanDuAn>{
 		if (idDuAn != null) {
 			JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
 					.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(idDuAn))
+					.where(QGiaiDoanDuAn.giaiDoanDuAn.trangThai.ne(core().TT_DA_XOA))
 					.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
 			if (q.fetch().size() > 0) {
-				System.out.println("OKKKKKKKKKKKKKKKK");
 				return q.fetchFirst();
 			}
 		}

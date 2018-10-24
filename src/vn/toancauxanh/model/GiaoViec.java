@@ -22,6 +22,15 @@ public class GiaoViec extends Model<GiaoViec>{
 	private Date hanThucHien;
 	private GiaiDoanXucTien giaiDoanXucTien;
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
+	private String yKienChiDao;
+	
+	public String getyKienChiDao() {
+		return yKienChiDao;
+	}
+
+	public void setyKienChiDao(String yKienChiDao) {
+		this.yKienChiDao = yKienChiDao;
+	}
 
 	@ManyToOne
 	public DuAn getDuAn() {

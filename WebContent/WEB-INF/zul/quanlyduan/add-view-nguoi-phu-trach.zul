@@ -5,8 +5,8 @@
 		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
 		whatever="@load(false,after='savePhongBan') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
-		
 			<zscript><![CDATA[
+			    vm.setGiaoViec(new vn.toancauxanh.model.GiaoViec());
 				vmArgs = arg.get("vmArgs");
 				strSave = arg.get("save");
 			]]></zscript> 
@@ -46,7 +46,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('savePhuTrach',wdn=wdn, list=vm)">
+						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('savePhuTrach',wdn=wdn, list=vm, attr='nguoiPhuTrach')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>

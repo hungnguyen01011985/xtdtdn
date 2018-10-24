@@ -1,12 +1,12 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
-<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" class="form-list content-reset">
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd">
 	<zscript>
 		page.title = "Xúc tiến dự án";
 	</zscript>
 	<zscript>
 		<![CDATA[
-			
+		         vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId());
+					vm.setGiaiDoanDuAn(item);
 		]]>
 	</zscript>
 	<div> 
@@ -71,8 +71,8 @@
 				<div zclass="col-md-4">
 					<div zclass="form-group mg-top-8">
 						<span>Ngày khảo sát</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
-							 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayKhaoSat)"
+							 width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
@@ -148,12 +148,22 @@
 						<span>Giao việc</span>
 					</x:button>
 					
-					<x:button onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = vm)" class="btn btn-blue mg-btn">
+					<x:button onClick="@command('goTask', task = 'task_ketThucDuAn')" class="btn btn-blue mg-btn">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
+						<span>Kết thúc dự án</span>
+					</x:button>
+					
+					<x:button onClick="@command('goTask', task = 'task_quayLaiGiaiDoanMot')" class="btn btn-blue mg-btn">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
+						<span>Quay lại giai đoạn một</span>
+					</x:button>
+					
+					<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanHai')" class="btn btn-blue mg-btn">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
 						<span>Lưu dữ liệu giai đoạn hai</span>
 					</x:button>
 					
-					<x:button onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = vm)" class="btn btn-blue mg-btn">
+					<x:button onClick="@command('goTask', task = 'task_luuVaTiepTucGiaiDoanBa')" class="btn btn-blue mg-btn">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
 						<span>Tiếp tục giai đoạn ba</span>
 					</x:button>
