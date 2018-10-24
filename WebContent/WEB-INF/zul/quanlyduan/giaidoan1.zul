@@ -5,7 +5,7 @@
 	</zscript>
 	<zscript>
 		<![CDATA[
-			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId());
+		    vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
 			vm.setGiaiDoanDuAn(item);
 			list = new vn.toancauxanh.service.DonViDuAnService().getListDonViById(item.getId());
 			if (list != null){
@@ -143,13 +143,13 @@
 							<span>Giao việc</span>
 						</x:button>
 						
-						<x:button onClick="@command('luuGiaiDoan1')"
+						<x:button onClick="@command('goTask', task = 'task_luuGiaiDoanMot')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu dữ liệu giai đoạn một</span>
 						</x:button>
 						
-						<x:button onClick="@command('luuGiaiDoan1VaTiepTuc')"
+						<x:button onClick="@command('goTask', task = 'task_luuVaTiepTucGiaiDoanHai')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu dữ liệu giai đoạn một và tiếp tục giai đoạn hai</span>

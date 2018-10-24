@@ -6,6 +6,7 @@
 	</zscript>
 	<zscript>
 		<![CDATA[
+		         
 			String id = execution.getParameter("id");
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
 			String giaiDoanXucTien = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT.getText();
@@ -54,7 +55,7 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Người giao việc</span> 
-						<textbox class="form-control" value="@bind(vm.nhanVien.hoVaTen)" disabled="true"></textbox>
+						<textbox class="form-control" value="@load(entry.nhanVien.hoVaTen)" disabled="true"></textbox>
 					</div>
 				</div>
 				
@@ -75,7 +76,7 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Ngày BĐ xúc tiến: Từ ngày</span> 
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)@save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'})@validator(vm.validator, endDate = vm.ngayHoanThanh, type = false)" width="100%" placeholder="Chọn ngày"/>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)@save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'})@validator(vm.validator, endDate = vm.giaoViec.hanThucHien, type = false)" width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error" value="@load(vmsgs['dateStart'])" />
 					</div>
 				</div>
@@ -90,7 +91,7 @@
 				<div class="col-md-9">
 					<div zclass="form-group">
 						<span>Tên công việc</span>
-						<textbox class="form-control" placeholder="Nhập tên công việc" value="@bind(vm.tenCongViec)@save(vm.tenCongViec ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						<textbox class="form-control" placeholder="Nhập tên công việc" value="@bind(vm.giaoViec.tenCongViec)@save(vm.giaoViec.tenCongViec ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
@@ -99,7 +100,7 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Ngày hoàn thành</span> 
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayHoanThanh)@save(vm.ngayHoanThanh, before={'doAction','doActionWithKey'})@validator(vm.validator, dateStart = vm.ngayBatDauXucTien, type = true)" width="100%" placeholder="Chọn ngày"/>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaoViec.hanThucHien)@save(vm.giaoViec.hanThucHien, before={'doAction','doActionWithKey'})@validator(vm.validator, dateStart = vm.ngayBatDauXucTien, type = true)" width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 					</div>
 				</div>
@@ -107,7 +108,7 @@
 				<div class="col-md-12">
 					<div zclass="form-group">
 						<span>Ý kiến chỉ đạo</span>
-						<textbox class="form-control" rows="3" placeholder="Nhập ý kiến chỉ đạo" value="@bind(vm.yKienChiDao)@save(vm.yKienChiDao, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						<textbox class="form-control" rows="3" placeholder="Nhập ý kiến chỉ đạo" value="@bind(vm.giaoViec.yKienChiDao)@save(vm.giaoViec.yKienChiDao, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
