@@ -37,6 +37,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	//Thông tin giai đoạn 4
 	private PhuongThucLuaChonNDT phuongThucLuaChonNDT;
 	private String donViChuTri;
+	private boolean option = true;
 	//Lập kế hoạch chi tiết 1/500
 	private String donViTuVan;
 	private Date ngayGuiSoXayDungLKH;
@@ -531,5 +532,14 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 		this.ngayGuiSoKeHoachVaDauTu = ngayGuiSoKeHoachVaDauTu;
 	}
 
+	public boolean isOption() {
+		return option;
+	}
+
+	public void setOption(boolean option) {
+		this.option = option;
+	}
+	
+	
 	
 }

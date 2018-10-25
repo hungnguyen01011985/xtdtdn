@@ -1,17 +1,28 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd reset-bg">
+<zscript>
+		<![CDATA[
+			
+				vn.toancauxanh.model.GiaiDoanDuAn giaiDoan4 = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
+				vm.setGiaiDoanDuAn(giaiDoan4);
+				if(vm.getGiaiDoanDuAn().isOption()){
+					vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
+					vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
+					vm.getGiaiDoanDuAn().setOption(false);
+				}
+		]]>
+	</zscript>
 <div style="height:75px;">
 					<div zclass="col-md-12">
 						<div zclass="form-group mg-top-8">
 							<span>Địa điểm dự kiến thực hiện dự án đã có trong danh mục quỹ đất đấu giá quyền sử dụng đất được thành phố phê duyệt chưa?</span>
 						</div>
 					</div>
-					
-					<radiogroup id="sv1"/>
+					<radiogroup id="sv2"/>
 					<div zclass="col-md-12">
 						<div zclass="form-group">
-							<radio label="Có" radiogroup="sv1" onCheck="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)"></radio>
-							<radio label="Chưa" radiogroup="sv1" checked="true" onCheck="@command('srcGiaiDoanBon',giatri=false, vmArgs = vm)" style="margin-left:15px;"></radio>
+							<radio label="Có" radiogroup="sv2" onCheck="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)"></radio>
+							<radio label="Chưa" checked="true" radiogroup="sv2" onCheck="@command('srcGiaiDoanBon',giatri=false, vmArgs = vm)" style="margin-left:15px;"></radio>
 						</div>
 					</div>
 				</div>

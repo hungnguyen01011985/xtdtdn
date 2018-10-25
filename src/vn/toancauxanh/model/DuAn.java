@@ -293,6 +293,7 @@ public class DuAn extends Model<DuAn>{
 			if(giatri) {
 				setSrcGiaiDoan4("quanlyduan/dau-gia-co.zul");
 			}else {
+				System.out.println("zoooo");
 				setSrcGiaiDoan4("quanlyduan/dau-gia-chua.zul");
 			}
 		}
@@ -304,6 +305,7 @@ public class DuAn extends Model<DuAn>{
 			}
 		}
 		BindUtils.postNotifyChange(null, null, duAn, "srcGiaiDoan4");
+		BindUtils.postNotifyChange(null, null, duAn, "option");
 	}
 	
 	@Transient
