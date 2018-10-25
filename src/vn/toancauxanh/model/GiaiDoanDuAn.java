@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 
 @Entity
 @Table(name="giaidoanduan")
@@ -33,6 +34,55 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	private TepTin taiLieuGD3;
 	private Date ngayPhatHanhCV3;
 	private TepTin congVanGD3;
+	//Thông tin giai đoạn 4
+	private PhuongThucLuaChonNDT phuongThucLuaChonNDT;
+	private String donViChuTri;
+	//Lập kế hoạch chi tiết 1/500
+	private String donViTuVan;
+	private Date ngayGuiSoXayDungLKH;
+	private Date ngayDuKienNhanCongVan;
+	private TepTin hoSoQuyHoachLKH;
+	private TepTin quyetDinhPheDuyet;
+	//Xây dựng phương án đấu giá quyền sử dụng đất
+	private String donViTuVanXDPA;
+	private Date ngayGuiLayGopY;
+	private Date ngayDuKienNhanCongVanXDPA;
+	private TepTin phuongAnDauGia;
+	//Quyết định đấu giá quyền sử dụng đất
+	private Date ngayGuiQDDG;
+	private Date ngayDuKienNhanCongVanQDDG;
+	private TepTin quyetDinhQDDG;
+	//Quyết định phê duyệt giá đất khởi điểm đấu giá
+	private Date ngayGuiQDPD;
+	private Date ngayNhanQDPD;
+	private TepTin quyetDinhQDPD;
+	//Gửi công văn đề nghị bổ sung địa điểm thực hiện dự án
+	private Date ngayGuiCongVanDNBS;
+	private Date ngayDuKienNhanCongVanDNBS;
+	private TepTin phuongAnDauGiaBNBS;
+	private TepTin quyetDinhBoSungDanhMucDNBS;
+	//Nghị quyết phê duyệt danh mục dụ án cần thu hồi đất
+	private Date ngayGuiNQPD;
+	private Date ngayDuKienNhanCongVanNQPD;
+	//Lập dự toán
+	private Date ngayGuiLDT;
+	private Date ngayDuKienNhanCongVanLDT;
+	private Double duToanDoDacKhuDat;
+	private Double duToanGiaiPhongMatBang;
+	//Trình phê duyệt danh mục
+	private Date ngayGuiTPDDM;
+	private Date ngayDuKienNhanCongVanTPDDM;
+	//Trình phê duyệt bổ sung kinh phí
+	private Date ngayGuiTPDKP;
+	private Date ngayDuKienNhanCongVanTPDKP;
+	//Phương án bồi thường giải phóng mặt bằng
+	private Date ngayGuiGPMB;
+	private Date ngayDuKienNhanCongVanGPMB;
+	//Quyết định phê duyệt giá đất khởi điểm
+	private Double giaKhoiDiem;
+	private Date ngayGuiGDKD;
+	private Double tongMucDauTuDuAn;
+	private Date ngayGuiSoKeHoachVaDauTu;
 	private List<DonViDuAn> donViDuAn = new ArrayList<DonViDuAn>();
 	
 	@Transient
@@ -177,5 +227,309 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setDuAn(DuAn duAn) {
 		this.duAn = duAn;
 	}
+
+	public PhuongThucLuaChonNDT getPhuongThucLuaChonNDT() {
+		return phuongThucLuaChonNDT;
+	}
+
+	public void setPhuongThucLuaChonNDT(PhuongThucLuaChonNDT phuongThucLuaChonNDT) {
+		this.phuongThucLuaChonNDT = phuongThucLuaChonNDT;
+	}
+
+	public String getDonViChuTri() {
+		return donViChuTri;
+	}
+
+	public void setDonViChuTri(String donViChuTri) {
+		this.donViChuTri = donViChuTri;
+	}
+
+	public String getDonViTuVan() {
+		return donViTuVan;
+	}
+
+	public void setDonViTuVan(String donViTuVan) {
+		this.donViTuVan = donViTuVan;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhPheDuyet() {
+		return quyetDinhPheDuyet;
+	}
+
+	public void setQuyetDinhPheDuyet(TepTin quyetDinhPheDuyet) {
+		this.quyetDinhPheDuyet = quyetDinhPheDuyet;
+	}
+
+	public Date getNgayGuiSoXayDungLKH() {
+		return ngayGuiSoXayDungLKH;
+	}
+
+	public void setNgayGuiSoXayDungLKH(Date ngayGuiSoXayDungLKH) {
+		this.ngayGuiSoXayDungLKH = ngayGuiSoXayDungLKH;
+	}
+
+	public Date getNgayDuKienNhanCongVan() {
+		return ngayDuKienNhanCongVan;
+	}
+
+	public void setNgayDuKienNhanCongVan(Date ngayDuKienNhanCongVan) {
+		this.ngayDuKienNhanCongVan = ngayDuKienNhanCongVan;
+	}
+	
+	@ManyToOne
+	public TepTin getHoSoQuyHoachLKH() {
+		return hoSoQuyHoachLKH;
+	}
+
+	public void setHoSoQuyHoachLKH(TepTin hoSoQuyHoachLKH) {
+		this.hoSoQuyHoachLKH = hoSoQuyHoachLKH;
+	}
+
+	public String getDonViTuVanXDPA() {
+		return donViTuVanXDPA;
+	}
+
+	public void setDonViTuVanXDPA(String donViTuVanXDPA) {
+		this.donViTuVanXDPA = donViTuVanXDPA;
+	}
+
+	public Date getNgayGuiLayGopY() {
+		return ngayGuiLayGopY;
+	}
+
+	public void setNgayGuiLayGopY(Date ngayGuiLayGopY) {
+		this.ngayGuiLayGopY = ngayGuiLayGopY;
+	}
+
+	public Date getNgayDuKienNhanCongVanXDPA() {
+		return ngayDuKienNhanCongVanXDPA;
+	}
+
+	public void setNgayDuKienNhanCongVanXDPA(Date ngayDuKienNhanCongVanXDPA) {
+		this.ngayDuKienNhanCongVanXDPA = ngayDuKienNhanCongVanXDPA;
+	}
+	
+	@ManyToOne
+	public TepTin getPhuongAnDauGia() {
+		return phuongAnDauGia;
+	}
+
+	public void setPhuongAnDauGia(TepTin phuongAnDauGia) {
+		this.phuongAnDauGia = phuongAnDauGia;
+	}
+
+	public Date getNgayGuiQDDG() {
+		return ngayGuiQDDG;
+	}
+
+	public void setNgayGuiQDDG(Date ngayGuiQDDG) {
+		this.ngayGuiQDDG = ngayGuiQDDG;
+	}
+
+	public Date getNgayDuKienNhanCongVanQDDG() {
+		return ngayDuKienNhanCongVanQDDG;
+	}
+
+	public void setNgayDuKienNhanCongVanQDDG(Date ngayDuKienNhanCongVanQDDG) {
+		this.ngayDuKienNhanCongVanQDDG = ngayDuKienNhanCongVanQDDG;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhQDDG() {
+		return quyetDinhQDDG;
+	}
+
+	public void setQuyetDinhQDDG(TepTin quyetDinhQDDG) {
+		this.quyetDinhQDDG = quyetDinhQDDG;
+	}
+
+	public Date getNgayGuiQDPD() {
+		return ngayGuiQDPD;
+	}
+
+	public void setNgayGuiQDPD(Date ngayGuiQDPD) {
+		this.ngayGuiQDPD = ngayGuiQDPD;
+	}
+
+	public Date getNgayNhanQDPD() {
+		return ngayNhanQDPD;
+	}
+
+	public void setNgayNhanQDPD(Date ngayNhanQDPD) {
+		this.ngayNhanQDPD = ngayNhanQDPD;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhQDPD() {
+		return quyetDinhQDPD;
+	}
+
+	public void setQuyetDinhQDPD(TepTin quyetDinhQDPD) {
+		this.quyetDinhQDPD = quyetDinhQDPD;
+	}
+
+	public Date getNgayGuiCongVanDNBS() {
+		return ngayGuiCongVanDNBS;
+	}
+
+	public void setNgayGuiCongVanDNBS(Date ngayGuiCongVanDNBS) {
+		this.ngayGuiCongVanDNBS = ngayGuiCongVanDNBS;
+	}
+
+	public Date getNgayDuKienNhanCongVanDNBS() {
+		return ngayDuKienNhanCongVanDNBS;
+	}
+
+	public void setNgayDuKienNhanCongVanDNBS(Date ngayDuKienNhanCongVanDNBS) {
+		this.ngayDuKienNhanCongVanDNBS = ngayDuKienNhanCongVanDNBS;
+	}
+	
+	@ManyToOne
+	public TepTin getPhuongAnDauGiaBNBS() {
+		return phuongAnDauGiaBNBS;
+	}
+
+	public void setPhuongAnDauGiaBNBS(TepTin phuongAnDauGiaBNBS) {
+		this.phuongAnDauGiaBNBS = phuongAnDauGiaBNBS;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhBoSungDanhMucDNBS() {
+		return quyetDinhBoSungDanhMucDNBS;
+	}
+
+	public void setQuyetDinhBoSungDanhMucDNBS(TepTin quyetDinhBoSungDanhMucDNBS) {
+		this.quyetDinhBoSungDanhMucDNBS = quyetDinhBoSungDanhMucDNBS;
+	}
+
+	public Date getNgayGuiNQPD() {
+		return ngayGuiNQPD;
+	}
+
+	public void setNgayGuiNQPD(Date ngayGuiNQPD) {
+		this.ngayGuiNQPD = ngayGuiNQPD;
+	}
+
+	public Date getNgayDuKienNhanCongVanNQPD() {
+		return ngayDuKienNhanCongVanNQPD;
+	}
+
+	public void setNgayDuKienNhanCongVanNQPD(Date ngayDuKienNhanCongVanNQPD) {
+		this.ngayDuKienNhanCongVanNQPD = ngayDuKienNhanCongVanNQPD;
+	}
+
+	public Date getNgayGuiLDT() {
+		return ngayGuiLDT;
+	}
+
+	public void setNgayGuiLDT(Date ngayGuiLDT) {
+		this.ngayGuiLDT = ngayGuiLDT;
+	}
+
+	public Date getNgayDuKienNhanCongVanLDT() {
+		return ngayDuKienNhanCongVanLDT;
+	}
+
+	public void setNgayDuKienNhanCongVanLDT(Date ngayDuKienNhanCongVanLDT) {
+		this.ngayDuKienNhanCongVanLDT = ngayDuKienNhanCongVanLDT;
+	}
+
+	public Double getDuToanDoDacKhuDat() {
+		return duToanDoDacKhuDat;
+	}
+
+	public void setDuToanDoDacKhuDat(Double duToanDoDacKhuDat) {
+		this.duToanDoDacKhuDat = duToanDoDacKhuDat;
+	}
+
+	public Double getDuToanGiaiPhongMatBang() {
+		return duToanGiaiPhongMatBang;
+	}
+
+	public void setDuToanGiaiPhongMatBang(Double duToanGiaiPhongMatBang) {
+		this.duToanGiaiPhongMatBang = duToanGiaiPhongMatBang;
+	}
+
+	public Date getNgayGuiTPDDM() {
+		return ngayGuiTPDDM;
+	}
+
+	public void setNgayGuiTPDDM(Date ngayGuiTPDDM) {
+		this.ngayGuiTPDDM = ngayGuiTPDDM;
+	}
+
+	public Date getNgayDuKienNhanCongVanTPDDM() {
+		return ngayDuKienNhanCongVanTPDDM;
+	}
+
+	public void setNgayDuKienNhanCongVanTPDDM(Date ngayDuKienNhanCongVanTPDDM) {
+		this.ngayDuKienNhanCongVanTPDDM = ngayDuKienNhanCongVanTPDDM;
+	}
+
+	public Date getNgayGuiTPDKP() {
+		return ngayGuiTPDKP;
+	}
+
+	public void setNgayGuiTPDKP(Date ngayGuiTPDKP) {
+		this.ngayGuiTPDKP = ngayGuiTPDKP;
+	}
+
+	public Date getNgayDuKienNhanCongVanTPDKP() {
+		return ngayDuKienNhanCongVanTPDKP;
+	}
+
+	public void setNgayDuKienNhanCongVanTPDKP(Date ngayDuKienNhanCongVanTPDKP) {
+		this.ngayDuKienNhanCongVanTPDKP = ngayDuKienNhanCongVanTPDKP;
+	}
+
+	public Date getNgayGuiGPMB() {
+		return ngayGuiGPMB;
+	}
+
+	public void setNgayGuiGPMB(Date ngayGuiGPMB) {
+		this.ngayGuiGPMB = ngayGuiGPMB;
+	}
+
+	public Date getNgayDuKienNhanCongVanGPMB() {
+		return ngayDuKienNhanCongVanGPMB;
+	}
+
+	public void setNgayDuKienNhanCongVanGPMB(Date ngayDuKienNhanCongVanGPMB) {
+		this.ngayDuKienNhanCongVanGPMB = ngayDuKienNhanCongVanGPMB;
+	}
+
+	public Double getGiaKhoiDiem() {
+		return giaKhoiDiem;
+	}
+
+	public void setGiaKhoiDiem(Double giaKhoiDiem) {
+		this.giaKhoiDiem = giaKhoiDiem;
+	}
+
+	public Date getNgayGuiGDKD() {
+		return ngayGuiGDKD;
+	}
+
+	public void setNgayGuiGDKD(Date ngayGuiGDKD) {
+		this.ngayGuiGDKD = ngayGuiGDKD;
+	}
+
+	public Double getTongMucDauTuDuAn() {
+		return tongMucDauTuDuAn;
+	}
+
+	public void setTongMucDauTuDuAn(Double tongMucDauTuDuAn) {
+		this.tongMucDauTuDuAn = tongMucDauTuDuAn;
+	}
+
+	public Date getNgayGuiSoKeHoachVaDauTu() {
+		return ngayGuiSoKeHoachVaDauTu;
+	}
+
+	public void setNgayGuiSoKeHoachVaDauTu(Date ngayGuiSoKeHoachVaDauTu) {
+		this.ngayGuiSoKeHoachVaDauTu = ngayGuiSoKeHoachVaDauTu;
+	}
+
 	
 }

@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -23,6 +24,7 @@ import org.zkoss.zul.Window;
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
 import vn.toancauxanh.gg.model.enums.MucDoUuTien;
+import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 
 @Entity
 @Table(name="duan")
@@ -44,7 +46,6 @@ public class DuAn extends Model<DuAn>{
 	private TepTin vanBanNDT;
 	private GiaiDoanDuAn giaiDoanDuAn;
 	private GiaoViec giaoViec = new GiaoViec();
-	
 	public DuAn() {
 		
 	}
@@ -211,6 +212,14 @@ public class DuAn extends Model<DuAn>{
 		return list;
 	}
 	
+	@Transient
+	public List<PhuongThucLuaChonNDT> getListPhuongThucLuaChonNDT(){
+		List<PhuongThucLuaChonNDT> list = new ArrayList<PhuongThucLuaChonNDT>();
+		list.add(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
+		list.add(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT);
+		list.add(PhuongThucLuaChonNDT.LUA_CHON_NHA_DAU_TU);
+		return list;
+	}
 	@Command
 	public void savePhuTrach(@BindingParam("wdn") final Window wdn,@BindingParam("list") final Object list, @BindingParam("attr") final String attr) {
 		wdn.detach();
@@ -258,6 +267,43 @@ public class DuAn extends Model<DuAn>{
 			return "quanlyduan/giaidoan4.zul";
 		}
 		return null;
+	}
+	private String srcGiaiDoan4;
+	
+	@Transient
+	public String getSrcGiaiDoan4() {
+		return srcGiaiDoan4;
+	}
+
+	public void setSrcGiaiDoan4(String srcGiaiDoan4) {
+		this.srcGiaiDoan4 = srcGiaiDoan4;
+	}
+	public boolean isVisible(int phuongThuc) {
+		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT() != null) {
+			if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal()== phuongThuc) return true;
+		}
+		return false;
+	}
+	@Command
+	public void srcGiaiDoanBon(@BindingParam("giatri") boolean giatri, @BindingParam("vmArgs") DuAn duAn) {
+		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT() == null) {
+			return;
+		}
+		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
+			if(giatri) {
+				setSrcGiaiDoan4("quanlyduan/dau-gia-co.zul");
+			}else {
+				setSrcGiaiDoan4("quanlyduan/dau-gia-chua.zul");
+			}
+		}
+		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
+			if(giatri) {
+				setSrcGiaiDoan4("quanlyduan/dau-thau-co.zul");
+			}else {
+				setSrcGiaiDoan4("quanlyduan/dau-thau-khong.zul");
+			}
+		}
+		BindUtils.postNotifyChange(null, null, duAn, "srcGiaiDoan4");
 	}
 	
 	@Transient

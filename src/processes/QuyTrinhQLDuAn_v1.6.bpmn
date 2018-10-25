@@ -444,7 +444,7 @@
       <bpmn:incoming>SequenceFlow_0sdwmhr</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ea0tmf</bpmn:outgoing>
       <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_1c7z5cr">
-        <bpmn:condition xsi:type="bpmn:tFormalExpression" />
+        <bpmn:condition xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanBon.equals(now())}</bpmn:condition>
       </bpmn:conditionalEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_16xez2l">
@@ -523,7 +523,7 @@
       <bpmn:incoming>SequenceFlow_0fcbzv8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0e8k95t</bpmn:outgoing>
       <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_1kqs0ot">
-        <bpmn:condition xsi:type="bpmn:tFormalExpression" />
+        <bpmn:condition xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanBa.equals(now())}</bpmn:condition>
       </bpmn:conditionalEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:serviceTask id="ServiceTask_04e9xqr" name="Validate dữ liệu giai đoạn ba" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBa(execution)}">

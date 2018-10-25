@@ -136,6 +136,18 @@ public class ProcessService extends BasicService<Object>{
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI);
 	}
 	
+	public void validateDuLieuGiaiDoanBon(Execution execution) {
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBonHopLe", true);
+	}
+	
+	public void validateDuLieuGiaiDoanBonVaKetThucDuAn(Execution execution) {
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", true);
+	}
+	
+	public void luuDuLieuGiaiDoanBon(Execution execution) {
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON);
+	}
+	
 	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		duAn.getGiaiDoanDuAn().setDuAn(duAn);
