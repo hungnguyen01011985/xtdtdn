@@ -22,7 +22,6 @@ import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.model.DonViDuAn;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaiDoanDuAn;
-import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 
 public class ProcessService extends BasicService<Object>{
@@ -82,7 +81,6 @@ public class ProcessService extends BasicService<Object>{
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
 		redirectGiaiDoanDuAnById(model.getId());
-		
 	}
 	
 	public void capNhatNguoiPhuTrach(Execution execution) {
