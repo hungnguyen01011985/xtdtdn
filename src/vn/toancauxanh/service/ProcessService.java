@@ -31,7 +31,7 @@ public class ProcessService extends BasicService<Object>{
 	
 	public void luuDuLieuDuAnVaBatDauXucTien(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		model.save();
+		model.saveNotShowNotification();
 		model.getGiaoViec().setDuAn(model);
 		model.getGiaoViec().setNgayGiao(new Date());
 		model.getGiaoViec().setNguoiGiaoViec(model.getNguoiTao());
@@ -41,6 +41,7 @@ public class ProcessService extends BasicService<Object>{
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
+		model.getTaiLieu().saveNotShowNotification();
 		redirectGiaiDoanDuAnById(model.getId());
 	}
 	
@@ -150,7 +151,7 @@ public class ProcessService extends BasicService<Object>{
 	public void luuDuLieuTiepTucAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien,GiaiDoanXucTien giaiDoan) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.setGiaiDoanXucTien(giaiDoanXucTien);
-		model.save();
+		model.saveNotShowNotification();
 		model.getGiaiDoanDuAn().setDuAn(model);
 		model.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoan);
 		model.getGiaiDoanDuAn().save();
