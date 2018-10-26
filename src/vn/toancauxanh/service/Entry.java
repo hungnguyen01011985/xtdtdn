@@ -299,10 +299,9 @@ public class Entry extends BaseObject<Object> {
 				+ "/add-page.zul&id=" + id;
 	}
 	
-	@RequestMapping(value = "/cp/{path:.+$}/giaidoan/{id:\\d+}")
-	public String giaidoan(@PathVariable String path, @PathVariable Long id) {
-		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
-				+ "/giaidoan.zul&id=" + id;
+	@RequestMapping(value = "/cp/quanlyduan/{id:\\d+}")
+	public String giaidoan(@PathVariable Long id) {
+		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/giaidoan.zul&id=" + id;
 	}
 
 	// Ban xúc tiến

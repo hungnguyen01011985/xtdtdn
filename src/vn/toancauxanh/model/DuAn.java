@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,14 +24,15 @@ import org.zkoss.zul.Window;
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
 import vn.toancauxanh.gg.model.enums.MucDoUuTien;
+import vn.toancauxanh.gg.model.enums.QuyMoDuAn;
 
 @Entity
-@Table(name="duan")
-public class DuAn extends Model<DuAn>{
+@Table(name = "duan")
+public class DuAn extends Model<DuAn> {
 	private String tenDuAn;
-	private String linhVuc;
+	private LinhVucDuAn linhVuc;
 	private String diaDiem;
-	private String quyMoDuAn;
+	private QuyMoDuAn quyMoDuAn;
 	private double tongVonDauTu;
 	private String mucTieuDuAn;
 	private int dienTichSuDungDat;
@@ -40,13 +42,25 @@ public class DuAn extends Model<DuAn>{
 	private NhanVien nguoiPhuTrach = new NhanVien();
 	private GiaiDoanXucTien giaiDoanXucTien = GiaiDoanXucTien.GIAI_DOAN_MOT;
 	private Date ngayBatDauXucTien;
-	private TepTin taiLieu;
-	private TepTin vanBanNDT;
 	private GiaiDoanDuAn giaiDoanDuAn;
 	private GiaoViec giaoViec = new GiaoViec();
-	
+
+	private TepTin taiLieu;
+	private TepTin taiLieuNDT;
+
+	private String type = "";
+
+	@Transient
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public DuAn() {
-		
+
 	}
 
 	@Transient
@@ -93,19 +107,11 @@ public class DuAn extends Model<DuAn>{
 	}
 
 	@ManyToOne
-	public TepTin getTaiLieu() {
-		return taiLieu;
-	}
-
-	public void setTaiLieu(TepTin taiLieu) {
-		this.taiLieu = taiLieu;
-	}
-
-	public String getLinhVuc() {
+	public LinhVucDuAn getLinhVuc() {
 		return linhVuc;
 	}
 
-	public void setLinhVuc(String linhVuc) {
+	public void setLinhVuc(LinhVucDuAn linhVuc) {
 		this.linhVuc = linhVuc;
 	}
 
@@ -117,11 +123,12 @@ public class DuAn extends Model<DuAn>{
 		this.diaDiem = diaDiem;
 	}
 
-	public String getQuyMoDuAn() {
+	@Enumerated(EnumType.STRING)
+	public QuyMoDuAn getQuyMoDuAn() {
 		return quyMoDuAn;
 	}
 
-	public void setQuyMoDuAn(String quyMoDuAn) {
+	public void setQuyMoDuAn(QuyMoDuAn quyMoDuAn) {
 		this.quyMoDuAn = quyMoDuAn;
 	}
 
@@ -175,15 +182,24 @@ public class DuAn extends Model<DuAn>{
 		this.khaNangDauTu = khaNangDauTu;
 	}
 
-	@ManyToOne
-	public TepTin getVanBanNDT() {
-		return vanBanNDT;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	public TepTin getTaiLieu() {
+		return taiLieu;
 	}
 
-	public void setVanBanNDT(TepTin vanBanNDT) {
-		this.vanBanNDT = vanBanNDT;
+	public void setTaiLieu(TepTin taiLieu) {
+		this.taiLieu = taiLieu;
 	}
-	
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	public TepTin getTaiLieuNDT() {
+		return taiLieuNDT;
+	}
+
+	public void setTaiLieuNDT(TepTin taiLieuNDT) {
+		this.taiLieuNDT = taiLieuNDT;
+	}
+
 	@Transient
 	public GiaoViec getGiaoViec() {
 		return giaoViec;
@@ -201,7 +217,7 @@ public class DuAn extends Model<DuAn>{
 		list.add(MucDoUuTien.UU_TIEN_THAP);
 		return list;
 	}
-	
+
 	@Transient
 	public List<KhaNangDauTu> getListKhaNangDauTu() {
 		List<KhaNangDauTu> list = new ArrayList<KhaNangDauTu>();
@@ -210,9 +226,19 @@ public class DuAn extends Model<DuAn>{
 		list.add(KhaNangDauTu.KHA_NANG_THAP);
 		return list;
 	}
-	
+
+	@Transient
+	public List<QuyMoDuAn> getListQuyMoDuAn() {
+		List<QuyMoDuAn> list = new ArrayList<QuyMoDuAn>();
+		list.add(QuyMoDuAn.QUY_MO_LON);
+		list.add(QuyMoDuAn.QUY_MO_VUA);
+		list.add(QuyMoDuAn.QUY_MO_NHO);
+		return list;
+	}
+
 	@Command
-	public void savePhuTrach(@BindingParam("wdn") final Window wdn,@BindingParam("list") final Object list, @BindingParam("attr") final String attr) {
+	public void savePhuTrach(@BindingParam("wdn") final Window wdn, @BindingParam("list") final Object list,
+			@BindingParam("attr") final String attr) {
 		wdn.detach();
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
@@ -222,9 +248,10 @@ public class DuAn extends Model<DuAn>{
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
-	
+
 	@Command
-	public void saveGiaoViec(@BindingParam("wdn") final Window wdn,@BindingParam("list") final Object list, @BindingParam("attr") final String attr) {
+	public void saveGiaoViec(@BindingParam("wdn") final Window wdn, @BindingParam("list") final Object list,
+			@BindingParam("attr") final String attr) {
 		wdn.detach();
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
@@ -232,18 +259,17 @@ public class DuAn extends Model<DuAn>{
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
-	
+
 	@Command
 	public void goTask(@BindingParam("task") final String task) {
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
-		if(task != null) {
+		if (task != null) {
 			variables.put("goTask", task);
 		}
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
-	
-	
+
 	@Transient
 	public String getSrc() {
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien())) {
@@ -260,7 +286,7 @@ public class DuAn extends Model<DuAn>{
 		}
 		return null;
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidator() {
 		return new AbstractValidator() {
@@ -273,33 +299,64 @@ public class DuAn extends Model<DuAn>{
 				}
 				validateNgayHoanThanh(ctx);
 			}
-			private boolean validateNgayHoanThanh(final ValidationContext ctx){
+
+			private boolean validateNgayHoanThanh(final ValidationContext ctx) {
 				Boolean type = (Boolean) ctx.getValidatorArg("type");
+				String firstText = (String) ctx.getValidatorArg("firstText");
+				String secondText = (String) ctx.getValidatorArg("secondText");
 				Date endDate = (Date) ctx.getValidatorArg("endDate");
 				Date dateStart = (Date) ctx.getValidatorArg("dateStart");
 				boolean result = true;
 				if (type) {
 					Date checkDate = (Date) ctx.getProperty().getValue();
 					if (checkDate == null) {
-						addInvalidMessage(ctx, "dateStart", "Ngày bắt đầu xúc tiến không được rỗng");
+						addInvalidMessage(ctx, "dateStart", firstText + " không được để trống");
 						result = false;
 					}
 					if (checkDate != null && endDate != null && checkDate.compareTo(endDate) > 0) {
-						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành phải lớn hơn hoặc bằng ngày bắt đầu xúc tiến");
+						addInvalidMessage(ctx, "dateEnd",
+								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
 						result = false;
 					}
-				}else {
+				} else {
 					Date checkDate = (Date) ctx.getProperty().getValue();
 					if (checkDate == null) {
-						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành không được rỗng");
+						addInvalidMessage(ctx, "dateEnd", secondText + " không được để trống");
 						result = false;
 					}
 					if (dateStart != null && checkDate != null && dateStart.compareTo(checkDate) > 0) {
-						addInvalidMessage(ctx, "dateEnd", "Ngày hoàn thành phải lớn hơn hoặc bằng ngày bắt đầu xúc tiến");
+						addInvalidMessage(ctx, "dateEnd",
+								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
 						result = false;
 					}
 				}
 				return result;
+			}
+		};
+	}
+
+	@Transient
+	public AbstractValidator getValidatorVonDauTu() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+				if (vmsgs != null) {
+					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
+					vmsgs.clearMessages(ctx.getBindContext().getComponent());
+				}
+				validateNumber(ctx);
+			}
+
+			private boolean validateNumber(ValidationContext ctx) {
+				boolean rs = true;
+				String text = (String) ctx.getValidatorArg("text");
+				Double vonDauTu = Double.parseDouble((String) ctx.getProperty().getValue());
+				if (vonDauTu <= 0) {
+					addInvalidMessage(ctx, text + " phải lớn hơn 0");
+					rs = false;
+				}
+				return rs;
 			}
 		};
 	}

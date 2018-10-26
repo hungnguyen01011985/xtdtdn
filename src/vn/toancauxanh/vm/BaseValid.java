@@ -44,7 +44,7 @@ public class BaseValid extends AbstractValidator {
 			result = true;
 		} else {
 			try {
-				new SimpleConstraint(constraint.toString()).validate(null, ((String)ctx.getProperty().getValue()).trim().replaceAll("\\s+", ""));
+				new SimpleConstraint(constraint.toString()).validate(null, ctx.getProperty().getValue());
 				result = true;
 			} catch (final WrongValueException ex) {
 				Object msg;

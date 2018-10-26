@@ -1,6 +1,176 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<zk>
-<window title="new page title" border="normal">
-Giai đoạn 3 nè
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd">
+	<div> 
+		<div class="panel-box border-box mg-bottom-15">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Thông tin giai đoạn dự án 3</span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row bg-color-box">
+				<div zclass="col-lg-12">
+					<div class="box-plan">
+						<div class="plan-line">
+						</div>
+						<div class="plan-item">
+							<div class="plan-number plan-number-completed">
+								<x:image src="${contexPath}/assets/icon-bxtdn/check-qua-giai-doan.svg"/>
+							</div>
+							<div class="plan-title">
+								<span>Giới thiệu địa điểm thực hiện dự án</span>
+							</div>
+						</div>
+						<div class="plan-item">
+							<div class="plan-number plan-number-completed">
+								<x:image src="${contexPath}/assets/icon-bxtdn/check-qua-giai-doan.svg"/>
+							</div>
+							<div class="plan-title">
+								<span>Khảo sát thực tế địa điểm dự án</span>
+							</div>
+						</div>
+						<div class="plan-item">
+							<div class="plan-number plan-number-active">
+								<span>3</span>
+							</div>
+							<div class="plan-title plan-title-active">
+								<span>Xin, thống nhất chủ trương xúc tiến dự án</span>
+							</div>
+						</div>
+						<div class="plan-item">
+							<div class="plan-number">
+								<span>4</span>
+							</div>
+							<div class="plan-title">
+								<span>Lựa chọn nhà đầu tư thực hiện dự án</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row mg-top-no-line">
+				<div zclass="col-md-12" style="margin-bottom:0;">
+					<div class="title-small-page mgn-bt-0">
+						<span>Gửi CV xin chủ trương</span>
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group mg-top-8">
+						<span>Ngày gửi UBND</span>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiUBND)"
+							width="100%" placeholder="Chọn ngày"/>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group mg-top-8">
+						<span>Ngày gửi sở xây dựng</span>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoXayDung)"
+							width="100%" placeholder="Chọn ngày"/>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group mg-top-8">
+						<span>Ngày dự kiến nhận phản hồi</span>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi)"
+							width="100%" placeholder="Chọn ngày"/>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group mg-top-8">
+						<span>Tài liệu đính kèm</span>
+						<button label="Chọn tài liệu" 
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+							</button>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+
+			</div>
+			<div class="row mg-and-bg-and-line">
+				
+				<div zclass="col-md-12">
+					<div class="title-small-page" style="margin-bottom:0;">
+						<span>Ý kiến của UBND thành phó</span>
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group mg-top-8">
+						<span>Ngày phát hành CV</span>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiUBND)"
+							width="100%" placeholder="Chọn ngày"/>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group mg-top-8">
+						<span>Tài liệu đính kèm</span>
+						<button label="Chọn tài liệu" 
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+							</button>
+						<label zclass="error"
+							value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+			
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-3">
+					<div zclass="form-group">
+						<x:button  class="btn bg-btn-tailieu btn-grey">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+							<span>Đóng</span>
+						</x:button>
+					</div>
+				</div>
+					
+				<div zclass="col-xs-9">
+					<div zclass="form-group right flex">
+						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Người phụ trách</span>
+						</x:button>
+						
+						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = vm)"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Giao việc</span>
+						</x:button>
+						
+						<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanBa')"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Lưu dữ liệu giai đoạn ba</span>
+						</x:button>
+						
+						<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon')"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Lưu dữ liệu giai đoạn ba và tiếp tục giai đoạn bốn</span>
+						</x:button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+</div>
 </window>
-</zk>
