@@ -2,7 +2,6 @@
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd reset-bg">
 <zscript>
 		<![CDATA[
-			
 				vn.toancauxanh.model.GiaiDoanDuAn giaiDoan4 = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
 				vm.setGiaiDoanDuAn(giaiDoan4);
 				if(vm.getGiaiDoanDuAn().isOption()){

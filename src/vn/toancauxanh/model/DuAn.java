@@ -278,12 +278,7 @@ public class DuAn extends Model<DuAn>{
 	public void setSrcGiaiDoan4(String srcGiaiDoan4) {
 		this.srcGiaiDoan4 = srcGiaiDoan4;
 	}
-	public boolean isVisible(int phuongThuc) {
-		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT() != null) {
-			if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal()== phuongThuc) return true;
-		}
-		return false;
-	}
+
 	@Command
 	public void srcGiaiDoanBon(@BindingParam("giatri") boolean giatri, @BindingParam("vmArgs") DuAn duAn) {
 		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT() == null) {
@@ -293,7 +288,6 @@ public class DuAn extends Model<DuAn>{
 			if(giatri) {
 				setSrcGiaiDoan4("quanlyduan/dau-gia-co.zul");
 			}else {
-				System.out.println("zoooo");
 				setSrcGiaiDoan4("quanlyduan/dau-gia-chua.zul");
 			}
 		}

@@ -1,6 +1,5 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd">
-
 	<div> 
 		<div class="panel-box border-box mg-bottom-15">
 			<div zclass="row">

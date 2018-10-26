@@ -40,8 +40,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	private boolean option = true;
 	//Lập kế hoạch chi tiết 1/500
 	private String donViTuVan;
-	private Date ngayGuiSoXayDungLKH;
-	private Date ngayDuKienNhanCongVan;
 	private TepTin hoSoQuyHoachLKH;
 	private TepTin quyetDinhPheDuyet;
 	//Xây dựng phương án đấu giá quyền sử dụng đất
@@ -63,13 +61,16 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	private TepTin phuongAnDauGiaBNBS;
 	private TepTin quyetDinhBoSungDanhMucDNBS;
 	//Nghị quyết phê duyệt danh mục dụ án cần thu hồi đất
-	private Date ngayGuiNQPD;
-	private Date ngayDuKienNhanCongVanNQPD;
+	private TepTin nghiQuyetPheDuyet;
+	private TepTin vanBanDinhkemNQPD;
 	//Lập dự toán
-	private Date ngayGuiLDT;
-	private Date ngayDuKienNhanCongVanLDT;
 	private Double duToanDoDacKhuDat;
 	private Double duToanGiaiPhongMatBang;
+	private TepTin vanBanDinhKem;
+	private TepTin congTacDoDacLDT;
+	private TepTin giaiPhongMatBangLDT;
+	private TepTin quyetDinhPheDuyetLDT;
+	private TepTin keHoachSuDungDatLDT;
 	//Trình phê duyệt danh mục
 	private Date ngayGuiTPDDM;
 	private Date ngayDuKienNhanCongVanTPDDM;
@@ -85,7 +86,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	private Double tongMucDauTuDuAn;
 	private Date ngayGuiSoKeHoachVaDauTu;
 	private List<DonViDuAn> donViDuAn = new ArrayList<DonViDuAn>();
-	
+
 	@Transient
 	public List<DonViDuAn> getDonViDuAn() {
 		return donViDuAn;
@@ -255,6 +256,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyet() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.quyetDinhPheDuyet == null) {
+				this.quyetDinhPheDuyet = new TepTin();
+			}
+		}
 		return quyetDinhPheDuyet;
 	}
 
@@ -262,24 +268,13 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 		this.quyetDinhPheDuyet = quyetDinhPheDuyet;
 	}
 
-	public Date getNgayGuiSoXayDungLKH() {
-		return ngayGuiSoXayDungLKH;
-	}
-
-	public void setNgayGuiSoXayDungLKH(Date ngayGuiSoXayDungLKH) {
-		this.ngayGuiSoXayDungLKH = ngayGuiSoXayDungLKH;
-	}
-
-	public Date getNgayDuKienNhanCongVan() {
-		return ngayDuKienNhanCongVan;
-	}
-
-	public void setNgayDuKienNhanCongVan(Date ngayDuKienNhanCongVan) {
-		this.ngayDuKienNhanCongVan = ngayDuKienNhanCongVan;
-	}
-	
 	@ManyToOne
 	public TepTin getHoSoQuyHoachLKH() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.hoSoQuyHoachLKH == null) {
+				this.hoSoQuyHoachLKH = new TepTin();
+			}
+		}
 		return hoSoQuyHoachLKH;
 	}
 
@@ -403,37 +398,37 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setQuyetDinhBoSungDanhMucDNBS(TepTin quyetDinhBoSungDanhMucDNBS) {
 		this.quyetDinhBoSungDanhMucDNBS = quyetDinhBoSungDanhMucDNBS;
 	}
-
-	public Date getNgayGuiNQPD() {
-		return ngayGuiNQPD;
+	
+	@ManyToOne
+	public TepTin getNghiQuyetPheDuyet() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.nghiQuyetPheDuyet == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.nghiQuyetPheDuyet = new TepTin();
+				}
+			}
+		}
+		return nghiQuyetPheDuyet;
 	}
 
-	public void setNgayGuiNQPD(Date ngayGuiNQPD) {
-		this.ngayGuiNQPD = ngayGuiNQPD;
+	public void setNghiQuyetPheDuyet(TepTin nghiQuyetPheDuyet) {
+		this.nghiQuyetPheDuyet = nghiQuyetPheDuyet;
+	}
+	
+	@ManyToOne
+	public TepTin getVanBanDinhkemNQPD() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.vanBanDinhkemNQPD == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.vanBanDinhkemNQPD = new TepTin();
+				}
+			}
+		}
+		return vanBanDinhkemNQPD;
 	}
 
-	public Date getNgayDuKienNhanCongVanNQPD() {
-		return ngayDuKienNhanCongVanNQPD;
-	}
-
-	public void setNgayDuKienNhanCongVanNQPD(Date ngayDuKienNhanCongVanNQPD) {
-		this.ngayDuKienNhanCongVanNQPD = ngayDuKienNhanCongVanNQPD;
-	}
-
-	public Date getNgayGuiLDT() {
-		return ngayGuiLDT;
-	}
-
-	public void setNgayGuiLDT(Date ngayGuiLDT) {
-		this.ngayGuiLDT = ngayGuiLDT;
-	}
-
-	public Date getNgayDuKienNhanCongVanLDT() {
-		return ngayDuKienNhanCongVanLDT;
-	}
-
-	public void setNgayDuKienNhanCongVanLDT(Date ngayDuKienNhanCongVanLDT) {
-		this.ngayDuKienNhanCongVanLDT = ngayDuKienNhanCongVanLDT;
+	public void setVanBanDinhkemNQPD(TepTin vanBanDinhkemNQPD) {
+		this.vanBanDinhkemNQPD = vanBanDinhkemNQPD;
 	}
 
 	public Double getDuToanDoDacKhuDat() {
@@ -538,6 +533,79 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	public void setOption(boolean option) {
 		this.option = option;
+	}
+	
+	@ManyToOne
+	public TepTin getVanBanDinhKem() {
+		return vanBanDinhKem;
+	}
+
+	public void setVanBanDinhKem(TepTin vanBanDinhKem) {
+		this.vanBanDinhKem = vanBanDinhKem;
+	}
+
+	@ManyToOne
+	public TepTin getCongTacDoDacLDT() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.congTacDoDacLDT == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.congTacDoDacLDT = new TepTin();
+				}
+			}
+		}
+		return congTacDoDacLDT;
+	}
+
+	public void setCongTacDoDacLDT(TepTin congTacDoDacLDT) {
+		this.congTacDoDacLDT = congTacDoDacLDT;
+	}
+	
+	@ManyToOne
+	public TepTin getGiaiPhongMatBangLDT() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.giaiPhongMatBangLDT == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.giaiPhongMatBangLDT = new TepTin();
+				}
+			}
+		}
+		return giaiPhongMatBangLDT;
+	}
+
+	public void setGiaiPhongMatBangLDT(TepTin giaiPhongMatBangLDT) {
+		this.giaiPhongMatBangLDT = giaiPhongMatBangLDT;
+	}
+
+	@ManyToOne
+	public TepTin getQuyetDinhPheDuyetLDT() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.quyetDinhPheDuyetLDT == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.quyetDinhPheDuyetLDT = new TepTin();
+				}
+			}
+		}
+		return quyetDinhPheDuyetLDT;
+	}
+
+	public void setQuyetDinhPheDuyetLDT(TepTin quyetDinhPheDuyetLDT) {
+		this.quyetDinhPheDuyetLDT = quyetDinhPheDuyetLDT;
+	}
+	
+	@ManyToOne
+	public TepTin getKeHoachSuDungDatLDT() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.keHoachSuDungDatLDT == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.keHoachSuDungDatLDT = new TepTin();
+				}
+			}
+		}
+		return keHoachSuDungDatLDT;
+	}
+
+	public void setKeHoachSuDungDatLDT(TepTin keHoachSuDungDatLDT) {
+		this.keHoachSuDungDatLDT = keHoachSuDungDatLDT;
 	}
 	
 	

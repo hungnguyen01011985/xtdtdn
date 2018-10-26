@@ -2,18 +2,16 @@
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd reset-bg">
 		<zscript>
 		<![CDATA[
+			vn.toancauxanh.model.GiaiDoanDuAn giaiDoan = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
+			vm.setGiaiDoanDuAn(giaiDoan);
 			if(vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() !=0){
 				vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
-				vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 			}else{
-				vn.toancauxanh.model.GiaiDoanDuAn giaiDoan44 = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
-				vm.setGiaiDoanDuAn(giaiDoan44);
 				if(!vm.getGiaiDoanDuAn().isOption()){
 					vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
-					vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 				}
 			}
-			
+			vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 		]]>
 	</zscript>
 <div style="height:75px;">

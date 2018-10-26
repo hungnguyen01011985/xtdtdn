@@ -1,252 +1,265 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd reset-bg">
+<zscript>
+		<![CDATA[
+			if(vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() !=1){
+				vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
+			}else{
+				vn.toancauxanh.model.GiaiDoanDuAn giaiDoan = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
+				vm.setGiaiDoanDuAn(giaiDoan);
+				if(!vm.getGiaiDoanDuAn().isOption()){
+					vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
+				}
+			}
+			
+			vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT);
+			
+			
+		]]>
+	</zscript>
 <div style="height:75px;">
-					<div zclass="col-md-12">
-						<div zclass="form-group mg-top-8">
-							<span>DA có thuộc diện thu hồi đất theo QĐ tại Điều 61,61 Luật đất đai</span>
-						</div>
-					</div>
+	<div zclass="col-md-12">
+		<div zclass="form-group mg-top-8">
+			<span>DA có thuộc diện thu hồi đất theo QĐ tại Điều 61,61 Luật đất đai</span>
+		</div>
+	</div>
 					
-					<radiogroup id="sv2"/>
-					<div zclass="col-md-12">
-						<div zclass="form-group">
-							<radio label="Có" radiogroup="sv2" checked="true" onCheck="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)"></radio>
-							<radio label="Không" radiogroup="sv2" onCheck="@command('srcGiaiDoanBon',giatri=false, vmArgs = vm)" style="margin-left:15px;"></radio>
-						</div>
-					</div>
-				</div>
-<div class="row mg-and-bg-and-line">
-				
-				<div zclass="col-md-12">
-					<div class="title-big-page" style="margin-bottom:0;">
-						<span>Lập quy hoạch chi tiết 1/500</span>
-					</div>
-				</div>
-				
-				<div zclass="col-md-4">
-					<div zclass="form-group mg-top-8">
-						<span>Đơn vị tư vấn</span>
-						<combobox class="his mg-top-8" width="100%">
-							<comboitem>a</comboitem>
-						</combobox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày gửi sở xây dựng</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoXayDungLKH)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày dự kiến nhận công văn</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanCongVan)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-4">
-					<div zclass="form-group mg-top-8">
-						<span>Hồ sơ quy hoạch</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-4">
-					<div zclass="form-group">
-						<span>Quyết định phê duyệt</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
+	<radiogroup id="sv2"/>
+	<div zclass="col-md-12">
+		<div zclass="form-group">
+			<radio label="Có" radiogroup="sv2" checked="true" onCheck="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)"></radio>
+			<radio label="Không" radiogroup="sv2" onCheck="@command('srcGiaiDoanBon',giatri=false, vmArgs = vm)" style="margin-left:15px;"></radio>
+		</div>
+	</div>
+</div>
+<div class="mg-and-bg-and-line">
+	<div class="row">
+		<div zclass="col-md-12">
+			<div class="title-big-page" style="margin-bottom:0;">
+				<span>Lập quy hoạch chi tiết 1/500</span>
 			</div>
-			<div class="row mg-and-bg-and-line">
+		</div>
+	</div>
+	<div class="row">
+		<div zclass="col-md-4">
+			<div zclass="form-group mg-top-8">
+				<span>Đơn vị tư vấn</span>
+				<combobox class="his mg-top-8" width="100%">
+					<comboitem>a</comboitem>
+				</combobox>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
+			</div>
+		</div>
+				
+		<div zclass="col-md-4">
+			<div zclass="form-group mg-top-8" viewModel="@id('file') @init(vm.giaiDoanDuAn.hoSoQuyHoachLKH)">
+				<span>Hồ sơ quy hoạch</span>
+				<button visible="@load(empty vm.giaiDoanDuAn.hoSoQuyHoachLKH.tenFile)" label="Chọn tài liệu" 
+					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+				</button>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
+				<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.hoSoQuyHoachLKH.tenFile)">
+					<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.hoSoQuyHoachLKH.tenFile)"/>
+					<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoQuyHoachLKH , vm = vm.giaiDoanDuAn)">
+						<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+					</x:button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div zclass="col-md-12">
+			<div zclass="form-group mg-top-8" viewModel="@id('file1') @init(vm.giaiDoanDuAn.quyetDinhPheDuyet)">
+				<span>Quyết định phê duyệt</span>
+				<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyet.tenFile)" label="Chọn tài liệu" 
+					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+				</button>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
+				<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhPheDuyet.tenFile)">
+					<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.quyetDinhPheDuyet.tenFile)"/>
+					<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyet , vm = vm.giaiDoanDuAn)">
+						<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+					</x:button>
+				</div>
+			</div>
+		</div>
+	</div>
+				
+</div>
+<div class="mg-and-bg-and-line">
+	<div class="row">
+		<div zclass="col-md-12">
+			<div class="title-big-page" style="margin-bottom:0;">
+				<span>Nghị quyết phê duyệt danh mục dụ án cần thu hồi đất, danh mục dự án sử dụng đất trồng lúa, đất rừng phòng hộ, đất rừng đặc dụng</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div zclass="col-md-12">
+			<div class="title-small-page" style="margin-bottom:0;">
+				<span>Văn bản đề nghị rà soát quy hoạch, đưa dự án vào kế hoạch sử dụng đất hằng năm</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div zclass="col-md-4">
+			<div zclass="form-group mg-top-8" viewModel="@id('file2') @init(vm.giaiDoanDuAn.nghiQuyetPheDuyet)">
+				<span>Nghị quyết phê duyệt công trình, dự án cần thu hồi đất và danh mục dự án có sử dụng đất trồng lúa, đất rừng phòng hộ, đất rừng đặc dụng</span>
+				<button visible="@load(empty vm.giaiDoanDuAn.nghiQuyetPheDuyet.tenFile)" label="Chọn tài liệu" 
+					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+				</button>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
+				<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.nghiQuyetPheDuyet.tenFile)">
+					<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.nghiQuyetPheDuyet.tenFile)"/>
+					<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.nghiQuyetPheDuyet , vm = vm.giaiDoanDuAn)">
+						<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+					</x:button>
+				</div>
+			</div>
+		</div>
+		<div zclass="col-md-4">
+			<div zclass="form-group mg-top-8" viewModel="@id('file3') @init(vm.giaiDoanDuAn.vanBanDinhkemNQPD)">
+				<span>Quyết định phê duyệt</span>
+				<button visible="@load(empty vm.giaiDoanDuAn.vanBanDinhkemNQPD.tenFile)" label="Chọn tài liệu" 
+					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+				</button>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
+				<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.vanBanDinhkemNQPD.tenFile)">
+					<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.vanBanDinhkemNQPD.tenFile)"/>
+					<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.vanBanDinhkemNQPD , vm = vm.giaiDoanDuAn)">
+						<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+					</x:button>
+				</div>
+			</div>
+		</div>
+	</div>
+				
+</div>
 			
-				<div zclass="col-md-12">
-					<div class="title-big-page" style="margin-bottom:0;">
-						<span>Nghị quyết phê duyệt danh mục dụ án cần thu hồi đất, danh mục dự án sử dụng đất trồng lúa, đất rừng phòng hộ, đất rừng đặc dụng</span>
-					</div>
-				</div>
-				
-				<div zclass="col-md-12">
-					<div class="title-small-page" style="margin-bottom:0;">
-						<span>Văn bản đề nghị rà soát quy hoạch, đưa dự án vào kế hoạch sử dụng đất hằng năm</span>
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày gửi</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiNQPD)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày dự kiến nhận công văn</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanCongVanNQPD)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-8">
-					<div zclass="form-group mg-top-8">
-						<span>Văn bản đính kèm</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-4">
-					<div zclass="form-group mg-top-8">
-						<span>Nghị quyết phê duyệt công trình, dự án cần thu hồi đất và danh mục dự án có sử dụng đất trồng lúa, đất rừng phòng hộ, đất rừng đặc dụng</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
+<div class="mg-and-bg-and-line">
+	<div class="row">
+		<div zclass="col-md-12">
+			<div class="title-big-page" style="margin-bottom:0;">
+				<span>Lập dự toán</span>
 			</div>
-			
-			<div class="row mg-and-bg-and-line">
-				<div zclass="col-md-12">
-					<div class="title-big-page" style="margin-bottom:0;">
-						<span>Lập dự toán</span>
-					</div>
-				</div>
-				
-				<div zclass="col-md-12">
-					<div class="title-small-page" style="margin-bottom:0;">
-						<span>Văn bản đề nghị lập dự toán và triển khai công tác đo đạc khu đất, lập dự toán kinh phí giải phóng mặt bằng</span>
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày gửi</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiLDT)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày dự kiến nhận công văn</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanCongVanLDT)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-8">
-					<div zclass="form-group mg-top-8">
-						<span>Văn bản đính kèm</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-4">
-					<div zclass="form-group">
-						<span>Dự toán công tác đo đạc khu đất (VNĐ)</span> 
-						<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.duToanDoDacKhuDat)"></textbox>
-					</div>
-				</div>
-				
-				<div zclass="col-md-8">
-					<div zclass="form-group mg-top-8">
-						<span>Chi tiết dự toán</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-4">
-					<div zclass="form-group">
-						<span>Dự toán kinh phí giải phóng mặt bằng (VNĐ)</span> 
-						<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.duToanGiaiPhongMatBang)"></textbox>
-					</div>
-				</div>
-				
-				<div zclass="col-md-8">
-					<div zclass="form-group mg-top-8">
-						<span>Chi tiết dự toán</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-4">
-					<div zclass="form-group">
-						<span>Quyết định phê duyệt DM dự án cần thu hồi đất, DM dự án có sử dụng đất trồng lúa, phòng hộ, đất rừng đặc dụng</span> 
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-4">
-					<div zclass="form-group">
-						<span>Kế hoạch sử dụng đất</span> 
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
+		</div>		
+	</div>
+	
+	<div class="row">
+		<div zclass="col-md-12">
+			<div class="title-small-page" style="margin-bottom:0;">
+				<span>Văn bản đề nghị lập dự toán và triển khai công tác đo đạc khu đất, lập dự toán kinh phí giải phóng mặt bằng</span>
 			</div>
+		</div>
+	</div>
+				
+	<div class="row">
+		<div zclass="col-md-4">
+			<div zclass="form-group">
+				<span>Dự toán công tác đo đạc khu đất (VNĐ)</span> 
+				<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.duToanDoDacKhuDat)"></textbox>
+			</div>
+		</div>
+		<div zclass="col-md-8">
+			<div zclass="form-group" viewModel="@id('file4') @init(vm.giaiDoanDuAn.congTacDoDacLDT)">
+				<span>Chi tiết dự toán</span>
+				<button visible="@load(empty vm.giaiDoanDuAn.congTacDoDacLDT.tenFile)" label="Chọn tài liệu" 
+					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+				</button>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
+				<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.congTacDoDacLDT.tenFile)">
+					<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.congTacDoDacLDT.tenFile)"/>
+					<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.congTacDoDacLDT , vm = vm.giaiDoanDuAn)">
+						<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+					</x:button>
+				</div>
+			</div>
+		</div>
+	</div>
+				
+	<div class="row">
+		<div zclass="col-md-4">
+			<div zclass="form-group">
+				<span>Dự toán kinh phí giải phóng mặt bằng (VNĐ)</span> 
+				<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.duToanGiaiPhongMatBang)"></textbox>
+			</div>
+		</div>
+		<div zclass="col-md-8">
+			<div zclass="form-group" viewModel="@id('file5') @init(vm.giaiDoanDuAn.giaiPhongMatBangLDT)">
+				<span>Chi tiết dự toán</span>
+				<button visible="@load(empty vm.giaiDoanDuAn.giaiPhongMatBangLDT.tenFile)" label="Chọn tài liệu" 
+					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+				</button>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
+				<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.giaiPhongMatBangLDT.tenFile)">
+					<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.giaiPhongMatBangLDT.tenFile)"/>
+					<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giaiPhongMatBangLDT , vm = vm.giaiDoanDuAn)">
+						<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+					</x:button>
+				</div>
+			</div>
+		</div>		
+	</div>
+				
+	<div class="row">
+		<div zclass="col-md-4">
+			<div zclass="form-group mg-top-8" viewModel="@id('file6') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetLDT)">
+				<span>Quyết định phê duyệt DM dự án cần thu hồi đất, DM dự án có sử dụng đất trồng lúa, phòng hộ, đất rừng đặc dụng</span>
+				<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLDT.tenFile)" label="Chọn tài liệu" 
+					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+				</button>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
+				<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhPheDuyetLDT.tenFile)">
+					<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.quyetDinhPheDuyetLDT.tenFile)"/>
+					<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetLDT , vm = vm.giaiDoanDuAn)">
+						<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+					</x:button>
+				</div>
+			</div>
+		</div>
+		<div zclass="col-md-4">
+			<div zclass="form-group" viewModel="@id('file6') @init(vm.giaiDoanDuAn.keHoachSuDungDatLDT)">
+				<span>Kế hoạch sử dụng đất</span>
+				<button visible="@load(empty vm.giaiDoanDuAn.keHoachSuDungDatLDT.tenFile)" label="Chọn tài liệu" 
+					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+				</button>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
+				<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.keHoachSuDungDatLDT.tenFile)">
+					<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.keHoachSuDungDatLDT.tenFile)"/>
+					<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.keHoachSuDungDatLDT , vm = vm.giaiDoanDuAn)">
+						<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+					</x:button>
+				</div>
+			</div>
+		</div>
+	</div>
+				
+</div>
 			
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
@@ -282,7 +295,7 @@
 				</div>
 				
 				<div zclass="col-md-4">
-					<div zclass="form-group">
+					<div zclass="form-group mg-top-8">
 						<span>Văn bản đính kèm</span> 
 						<button label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
@@ -341,7 +354,7 @@
 				</div>
 				
 				<div zclass="col-md-4">
-					<div zclass="form-group">
+					<div zclass="form-group mg-top-8">
 						<span>Công văn đính kèm</span> 
 						<button label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
@@ -394,7 +407,7 @@
 				</div>
 				
 				<div zclass="col-md-4">
-					<div zclass="form-group">
+					<div zclass="form-group mg-top-8">
 						<span>Phương án đấu giá</span> 
 						<button label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
@@ -446,7 +459,7 @@
 				</div>
 				
 				<div zclass="col-md-4">
-					<div zclass="form-group">
+					<div zclass="form-group mg-top-8">
 						<span>Quyết định</span> 
 						<button label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
