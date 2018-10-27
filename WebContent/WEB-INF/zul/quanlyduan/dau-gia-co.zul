@@ -15,26 +15,28 @@
 		]]>
 	</zscript>
 <div style="height:75px;">
-					<div zclass="col-md-12">
-						<div zclass="form-group mg-top-8">
-							<span>Địa điểm dự kiến thực hiện dự án đã có trong danh mục quỹ đất đấu giá quyền sử dụng đất được thành phố phê duyệt chưa?</span>
-						</div>
-					</div>
-					<radiogroup id="sv1"/>
-					<div zclass="col-md-12">
-						<div zclass="form-group">
-							<radio label="Có" checked="true" radiogroup="sv1" onCheck="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)"></radio>
-							<radio label="Chưa" radiogroup="sv1" onCheck="@command('srcGiaiDoanBon',giatri=false, vmArgs = vm)" style="margin-left:15px;"></radio>
-						</div>
-					</div>
-				</div>
-	<div class="row mg-and-bg-and-line">
+	<div zclass="col-md-12">
+		<div zclass="form-group mg-top-8">
+			<span>Địa điểm dự kiến thực hiện dự án đã có trong danh mục quỹ đất đấu giá quyền sử dụng đất được thành phố phê duyệt chưa?</span>
+		</div>
+	</div>
+	<radiogroup id="sv1"/>
+	<div zclass="col-md-12">
+		<div zclass="form-group">
+			<radio label="Có" checked="true" radiogroup="sv1" onCheck="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)"></radio>
+			<radio label="Chưa" radiogroup="sv1" onCheck="@command('srcGiaiDoanBon',giatri=false, vmArgs = vm)" style="margin-left:15px;"></radio>
+		</div>
+	</div>
+</div>
+<div class="mg-and-bg-and-line">
+	<div class="row">
+		<div zclass="col-md-12">
+			<div class="title-big-page" style="margin-bottom:0;">
+				<span>Lập quy hoạch chi tiết 1/500</span>
+			</div>
+		</div>
+	</div>
 				
-				<div zclass="col-md-12">
-					<div class="title-big-page" style="margin-bottom:0;">
-						<span>Lập quy hoạch chi tiết 1/500</span>
-					</div>
-				</div>
 				
 				<div zclass="col-md-4">
 					<div zclass="form-group mg-top-8">
@@ -42,26 +44,6 @@
 						<combobox class="his mg-top-8" width="100%">
 							<comboitem>a</comboitem>
 						</combobox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày gửi sở xây dựng</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoXayDungLKH)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày dự kiến nhận công văn</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanCongVan)"
-							width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
@@ -114,26 +96,6 @@
 					</div>
 				</div>
 				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày gửi lấy góp ý</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiLayGopY)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày dự kiến nhận công văn</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanCongVanXDPA)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
 				<div zclass="col-md-4">
 					<div zclass="form-group mg-top-8">
 						<span>Phương án đấu giá</span>
@@ -155,25 +117,6 @@
 					</div>
 				</div>
 				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày gửi</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiQDDG)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày dự kiến nhận công văn</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanCongVanQDDG)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
 				
 				<div zclass="col-md-8">
 					<div zclass="form-group mg-top-8">
@@ -192,26 +135,6 @@
 				<div zclass="col-md-12">
 					<div class="title-big-page" style="margin-bottom:0;">
 						<span>Quyết định phê duyệt giá đất khởi điểm đấu giá</span>
-					</div>
-				</div>
-				
-				<div zclass="col-md-4">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày gửi</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiQDPD)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-2">
-					<div zclass="form-group mg-top-8">
-						<span>Ngày nhận</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayNhanQDPD)"
-							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				

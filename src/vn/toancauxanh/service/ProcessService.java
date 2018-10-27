@@ -154,6 +154,17 @@ public class ProcessService extends BasicService<Object>{
 		duAn.getGiaiDoanDuAn().getGiaiPhongMatBangLDT().save();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLDT().save();
 		duAn.getGiaiDoanDuAn().getKeHoachSuDungDatLDT().save();
+		duAn.getGiaiDoanDuAn().getVanBanDinhKemTPDDM().save();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDDM().save();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDKP().save();
+		duAn.getGiaiDoanDuAn().getCongVanDinhKemTPDKP().save();
+		duAn.getGiaiDoanDuAn().getPhuongAnDauGiaGPMB().save();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGPMB().save();
+		duAn.getGiaiDoanDuAn().getQuyetDinhGDKD().save();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGDKD().save();
+		duAn.getGiaiDoanDuAn().getHoSoMoiTuyenGDKD().save();
+		duAn.getGiaiDoanDuAn().getKeHoachGDKD().save();
+		duAn.getGiaiDoanDuAn().getHoSoMoiThauGDKD().save();
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, "thoiHanGiaiDoanBon");
 	}
 	
