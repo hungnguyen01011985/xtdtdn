@@ -2,13 +2,17 @@
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd reset-bg">
 <zscript>
 		<![CDATA[
-			if(vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() !=1){
+			vn.toancauxanh.model.GiaiDoanDuAn dauThau = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
+			vm.setGiaiDoanDuAn(dauThau);
+			if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() !=1){
 				vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
-			}else{
+				alert("zo !=1");
+			} else {
 				vn.toancauxanh.model.GiaiDoanDuAn giaiDoan = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
 				vm.setGiaiDoanDuAn(giaiDoan);
-				if(!vm.getGiaiDoanDuAn().isOption()){
+				if (!vm.getGiaiDoanDuAn().isOption()){
 					vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
+					alert("false");
 				}
 			}
 			
@@ -44,8 +48,10 @@
 		<div zclass="col-md-4">
 			<div zclass="form-group mg-top-8">
 				<span>Đơn vị tư vấn</span>
-				<combobox class="his mg-top-8" width="100%">
-					<comboitem>a</comboitem>
+				<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan)" placeholder="--Chọn--">
+					<template name="model">
+						<comboitem label="@load(each.text)"></comboitem>
+					</template>
 				</combobox>
 				<label zclass="error"
 					value="@load(vmsgs[self.previousSibling])" />

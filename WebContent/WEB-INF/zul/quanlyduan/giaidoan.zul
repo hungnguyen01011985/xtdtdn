@@ -11,7 +11,6 @@
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
 			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
 			vm.setGiaiDoanDuAn(item);
-			vm.setTaiLieuNDT(new vn.toancauxanh.model.TepTin());
 		]]>
 	</zscript>
 	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"> 
@@ -166,7 +165,7 @@
 				</div>
 				
 				<div class="col-md-6">
-					<div zclass="form-group" viewModel="@id('file')@init(vm.taiLieuNDT)">
+					<!-- <div zclass="form-group" viewModel="@id('file')@init(vm.taiLieuNDT)">
 						<span>VB đề nghị của NĐT</span>
 						<button visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
 							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
@@ -180,7 +179,7 @@
 								<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 							</x:button>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				
 			</div>
