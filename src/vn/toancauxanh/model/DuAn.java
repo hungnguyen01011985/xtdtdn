@@ -306,7 +306,6 @@ public class DuAn extends Model<DuAn> {
 		if (getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
 			if (giatri) {
 				setSrcGiaiDoan4("quanlyduan/dau-thau-co.zul");
-				System.out.println("dau gia co");
 			} else {
 				setSrcGiaiDoan4("quanlyduan/dau-thau-khong.zul");
 			}

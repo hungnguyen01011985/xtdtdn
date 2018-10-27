@@ -6,13 +6,11 @@
 			vm.setGiaiDoanDuAn(dauThau);
 			if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() !=1){
 				vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
-				alert("zo !=1");
 			} else {
 				vn.toancauxanh.model.GiaiDoanDuAn giaiDoan = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
 				vm.setGiaiDoanDuAn(giaiDoan);
 				if (!vm.getGiaiDoanDuAn().isOption()){
 					vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
-					alert("false");
 				}
 			}
 			
