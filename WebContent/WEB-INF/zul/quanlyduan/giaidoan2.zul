@@ -134,8 +134,9 @@
 						<span>Người phụ trách</span>
 					</x:button>
 
-					<x:button onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = vm)" class="btn btn-blue mg-btn">
-						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
+					<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
+						class="btn btn-blue mg-btn">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 						<span>Giao việc</span>
 					</x:button>
 					

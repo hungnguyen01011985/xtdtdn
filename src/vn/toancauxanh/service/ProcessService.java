@@ -77,11 +77,16 @@ public class ProcessService extends BasicService<Object>{
 	
 	public void giaoViecDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		Object object = ((ExecutionEntity) execution).getVariable("list");
+		String attr = (String) ((ExecutionEntity) execution).getVariable("attr");
 		model.getGiaoViec().setDuAn(model);
 		model.getGiaoViec().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
 		model.getGiaoViec().setNguoiGiaoViec(core().getNhanVien());
 		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().save();
+		if (object != null) {
+			BindUtils.postNotifyChange(null, null, object, attr);
+		}
 	}
 	
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {
