@@ -138,7 +138,7 @@ public class TepTin extends Model<TepTin> {
 				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				this.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				this.setMedia(media);
-				BindUtils.postNotifyChange(null, null, object, name);
+				BindUtils.postNotifyChange(null, null, object, "*");
 			}
 		} else {
 			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",

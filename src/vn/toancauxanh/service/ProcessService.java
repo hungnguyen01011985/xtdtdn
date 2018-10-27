@@ -146,6 +146,30 @@ public class ProcessService extends BasicService<Object>{
 	
 	public void luuDuLieuGiaiDoanBon(Execution execution) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		if (duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
+			saveTaiLieuDauGia(duAn);
+		}
+		if (duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
+			System.out.println("zo day");
+			saveTaiLieuDauThau(duAn);
+		}
+		
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, "thoiHanGiaiDoanBon");
+	}
+	
+	private void saveTaiLieuDauGia(DuAn duAn) {
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().save();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().save();
+		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().save();
+		duAn.getGiaiDoanDuAn().getQuyetDinhQDDG().save();
+		duAn.getGiaiDoanDuAn().getQuyetDinhQDPD().save();
+		if (!duAn.getGiaiDoanDuAn().isOption()) {
+			duAn.getGiaiDoanDuAn().getQuyetDinhBoSungDanhMucDNBS().save();
+			duAn.getGiaiDoanDuAn().getPhuongAnDauGiaBNBS().save();
+		}
+	}
+	
+	private void saveTaiLieuDauThau(DuAn duAn) {
 		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().save();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().save();
 		duAn.getGiaiDoanDuAn().getNghiQuyetPheDuyet().save();
@@ -165,7 +189,6 @@ public class ProcessService extends BasicService<Object>{
 		duAn.getGiaiDoanDuAn().getHoSoMoiTuyenGDKD().save();
 		duAn.getGiaiDoanDuAn().getKeHoachGDKD().save();
 		duAn.getGiaiDoanDuAn().getHoSoMoiThauGDKD().save();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, "thoiHanGiaiDoanBon");
 	}
 	
 	public void validateDuLieuGiaiDoanBa(Execution execution) {

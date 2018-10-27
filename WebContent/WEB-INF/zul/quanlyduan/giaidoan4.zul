@@ -68,8 +68,10 @@
 				<div zclass="col-md-4">
 					<div zclass="form-group mg-top-8">
 						<span>Đơn vị chủ trì</span>
-						<combobox class="his mg-top-8" width="100%">
-							<comboitem>a</comboitem>
+						<combobox class="his mg-top-8" width="100%" model="@load(vm.getListDonViChuTri())" selectedItem="@bind(vm.giaiDoanDuAn.donViChuTri)" placeholder="--Chọn--">
+							<template name="model">
+								<comboitem label="@load(each.text)"></comboitem>
+							</template>
 						</combobox>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />

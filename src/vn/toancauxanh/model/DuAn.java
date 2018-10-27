@@ -21,6 +21,8 @@ import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.zul.Window;
 
+import vn.toancauxanh.gg.model.enums.DonViChuTri;
+import vn.toancauxanh.gg.model.enums.DonViTuVan;
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
 import vn.toancauxanh.gg.model.enums.MucDoUuTien;
@@ -212,7 +214,21 @@ public class DuAn extends Model<DuAn> {
 		list.add(QuyMoDuAn.QUY_MO_NHO);
 		return list;
 	}
+	
+	@Transient
+	public List<DonViChuTri> getListDonViChuTri() {
+		List<DonViChuTri> list = new ArrayList<DonViChuTri>();
+		list.add(DonViChuTri.TRUNG_TAM_PHAT_TRIEN_QUY_DAT);
+		return list;
+	}
 
+	@Transient
+	public List<DonViTuVan> getListDonViTuVan() {
+		List<DonViTuVan> list = new ArrayList<DonViTuVan>();
+		list.add(DonViTuVan.VIEN_QUY_HOACH_DO_THI_DA_NANG);
+		return list;
+	}
+	
 	@Command
 	public void savePhuTrach(@BindingParam("wdn") final Window wdn, @BindingParam("list") final Object list,
 			@BindingParam("attr") final String attr) {
@@ -277,20 +293,20 @@ public class DuAn extends Model<DuAn> {
 
 	@Command
 	public void srcGiaiDoanBon(@BindingParam("giatri") boolean giatri, @BindingParam("vmArgs") DuAn duAn) {
-		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT() == null) {
+		if (getGiaiDoanDuAn().getPhuongThucLuaChonNDT() == null) {
 			return;
 		}
-		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
-			if(giatri) {
+		if (getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
+			if (giatri) {
 				setSrcGiaiDoan4("quanlyduan/dau-gia-co.zul");
-			}else {
+			} else {
 				setSrcGiaiDoan4("quanlyduan/dau-gia-chua.zul");
 			}
 		}
-		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
-			if(giatri) {
+		if (getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
+			if (giatri) {
 				setSrcGiaiDoan4("quanlyduan/dau-thau-co.zul");
-			}else {
+			} else {
 				setSrcGiaiDoan4("quanlyduan/dau-thau-khong.zul");
 			}
 		}

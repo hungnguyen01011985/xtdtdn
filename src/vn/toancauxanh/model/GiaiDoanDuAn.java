@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import vn.toancauxanh.gg.model.enums.DonViChuTri;
+import vn.toancauxanh.gg.model.enums.DonViTuVan;
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 
@@ -36,14 +38,14 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	private TepTin congVanGD3;
 	//Thông tin giai đoạn 4
 	private PhuongThucLuaChonNDT phuongThucLuaChonNDT;
-	private String donViChuTri;
+	private DonViChuTri donViChuTri;
 	private boolean option = true;
 	//Lập kế hoạch chi tiết 1/500
-	private String donViTuVan;
+	private DonViTuVan donViTuVan;
 	private TepTin hoSoQuyHoachLKH;
 	private TepTin quyetDinhPheDuyet;
 	//Xây dựng phương án đấu giá quyền sử dụng đất
-	private String donViTuVanXDPA;
+	private DonViTuVan donViTuVanXDPA;
 	private Date ngayGuiLayGopY;
 	private Date ngayDuKienNhanCongVanXDPA;
 	private TepTin phuongAnDauGia;
@@ -51,9 +53,10 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	private Date ngayGuiQDDG;
 	private Date ngayDuKienNhanCongVanQDDG;
 	private TepTin quyetDinhQDDG;
+	//Đơn vị thực hiện đấu giá
+	private DonViTuVan donViThucHien;
 	//Quyết định phê duyệt giá đất khởi điểm đấu giá
-	private Date ngayGuiQDPD;
-	private Date ngayNhanQDPD;
+	private Double giaDatKhoiDiemDauGia;
 	private TepTin quyetDinhQDPD;
 	//Gửi công văn đề nghị bổ sung địa điểm thực hiện dự án
 	private Date ngayGuiCongVanDNBS;
@@ -242,26 +245,30 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 		this.phuongThucLuaChonNDT = phuongThucLuaChonNDT;
 	}
 
-	public String getDonViChuTri() {
+	public DonViChuTri getDonViChuTri() {
 		return donViChuTri;
 	}
 
-	public void setDonViChuTri(String donViChuTri) {
+	public void setDonViChuTri(DonViChuTri donViChuTri) {
 		this.donViChuTri = donViChuTri;
 	}
 
-	public String getDonViTuVan() {
+	public DonViTuVan getDonViTuVan() {
 		return donViTuVan;
 	}
 
-	public void setDonViTuVan(String donViTuVan) {
+	public void setDonViTuVan(DonViTuVan donViTuVan) {
 		this.donViTuVan = donViTuVan;
 	}
-	
+
+	public void setDonViTuVanXDPA(DonViTuVan donViTuVanXDPA) {
+		this.donViTuVanXDPA = donViTuVanXDPA;
+	}
+
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyet() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.quyetDinhPheDuyet == null) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhPheDuyet == null) {
 				this.quyetDinhPheDuyet = new TepTin();
 			}
 		}
@@ -274,8 +281,8 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getHoSoQuyHoachLKH() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.hoSoQuyHoachLKH == null) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.hoSoQuyHoachLKH == null) {
 				this.hoSoQuyHoachLKH = new TepTin();
 			}
 		}
@@ -284,14 +291,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	public void setHoSoQuyHoachLKH(TepTin hoSoQuyHoachLKH) {
 		this.hoSoQuyHoachLKH = hoSoQuyHoachLKH;
-	}
-
-	public String getDonViTuVanXDPA() {
-		return donViTuVanXDPA;
-	}
-
-	public void setDonViTuVanXDPA(String donViTuVanXDPA) {
-		this.donViTuVanXDPA = donViTuVanXDPA;
 	}
 
 	public Date getNgayGuiLayGopY() {
@@ -312,6 +311,13 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getPhuongAnDauGia() {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.phuongAnDauGia == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 0) {
+					this.phuongAnDauGia = new TepTin();
+				}
+			}
+		}
 		return phuongAnDauGia;
 	}
 
@@ -337,6 +343,14 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getQuyetDinhQDDG() {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.getPhuongThucLuaChonNDT().ordinal() == 0) {
+				if (this.quyetDinhQDDG == null) {
+					this.quyetDinhQDDG = new TepTin();
+				}
+			}
+
+		}
 		return quyetDinhQDDG;
 	}
 
@@ -344,24 +358,24 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 		this.quyetDinhQDDG = quyetDinhQDDG;
 	}
 
-	public Date getNgayGuiQDPD() {
-		return ngayGuiQDPD;
+	public Double getGiaDatKhoiDiemDauGia() {
+		return giaDatKhoiDiemDauGia;
 	}
 
-	public void setNgayGuiQDPD(Date ngayGuiQDPD) {
-		this.ngayGuiQDPD = ngayGuiQDPD;
+	public void setGiaDatKhoiDiemDauGia(Double giaDatKhoiDiemDauGia) {
+		this.giaDatKhoiDiemDauGia = giaDatKhoiDiemDauGia;
 	}
 
-	public Date getNgayNhanQDPD() {
-		return ngayNhanQDPD;
-	}
-
-	public void setNgayNhanQDPD(Date ngayNhanQDPD) {
-		this.ngayNhanQDPD = ngayNhanQDPD;
-	}
-	
 	@ManyToOne
 	public TepTin getQuyetDinhQDPD() {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhQDPD == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 0) {
+					this.quyetDinhQDPD = new TepTin();
+				}
+
+			}
+		}
 		return quyetDinhQDPD;
 	}
 
@@ -387,6 +401,13 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getPhuongAnDauGiaBNBS() {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.phuongAnDauGiaBNBS == null) {
+				if(!this.option) {
+					this.phuongAnDauGiaBNBS = new TepTin();
+				}
+			}
+		}
 		return phuongAnDauGiaBNBS;
 	}
 
@@ -396,6 +417,14 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getQuyetDinhBoSungDanhMucDNBS() {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhBoSungDanhMucDNBS == null) {
+				if(!this.option) {
+					this.quyetDinhBoSungDanhMucDNBS = new TepTin();
+				}
+				
+			}
+		}
 		return quyetDinhBoSungDanhMucDNBS;
 	}
 
@@ -405,9 +434,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getNghiQuyetPheDuyet() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.nghiQuyetPheDuyet == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.nghiQuyetPheDuyet == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.nghiQuyetPheDuyet = new TepTin();
 				}
 			}
@@ -421,9 +450,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getVanBanDinhkemNQPD() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.vanBanDinhkemNQPD == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.vanBanDinhkemNQPD == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.vanBanDinhkemNQPD = new TepTin();
 				}
 			}
@@ -453,9 +482,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getVanBanDinhKemTPDDM() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.vanBanDinhKemTPDDM == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.vanBanDinhKemTPDDM == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.vanBanDinhKemTPDDM = new TepTin();
 				}
 			}
@@ -469,9 +498,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetTPDDM() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.quyetDinhPheDuyetTPDDM == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhPheDuyetTPDDM == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.quyetDinhPheDuyetTPDDM = new TepTin();
 				}
 			}
@@ -485,9 +514,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetTPDKP() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.quyetDinhPheDuyetTPDKP == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhPheDuyetTPDKP == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.quyetDinhPheDuyetTPDKP = new TepTin();
 				}
 			}
@@ -501,9 +530,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getCongVanDinhKemTPDKP() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.congVanDinhKemTPDKP == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.congVanDinhKemTPDKP == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.congVanDinhKemTPDKP = new TepTin();
 				}
 			}
@@ -517,9 +546,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getPhuongAnDauGiaGPMB() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.phuongAnDauGiaGPMB == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.phuongAnDauGiaGPMB == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.phuongAnDauGiaGPMB = new TepTin();
 				}
 			}
@@ -533,9 +562,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetGPMB() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.quyetDinhPheDuyetGPMB == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhPheDuyetGPMB == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.quyetDinhPheDuyetGPMB = new TepTin();
 				}
 			}
@@ -557,9 +586,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getQuyetDinhGDKD() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.quyetDinhGDKD == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhGDKD == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.quyetDinhGDKD = new TepTin();
 				}
 			}
@@ -573,9 +602,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetGDKD() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.quyetDinhPheDuyetGDKD == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhPheDuyetGDKD == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.quyetDinhPheDuyetGDKD = new TepTin();
 				}
 			}
@@ -589,9 +618,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getHoSoMoiTuyenGDKD() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.hoSoMoiTuyenGDKD == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.hoSoMoiTuyenGDKD == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.hoSoMoiTuyenGDKD = new TepTin();
 				}
 			}
@@ -605,9 +634,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getKeHoachGDKD() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.keHoachGDKD == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.keHoachGDKD == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.keHoachGDKD = new TepTin();
 				}
 			}
@@ -621,9 +650,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getHoSoMoiThauGDKD() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.hoSoMoiThauGDKD == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.hoSoMoiThauGDKD == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.hoSoMoiThauGDKD = new TepTin();
 				}
 			}
@@ -670,9 +699,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getCongTacDoDacLDT() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.congTacDoDacLDT == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.congTacDoDacLDT == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.congTacDoDacLDT = new TepTin();
 				}
 			}
@@ -686,9 +715,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getGiaiPhongMatBangLDT() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.giaiPhongMatBangLDT == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.giaiPhongMatBangLDT == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.giaiPhongMatBangLDT = new TepTin();
 				}
 			}
@@ -702,9 +731,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetLDT() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.quyetDinhPheDuyetLDT == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhPheDuyetLDT == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.quyetDinhPheDuyetLDT = new TepTin();
 				}
 			}
@@ -718,9 +747,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	
 	@ManyToOne
 	public TepTin getKeHoachSuDungDatLDT() {
-		if(this.phuongThucLuaChonNDT != null) {
-			if(this.keHoachSuDungDatLDT == null) {
-				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.keHoachSuDungDatLDT == null) {
+				if (this.getPhuongThucLuaChonNDT().ordinal() == 1) {
 					this.keHoachSuDungDatLDT = new TepTin();
 				}
 			}
@@ -731,7 +760,18 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setKeHoachSuDungDatLDT(TepTin keHoachSuDungDatLDT) {
 		this.keHoachSuDungDatLDT = keHoachSuDungDatLDT;
 	}
-	
+
+	public DonViTuVan getDonViTuVanXDPA() {
+		return donViTuVanXDPA;
+	}
+
+	public DonViTuVan getDonViThucHien() {
+		return donViThucHien;
+	}
+
+	public void setDonViThucHien(DonViTuVan donViThucHien) {
+		this.donViThucHien = donViThucHien;
+	}
 	
 	
 }
