@@ -69,20 +69,18 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group mg-top-8">
 						<span>Ngày gửi</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGui)"
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGui)@save(vm.giaiDoanDuAn.ngayGui, before='goTask')@validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<label zclass="error" value="@load(vmsgs['dateStart'])" />
 					</div>
 				</div>
 				
 				<div zclass="col-md-3">
 					<div zclass="form-group mg-top-8">
 						<span>Ngày dự kiến nhận phản hồi</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi)"
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi)@save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before='goTask')@validator(vm.validator, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 							width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 					</div>
 				</div>
 				

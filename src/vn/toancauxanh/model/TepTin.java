@@ -31,7 +31,9 @@ public class TepTin extends Model<TepTin> {
 	private Media media;
 	private String typeFile;
 	private String nameHash;
-	
+
+	// ============
+
 	public String getNameHash() {
 		return nameHash;
 	}
@@ -72,7 +74,7 @@ public class TepTin extends Model<TepTin> {
 	public void setMedia(Media media) {
 		this.media = media;
 	}
-	
+
 	public void saveFileTepTin() throws IOException {
 		if (media != null) {
 			final File baseDir = new File((folderStoreFilesHome() + getPathFile()).concat(getNameHash()));
@@ -100,20 +102,20 @@ public class TepTin extends Model<TepTin> {
 			}
 		};
 	}
-	
+
 	@Command
 	public void downLoadTepTin() throws MalformedURLException {
 		if (!this.getPathFile().isEmpty()) {
 			final String path = folderRoot() + this.getPathFile();
 			if (new java.io.File(path).exists()) {
 				try {
-					Filedownload.save(new URL("file://" + folderRoot() + this.getPathFile() + this.getNameHash()).openStream(), null,
-							this.getTenFile().concat(this.getTypeFile()));
+					Filedownload.save(
+							new URL("file://" + folderRoot() + this.getPathFile() + this.getNameHash()).openStream(),
+							null, this.getTenFile().concat(this.getTypeFile()));
 				} catch (IOException e) {
 					showNotification("Không tìm thấy file", "Thông báo", "danger");
 				}
-			}
-			else {
+			} else {
 				showNotification("Không tìm thấy file", "Thông báo", "danger");
 			}
 		}
@@ -134,20 +136,17 @@ public class TepTin extends Model<TepTin> {
 				this.setNameHash(tenFile);
 				this.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
-				this.setPathFile(folderStoreFilesLink() + folderStoreFilesLeHoi() + folderStoreFilesTepTin());
+				this.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				this.setMedia(media);
-				BindUtils.postNotifyChange(null, null, object, "*");
-				System.out.println(name);
-				System.out.println(this.getTenFile());
+				BindUtils.postNotifyChange(null, null, object, name);
 			}
 		} else {
 			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
 					"Có tệp không đúng định dạng", "danger");
 		}
 	}
-	
 	@Command
-	public void deleteFile(@BindingParam("vm") final GiaiDoanDuAn vm,@BindingParam("vm1") final GiaiDoanDuAn vm1,@BindingParam("ob") TepTin ob) {
+	public void deleteFile(@BindingParam("vm") final DuAn vm, @BindingParam("ob") TepTin ob, @BindingParam("name") final String name) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
 			Messagebox.QUESTION, new EventListener<Event>() {
 				@Override
@@ -158,12 +157,11 @@ public class TepTin extends Model<TepTin> {
 						ob.setTenFile("");
 						ob.setPathFile("");
 						ob.setMedia(null);
-						BindUtils.postNotifyChange(null, null, vm, "*");
-						BindUtils.postNotifyChange(null, null, vm1, "*");
+						BindUtils.postNotifyChange(null, null, vm, name);
 						showNotification("Đã xóa", "", "success");
 					}
 				}
 			});
 	}
-	
+
 }
