@@ -99,7 +99,6 @@
 			</div>
 			<include src="quanlyduan/view-list-don-vi.zul"></include>
 			<include src="quanlyduan/add-view-don-vi.zul" if="${list == null or list.size() == 0}"></include>
-			<include src="quanlyduan/add-view-don-vi.zul" if="${list == null}"></include>
 			<div id="parentDonVi">
 		
 			</div>

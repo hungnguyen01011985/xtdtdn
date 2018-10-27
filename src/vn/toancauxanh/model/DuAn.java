@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -24,6 +24,7 @@ import org.zkoss.zul.Window;
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
 import vn.toancauxanh.gg.model.enums.MucDoUuTien;
+import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 import vn.toancauxanh.gg.model.enums.QuyMoDuAn;
 
 @Entity
@@ -44,21 +45,6 @@ public class DuAn extends Model<DuAn> {
 	private Date ngayBatDauXucTien;
 	private GiaiDoanDuAn giaiDoanDuAn;
 	private GiaoViec giaoViec = new GiaoViec();
-
-	private TepTin taiLieu;
-	private TepTin taiLieuNDT;
-
-	private String type = "";
-
-	@Transient
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public DuAn() {
 
 	}
@@ -182,24 +168,6 @@ public class DuAn extends Model<DuAn> {
 		this.khaNangDauTu = khaNangDauTu;
 	}
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	public TepTin getTaiLieu() {
-		return taiLieu;
-	}
-
-	public void setTaiLieu(TepTin taiLieu) {
-		this.taiLieu = taiLieu;
-	}
-
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	public TepTin getTaiLieuNDT() {
-		return taiLieuNDT;
-	}
-
-	public void setTaiLieuNDT(TepTin taiLieuNDT) {
-		this.taiLieuNDT = taiLieuNDT;
-	}
-
 	@Transient
 	public GiaoViec getGiaoViec() {
 		return giaoViec;
@@ -224,6 +192,15 @@ public class DuAn extends Model<DuAn> {
 		list.add(KhaNangDauTu.KHA_NANG_CAO);
 		list.add(KhaNangDauTu.KHA_NANG_KHA);
 		list.add(KhaNangDauTu.KHA_NANG_THAP);
+		return list;
+	}
+
+	@Transient
+	public List<PhuongThucLuaChonNDT> getListPhuongThucLuaChonNDT(){
+		List<PhuongThucLuaChonNDT> list = new ArrayList<PhuongThucLuaChonNDT>();
+		list.add(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
+		list.add(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT);
+		list.add(PhuongThucLuaChonNDT.LUA_CHON_NHA_DAU_TU);
 		return list;
 	}
 
@@ -287,6 +264,40 @@ public class DuAn extends Model<DuAn> {
 		return null;
 	}
 
+	private String srcGiaiDoan4;
+	
+	@Transient
+	public String getSrcGiaiDoan4() {
+		return srcGiaiDoan4;
+	}
+
+	public void setSrcGiaiDoan4(String srcGiaiDoan4) {
+		this.srcGiaiDoan4 = srcGiaiDoan4;
+	}
+
+	@Command
+	public void srcGiaiDoanBon(@BindingParam("giatri") boolean giatri, @BindingParam("vmArgs") DuAn duAn) {
+		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT() == null) {
+			return;
+		}
+		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
+			if(giatri) {
+				setSrcGiaiDoan4("quanlyduan/dau-gia-co.zul");
+			}else {
+				setSrcGiaiDoan4("quanlyduan/dau-gia-chua.zul");
+			}
+		}
+		if(getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
+			if(giatri) {
+				setSrcGiaiDoan4("quanlyduan/dau-thau-co.zul");
+			}else {
+				setSrcGiaiDoan4("quanlyduan/dau-thau-khong.zul");
+			}
+		}
+		BindUtils.postNotifyChange(null, null, duAn, "srcGiaiDoan4");
+		BindUtils.postNotifyChange(null, null, duAn, "option");
+	}
+	
 	@Transient
 	public AbstractValidator getValidator() {
 		return new AbstractValidator() {

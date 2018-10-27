@@ -28,7 +28,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<n:span class="page-header-title">
-						Dự án của nhà đầu tư công ty TNHH A
+						${vm.tenDuAn}
 					</n:span>
 				</div>
 			</div>

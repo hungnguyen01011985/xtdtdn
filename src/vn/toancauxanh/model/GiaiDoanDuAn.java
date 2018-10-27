@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 
 @Entity
 @Table(name="giaidoanduan")
@@ -33,8 +34,63 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	private TepTin taiLieuGD3;
 	private Date ngayPhatHanhCV3;
 	private TepTin congVanGD3;
+	//Thông tin giai đoạn 4
+	private PhuongThucLuaChonNDT phuongThucLuaChonNDT;
+	private String donViChuTri;
+	private boolean option = true;
+	//Lập kế hoạch chi tiết 1/500
+	private String donViTuVan;
+	private TepTin hoSoQuyHoachLKH;
+	private TepTin quyetDinhPheDuyet;
+	//Xây dựng phương án đấu giá quyền sử dụng đất
+	private String donViTuVanXDPA;
+	private Date ngayGuiLayGopY;
+	private Date ngayDuKienNhanCongVanXDPA;
+	private TepTin phuongAnDauGia;
+	//Quyết định đấu giá quyền sử dụng đất
+	private Date ngayGuiQDDG;
+	private Date ngayDuKienNhanCongVanQDDG;
+	private TepTin quyetDinhQDDG;
+	//Quyết định phê duyệt giá đất khởi điểm đấu giá
+	private Date ngayGuiQDPD;
+	private Date ngayNhanQDPD;
+	private TepTin quyetDinhQDPD;
+	//Gửi công văn đề nghị bổ sung địa điểm thực hiện dự án
+	private Date ngayGuiCongVanDNBS;
+	private Date ngayDuKienNhanCongVanDNBS;
+	private TepTin phuongAnDauGiaBNBS;
+	private TepTin quyetDinhBoSungDanhMucDNBS;
+	//Nghị quyết phê duyệt danh mục dụ án cần thu hồi đất
+	private TepTin nghiQuyetPheDuyet;
+	private TepTin vanBanDinhkemNQPD;
+	//Lập dự toán
+	private Double duToanDoDacKhuDat;
+	private Double duToanGiaiPhongMatBang;
+	private TepTin vanBanDinhKem;
+	private TepTin congTacDoDacLDT;
+	private TepTin giaiPhongMatBangLDT;
+	private TepTin quyetDinhPheDuyetLDT;
+	private TepTin keHoachSuDungDatLDT;
+	//Trình phê duyệt danh mục
+	private TepTin vanBanDinhKemTPDDM;
+	private TepTin quyetDinhPheDuyetTPDDM;
+	//Trình phê duyệt bổ sung kinh phí
+	private TepTin quyetDinhPheDuyetTPDKP;
+	private TepTin congVanDinhKemTPDKP;
+	//Phương án bồi thường giải phóng mặt bằng
+	private TepTin phuongAnDauGiaGPMB;
+	private TepTin quyetDinhPheDuyetGPMB;
+	//Quyết định phê duyệt giá đất khởi điểm
+	private Double giaKhoiDiem;
+	private Double tongMucDauTuDuAn;
+	private TepTin quyetDinhGDKD;
+	private TepTin quyetDinhPheDuyetGDKD;
+	private TepTin hoSoMoiTuyenGDKD;
+	private TepTin keHoachGDKD;
+	private TepTin hoSoMoiThauGDKD;
+	private Date ngayGuiSoKeHoachVaDauTu;
 	private List<DonViDuAn> donViDuAn = new ArrayList<DonViDuAn>();
-	
+
 	@Transient
 	public List<DonViDuAn> getDonViDuAn() {
 		return donViDuAn;
@@ -177,5 +233,505 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setDuAn(DuAn duAn) {
 		this.duAn = duAn;
 	}
+
+	public PhuongThucLuaChonNDT getPhuongThucLuaChonNDT() {
+		return phuongThucLuaChonNDT;
+	}
+
+	public void setPhuongThucLuaChonNDT(PhuongThucLuaChonNDT phuongThucLuaChonNDT) {
+		this.phuongThucLuaChonNDT = phuongThucLuaChonNDT;
+	}
+
+	public String getDonViChuTri() {
+		return donViChuTri;
+	}
+
+	public void setDonViChuTri(String donViChuTri) {
+		this.donViChuTri = donViChuTri;
+	}
+
+	public String getDonViTuVan() {
+		return donViTuVan;
+	}
+
+	public void setDonViTuVan(String donViTuVan) {
+		this.donViTuVan = donViTuVan;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhPheDuyet() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.quyetDinhPheDuyet == null) {
+				this.quyetDinhPheDuyet = new TepTin();
+			}
+		}
+		return quyetDinhPheDuyet;
+	}
+
+	public void setQuyetDinhPheDuyet(TepTin quyetDinhPheDuyet) {
+		this.quyetDinhPheDuyet = quyetDinhPheDuyet;
+	}
+
+	@ManyToOne
+	public TepTin getHoSoQuyHoachLKH() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.hoSoQuyHoachLKH == null) {
+				this.hoSoQuyHoachLKH = new TepTin();
+			}
+		}
+		return hoSoQuyHoachLKH;
+	}
+
+	public void setHoSoQuyHoachLKH(TepTin hoSoQuyHoachLKH) {
+		this.hoSoQuyHoachLKH = hoSoQuyHoachLKH;
+	}
+
+	public String getDonViTuVanXDPA() {
+		return donViTuVanXDPA;
+	}
+
+	public void setDonViTuVanXDPA(String donViTuVanXDPA) {
+		this.donViTuVanXDPA = donViTuVanXDPA;
+	}
+
+	public Date getNgayGuiLayGopY() {
+		return ngayGuiLayGopY;
+	}
+
+	public void setNgayGuiLayGopY(Date ngayGuiLayGopY) {
+		this.ngayGuiLayGopY = ngayGuiLayGopY;
+	}
+
+	public Date getNgayDuKienNhanCongVanXDPA() {
+		return ngayDuKienNhanCongVanXDPA;
+	}
+
+	public void setNgayDuKienNhanCongVanXDPA(Date ngayDuKienNhanCongVanXDPA) {
+		this.ngayDuKienNhanCongVanXDPA = ngayDuKienNhanCongVanXDPA;
+	}
+	
+	@ManyToOne
+	public TepTin getPhuongAnDauGia() {
+		return phuongAnDauGia;
+	}
+
+	public void setPhuongAnDauGia(TepTin phuongAnDauGia) {
+		this.phuongAnDauGia = phuongAnDauGia;
+	}
+
+	public Date getNgayGuiQDDG() {
+		return ngayGuiQDDG;
+	}
+
+	public void setNgayGuiQDDG(Date ngayGuiQDDG) {
+		this.ngayGuiQDDG = ngayGuiQDDG;
+	}
+
+	public Date getNgayDuKienNhanCongVanQDDG() {
+		return ngayDuKienNhanCongVanQDDG;
+	}
+
+	public void setNgayDuKienNhanCongVanQDDG(Date ngayDuKienNhanCongVanQDDG) {
+		this.ngayDuKienNhanCongVanQDDG = ngayDuKienNhanCongVanQDDG;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhQDDG() {
+		return quyetDinhQDDG;
+	}
+
+	public void setQuyetDinhQDDG(TepTin quyetDinhQDDG) {
+		this.quyetDinhQDDG = quyetDinhQDDG;
+	}
+
+	public Date getNgayGuiQDPD() {
+		return ngayGuiQDPD;
+	}
+
+	public void setNgayGuiQDPD(Date ngayGuiQDPD) {
+		this.ngayGuiQDPD = ngayGuiQDPD;
+	}
+
+	public Date getNgayNhanQDPD() {
+		return ngayNhanQDPD;
+	}
+
+	public void setNgayNhanQDPD(Date ngayNhanQDPD) {
+		this.ngayNhanQDPD = ngayNhanQDPD;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhQDPD() {
+		return quyetDinhQDPD;
+	}
+
+	public void setQuyetDinhQDPD(TepTin quyetDinhQDPD) {
+		this.quyetDinhQDPD = quyetDinhQDPD;
+	}
+
+	public Date getNgayGuiCongVanDNBS() {
+		return ngayGuiCongVanDNBS;
+	}
+
+	public void setNgayGuiCongVanDNBS(Date ngayGuiCongVanDNBS) {
+		this.ngayGuiCongVanDNBS = ngayGuiCongVanDNBS;
+	}
+
+	public Date getNgayDuKienNhanCongVanDNBS() {
+		return ngayDuKienNhanCongVanDNBS;
+	}
+
+	public void setNgayDuKienNhanCongVanDNBS(Date ngayDuKienNhanCongVanDNBS) {
+		this.ngayDuKienNhanCongVanDNBS = ngayDuKienNhanCongVanDNBS;
+	}
+	
+	@ManyToOne
+	public TepTin getPhuongAnDauGiaBNBS() {
+		return phuongAnDauGiaBNBS;
+	}
+
+	public void setPhuongAnDauGiaBNBS(TepTin phuongAnDauGiaBNBS) {
+		this.phuongAnDauGiaBNBS = phuongAnDauGiaBNBS;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhBoSungDanhMucDNBS() {
+		return quyetDinhBoSungDanhMucDNBS;
+	}
+
+	public void setQuyetDinhBoSungDanhMucDNBS(TepTin quyetDinhBoSungDanhMucDNBS) {
+		this.quyetDinhBoSungDanhMucDNBS = quyetDinhBoSungDanhMucDNBS;
+	}
+	
+	@ManyToOne
+	public TepTin getNghiQuyetPheDuyet() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.nghiQuyetPheDuyet == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.nghiQuyetPheDuyet = new TepTin();
+				}
+			}
+		}
+		return nghiQuyetPheDuyet;
+	}
+
+	public void setNghiQuyetPheDuyet(TepTin nghiQuyetPheDuyet) {
+		this.nghiQuyetPheDuyet = nghiQuyetPheDuyet;
+	}
+	
+	@ManyToOne
+	public TepTin getVanBanDinhkemNQPD() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.vanBanDinhkemNQPD == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.vanBanDinhkemNQPD = new TepTin();
+				}
+			}
+		}
+		return vanBanDinhkemNQPD;
+	}
+
+	public void setVanBanDinhkemNQPD(TepTin vanBanDinhkemNQPD) {
+		this.vanBanDinhkemNQPD = vanBanDinhkemNQPD;
+	}
+
+	public Double getDuToanDoDacKhuDat() {
+		return duToanDoDacKhuDat;
+	}
+
+	public void setDuToanDoDacKhuDat(Double duToanDoDacKhuDat) {
+		this.duToanDoDacKhuDat = duToanDoDacKhuDat;
+	}
+
+	public Double getDuToanGiaiPhongMatBang() {
+		return duToanGiaiPhongMatBang;
+	}
+
+	public void setDuToanGiaiPhongMatBang(Double duToanGiaiPhongMatBang) {
+		this.duToanGiaiPhongMatBang = duToanGiaiPhongMatBang;
+	}
+	
+	@ManyToOne
+	public TepTin getVanBanDinhKemTPDDM() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.vanBanDinhKemTPDDM == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.vanBanDinhKemTPDDM = new TepTin();
+				}
+			}
+		}
+		return vanBanDinhKemTPDDM;
+	}
+
+	public void setVanBanDinhKemTPDDM(TepTin vanBanDinhKemTPDDM) {
+		this.vanBanDinhKemTPDDM = vanBanDinhKemTPDDM;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhPheDuyetTPDDM() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.quyetDinhPheDuyetTPDDM == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.quyetDinhPheDuyetTPDDM = new TepTin();
+				}
+			}
+		}
+		return quyetDinhPheDuyetTPDDM;
+	}
+
+	public void setQuyetDinhPheDuyetTPDDM(TepTin quyetDinhPheDuyetTPDDM) {
+		this.quyetDinhPheDuyetTPDDM = quyetDinhPheDuyetTPDDM;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhPheDuyetTPDKP() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.quyetDinhPheDuyetTPDKP == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.quyetDinhPheDuyetTPDKP = new TepTin();
+				}
+			}
+		}
+		return quyetDinhPheDuyetTPDKP;
+	}
+
+	public void setQuyetDinhPheDuyetTPDKP(TepTin quyetDinhPheDuyetTPDKP) {
+		this.quyetDinhPheDuyetTPDKP = quyetDinhPheDuyetTPDKP;
+	}
+	
+	@ManyToOne
+	public TepTin getCongVanDinhKemTPDKP() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.congVanDinhKemTPDKP == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.congVanDinhKemTPDKP = new TepTin();
+				}
+			}
+		}
+		return congVanDinhKemTPDKP;
+	}
+
+	public void setCongVanDinhKemTPDKP(TepTin congVanDinhKemTPDKP) {
+		this.congVanDinhKemTPDKP = congVanDinhKemTPDKP;
+	}
+	
+	@ManyToOne
+	public TepTin getPhuongAnDauGiaGPMB() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.phuongAnDauGiaGPMB == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.phuongAnDauGiaGPMB = new TepTin();
+				}
+			}
+		}
+		return phuongAnDauGiaGPMB;
+	}
+
+	public void setPhuongAnDauGiaGPMB(TepTin phuongAnDauGiaGPMB) {
+		this.phuongAnDauGiaGPMB = phuongAnDauGiaGPMB;
+	}
+
+	@ManyToOne
+	public TepTin getQuyetDinhPheDuyetGPMB() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.quyetDinhPheDuyetGPMB == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.quyetDinhPheDuyetGPMB = new TepTin();
+				}
+			}
+		}
+		return quyetDinhPheDuyetGPMB;
+	}
+
+	public void setQuyetDinhPheDuyetGPMB(TepTin quyetDinhPheDuyetGPMB) {
+		this.quyetDinhPheDuyetGPMB = quyetDinhPheDuyetGPMB;
+	}
+
+	public Double getGiaKhoiDiem() {
+		return giaKhoiDiem;
+	}
+
+	public void setGiaKhoiDiem(Double giaKhoiDiem) {
+		this.giaKhoiDiem = giaKhoiDiem;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhGDKD() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.quyetDinhGDKD == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.quyetDinhGDKD = new TepTin();
+				}
+			}
+		}
+		return quyetDinhGDKD;
+	}
+
+	public void setQuyetDinhGDKD(TepTin quyetDinhGDKD) {
+		this.quyetDinhGDKD = quyetDinhGDKD;
+	}
+
+	@ManyToOne
+	public TepTin getQuyetDinhPheDuyetGDKD() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.quyetDinhPheDuyetGDKD == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.quyetDinhPheDuyetGDKD = new TepTin();
+				}
+			}
+		}
+		return quyetDinhPheDuyetGDKD;
+	}
+
+	public void setQuyetDinhPheDuyetGDKD(TepTin quyetDinhPheDuyetGDKD) {
+		this.quyetDinhPheDuyetGDKD = quyetDinhPheDuyetGDKD;
+	}
+	
+	@ManyToOne
+	public TepTin getHoSoMoiTuyenGDKD() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.hoSoMoiTuyenGDKD == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.hoSoMoiTuyenGDKD = new TepTin();
+				}
+			}
+		}
+		return hoSoMoiTuyenGDKD;
+	}
+
+	public void setHoSoMoiTuyenGDKD(TepTin hoSoMoiTuyenGDKD) {
+		this.hoSoMoiTuyenGDKD = hoSoMoiTuyenGDKD;
+	}
+	
+	@ManyToOne
+	public TepTin getKeHoachGDKD() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.keHoachGDKD == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.keHoachGDKD = new TepTin();
+				}
+			}
+		}
+		return keHoachGDKD;
+	}
+
+	public void setKeHoachGDKD(TepTin keHoachGDKD) {
+		this.keHoachGDKD = keHoachGDKD;
+	}
+	
+	@ManyToOne
+	public TepTin getHoSoMoiThauGDKD() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.hoSoMoiThauGDKD == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.hoSoMoiThauGDKD = new TepTin();
+				}
+			}
+		}
+		return hoSoMoiThauGDKD;
+	}
+
+	public void setHoSoMoiThauGDKD(TepTin hoSoMoiThauGDKD) {
+		this.hoSoMoiThauGDKD = hoSoMoiThauGDKD;
+	}
+
+	public Double getTongMucDauTuDuAn() {
+		return tongMucDauTuDuAn;
+	}
+
+	public void setTongMucDauTuDuAn(Double tongMucDauTuDuAn) {
+		this.tongMucDauTuDuAn = tongMucDauTuDuAn;
+	}
+
+	public Date getNgayGuiSoKeHoachVaDauTu() {
+		return ngayGuiSoKeHoachVaDauTu;
+	}
+
+	public void setNgayGuiSoKeHoachVaDauTu(Date ngayGuiSoKeHoachVaDauTu) {
+		this.ngayGuiSoKeHoachVaDauTu = ngayGuiSoKeHoachVaDauTu;
+	}
+
+	public boolean isOption() {
+		return option;
+	}
+
+	public void setOption(boolean option) {
+		this.option = option;
+	}
+	
+	@ManyToOne
+	public TepTin getVanBanDinhKem() {
+		return vanBanDinhKem;
+	}
+
+	public void setVanBanDinhKem(TepTin vanBanDinhKem) {
+		this.vanBanDinhKem = vanBanDinhKem;
+	}
+
+	@ManyToOne
+	public TepTin getCongTacDoDacLDT() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.congTacDoDacLDT == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.congTacDoDacLDT = new TepTin();
+				}
+			}
+		}
+		return congTacDoDacLDT;
+	}
+
+	public void setCongTacDoDacLDT(TepTin congTacDoDacLDT) {
+		this.congTacDoDacLDT = congTacDoDacLDT;
+	}
+	
+	@ManyToOne
+	public TepTin getGiaiPhongMatBangLDT() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.giaiPhongMatBangLDT == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.giaiPhongMatBangLDT = new TepTin();
+				}
+			}
+		}
+		return giaiPhongMatBangLDT;
+	}
+
+	public void setGiaiPhongMatBangLDT(TepTin giaiPhongMatBangLDT) {
+		this.giaiPhongMatBangLDT = giaiPhongMatBangLDT;
+	}
+
+	@ManyToOne
+	public TepTin getQuyetDinhPheDuyetLDT() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.quyetDinhPheDuyetLDT == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.quyetDinhPheDuyetLDT = new TepTin();
+				}
+			}
+		}
+		return quyetDinhPheDuyetLDT;
+	}
+
+	public void setQuyetDinhPheDuyetLDT(TepTin quyetDinhPheDuyetLDT) {
+		this.quyetDinhPheDuyetLDT = quyetDinhPheDuyetLDT;
+	}
+	
+	@ManyToOne
+	public TepTin getKeHoachSuDungDatLDT() {
+		if(this.phuongThucLuaChonNDT != null) {
+			if(this.keHoachSuDungDatLDT == null) {
+				if(this.getPhuongThucLuaChonNDT().ordinal() == 1) {
+					this.keHoachSuDungDatLDT = new TepTin();
+				}
+			}
+		}
+		return keHoachSuDungDatLDT;
+	}
+
+	public void setKeHoachSuDungDatLDT(TepTin keHoachSuDungDatLDT) {
+		this.keHoachSuDungDatLDT = keHoachSuDungDatLDT;
+	}
+	
+	
 	
 }

@@ -120,7 +120,6 @@ public class TepTin extends Model<TepTin> {
 			}
 		}
 	}
-
 	@Command
 	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final DuAn object,
 			@BindingParam("name") final String name) {
@@ -146,7 +145,6 @@ public class TepTin extends Model<TepTin> {
 					"Có tệp không đúng định dạng", "danger");
 		}
 	}
-
 	@Command
 	public void deleteFile(@BindingParam("vm") final DuAn vm, @BindingParam("ob") TepTin ob, @BindingParam("name") final String name) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
