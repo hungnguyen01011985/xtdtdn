@@ -150,13 +150,13 @@
 				<div zclass="form-group right flex">
 					<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)" class="btn btn-blue mg-btn">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
-						<span>Người phụ trách</span>
+						<span>Đổi người phụ trách</span>
 					</x:button>
 
 					<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
 						class="btn btn-blue mg-btn">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-						<span>Giao việc</span>
+						<span>Danh sách giao việc</span>
 					</x:button>
 					
 					<x:button onClick="@command('goTask', task = 'task_ketThucDuAn')" class="btn btn-blue mg-btn">
@@ -171,12 +171,12 @@
 					
 					<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanHai')" class="btn btn-blue mg-btn">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
-						<span>Lưu dữ liệu giai đoạn hai</span>
+						<span>Lưu</span>
 					</x:button>
 					
 					<x:button onClick="@command('goTask', task = 'task_luuVaTiepTucGiaiDoanBa')" class="btn btn-blue mg-btn">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
-						<span>Tiếp tục giai đoạn ba</span>
+						<span>Tiếp tục</span>
 					</x:button>
 					
 				</div>

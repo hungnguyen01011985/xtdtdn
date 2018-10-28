@@ -164,25 +164,25 @@
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Người phụ trách</span>
+							<span>Đổi người phụ trách</span>
 						</x:button>
 						
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Giao việc</span>
+							<span>Danh sách giao việc</span>
 						</x:button>
 						
 						<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanBa')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Lưu dữ liệu giai đoạn ba</span>
+							<span>Lưu</span>
 						</x:button>
 						
 						<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Lưu dữ liệu giai đoạn ba và tiếp tục giai đoạn bốn</span>
+							<span>Tiếp tục</span>
 						</x:button>
 					</div>
 					

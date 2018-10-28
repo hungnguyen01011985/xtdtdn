@@ -60,13 +60,15 @@
 				</div>
 			</div>
 			
-			<div class="row mg-top-no-line">
-				<div zclass="col-md-12">
-					<div class="title-small-page mgn-bt-0">
-						<span>Công văn đề nghị</span>
+			<div class="mg-top-no-line">
+				<div class="row">
+					<div zclass="col-md-12">
+						<div class="title-small-page mgn-bt-0">
+							<span>Công văn đề nghị</span>
+						</div>
 					</div>
 				</div>
-				
+				<div class="row">
 				<div zclass="col-md-3">
 					<div zclass="form-group mg-top-8">
 						<span>Ngày gửi</span>
@@ -102,7 +104,7 @@
 						</div>
 					</div>
 				</div>
-
+				</div>
 			</div>
 			<include src="quanlyduan/view-list-don-vi.zul"></include>
 			<include src="quanlyduan/add-view-don-vi.zul" if="${list == null or list.size() == 0}"></include>
@@ -110,7 +112,7 @@
 		
 			</div>
 			<div zclass="form-group">
-				<button class="btn bg-btn-tailieu btn-grey">Thêm đơn vị
+				<button class="btn bg-btn-tailieu btn-grey">Thêm đơn vị nhận CV
 					<attribute name="onClick">
 						<![CDATA[
 							new Include("quanlyduan/add-view-don-vi.zul").setParent(parentDonVi);
@@ -133,25 +135,25 @@
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Người phụ trách</span>
+							<span>Đổi người phụ trách</span>
 						</x:button>
 						
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Giao việc</span>
+							<span>Danh sách giao việc</span>
 						</x:button>
 						
 						<x:button onClick="@command('goTask', task = 'task_luuGiaiDoanMot')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Lưu dữ liệu giai đoạn một</span>
+							<span>Lưu</span>
 						</x:button>
 						
 						<x:button onClick="@command('goTask', task = 'task_luuVaTiepTucGiaiDoanHai')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Lưu dữ liệu giai đoạn một và tiếp tục giai đoạn hai</span>
+							<span>Tiếp tục</span>
 						</x:button>
 					</div>
 					

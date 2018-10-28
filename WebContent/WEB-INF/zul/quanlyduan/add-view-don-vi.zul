@@ -10,7 +10,7 @@
 				<span>ĐƠN VỊ NHẬN CV ĐỀ NGHỊ SỐ ${index+1}</span>
 				<span>button</span>
 			</n:div>
-			<div class="content-tab-panel hidden-tab-panel">
+			<div class="content-tab-panel">
 				<div class="row mg-and-bg-and-line-panel">
 						<div zclass="col-md-3">
 							<div zclass="form-group title-small-page">

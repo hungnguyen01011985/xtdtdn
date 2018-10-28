@@ -7,11 +7,12 @@
 							<span>button</span>
 						</n:div>
 						<div class="content-tab-panel">
-							<div class="row mg-and-bg-and-line-panel">
+							<div class="mg-and-bg-and-line-panel">
+								<div class="row">
 									<div zclass="col-md-3">
 										<div zclass="form-group title-small-page">
 											<span>Cấp đơn vị</span>
-											<textbox value="@bind(each.donVi)"></textbox>
+											<textbox class="form-control" maxlength="255" value="@bind(each.capDonVi)"/>
 											<label zclass="error"
 												value="@load(vmsgs[self.previousSibling])" />
 										</div>
@@ -30,19 +31,22 @@
 												value="@load(vmsgs[self.previousSibling])" />
 										</div>
 									</div>
+								</div>
 							</div>
-							<div class="row mg-and-bg-and-line-panel">
-								<div zclass="col-md-12">
-									<div class="title-small-page">
-										<span>Công văn trả lời</span>
+							<div class="mg-and-bg-and-line-panel">
+								<div class="row">
+									<div zclass="col-md-12">
+										<div class="title-small-page">
+											<span>Công văn trả lời</span>
+										</div>
 									</div>
 								</div>
-								
+								<div class="row">
 									<div zclass="col-md-3">
 										<div zclass="form-group">
 											<span>Ngày nhận</span>
 											<datebox format="dd/MM/yyyy" class="hv-db"
-												 onCreate="self.value = new Date()" width="100%" placeholder="Chọn ngày"/>
+												value="@bind(each.ngayNhanTraLoi)" width="100%" placeholder="Chọn ngày"/>
 											<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 										</div>
 									</div>
@@ -56,32 +60,37 @@
 												<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 											</div>
 									</div>
+								</div>
 							</div>
-							<div class="row mg-and-bg-and-line-panel">
-								<div zclass="col-md-12">
-									<div class="title-small-page">
-										<span>CV giải thích lý do trễ</span>
+							<div class="mg-and-bg-and-line-panel">
+								<div class="row">
+									<div zclass="col-md-12">
+										<div class="title-small-page">
+											<span>CV giải thích lý do trễ</span>
+										</div>
 									</div>
 								</div>
-								<div zclass="col-md-3">
-									<div zclass="form-group">
-										<span>Ngày nhận</span>
-										<datebox format="dd/MM/yyyy" class="hv-db"
-											onCreate="self.value = new Date()" width="100%"
-											placeholder="Chọn ngày" />
-										<label zclass="error"
-											value="@load(vmsgs[self.previousSibling])" />
-									</div>
-								</div>
-								<div zclass="col-md-3">
+								<div class="row">
+									<div zclass="col-md-3">
 										<div zclass="form-group">
-											<span>Tài liệu đính kèm</span>
-											 
-											<x:button  class="btn bg-btn-tailieu mg-btn-top btn-width">
-												<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/chon-tai-lieu.svg"/>
-												<span>Chọn tài liệu</span>
-											</x:button>
-											<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+											<span>Ngày nhận</span>
+											<datebox format="dd/MM/yyyy" class="hv-db"
+												value="@bind(each.ngayNhanGiaiThich)" width="100%"
+												placeholder="Chọn ngày"/>
+											<label zclass="error"
+												value="@load(vmsgs[self.previousSibling])" />
+										</div>
+									</div>
+									<div zclass="col-md-3">
+											<div zclass="form-group">
+												<span>Tài liệu đính kèm</span>
+												 
+												<x:button  class="btn bg-btn-tailieu mg-btn-top btn-width">
+													<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/chon-tai-lieu.svg"/>
+													<span>Chọn tài liệu</span>
+												</x:button>
+												<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+											</div>
 										</div>
 									</div>
 								</div>
