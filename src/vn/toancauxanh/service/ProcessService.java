@@ -39,7 +39,7 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().save();
-		model.getGiaoViec().getTaiLieu().save();
+		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
@@ -221,9 +221,18 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, "thoiHanGiaiDoanBa");
 	}
+	
 	public void luuDuLieuKetThucDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
+		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 1) {
+			model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
+			model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
+		}
+		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 2) {
+			model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
+			model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
+		}
 		model.save();
 		model.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_BON);
 		model.getGiaiDoanDuAn().setDuAn(model);
@@ -238,7 +247,7 @@ public class ProcessService extends BasicService<Object>{
 		duAn.save();
 		duAn.getGiaiDoanDuAn().setDuAn(duAn);
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
-		duAn.getGiaiDoanDuAn().save();
+		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		/*((ExecutionEntity) execution).setVariable(thoiHan, (Date)duAn.getNgayBatDauXucTien());*/
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(duAn.businessKey());
@@ -267,7 +276,7 @@ public class ProcessService extends BasicService<Object>{
 	public void luuDuLieuDonVi(GiaiDoanDuAn giaiDoanDuAn) {
 		for (DonViDuAn s : giaiDoanDuAn.getDonViDuAn()) {
 			s.setGiaiDoanDuAn(giaiDoanDuAn);
-			s.save();
+			s.saveNotShowNotification();
 		}
 	}
 	

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.MapUtils;
-import org.zkoss.util.resource.Labels;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.zk.ui.Executions;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -23,10 +25,28 @@ public class DuAnService extends BasicService<DuAn> {
 	public JPAQuery<DuAn> getTargetQuery() {
 		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		String giaiDoanXucTien = MapUtils.getString(argDeco(), "giaiDoanXucTien", "");
+		Long nguoiPhuTrach = (Long) argDeco().get("nhanVien");
+		Long linhVuc = (Long) argDeco().get("linhVuc");
 		JPAQuery<DuAn> q = find(DuAn.class).orderBy(QDuAn.duAn.ngaySua.desc());
 		if (param != null && !param.isEmpty()) {
 			String tuKhoa = "%" + param + "%";
 			q.where(QDuAn.duAn.tenDuAn.like(tuKhoa));
+		}
+		if (giaiDoanXucTien != null && !giaiDoanXucTien.isEmpty()) {
+			q.where(QDuAn.duAn.giaiDoanXucTien.eq(GiaiDoanXucTien.valueOf(giaiDoanXucTien)));
+		}
+		if (linhVuc != null) {
+			q.where(QDuAn.duAn.linhVuc.id.eq(linhVuc));
+		}
+		if (nguoiPhuTrach != null) {
+			q.where(QDuAn.duAn.nguoiPhuTrach.id.eq(nguoiPhuTrach));
+		}
+		if (getFixTuNgay() != null && getFixDenNgay() == null) {
+			q.where(QDuAn.duAn.ngayBatDauXucTien.after(getFixTuNgay()));
+		} else if (getFixTuNgay() == null && getFixDenNgay() != null) {
+			q.where(QDuAn.duAn.ngayBatDauXucTien.before(getFixDenNgay()));
+		} else if (getFixTuNgay() != null && getFixDenNgay() != null) {
+			q.where(QDuAn.duAn.ngayBatDauXucTien.between(getFixTuNgay(), getFixDenNgay()));
 		}
 		return q;
 	}
@@ -39,5 +59,10 @@ public class DuAnService extends BasicService<DuAn> {
 		list.add(GiaiDoanXucTien.GIAI_DOAN_BA);
 		list.add(GiaiDoanXucTien.GIAI_DOAN_BON);
 		return list;
+	}
+	
+	@Command
+	public void reset(@BindingParam("vm") final DuAnService vm) {
+		Executions.sendRedirect("/cp/quanlyduan");
 	}
 }
