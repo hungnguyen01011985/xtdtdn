@@ -14,6 +14,7 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.io.Files;
 import org.zkoss.util.media.Media;
@@ -120,6 +121,7 @@ public class TepTin extends Model<TepTin> {
 			}
 		}
 	}
+	
 	@Command
 	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final DuAn object,
 			@BindingParam("name") final String name) {

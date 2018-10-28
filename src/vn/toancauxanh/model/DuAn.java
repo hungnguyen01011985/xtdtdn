@@ -406,11 +406,23 @@ public class DuAn extends Model<DuAn> {
 		return new AbstractValidator() {
 			@Override
 			public void validate(ValidationContext ctx) {
-				TepTin tenFile = (TepTin) ctx.getProperty().getValue();
-				String vmgs = ctx.getValidatorArg("vmsg").toString();
-				if (tenFile.getTenFile() == null || tenFile.getTenFile().isEmpty()) {
-					addInvalidMessage(ctx, vmgs, "Trường này không được để trống");
+				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+				if (vmsgs != null) {
+					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
+					vmsgs.clearMessages(ctx.getBindContext().getComponent());
 				}
+				validateNumber(ctx);
+			}
+
+			private boolean validateNumber(ValidationContext ctx) {
+				boolean rs = true;
+				String vmgs = ctx.getValidatorArg("sms").toString();
+				TepTin tenFile = (TepTin) ctx.getProperty().getValue();
+				if (tenFile.getTenFile() == null || tenFile.getTenFile().isEmpty()) {
+					addInvalidMessage(ctx,vmgs, "Chưa tải tài liệu");
+					rs=false;
+				}
+				return rs;
 			}
 		};
 	}

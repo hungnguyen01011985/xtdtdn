@@ -23,8 +23,7 @@ public class GiaoViec extends Model<GiaoViec>{
 	private GiaiDoanXucTien giaiDoanXucTien;
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
 	private String yKienChiDao;
-	private TepTin taiLieu;
-	
+	private TepTin taiLieu = new TepTin();
 	public String getyKienChiDao() {
 		return yKienChiDao;
 	}
@@ -104,9 +103,6 @@ public class GiaoViec extends Model<GiaoViec>{
 
 	@ManyToOne
 	public TepTin getTaiLieu() {
-		if (this.taiLieu == null) {
-			this.taiLieu = new TepTin();
-		}
 		return taiLieu;
 	}
 
