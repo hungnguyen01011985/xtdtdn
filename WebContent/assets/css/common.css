@@ -701,6 +701,8 @@ body  {
 }
 .error {
 	color: red;
+	margin-top: 7.5px;
+    display: block;
 }
 .image-list {
 	margin-top: 10px;
