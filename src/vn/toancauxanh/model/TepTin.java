@@ -159,7 +159,7 @@ public class TepTin extends Model<TepTin> {
 						ob.setTenFile("");
 						ob.setPathFile("");
 						ob.setMedia(null);
-						BindUtils.postNotifyChange(null, null, vm, name);
+						BindUtils.postNotifyChange(null, null, vm, "*");
 						showNotification("Đã xóa", "", "success");
 					}
 				}

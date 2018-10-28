@@ -110,5 +110,4 @@ public class GiaoViec extends Model<GiaoViec>{
 		this.taiLieu = taiLieu;
 	}
 	
-	
 }

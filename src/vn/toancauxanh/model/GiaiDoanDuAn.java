@@ -129,6 +129,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getTaiLieuGD1() {
+		if(this.getGiaiDoanXucTien().ordinal()==0) {
+			if(taiLieuGD1==null) {
+				taiLieuGD1 = new TepTin();
+			}
+		}
 		return taiLieuGD1;
 	}
 
@@ -154,6 +159,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getTaiLieuGD2() {
+		if (this.giaiDoanXucTien.ordinal() == 1) {
+			if (this.taiLieuGD2 == null) {
+				this.taiLieuGD2 = new TepTin();
+			}
+		}
 		return taiLieuGD2;
 	}
 
@@ -171,6 +181,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getCongVanGD2() {
+		if (this.giaiDoanXucTien.ordinal() == 1) {
+			if (this.congVanGD2 == null) {
+				this.congVanGD2 = new TepTin();
+			}
+		}
 		return congVanGD2;
 	}
 
@@ -204,6 +219,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getTaiLieuGD3() {
+		if (this.giaiDoanXucTien.ordinal() == 2) {
+			if (this.taiLieuGD3 == null) {
+				this.taiLieuGD3 = new TepTin();
+			}
+		}
 		return taiLieuGD3;
 	}
 
@@ -221,6 +241,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getCongVanGD3() {
+		if (this.giaiDoanXucTien.ordinal() == 2) {
+			if (this.congVanGD3 == null) {
+				this.congVanGD3 = new TepTin();
+			}
+		}
 		return congVanGD3;
 	}
 

@@ -1,5 +1,10 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd">
+	<zscript>
+		<![CDATA[
+			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BA);
+		]]>
+	</zscript>
 	<div> 
 		<div class="panel-box border-box mg-bottom-15">
 			<div zclass="row">
@@ -61,7 +66,7 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group mg-top-8">
 						<span>Ngày gửi UBND</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiUBND)"
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiUBND)@save(vm.giaiDoanDuAn.ngayGuiUBND, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />
@@ -71,7 +76,7 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group mg-top-8">
 						<span>Ngày gửi sở xây dựng</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoXayDung)"
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoXayDung)@save(vm.giaiDoanDuAn.ngayGuiSoXayDung, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />
@@ -81,22 +86,28 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group mg-top-8">
 						<span>Ngày dự kiến nhận phản hồi</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi)"
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi)@save(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				
-				<div zclass="col-md-3">
+				<div zclass="col-md-3" viewModel="@id('file0')@init(vm.giaiDoanDuAn.taiLieuGD3)">
 					<div zclass="form-group mg-top-8">
 						<span>Tài liệu đính kèm</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD3.tenFile)" label="Chọn tài liệu" 
+							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieuGD3')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.taiLieuGD3.tenFile)">
+							<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.taiLieuGD3.tenFile)"/>
+							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.giaiDoanDuAn.taiLieuGD2, name = 'taiLieuGD3')">
+								<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+							</x:button>
+						</div>
 					</div>
 				</div>
 
@@ -112,22 +123,28 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group mg-top-8">
 						<span>Ngày phát hành CV</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiUBND)"
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCV3)@save(vm.giaiDoanDuAn.ngayPhatHanhCV3, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				
-				<div zclass="col-md-3">
+				<div zclass="col-md-3" viewModel="@id('file3')@init(vm.giaiDoanDuAn.congVanGD3)">
 					<div zclass="form-group mg-top-8">
 						<span>Tài liệu đính kèm</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<button visible="@load(empty vm.giaiDoanDuAn.congVanGD3.tenFile)" label="Chọn tài liệu" 
+							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'congVanGD3')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.congVanGD3.tenFile)">
+							<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.congVanGD3.tenFile)"/>
+							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.giaiDoanDuAn.congVanGD3, name = 'congVanGD3')">
+								<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+							</x:button>
+						</div>
 					</div>
 				</div>
 			

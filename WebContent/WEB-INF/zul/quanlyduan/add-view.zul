@@ -52,6 +52,7 @@
 						</div>
 					</div>
 				</div>
+				
 				<div class="row">
 					<div zclass="col-md-3">
 						<div zclass="form-group">
@@ -74,20 +75,20 @@
 						</div>
 					</div>	
 				
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<span>Ngày BĐ xúc tiến: Từ ngày</span> 
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)@save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'})@validator(vm.validator, endDate = vm.giaoViec.hanThucHien, type = true, firstText = 'Ngày xúc tiến', secondText = 'Ngày hoàn thành')" width="100%" placeholder="Chọn ngày"/>
-							<label zclass="error" value="@load(vmsgs['dateStart'])" />
-						</div>
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Ngày BĐ xúc tiến: Từ ngày</span> 
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)@save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
-				
+				</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<span>Giai đoạn xúc tiến</span> 
 							<textbox class="form-control" value="@load(vm.giaiDoanXucTien.text)" placeholder="${giaiDoanXucTien}" disabled="true"></textbox>
 						</div>
 					</div>
+				
 				</div>
 				<div class="row">
 					<div class="col-md-9">
@@ -98,14 +99,15 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<span>Ngày hoàn thành</span> 
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaoViec.hanThucHien)@save(vm.giaoViec.hanThucHien, before={'doAction','doActionWithKey'})@validator(vm.validator, dateStart = vm.ngayBatDauXucTien, type = false, firstText = 'Ngày xúc tiến', secondText = 'Ngày hoàn thành')" width="100%" placeholder="Chọn ngày"/>
-							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
-						</div>
+				
+				
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<span>Ngày hoàn thành</span> 
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaoViec.hanThucHien)@save(vm.giaoViec.hanThucHien, before={'doAction','doActionWithKey'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
+				</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
