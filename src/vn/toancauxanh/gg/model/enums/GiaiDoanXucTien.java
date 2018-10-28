@@ -5,6 +5,7 @@ public enum GiaiDoanXucTien {
 	GIAI_DOAN_HAI("Khảo sát địa điểm"),
 	GIAI_DOAN_BA("Xin chủ trương"),
 	GIAI_DOAN_BON("Lựa chọn NĐT"),
+	CHUA_HOAN_THANH("Hủy xúc tiến"),
 	HOAN_THANH("Hoàn thành xúc tiến");
 	String text;
 	GiaiDoanXucTien(final String txt) {

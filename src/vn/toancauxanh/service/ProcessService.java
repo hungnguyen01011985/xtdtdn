@@ -228,18 +228,21 @@ public class ProcessService extends BasicService<Object>{
 		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 1) {
 			model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 			model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
+			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
 		}
 		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 2) {
 			model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
 			model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
+			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
 		}
 		model.save();
 		model.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_BON);
 		model.getGiaiDoanDuAn().setDuAn(model);
-		model.getGiaiDoanDuAn().save();
+		model.getGiaiDoanDuAn().saveNotShowNotification();;
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
+		Executions.sendRedirect("/cp/quanlyduan");
 	}
 	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
