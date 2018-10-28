@@ -1,0 +1,144 @@
+<idspace>
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
+		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
+		 <zscript>
+		 	<![CDATA[
+				vmArgs = arg.get("vm");
+		 	]]>
+		 </zscript>
+		<div class="w-popup-content-medium">
+			<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Tìm kiếm</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="mg-and-bg-and-line">
+				<div class="row">
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Tên công việc</span> 
+							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Người được giao</span> 
+							<combobox model="@load(entry.nhanViens.tacGias)"
+								readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.arg.nguoiPhuTrach)" placeholder="Chọn người">
+								<template name="model">
+									<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>
+								</template>
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Trạng thái</span> 
+							<combobox readonly="true" model="@load(vm.listTrangThaiGiaoViec)" selectedItem="@bind(vm.arg.trangThai)" class="his" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(each eq null ? 'Tất cả' : each.text)"></comboitem>
+								</template>
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+						<x:button class="btn bg-btn-tailieu primary btn-grey ">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
+							<span>Tìm kiếm lại</span>
+						</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:button class="btn primary btn-blue" onClick="@command('cmd', notify=vm, attr='targetQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+							<span>Tìm kiếm</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Danh sách kết quả tìm kiếm</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+				<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
+					emptyMessage="Không có mục nào trong danh sách">
+					<columns>
+						<column label="STT" width="42px"/>
+						<column label="Tên công việc"/>
+						<column label="Người giao việc"/>
+						<column label="Người được giao"/>
+						<column label="Ngày giao việc"/>
+						<column label="Hạn thực hiện"/>
+						<column label="Trạng thái"/>
+						<column label="Thao tác" width="140px" />
+					</columns>
+					<template name="model">
+						<row>
+							<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
+							<label value="@load(each.tenCongViec)"></label>
+							<label value="@load(each.nguoiGiaoViec.hoVaTen)"></label>
+							<label value="@load(each.nguoiDuocGiao.hoVaTen)"></label>
+							<label value="@load(each.ngayGiao) @converter('formatedDate',format='dd/MM/YYYY')"></label>
+							<label value="@load(each.hanThucHien) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
+							<label value="@load(each.trangThaiGiaoViec.text)"></label>
+							<div class="thaotac">
+								<x:a label="Xóa" class="btn-thaotac up-note">
+									<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+									<x:span>Xóa</x:span>
+								</x:a>
+							</div>
+						</row>
+					</template>
+					<rows>
+						<row>
+							
+						</row>
+					</rows>
+				</grid>
+			</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+						<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+							<span>Đóng</span>
+						</x:button>
+					</div>
+				</div>
+				
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = vmArgs, vmArgs = vm)"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Giao việc</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</window>
+</idspace>

@@ -249,6 +249,8 @@ public class DuAn extends Model<DuAn> {
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
 		variables.put("goTask", "task_giaoViec");
+		variables.put("list", list);
+		variables.put("attr", attr);
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
