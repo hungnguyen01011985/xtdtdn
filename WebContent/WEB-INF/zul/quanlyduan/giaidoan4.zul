@@ -116,7 +116,7 @@
 						
 						<x:button onClick="@command('goTask', task = 'task_ketThucDuAn')"
 								class="btn btn-blue mg-btn">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ket-thuc-du-an.svg"/>
 							<span>Xúc tiến</span>
 						</x:button>
 					</div>

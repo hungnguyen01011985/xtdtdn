@@ -14,7 +14,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<div class="title-form">
-						<span>Thông tin giai đoạn dự án 1</span>
+						<span>Thông tin giai đoạn dự án</span>
 					</div>
 				</div>
 			</div>
@@ -121,43 +121,41 @@
 				</button>
 			</div>
 			<div class="row mg-and-bg-and-line">
-				<div zclass="col-xs-3">
-					<div zclass="form-group">
+					<div zclass="form-group left flex">
 						<x:button  class="btn bg-btn-tailieu btn-grey">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 							<span>Đóng</span>
 						</x:button>
 					</div>
-				</div>
-					
-				<div zclass="col-xs-9">
-					<div zclass="form-group right flex">
-						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
-								class="btn btn-blue mg-btn">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Đổi người phụ trách</span>
-						</x:button>
 						
-						<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
-								class="btn btn-blue mg-btn">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Danh sách giao việc</span>
-						</x:button>
-						
-						<x:button onClick="@command('goTask', task = 'task_luuGiaiDoanMot')"
-								class="btn btn-blue mg-btn">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Lưu</span>
-						</x:button>
-						
+						<div zclass="form-group right flex">
 						<x:button onClick="@command('goTask', task = 'task_luuVaTiepTucGiaiDoanHai')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Tiếp tục</span>
 						</x:button>
 					</div>
-					
-				</div>
+					<div zclass="form-group right flex">
+						<x:button onClick="@command('goTask', task = 'task_luuGiaiDoanMot')"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Lưu</span>
+						</x:button>
+						</div>
+					<div zclass="form-group right flex">
+						<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
+							<span>Danh sách giao việc</span>
+						</x:button>
+						</div>
+					<div zclass="form-group right flex">
+						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Đổi người phụ trách</span>
+						</x:button>
+						</div>
 			</div>
 		</div>
 </div>

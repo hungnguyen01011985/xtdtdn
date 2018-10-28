@@ -8,7 +8,6 @@
 	<template name="children">
 			<n:div class="title-panel-tab" onClick="toggleTabPanel(this)">
 				<span>ĐƠN VỊ NHẬN CV ĐỀ NGHỊ SỐ ${index+1}</span>
-				<span>button</span>
 			</n:div>
 			<div class="content-tab-panel">
 				<div class="row mg-and-bg-and-line-panel">
