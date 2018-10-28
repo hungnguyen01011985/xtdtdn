@@ -1,6 +1,6 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
-		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
+		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
 		 <zscript>
 		 	<![CDATA[
@@ -103,6 +103,10 @@
 							<label value="@load(each.hanThucHien) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
 							<label value="@load(each.trangThaiGiaoViec.text)"></label>
 							<div class="thaotac">
+								<x:a label="Sửa" class="btn-thaotac left" href="${execution.contextPath}/cp/quanlydoanvao/capnhatketqua">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
 								<x:a label="Xóa" class="btn-thaotac up-note">
 									<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 									<x:span>Xóa</x:span>

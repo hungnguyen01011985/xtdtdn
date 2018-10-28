@@ -87,7 +87,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-3">
 					<div zclass="form-group">
-						<x:button  class="btn bg-btn-tailieu btn-grey">
+						<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('redirectQuanLyDuAn')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 							<span>Đóng</span>
 						</x:button>

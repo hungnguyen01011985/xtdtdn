@@ -224,7 +224,12 @@ public class BaseObject<T> extends CoreObject<T> {
 	public boolean isNhanVienDaKichHoat() {
 		return !getNhanVien().isCheckKichHoat();
 	}
-
+	
+	@Command
+	public void redirectQuanLyDuAn() {
+		Executions.sendRedirect("/cp/quanlyduan");
+	}
+	
 	@Command
 	public void redirectPage(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
 			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom) {

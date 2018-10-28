@@ -160,7 +160,7 @@
 				<div class="row">
 				
 						<div zclass="form-group left flex">
-							<x:button  class="btn bg-btn-tailieu btn-grey">
+							<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('redirectQuanLyDuAn')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 								<span>Đóng</span>
 							</x:button>
