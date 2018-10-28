@@ -6,6 +6,7 @@
 			if (list != null){
 				vm.getGiaiDoanDuAn().getDonViDuAn().addAll(list);
 			}
+			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT);
 		]]>
 	</zscript>
 	<div> 
@@ -85,14 +86,20 @@
 				</div>
 				
 				<div zclass="col-md-6">
-					<div zclass="form-group mg-top-8">
+					<div zclass="form-group mg-top-8" viewModel="@id('file0')@init(vm.giaiDoanDuAn.taiLieuGD1)">
 						<span>Tài liệu đính kèm</span>
-						<button label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)" label="Chọn tài liệu" 
+							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieuGD1')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)">
+							<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.taiLieuGD1.tenFile)"/>
+							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.giaiDoanDuAn.taiLieuGD1, name = 'taiLieuGD1')">
+								<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+							</x:button>
+						</div>
 					</div>
 				</div>
 

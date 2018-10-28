@@ -47,6 +47,8 @@ public class DuAn extends Model<DuAn> {
 	private Date ngayBatDauXucTien;
 	private GiaiDoanDuAn giaiDoanDuAn;
 	private GiaoViec giaoViec = new GiaoViec();
+	private TepTin taiLieuNDT;
+
 	public DuAn() {
 
 	}
@@ -198,7 +200,7 @@ public class DuAn extends Model<DuAn> {
 	}
 
 	@Transient
-	public List<PhuongThucLuaChonNDT> getListPhuongThucLuaChonNDT(){
+	public List<PhuongThucLuaChonNDT> getListPhuongThucLuaChonNDT() {
 		List<PhuongThucLuaChonNDT> list = new ArrayList<PhuongThucLuaChonNDT>();
 		list.add(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 		list.add(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT);
@@ -214,7 +216,7 @@ public class DuAn extends Model<DuAn> {
 		list.add(QuyMoDuAn.QUY_MO_NHO);
 		return list;
 	}
-	
+
 	@Transient
 	public List<DonViChuTri> getListDonViChuTri() {
 		List<DonViChuTri> list = new ArrayList<DonViChuTri>();
@@ -228,7 +230,7 @@ public class DuAn extends Model<DuAn> {
 		list.add(DonViTuVan.VIEN_QUY_HOACH_DO_THI_DA_NANG);
 		return list;
 	}
-	
+
 	@Command
 	public void savePhuTrach(@BindingParam("wdn") final Window wdn, @BindingParam("list") final Object list,
 			@BindingParam("attr") final String attr) {
@@ -283,7 +285,7 @@ public class DuAn extends Model<DuAn> {
 	}
 
 	private String srcGiaiDoan4;
-	
+
 	@Transient
 	public String getSrcGiaiDoan4() {
 		return srcGiaiDoan4;
@@ -291,6 +293,15 @@ public class DuAn extends Model<DuAn> {
 
 	public void setSrcGiaiDoan4(String srcGiaiDoan4) {
 		this.srcGiaiDoan4 = srcGiaiDoan4;
+	}
+
+	@ManyToOne
+	public TepTin getTaiLieuNDT() {
+		return taiLieuNDT;
+	}
+
+	public void setTaiLieuNDT(TepTin taiLieuNDT) {
+		this.taiLieuNDT = taiLieuNDT;
 	}
 
 	@Command
@@ -315,7 +326,7 @@ public class DuAn extends Model<DuAn> {
 		BindUtils.postNotifyChange(null, null, duAn, "srcGiaiDoan4");
 		BindUtils.postNotifyChange(null, null, duAn, "option");
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidator() {
 		return new AbstractValidator() {
@@ -386,6 +397,20 @@ public class DuAn extends Model<DuAn> {
 					rs = false;
 				}
 				return rs;
+			}
+		};
+	}
+	
+	@Transient
+	public AbstractValidator getValidatorTepTin() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				TepTin tenFile = (TepTin) ctx.getProperty().getValue();
+				String vmgs = ctx.getValidatorArg("vmsg").toString();
+				if (tenFile.getTenFile() == null || tenFile.getTenFile().isEmpty()) {
+					addInvalidMessage(ctx, vmgs, "Trường này không được để trống");
+				}
 			}
 		};
 	}

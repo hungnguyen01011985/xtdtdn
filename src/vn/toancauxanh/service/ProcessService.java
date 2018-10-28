@@ -37,6 +37,7 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().setNguoiGiaoViec(model.getNguoiTao());
 		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
+		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().save();
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
@@ -54,15 +55,18 @@ public class ProcessService extends BasicService<Object>{
 	
 	public void luuDuLieuGiaiDoanMot(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		model.getTaiLieuNDT().saveNotShowNotification();
+		model.getGiaiDoanDuAn().getTaiLieuGD1().saveNotShowNotification();
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_MOT,"thoiHanGiaiDoanMot");
 		luuDuLieuDonVi(model.getGiaiDoanDuAn());
-		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
-			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
-		}
 	}
 	
 	public void luuDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		model.getTaiLieuNDT().saveNotShowNotification();
+		model.getGiaiDoanDuAn().getTaiLieuGD1().saveNotShowNotification();
 		luuDuLieuTiepTucAndRedirect(execution,GiaiDoanXucTien.GIAI_DOAN_HAI,GiaiDoanXucTien.GIAI_DOAN_MOT);
+		luuDuLieuDonVi(model.getGiaiDoanDuAn());
 	}
 	
 	public void capNhatNguoiPhuTrach(Execution execution) {
@@ -125,6 +129,9 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void luuDuLieuGIaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
+		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 		luuDuLieuTiepTucAndRedirect(execution,GiaiDoanXucTien.GIAI_DOAN_BA,GiaiDoanXucTien.GIAI_DOAN_HAI);
 	}
 	
@@ -133,11 +140,17 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void luuDuLieuGIaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
+		model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
 		luuDuLieuTiepTucAndRedirect(execution,GiaiDoanXucTien.GIAI_DOAN_BON,GiaiDoanXucTien.GIAI_DOAN_BA);
 	}
 	
 	
 	public void luuDuLieuGiaiDoanHai(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
+		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI, "thoiHanGiaiDoanHai");
 	}
 	
@@ -201,6 +214,9 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void luuDuLieuGiaiDoanBa(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
+		model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, "thoiHanGiaiDoanBa");
 	}
 	public void luuDuLieuKetThucDuAn(Execution execution) {
@@ -216,6 +232,8 @@ public class ProcessService extends BasicService<Object>{
 	}
 	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		duAn.getTaiLieuNDT().saveNotShowNotification();
+		duAn.save();
 		duAn.getGiaiDoanDuAn().setDuAn(duAn);
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
 		duAn.getGiaiDoanDuAn().save();

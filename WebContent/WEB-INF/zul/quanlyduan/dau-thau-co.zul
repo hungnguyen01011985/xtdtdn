@@ -4,7 +4,7 @@
 		<![CDATA[
 			vn.toancauxanh.model.GiaiDoanDuAn dauThau = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
 			vm.setGiaiDoanDuAn(dauThau);
-			if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() !=1){
+			if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT() == null || vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() !=1){
 				vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
 			} else {
 				vn.toancauxanh.model.GiaiDoanDuAn giaiDoan = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
@@ -46,7 +46,7 @@
 		<div zclass="col-md-4">
 			<div zclass="form-group mg-top-8">
 				<span>Đơn vị tư vấn</span>
-				<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan)" placeholder="--Chọn--">
+				<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan)@save(vm.giaiDoanDuAn.donViTuVan, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 					<template name="model">
 						<comboitem label="@load(each.text)"></comboitem>
 					</template>
@@ -174,7 +174,9 @@
 		<div zclass="col-md-4">
 			<div zclass="form-group">
 				<span>Dự toán công tác đo đạc khu đất (VNĐ)</span> 
-				<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.duToanDoDacKhuDat)"></textbox>
+				<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.duToanDoDacKhuDat)@save(vm.giaiDoanDuAn.duToanDoDacKhuDat, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
 			</div>
 		</div>
 		<div zclass="col-md-8">
@@ -201,7 +203,9 @@
 		<div zclass="col-md-4">
 			<div zclass="form-group">
 				<span>Dự toán kinh phí giải phóng mặt bằng (VNĐ)</span> 
-				<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.duToanGiaiPhongMatBang)"></textbox>
+				<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.duToanGiaiPhongMatBang)@save(vm.giaiDoanDuAn.duToanGiaiPhongMatBang, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+				<label zclass="error"
+					value="@load(vmsgs[self.previousSibling])" />
 			</div>
 		</div>
 		<div zclass="col-md-8">
@@ -442,7 +446,7 @@
 		<div zclass="col-md-4">
 			<div zclass="form-group mg-top-8">
 				<span>Giá khởi điểm (VNĐ)</span>
-				<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.giaKhoiDiem)"></textbox>
+				<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.giaKhoiDiem)@save(vm.giaiDoanDuAn.giaKhoiDiem, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 				<label zclass="error"
 					value="@load(vmsgs[self.previousSibling])" />
 			</div>
@@ -492,7 +496,7 @@
 		<div zclass="col-md-4">
 			<div zclass="form-group">
 				<span>Tổng mức đầu tư dự án (VNĐ)</span>
-				<textbox class="form-control"  value="@bind(vm.giaiDoanDuAn.tongMucDauTuDuAn)"></textbox>
+				<textbox class="form-control"  value="@bind(vm.giaiDoanDuAn.tongMucDauTuDuAn)@save(vm.giaiDoanDuAn.tongMucDauTuDuAn, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 				<label zclass="error"
 				value="@load(vmsgs[self.previousSibling])" />
 			</div>
@@ -558,7 +562,7 @@
 		<div zclass="col-md-4">
 			<div zclass="form-group mg-top-8">
 				<span>Ngày gửi Sở Kế hoạch và Đầu tư</span>
-				<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoKeHoachVaDauTu)"
+				<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoKeHoachVaDauTu)@save(vm.giaiDoanDuAn.ngayGuiSoKeHoachVaDauTu, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 					width="100%" placeholder="Chọn ngày"/>
 				<label zclass="error"
 					value="@load(vmsgs[self.previousSibling])" />

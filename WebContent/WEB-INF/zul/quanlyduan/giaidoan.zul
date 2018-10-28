@@ -11,6 +11,9 @@
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
 			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
 			vm.setGiaiDoanDuAn(item);
+			if(vm.getTaiLieuNDT() == null){
+				vm.setTaiLieuNDT(new vn.toancauxanh.model.TepTin());
+			}
 		]]>
 	</zscript>
 	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"> 
@@ -44,25 +47,21 @@
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<span>Tên dự án</span>
-						<textbox class="form-control" maxlength="255" value="@bind(vm.tenDuAn)"/> 
+						<textbox class="form-control" maxlength="255" value="@bind(vm.tenDuAn)@save(vm.tenDuAn, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên dự án"/>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" /> 
 					</div>
 				</div>
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Người phụ trách</span> 
-						<combobox readonly="true" class="his" width="100%" value="@bind(vm.nguoiPhuTrach.hoVaTen)">
-							<comboitem label="Testcase 1" />
-							<comboitem label="Testcase 2" />
-							<comboitem label="Testcase 3" />
-							<comboitem label="Testcase 4" />
-						</combobox>
+						<textbox class="form-control" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)@save(vm.nguoiPhuTrach.hoVaTen, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Ngày bắt đầu xúc tiến</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="true" value="@bind(vm.ngayBatDauXucTien)@save(vm.ngayBatDauXucTien, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error"
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
@@ -165,21 +164,22 @@
 				</div>
 				
 				<div class="col-md-6">
-					<!-- <div zclass="form-group" viewModel="@id('file')@init(vm.taiLieuNDT)">
+					<div zclass="form-group" viewModel="@id('file1')@init(vm.taiLieuNDT)">
 						<span>VB đề nghị của NĐT</span>
+						
 						<button visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
 							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieuNDT')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuNDT.tenFile )">
-							<label class="txt-link-tailieu" value="@bind(vm.taiLieuNDT.tenFile)" onClick="@command('downLoadTepTin')"/>
+						<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuNDT.tenFile)">
+							<label class="txt-link-tailieu" value="@bind(vm.taiLieuNDT.tenFile)"/>
 							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.taiLieuNDT, name = 'taiLieuNDT')">
 								<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 							</x:button>
 						</div>
-					</div> -->
+					</div>
 				</div>
 				
 			</div>
