@@ -1,14 +1,13 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="800px"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
-		closable="true" title="${arg.title}"
+		closable="true" title="${arg.title}" viewModel="@id('vm') @init(arg.model)"
 		validationMessages="@id('vmsgs')">
 			<zscript><![CDATA[
-			    vn.toancauxanh.model.DuAn duAnGiaoViec = arg.get("model");
-			    duAnGiaoViec.setGiaoViec(new vn.toancauxanh.model.GiaoViec());
+			    String strSave = arg.get("save");
 				vmArgs = arg.get("vmArgs");
 			]]></zscript> 
-		<div class="w-popup-content-medium" style="margin:0 15px;" viewModel="@id('vm') @init(duAnGiaoViec)" >
+		<div class="w-popup-content-medium" style="margin:0 15px;"  >
 			<div class="mg-and-bg-and-line mg-bottom-5">
 				<div class="row">
 				<div zclass="col-md-6">
@@ -16,7 +15,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Tên dự án</x:span>
 						</div>
-						<textbox class="form-control" value="@bind(vm.tenDuAn)" disabled="true"></textbox>
+						<textbox class="form-control" value="@bind(vm.duAn.tenDuAn)" disabled="true"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -26,7 +25,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Giai đoạn</x:span>
 						</div>
-						<textbox class="form-control" value="@bind(vm.giaiDoanXucTien.text)" disabled="true"></textbox>
+						<textbox class="form-control" value="@bind(vm.duAn.giaiDoanXucTien.text)" disabled="true"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -37,7 +36,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Người giao</x:span>
 						</div>
-						<textbox class="form-control" value="@load(vm.giaoViec.nguoiGiaoViec.hoVaTen eq '' ? entry.nhanVien.hoVaTen : vm.giaoViec.nguoiGiaoViec.hoVaTen)" disabled="true"></textbox>
+						<textbox class="form-control" value="@load(vm.nguoiGiaoViec.hoVaTen)" disabled="true"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -47,7 +46,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Người được giao</x:span>
 						</div>
-						<textbox class="form-control" value="@load(vm.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
+						<textbox class="form-control" value="@load(vm.duAn.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -58,7 +57,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Tên công việc</x:span>
 						</div>
-						<textbox class="form-control" value="@bind(vm.giaoViec.tenCongViec)"></textbox>
+						<textbox class="form-control" value="@bind(vm.tenCongViec)"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -70,7 +69,7 @@
 							<x:span class="issue-search">Ngày giao</x:span>
 						</div>
 						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
-							  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.ngayGiao)"/>
+							  width="100%" placeholder="Chọn ngày" value="@bind(vm.ngayGiao)"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -81,7 +80,7 @@
 							<x:span class="issue-search">Hạn thực hiện</x:span>
 						</div>
 						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
-							  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.hanThucHien)"/>
+							  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien)"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -92,7 +91,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Ý kiến chỉ đạo</x:span>
 						</div>
-						<textbox class="form-control" value="@bind(vm.giaoViec.yKienChiDao)" rows="3"></textbox>
+						<textbox class="form-control" value="@bind(vm.yKienChiDao)" rows="3"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -110,7 +109,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveGiaoViec',wdn=wdn, list=vmArgs, attr = 'targetQuery')">
+						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveGiaoViec',wdn=wdn, vmArgs=vmArgs, attr = 'targetQuery')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>

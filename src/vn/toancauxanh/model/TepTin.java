@@ -140,7 +140,6 @@ public class TepTin extends Model<TepTin> {
 				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				this.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				this.setMedia(media);
-				System.out.println("z"+this.getTenFile());
 				BindUtils.postNotifyChange(null, null, object, "*");
 			}
 		} else {
@@ -160,7 +159,6 @@ public class TepTin extends Model<TepTin> {
 						ob.setTenFile("");
 						ob.setPathFile("");
 						ob.setMedia(null);
-						System.out.println(vm.getId());
 						BindUtils.postNotifyChange(null, null, vm, "*");
 						showNotification("Đã xóa", "", "success");
 					}
