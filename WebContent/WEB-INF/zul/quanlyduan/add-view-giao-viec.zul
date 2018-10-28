@@ -1,15 +1,19 @@
 <idspace>
-	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="800px"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
-		closable="true" title="${arg.save}"
-		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
+		closable="true" title="${arg.title}"
+		validationMessages="@id('vmsgs')">
 			<zscript><![CDATA[
+			    vn.toancauxanh.model.DuAn duAnGiaoViec = arg.get("model");
+			    String strSave = arg.get("save");
+			    if (strSave.equals("add")){
+			    	duAnGiaoViec.setGiaoViec(new vn.toancauxanh.model.GiaoViec());
+			    }
 				vmArgs = arg.get("vmArgs");
-				strSave = arg.get("save");
 			]]></zscript> 
-			
-		<div class="w-popup-content-medium" style="margin:0 15px;">
-			<div class="row mg-and-bg-and-line mg-bottom-5">
+		<div class="w-popup-content-medium" style="margin:0 15px;" viewModel="@id('vm') @init(duAnGiaoViec)" >
+			<div class="mg-and-bg-and-line mg-bottom-5">
+				<div class="row">
 				<div zclass="col-md-6">
 					<div zclass="form-group">
 						<div class="flex">
@@ -29,13 +33,14 @@
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				
+				</div>
+				<div class="row">
 				<div zclass="col-md-6">
 					<div zclass="form-group">
 						<div class="flex">
 							<x:span class="issue-search">Người giao</x:span>
 						</div>
-						<textbox class="form-control" value="" disabled="true"></textbox>
+						<textbox class="form-control" value="@load(vm.giaoViec.nguoiGiaoViec.hoVaTen eq '' ? entry.nhanVien.hoVaTen : vm.giaoViec.nguoiGiaoViec.hoVaTen)" disabled="true"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
@@ -45,11 +50,12 @@
 						<div class="flex">
 							<x:span class="issue-search">Người được giao</x:span>
 						</div>
-						<textbox class="form-control" value="@load(vm.nguoiPhuTrach.hoVaTen)"></textbox>
+						<textbox class="form-control" value="@load(vm.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				
+				</div>
+				<div class="row">
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<div class="flex">
@@ -59,7 +65,8 @@
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				
+				</div>
+				<div class="row">
 				<div zclass="col-md-6">
 					<div zclass="form-group">
 						<div class="flex">
@@ -81,7 +88,8 @@
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				
+				</div>
+				<div class="row">
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<div class="flex">
@@ -91,9 +99,10 @@
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				
+				</div>
 			</div>
-			<div class="row mg-and-bg-and-line">
+			<div class="mg-and-bg-and-line">
+			<div class="row">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
 						<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
@@ -109,6 +118,7 @@
 							<span>Lưu</span>
 						</x:button>
 					</div>
+				</div>
 				</div>
 			</div>
 		</div>

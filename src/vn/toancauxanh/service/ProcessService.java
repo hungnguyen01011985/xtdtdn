@@ -38,6 +38,7 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().save();
+		model.getGiaoViec().getTaiLieu().save();
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
@@ -83,6 +84,7 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
 		model.getGiaoViec().setNguoiGiaoViec(core().getNhanVien());
 		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
+		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().save();
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
