@@ -26,11 +26,6 @@ public class BaseValid extends AbstractValidator {
 	public void validate(final ValidationContext ctx) {
 		final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
 		if (vmsgs != null) {
-			System.out.println("zô messs");
-			if (vmsgs.getKeyMessages("fileGiaoViec") != null) {
-				System.out.println("key file:"+vmsgs.getKeyMessages("fileGiaoViec"));
-			}
-			
 			vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
 			vmsgs.clearMessages(ctx.getBindContext().getComponent());
 		}
@@ -45,11 +40,9 @@ public class BaseValid extends AbstractValidator {
 	private boolean validateConstraint(final ValidationContext ctx) {
 		boolean result;
 		final Object constraint = ctx.getValidatorArg("constraint"); // Lấy dữ liệu biến param đặt trong @Validator
-		System.out.println("vào basevalid constraint");
 		if (constraint == null) {
 			result = true;
 		} else {
-			System.out.println("value"+ctx.getProperty().getValue());
 			try {
 				new SimpleConstraint(constraint.toString()).validate(null, ctx.getProperty().getValue());
 				result = true;

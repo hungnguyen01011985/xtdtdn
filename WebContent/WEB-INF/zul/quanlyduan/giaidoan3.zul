@@ -69,7 +69,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày gửi UBND</span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiUBND)@save(vm.giaiDoanDuAn.ngayGuiUBND, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiUBND)@save(vm.giaiDoanDuAn.ngayGuiUBND, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error"
 								value="@load(vmsgs[self.previousSibling])" />
@@ -79,7 +79,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày gửi sở xây dựng</span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoXayDung)@save(vm.giaiDoanDuAn.ngayGuiSoXayDung, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoXayDung)@save(vm.giaiDoanDuAn.ngayGuiSoXayDung, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error"
 								value="@load(vmsgs[self.previousSibling])" />
@@ -89,7 +89,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày dự kiến nhận phản hồi</span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi)@save(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi)@save(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error"
 								value="@load(vmsgs[self.previousSibling])" />
@@ -129,7 +129,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày phát hành CV</span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCV3)@save(vm.giaiDoanDuAn.ngayPhatHanhCV3, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCV3)@save(vm.giaiDoanDuAn.ngayPhatHanhCV3, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error"
 								value="@load(vmsgs[self.previousSibling])" />
@@ -167,7 +167,7 @@
 						</div>
 						
 							<div zclass="form-group right flex">
-							<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon')"
+							<x:button onClick="@command('goNext', task = 'task_luuDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon')"
 									class="btn btn-blue mg-btn">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 								<span>Tiếp tục</span>

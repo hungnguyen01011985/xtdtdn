@@ -34,7 +34,7 @@ import vn.toancauxanh.gg.model.QuocGia;
 import vn.toancauxanh.model.ThanhVienDoan;
 import vn.toancauxanh.model.VaiTro;
 
-@SuppressWarnings({ "deprecation", "unused" })
+@SuppressWarnings({ "unused" })
 @Configuration
 @Controller
 public class Entry extends BaseObject<Object> {

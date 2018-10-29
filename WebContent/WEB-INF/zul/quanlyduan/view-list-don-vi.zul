@@ -19,7 +19,7 @@
 							<div zclass="col-md-3">
 								<div zclass="form-group title-small-textbox">
 									<span>Cấp đơn vị</span>
-									<textbox class="form-control" maxlength="255" value="@bind(each.capDonVi)"/>
+									<textbox class="form-control" maxlength="255" value="@bind(each.capDonVi)@save(each.capDonVi, before='goNext')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
 									<label zclass="error"
 										value="@load(vmsgs[self.previousSibling])" />
 								</div>
@@ -47,7 +47,7 @@
 								<div zclass="form-group">
 									<span>Ngày nhận</span>
 									<datebox format="dd/MM/yyyy" class="hv-db"
-										value="@bind(each.ngayNhanTraLoi)" width="100%" placeholder="Chọn ngày"/>
+										value="@bind(each.ngayNhanTraLoi)@save(each.ngayNhanTraLoi, before='goNext')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
 								</div>
 							</div>
 							
@@ -83,7 +83,7 @@
 									<div zclass="form-group">
 										<span>Ngày nhận</span>
 										<datebox format="dd/MM/yyyy" class="hv-db"
-											value="@bind(each.ngayNhanGiaiThich)" width="100%"
+											value="@bind(each.ngayNhanGiaiThich)@save(each.ngayNhanGiaiThich, before='goNext')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%"
 											placeholder="Chọn ngày"/>
 									</div>
 								</div>

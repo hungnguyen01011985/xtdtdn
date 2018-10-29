@@ -73,7 +73,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày gửi</span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGui)@save(vm.giaiDoanDuAn.ngayGui, before='goTask')@validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGui)@save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'})@validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateStart'])" />
 						</div>
@@ -82,7 +82,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày dự kiến nhận phản hồi</span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi)@save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before='goTask')@validator(vm.validator, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi)@save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before={'goTask','goNext'})@validator(vm.validator, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>
@@ -125,7 +125,7 @@
 				</div>
 						
 				<div zclass="form-group right-mg flex">
-					<x:button onClick="@command('goTask', task = 'task_luuVaTiepTucGiaiDoanHai')"
+					<x:button onClick="@command('goNext', task = 'task_luuVaTiepTucGiaiDoanHai')"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 						<span>Tiếp tục</span>

@@ -266,6 +266,27 @@ public class DuAn extends Model<DuAn> {
 		}
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
+	
+	// hàm set task khi ấn quay lại giai đoạn 1
+	@Command
+	public void goBack(@BindingParam("task") final String task){
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("model", this);
+		if (task != null) {
+			variables.put("goTask", task);
+		}
+		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+	}
+	
+	@Command
+	public void goNext(@BindingParam("task") final String task){
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("model", this);
+		if (task != null) {
+			variables.put("goTask", task);
+		}
+		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+	}
 
 	@Transient
 	public String getSrc() {
@@ -397,7 +418,14 @@ public class DuAn extends Model<DuAn> {
 			private boolean validateNumber(ValidationContext ctx) {
 				boolean rs = true;
 				String text = (String) ctx.getValidatorArg("text");
-				Double vonDauTu = Double.parseDouble((String) ctx.getProperty().getValue());
+				Double vonDauTu = 0d;
+				try {
+					vonDauTu = Double.parseDouble((String) ctx.getProperty().getValue());
+				} catch (NumberFormatException e) {
+					addInvalidMessage(ctx,"Bạn phải nhập số");
+				}
+				
+				
 				if (vonDauTu <= 0) {
 					addInvalidMessage(ctx, text + " phải lớn hơn 0");
 					rs = false;
