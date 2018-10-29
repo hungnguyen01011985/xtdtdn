@@ -179,7 +179,9 @@ public class GiaoViec extends Model<GiaoViec>{
 			@BindingParam("wdn") final Window wd) {
 		wd.detach();
 		this.setTrangThaiGiaoViec(TrangThaiGiaoViec.HOAN_THANH);
-		this.getTaiLieuKetQua().saveNotShowNotification();
+		if(getTaiLieuKetQua() !=null) {
+			this.getTaiLieuKetQua().saveNotShowNotification();
+		}
 		this.save();
 		BindUtils.postNotifyChange(null, null, this, "*");
 		BindUtils.postNotifyChange(null, null, ob, "*");
