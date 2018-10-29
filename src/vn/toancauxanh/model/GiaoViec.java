@@ -8,6 +8,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
+
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
@@ -108,6 +116,38 @@ public class GiaoViec extends Model<GiaoViec>{
 
 	public void setTaiLieu(TepTin taiLieu) {
 		this.taiLieu = taiLieu;
+	}
+	
+	@Command
+	public void saveGiaoViec(@BindingParam("vmArgs") final Object ob,
+			@BindingParam("vm") final Object vm,@BindingParam("wdn") final Window wd) {
+		wd.detach();
+		save();
+		BindUtils.postNotifyChange(null, null, this, "*");
+		BindUtils.postNotifyChange(null, null, ob, "targetQuery");
+	}
+	
+	@Command
+	public void delete(@BindingParam("item") final GiaoViec giaoViec,
+			@BindingParam("vm") final Object vm) {
+		if (!checkInUse()) {
+			Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+					new EventListener<Event>() {
+						@Override
+						public void onEvent(Event event) throws Exception {
+							if (Messagebox.ON_OK.equals(event.getName())) {
+								showNotification("Xóa thành công!", "", "success");
+								if(giaoViec != null ) {
+									if(!giaoViec.noId()) {
+										giaoViec.doDelete(true);
+									}
+								}
+								BindUtils.postNotifyChange(null, null, this, "*");
+								BindUtils.postNotifyChange(null, null, vm, "targetQuery");
+							}
+						}
+					});
+		}
 	}
 	
 }

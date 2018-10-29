@@ -12,9 +12,9 @@ public class DonViDuAn extends Model<DonViDuAn>{
 	private String capDonVi;
 	private String donVi;
 	private Date ngayNhanTraLoi;
-	private TepTin congVanTraLoi;
+	private TepTin congVanTraLoi = new TepTin();
 	private Date ngayNhanGiaiThich;
-	private TepTin congVanGiaiThich;
+	private TepTin congVanGiaiThich = new TepTin();
 	private GiaiDoanDuAn giaiDoanDuAn;
 	
 	public String getCapDonVi() {

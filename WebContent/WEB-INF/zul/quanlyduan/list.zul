@@ -135,7 +135,7 @@
 						<column label="Lĩnh vực"/>
 						<column label="Tiến độ xúc tiến"/>
 						<column label="Người phụ trách"/>
-						<column label="Thao tác" width="140px" />
+						<column label="Thao tác" width="120px" />
 					</columns>
 						<template name="model">
 							<row>
