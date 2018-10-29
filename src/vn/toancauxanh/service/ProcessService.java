@@ -118,7 +118,7 @@ public class ProcessService extends BasicService<Object>{
 	public void luuDuLieuQuayLaiGiaiDoanMot(Execution execution) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_HAI);
-		duAn.getGiaiDoanDuAn().save();
+		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
