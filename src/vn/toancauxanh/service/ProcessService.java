@@ -119,6 +119,8 @@ public class ProcessService extends BasicService<Object>{
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_HAI);
 		duAn.getGiaiDoanDuAn().save();
+		duAn.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
 				.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.eq(duAn))
 				.where(QGiaiDoanDuAn.giaiDoanDuAn.trangThai.ne(core().TT_DA_XOA));
@@ -238,11 +240,13 @@ public class ProcessService extends BasicService<Object>{
 		model.save();
 		model.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_BON);
 		model.getGiaiDoanDuAn().setDuAn(model);
-		model.getGiaiDoanDuAn().saveNotShowNotification();;
+		model.getGiaiDoanDuAn().saveNotShowNotification();
+		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
+		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
 			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
 		}
-		Executions.sendRedirect("/cp/quanlyduan");
+		redirectList();
 	}
 	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
@@ -276,10 +280,16 @@ public class ProcessService extends BasicService<Object>{
 		Executions.sendRedirect("/cp/quanlyduan/"+id);
 	}
 	
+	public void redirectList() {
+		Executions.sendRedirect("/cp/quanlyduan");
+	}
+	
 	public void luuDuLieuDonVi(GiaiDoanDuAn giaiDoanDuAn) {
 		for (DonViDuAn s : giaiDoanDuAn.getDonViDuAn()) {
 			s.setGiaiDoanDuAn(giaiDoanDuAn);
 			s.saveNotShowNotification();
+			s.getCongVanGiaiThich().saveNotShowNotification();
+			s.getCongVanTraLoi().saveNotShowNotification();
 		}
 	}
 	

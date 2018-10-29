@@ -23,7 +23,13 @@ input {
 .bold {
 	font-weight: bold;
 }
-
+.no-all-window{
+	background: transparent;
+}
+.no-all-window .z-window-content{
+	background:transparent !important;
+	border-radius:0px !important;
+}
 .panel-body-hotro span {
 	font-size: 15px;	
 }

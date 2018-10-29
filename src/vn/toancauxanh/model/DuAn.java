@@ -327,6 +327,12 @@ public class DuAn extends Model<DuAn> {
 		BindUtils.postNotifyChange(null, null, duAn, "option");
 	}
 
+	@Command
+	public void addNewDonVi(@BindingParam("vm") DuAn duAn) {
+		duAn.getGiaiDoanDuAn().getDonViDuAn().add(new DonViDuAn());
+		BindUtils.postNotifyChange(null, null, duAn, "*");
+	}
+	
 	@Transient
 	public AbstractValidator getValidator() {
 		return new AbstractValidator() {
@@ -406,24 +412,22 @@ public class DuAn extends Model<DuAn> {
 		return new AbstractValidator() {
 			@Override
 			public void validate(ValidationContext ctx) {
+				String vmgs = ctx.getValidatorArg("sms").toString();
 				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
 				if (vmsgs != null) {
 					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
 					vmsgs.clearMessages(ctx.getBindContext().getComponent());
 				}
-				validateNumber(ctx);
+				
+				TepTin tenFile = (TepTin) ctx.getProperty().getValue();
+				System.out.println("zô fileeeeeee");
+				if (tenFile.getTenFile() == null || tenFile.getTenFile().isEmpty()) {
+					System.out.println("tên file:"+tenFile.getTenFile());
+					addInvalidMessage(ctx,vmgs, "Chưa tải tài liệu");
+				}
 			}
 
-			private boolean validateNumber(ValidationContext ctx) {
-				boolean rs = true;
-				String vmgs = ctx.getValidatorArg("sms").toString();
-				TepTin tenFile = (TepTin) ctx.getProperty().getValue();
-				if (tenFile.getTenFile() == null || tenFile.getTenFile().isEmpty()) {
-					addInvalidMessage(ctx,vmgs, "Chưa tải tài liệu");
-					rs=false;
-				}
-				return rs;
-			}
 		};
 	}
+	
 }

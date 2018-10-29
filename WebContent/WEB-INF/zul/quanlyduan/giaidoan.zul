@@ -43,14 +43,17 @@
 					</div>
 				</div>
 			</div>
-			<div zclass="row mg-and-bg-and-line">
-				<div zclass="col-md-12">
-					<div zclass="form-group">
-						<span>Tên dự án</span>
-						<textbox class="form-control" maxlength="255" value="@bind(vm.tenDuAn)@save(vm.tenDuAn, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên dự án"/>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" /> 
+			<div zclass="mg-and-bg-and-line">
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group">
+							<span>Tên dự án</span>
+							<textbox class="form-control" maxlength="255" value="@bind(vm.tenDuAn)@save(vm.tenDuAn, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên dự án"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" /> 
+						</div>
 					</div>
 				</div>
+				<div class="row">
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Người phụ trách</span> 
@@ -86,6 +89,8 @@
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
+				</div>
+				<div class="row">
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Quy mô dự án</span>
@@ -107,7 +112,8 @@
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				
+				</div>
+				<div class="row">
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<span>Mục tiêu dự án</span>
@@ -116,7 +122,8 @@
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				
+				</div>
+				<div class="row">
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Diện tích sử dụng đất(ha)</span>
@@ -134,7 +141,8 @@
 							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				
+				</div>
+				<div class="row">
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Mức độ ưu tiên</span>
@@ -181,7 +189,7 @@
 						</div>
 					</div>
 				</div>
-				
+				</div>
 			</div>
 		</div>
 		<include src="${vm.getSrc()}"></include>

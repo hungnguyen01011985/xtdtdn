@@ -82,6 +82,20 @@
 .btn-no-span{
 	margin-top: 25px !important;
 }
+.left-mg{
+	float:left;
+	margin-left:7.5px;
+}
+.right-mg{
+	float:right;
+	margin-right:7.5px;
+}
+.title-small-textbox > span > span{
+	font-family: Roboto-Bold !important;
+    font-size: 13px !important;
+    color: #292A2D !important;
+    line-height: 18px !important;
+}
 
 .plan-number{
 	width:40px;
