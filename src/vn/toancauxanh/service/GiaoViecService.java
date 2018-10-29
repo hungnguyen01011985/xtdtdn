@@ -18,13 +18,14 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	 * 
 	 */
 	private static final long serialVersionUID = 2132978067148535799L;
-
-	public JPAQuery<GiaoViec> getTargetQuery() {
+	
+	public JPAQuery<GiaoViec> getTargetQueryByIdDuAn(Long idDuAn) {
 		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		Long id = MapUtils.getLongValue(argDeco(), "nguoiPhuTrach" , 0);
 		String trangThai = MapUtils.getString(argDeco(), "trangThai", "");
 		JPAQuery<GiaoViec> q = find(GiaoViec.class)
-				.where(QGiaoViec.giaoViec.trangThai.ne(core().TT_DA_XOA));
+				.where(QGiaoViec.giaoViec.trangThai.ne(core().TT_DA_XOA))
+				.where(QGiaoViec.giaoViec.duAn.id.eq(idDuAn));
 		if (tuKhoa != null) {
 			q.where(QGiaoViec.giaoViec.tenCongViec.like("%" + tuKhoa + "%"));
 		}
@@ -38,6 +39,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		q.orderBy(QGiaoViec.giaoViec.ngaySua.desc());
 		return q;
 	}
+	
 	
 	public List<TrangThaiGiaoViec> getListTrangThaiGiaoViec(){
 		List<TrangThaiGiaoViec> list = new ArrayList<TrangThaiGiaoViec>();

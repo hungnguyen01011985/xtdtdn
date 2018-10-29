@@ -25,7 +25,6 @@ public class BaseValid extends AbstractValidator {
 	@Override
 	public void validate(final ValidationContext ctx) {
 		final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
-		
 		if (vmsgs != null) {
 			System.out.println("zô messs");
 			if (vmsgs.getKeyMessages("fileGiaoViec") != null) {

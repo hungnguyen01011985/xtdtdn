@@ -413,16 +413,15 @@ public class DuAn extends Model<DuAn> {
 			@Override
 			public void validate(ValidationContext ctx) {
 				String vmgs = ctx.getValidatorArg("sms").toString();
-				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+				/*final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
 				if (vmsgs != null) {
 					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
 					vmsgs.clearMessages(ctx.getBindContext().getComponent());
-				}
+				}*/
 				
-				TepTin tenFile = (TepTin) ctx.getProperty().getValue();
-				System.out.println("zô fileeeeeee");
-				if (tenFile.getTenFile() == null || tenFile.getTenFile().isEmpty()) {
-					System.out.println("tên file:"+tenFile.getTenFile());
+				TepTin file = (TepTin) ctx.getProperty().getValue();
+				if (file.getTenFile() == null || file.getTenFile().isEmpty()) {
+					
 					addInvalidMessage(ctx,vmgs, "Chưa tải tài liệu");
 				}
 			}

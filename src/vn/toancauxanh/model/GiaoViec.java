@@ -32,6 +32,10 @@ public class GiaoViec extends Model<GiaoViec>{
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
 	private String yKienChiDao;
 	private TepTin taiLieu = new TepTin();
+	private Date ngayHoanThanh;
+	private String ketQua;
+	private TepTin taiLieuKetQua;
+	
 	public String getyKienChiDao() {
 		return yKienChiDao;
 	}
@@ -118,18 +122,69 @@ public class GiaoViec extends Model<GiaoViec>{
 		this.taiLieu = taiLieu;
 	}
 	
+	public Date getNgayHoanThanh() {
+		return ngayHoanThanh;
+	}
+
+	public void setNgayHoanThanh(Date ngayHoanThanh) {
+		this.ngayHoanThanh = ngayHoanThanh;
+	}
+
+	public String getKetQua() {
+		return ketQua;
+	}
+
+	public void setKetQua(String ketQua) {
+		this.ketQua = ketQua;
+	}
+	
+	@ManyToOne
+	public TepTin getTaiLieuKetQua() {
+		if (TrangThaiGiaoViec.DANG_LAM.equals(trangThaiGiaoViec)) {
+			if (this.taiLieuKetQua == null) {
+				System.out.println("vao zzzzzzzzzzzz");
+				taiLieuKetQua = new TepTin();
+			}
+		}
+		return taiLieuKetQua;
+	}
+
+	public void setTaiLieuKetQua(TepTin taiLieuKetQua) {
+		this.taiLieuKetQua = taiLieuKetQua;
+	}
+
 	@Command
 	public void saveGiaoViec(@BindingParam("vmArgs") final Object ob,
 			@BindingParam("vm") final Object vm,@BindingParam("wdn") final Window wd) {
 		wd.detach();
 		save();
 		BindUtils.postNotifyChange(null, null, this, "*");
-		BindUtils.postNotifyChange(null, null, ob, "targetQuery");
+	}
+	
+	@Command
+	public void nhanViec(@BindingParam("item") final GiaoViec ob,
+			@BindingParam("vm") final Object vm) {
+		ob.setTrangThaiGiaoViec(TrangThaiGiaoViec.DANG_LAM);
+		this.getTaiLieuKetQua().saveNotShowNotification();
+		ob.save();
+		BindUtils.postNotifyChange(null, null, this, "*");
+		BindUtils.postNotifyChange(null, null, vm, "*");
+	}
+	
+	@Command
+	public void saveBaoCao(@BindingParam("vmArgs") final Object ob,
+			@BindingParam("wdn") final Window wd) {
+		wd.detach();
+		this.setTrangThaiGiaoViec(TrangThaiGiaoViec.HOAN_THANH);
+		this.getTaiLieuKetQua().saveNotShowNotification();
+		this.save();
+		BindUtils.postNotifyChange(null, null, this, "*");
+		BindUtils.postNotifyChange(null, null, ob, "*");
 	}
 	
 	@Command
 	public void delete(@BindingParam("item") final GiaoViec giaoViec,
-			@BindingParam("vm") final Object vm) {
+			@BindingParam("vm") final Object vm,@BindingParam("attr") String attr) {
 		if (!checkInUse()) {
 			Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
 					new EventListener<Event>() {
@@ -143,7 +198,7 @@ public class GiaoViec extends Model<GiaoViec>{
 									}
 								}
 								BindUtils.postNotifyChange(null, null, this, "*");
-								BindUtils.postNotifyChange(null, null, vm, "targetQuery");
+								BindUtils.postNotifyChange(null, null, vm, attr);
 							}
 						}
 					});

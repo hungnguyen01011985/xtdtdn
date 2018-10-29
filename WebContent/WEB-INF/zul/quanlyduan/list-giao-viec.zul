@@ -4,7 +4,7 @@
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
 		 <zscript>
 		 	<![CDATA[
-				vmArgs = arg.get("vm");
+				vn.toancauxanh.model.DuAn duAn = arg.get("vm");
 		 	]]>
 		 </zscript>
 		<div class="w-popup-content-medium">
@@ -63,7 +63,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button class="btn primary btn-blue" onClick="@command('cmd', notify=vm, attr='targetQuery')">
+						<x:button class="btn primary btn-blue" onClick="@command('cmd', notify=duAn, attr='targetQueryByIdDuAn')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
 						</x:button>
@@ -81,7 +81,7 @@
 			</div>
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-				<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
+				<grid id="grid" model="@load(vm.page(vm.getTargetQueryByIdDuAn(duAn.getId())).fetch())"
 					emptyMessage="Không có mục nào trong danh sách">
 					<columns>
 						<column label="STT" width="42px"/>
@@ -91,7 +91,7 @@
 						<column label="Ngày giao việc"/>
 						<column label="Hạn thực hiện"/>
 						<column label="Trạng thái"/>
-						<column label="Thao tác" width="140px" />
+						<column label="Thao tác" width="210px" />
 					</columns>
 					<template name="model">
 						<row viewModel="@id('item') @init(each)">
@@ -101,16 +101,25 @@
 							<label value="@load(item.nguoiDuocGiao.hoVaTen)"></label>
 							<label value="@load(item.ngayGiao) @converter('formatedDate',format='dd/MM/YYYY')"></label>
 							<label value="@load(item.hanThucHien) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
-							<label value="@load(item.trangThaiGiaoViec.text)"></label>
+							<label value="@load(item.trangThaiGiaoViec.text)" class="@load(item.trangThaiGiaoViec)"></label>
 							<div class="thaotac">
-								<x:a label="Sửa" class="btn-thaotac left" onClick="@command('redirectPage',zul='quanlyduan/edit-giao-viec.zul', vm = item, vmArgs = vm)">
-										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-										<x:span>Sửa</x:span>
-									</x:a>
-								<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('delete',vm = vm, item = item)">
-									<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+								<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 2 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('redirectPage',zul='quanlyduan/add-bao-cao.zul', vm = item, vmArgs = vm)">
+									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+									<x:span>Báo cáo</x:span>
+								</x:a>
+								<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 1 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('nhanViec',vm = vm, item = item)">
+									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+									<x:span>Nhận việc</x:span>
+								</x:a>
+								<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" zk:onClick="@command('delete',vm = vm, item = item)">
+									<x:image class="img-edit" width="20px" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 									<x:span>Xóa</x:span>
 								</x:a>
+								<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" onClick="@command('redirectPage',zul='quanlyduan/edit-giao-viec.zul', vm = item, vmArgs = vm)">
+									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+									<x:span>Sửa</x:span>
+								</x:a>
+								
 							</div>
 						</row>
 					</template>
@@ -134,7 +143,7 @@
 				
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = vmArgs, vmArgs = vm)"
+						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = duAn, vmArgs = vm)"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Giao việc</span>

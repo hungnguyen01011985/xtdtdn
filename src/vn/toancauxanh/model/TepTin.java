@@ -123,7 +123,7 @@ public class TepTin extends Model<TepTin> {
 	}
 	
 	@Command
-	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final DuAn object,
+	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final Object object,
 			@BindingParam("name") final String name) {
 		Media media = (Media) medias;
 		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
@@ -140,13 +140,16 @@ public class TepTin extends Model<TepTin> {
 				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				this.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				this.setMedia(media);
-				BindUtils.postNotifyChange(null, null, object, "*");
+				BindUtils.postNotifyChange(null, null, object, name);
+	
 			}
 		} else {
 			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
 					"Có tệp không đúng định dạng", "danger");
 		}
 	}
+	
+	
 	@Command
 	public void deleteFile(@BindingParam("vm") final DuAn vm, @BindingParam("ob") TepTin ob, @BindingParam("name") final String name) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,

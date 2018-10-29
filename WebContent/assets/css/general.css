@@ -96,7 +96,28 @@
     color: #292A2D !important;
     line-height: 18px !important;
 }
-
+.btn-right{
+	margin-left:15px;
+	float:right;
+}
+.btn-left{
+	float:left;
+}
+.btn-xoa-color span{
+	color: #C73A3A !important;
+}
+.btn-sua-color span{
+	color: #4274ED !important;
+}
+.CHUA_LAM{
+	color:#AA8A3E !important;
+}
+.DANG_LAM{
+	color:#628CF0 !important;
+}
+.HOAN_THANH{
+	color:#39A94B !important;
+}
 .plan-number{
 	width:40px;
 	height:40px;
