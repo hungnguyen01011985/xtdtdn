@@ -107,7 +107,7 @@
 									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 									<x:span>Báo cáo</x:span>
 								</x:a>
-								<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 1 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('nhanViec',vm = vm, item = item)">
+								<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 1 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('redirectPage',zul='quanlyduan/add-nhan-viec.zul', vm = item, vmArgs = vm)">
 									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 									<x:span>Nhận việc</x:span>
 								</x:a>

@@ -1,5 +1,7 @@
 package vn.toancauxanh.model;
 
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.Table;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
@@ -140,12 +143,6 @@ public class GiaoViec extends Model<GiaoViec>{
 	
 	@ManyToOne
 	public TepTin getTaiLieuKetQua() {
-		if (TrangThaiGiaoViec.DANG_LAM.equals(trangThaiGiaoViec)) {
-			if (this.taiLieuKetQua == null) {
-				System.out.println("vao zzzzzzzzzzzz");
-				taiLieuKetQua = new TepTin();
-			}
-		}
 		return taiLieuKetQua;
 	}
 
@@ -154,18 +151,24 @@ public class GiaoViec extends Model<GiaoViec>{
 	}
 
 	@Command
-	public void saveGiaoViec(@BindingParam("vmArgs") final Object ob,
+	public void saveGiaoViec(@BindingParam("vmArgs") final Object ob,@BindingParam("attr") final String attr,
 			@BindingParam("vm") final Object vm,@BindingParam("wdn") final Window wd) {
 		wd.detach();
+		if(taiLieu!=null) {
+			taiLieu.saveNotShowNotification();
+		}
 		save();
-		BindUtils.postNotifyChange(null, null, this, "*");
+		
+		BindUtils.postNotifyChange(null, null, ob, attr);
 	}
 	
 	@Command
-	public void nhanViec(@BindingParam("item") final GiaoViec ob,
-			@BindingParam("vm") final Object vm) {
+	public void saveNhanViec(@BindingParam("item") final GiaoViec ob,
+			@BindingParam("vm") final Object vm, @BindingParam("wdn") final Window wdn) {
+		if (wdn != null) {
+			wdn.detach();
+		}
 		ob.setTrangThaiGiaoViec(TrangThaiGiaoViec.DANG_LAM);
-		this.getTaiLieuKetQua().saveNotShowNotification();
 		ob.save();
 		BindUtils.postNotifyChange(null, null, this, "*");
 		BindUtils.postNotifyChange(null, null, vm, "*");
@@ -181,6 +184,85 @@ public class GiaoViec extends Model<GiaoViec>{
 		BindUtils.postNotifyChange(null, null, this, "*");
 		BindUtils.postNotifyChange(null, null, ob, "*");
 	}
+	
+	@Command
+	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final Object object,
+			@BindingParam("name") final String name) {
+		Media media = (Media) medias;
+		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
+				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
+				|| media.getName().toLowerCase().endsWith(".xlsx")) {
+			if (media.getByteData().length > 50000000) {
+				showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
+			} else {
+				String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
+						+ Calendar.getInstance().getTimeInMillis()
+						+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
+				
+				if (getTaiLieuKetQua() == null) {
+					taiLieuKetQua = new TepTin();
+				}
+				taiLieuKetQua.setNameHash(tenFile);
+				taiLieuKetQua.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
+				taiLieuKetQua.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+				taiLieuKetQua.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+				taiLieuKetQua.setMedia(media);
+				BindUtils.postNotifyChange(null, null, object, name);
+	
+			}
+		} else {
+			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
+					"Có tệp không đúng định dạng", "danger");
+		}
+	}
+	
+	@Command
+	public void uploadFileTaiLieu(@BindingParam("medias") final Object medias) {
+		Media media = (Media) medias;
+		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
+				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
+				|| media.getName().toLowerCase().endsWith(".xlsx")) {
+			if (media.getByteData().length > 50000000) {
+				showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
+			} else {
+				String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
+						+ Calendar.getInstance().getTimeInMillis()
+						+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
+				if(taiLieu == null) {
+					taiLieu = new TepTin();
+				}
+				getTaiLieu().setNameHash(tenFile);
+				getTaiLieu().setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
+				getTaiLieu().setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+				getTaiLieu().setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+				getTaiLieu().setMedia(media);
+				BindUtils.postNotifyChange(null, null, this, "taiLieu");
+			}
+		} else {
+			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
+					"Có tệp không đúng định dạng", "danger");
+		}
+	}
+	
+	@Command
+	public void deleteFile(@BindingParam("vm") final Object vm, @BindingParam("ob") TepTin ob) {
+		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
+			Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(final Event event) throws IOException {
+					if (Messagebox.ON_OK.equals(event.getName())) {
+						ob.setNameHash("");
+						ob.setTypeFile("");
+						ob.setTenFile("");
+						ob.setPathFile("");
+						ob.setMedia(null);
+						BindUtils.postNotifyChange(null, null, vm, "taiLieu");
+						showNotification("Đã xóa", "", "success");
+					}
+				}
+			});
+	}
+	
 	
 	@Command
 	public void delete(@BindingParam("item") final GiaoViec giaoViec,
