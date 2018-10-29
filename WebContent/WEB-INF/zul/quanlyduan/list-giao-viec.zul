@@ -5,6 +5,7 @@
 		 <zscript>
 		 	<![CDATA[
 				vn.toancauxanh.model.DuAn duAn = arg.get("vm");
+				vmArgs = arg.get("vmArgs");
 		 	]]>
 		 </zscript>
 		<div class="w-popup-content-medium">
@@ -111,7 +112,7 @@
 									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 									<x:span>Nhận việc</x:span>
 								</x:a>
-								<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" zk:onClick="@command('delete',vm = vm, item = item)">
+								<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
 									<x:image class="img-edit" width="20px" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 									<x:span>Xóa</x:span>
 								</x:a>
