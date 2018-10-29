@@ -122,7 +122,7 @@
 				<div class="row">
 					<div class="col-md-12" form="@id('fx') @bind(vm.giaoViec.taiLieu) @save(vm.giaoViec.taiLieu, before='doActionWithKey') 
 	    				@validator(vm.validatorTepTin, sms = 'fileGiaoViec')"  >
-						<div zclass="form-group"  viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
+						<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
 							<span>Quyết định phê duyệt</span>
 							<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
@@ -130,7 +130,7 @@
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
-								<label class="txt-link-tailieu" value="@bind(fx.tenFile)"/>
+								<label class="txt-link-tailieu" value="@bind(vm.giaoViec.taiLieu.tenFile)"/>
 								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaoViec.taiLieu , vm = vm, name='giaoViec')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 								</x:button>

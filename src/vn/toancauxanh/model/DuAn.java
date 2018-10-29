@@ -327,6 +327,12 @@ public class DuAn extends Model<DuAn> {
 		BindUtils.postNotifyChange(null, null, duAn, "option");
 	}
 
+	@Command
+	public void addNewDonVi(@BindingParam("vm") DuAn duAn) {
+		duAn.getGiaiDoanDuAn().getDonViDuAn().add(new DonViDuAn());
+		BindUtils.postNotifyChange(null, null, duAn, "*");
+	}
+	
 	@Transient
 	public AbstractValidator getValidator() {
 		return new AbstractValidator() {
@@ -414,7 +420,9 @@ public class DuAn extends Model<DuAn> {
 				}
 				
 				TepTin tenFile = (TepTin) ctx.getProperty().getValue();
+				System.out.println("zô fileeeeeee");
 				if (tenFile.getTenFile() == null || tenFile.getTenFile().isEmpty()) {
+					System.out.println("tên file:"+tenFile.getTenFile());
 					addInvalidMessage(ctx,vmgs, "Chưa tải tài liệu");
 				}
 			}
