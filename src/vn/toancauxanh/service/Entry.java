@@ -336,10 +336,6 @@ public class Entry extends BaseObject<Object> {
 		return new NhanVienService();
 	}
 
-	public final DiTichService getDitichs() {
-		return new DiTichService();
-	}
-
 	public final VaiTroService getVaiTros() {
 		return new VaiTroService();
 	}
