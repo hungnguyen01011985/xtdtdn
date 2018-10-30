@@ -267,15 +267,6 @@ public class Entry extends BaseObject<Object> {
 
 	@RequestMapping(value = "/cp")
 	public String cp2() {
-//		NhanVien nhanVien = getNhanVien();
-//		System.out.println(nhanVien + " aaaaaaaa");
-//		if (nhanVien.getTatCaQuyens().contains(core().QUANLYDUANLIST)) {
-//			return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul&macdinh=home";
-//		}else if (nhanVien.getTatCaQuyens().contains(core().QUANLYDOANVAOLIST)) {
-//			return "forward:/WEB-INF/zul/home.zul?resource=quanlydoanvao&action=lietke&file=/WEB-INF/zul/quanlydoanvao/list.zul&macdinh=home"; 
-//		}else if (nhanVien.getTatCaQuyens().contains(core().QUANLYPHONGBANLIST)) {
-//			return "forward:/WEB-INF/zul/home.zul?resource=phongban&action=lietke&file=/WEB-INF/zul/phongban/list.zul&macdinh=home";
-//		}
 		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul&macdinh=home";
 	}
 

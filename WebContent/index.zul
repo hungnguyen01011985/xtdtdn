@@ -12,6 +12,5 @@
 			desktop.setCurrentDirectory("/WEB-INF/zul");
 			Executions.forward("/WEB-INF/zul/home.zul?resource=phongban&action=lietke&file=/WEB-INF/zul/phongban/list.zul");
 		} 
-		
 	]]></zscript>
 </zk>

@@ -4,7 +4,6 @@
 	<zscript>
 		<![CDATA[
 			page.title = "Quản lí dự án";
-			
 		]]>
 	</zscript>
 	<n:script>
@@ -130,46 +129,46 @@
 			</div>
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-				<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
-					emptyMessage="Không có mục nào trong danh sách">
-					<columns>
-						<column label="STT" width="42px"/>
-						<column label="Tên dự án"/>
-						<column label="Địa điểm"/>
-						<column label="Tổng vốn đầu tư dự kiến(vnđ)"/>
-						<column label="Ngày BĐ xúc tiến"/>
-						<column label="Lĩnh vực"/>
-						<column label="Tiến độ xúc tiến"/>
-						<column label="Người phụ trách"/>
-						<column label="Thao tác" width="120px" />
-					</columns>
-					<template name="model">
-						<row viewModel="@id('item')@init(each)">
-							<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-							<label value="@load(item.tenDuAn)"></label>
-							<label value="@load(item.diaDiem)"></label>
-							<label value="@load(item.tongVonDauTu)@converter('formatedNumber', format='###,###.## VNĐ')"></label>
-							<label value="@load(item.ngayBatDauXucTien)@converter('formatedDate',format='dd/MM/yyyy')"></label>
-							<label value="@load(item.linhVuc.ten)"></label>
-							<label value="@load(item.giaiDoanXucTien.text)"></label>
-							<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
-							<div class="thaotac">
-								<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}">
-									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
-									<x:span>Sửa</x:span>
-								</x:a>
-								<x:a label="Xóa" class="btn-thaotac up-note" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
-									<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
-									<x:span>Xóa</x:span>
-								</x:a>
-							</div>
-						</row>
-					</template>
-				</grid>
-				<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())"
-									visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
-									activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
-			</div>
+					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
+						emptyMessage="Không có mục nào trong danh sách">
+						<columns>
+							<column label="STT" width="42px"/>
+							<column label="Tên dự án"/>
+							<column label="Địa điểm"/>
+							<column label="Tổng vốn đầu tư dự kiến(vnđ)"/>
+							<column label="Ngày BĐ xúc tiến"/>
+							<column label="Lĩnh vực"/>
+							<column label="Tiến độ xúc tiến"/>
+							<column label="Người phụ trách"/>
+							<column label="Thao tác" width="120px" />
+						</columns>
+						<template name="model">
+							<row viewModel="@id('item')@init(each)">
+								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
+								<label value="@load(item.tenDuAn)"></label>
+								<label value="@load(item.diaDiem)"></label>
+								<label value="@load(item.tongVonDauTu)@converter('formatedNumber', format='###,###.## VNĐ')"></label>
+								<label value="@load(item.ngayBatDauXucTien)@converter('formatedDate',format='dd/MM/yyyy')"></label>
+								<label value="@load(item.linhVuc.ten)"></label>
+								<label value="@load(item.giaiDoanXucTien.text)"></label>
+								<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
+								<div class="thaotac">
+									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+						</template>
+					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-12">
