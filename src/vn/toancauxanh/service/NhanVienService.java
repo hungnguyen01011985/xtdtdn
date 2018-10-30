@@ -93,7 +93,7 @@ public final class NhanVienService extends BasicService<NhanVien> {
 			cookie.setPath("/");
 			cookie.setMaxAge(1000000000);
 			res.addCookie(cookie);
-			Executions.sendRedirect("/cp");
+			Executions.sendRedirect("/");
 		} else {
 			showNotification("Đăng nhập không thành công", "", "danger");
 		}
