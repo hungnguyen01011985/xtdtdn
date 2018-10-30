@@ -2,12 +2,15 @@
 	<zscript><![CDATA[     
 		entry = new vn.toancauxanh.service.BaseObject().core();
 		vn.toancauxanh.model.NhanVien nhanVien = entry.getNhanVien();
-		System.out.println("zooooo 1");
 		if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYDUANLIST)) {
-			System.out.println("zooooo 2");
 			desktop.setCurrentDirectory("/WEB-INF/zul");
 			Executions.forward("/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul");
+		} else if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYDOANVAOLIST)) {
+			desktop.setCurrentDirectory("/WEB-INF/zul");
+			Executions.forward("/WEB-INF/zul/home.zul?resource=quanlydoanvao&action=lietke&file=/WEB-INF/zul/quanlydoanvao/list.zul");
+		} else if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYPHONGBANLIST)) {
+			desktop.setCurrentDirectory("/WEB-INF/zul");
+			Executions.forward("/WEB-INF/zul/home.zul?resource=phongban&action=lietke&file=/WEB-INF/zul/phongban/list.zul");
 		} 
-		
 	]]></zscript>
 </zk>

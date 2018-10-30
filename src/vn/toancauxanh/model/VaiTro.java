@@ -225,10 +225,10 @@ public class VaiTro extends Model<VaiTro> {
 	}
 
 	@Transient
-	public Set<String> getQuyenMacDinhs(String alias1) {
+	public Set<String> getQuyenMacDinhs(String vaiTro) {
 		Set<String> quyens1 = new HashSet<>();
-		if (!alias1.isEmpty()) {
-			if (QUANTRIHETHONG.equals(alias1)) {
+		if (!vaiTro.isEmpty()) {
+			if (QUANTRIHETHONG.equals(vaiTro)) {
 
 				// Thêm quyền vào danh sách vai trò các tittle
 				quyens1.add(core().QUANLYDUANLIST);
@@ -280,7 +280,7 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().NGUOIDUNGSUA);
 				quyens1.add(core().NGUOIDUNGXOA);
 
-			} else if (CHUYENVIEN.equals(alias1)) {
+			} else if (CHUYENVIEN.equals(vaiTro)) {
 
 				// Thêm quyền vào danh sách vai trò các tittle
 				quyens1.add(core().QUANLYDUANLIST);
@@ -332,7 +332,7 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().NGUOIDUNGSUA);
 				quyens1.add(core().NGUOIDUNGXOA);
 
-			} else if (LANHDAO.equals(alias1)) {
+			} else if (LANHDAO.equals(vaiTro)) {
 				// Thêm quyền vào danh sách vai trò các tittle
 				quyens1.add(core().QUANLYDUANLIST);
 				quyens1.add(core().QUANLYDUANSUA);
@@ -370,6 +370,32 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().DONVIHANHCHINHTHEM);
 				quyens1.add(core().DONVIHANHCHINHSUA);
 				quyens1.add(core().DONVIHANHCHINHXOA);
+
+				quyens1.add(core().VAITROXEM);
+				quyens1.add(core().VAITROTHEM);
+				quyens1.add(core().VAITROSUA);
+				quyens1.add(core().VAITROXOA);
+				quyens1.add(core().VAITROTIMKIEM);
+
+				quyens1.add(core().NGUOIDUNGLIST);
+				quyens1.add(core().NGUOIDUNGXEM);
+				quyens1.add(core().NGUOIDUNGTHEM);
+				quyens1.add(core().NGUOIDUNGSUA);
+				quyens1.add(core().NGUOIDUNGXOA);
+			} else if (TRUONGPHONG.equals(vaiTro)) {
+				// Thêm quyền vào danh sách vai trò các tittle
+
+				quyens1.add(core().QUANLYPHONGBANLIST);
+				quyens1.add(core().QUANLYPHONGBANXEM);
+				quyens1.add(core().QUANLYPHONGBANSUA);
+				quyens1.add(core().QUANLYPHONGBANTHEM);
+				quyens1.add(core().QUANLYPHONGBANXOA);
+
+				quyens1.add(core().LINHVUCDUANLIST);
+				quyens1.add(core().LINHVUCDUANXEM);
+				quyens1.add(core().LINHVUCDUANTHEM);
+				quyens1.add(core().LINHVUCDUANSUA);
+				quyens1.add(core().LINHVUCDUANXOA);
 
 				quyens1.add(core().VAITROXEM);
 				quyens1.add(core().VAITROTHEM);

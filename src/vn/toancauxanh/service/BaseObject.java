@@ -60,7 +60,6 @@ public class BaseObject<T> extends CoreObject<T> {
 
 	public NhanVien getNhanVien(boolean isSave, HttpServletRequest req, HttpServletResponse res) {
 		NhanVien nhanVien = null;
-
 		String key = getClass() + "." + NhanVien.class;
 		nhanVien = (NhanVien) req.getAttribute(key);
 		if (nhanVien == null || nhanVien.noId()) {
