@@ -14,7 +14,6 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.io.Files;
 import org.zkoss.util.media.Media;
@@ -29,9 +28,10 @@ public class TepTin extends Model<TepTin> {
 
 	private String tenFile;
 	private String pathFile;
-	private Media media;
 	private String typeFile;
 	private String nameHash;
+	
+	private Media media;
 
 	// ============
 
@@ -105,15 +105,13 @@ public class TepTin extends Model<TepTin> {
 	}
 
 	@Command
-
 	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
 		if (!object.getPathFile().isEmpty()) {
 			final String path = folderRoot() + object.getPathFile();
 			if (new java.io.File(path).exists()) {
 				try {
-					Filedownload.save(
-							new URL("file://" + folderRoot() + object.getPathFile() + object.getNameHash()).openStream(),
-							null, object.getTenFile().concat(object.getTypeFile()));
+					Filedownload.save(new URL("file://" + folderRoot() + object.getPathFile() + object.getNameHash())
+							.openStream(), null, object.getTenFile().concat(object.getTypeFile()));
 				} catch (IOException e) {
 					showNotification("Không tìm thấy file", "Thông báo", "danger");
 				}
@@ -122,7 +120,7 @@ public class TepTin extends Model<TepTin> {
 			}
 		}
 	}
-	
+
 	@Command
 	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final Object object,
 			@BindingParam("name") final String name) {
@@ -141,32 +139,33 @@ public class TepTin extends Model<TepTin> {
 				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				this.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				this.setMedia(media);
-				BindUtils.postNotifyChange(null, null, object, "*");
-	
+				BindUtils.postNotifyChange(null, null, object, name);
+
 			}
 		} else {
 			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
 					"Có tệp không đúng định dạng", "danger");
 		}
 	}
-	
+
 	@Command
-	public void deleteFile(@BindingParam("vm") final Object vm, @BindingParam("ob") TepTin ob, @BindingParam("name") final String name) {
+	public void deleteFile(@BindingParam("vm") final Object vm, @BindingParam("ob") TepTin ob,
+			@BindingParam("name") final String name) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-			Messagebox.QUESTION, new EventListener<Event>() {
-				@Override
-				public void onEvent(final Event event) throws IOException {
-					if (Messagebox.ON_OK.equals(event.getName())) {
-						ob.setNameHash("");
-						ob.setTypeFile("");
-						ob.setTenFile("");
-						ob.setPathFile("");
-						ob.setMedia(null);
-						BindUtils.postNotifyChange(null, null, vm, name);
-						showNotification("Đã xóa", "", "success");
+				Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) throws IOException {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							ob.setNameHash("");
+							ob.setTypeFile("");
+							ob.setTenFile("");
+							ob.setPathFile("");
+							ob.setMedia(null);
+							BindUtils.postNotifyChange(null, null, vm, name);
+							showNotification("Đã xóa", "", "success");
+						}
 					}
-				}
-			});
+				});
 	}
 
 }
