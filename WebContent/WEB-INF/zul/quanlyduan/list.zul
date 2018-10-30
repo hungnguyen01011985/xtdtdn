@@ -154,7 +154,7 @@
 							<label value="@load(item.giaiDoanXucTien.text)"></label>
 							<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
 							<div class="thaotac">
-								<x:a label="Sửa" class="btn-thaotac left" href="quanlyduan/${each.id}">
+								<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}">
 									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 									<x:span>Sửa</x:span>
 								</x:a>

@@ -382,6 +382,33 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().NGUOIDUNGTHEM);
 				quyens1.add(core().NGUOIDUNGSUA);
 				quyens1.add(core().NGUOIDUNGXOA);
+			}else if (TRUONGPHONG.equals(alias1)) {
+				// Thêm quyền vào danh sách vai trò các tittle
+				
+
+				quyens1.add(core().QUANLYPHONGBANLIST);
+				quyens1.add(core().QUANLYPHONGBANXEM);
+				quyens1.add(core().QUANLYPHONGBANSUA);
+				quyens1.add(core().QUANLYPHONGBANTHEM);
+				quyens1.add(core().QUANLYPHONGBANXOA);
+
+				quyens1.add(core().LINHVUCDUANLIST);
+				quyens1.add(core().LINHVUCDUANXEM);
+				quyens1.add(core().LINHVUCDUANTHEM);
+				quyens1.add(core().LINHVUCDUANSUA);
+				quyens1.add(core().LINHVUCDUANXOA);
+
+				quyens1.add(core().VAITROXEM);
+				quyens1.add(core().VAITROTHEM);
+				quyens1.add(core().VAITROSUA);
+				quyens1.add(core().VAITROXOA);
+				quyens1.add(core().VAITROTIMKIEM);
+
+				quyens1.add(core().NGUOIDUNGLIST);
+				quyens1.add(core().NGUOIDUNGXEM);
+				quyens1.add(core().NGUOIDUNGTHEM);
+				quyens1.add(core().NGUOIDUNGSUA);
+				quyens1.add(core().NGUOIDUNGXOA);
 			}
 
 		}
