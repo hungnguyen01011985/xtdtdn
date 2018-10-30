@@ -120,8 +120,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12" form="@id('fx') @bind(vm.giaoViec.taiLieu) @save(vm.giaoViec.taiLieu, before='doActionWithKey') 
-		    				@validator(vm.validatorTepTin, sms = 'fileGiaoViec')"  >
+						<div class="col-md-12">
 							<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
 								<span>Quyết định phê duyệt</span>
 								<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
@@ -135,7 +134,6 @@
 										<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 									</x:button>
 								</div>
-								<label zclass="error" value="@load(vmsgs['fileGiaoViec'])" />
 							</div>
 						</div>
 					</div>
