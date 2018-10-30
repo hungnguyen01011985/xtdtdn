@@ -93,16 +93,16 @@
 							<span>Tài liệu đính kèm</span>
 							<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieuGD1')"
+								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuGD1')"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)">
-								<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.taiLieuGD1.tenFile)"/>
+								<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.taiLieuGD1.tenFile)" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.taiLieuGD1)"/>
 								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.giaiDoanDuAn.taiLieuGD1, name = 'taiLieuGD1')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 								</x:button>
 							</div>
+							<label zclass="error" value="@load(vmsgs['fileGD1'])" />
 						</div>
 					</div>
 				</div>

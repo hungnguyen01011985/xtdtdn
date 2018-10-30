@@ -1,121 +1,141 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="800px"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
-		closable="true" title="${arg.title}"
-		validationMessages="@id('vmsgs')">
-			<zscript><![CDATA[
+		closable="true" title="${arg.title}">
+		<zscript><![CDATA[
 			    vn.toancauxanh.model.DuAn duAnGiaoViec = arg.get("model");
 			    duAnGiaoViec.setGiaoViec(new vn.toancauxanh.model.GiaoViec());
 				vmArgs = arg.get("vmArgs");
-			]]></zscript> 
-		<div class="w-popup-content-medium" style="margin:0 15px;" viewModel="@id('vm') @init(duAnGiaoViec)" >
+		]]></zscript> 
+		<div class="w-popup-content-medium" style="margin:0 15px;" viewModel="@id('vm') @init(duAnGiaoViec)" validationMessages="@id('vmsgs')">
 			<div class="mg-and-bg-and-line mg-bottom-5">
 				<div class="row">
-				<div zclass="col-md-6">
-					<div zclass="form-group">
-						<div class="flex">
-							<x:span class="issue-search">Tên dự án</x:span>
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Tên dự án</x:span>
+							</div>
+							<textbox class="form-control" value="@bind(vm.tenDuAn)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
-						<textbox class="form-control" value="@bind(vm.tenDuAn)" disabled="true"></textbox>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Giai đoạn</x:span>
+							</div>
+							<textbox class="form-control" value="@bind(vm.giaiDoanXucTien.text)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Người giao</x:span>
+							</div>
+							<textbox class="form-control" value="@load(vm.giaoViec.nguoiGiaoViec.hoVaTen eq '' ? entry.nhanVien.hoVaTen : vm.giaoViec.nguoiGiaoViec.hoVaTen)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Người được giao</x:span>
+							</div>
+							<textbox class="form-control" value="@load(vm.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Tên công việc</x:span>
+							</div>
+							<textbox class="form-control" value="@bind(vm.giaoViec.tenCongViec)@save(vm.giaoViec.tenCongViec ,before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Ngày giao</x:span>
+							</div>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
+								  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.ngayGiao)@save(vm.giaoViec.ngayGiao, before={'saveGiaoViec'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Hạn thực hiện</x:span>
+							</div>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
+								  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.hanThucHien)@save(vm.giaoViec.hanThucHien, before={'saveGiaoViec'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Ý kiến chỉ đạo</x:span>
+							</div>
+							<textbox class="form-control" value="@bind(vm.giaoViec.yKienChiDao)@save(vm.giaoViec.yKienChiDao, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"  rows="3"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
 					</div>
 				</div>
 				
-				<div zclass="col-md-6">
-					<div zclass="form-group">
-						<div class="flex">
-							<x:span class="issue-search">Giai đoạn</x:span>
-						</div>
-						<textbox class="form-control" value="@bind(vm.giaiDoanXucTien.text)" disabled="true"></textbox>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				</div>
 				<div class="row">
-				<div zclass="col-md-6">
-					<div zclass="form-group">
-						<div class="flex">
-							<x:span class="issue-search">Người giao</x:span>
+						<div class="col-md-12" form="@id('fx') @bind(vm.giaoViec.taiLieu) @save(vm.giaoViec.taiLieu, before='saveGiaoViec') 
+		    				@validator(vm.validatorTepTin, sms = 'fileGiaoViec')"  >
+							<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
+								<span>Quyết định phê duyệt</span>
+								<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
+									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaoViec, name = 'taiLieu')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
+								<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
+									<label class="txt-link-tailieu" value="@bind(vm.giaoViec.taiLieu.tenFile)"/>
+									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaoViec.taiLieu , vm = vm.giaoViec, name='taiLieu')">
+										<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+									</x:button>
+								</div>
+								<label zclass="error" value="@load(vmsgs['fileGiaoViec'])" />
+							</div>
 						</div>
-						<textbox class="form-control" value="@load(vm.giaoViec.nguoiGiaoViec.hoVaTen eq '' ? entry.nhanVien.hoVaTen : vm.giaoViec.nguoiGiaoViec.hoVaTen)" disabled="true"></textbox>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
-				</div>
-				
-				<div zclass="col-md-6">
-					<div zclass="form-group">
-						<div class="flex">
-							<x:span class="issue-search">Người được giao</x:span>
-						</div>
-						<textbox class="form-control" value="@load(vm.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				</div>
-				<div class="row">
-				<div zclass="col-md-12">
-					<div zclass="form-group">
-						<div class="flex">
-							<x:span class="issue-search">Tên công việc</x:span>
-						</div>
-						<textbox class="form-control" value="@bind(vm.giaoViec.tenCongViec)"></textbox>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				</div>
-				<div class="row">
-				<div zclass="col-md-6">
-					<div zclass="form-group">
-						<div class="flex">
-							<x:span class="issue-search">Ngày giao</x:span>
-						</div>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
-							  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.ngayGiao)"/>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				
-				<div zclass="col-md-6">
-					<div zclass="form-group">
-						<div class="flex">
-							<x:span class="issue-search">Hạn thực hiện</x:span>
-						</div>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
-							  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.hanThucHien)"/>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				</div>
-				<div class="row">
-				<div zclass="col-md-12">
-					<div zclass="form-group">
-						<div class="flex">
-							<x:span class="issue-search">Ý kiến chỉ đạo</x:span>
-						</div>
-						<textbox class="form-control" value="@bind(vm.giaoViec.yKienChiDao)" rows="3"></textbox>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				</div>
 			</div>
 			<div class="mg-and-bg-and-line">
-			<div class="row">
-				<div zclass="col-xs-6">
-					<div zclass="form-group">
-						<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
-							<span>Đóng</span>
-						</x:button>
+				<div class="row">
+					<div zclass="col-xs-6">
+						<div zclass="form-group">
+							<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+								<span>Đóng</span>
+							</x:button>
+						</div>
 					</div>
-				</div>
-				<div zclass="col-xs-6">
-					<div zclass="form-group right">
-						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveGiaoViec',wdn=wdn, list=vmArgs, attr = 'targetQuery')">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Lưu</span>
-						</x:button>
+					<div zclass="col-xs-6">
+						<div zclass="form-group right">
+							<x:button class="btn btn-blue mg-btn" onClick="@command('saveGiaoViec',wdn=wdn, list=vmArgs, attr = '*')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+								<span>Lưu</span>
+							</x:button>
+						</div>
 					</div>
-				</div>
 				</div>
 			</div>
 		</div>
