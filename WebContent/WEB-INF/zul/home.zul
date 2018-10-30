@@ -1,4 +1,3 @@
-
 <?style href="/assets/css/bootstrap.css" type="text/css" ?>
 <!-- Custom CSS -->
 <?style href="/assets/css/sb-admin-2.css" type="text/css" ?>
@@ -17,53 +16,51 @@
 xmlns:w="http://www.zkoss.org/2005/zk/client">
 <n:script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></n:script>
 <n:script src="//code.jquery.com/jquery-1.11.1.min.js"></n:script>
-	<zscript><![CDATA[
-        entry = new vn.toancauxanh.service.BaseObject().core();
-        String file = execution.getParameter("file");
-        String ctxPath = execution.getContextPath();
-        String resource = execution.getParameter("resource");
-        String action = execution.getParameter("action");
-        boolean coquyen = entry.quyen.get(resource + "_" + action);
-	]]></zscript>
-	<style>
-		.z-messagebox-buttons .z-button:hover {
-			background-color: #5cb85c;
-		}
-		
-		.z-messagebox-icon {
-			margin-left: 40px;
-		}
-		
-		#site-logo {
-		    float: right;
-		    height: 110px;
-		    width: 930px;
-		}
-		
-		#site-logo img {
-		    height: 110px;
-		    max-height: 110px;
-		    width: 720px;
-		    float: right;
-		}
-		
-		#hgroup {
-		    float: right;
-		    width: 100%;
-		   text-align: right;
-		}
-		
-		#header-left {
-		    width: 100%;
-		    float: left;
-		}
-	</style>
+
+<zscript><![CDATA[
+       entry = new vn.toancauxanh.service.BaseObject().core();
+       String file = execution.getParameter("file");
+       String ctxPath = execution.getContextPath();
+       String resource = execution.getParameter("resource");
+       String action = execution.getParameter("action");
+       boolean coquyen = entry.quyen.get(resource + "_" + action);
+]]></zscript>
+
+<style>
+	.z-messagebox-buttons .z-button:hover {
+		background-color: #5cb85c;
+	}
+	.z-messagebox-icon {
+		margin-left: 40px;
+	}
+	#site-logo {
+	    float: right;
+	    height: 110px;
+	    width: 930px;
+	}
+	#site-logo img {
+	    height: 110px;
+	    max-height: 110px;
+	    width: 720px;
+	    float: right;
+	}
+	#hgroup {
+	    float: right;
+	    width: 100%;
+	   text-align: right;
+	}
+	#header-left {
+	    width: 100%;
+	    float: left;
+	}
+</style>
+	
 <div class="wrapper" >
 	<?component name="backendheader" inline="true" macroURI="/WEB-INF/zul/common/header.zul"?>
 	<backendheader/>
 	<n:div>
 		<n:div id="page-wrapper" class="wrap-fix">
-			<include src="/WEB-INF/zul/common/menu-left.zul"  />
+			<include src="/WEB-INF/zul/common/menu-left.zul" />
 			<div zclass="body-include box-col-full">
 				<include if="${coquyen}" instant="true" src="${file}" class="box-col-7"></include>
 				<label if="${!coquyen}">Bạn không có quyền truy cập chức năng này!</label>
@@ -79,15 +76,13 @@ xmlns:w="http://www.zkoss.org/2005/zk/client">
 
 	zAu.cmd0.clientInfo = function(dtid) {
 	    zAu._cInfoReg = true;
-	    var orient = '',
-	        dpr = 1;
+	    var orient = '', dpr = 1;
 	
 	    if (zk.mobile) {
 	        //change default portrait definition because landscape is the default orientation for this device/browser.
 	        if ((_initLandscape && _initDefault) || (!_initLandscape && !_initDefault))
 	            _portrait = {'-90': true, '90': true};
-	
-	        orient = _portrait[window.orientation] ? 'portrait' : 'landscape';
+        	orient = _portrait[window.orientation] ? 'portrait' : 'landscape';
 	    } else {
 	        orient = jq.innerWidth() > jq.innerHeight() ? 'landscape' : 'portrait';
 	    }
@@ -111,13 +106,13 @@ xmlns:w="http://www.zkoss.org/2005/zk/client">
      	if (event.defaultPrevented) {
         	return; 
       	}
-      	if(event.keyCode == 18){
-       	saveArray[0] = true;
+      	if (event.keyCode == 18){
+       		saveArray[0] = true;
       	}
-      	if(event.keyCode == 80){
+      	if (event.keyCode == 80){
        		saveArray[1] = true;
       	}
-      	if(saveArray[0] == true &amp;&amp; saveArray[1] == true) {
+      	if (saveArray[0] == true &amp;&amp; saveArray[1] == true) {
           	zAu.send(new zk.Event(zk.Widget.$('$gopy'), 'onTest', null, {toServer:true}));
           	saveArray[0] = false;
           	saveArray[1] = false;
@@ -154,7 +149,6 @@ xmlns:w="http://www.zkoss.org/2005/zk/client">
 			}
 		}
 	});
-	
-	
 </script>
+
 </zk>
