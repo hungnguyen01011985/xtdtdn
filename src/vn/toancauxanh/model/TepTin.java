@@ -105,6 +105,7 @@ public class TepTin extends Model<TepTin> {
 	}
 
 	@Command
+
 	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
 		if (!object.getPathFile().isEmpty()) {
 			final String path = folderRoot() + object.getPathFile();

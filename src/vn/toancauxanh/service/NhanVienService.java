@@ -105,9 +105,9 @@ public final class NhanVienService extends BasicService<NhanVien> {
 		NhanVien NhanVienLogin = getNhanVien(true);
 		if (NhanVienLogin != null && !NhanVienLogin.noId()) {
 			Session zkSession = Sessions.getCurrent();
-			zkSession.removeAttribute("tenDangNhap");
+			zkSession.removeAttribute("email");
 			HttpServletResponse res = (HttpServletResponse) Executions.getCurrent().getNativeResponse();
-			Cookie cookie = new Cookie("tenDangNhap", null);
+			Cookie cookie = new Cookie("email", null);
 			cookie.setPath("/");
 			cookie.setMaxAge(0);
 			res.addCookie(cookie);

@@ -18,20 +18,20 @@
 	<div class="nav-side-menu">
         <div class="menu-list">
 			<n:ul class="menu-content collapse out" role="menu">
-				<n:li class="${resource eq 'quanlygiaoviec' ? 'active-heder-li flex' : 'flex'}">
+				<!-- <n:li class="${resource eq 'quanlygiaoviec' ? 'active-heder-li flex' : 'flex'}">
 					<n:a href="${execution.contextPath}/cp/quanlygiaoviec">
 						<x:span class="img-menu qlgv" zk:if="${resource ne 'quanlygiaoviec'}"></x:span>
 						<x:span class="img-menu qlgv"  zk:if="${resource eq 'quanlygiaoviec'}"></x:span>
 						<x:span class="text-menu">Quản lý giao việc</x:span>
 					</n:a>
-				</n:li>
-				<n:li class="${resource eq 'quanlydoanvao' ? 'active-heder-li flex' : 'flex'}">
+				</n:li> -->
+				<!-- <n:li class="${resource eq 'quanlydoanvao' ? 'active-heder-li flex' : 'flex'}">
 					<n:a href="${execution.contextPath}/cp/quanlydoanvao">
 						<x:span class="img-menu qldv" zk:if="${resource ne 'quanlydoanvao'}"></x:span>
 						<x:span class="img-menu qldv"  zk:if="${resource eq 'quanlydoanvao'}"></x:span>
 						<x:span class="text-menu">Quản lý đoàn vào</x:span>
 					</n:a>
-				</n:li>
+				</n:li> -->
 				<n:li class="${resource eq 'quanlyduan' ? 'active-heder-li flex' : 'flex'}">
 					<n:a href="${execution.contextPath}/cp/quanlyduan">
 						<x:span class="img-menu qlda" zk:if="${resource ne 'quanlyduan'}"></x:span>
@@ -39,13 +39,13 @@
 						<x:span class="text-menu">Quản lý dự án</x:span>
 					</n:a>
 				</n:li>
-				<n:li class="${resource eq 'baocaothongke' ? 'active-heder-li flex' : 'flex'}">
+				<!-- <n:li class="${resource eq 'baocaothongke' ? 'active-heder-li flex' : 'flex'}">
 					<n:a href="${execution.contextPath}/cp/quanlyduan">
 						<x:span class="img-menu bctk" zk:if="${resource ne 'ditich'}"></x:span>
 						<x:span class="img-menu bctk"  zk:if="${resource eq 'ditich'}"></x:span>
 						<x:span class="text-menu">Báo cáo thống kê</x:span>
 					</n:a>
-				</n:li>
+				</n:li> -->
 				<n:li class="${resource eq 'phongban' ? 'active-heder-li flex' : 'flex'}">
 					<n:a href="${execution.contextPath}/cp/phongban">
 						<x:span class="img-menu qlht" zk:if="${resource ne 'phongban'}"></x:span>
