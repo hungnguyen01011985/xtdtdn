@@ -39,11 +39,7 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().save();
-		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
-		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
-			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
-		}
-		redirectGiaiDoanDuAnById(model.getId());
+		redirectQuanLyDuAn();
 	}
 	
 	public void validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
@@ -224,27 +220,25 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void luuDuLieuKetThucDuAn(Execution execution) {
+		System.out.println("zô ket thuc");
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
 		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 1) {
 			model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 			model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
 		}
-		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 2) {
-			model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
-			model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
-			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
+		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 3) {
+			model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
+			if (model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
+				saveTaiLieuDauGia(model);
+			}
+			if (model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
+				saveTaiLieuDauThau(model);
+			}
 		}
 		model.save();
-		model.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_BON);
 		model.getGiaiDoanDuAn().setDuAn(model);
 		model.getGiaiDoanDuAn().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
-		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
-			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
-		}
 		redirectList();
 	}
 	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan) {
