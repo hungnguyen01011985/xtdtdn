@@ -204,7 +204,6 @@ public class DuAn extends Model<DuAn> {
 		List<PhuongThucLuaChonNDT> list = new ArrayList<PhuongThucLuaChonNDT>();
 		list.add(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 		list.add(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT);
-		list.add(PhuongThucLuaChonNDT.LUA_CHON_NHA_DAU_TU);
 		return list;
 	}
 

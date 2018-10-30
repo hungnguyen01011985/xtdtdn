@@ -18,10 +18,11 @@ import org.zkoss.zk.ui.Executions;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
-import vn.toancauxanh.model.DonViDuAn;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaiDoanDuAn;
+import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
+import vn.toancauxanh.model.QGiaoViec;
 
 public class ProcessService extends BasicService<Object>{
 	
@@ -38,16 +39,8 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
-		model.getGiaoViec().save();
-		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
-		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
-			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
-		}
-		redirectGiaiDoanDuAnById(model.getId());
-	}
-	
-	public void validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanHaiHopLe", true);
+		model.getGiaoViec().saveNotShowNotification();
+		redirectQuanLyDuAn();
 	}
 	
 	public void validateDuLieuGiaiDoanMot(Execution execution) {
@@ -62,12 +55,28 @@ public class ProcessService extends BasicService<Object>{
 		luuDuLieuDonVi(model.getGiaiDoanDuAn());
 	}
 	
+	public void validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		boolean result = kiemTraCongViecHoanThanh(model);
+		if (result) {
+			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanHaiHopLe", !result);
+	}
+	
 	public void luuDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getTaiLieuNDT().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getTaiLieuGD1().saveNotShowNotification();
 		luuDuLieuTiepTucAndRedirect(execution,GiaiDoanXucTien.GIAI_DOAN_HAI,GiaiDoanXucTien.GIAI_DOAN_MOT);
 		luuDuLieuDonVi(model.getGiaiDoanDuAn());
+	}
+	
+	public boolean kiemTraCongViecHoanThanh(DuAn duAn) {
+		boolean result = true;
+		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.eq(duAn));
+		result = q.fetch().stream().anyMatch(item -> item.getTrangThaiGiaoViec().ordinal() != 0);
+		return result;
 	}
 	
 	public void capNhatNguoiPhuTrach(Execution execution) {
@@ -77,7 +86,7 @@ public class ProcessService extends BasicService<Object>{
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
-		model.getNguoiPhuTrach().save();
+		model.getNguoiPhuTrach().saveNotShowNotification();
 	}
 	
 	public void giaoViecDuAn(Execution execution) {
@@ -89,7 +98,7 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().setNguoiGiaoViec(core().getNhanVien());
 		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
-		model.getGiaoViec().save();
+		model.getGiaoViec().saveNotShowNotification();
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
@@ -98,10 +107,6 @@ public class ProcessService extends BasicService<Object>{
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {
 		System.out.println("Vaoooo123");
 		kiemTraGiaiDoan(execution, "thoiHanGiaiDoanMot", GiaiDoanXucTien.GIAI_DOAN_MOT);
-	}
-	
-	public void validateDuLieuGiaiDoanBaVaKetThucDuAn(Execution execution) {
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBaVaKetThucDuAn", true);
 	}
 	
 	public void validateDuLieuGiaiDoanHai(Execution execution) {
@@ -113,7 +118,21 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBaHopLe", true);
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		boolean result = kiemTraCongViecHoanThanh(model);
+		if (result) {
+			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBaHopLe", !result);
+	}
+	
+	public void validateDuLieuGiaiDoanHaiVaKetThucDuAn(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		boolean result = kiemTraCongViecHoanThanh(model);
+		if (result) {
+			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanHaiVaKetThucDuAn", !result);
 	}
 	
 	public void luuDuLieuQuayLaiGiaiDoanMot(Execution execution) {
@@ -122,15 +141,16 @@ public class ProcessService extends BasicService<Object>{
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
-		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
-				.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.eq(duAn))
-				.where(QGiaiDoanDuAn.giaiDoanDuAn.trangThai.ne(core().TT_DA_XOA));
-		for(GiaiDoanDuAn s : q.fetch()) {
-			s.doDelete(true);
-		}
+		removeGiaiDoanDuAnList(duAn);
 		duAn.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
-		duAn.save();
+		duAn.saveNotShowNotification();
 		redirectGiaiDoanDuAnById(duAn.getId());
+	}
+	
+	public void removeGiaiDoanDuAnList(DuAn duAn) {
+		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
+				.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.eq(duAn));
+		q.fetch().forEach(item -> item.doDelete(true));
 	}
 	
 	public void luuDuLieuGIaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
@@ -141,7 +161,12 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void validateDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBonHopLe", true);
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		boolean result = kiemTraCongViecHoanThanh(model);
+		if (result) {
+			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBonHopLe", !result);
 	}
 	
 	public void luuDuLieuGIaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
@@ -164,7 +189,12 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void validateDuLieuGiaiDoanBonVaKetThucDuAn(Execution execution) {
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", true);
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		boolean result = kiemTraCongViecHoanThanh(model);
+		if (result) {
+			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", !result);
 	}
 	
 	public void luuDuLieuGiaiDoanBon(Execution execution) {
@@ -173,7 +203,6 @@ public class ProcessService extends BasicService<Object>{
 			saveTaiLieuDauGia(duAn);
 		}
 		if (duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
-			System.out.println("zo day");
 			saveTaiLieuDauThau(duAn);
 		}
 		
@@ -181,37 +210,37 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	private void saveTaiLieuDauGia(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().save();
-		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhQDDG().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhQDPD().save();
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhQDDG().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhQDPD().saveNotShowNotification();
 		if (!duAn.getGiaiDoanDuAn().isOption()) {
-			duAn.getGiaiDoanDuAn().getQuyetDinhBoSungDanhMucDNBS().save();
-			duAn.getGiaiDoanDuAn().getPhuongAnDauGiaBNBS().save();
+			duAn.getGiaiDoanDuAn().getQuyetDinhBoSungDanhMucDNBS().saveNotShowNotification();
+			duAn.getGiaiDoanDuAn().getPhuongAnDauGiaBNBS().saveNotShowNotification();
 		}
 	}
 	
 	private void saveTaiLieuDauThau(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().save();
-		duAn.getGiaiDoanDuAn().getNghiQuyetPheDuyet().save();
-		duAn.getGiaiDoanDuAn().getVanBanDinhkemNQPD().save();
-		duAn.getGiaiDoanDuAn().getCongTacDoDacLDT().save();
-		duAn.getGiaiDoanDuAn().getGiaiPhongMatBangLDT().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLDT().save();
-		duAn.getGiaiDoanDuAn().getKeHoachSuDungDatLDT().save();
-		duAn.getGiaiDoanDuAn().getVanBanDinhKemTPDDM().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDDM().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDKP().save();
-		duAn.getGiaiDoanDuAn().getCongVanDinhKemTPDKP().save();
-		duAn.getGiaiDoanDuAn().getPhuongAnDauGiaGPMB().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGPMB().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhGDKD().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGDKD().save();
-		duAn.getGiaiDoanDuAn().getHoSoMoiTuyenGDKD().save();
-		duAn.getGiaiDoanDuAn().getKeHoachGDKD().save();
-		duAn.getGiaiDoanDuAn().getHoSoMoiThauGDKD().save();
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getNghiQuyetPheDuyet().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getVanBanDinhkemNQPD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getCongTacDoDacLDT().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getGiaiPhongMatBangLDT().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLDT().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getKeHoachSuDungDatLDT().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getVanBanDinhKemTPDDM().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDDM().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDKP().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getCongVanDinhKemTPDKP().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getPhuongAnDauGiaGPMB().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGPMB().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhGDKD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGDKD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoMoiTuyenGDKD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getKeHoachGDKD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoMoiThauGDKD().saveNotShowNotification();
 	}
 	
 	public void validateDuLieuGiaiDoanBa(Execution execution) {
@@ -227,40 +256,35 @@ public class ProcessService extends BasicService<Object>{
 	
 	public void luuDuLieuKetThucDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
 		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 1) {
 			model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 			model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
 		}
-		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 2) {
-			model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
-			model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
-			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
+		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 3) {
+			model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
+			if (model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
+				saveTaiLieuDauGia(model);
+			}
+			if (model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
+				saveTaiLieuDauThau(model);
+			}
 		}
-		model.save();
-		model.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_BON);
+		model.saveNotShowNotification();
 		model.getGiaiDoanDuAn().setDuAn(model);
 		model.getGiaiDoanDuAn().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
-		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
-			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
-		}
 		redirectList();
 	}
 	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		duAn.getTaiLieuNDT().saveNotShowNotification();
-		duAn.save();
+		duAn.saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().setDuAn(duAn);
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		/*((ExecutionEntity) execution).setVariable(thoiHan, (Date)duAn.getNgayBatDauXucTien());*/
-		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
-			((ExecutionEntity) execution).setBusinessKey(duAn.businessKey());
-		}
 		redirectGiaiDoanDuAnById(duAn.getId());
+		showNotification("", "Cập nhật thành công", "success");
 	}
 	
 	
@@ -270,11 +294,9 @@ public class ProcessService extends BasicService<Object>{
 		model.saveNotShowNotification();
 		model.getGiaiDoanDuAn().setDuAn(model);
 		model.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoan);
-		model.getGiaiDoanDuAn().save();
-		if (((ExecutionEntity) execution).getBusinessKey() == null || ((ExecutionEntity) execution).getBusinessKey().isEmpty()) {
-			((ExecutionEntity) execution).setBusinessKey(model.businessKey());
-		}
+		model.getGiaiDoanDuAn().saveNotShowNotification();
 		redirectGiaiDoanDuAnById(model.getId());
+		showNotification("", "Cập nhật thành công", "success");
 	}
 	
 	public void redirectGiaiDoanDuAnById(Long id) {
@@ -286,12 +308,12 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void luuDuLieuDonVi(GiaiDoanDuAn giaiDoanDuAn) {
-		for (DonViDuAn s : giaiDoanDuAn.getDonViDuAn()) {
-			s.setGiaiDoanDuAn(giaiDoanDuAn);
-			s.saveNotShowNotification();
-			s.getCongVanGiaiThich().saveNotShowNotification();
-			s.getCongVanTraLoi().saveNotShowNotification();
-		}
+		giaiDoanDuAn.getDonViDuAn().forEach(item -> {
+			item.setGiaiDoanDuAn(giaiDoanDuAn);
+			item.saveNotShowNotification();
+			item.getCongVanGiaiThich().saveNotShowNotification();
+			item.getCongVanTraLoi().saveNotShowNotification();
+		});
 	}
 	
 	public void kiemTraGiaiDoan(Execution execution, String varriable, GiaiDoanXucTien giaiDoan) {
