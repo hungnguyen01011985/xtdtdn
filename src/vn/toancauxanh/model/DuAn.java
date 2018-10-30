@@ -261,6 +261,7 @@ public class DuAn extends Model<DuAn> {
 	public void goTask(@BindingParam("task") final String task) {
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
+		variables.put("thoiHanGiaiDoanMot", new Date());
 		if (task != null) {
 			variables.put("goTask", task);
 		}
