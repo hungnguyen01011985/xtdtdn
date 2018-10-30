@@ -105,12 +105,15 @@ public class TepTin extends Model<TepTin> {
 	}
 
 	@Command
-	public void downLoadTepTin() throws MalformedURLException {
-		if (!this.getPathFile().isEmpty()) {
-			final String path = folderStore().concat(File.separator) + this.tenFile;
+
+	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
+		if (!object.getPathFile().isEmpty()) {
+			final String path = folderRoot() + object.getPathFile();
 			if (new java.io.File(path).exists()) {
 				try {
-					Filedownload.save(new URL("file:" + File.separator + File.separator + path).openStream(), null, this.tenFile);
+					Filedownload.save(
+							new URL("file://" + folderRoot() + object.getPathFile() + object.getNameHash()).openStream(),
+							null, object.getTenFile().concat(object.getTypeFile()));
 				} catch (IOException e) {
 					showNotification("Không tìm thấy file", "Thông báo", "danger");
 				}
@@ -121,7 +124,7 @@ public class TepTin extends Model<TepTin> {
 	}
 	
 	@Command
-	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final DuAn object,
+	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final Object object,
 			@BindingParam("name") final String name) {
 		Media media = (Media) medias;
 		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
@@ -138,15 +141,17 @@ public class TepTin extends Model<TepTin> {
 				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				this.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				this.setMedia(media);
-				BindUtils.postNotifyChange(null, null, object, "*");
+				BindUtils.postNotifyChange(null, null, object, name);
+	
 			}
 		} else {
 			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
 					"Có tệp không đúng định dạng", "danger");
 		}
 	}
+	
 	@Command
-	public void deleteFile(@BindingParam("vm") final DuAn vm, @BindingParam("ob") TepTin ob, @BindingParam("name") final String name) {
+	public void deleteFile(@BindingParam("vm") final Object vm, @BindingParam("ob") TepTin ob, @BindingParam("name") final String name) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
 			Messagebox.QUESTION, new EventListener<Event>() {
 				@Override
@@ -157,7 +162,7 @@ public class TepTin extends Model<TepTin> {
 						ob.setTenFile("");
 						ob.setPathFile("");
 						ob.setMedia(null);
-						BindUtils.postNotifyChange(null, null, vm, "*");
+						BindUtils.postNotifyChange(null, null, vm, name);
 						showNotification("Đã xóa", "", "success");
 					}
 				}

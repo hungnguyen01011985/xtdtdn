@@ -21,7 +21,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<div class="page-here">
-						<span>Quản lý dự án</span> > <span>Công ty TNHH A</span>
+						<span>Quản lý dự án</span> > <span>${vm.tenDuAn}</span>
 					</div>
 				</div>
 			</div>

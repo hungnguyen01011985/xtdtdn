@@ -11,159 +11,159 @@
 			String giaiDoanXucTien = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT.getText();
 		]]>
 	</zscript>
-<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"> 
-	<div class="panel-box">
-		<div zclass="row">
-			<div zclass="col-lg-12">
-				<div class="page-here">
-					<span>Quản lý dự án</span><x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img><span>Thêm mới dự án</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel-box">
-		<div zclass="row">
-			<div zclass="col-lg-12">
-				<n:span class="page-header-title">
-					Thêm mới dự án
-				</n:span>
-			</div>
-		</div>
-	</div>
-	<div class="panel-box border-box mg-bottom-15">
-			<!-- start -->
-		<div class="row mgn-lr-10">
-			<div class="row">
+	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"> 
+		<div class="panel-box">
+			<div zclass="row">
 				<div zclass="col-lg-12">
-					<div class="title-form">
-						<span>Thông tin thêm mới</span>
+					<div class="page-here">
+						<span>Quản lý dự án</span><x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img><span>Thêm mới dự án</span>
 					</div>
 				</div>
 			</div>
-			<div class="mg-and-bg-and-line mg-bottom-5">
+		</div>
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Thêm mới dự án
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box mg-bottom-15">
+				<!-- start -->
+			<div class="row mgn-lr-10">
 				<div class="row">
-				
-					<div class="col-md-12">
-						<div zclass="form-group">
-							<span>Tên dự án</span>
-							<textbox class="form-control" placeholder="Nhập tên dự án" value="@bind(vm.tenDuAn)@save(vm.tenDuAn, before={'doAction','doActionWithKey'})@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
-								onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					<div zclass="col-lg-12">
+						<div class="title-form">
+							<span>Thông tin thêm mới</span>
 						</div>
 					</div>
 				</div>
-				
-				<div class="row">
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<span>Người giao việc</span> 
-							<textbox class="form-control" value="@load(entry.nhanVien.hoVaTen)" disabled="true"></textbox>
+				<div class="mg-and-bg-and-line mg-bottom-5">
+					<div class="row">
+					
+						<div class="col-md-12">
+							<div zclass="form-group">
+								<span>Tên dự án</span>
+								<textbox class="form-control" placeholder="Nhập tên dự án" value="@bind(vm.tenDuAn)@save(vm.tenDuAn, before={'doAction','doActionWithKey'})@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
+									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
 					</div>
 					
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<span>Người phụ trách</span> 
-							<combobox model="@load(entry.nhanViens.tacGias)"
-								readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.nguoiPhuTrach)" placeholder="Chọn người"
-								value="@load(vm.nguoiPhuTrach.hoVaTen) @save(vm.nguoiPhuTrach.hoVaTen ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
-								<template name="model">
-									<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>
-								</template>
-							</combobox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-					</div>	
-				
-				<div zclass="col-md-3">
-					<div zclass="form-group">
-						<span>Ngày BĐ xúc tiến: Từ ngày</span> 
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)@save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<span>Giai đoạn xúc tiến</span> 
-							<textbox class="form-control" value="@bind(vm.giaiDoanXucTien.text)" placeholder="${giaiDoanXucTien}" disabled="true"></textbox>
-						</div>
-					</div>
-				
-				</div>
-				<div class="row">
-					<div class="col-md-9">
-						<div zclass="form-group">
-							<span>Tên công việc</span>
-							<textbox class="form-control" placeholder="Nhập tên công việc" value="@bind(vm.giaoViec.tenCongViec)@save(vm.giaoViec.tenCongViec ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
-								onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-					</div>
-				
-				
-				<div zclass="col-md-3">
-					<div zclass="form-group">
-						<span>Ngày hoàn thành</span> 
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaoViec.hanThucHien)@save(vm.giaoViec.hanThucHien, before={'doAction','doActionWithKey'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-					</div>
-				</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div zclass="form-group">
-							<span>Ý kiến chỉ đạo</span>
-							<textbox class="form-control" rows="3" placeholder="Nhập ý kiến chỉ đạo" value="@bind(vm.giaoViec.yKienChiDao)@save(vm.giaoViec.yKienChiDao, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
-								onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12" form="@id('fx') @bind(vm.giaoViec.taiLieu) @save(vm.giaoViec.taiLieu, before='doActionWithKey') 
-	    				@validator(vm.validatorTepTin, sms = 'fileGiaoViec')"  >
-						<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
-							<span>Quyết định phê duyệt</span>
-							<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-							<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
-								<label class="txt-link-tailieu" value="@bind(vm.giaoViec.taiLieu.tenFile)" onClick="@command('downLoadTepTin')" />
-								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaoViec.taiLieu , vm = vm, name='giaoViec')">
-									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-								</x:button>
+					<div class="row">
+						<div zclass="col-md-3">
+							<div zclass="form-group">
+								<span>Người giao việc</span> 
+								<textbox class="form-control" value="@load(entry.nhanVien.hoVaTen)" disabled="true"></textbox>
 							</div>
-							<label zclass="error" value="@load(vmsgs['fileGiaoViec'])" />
+						</div>
+						
+						<div zclass="col-md-3">
+							<div zclass="form-group">
+								<span>Người phụ trách</span> 
+								<combobox model="@load(entry.nhanViens.tacGias)"
+									readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.nguoiPhuTrach)" placeholder="Chọn người"
+									value="@load(vm.nguoiPhuTrach.hoVaTen) @save(vm.nguoiPhuTrach.hoVaTen ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
+									<template name="model">
+										<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>
+									</template>
+								</combobox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>	
+					
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<span>Ngày BĐ xúc tiến: Từ ngày</span> 
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.ngayBatDauXucTien)@save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+						<div zclass="col-md-3">
+							<div zclass="form-group">
+								<span>Giai đoạn xúc tiến</span> 
+								<textbox class="form-control" value="@bind(vm.giaiDoanXucTien.text)" placeholder="${giaiDoanXucTien}" disabled="true"></textbox>
+							</div>
+						</div>
+					
+					</div>
+					<div class="row">
+						<div class="col-md-9">
+							<div zclass="form-group">
+								<span>Tên công việc</span>
+								<textbox class="form-control" placeholder="Nhập tên công việc" value="@bind(vm.giaoViec.tenCongViec)@save(vm.giaoViec.tenCongViec ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+					
+					
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<span>Ngày hoàn thành</span> 
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaoViec.hanThucHien)@save(vm.giaoViec.hanThucHien, before={'doAction','doActionWithKey'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div zclass="form-group">
+								<span>Ý kiến chỉ đạo</span>
+								<textbox class="form-control" rows="3" placeholder="Nhập ý kiến chỉ đạo" value="@bind(vm.giaoViec.yKienChiDao)@save(vm.giaoViec.yKienChiDao, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12" form="@id('fx') @bind(vm.giaoViec.taiLieu) @save(vm.giaoViec.taiLieu, before='doActionWithKey') 
+		    				@validator(vm.validatorTepTin, sms = 'fileGiaoViec')"  >
+							<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
+								<span>Quyết định phê duyệt</span>
+								<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
+									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaoViec, name = 'taiLieu')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
+								<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
+									<label class="txt-link-tailieu" value="@bind(vm.giaoViec.taiLieu.tenFile)"/>
+									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaoViec.taiLieu , vm = vm, name='giaoViec')">
+										<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+									</x:button>
+								</div>
+								<label zclass="error" value="@load(vmsgs['fileGiaoViec'])" />
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			
-			<div class="row mg-and-bg-and-line">
-				<div zclass="col-xs-6">
-					<div zclass="form-group">
-						<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('redirectQuanLyDuAn')">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
-								<span>Đóng</span>
-						</x:button>
-					</div>
-				</div>
-				<div zclass="col-xs-6">
-					<div zclass="form-group right" children="@load(entry.processService.getTransitions('UserTask_1rmnevk','quanLyDuAn'))">
-						<template name="children">
-							<x:button onClick="@command('doActionWithKey', flow=each, processDefinitionKey='quanLyDuAn', list=vmArgs, attr='targetQuery')" 
-								class="btn btn-blue mg-btn">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-								<span>${each.getProperty('name')}</span>
+				
+				<div class="row mg-and-bg-and-line">
+					<div zclass="col-xs-6">
+						<div zclass="form-group">
+							<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('redirectQuanLyDuAn')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+									<span>Đóng</span>
 							</x:button>
-						</template>
+						</div>
+					</div>
+					<div zclass="col-xs-6">
+						<div zclass="form-group right" children="@load(entry.processService.getTransitions('UserTask_1rmnevk','quanLyDuAn'))">
+							<template name="children">
+								<x:button onClick="@command('doActionWithKey', flow=each, processDefinitionKey='quanLyDuAn', list=vmArgs, attr='targetQuery')" 
+									class="btn btn-blue mg-btn">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+									<span>${each.getProperty('name')}</span>
+								</x:button>
+							</template>
+						</div>
 					</div>
 				</div>
+				
 			</div>
-			
 		</div>
 	</div>
-</div>
 </window>
