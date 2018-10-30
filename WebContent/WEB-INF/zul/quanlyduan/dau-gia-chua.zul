@@ -39,7 +39,7 @@
 				<span>Quyết định bổ sung danh mục</span>
 				<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhBoSungDanhMucDNBS.tenFile)" label="Chọn tài liệu" 
 					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhBoSungDanhMucDNBS')"
 					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 				</button>
 				<label zclass="error"
@@ -58,7 +58,7 @@
 				<span>Phương án đấu giá</span>
 				<button visible="@load(empty vm.giaiDoanDuAn.phuongAnDauGiaBNBS.tenFile)" label="Chọn tài liệu" 
 					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'phuongAnDauGiaBNBS')"
 					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 				</button>
 				<label zclass="error"
@@ -100,7 +100,7 @@
 				<span>Hồ sơ quy hoạch</span>
 				<button visible="@load(empty vm.giaiDoanDuAn.hoSoQuyHoachLKH.tenFile)" label="Chọn tài liệu" 
 					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLKH')"
 					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 				</button>
 				<label zclass="error"
@@ -121,7 +121,7 @@
 				<span>Quyết định phê duyệt</span>
 				<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyet.tenFile)" label="Chọn tài liệu" 
 					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyet')"
 					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 				</button>
 				<label zclass="error"
@@ -165,7 +165,7 @@
 				<span>Quyết định phê duyệt</span>
 				<button visible="@load(empty vm.giaiDoanDuAn.phuongAnDauGia.tenFile)" label="Chọn tài liệu" 
 					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'phuongAnDauGia')"
 					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 				</button>
 				<label zclass="error"
@@ -197,7 +197,7 @@
 				<span>Quyết định</span>
 				<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhQDDG.tenFile)" label="Chọn tài liệu" 
 					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhQDDG')"
 					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 				</button>
 				<label zclass="error"
@@ -227,7 +227,7 @@
 				<span>Quyết định</span>
 				<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhQDPD.tenFile)" label="Chọn tài liệu" 
 					class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+					onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhQDPD')"
 					upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 				</button>
 				<label zclass="error"

@@ -172,7 +172,6 @@ public class ProcessService extends BasicService<Object>{
 			saveTaiLieuDauGia(duAn);
 		}
 		if (duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
-			System.out.println("zo day");
 			saveTaiLieuDauThau(duAn);
 		}
 		
@@ -180,37 +179,37 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	private void saveTaiLieuDauGia(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().save();
-		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhQDDG().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhQDPD().save();
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhQDDG().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhQDPD().saveNotShowNotification();
 		if (!duAn.getGiaiDoanDuAn().isOption()) {
-			duAn.getGiaiDoanDuAn().getQuyetDinhBoSungDanhMucDNBS().save();
-			duAn.getGiaiDoanDuAn().getPhuongAnDauGiaBNBS().save();
+			duAn.getGiaiDoanDuAn().getQuyetDinhBoSungDanhMucDNBS().saveNotShowNotification();
+			duAn.getGiaiDoanDuAn().getPhuongAnDauGiaBNBS().saveNotShowNotification();
 		}
 	}
 	
 	private void saveTaiLieuDauThau(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().save();
-		duAn.getGiaiDoanDuAn().getNghiQuyetPheDuyet().save();
-		duAn.getGiaiDoanDuAn().getVanBanDinhkemNQPD().save();
-		duAn.getGiaiDoanDuAn().getCongTacDoDacLDT().save();
-		duAn.getGiaiDoanDuAn().getGiaiPhongMatBangLDT().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLDT().save();
-		duAn.getGiaiDoanDuAn().getKeHoachSuDungDatLDT().save();
-		duAn.getGiaiDoanDuAn().getVanBanDinhKemTPDDM().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDDM().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDKP().save();
-		duAn.getGiaiDoanDuAn().getCongVanDinhKemTPDKP().save();
-		duAn.getGiaiDoanDuAn().getPhuongAnDauGiaGPMB().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGPMB().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhGDKD().save();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGDKD().save();
-		duAn.getGiaiDoanDuAn().getHoSoMoiTuyenGDKD().save();
-		duAn.getGiaiDoanDuAn().getKeHoachGDKD().save();
-		duAn.getGiaiDoanDuAn().getHoSoMoiThauGDKD().save();
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getNghiQuyetPheDuyet().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getVanBanDinhkemNQPD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getCongTacDoDacLDT().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getGiaiPhongMatBangLDT().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLDT().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getKeHoachSuDungDatLDT().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getVanBanDinhKemTPDDM().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDDM().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDKP().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getCongVanDinhKemTPDKP().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getPhuongAnDauGiaGPMB().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGPMB().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhGDKD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGDKD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoMoiTuyenGDKD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getKeHoachGDKD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoMoiThauGDKD().saveNotShowNotification();
 	}
 	
 	public void validateDuLieuGiaiDoanBa(Execution execution) {
