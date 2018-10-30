@@ -107,12 +107,10 @@ public class TepTin extends Model<TepTin> {
 	@Command
 	public void downLoadTepTin() throws MalformedURLException {
 		if (!this.getPathFile().isEmpty()) {
-			final String path = folderRoot() + this.getPathFile();
+			final String path = folderStore().concat(File.separator) + this.tenFile;
 			if (new java.io.File(path).exists()) {
 				try {
-					Filedownload.save(
-							new URL("file://" + folderRoot() + this.getPathFile() + this.getNameHash()).openStream(),
-							null, this.getTenFile().concat(this.getTypeFile()));
+					Filedownload.save(new URL("file:" + File.separator + File.separator + path).openStream(), null, this.tenFile);
 				} catch (IOException e) {
 					showNotification("Không tìm thấy file", "Thông báo", "danger");
 				}
