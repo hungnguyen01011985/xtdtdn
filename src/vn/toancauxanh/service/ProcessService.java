@@ -105,7 +105,6 @@ public class ProcessService extends BasicService<Object>{
 	}
 	
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {
-		System.out.println("Vaoooo123");
 		kiemTraGiaiDoan(execution, "thoiHanGiaiDoanMot", GiaiDoanXucTien.GIAI_DOAN_MOT);
 	}
 	
