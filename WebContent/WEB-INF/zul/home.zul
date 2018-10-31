@@ -18,7 +18,6 @@ xmlns:w="http://www.zkoss.org/2005/zk/client">
 <n:script src="//code.jquery.com/jquery-1.11.1.min.js"></n:script>
 
 <zscript><![CDATA[
-    System.out.println("vao home");
     entry = new vn.toancauxanh.service.BaseObject().core();
     String file = execution.getParameter("file");
     String ctxPath = execution.getContextPath();
