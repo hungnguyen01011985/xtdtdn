@@ -26,11 +26,8 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.resource.Labels;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.DefaultTreeModel;
 import org.zkoss.zul.DefaultTreeNode;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.TreeNode;
 import org.zkoss.zul.Window;
 
@@ -77,7 +74,8 @@ public class VaiTro extends Model<VaiTro> {
 
 	@Transient
 	public List<NhanVien> getListNhanVien() {
-		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.trangThai.ne(core().TT_DA_XOA))
+		JPAQuery<NhanVien> q = find(NhanVien.class)
+				.where(QNhanVien.nhanVien.trangThai.ne(core().TT_DA_XOA))
 				.where(QNhanVien.nhanVien.vaiTros.contains(this));
 		return q.fetch();
 	}
@@ -89,31 +87,27 @@ public class VaiTro extends Model<VaiTro> {
 	public DefaultTreeModel<String[]> getModel() {
 		getQuyens();
 		selectedItems.clear();
-
+		
 		final HashSet<TreeNode<String[]>> openItems_ = new HashSet<>();
-
-		final TreeNode<String[]> rootNode = new DefaultTreeNode<>(new String[] {},
-				new ArrayList<DefaultTreeNode<String[]>>());
-
+		
+		final TreeNode<String[]> rootNode = new DefaultTreeNode<>(new String[] {}, new ArrayList<DefaultTreeNode<String[]>>());
+		
 		final DefaultTreeModel<String[]> model = new DefaultTreeModel<>(rootNode, true);
-
+		
 		model.setMultiple(true);
 		final Set<String> allQuyens = new HashSet<>();
-
+		
 		final long q = find(VaiTro.class).fetchCount();
-
-		if (q == 0) {
+		
+		if(q==0){
 			for (String vaiTro : VAITRO_DEFAULTS) {
 				allQuyens.addAll(getQuyenMacDinhs(vaiTro));
 			}
 		} else {
 			allQuyens.addAll(getQuyenAllMacDinhs());
 		}
-
-		for (String resource : core().getRESOURCES()) { // Phần tạo tên tittle
-														// vai trò = >
-														// getRESOURCES bên
-														// Entry
+		
+		for (String resource : core().getRESOURCES()) {
 			DefaultTreeNode<String[]> parentNode = new DefaultTreeNode<>(
 					new String[] { Labels.getLabel("url." + resource + ".mota"), resource },
 					new ArrayList<DefaultTreeNode<String[]>>());
@@ -122,8 +116,7 @@ public class VaiTro extends Model<VaiTro> {
 				openItems_.add(parentNode);
 				model.setOpenObjects(openItems_);
 			}
-			for (String action : core().getACTIONS()) { // getACTIONS la set cac
-														// title quyen
+			for (String action : core().getACTIONS()) {
 				String quyen = resource + Quyen.CACH + action;
 				if (allQuyens.contains(quyen)) {
 					DefaultTreeNode<String[]> childNode = new DefaultTreeNode<>(
@@ -148,24 +141,6 @@ public class VaiTro extends Model<VaiTro> {
 		return alias;
 	}
 
-	@Override
-	public void save() {
-		setTenVaiTro(getTenVaiTro().trim().replaceAll("\\s+", " "));
-		setQuyens(quyenEdits);
-		// quyens.addAll(quyenEdits);
-		// quyens.retainAll(quyenEdits);
-		// quyens.clear();
-		// quyens.addAll(quyenEdits);
-		// LOG.info(quyenEdits.size() + "size");
-		// LOG.info(quyens.size() + "size");
-		// LOG.info(selectedItems.size() + "size");
-		if (noId()) {
-			showNotification("Đã lưu thành công!", "", "success");
-		} else {
-			showNotification("Đã cập nhật thành công!", "", "success");
-		}
-		doSave();
-	}
 
 	@Transient
 	public Set<String> getQuyenAllMacDinhs() {
@@ -223,7 +198,7 @@ public class VaiTro extends Model<VaiTro> {
 
 		return quyens1;
 	}
-
+	
 	@Transient
 	public Set<String> getQuyenMacDinhs(String vaiTro) {
 		Set<String> quyens1 = new HashSet<>();
@@ -418,10 +393,10 @@ public class VaiTro extends Model<VaiTro> {
 	public Set<String> getQuyenMacDinhs() {
 		return getQuyenMacDinhs(getAlias());
 	}
-
+	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	@CollectionTable(name = "vaitro_quyens", joinColumns = { @JoinColumn(name = "vaitro_id") })
+	@CollectionTable(name = "vaitro_quyens", joinColumns = {@JoinColumn(name = "vaitro_id")})
 	public Set<String> getQuyens() {
 		if (quyens.isEmpty()) {
 			quyens.addAll(getQuyenMacDinhs());
@@ -515,38 +490,6 @@ public class VaiTro extends Model<VaiTro> {
 		this.checkApDung = _isCheckApDung;
 	}
 
-	@Command
-	public void khoaThanhVien(@BindingParam("vm") final Object vm) {
-
-		Messagebox.show("Bạn có muốn khóa vai trò này ?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-				Messagebox.QUESTION, new EventListener<Event>() {
-					@Override
-					public void onEvent(final Event event) {
-						if (Messagebox.ON_OK.equals(event.getName())) {
-							setCheckApDung(false);
-							save();
-							BindUtils.postNotifyChange(null, null, vm, "vaiTroQuery");
-						}
-					}
-				});
-
-	}
-
-	@Command
-	public void moKhoaThanhVien(@BindingParam("vm") final Object vm) {
-		Messagebox.show("Bạn muốn mở khóa vai trò này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-				Messagebox.QUESTION, new EventListener<Event>() {
-					@Override
-					public void onEvent(final Event event) {
-						if (Messagebox.ON_OK.equals(event.getName())) {
-							setCheckApDung(true);
-							save();
-							BindUtils.postNotifyChange(null, null, vm, "vaiTroQuery");
-						}
-					}
-				});
-	}
-
 	private boolean checkKichHoat;
 
 	public boolean isCheckKichHoat() {
@@ -556,72 +499,9 @@ public class VaiTro extends Model<VaiTro> {
 	public void setCheckKichHoat(boolean checkKichHoat) {
 		this.checkKichHoat = checkKichHoat;
 	}
-
 	@Command
-	public void toggleLock(@BindingParam("list") final Object obj) {
-		String dialogText = "";
-		if (checkKichHoat) {
-			dialogText = "Báº¡n muá»‘n kÃ­ch hoáº¡t vai trÃ² Ä‘Ã£ chá»�n?";
-		} else {
-			dialogText = "Báº¡n muá»‘n ngá»«ng kÃ­ch hoáº¡t vai trÃ² Ä‘Ã£ chá»�n?";
-		}
-		Messagebox.show(dialogText, "XÃ¡c nháº­n", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
-				new EventListener<Event>() {
-					@Override
-					public void onEvent(final Event event) {
-						if (Messagebox.ON_OK.equals(event.getName())) {
-							if (checkKichHoat) {
-								setCheckKichHoat(false);
-							} else {
-								setCheckKichHoat(true);
-							}
-							save();
-							BindUtils.postNotifyChange(null, null, obj, "vaiTroQuery");
-						}
-					}
-				});
-	}
-
-	private NhanVien selectedNhanVien;
-
-	@Transient
-	public NhanVien getSelectedNhanVien() {
-		return selectedNhanVien;
-	}
-
-	public void setSelectedNhanVien(NhanVien selectNhanVien) {
-		this.selectedNhanVien = selectNhanVien;
-	}
-
-	@Command
-	public void addNhanVien() {
-		if (selectedNhanVien != null) {
-			if (selectedNhanVien.getVaiTros().contains(this)) {
-				showNotification("Nhân viên " + selectedNhanVien.getHoVaTen() + " đã có vai trò này!", "", "warning");
-			} else {
-				Messagebox.show(
-						"Bạn có chắc muốn thêm vai trò " + this.getTenVaiTro() + " cho nhân viên"
-								+ selectedNhanVien.getHoVaTen(),
-						"Xác nhận", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, new EventListener<Event>() {
-							@Override
-							public void onEvent(final Event event) {
-								if (Messagebox.ON_OK.equals(event.getName())) {
-									selectedNhanVien.getVaiTros().add(VaiTro.this);
-									selectedNhanVien.save();
-									setSelectedNhanVien(null);
-									BindUtils.postNotifyChange(null, null, VaiTro.this, "listNhanVien");
-									BindUtils.postNotifyChange(null, null, VaiTro.this, "selectedNhanVien");
-								}
-							}
-						});
-			}
-		} else {
-			showNotification("Bạn chưa nhập tên nhân viên hoặc tên nhân viên không tồn tại", "", "warning");
-		}
-	}
-
-	@Command
-	public void saveVaiTro(@BindingParam("list") final Object listObject, @BindingParam("attr") final String attr,
+	public void saveVaiTro(@BindingParam("list") final Object listObject,
+			@BindingParam("attr") final String attr,
 			@BindingParam("wdn") final Window wdn) {
 		setTenVaiTro(getTenVaiTro().trim().replaceAll("\\s+", " "));
 		setQuyens(quyenEdits);
@@ -629,12 +509,22 @@ public class VaiTro extends Model<VaiTro> {
 		wdn.detach();
 		BindUtils.postNotifyChange(null, null, listObject, "vaiTroQuery");
 	}
-
+	@Override
+	public void save() {
+		setTenVaiTro(getTenVaiTro().trim().replaceAll("\\s+", " "));
+		setQuyens(quyenEdits);
+		if (noId()) {
+			showNotification("Đã lưu thành công!", "", "success");
+		} else {
+			showNotification("Đã cập nhật thành công!", "", "success");
+		}
+		doSave();
+	}
 	@Transient
 	public boolean isMacDinh() {
 		return Arrays.asList(VAITRO_DEFAULTS).contains(this.getAlias());
 	}
-
+	
 	@Transient
 	public AbstractValidator getValidateTenVaiTro() {
 		return new AbstractValidator() {

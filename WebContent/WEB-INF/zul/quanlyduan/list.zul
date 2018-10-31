@@ -59,8 +59,7 @@
 									<comboitem label="@load(empty each ? 'Tất cả' : each.ten)" />
 								</template>
 							</combobox>
-							<label zclass="error"
-								value="@load(vmsgs[self.previousSibling])" />
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 				</div>
@@ -80,21 +79,19 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Thời gian xúc tiến từ ngày</span>
-							<datebox format="dd/MM/yyyy" class="hv-db"
+							<datebox format="dd/MM/yyyy" class="hv-db" readonly="true"
 								value="@bind(vm.tuNgay)" width="100%"
 								placeholder="Chọn ngày" />
-							<label zclass="error"
-								value="@load(vmsgs[self.previousSibling])" />
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Đến ngày</span>
-							<datebox format="dd/MM/yyyy" class="hv-db"
+							<datebox format="dd/MM/yyyy" class="hv-db" readonly="true"
 								value="@bind(vm.denNgay)" width="100%"
 								placeholder="Chọn ngày" />
-							<label zclass="error"
-								value="@load(vmsgs[self.previousSibling])" />
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 				</div>
@@ -147,8 +144,8 @@
 								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
 								<label value="@load(item.tenDuAn)"></label>
 								<label value="@load(item.diaDiem)"></label>
-								<label value="@load(item.tongVonDauTu)@converter('formatedNumber', format='###,###.## VNĐ')"></label>
-								<label value="@load(item.ngayBatDauXucTien)@converter('formatedDate',format='dd/MM/yyyy')"></label>
+								<label value="@load(item.tongVonDauTu) @converter('formatedNumber', format='###,###.## VNĐ')"></label>
+								<label value="@load(item.ngayBatDauXucTien) @converter('formatedDate',format='dd/MM/yyyy')"></label>
 								<label value="@load(item.linhVuc.ten)"></label>
 								<label value="@load(item.giaiDoanXucTien.text)"></label>
 								<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
