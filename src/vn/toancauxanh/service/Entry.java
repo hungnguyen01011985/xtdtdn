@@ -260,14 +260,9 @@ public class Entry extends BaseObject<Object> {
 		return "forward:/WEB-INF/zul/login.zul";
 	}
 
-	@RequestMapping(value = "/upload2")
-	public String upLoad() {
-		return "forward:/WEB-INF/zul/upload/upload2.zul";
-	}
-
-	@RequestMapping(value = "/cp")
-	public String cp2() {
-		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul&macdinh=home";
+	@RequestMapping(value = "/")
+	public String cp() {
+		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul";
 	}
 
 	@RequestMapping(value = "/cp/{path:.+$}")
@@ -280,18 +275,6 @@ public class Entry extends BaseObject<Object> {
 	public String add2(@PathVariable String rsc, @PathVariable String path) {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + rsc + "&action=lietke&file=/WEB-INF/zul/" + rsc + "/" + path
 				+ ".zul";
-	}
-
-	@RequestMapping(value = "/cp/{path:.+$}/view/{id:\\d+}")
-	public String view(@PathVariable String path, @PathVariable Long id) {
-		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
-				+ "/view-page.zul&id=" + id;
-	}
-
-	@RequestMapping(value = "/cp/thongke/{path:.+$}/{id:\\d+}")
-	public String viewThongKe(@PathVariable String path, @PathVariable Long id) {
-		return "forward:/WEB-INF/zul/home.zul?resource=thongke&action=lietke&file=/WEB-INF/zul/thongke/" + path
-				+ ".zul&id=" + id;
 	}
 
 	@RequestMapping(value = "/cp/{path:.+$}/edit/{id:\\d+}")
@@ -379,21 +362,6 @@ public class Entry extends BaseObject<Object> {
 
 	public final GopYPhanMemService getGopYPhanMem() {
 		return new GopYPhanMemService();
-	}
-
-	@RequestMapping(value = "/{type:.+$}/{id:\\d+}")
-	public String showDetail(@PathVariable("type") String type, @PathVariable("id") String id) {
-		return "forward:/frontend/home/home.zhtml?type=" + type + "&id=" + id;
-	}
-
-	@RequestMapping(value = "/")
-	public String showHome() {
-		return "forward:/frontend/home/home.zhtml";
-	}
-
-	@RequestMapping(value = "/search")
-	public String showHomeSearch() {
-		return "forward:/frontend/home/search.zhtml";
 	}
 
 	public final DonViService getDonVis() {
