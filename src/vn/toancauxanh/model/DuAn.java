@@ -422,11 +422,10 @@ public class DuAn extends Model<DuAn> {
 				try {
 					vonDauTu = Double.parseDouble((String) ctx.getProperty().getValue());
 				} catch (NumberFormatException e) {
-					addInvalidMessage(ctx,"Bạn phải nhập số");
+					addInvalidMessage(ctx, "Bạn phải nhập số");
 				}
-				
-				
-				if (vonDauTu <= 0) {
+
+				if (vonDauTu < 0) {
 					addInvalidMessage(ctx, text + " phải lớn hơn 0");
 					rs = false;
 				}
