@@ -250,8 +250,7 @@
 							<comboitem label="@load(each.text)"></comboitem>
 						</template>
 					</combobox>
-					<label zclass="error"
-						value="@load(vmsgs[self.previousSibling])" />
+					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
 		</div>	
