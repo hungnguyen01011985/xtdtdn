@@ -1,6 +1,6 @@
 <zk>
 	<zscript>
-		<![CDATA[     
+		<![CDATA[
 			entry = new vn.toancauxanh.service.BaseObject().core();
 			vn.toancauxanh.model.NhanVien nhanVien = entry.getNhanVien();
 			if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYDUANLIST)) {
