@@ -64,7 +64,6 @@ import vn.toancauxanh.service.Quyen;
 @Entity
 @Table(name = "nhanvien")
 public class NhanVien extends Model<NhanVien> {
-	public static final String TONGBIENTAP = "tongbientap";
 	private String chucVu = "";
 	private String diaChi = "";
 	private String email = "";
@@ -72,17 +71,17 @@ public class NhanVien extends Model<NhanVien> {
 	private String matKhau = "";
 	private String salkey = "";
 	private String soDienThoai = "";
+	private String pathAvatar = "";
+	private String matKhauUpdate = "";
+	private String matKhau2 = "";
+	private boolean selectedDV;
 	private Date ngaySinh;
 	private Set<String> quyens = new HashSet<>();
 	private Set<String> tatCaQuyens = new HashSet<>();
 	private Set<VaiTro> vaiTros = new HashSet<>();
-	private boolean selectedDV;
-	private String matKhau2 = "";
 	private Image avatarImage;
-	private String pathAvatar;
-	private VaiTro vaiTro;
-	private String matKhauUpdate;
 	private PhongBan phongBan;
+	private VaiTro vaiTro;
 
 	@ManyToOne
 	public PhongBan getPhongBan() {
@@ -122,19 +121,6 @@ public class NhanVien extends Model<NhanVien> {
 		this.avatarImage = avatarImage;
 	}
 
-	@ManyToOne
-	public VaiTro getVaiTro() {
-		if (vaiTro != null) {
-			vaiTros = new HashSet<>();
-			getVaiTros().add(vaiTro);
-		}
-		return vaiTro;
-	}
-
-	public void setVaiTro(VaiTro vaiTro) {
-		this.vaiTro = vaiTro;
-	}
-
 	private Quyen quyen = new Quyen(new SimpleAccountRealm() {
 		@Override
 		protected AuthorizationInfo getAuthorizationInfo(final PrincipalCollection arg0) {
@@ -159,6 +145,19 @@ public class NhanVien extends Model<NhanVien> {
 
 	public void setMatKhau2(String matKhau2) {
 		this.matKhau2 = matKhau2;
+	}
+	
+	@Transient
+	public VaiTro getVaiTro() {
+		if (vaiTro != null) {
+			vaiTros = new HashSet<>();
+			getVaiTros().add(vaiTro);
+		}
+		return vaiTro;
+	}
+
+	public void setVaiTro(VaiTro vaiTro) {
+		this.vaiTro = vaiTro;
 	}
 
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -318,11 +317,6 @@ public class NhanVien extends Model<NhanVien> {
 	@Transient
 	public Quyen getTatCaQuyen() {
 		return quyen;
-	}
-
-	@Transient
-	public boolean isTongBienTap() {
-		return core().getQuyen().get(TONGBIENTAP); // entry.quyen.tongbientap
 	}
 
 	public boolean isSelectedDV() {
@@ -661,14 +655,7 @@ public class NhanVien extends Model<NhanVien> {
 
 					@Override
 					public void onEvent(Event event) throws Exception {
-						// TODO Auto-generated method stub
 						if (Messagebox.ON_OK.equals(event.getName())) {
-							// object.getDonVi();
-							// object.getDonViCha();
-							// object.getDonViCon();
-							// getDonVi();
-							// getDonViCha();
-							// getDonViCon();
 							setCheckApDung(false);
 							save();
 							BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");
@@ -686,11 +673,7 @@ public class NhanVien extends Model<NhanVien> {
 
 					@Override
 					public void onEvent(Event event) throws Exception {
-						// TODO Auto-generated method stub
 						if (Messagebox.ON_OK.equals(event.getName())) {
-							// getDonVi();
-							// getDonViCha();
-							// getDonViCon();
 							setCheckApDung(true);
 							save();
 							BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");

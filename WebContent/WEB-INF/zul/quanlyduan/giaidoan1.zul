@@ -23,7 +23,6 @@
 				<div zclass="col-lg-12">
 					<div class="box-plan">
 						<div class="plan-line">
-						
 						</div>
 						<div class="plan-item">
 							<div class="plan-number plan-number-active">
@@ -73,7 +72,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày gửi</span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGui)@save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'})@validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
+							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGui) @save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'}) @validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateStart'])" />
 						</div>
@@ -82,14 +81,14 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày dự kiến nhận phản hồi</span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi)@save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before={'goTask','goNext'})@validator(vm.validator, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
+							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi) @save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before={'goTask','goNext'}) @validator(vm.validator, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>
 					</div>
 				
 					<div zclass="col-md-6">
-						<div zclass="form-group mg-top-8" viewModel="@id('file0')@init(vm.giaiDoanDuAn.taiLieuGD1)">
+						<div zclass="form-group mg-top-8" viewModel="@id('taiLieuGD1') @init(vm.giaiDoanDuAn.taiLieuGD1)">
 							<span>Tài liệu đính kèm</span>
 							<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
@@ -102,7 +101,6 @@
 									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 								</x:button>
 							</div>
-							<label zclass="error" value="@load(vmsgs['fileGD1'])" />
 						</div>
 					</div>
 				</div>

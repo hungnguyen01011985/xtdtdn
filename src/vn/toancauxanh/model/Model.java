@@ -155,7 +155,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 											.fetchCount();
 								}
 								if ("vaitro".equals(type)) {
-									count = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.id.eq(Model.this.id))
+									count = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTros.contains((VaiTro) Model.this))
 											.fetchCount();
 								}
 								if (count == 0) {
