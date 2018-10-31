@@ -1,6 +1,7 @@
 <zk>
 	<zscript>
-		<![CDATA[     
+		<![CDATA[
+		    System.out.println("vaoo");
 			entry = new vn.toancauxanh.service.BaseObject().core();
 			vn.toancauxanh.model.NhanVien nhanVien = entry.getNhanVien();
 			System.out.println(nhanVien.getTatCaQuyens().contains(entry.core().QUANLYDUANLIST));

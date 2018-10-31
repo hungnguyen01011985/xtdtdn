@@ -232,7 +232,7 @@ public class Entry extends BaseObject<Object> {
 	@Autowired
 	@Lazy
 	ProcessEngine processEngine;
-	
+
 	public Entry() {
 		super();
 		setCore();
@@ -260,7 +260,7 @@ public class Entry extends BaseObject<Object> {
 		return "forward:/WEB-INF/zul/login.zul";
 	}
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/cp")
 	public String cp() {
 		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul";
 	}
@@ -282,23 +282,21 @@ public class Entry extends BaseObject<Object> {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
 				+ "/add-page.zul&id=" + id;
 	}
-	
+
 	@RequestMapping(value = "/cp/quanlyduan/{id:\\d+}")
 	public String giaidoan(@PathVariable Long id) {
-		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/giaidoan.zul&id=" + id;
+		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/giaidoan.zul&id="
+				+ id;
 	}
 
-	// Ban xúc tiến
-	// start
-	
 	public final ProcessEngine getProcess() {
 		return processEngine;
 	}
-	
+
 	public final ProcessService getProcessService() {
 		return new ProcessService();
 	}
-	
+
 	public final PhongBanService getPhongBans() {
 		return new PhongBanService();
 	}
@@ -311,7 +309,7 @@ public class Entry extends BaseObject<Object> {
 		return new LinhVucDuAnService();
 	}
 
-	public final ThanhVienDoanService getThanhVienDoans(){
+	public final ThanhVienDoanService getThanhVienDoans() {
 		return new ThanhVienDoanService();
 	}
 	// end

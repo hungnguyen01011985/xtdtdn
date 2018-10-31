@@ -18,12 +18,13 @@ xmlns:w="http://www.zkoss.org/2005/zk/client">
 <n:script src="//code.jquery.com/jquery-1.11.1.min.js"></n:script>
 
 <zscript><![CDATA[
-       entry = new vn.toancauxanh.service.BaseObject().core();
-       String file = execution.getParameter("file");
-       String ctxPath = execution.getContextPath();
-       String resource = execution.getParameter("resource");
-       String action = execution.getParameter("action");
-       boolean coquyen = entry.quyen.get(resource + "_" + action);
+    System.out.println("vao home");
+    entry = new vn.toancauxanh.service.BaseObject().core();
+    String file = execution.getParameter("file");
+    String ctxPath = execution.getContextPath();
+    String resource = execution.getParameter("resource");
+    String action = execution.getParameter("action");
+    boolean coquyen = entry.quyen.get(resource + "_" + action);
 ]]></zscript>
 
 <style>
