@@ -149,23 +149,24 @@ public class TepTin extends Model<TepTin> {
 	}
 
 	@Command
-	public void deleteFile(@BindingParam("vm") final Object vm, @BindingParam("ob") TepTin ob,
+	public void deleteFile(@BindingParam("vm") final Object object, @BindingParam("ob") TepTin tepTin,
 			@BindingParam("name") final String name) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-				Messagebox.QUESTION, new EventListener<Event>() {
-					@Override
-					public void onEvent(final Event event) throws IOException {
-						if (Messagebox.ON_OK.equals(event.getName())) {
-							ob.setNameHash("");
-							ob.setTypeFile("");
-							ob.setTenFile("");
-							ob.setPathFile("");
-							ob.setMedia(null);
-							BindUtils.postNotifyChange(null, null, vm, name);
-							showNotification("Đã xóa", "", "success");
-						}
+			Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(final Event event) throws IOException {
+					if (Messagebox.ON_OK.equals(event.getName())) {
+						tepTin.setNameHash("");
+						tepTin.setTypeFile("");
+						tepTin.setTenFile("");
+						tepTin.setPathFile("");
+						tepTin.setMedia(null);
+						BindUtils.postNotifyChange(null, null, tepTin, "*");
+						BindUtils.postNotifyChange(null, null, object, name);
+						showNotification("Đã xóa", "", "success");
 					}
-				});
+				}
+			});
 	}
 
 }

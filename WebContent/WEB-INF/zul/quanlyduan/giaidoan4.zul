@@ -61,27 +61,25 @@
 				<div zclass="col-md-4">
 					<div zclass="form-group mg-top-8">
 						<span>Phương thức lựa chọn nhà đầu tư</span>
-						<combobox class="his mg-top-8" model="@load(vm.getListPhuongThucLuaChonNDT())" readonly="true" width="100%" placeholder="--Chọn--" selectedItem="@bind(vm.giaiDoanDuAn.phuongThucLuaChonNDT)@save(vm.giaiDoanDuAn.phuongThucLuaChonNDT, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						<combobox class="his mg-top-8" model="@load(vm.getListPhuongThucLuaChonNDT())" readonly="true" width="100%" placeholder="--Chọn--" selectedItem="@bind(vm.giaiDoanDuAn.phuongThucLuaChonNDT) @save(vm.giaiDoanDuAn.phuongThucLuaChonNDT, before='goTask') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 						onSelect="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)" onCreate="@command('srcGiaiDoanBon',giatri=vm.giaiDoanDuAn.option, vmArgs = vm)" value="@load(vm.giaiDoanDuAn.phuongThucLuaChonNDT.text)">
 							<template name="model">
 								<comboitem label="@load(each.text)"></comboitem>
 							</template>
 						</combobox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				
 				<div zclass="col-md-4">
 					<div zclass="form-group mg-top-8">
 						<span>Đơn vị chủ trì</span>
-						<combobox class="his mg-top-8" width="100%" model="@load(vm.getListDonViChuTri())" selectedItem="@bind(vm.giaiDoanDuAn.donViChuTri)@save(vm.giaiDoanDuAn.donViChuTri, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+						<combobox class="his mg-top-8" width="100%" readonly="true" model="@load(vm.getListDonViChuTri())" selectedItem="@bind(vm.giaiDoanDuAn.donViChuTri) @save(vm.giaiDoanDuAn.donViChuTri, before='goTask') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 							<template name="model">
 								<comboitem label="@load(each.text)"></comboitem>
 							</template>
 						</combobox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				
@@ -92,13 +90,12 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-3">
 					<div zclass="form-group">
-						<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('redirectQuanLyDuAn')">
+						<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('redirectQuanLyDuAn')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 							<span>Đóng</span>
 						</x:button>
 					</div>
 				</div>
-					
 				<div zclass="col-xs-9">
 					<div zclass="form-group right flex">
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"

@@ -57,7 +57,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Tên công việc</x:span>
 							</div>
-							<textbox class="form-control" value="@bind(vm.tenCongViec)@save(vm.tenCongViec, before={'saveGiaoViec'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+							<textbox class="form-control" value="@bind(vm.tenCongViec) @save(vm.tenCongViec, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -68,8 +68,8 @@
 							<div class="flex">
 								<x:span class="issue-search">Ngày giao</x:span>
 							</div>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
-								  width="100%" placeholder="Chọn ngày" value="@bind(vm.ngayGiao)@save(vm.ngayGiao, before={'saveGiaoViec'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" readonly="true"
+								  width="100%" placeholder="Chọn ngày" value="@bind(vm.ngayGiao) @save(vm.ngayGiao, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -79,8 +79,8 @@
 							<div class="flex">
 								<x:span class="issue-search">Hạn thực hiện</x:span>
 							</div>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
-								  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien)@save(vm.hanThucHien, before={'saveGiaoViec'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" readonly="true"
+								  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien) @save(vm.hanThucHien, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -91,7 +91,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Ý kiến chỉ đạo</x:span>
 							</div>
-							<textbox class="form-control" value="@bind(vm.yKienChiDao)@save(vm.yKienChiDao, before={'saveGiaoViec'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" rows="3"></textbox>
+							<textbox class="form-control" value="@bind(vm.yKienChiDao) @save(vm.yKienChiDao, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" rows="3"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

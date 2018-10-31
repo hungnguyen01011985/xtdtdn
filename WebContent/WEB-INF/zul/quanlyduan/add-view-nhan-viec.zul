@@ -68,7 +68,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Ngày giao</x:span>
 							</div>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" 
 								  width="100%" placeholder="Chọn ngày" value="@bind(vm.ngayGiao)" disabled="true"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -79,7 +79,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Hạn thực hiện</x:span>
 							</div>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" 
 								  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien)" disabled="true"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>

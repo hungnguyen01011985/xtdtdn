@@ -52,16 +52,16 @@
 							</div>
 							
 							<div zclass="col-md-3">
-								<div zclass="form-group" viewModel="@id('fileDonVi') @init(each.congVanTraLoi)">
+								<div zclass="form-group" viewModel="@id('congVanTraLoi') @init(each.congVanTraLoi)">
 									<span>Hồ sơ quy hoạch</span>
 									<button visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
 										class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-										onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
+										onUpload="@command('uploadFile',medias=event.getMedia(),vm = each, name = 'congVanTraLoi')"
 										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 									</button>
 									<div class="flex mg-btn-top" visible="@load(not empty each.congVanTraLoi.tenFile)">
 										<label class="txt-link-tailieu" value="@bind(each.congVanTraLoi.tenFile)"/>
-										<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = vm)">
+										<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
 											<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 										</x:button>
 									</div>
@@ -88,16 +88,16 @@
 									</div>
 								</div>
 								<div zclass="col-md-3">
-									<div zclass="form-group" viewModel="@id('fileDonVi2') @init(each.congVanGiaiThich)">
+									<div zclass="form-group" viewModel="@id('congVanGiaiThich') @init(each.congVanGiaiThich)">
 										<span>Hồ sơ quy hoạch</span>
 										<button visible="@load(empty each.congVanGiaiThich.tenFile)" label="Chọn tài liệu" 
 											class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-											onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = '*')"
+											onUpload="@command('uploadFile',medias=event.getMedia(),vm = each , name = 'congVanGiaiThich')"
 											upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 										</button>
 										<div class="flex mg-btn-top" visible="@load(not empty each.congVanGiaiThich.tenFile)">
 											<label class="txt-link-tailieu" value="@bind(each.congVanGiaiThich.tenFile)"/>
-											<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanGiaiThich , vm = vm)">
+											<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanGiaiThich , vm = each, name = 'congVanGiaiThich')">
 												<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 											</x:button>
 										</div>
