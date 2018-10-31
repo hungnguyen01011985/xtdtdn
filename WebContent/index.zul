@@ -3,7 +3,6 @@
 		<![CDATA[     
 			entry = new vn.toancauxanh.service.BaseObject().core();
 			vn.toancauxanh.model.NhanVien nhanVien = entry.getNhanVien();
-			System.out.println(nhanVien.getTatCaQuyens().contains(entry.core().QUANLYDUANLIST));
 			if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYDUANLIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul");

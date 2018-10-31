@@ -48,8 +48,7 @@
 					<div zclass="col-md-12">
 						<div zclass="form-group">
 							<span>Tên dự án</span>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.tenDuAn)@save(vm.tenDuAn, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên dự án"/>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" /> 
+							<textbox class="form-control" maxlength="255" value="@bind(vm.tenDuAn)" placeholder="Nhập tên dự án"/>
 						</div>
 					</div>
 				</div>
@@ -57,36 +56,29 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Người phụ trách</span> 
-						<textbox class="form-control" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)@save(vm.nguoiPhuTrach.hoVaTen, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"/>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						<textbox class="form-control" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)"/>
 					</div>
 				</div>
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Ngày bắt đầu xúc tiến</span>
-						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="true" value="@bind(vm.ngayBatDauXucTien)@save(vm.ngayBatDauXucTien, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" width="100%" placeholder="Chọn ngày"/>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
 					</div>
 				</div>
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Lĩnh vực</span>
-						<combobox readonly="true" model="@load(entry.linhVucs.targetQuery.fetch())" selectedItem="@bind(vm.linhVuc)@save(vm.linhVuc, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" class="his" placeholder="Chọn loại lĩnh vực" width="100%">
+						<combobox readonly="true" model="@load(entry.linhVucs.targetQuery.fetch())" selectedItem="@bind(vm.linhVuc)" class="his" placeholder="Chọn loại lĩnh vực" width="100%">
 							<template name="model">
 								<comboitem label="@load(each.ten)" />
 							</template>
 						</combobox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Địa điểm</span>
-						<textbox class="form-control" value="@bind(vm.diaDiem)@save(vm.diaDiem, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập địa điểm"></textbox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<textbox class="form-control" value="@bind(vm.diaDiem)" placeholder="Nhập địa điểm"></textbox>
 					</div>
 				</div>
 				</div>
@@ -94,13 +86,11 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Quy mô dự án</span>
-						<combobox readonly="true" model="@load(vm.listQuyMoDuAn)" selectedItem="@bind(vm.quyMoDuAn)@save(vm.quyMoDuAn, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" class="his" placeholder="Chọn quy mô dự án" width="100%">
+						<combobox readonly="true" model="@load(vm.listQuyMoDuAn)" selectedItem="@bind(vm.quyMoDuAn)" class="his" placeholder="Chọn quy mô dự án" width="100%">
 							<template name="model">
 								<comboitem label="@load(each.text)" />
 							</template>
 						</combobox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				
@@ -117,9 +107,7 @@
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<span>Mục tiêu dự án</span>
-						<textbox class="form-control" rows="3" placeholder="Nhập mục tiêu dự án" value="@bind(vm.mucTieuDuAn)@save(vm.mucTieuDuAn, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<textbox class="form-control" rows="3" placeholder="Nhập mục tiêu dự án" value="@bind(vm.mucTieuDuAn)"></textbox>
 					</div>
 				</div>
 				</div>
@@ -136,9 +124,7 @@
 				<div zclass="col-md-9">
 					<div zclass="form-group">
 						<span>Mức độ cạnh tranh</span>
-						<textbox class="form-control" placeholder="Nhập mức độ cạnh tranh" value="@bind(vm.mucDoCanhTranh)@save(vm.mucDoCanhTranh, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
+						<textbox class="form-control" placeholder="Nhập mức độ cạnh tranh" value="@bind(vm.mucDoCanhTranh)"></textbox>
 					</div>
 				</div>
 				</div>
@@ -146,33 +132,29 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Mức độ ưu tiên</span>
-						<combobox readonly="true" model="@load(vm.listMucDoUuTien)" selectedItem="@bind(vm.mucDoUuTien)@save(vm.mucDoUuTien, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						<combobox readonly="true" model="@load(vm.listMucDoUuTien)" selectedItem="@bind(vm.mucDoUuTien)"
 							class="his" placeholder="Chọn mức độ ưu tiên" width="100%">
 							<template name="model">
 								<comboitem label="@load(each.text)"></comboitem>
 							</template>
 						</combobox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Khả năng đầu tư</span>
-						<combobox readonly="true" model="@load(vm.listKhaNangDauTu)" selectedItem="@bind(vm.khaNangDauTu)@save(vm.khaNangDauTu, before={'goTask','goNext'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						<combobox readonly="true" model="@load(vm.listKhaNangDauTu)" selectedItem="@bind(vm.khaNangDauTu)"
 							 class="his" placeholder="Chọn khả năng đầu tư" width="100%">
 							<template name="model">
 								<comboitem label="@load(each.text)"></comboitem>
 							</template>
 						</combobox>
-						<label zclass="error"
-							value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				
 				<div class="col-md-6">
-					<div zclass="form-group" viewModel="@id('file1')@init(vm.taiLieuNDT)">
+					<div zclass="form-group" viewModel="@id('taiLieuNDT')@init(vm.taiLieuNDT)">
 						<span>VB đề nghị của NĐT</span>
 						
 						<button visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
