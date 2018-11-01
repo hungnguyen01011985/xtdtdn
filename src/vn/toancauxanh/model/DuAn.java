@@ -48,9 +48,18 @@ public class DuAn extends Model<DuAn> {
 	private GiaiDoanDuAn giaiDoanDuAn;
 	private GiaoViec giaoViec = new GiaoViec();
 	private TepTin taiLieuNDT;
+	private String idNguoiLienQuan = "";
 
 	public DuAn() {
 
+	}
+	
+	public String getIdNguoiLienQuan() {
+		return idNguoiLienQuan;
+	}
+
+	public void setIdNguoiLienQuan(String idNguoiLienQuan) {
+		this.idNguoiLienQuan = idNguoiLienQuan;
 	}
 
 	@Transient

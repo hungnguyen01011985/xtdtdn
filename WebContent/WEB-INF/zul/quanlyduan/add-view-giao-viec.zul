@@ -46,7 +46,13 @@
 							<div class="flex">
 								<x:span class="issue-search">Người được giao</x:span>
 							</div>
-							<textbox class="form-control" value="@load(vm.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
+							<combobox model="@load(entry.nhanViens.tacGias)"
+									readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.giaoViec.nguoiDuocGiao)" placeholder="Chọn người"
+									value="@load(vm.giaoViec.nguoiDuocGiao.hoVaTen) @save(vm.giaoViec.nguoiDuocGiao.hoVaTen ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
+									<template name="model">
+										<comboitem label="@load(each.hoVaTen)"/>
+									</template>
+								</combobox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

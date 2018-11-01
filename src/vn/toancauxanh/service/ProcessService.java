@@ -21,6 +21,7 @@ import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaiDoanDuAn;
 import vn.toancauxanh.model.GiaoViec;
+import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 import vn.toancauxanh.model.QGiaoViec;
 
@@ -96,9 +97,14 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().setDuAn(model);
 		model.getGiaoViec().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
 		model.getGiaoViec().setNguoiGiaoViec(core().getNhanVien());
-		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().saveNotShowNotification();
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(model.getId()));
+		DuAn duAn = q.fetchOne();
+		String text = duAn.getIdNguoiLienQuan();
+		text+=model.getGiaoViec().getNguoiDuocGiao().getId()+"@";
+		duAn.setIdNguoiLienQuan(text);
+		duAn.saveNotShowNotification();
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
