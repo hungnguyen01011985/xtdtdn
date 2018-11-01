@@ -72,7 +72,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày gửi</span>
-							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGui) @save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'}) @validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
+							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGui) @save(vm.giaiDoanDuAn.ngayGui, before='goNext') @validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateStart'])" />
 						</div>

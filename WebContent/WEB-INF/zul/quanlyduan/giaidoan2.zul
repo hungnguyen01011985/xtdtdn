@@ -70,7 +70,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<span>Ngày khảo sát</span>
-							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayKhaoSat) @save(vm.giaiDoanDuAn.ngayKhaoSat, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayKhaoSat) @save(vm.giaiDoanDuAn.ngayKhaoSat, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								 width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -80,7 +80,7 @@
 					<div zclass="col-md-12">
 						<div zclass="form-group">
 							<span>Ghi chú</span>
-							<textbox class="form-control" rows="4" placeholder="Nhập ghi chú" value="@bind(vm.giaiDoanDuAn.ghiChu) @save(vm.giaiDoanDuAn.ghiChu, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+							<textbox class="form-control" rows="4" placeholder="Nhập ghi chú" value="@bind(vm.giaiDoanDuAn.ghiChu) @save(vm.giaiDoanDuAn.ghiChu, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -117,7 +117,7 @@
 				<div zclass="col-md-3">
 					<div zclass="form-group">
 						<span>Ngày phát hành CV</span> 
-						<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCVGD2) @save(vm.giaiDoanDuAn.ngayPhatHanhCVGD2, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCVGD2) @save(vm.giaiDoanDuAn.ngayPhatHanhCVGD2, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>

@@ -461,6 +461,9 @@
 	color: #4274ED;
 	text-align: left;
 	line-height: 18px;
+	max-width: calc(100% - 55px);
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .box-btn-custom{
 	width:290px;

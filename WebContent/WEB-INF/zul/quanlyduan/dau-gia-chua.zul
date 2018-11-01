@@ -84,7 +84,7 @@
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
 					<span>Đơn vị tư vấn</span>
-					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goTask') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.text)"></comboitem>
 						</template>
@@ -145,7 +145,7 @@
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
 					<span>Đơn vị tư vấn</span>
-					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVanXDPA) @save(vm.giaiDoanDuAn.donViTuVanXDPA, before='goTask') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVanXDPA) @save(vm.giaiDoanDuAn.donViTuVanXDPA, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.text)"></comboitem>
 						</template>
@@ -245,13 +245,12 @@
 		<div class="row">
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
-					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViThucHien)@save(vm.giaiDoanDuAn.donViThucHien, before='goTask')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViThucHien) @save(vm.giaiDoanDuAn.donViThucHien, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.text)"></comboitem>
 						</template>
 					</combobox>
-					<label zclass="error"
-						value="@load(vmsgs[self.previousSibling])" />
+					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
 		</div>	

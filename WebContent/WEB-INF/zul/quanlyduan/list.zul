@@ -168,7 +168,7 @@
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
-				<div zclass="col-xs-12">
+				<div zclass="col-md-12">
 					<div zclass="form-group right">
 						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlyduan/add-view">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
