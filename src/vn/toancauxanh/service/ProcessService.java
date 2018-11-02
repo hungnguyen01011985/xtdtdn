@@ -18,9 +18,12 @@ import org.zkoss.zk.ui.Executions;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
+import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaiDoanDuAn;
 import vn.toancauxanh.model.GiaoViec;
+import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 import vn.toancauxanh.model.QGiaoViec;
 
@@ -32,6 +35,8 @@ public class ProcessService extends BasicService<Object> {
 
 	public void luuDuLieuDuAnVaBatDauXucTien(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		String idList = model.getNguoiPhuTrach().getId() + KY_TU;
+		model.setIdNguoiLienQuan(idList);
 		model.saveNotShowNotification();
 		model.getGiaoViec().setDuAn(model);
 		model.getGiaoViec().setNgayGiao(new Date());
@@ -51,7 +56,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getTaiLieuNDT().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getTaiLieuGD1().saveNotShowNotification();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_MOT, "thoiHanGiaiDoanMot");
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_MOT, "thoiHanGiaiDoanMot", null);
 		luuDuLieuDonVi(model.getGiaiDoanDuAn());
 	}
 
@@ -75,7 +80,7 @@ public class ProcessService extends BasicService<Object> {
 	public boolean kiemTraCongViecHoanThanh(DuAn duAn) {
 		boolean result = true;
 		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.eq(duAn));
-		result = q.fetch().stream().anyMatch(item -> item.getTrangThaiGiaoViec().ordinal() != 0);
+		result = q.fetch().stream().anyMatch(item -> !TrangThaiGiaoViec.HOAN_THANH.equals(item.getTrangThaiGiaoViec()));
 		return result;
 	}
 
@@ -96,16 +101,19 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaoViec().setDuAn(model);
 		model.getGiaoViec().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
 		model.getGiaoViec().setNguoiGiaoViec(core().getNhanVien());
-		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().saveNotShowNotification();
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(model.getId()));
+		DuAn duAn = q.fetchOne();
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + model.getGiaoViec().getNguoiDuocGiao().getId() + KY_TU);
+		duAn.saveNotShowNotification();
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
 	}
 
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {
-		kiemTraGiaiDoan(execution, "thoiHanGiaiDoanMot", GiaiDoanXucTien.GIAI_DOAN_MOT);
+		kiemTraGiaiDoan(execution, "isDangOGiaiDoannMot", GiaiDoanXucTien.GIAI_DOAN_MOT);
 	}
 
 	public void validateDuLieuGiaiDoanHai(Execution execution) {
@@ -178,7 +186,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI, "thoiHanGiaiDoanHai");
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI, "thoiHanGiaiDoanHai", null);
 	}
 
 	public void validateDuLieuGiaiDoanBon(Execution execution) {
@@ -196,14 +204,13 @@ public class ProcessService extends BasicService<Object> {
 
 	public void luuDuLieuGiaiDoanBon(Execution execution) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		if (duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
+		if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
 			saveTaiLieuDauGia(duAn);
 		}
-		if (duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
+		if (PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
 			saveTaiLieuDauThau(duAn);
 		}
-
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, "thoiHanGiaiDoanBon");
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, "thoiHanGiaiDoanBon", null);
 	}
 
 	private void saveTaiLieuDauGia(DuAn duAn) {
@@ -248,22 +255,22 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, "thoiHanGiaiDoanBa");
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, "thoiHanGiaiDoanBa", null);
 	}
 
 	public void luuDuLieuKetThucDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 1) {
+		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().equals(GiaiDoanXucTien.GIAI_DOAN_BON)) {
 			model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 			model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
 		}
-		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().ordinal() == 3) {
+		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().equals(GiaiDoanXucTien.GIAI_DOAN_BON)) {
 			model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
-			if (model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
+			if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
 				saveTaiLieuDauGia(model);
 			}
-			if (model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
+			if (PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT.equals(model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
 				saveTaiLieuDauThau(model);
 			}
 		}
@@ -272,21 +279,21 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaiDoanDuAn().saveNotShowNotification();
 		redirectList();
 	}
-
-	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan) {
+	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan, Date ngay) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		duAn.getTaiLieuNDT().saveNotShowNotification();
 		duAn.saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().setDuAn(duAn);
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
-		((ExecutionEntity) execution).setVariable(thoiHan, duAn.getGiaiDoanDuAn().getNgayNhanPhanHoi());
+		if (ngay != null) {
+			((ExecutionEntity) execution).setVariable(thoiHan, (Date) duAn.getNgayBatDauXucTien());
+		}
 		redirectGiaiDoanDuAnById(duAn.getId());
 		showNotification("", "Cập nhật thành công", "success");
 	}
 
-	public void luuDuLieuTiepTucAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien,
-			GiaiDoanXucTien giaiDoan) {
+	public void luuDuLieuTiepTucAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, GiaiDoanXucTien giaiDoan) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.setGiaiDoanXucTien(giaiDoanXucTien);
 		model.saveNotShowNotification();

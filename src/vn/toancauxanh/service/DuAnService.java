@@ -27,7 +27,7 @@ public class DuAnService extends BasicService<DuAn> {
 		String giaiDoanXucTien = MapUtils.getString(argDeco(), "giaiDoanXucTien", "");
 		Long nguoiPhuTrach = (Long) argDeco().get("nhanVien");
 		Long linhVuc = (Long) argDeco().get("linhVuc");
-		JPAQuery<DuAn> q = find(DuAn.class).orderBy(QDuAn.duAn.ngaySua.desc());
+		JPAQuery<DuAn> q = find(DuAn.class);
 		if (param != null && !param.isEmpty()) {
 			String tuKhoa = "%" + param + "%";
 			q.where(QDuAn.duAn.tenDuAn.like(tuKhoa));
@@ -48,9 +48,17 @@ public class DuAnService extends BasicService<DuAn> {
 		} else if (getFixTuNgay() != null && getFixDenNgay() != null) {
 			q.where(QDuAn.duAn.ngayBatDauXucTien.between(getFixTuNgay(), getFixDenNgay()));
 		}
+		q.orderBy(QDuAn.duAn.ngaySua.desc());
 		return q;
 	}
-
+	
+	public boolean checkView(Long idNV, String id) {
+		if(id == null || idNV == null || id.trim().isEmpty()) {
+			return false;
+		}
+		return subString(id).contains(idNV);
+	}
+	
 	public List<GiaiDoanXucTien> getListGiaiDoanXucTienAndNull() {
 		List<GiaiDoanXucTien> list = new ArrayList<>();
 		list.add(null);

@@ -18,7 +18,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					
 					<div zclass="col-md-6">
 						<div zclass="form-group">
 							<div class="flex">
@@ -39,7 +38,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-				
 					<div zclass="col-md-6">
 						<div zclass="form-group">
 							<div class="flex">
@@ -50,7 +48,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="row">
 					<div zclass="col-md-12">
 						<div zclass="form-group">
@@ -73,7 +70,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-				
 					<div zclass="col-md-6">
 						<div zclass="form-group">
 							<div class="flex">
@@ -104,8 +100,8 @@
 							<div class="flex">
 								<x:span class="issue-search">Ngày hoàn thành</x:span>
 							</div>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" readonly="true"
-								  width="100%" placeholder="Chọn ngày" value="@bind(vm.ngayHoanThanh) @save(vm.ngayHoanThanh, before={'saveBaoCao'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" readonly="true" width="100%"
+								placeholder="Chọn ngày" value="@bind(vm.ngayHoanThanh) @save(vm.ngayHoanThanh, before={'saveBaoCao'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -123,22 +119,22 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-							<div zclass="form-group">
-								<span>Đính kèm kết quả</span>
-								<button visible="@load(empty vm.taiLieuKetQua.tenFile)" label="Chọn tài liệu" 
-									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = '*')"
-									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-								</button>
-								<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuKetQua.tenFile)">
-									<label class="txt-link-tailieu" value="@bind(vm.taiLieuKetQua.tenFile)"/>
-									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieuKetQua , vm = vm, name='*')">
-										<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-									</x:button>
-								</div>
-								<label zclass="error" value="@load(vmsgs['fileKetQua'])" />
+						<div zclass="form-group">
+							<span>Đính kèm kết quả</span>
+							<button visible="@load(empty vm.taiLieuKetQua.tenFile)" label="Chọn tài liệu" 
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm, name = '*')"
+								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+							</button>
+							<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuKetQua.tenFile)">
+								<label class="txt-link-tailieu" value="@bind(vm.taiLieuKetQua.tenFile)"/>
+								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieuKetQua , vm = vm, name='*')">
+									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+								</x:button>
 							</div>
+							<label zclass="error" value="@load(vmsgs['fileKetQua'])" />
 						</div>
+					</div>
 				</div>
 			</div>
 			<div class="mg-and-bg-and-line">
@@ -153,7 +149,7 @@
 					</div>
 					<div zclass="col-xs-6">
 						<div zclass="form-group right">
-							<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveBaoCao',wdn=wdn, vmArgs=vmArgs, attr = 'targetQuery')">
+							<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveBaoCao',wdn=wdn, vmArgs=vmArgs, attr = 'targetQuery')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 								<span>Lưu</span>
 							</x:button>
@@ -164,6 +160,3 @@
 		</div>
 	</window>
 </idspace>
-
-
-

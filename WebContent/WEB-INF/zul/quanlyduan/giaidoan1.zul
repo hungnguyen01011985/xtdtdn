@@ -18,7 +18,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div class="row bg-color-box">
 				<div zclass="col-lg-12">
 					<div class="box-plan">
@@ -59,7 +58,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div class="mg-top-no-line">
 				<div class="row">
 					<div zclass="col-md-12">
@@ -77,7 +75,6 @@
 							<label zclass="error" value="@load(vmsgs['dateStart'])" />
 						</div>
 					</div>
-				
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày dự kiến nhận phản hồi</span>
@@ -107,12 +104,10 @@
 				</div>
 			</div>
 			<include src="quanlyduan/view-list-don-vi.zul"></include>
-			
 			<div zclass="form-group">
 				<button class="btn bg-btn-tailieu btn-grey" onClick="@command('addNewDonVi', vm = vm)">Thêm đơn vị nhận CV
 				</button>
 			</div>
-			
 			<div class="row mg-and-bg-and-line">
 				<div zclass="form-group left-mg flex">
 					<x:button  class="btn bg-btn-tailieu btn-grey"  onClick="@command('redirectQuanLyDuAn')">
@@ -121,14 +116,14 @@
 					</x:button>
 				</div>
 						
-				<div zclass="form-group right-mg flex">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 					<x:button onClick="@command('goNext', task = 'task_luuVaTiepTucGiaiDoanHai')"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 						<span>Tiếp tục</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 					<x:button onClick="@command('goTask', task = 'task_luuGiaiDoanMot')"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
@@ -142,7 +137,7 @@
 						<span>Danh sách giao việc</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiTao.id == entry.nhanVien.id}">
 					<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>

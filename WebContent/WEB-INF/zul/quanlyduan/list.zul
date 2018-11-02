@@ -42,7 +42,8 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Giai đoạn xúc tiến</span> 
-							<combobox readonly="true" class="his" model="@load(vm.listGiaiDoanXucTienAndNull)" value="@load(vm.arg.giaiDoanXucTien eq null ? 'Tất cả' : vm.arg.giaiDoanXucTien.text)" selectedItem="@bind(vm.arg.giaiDoanXucTien)" placeholder="Chọn giai đoạn xúc tiến" width="100%">
+							<combobox readonly="true" class="his" model="@load(vm.listGiaiDoanXucTienAndNull)" 
+								value="@load(vm.arg.giaiDoanXucTien eq null ? 'Tất cả' : vm.arg.giaiDoanXucTien.text)" selectedItem="@bind(vm.arg.giaiDoanXucTien)" placeholder="Chọn giai đoạn xúc tiến" width="100%">
 								<template name="model">
 									<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
 								</template>
@@ -53,7 +54,8 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Lĩnh vực</span>
-							<combobox readonly="true" class="his" model="@load(entry.linhVucs.listLinhVucAndNull)" value="@load(vm.arg.linhVuc eq null ? 'Tất cả': vm.arg.linhVuc.ten)" selectedItem="@bind(vm.arg.linhVuc)"
+							<combobox readonly="true" class="his" model="@load(entry.linhVucs.listLinhVucAndNull)" 
+								value="@load(vm.arg.linhVuc eq null ? 'Tất cả': vm.arg.linhVuc.ten)" selectedItem="@bind(vm.arg.linhVuc)"
 								placeholder="Chọn lĩnh vực dự án" width="100%">
 								<template name="model">
 									<comboitem label="@load(empty each ? 'Tất cả' : each.ten)" />
@@ -79,17 +81,14 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Thời gian xúc tiến từ ngày</span>
-							<datebox format="dd/MM/yyyy" class="hv-db" readonly="true"
-								value="@bind(vm.tuNgay)" width="100%"
-								placeholder="Chọn ngày" />
+							<datebox format="dd/MM/yyyy" class="hv-db" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Đến ngày</span>
-							<datebox format="dd/MM/yyyy" class="hv-db" readonly="true"
-								value="@bind(vm.denNgay)" width="100%"
+							<datebox format="dd/MM/yyyy" class="hv-db" readonly="true" value="@bind(vm.denNgay)" width="100%"
 								placeholder="Chọn ngày" />
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -115,7 +114,6 @@
 				</div>
 			</div>
 		</div>
-		
 		<div class="panel-box border-box">
 			<div zclass="row">
 				<div zclass="col-lg-12">
@@ -150,11 +148,11 @@
 								<label value="@load(item.giaiDoanXucTien.text)"></label>
 								<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
 								<div class="thaotac">
-									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}">
+									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}" if="${vm.checkView(entry.nhanVien.id, item.idNguoiLienQuan) or item.nguoiTao.id == entry.nhanVien.id or item.nguoiPhuTrach.id == entry.nhanVien.id}">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
+									<x:a label="Xóa" class="btn-thaotac up-note" if="${item.nguoiTao.id == entry.nhanVien.id}" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -169,7 +167,7 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<div zclass="form-group right">
+					<div zclass="form-group right" if="${entry.quyen.quanlyduan_them}">
 						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlyduan/add-view">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm mới dự án</span>

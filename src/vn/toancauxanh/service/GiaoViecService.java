@@ -10,7 +10,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.GiaoViec;
-import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QGiaoViec;
 
 public class GiaoViecService extends BasicService<GiaoViec> implements Serializable{
@@ -24,6 +23,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		Long id = MapUtils.getLongValue(argDeco(), "nguoiPhuTrach" , 0);
 		String trangThai = MapUtils.getString(argDeco(), "trangThai", "");
 		JPAQuery<GiaoViec> q = find(GiaoViec.class)
+				.where(QGiaoViec.giaoViec.nguoiDuocGiao.eq(core().getNhanVien()).or(QGiaoViec.giaoViec.nguoiGiaoViec.eq(core().getNhanVien())))
 				.where(QGiaoViec.giaoViec.trangThai.ne(core().TT_DA_XOA))
 				.where(QGiaoViec.giaoViec.duAn.id.eq(idDuAn));
 		if (tuKhoa != null) {
