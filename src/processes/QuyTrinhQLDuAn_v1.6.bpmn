@@ -45,11 +45,6 @@
       <bpmn:incoming>SequenceFlow_17wmo45</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1p4pnvm</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:parallelGateway id="ParallelGateway_04ksdbr">
-      <bpmn:incoming>SequenceFlow_1p4pnvm</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1xkb6wg</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_15vabh6</bpmn:outgoing>
-    </bpmn:parallelGateway>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0kitq1d">
       <bpmn:incoming>SequenceFlow_0hgvi6m</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1dtp8zr</bpmn:incoming>
@@ -64,7 +59,7 @@
     <bpmn:exclusiveGateway id="ExclusiveGateway_0fcrskk">
       <bpmn:incoming>SequenceFlow_0cfmnw7</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1oeh5b4</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1xkb6wg</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1p4pnvm</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0d7k5dm</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0krkb4l">
@@ -128,13 +123,6 @@
       <bpmn:incoming>SequenceFlow_1nj5j18</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1pxo55w</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0saec3c" name="Kiểm tra điều kiện thông báo">
-      <bpmn:incoming>SequenceFlow_12igmge</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_17yzmva</bpmn:outgoing>
-      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_05exl33">
-        <bpmn:condition xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanMot.equals(now())}</bpmn:condition>
-      </bpmn:conditionalEventDefinition>
-    </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0okseg3">
       <bpmn:incoming>SequenceFlow_0mfzokw</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_02mf8dl</bpmn:outgoing>
@@ -166,38 +154,10 @@
       <bpmn:outgoing>SequenceFlow_0cfmnw7</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1oszu9z</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_0rnp5zq" name="Kiểm tra đang ở giai đoạn hai" camunda:expression="${entry.processService.kiemTraDangOGiaiDoanHai(execution)}">
-      <bpmn:incoming>SequenceFlow_1rq9yjy</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_01m5rte</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_05w7kvj" name="Kiểm tra điều kiện thông báo">
-      <bpmn:incoming>SequenceFlow_15vabh6</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1rq9yjy</bpmn:outgoing>
-      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_1e2mpec">
-        <bpmn:condition xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanHai.equals(now())}</bpmn:condition>
-      </bpmn:conditionalEventDefinition>
-    </bpmn:intermediateCatchEvent>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1uqxh9s">
-      <bpmn:incoming>SequenceFlow_07499x9</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1t6m4hj</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1p92zmb</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1yh9uux" name="Thông báo trễ hạn giai đoạn hai" camunda:expression="${entry.processService.thongBaoTreHanGiaiDoanHai(execution)}">
-      <bpmn:incoming>SequenceFlow_1i7oiju</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_07499x9</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0vp86ze">
-      <bpmn:incoming>SequenceFlow_01m5rte</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1i7oiju</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1t6m4hj</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:userTask id="UserTask_16n1daf" name="Popup thay đổi người phụ trách">
       <bpmn:incoming>SequenceFlow_01eh24n</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0u7e4pr</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="EndEvent_0y8rfvk">
-      <bpmn:incoming>SequenceFlow_1p92zmb</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_1eiyajj">
       <bpmn:incoming>SequenceFlow_0uey89i</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0917xia</bpmn:incoming>
@@ -217,21 +177,6 @@
       <bpmn:incoming>SequenceFlow_0nlamzd</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_01ju1de</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_05yvkf3">
-      <bpmn:incoming>SequenceFlow_18s66so</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1e9xuw6</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0mcsfj2</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="EndEvent_0xocp77">
-      <bpmn:incoming>SequenceFlow_0mcsfj2</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_10at3mh" name="Kiểm tra điều kiện thông báo">
-      <bpmn:incoming>SequenceFlow_0sdwmhr</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ea0tmf</bpmn:outgoing>
-      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_1c7z5cr">
-        <bpmn:condition xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanBon.equals(now())}</bpmn:condition>
-      </bpmn:conditionalEventDefinition>
-    </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_16xez2l">
       <bpmn:incoming>SequenceFlow_1vec4wn</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1rj1xu6</bpmn:outgoing>
@@ -245,32 +190,14 @@
       <bpmn:outgoing>SequenceFlow_0vo38qz</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0bsyk35</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1n05pxm">
-      <bpmn:incoming>SequenceFlow_0c1qa1w</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1arc1ez</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_18s66so</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1aip4lt" name="Thông báo trễ hạn giai đoạn bốn" camunda:expression="${entry.processService.thongBaoTreHanGiaiDoanBon(execution)}">
-      <bpmn:incoming>SequenceFlow_1arc1ez</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1e9xuw6</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_1vbd6pn" name="Kiểm tra đang ở giai đoạn bốn" camunda:expression="${entry.processService.kiemTraDangOGiaiDoanBon(execution)}">
-      <bpmn:incoming>SequenceFlow_0ea0tmf</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0c1qa1w</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:serviceTask id="ServiceTask_1e1phts" name="Lưu dữ liệu giai đoạn bốn" camunda:expression="${entry.processService.luuDuLieuGiaiDoanBon(execution)}">
       <bpmn:incoming>SequenceFlow_0nnz48n</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1hqcl2t</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:parallelGateway id="ParallelGateway_10ally1">
-      <bpmn:incoming>SequenceFlow_1hqcl2t</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0pcptbj</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0sdwmhr</bpmn:outgoing>
-    </bpmn:parallelGateway>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0zr9s2a">
       <bpmn:incoming>SequenceFlow_1bar2i9</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0pcptbj</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0qo9lv1</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1hqcl2t</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_100f1hv</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:exclusiveGateway id="ExclusiveGateway_14c5aty">
@@ -300,13 +227,6 @@
     <bpmn:endEvent id="EndEvent_1dm382b">
       <bpmn:incoming>SequenceFlow_1nomya8</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0s6izfv" name="Kiểm tra điều kiện thông báo">
-      <bpmn:incoming>SequenceFlow_0fcbzv8</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0e8k95t</bpmn:outgoing>
-      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_1kqs0ot">
-        <bpmn:condition xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanBa.equals(now())}</bpmn:condition>
-      </bpmn:conditionalEventDefinition>
-    </bpmn:intermediateCatchEvent>
     <bpmn:serviceTask id="ServiceTask_04e9xqr" name="Validate dữ liệu giai đoạn ba" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBa(execution)}">
       <bpmn:incoming>SequenceFlow_1wgsv1n</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ptub5a</bpmn:outgoing>
@@ -490,12 +410,10 @@
     <bpmn:sequenceFlow id="SequenceFlow_1oszu9z" name="Dữ liệu để tiếp tục giai đoạn ba hợp lệ" sourceRef="ExclusiveGateway_1gkiay3" targetRef="ServiceTask_0kedp0o">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidateDuLieuDeTiepTucGiaiDoanBaHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1p4pnvm" sourceRef="ServiceTask_0rj6eej" targetRef="ParallelGateway_04ksdbr" />
+    <bpmn:sequenceFlow id="SequenceFlow_1p4pnvm" sourceRef="ServiceTask_0rj6eej" targetRef="ExclusiveGateway_0fcrskk" />
     <bpmn:sequenceFlow id="SequenceFlow_17wmo45" name="Dữ liệu giai đoạn hai hợp lệ" sourceRef="ExclusiveGateway_0krkb4l" targetRef="ServiceTask_0rj6eej">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidateDuLieuGiaiDoanHaiHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_15vabh6" sourceRef="ParallelGateway_04ksdbr" targetRef="IntermediateCatchEvent_05w7kvj" />
-    <bpmn:sequenceFlow id="SequenceFlow_1xkb6wg" sourceRef="ParallelGateway_04ksdbr" targetRef="ExclusiveGateway_0fcrskk" />
     <bpmn:sequenceFlow id="SequenceFlow_02v1mw7" sourceRef="ServiceTask_16k2phd" targetRef="ExclusiveGateway_0kitq1d" />
     <bpmn:sequenceFlow id="SequenceFlow_1g1fhki" sourceRef="ServiceTask_1jsojcu" targetRef="ExclusiveGateway_0kitq1d" />
     <bpmn:sequenceFlow id="SequenceFlow_1dtp8zr" sourceRef="ExclusiveGateway_1lblyc2" targetRef="ExclusiveGateway_0kitq1d" />
@@ -570,16 +488,6 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isDangOGiaiDoannMot}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0e2jp9i" sourceRef="ExclusiveGateway_07h63l5" targetRef="EndEvent_0r0huug" />
-    <bpmn:sequenceFlow id="SequenceFlow_01m5rte" sourceRef="ServiceTask_0rnp5zq" targetRef="ExclusiveGateway_0vp86ze" />
-    <bpmn:sequenceFlow id="SequenceFlow_1rq9yjy" sourceRef="IntermediateCatchEvent_05w7kvj" targetRef="ServiceTask_0rnp5zq" />
-    <bpmn:sequenceFlow id="SequenceFlow_1t6m4hj" name="Đã qua giai đoạn khác" sourceRef="ExclusiveGateway_0vp86ze" targetRef="ExclusiveGateway_1uqxh9s">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isDangOGiaiDoanHai}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_07499x9" sourceRef="ServiceTask_1yh9uux" targetRef="ExclusiveGateway_1uqxh9s" />
-    <bpmn:sequenceFlow id="SequenceFlow_1p92zmb" sourceRef="ExclusiveGateway_1uqxh9s" targetRef="EndEvent_0y8rfvk" />
-    <bpmn:sequenceFlow id="SequenceFlow_1i7oiju" name="Đang ở giai đoạn hai" sourceRef="ExclusiveGateway_0vp86ze" targetRef="ServiceTask_1yh9uux">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isDangOGiaiDoanHai}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0u7e4pr" sourceRef="UserTask_16n1daf" targetRef="ServiceTask_07oikjd" />
     <bpmn:sequenceFlow id="SequenceFlow_0uey89i" sourceRef="Task_1qxvk1s" targetRef="ExclusiveGateway_1eiyajj" />
     <bpmn:sequenceFlow id="SequenceFlow_04jadoz" sourceRef="Task_077kf83" targetRef="Task_1qxvk1s" />
@@ -587,12 +495,6 @@
     <bpmn:sequenceFlow id="SequenceFlow_100f1hv" sourceRef="ExclusiveGateway_0zr9s2a" targetRef="ExclusiveGateway_0vzrunh" />
     <bpmn:sequenceFlow id="SequenceFlow_0diubb7" sourceRef="ExclusiveGateway_1rxz3le" targetRef="ExclusiveGateway_0vzrunh" />
     <bpmn:sequenceFlow id="SequenceFlow_01ju1de" sourceRef="ExclusiveGateway_0vzrunh" targetRef="UserTask_0jquzxa" />
-    <bpmn:sequenceFlow id="SequenceFlow_1e9xuw6" sourceRef="ServiceTask_1aip4lt" targetRef="ExclusiveGateway_05yvkf3" />
-    <bpmn:sequenceFlow id="SequenceFlow_18s66so" name="Đang ở giai đoạn khác" sourceRef="ExclusiveGateway_1n05pxm" targetRef="ExclusiveGateway_05yvkf3">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isDangOGiaiDoanBon}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0mcsfj2" sourceRef="ExclusiveGateway_05yvkf3" targetRef="EndEvent_0xocp77" />
-    <bpmn:sequenceFlow id="SequenceFlow_0ea0tmf" sourceRef="IntermediateCatchEvent_10at3mh" targetRef="ServiceTask_1vbd6pn" />
     <bpmn:sequenceFlow id="SequenceFlow_0qo9lv1" name="Dữ liệu để kết thúc dự án không hợp lệ" sourceRef="ExclusiveGateway_16xez2l" targetRef="ExclusiveGateway_0zr9s2a">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuDeKetThucDuAnHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -601,13 +503,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0ugxu8w" sourceRef="ServiceTask_0exy6dk" targetRef="EndEvent_0kiivlw" />
     <bpmn:sequenceFlow id="SequenceFlow_19shu5s" sourceRef="ExclusiveGateway_1tp0qkv" targetRef="ServiceTask_0exy6dk" />
-    <bpmn:sequenceFlow id="SequenceFlow_1arc1ez" name="Đang ở giai đoạn bốn" sourceRef="ExclusiveGateway_1n05pxm" targetRef="ServiceTask_1aip4lt">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isDangOGiaiDoanBon}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0c1qa1w" sourceRef="ServiceTask_1vbd6pn" targetRef="ExclusiveGateway_1n05pxm" />
-    <bpmn:sequenceFlow id="SequenceFlow_0sdwmhr" sourceRef="ParallelGateway_10ally1" targetRef="IntermediateCatchEvent_10at3mh" />
-    <bpmn:sequenceFlow id="SequenceFlow_1hqcl2t" sourceRef="ServiceTask_1e1phts" targetRef="ParallelGateway_10ally1" />
-    <bpmn:sequenceFlow id="SequenceFlow_0pcptbj" sourceRef="ParallelGateway_10ally1" targetRef="ExclusiveGateway_0zr9s2a" />
+    <bpmn:sequenceFlow id="SequenceFlow_1hqcl2t" sourceRef="ServiceTask_1e1phts" targetRef="ExclusiveGateway_0zr9s2a" />
     <bpmn:sequenceFlow id="SequenceFlow_1bar2i9" name="Dữ liệu giai đoạn bốn không hợp lệ" sourceRef="ExclusiveGateway_14c5aty" targetRef="ExclusiveGateway_0zr9s2a">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuGiaiDoanBonHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -694,6 +590,20 @@
     <bpmn:sequenceFlow id="SequenceFlow_0bsyk35" sourceRef="ExclusiveGateway_0pomr1e" targetRef="ExclusiveGateway_1tp0qkv">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidateDuLieuGiaiDoanHaiVaKetThucDuAn}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
+    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0saec3c" name="Kiểm tra thời gian thông báo">
+      <bpmn:incoming>SequenceFlow_12igmge</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_17yzmva</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanMot}</bpmn:timeDate>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0s6izfv" name="Kiểm tra thời gian thông báo">
+      <bpmn:incoming>SequenceFlow_0fcbzv8</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0e8k95t</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanBa}</bpmn:timeDate>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1lwxicr">
@@ -1012,12 +922,6 @@
         <di:waypoint x="3953" y="432" />
         <di:waypoint x="3953" y="549" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_0s6izfv_di" bpmnElement="IntermediateCatchEvent_0s6izfv">
-        <dc:Bounds x="4268" y="448" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="4241" y="419" width="73" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0e8k95t_di" bpmnElement="SequenceFlow_0e8k95t">
         <di:waypoint x="4268" y="466" />
         <di:waypoint x="4200" y="466" />
@@ -1096,46 +1000,13 @@
           <dc:Bounds x="5323" y="615" width="86" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ParallelGateway_10ally1_di" bpmnElement="ParallelGateway_10ally1">
-        <dc:Bounds x="5478" y="677" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0pcptbj_di" bpmnElement="SequenceFlow_0pcptbj">
-        <di:waypoint x="5478" y="702" />
-        <di:waypoint x="5346" y="702" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1e1phts_di" bpmnElement="ServiceTask_1e1phts">
         <dc:Bounds x="5453" y="534" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1hqcl2t_di" bpmnElement="SequenceFlow_1hqcl2t">
         <di:waypoint x="5503" y="614" />
-        <di:waypoint x="5503" y="677" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_1vbd6pn_di" bpmnElement="ServiceTask_1vbd6pn">
-        <dc:Bounds x="5453" y="426" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0sdwmhr_di" bpmnElement="SequenceFlow_0sdwmhr">
-        <di:waypoint x="5528" y="702" />
-        <di:waypoint x="5649" y="702" />
-        <di:waypoint x="5649" y="484" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_1aip4lt_di" bpmnElement="ServiceTask_1aip4lt">
-        <dc:Bounds x="5453" y="245" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0c1qa1w_di" bpmnElement="SequenceFlow_0c1qa1w">
-        <di:waypoint x="5453" y="466" />
-        <di:waypoint x="5409" y="466" />
-        <di:waypoint x="5409" y="417" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ExclusiveGateway_1n05pxm_di" bpmnElement="ExclusiveGateway_1n05pxm" isMarkerVisible="true">
-        <dc:Bounds x="5384" y="367" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1arc1ez_di" bpmnElement="SequenceFlow_1arc1ez">
-        <di:waypoint x="5409" y="367" />
-        <di:waypoint x="5409" y="285" />
-        <di:waypoint x="5453" y="285" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="5321" y="292" width="84" height="27" />
-        </bpmndi:BPMNLabel>
+        <di:waypoint x="5503" y="702" />
+        <di:waypoint x="5346" y="702" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_0pomr1e_di" bpmnElement="ExclusiveGateway_0pomr1e" isMarkerVisible="true">
         <dc:Bounds x="5786" y="68" width="50" height="50" />
@@ -1176,38 +1047,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="5697" y="265" width="86" height="40" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_10at3mh_di" bpmnElement="IntermediateCatchEvent_10at3mh">
-        <dc:Bounds x="5631" y="448" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="5613" y="421" width="73" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0ea0tmf_di" bpmnElement="SequenceFlow_0ea0tmf">
-        <di:waypoint x="5631" y="466" />
-        <di:waypoint x="5553" y="466" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="EndEvent_0xocp77_di" bpmnElement="EndEvent_0xocp77">
-        <dc:Bounds x="5631" y="359" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ExclusiveGateway_05yvkf3_di" bpmnElement="ExclusiveGateway_05yvkf3" isMarkerVisible="true">
-        <dc:Bounds x="5624" y="260" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0mcsfj2_di" bpmnElement="SequenceFlow_0mcsfj2">
-        <di:waypoint x="5649" y="310" />
-        <di:waypoint x="5649" y="359" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_18s66so_di" bpmnElement="SequenceFlow_18s66so">
-        <di:waypoint x="5434" y="392" />
-        <di:waypoint x="5536" y="392" />
-        <di:waypoint x="5636" y="297" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="5443" y="363" width="84" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1e9xuw6_di" bpmnElement="SequenceFlow_1e9xuw6">
-        <di:waypoint x="5553" y="285" />
-        <di:waypoint x="5624" y="285" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_0vzrunh_di" bpmnElement="ExclusiveGateway_0vzrunh" isMarkerVisible="true">
         <dc:Bounds x="4448" y="618" width="50" height="50" />
@@ -1253,66 +1092,12 @@
         <di:waypoint x="2082" y="660" />
         <di:waypoint x="2147" y="660" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="EndEvent_0y8rfvk_di" bpmnElement="EndEvent_0y8rfvk">
-        <dc:Bounds x="2851" y="359" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_16n1daf_di" bpmnElement="UserTask_16n1daf">
         <dc:Bounds x="2122" y="426" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0u7e4pr_di" bpmnElement="SequenceFlow_0u7e4pr">
         <di:waypoint x="2172" y="506" />
         <di:waypoint x="2172" y="534" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ExclusiveGateway_0vp86ze_di" bpmnElement="ExclusiveGateway_0vp86ze" isMarkerVisible="true">
-        <dc:Bounds x="2633" y="367" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1yh9uux_di" bpmnElement="ServiceTask_1yh9uux">
-        <dc:Bounds x="2703" y="245" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1i7oiju_di" bpmnElement="SequenceFlow_1i7oiju">
-        <di:waypoint x="2658" y="367" />
-        <di:waypoint x="2658" y="285" />
-        <di:waypoint x="2703" y="285" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2569" y="292" width="84" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ExclusiveGateway_1uqxh9s_di" bpmnElement="ExclusiveGateway_1uqxh9s" isMarkerVisible="true">
-        <dc:Bounds x="2844" y="260" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1p92zmb_di" bpmnElement="SequenceFlow_1p92zmb">
-        <di:waypoint x="2869" y="310" />
-        <di:waypoint x="2869" y="359" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_07499x9_di" bpmnElement="SequenceFlow_07499x9">
-        <di:waypoint x="2803" y="285" />
-        <di:waypoint x="2844" y="285" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1t6m4hj_di" bpmnElement="SequenceFlow_1t6m4hj">
-        <di:waypoint x="2683" y="392" />
-        <di:waypoint x="2753" y="392" />
-        <di:waypoint x="2855" y="297" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2673" y="364" width="83" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_05w7kvj_di" bpmnElement="IntermediateCatchEvent_05w7kvj">
-        <dc:Bounds x="2851" y="448" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2821" y="418" width="73" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1rq9yjy_di" bpmnElement="SequenceFlow_1rq9yjy">
-        <di:waypoint x="2851" y="466" />
-        <di:waypoint x="2803" y="466" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_0rnp5zq_di" bpmnElement="ServiceTask_0rnp5zq">
-        <dc:Bounds x="2703" y="426" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_01m5rte_di" bpmnElement="SequenceFlow_01m5rte">
-        <di:waypoint x="2703" y="466" />
-        <di:waypoint x="2658" y="466" />
-        <di:waypoint x="2658" y="417" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_1gkiay3_di" bpmnElement="ExclusiveGateway_1gkiay3" isMarkerVisible="true">
         <dc:Bounds x="2873" y="211" width="50" height="50" />
@@ -1364,12 +1149,6 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_0okseg3_di" bpmnElement="ExclusiveGateway_0okseg3" isMarkerVisible="true">
         <dc:Bounds x="1295" y="549" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_0saec3c_di" bpmnElement="IntermediateCatchEvent_0saec3c">
-        <dc:Bounds x="1302" y="288" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1283" y="251" width="73" height="27" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_17yzmva_di" bpmnElement="SequenceFlow_17yzmva">
         <di:waypoint x="1338" y="306" />
@@ -1634,18 +1413,6 @@
         <di:waypoint x="1001" y="93" />
         <di:waypoint x="1001" y="210" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ParallelGateway_04ksdbr_di" bpmnElement="ParallelGateway_04ksdbr">
-        <dc:Bounds x="2728" y="677" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1xkb6wg_di" bpmnElement="SequenceFlow_1xkb6wg">
-        <di:waypoint x="2728" y="702" />
-        <di:waypoint x="2595" y="702" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_15vabh6_di" bpmnElement="SequenceFlow_15vabh6">
-        <di:waypoint x="2778" y="702" />
-        <di:waypoint x="2869" y="702" />
-        <di:waypoint x="2869" y="484" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_17wmo45_di" bpmnElement="SequenceFlow_17wmo45">
         <di:waypoint x="2595" y="574" />
         <di:waypoint x="2703" y="574" />
@@ -1658,7 +1425,8 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1p4pnvm_di" bpmnElement="SequenceFlow_1p4pnvm">
         <di:waypoint x="2753" y="614" />
-        <di:waypoint x="2753" y="677" />
+        <di:waypoint x="2753" y="702" />
+        <di:waypoint x="2595" y="702" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0kedp0o_di" bpmnElement="ServiceTask_0kedp0o">
         <dc:Bounds x="3016" y="195" width="100" height="80" />
@@ -1736,6 +1504,18 @@
         <di:waypoint x="5811" y="118" />
         <di:waypoint x="5811" y="367" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_1ck305u_di" bpmnElement="IntermediateCatchEvent_0saec3c">
+        <dc:Bounds x="1302" y="288" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1277" y="251" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_00kscb4_di" bpmnElement="IntermediateCatchEvent_0s6izfv">
+        <dc:Bounds x="4268" y="448" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4234" y="419" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
