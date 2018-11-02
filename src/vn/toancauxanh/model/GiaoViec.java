@@ -232,7 +232,7 @@ public class GiaoViec extends Model<GiaoViec>{
 				String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
 						+ Calendar.getInstance().getTimeInMillis()
 						+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
-				if(taiLieu == null) {
+				if (taiLieu == null) {
 					taiLieu = new TepTin();
 				}
 				getTaiLieu().setNameHash(tenFile);
@@ -278,8 +278,8 @@ public class GiaoViec extends Model<GiaoViec>{
 						public void onEvent(Event event) throws Exception {
 							if (Messagebox.ON_OK.equals(event.getName())) {
 								showNotification("Xóa thành công!", "", "success");
-								if(giaoViec != null ) {
-									if(!giaoViec.noId()) {
+								if (giaoViec != null) {
+									if (!giaoViec.noId()) {
 										giaoViec.doDelete(true);
 										removeIdInList(giaoViec);
 									}

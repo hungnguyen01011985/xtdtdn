@@ -122,7 +122,6 @@
 					</div>
 				</div>
 				<div class="row">
-				
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<span>Ngày phát hành CV</span>
@@ -131,7 +130,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					
 					<div form="@id('fx') @bind(vm.giaiDoanDuAn.congVanGD3) @save(vm.giaiDoanDuAn.congVanGD3, before={'goTask','goNext'}) 
 	    				@validator(vm.validatorTepTin, sms = 'congVanGD3', text = 'ngayPhatHanhCV3', ngayPhatHanhCV3 = vm.giaiDoanDuAn.ngayPhatHanhCV3)">
 						<div zclass="col-md-3" viewModel="@id('congVanGD3')@init(vm.giaiDoanDuAn.congVanGD3)">
@@ -153,7 +151,6 @@
 						</div>
 					</div>
 				</div>
-			
 			</div>
 			<div class="mg-and-bg-and-line">
 				<div class="row">
@@ -184,7 +181,7 @@
 							<span>Danh sách giao việc</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right-mg flex">
+					<div zclass="form-group right-mg flex" if="${vm.nguoiTao.id == entry.nhanVien.id}">
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
 								class="btn btn-blue">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>

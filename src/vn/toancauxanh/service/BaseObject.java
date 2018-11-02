@@ -318,13 +318,11 @@ public class BaseObject<T> extends CoreObject<T> {
 	public void removeIdInList(GiaoViec giaoViec) {
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.eq(giaoViec.getDuAn()));
 		DuAn duAn = q.fetchOne();
-		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId()+"@", ""));
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId()+KY_TU, ""));
 		duAn.saveNotShowNotification();
 	}
 	
-	public String getKyTu() {
-		return "@";
-	}
+	public static final String KY_TU = "@";
 	
 	public String unAccent(String s) {
 		String temp = Normalizer.normalize(s.toLowerCase(), Normalizer.Form.NFD);

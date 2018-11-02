@@ -108,7 +108,7 @@
 						<span>Danh sách giao việc</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiTao.id == entry.nhanVien.id}">
 					<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>

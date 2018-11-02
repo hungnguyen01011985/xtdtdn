@@ -19,7 +19,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-				
 					<div zclass="col-md-6">
 						<div zclass="form-group">
 							<div class="flex">
@@ -40,19 +39,18 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					
 					<div zclass="col-md-6">
 						<div zclass="form-group">
 							<div class="flex">
 								<x:span class="issue-search">Người được giao</x:span>
 							</div>
 							<combobox model="@load(entry.nhanViens.tacGias)"
-									readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.giaoViec.nguoiDuocGiao)" placeholder="Chọn người"
-									value="@load(vm.giaoViec.nguoiDuocGiao.hoVaTen) @save(vm.giaoViec.nguoiDuocGiao.hoVaTen ,before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
-									<template name="model">
-										<comboitem label="@load(each.hoVaTen)"/>
-									</template>
-								</combobox>
+								readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.giaoViec.nguoiDuocGiao)" placeholder="Chọn người"
+								value="@load(vm.giaoViec.nguoiDuocGiao.hoVaTen) @save(vm.giaoViec.nguoiDuocGiao.hoVaTen, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
+								<template name="model">
+									<comboitem label="@load(each.hoVaTen)"/>
+								</template>
+							</combobox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -63,7 +61,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Tên công việc</x:span>
 							</div>
-							<textbox class="form-control" value="@bind(vm.giaoViec.tenCongViec)@save(vm.giaoViec.tenCongViec ,before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+							<textbox class="form-control" value="@bind(vm.giaoViec.tenCongViec) @save(vm.giaoViec.tenCongViec ,before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -74,19 +72,18 @@
 							<div class="flex">
 								<x:span class="issue-search">Ngày giao</x:span>
 							</div>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
-								  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.ngayGiao)@save(vm.giaoViec.ngayGiao, before={'saveGiaoViec'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" width="100%" placeholder="Chọn ngày"
+								value="@bind(vm.giaoViec.ngayGiao) @save(vm.giaoViec.ngayGiao, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					
 					<div zclass="col-md-6">
 						<div zclass="form-group">
 							<div class="flex">
 								<x:span class="issue-search">Hạn thực hiện</x:span>
 							</div>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8"
-								  width="100%" placeholder="Chọn ngày" value="@bind(vm.giaoViec.hanThucHien)@save(vm.giaoViec.hanThucHien, before={'saveGiaoViec'})@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" width="100%" placeholder="Chọn ngày" 
+								value="@bind(vm.giaoViec.hanThucHien) @save(vm.giaoViec.hanThucHien, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -97,31 +94,30 @@
 							<div class="flex">
 								<x:span class="issue-search">Ý kiến chỉ đạo</x:span>
 							</div>
-							<textbox class="form-control" value="@bind(vm.giaoViec.yKienChiDao)@save(vm.giaoViec.yKienChiDao, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"  rows="3"></textbox>
+							<textbox class="form-control" value="@bind(vm.giaoViec.yKienChiDao) @save(vm.giaoViec.yKienChiDao, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"  rows="3"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 				</div>
-				
 				<div class="row">
-						<div class="col-md-12">
-							<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
-								<span>Quyết định phê duyệt</span>
-								<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
-									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaoViec, name = 'taiLieu')"
-									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-								</button>
-								<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
-									<label class="txt-link-tailieu" value="@bind(vm.giaoViec.taiLieu.tenFile)"/>
-									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaoViec.taiLieu , vm = vm.giaoViec, name='taiLieu')">
-										<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-									</x:button>
-								</div>
-								<label zclass="error" value="@load(vmsgs['fileGiaoViec'])" />
+					<div class="col-md-12">
+						<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
+							<span>Quyết định phê duyệt</span>
+							<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
+								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+							</button>
+							<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
+								<label class="txt-link-tailieu" value="@bind(vm.giaoViec.taiLieu.tenFile)"/>
+								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaoViec.taiLieu, vm = vm.giaoViec, name='taiLieu')">
+									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+								</x:button>
 							</div>
+							<label zclass="error" value="@load(vmsgs['fileGiaoViec'])" />
 						</div>
 					</div>
+				</div>
 			</div>
 			<div class="mg-and-bg-and-line">
 				<div class="row">
@@ -135,7 +131,7 @@
 					</div>
 					<div zclass="col-xs-6">
 						<div zclass="form-group right">
-							<x:button class="btn btn-blue mg-btn" onClick="@command('saveGiaoViec',wdn=wdn, list=vmArgs, attr = '*')">
+							<x:button class="btn btn-blue mg-btn" onClick="@command('saveGiaoViec', wdn=wdn, list=vmArgs, attr = '*')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 								<span>Lưu</span>
 							</x:button>
