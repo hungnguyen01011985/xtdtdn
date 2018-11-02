@@ -1,6 +1,4 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
-<idspace>
 <window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" >
 	<zscript>
 		<![CDATA[
@@ -119,4 +117,3 @@
 			</template>
 	</div>			
 </window>
-</idspace>
