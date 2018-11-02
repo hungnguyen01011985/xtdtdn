@@ -439,21 +439,21 @@ public class DuAn extends Model<DuAn> {
 		return new AbstractValidator() {
 			@Override
 			public void validate(ValidationContext ctx) {
-				String vmgs = ctx.getValidatorArg("sms").toString();
-				/*final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
-				if (vmsgs != null) {
-					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
-					vmsgs.clearMessages(ctx.getBindContext().getComponent());
-				}*/
-				
-				TepTin file = (TepTin) ctx.getProperty().getValue();
-				if (file.getTenFile() == null || file.getTenFile().isEmpty()) {
-					
-					addInvalidMessage(ctx,vmgs, "Chưa tải tài liệu");
+				String vmgs = (String) ctx.getValidatorArg("sms");
+				String text = (String) ctx.getValidatorArg("text");
+				Date dateCheck = (Date) ctx.getValidatorArg(text);
+				if (dateCheck != null) {
+					final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+					if (vmsgs != null) {
+						vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
+						vmsgs.clearMessages(ctx.getBindContext().getComponent());
+					}
+					TepTin file = (TepTin) ctx.getProperty().getValue();
+					if (file.getTenFile() == null || file.getTenFile().isEmpty()) {
+						addInvalidMessage(ctx, vmgs, "Chưa tải tài liệu");
+					}
 				}
 			}
-
 		};
 	}
-	
 }

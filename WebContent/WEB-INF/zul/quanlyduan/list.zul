@@ -34,8 +34,8 @@
 				<div class="pd-column-3">
 					<div zclass="col-md-4">
 						<div zclass="form-group">
-							<span>Tên nhà đầu tư</span> 
-							<textbox id="txtNhaDauTu" class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')" placeholder="Nhập tên nhà đầu tư"></textbox>
+							<span>Tên dự án</span> 
+							<textbox id="txtNhaDauTu" class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')" placeholder="Nhập tên dự án"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
