@@ -118,21 +118,24 @@
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				
-				<div class="col-md-8" viewModel="@id('congVanGD2')@init(vm.giaiDoanDuAn.congVanGD2)">
-					<div zclass="form-group">
-						<span>Tài liệu kèm theo</span>
-						<button visible="@load(empty vm.giaiDoanDuAn.congVanGD2.tenFile)" label="Chọn tài liệu" 
-							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'congVanGD2')"
-							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-						</button>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.congVanGD2.tenFile)">
-							<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.congVanGD2.tenFile)"/>
-							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.congVanGD2, name = 'congVanGD2')">
-								<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-							</x:button>
+				<div form="@id('fx') @bind(vm.giaiDoanDuAn.congVanGD2) @save(vm.giaiDoanDuAn.congVanGD2, before={'goTask','goNext'}) 
+	    				@validator(vm.validatorTepTin, sms = 'congVanGD2', text = 'ngayDuKien', ngayDuKien = vm.giaiDoanDuAn.ngayPhatHanhCVGD2)">
+					<div class="col-md-8" viewModel="@id('congVanGD2')@init(vm.giaiDoanDuAn.congVanGD2)">
+						<div zclass="form-group">
+							<span>Tài liệu kèm theo</span>
+							<button visible="@load(empty vm.giaiDoanDuAn.congVanGD2.tenFile)" label="Chọn tài liệu" 
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'congVanGD2', error = error)"
+								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+							</button>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.congVanGD2.tenFile)">
+								<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.congVanGD2.tenFile)"/>
+								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.congVanGD2, name = 'congVanGD2')">
+									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+								</x:button>
+							</div>
+							<label zclass="error" value="@load(vmsgs['congVanGD2'])" id="error"/>
 						</div>
 					</div>
 				</div>
