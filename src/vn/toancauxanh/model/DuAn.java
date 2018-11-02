@@ -439,7 +439,29 @@ public class DuAn extends Model<DuAn> {
 		return new AbstractValidator() {
 			@Override
 			public void validate(ValidationContext ctx) {
-				String vmgs = (String) ctx.getValidatorArg("sms");
+				String text = (String) ctx.getValidatorArg("text");
+				String mess = (String) ctx.getValidatorArg("sms");
+				Date dateCheck = (Date) ctx.getValidatorArg(text);
+				if (dateCheck != null) {
+					final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+					if (vmsgs != null) {
+						vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
+						vmsgs.clearMessages(ctx.getBindContext().getComponent());
+					}
+					TepTin file = (TepTin) ctx.getProperty().getValue();
+					if (file.getTenFile() == null || file.getTenFile().isEmpty()) {
+						addInvalidMessage(ctx, mess, "Chưa tải tài liệu");
+					}
+				}
+			}
+		};
+	}
+	
+	@Transient
+	public AbstractValidator getValidatorTepTinDonVi() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
 				String text = (String) ctx.getValidatorArg("text");
 				Date dateCheck = (Date) ctx.getValidatorArg(text);
 				if (dateCheck != null) {
@@ -450,7 +472,7 @@ public class DuAn extends Model<DuAn> {
 					}
 					TepTin file = (TepTin) ctx.getProperty().getValue();
 					if (file.getTenFile() == null || file.getTenFile().isEmpty()) {
-						addInvalidMessage(ctx, vmgs, "Chưa tải tài liệu");
+						addInvalidMessage(ctx, "Chưa tải tài liệu");
 					}
 				}
 			}
