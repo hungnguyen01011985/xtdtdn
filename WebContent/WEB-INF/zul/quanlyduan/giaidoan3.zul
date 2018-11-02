@@ -14,7 +14,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div class="row bg-color-box">
 				<div zclass="col-lg-12">
 					<div class="box-plan">
@@ -55,7 +54,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div class="mg-top-no-line">
 				<div class="row">
 					<div zclass="col-md-12" style="margin-bottom:0;">
@@ -160,30 +158,30 @@
 							<span>Đóng</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
+					<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 						<x:button onClick="@command('goNext', task = 'task_luuDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon')"
-								class="btn btn-blue mg-btn">
+								class="btn btn-blue">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Tiếp tục</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
+					<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 						<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanBa')"
-								class="btn btn-blue mg-btn">
+								class="btn btn-blue">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right flex">
+					<div zclass="form-group right-mg flex">
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
-								class="btn btn-blue mg-btn">
+								class="btn btn-blue">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Danh sách giao việc</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right flex">
+					<div zclass="form-group right-mg flex">
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
-								class="btn btn-blue mg-btn">
+								class="btn btn-blue">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Đổi người phụ trách</span>
 						</x:button>
@@ -191,5 +189,5 @@
 				</div>
 			</div>
 		</div>
-</div>
+	</div>
 </window>
