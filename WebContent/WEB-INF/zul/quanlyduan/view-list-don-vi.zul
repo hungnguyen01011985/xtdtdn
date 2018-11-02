@@ -1,5 +1,5 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<window class="no-all-window">
+<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" >
 	<zscript>
 		<![CDATA[
 			if (vm.getGiaiDoanDuAn().getDonViDuAn().size() == null || vm.getGiaiDoanDuAn().getDonViDuAn().size() == 0) {
@@ -7,74 +7,38 @@
 			}
 		]]>
 	</zscript>
-	<div apply="org.zkoss.bind.BindComposer" children="@bind(vm.getGiaiDoanDuAn().getDonViDuAn())" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" >
-		<template name="children">
-			<div class="box-tab-panel">
-				<n:div class="title-panel-tab" onClick="toggleTabPanel(this)">
-					<span>ĐƠN VỊ NHẬN CV ĐỀ NGHỊ SỐ ${forEachStatus.index+1}</span>
-				</n:div>
-				<div class="content-tab-panel">
-					<div class="mg-and-bg-and-line-panel">
-						<div class="row">
-							<div zclass="col-md-3">
-								<div zclass="form-group title-small-textbox">
-									<span>Cấp đơn vị</span>
-									<textbox class="form-control" maxlength="255" value="@bind(each.capDonVi) @save(each.capDonVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
-									<label zclass="error"
-										value="@load(vmsgs[self.previousSibling])" />
+	<div children="@bind(vm.getGiaiDoanDuAn().getDonViDuAn())">
+			<template name="children">
+				<div class="box-tab-panel">
+					<n:div class="title-panel-tab" onClick="toggleTabPanel(this)">
+						<span>ĐƠN VỊ NHẬN CV ĐỀ NGHỊ SỐ ${forEachStatus.index+1}</span>
+					</n:div>
+					<div class="content-tab-panel">
+						<div class="mg-and-bg-and-line-panel">
+							<div class="row">
+								<div zclass="col-md-3">
+									<div zclass="form-group title-small-textbox">
+										<span>Cấp đơn vị</span>
+										<textbox class="form-control" maxlength="255" value="@bind(each.capDonVi) @save(each.capDonVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+										<label zclass="error"
+											value="@load(vmsgs[self.previousSibling])" />
+									</div>
 								</div>
-							</div>
-							<div zclass="col-md-3">
-								<div zclass="form-group title-small-textbox">
-									<span>Đơn vị</span>
-									<combobox readonly="true" class="his"
-										placeholder="Chọn đơn vị" width="100%">
-									</combobox>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="mg-and-bg-and-line-panel">
-						<div class="row">
-							<div zclass="col-md-12">
-								<div class="title-small-page">
-									<span>Công văn trả lời</span>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<span>Ngày nhận</span>
-									<datebox format="dd/MM/yyyy" readonly="true" class="hv-db"
-										value="@bind(each.ngayNhanTraLoi) @save(each.ngayNhanTraLoi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
-								</div>
-							</div>
-							
-							<div zclass="col-md-3">
-								<div zclass="form-group" viewModel="@id('congVanTraLoi') @init(each.congVanTraLoi)">
-									<span>Hồ sơ quy hoạch</span>
-									<button visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
-										class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-										onUpload="@command('uploadFile',medias=event.getMedia(),vm = each, name = 'congVanTraLoi')"
-										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-									</button>
-									<div class="flex mg-btn-top" visible="@load(not empty each.congVanTraLoi.tenFile)">
-										<label class="txt-link-tailieu" value="@bind(each.congVanTraLoi.tenFile)"/>
-										<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
-											<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-										</x:button>
+								<div zclass="col-md-3">
+									<div zclass="form-group title-small-textbox">
+										<span>Đơn vị</span>
+										<combobox readonly="true" class="his"
+											placeholder="Chọn đơn vị" width="100%">
+										</combobox>
 									</div>
 								</div>
 							</div>
-							
 						</div>
-					</div>
 						<div class="mg-and-bg-and-line-panel">
 							<div class="row">
 								<div zclass="col-md-12">
 									<div class="title-small-page">
-										<span>CV giải thích lý do trễ</span>
+										<span>Công văn trả lời</span>
 									</div>
 								</div>
 							</div>
@@ -83,30 +47,73 @@
 									<div zclass="form-group">
 										<span>Ngày nhận</span>
 										<datebox format="dd/MM/yyyy" readonly="true" class="hv-db"
-											value="@bind(each.ngayNhanGiaiThich) @save(each.ngayNhanGiaiThich, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%"
-											placeholder="Chọn ngày"/>
+											value="@bind(each.ngayNhanTraLoi) @save(each.ngayNhanTraLoi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
 									</div>
 								</div>
-								<div zclass="col-md-3">
-									<div zclass="form-group" viewModel="@id('congVanGiaiThich') @init(each.congVanGiaiThich)">
-										<span>Hồ sơ quy hoạch</span>
-										<button visible="@load(empty each.congVanGiaiThich.tenFile)" label="Chọn tài liệu" 
-											class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-											onUpload="@command('uploadFile',medias=event.getMedia(),vm = each , name = 'congVanGiaiThich')"
-											upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-										</button>
-										<div class="flex mg-btn-top" visible="@load(not empty each.congVanGiaiThich.tenFile)">
-											<label class="txt-link-tailieu" value="@bind(each.congVanGiaiThich.tenFile)"/>
-											<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanGiaiThich , vm = each, name = 'congVanGiaiThich')">
-												<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-											</x:button>
+								<idspace>
+									<div id="idCongVanTraLoi" zclass="col-md-3" form="@id('fx') @bind(each.congVanTraLoi) @save(each.congVanTraLoi, before={'goTask','goNext'}) 
+			    						@validator(vm.validatorTepTinDonVi, text = 'ngayNhanTraLoi', ngayNhanTraLoi = each.ngayNhanTraLoi)">
+										<div zclass="form-group" viewModel="@id('congVanTraLoi') @init(each.congVanTraLoi)">
+											<span>Hồ sơ quy hoạch</span>
+											<button visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
+												class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+												onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'congVanTraLoi', error = errorCongVanTraLoi)"
+												upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+											</button>
+											<div class="flex mg-btn-top" visible="@load(not empty each.congVanTraLoi.tenFile)">
+												<label class="txt-link-tailieu" value="@load(each.congVanTraLoi.tenFile)"/>
+												<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
+													<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+												</x:button>
+											</div>
+											<label zclass="error" value="@load(vmsgs[idCongVanTraLoi])" id="errorCongVanTraLoi"/>
+										</div>
+									</div>
+								</idspace>
+								
+							</div>
+						</div>
+							<div class="mg-and-bg-and-line-panel">
+								<div class="row">
+									<div zclass="col-md-12">
+										<div class="title-small-page">
+											<span>CV giải thích lý do trễ</span>
 										</div>
 									</div>
 								</div>
-							</div>
+								<div class="row">
+									<div zclass="col-md-3">
+										<div zclass="form-group">
+											<span>Ngày nhận</span>
+											<datebox format="dd/MM/yyyy" readonly="true" class="hv-db"
+												value="@bind(each.ngayNhanGiaiThich) @save(each.ngayNhanGiaiThich, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%"
+												placeholder="Chọn ngày"/>
+										</div>
+									</div>
+									<idspace>
+										<div id="idCongVanGiaiThich" zclass="col-md-3" form="@id('fx') @bind(each.congVanGiaiThich) @save(each.congVanGiaiThich, before={'goTask','goNext'}) 
+			    							@validator(vm.validatorTepTinDonVi, text = 'ngayNhanGiaiThich', ngayNhanGiaiThich = each.ngayNhanGiaiThich)">
+											<div zclass="form-group" viewModel="@id('congVanGiaiThich') @init(each.congVanGiaiThich)">
+												<span>Hồ sơ quy hoạch</span>
+												<button visible="@load(empty each.congVanGiaiThich.tenFile)" label="Chọn tài liệu" 
+													class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+													onUpload="@command('uploadFile',medias=event.getMedia(),vm = each , name = 'congVanGiaiThich', error = errCongVanGiaiThich)"
+													upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+												</button>
+												<div class="flex mg-btn-top" visible="@load(not empty each.congVanGiaiThich.tenFile)">
+													<label class="txt-link-tailieu" value="@bind(each.congVanGiaiThich.tenFile)"/>
+													<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanGiaiThich , vm = each, name = 'congVanGiaiThich')">
+														<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+													</x:button>
+												</div>
+												<label zclass="error" value="@load(vmsgs[idCongVanGiaiThich])" id="errCongVanGiaiThich"/>
+											</div>
+										</div>
+									</idspace>
+								</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</template>
+			</template>
 	</div>			
 </window>

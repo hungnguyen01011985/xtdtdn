@@ -20,6 +20,7 @@ import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
 
 @Entity
@@ -123,7 +124,7 @@ public class TepTin extends Model<TepTin> {
 
 	@Command
 	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final Object object,
-			@BindingParam("name") final String name) {
+			@BindingParam("name") final String name, @BindingParam("error") Label error) {
 		Media media = (Media) medias;
 		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
 				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
@@ -134,13 +135,17 @@ public class TepTin extends Model<TepTin> {
 				String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
 						+ Calendar.getInstance().getTimeInMillis()
 						+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
+
 				this.setNameHash(tenFile);
 				this.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				this.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				this.setMedia(media);
+				if (error != null) {
+					error.setValue("");
+				}
+				BindUtils.postNotifyChange(null, null, this, "*");
 				BindUtils.postNotifyChange(null, null, object, name);
-
 			}
 		} else {
 			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
@@ -156,10 +161,10 @@ public class TepTin extends Model<TepTin> {
 				@Override
 				public void onEvent(final Event event) throws IOException {
 					if (Messagebox.ON_OK.equals(event.getName())) {
-						tepTin.setNameHash("");
-						tepTin.setTypeFile("");
-						tepTin.setTenFile("");
-						tepTin.setPathFile("");
+						tepTin.setNameHash(null);
+						tepTin.setTypeFile(null);
+						tepTin.setTenFile(null);
+						tepTin.setPathFile(null);
 						tepTin.setMedia(null);
 						BindUtils.postNotifyChange(null, null, tepTin, "*");
 						BindUtils.postNotifyChange(null, null, object, name);
