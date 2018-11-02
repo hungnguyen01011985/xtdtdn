@@ -160,14 +160,14 @@
 							<span>Đóng</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right flex">
+					<div zclass="form-group right flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 						<x:button onClick="@command('goNext', task = 'task_luuDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Tiếp tục</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right flex">
+					<div zclass="form-group right flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 						<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanBa')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>

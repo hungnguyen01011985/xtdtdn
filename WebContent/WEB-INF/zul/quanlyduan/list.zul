@@ -150,11 +150,11 @@
 								<label value="@load(item.giaiDoanXucTien.text)"></label>
 								<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
 								<div class="thaotac">
-									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}">
+									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}" if="${vm.checkView(entry.nhanVien.id,item.idNguoiLienQuan) or item.nguoiTao.id == entry.nhanVien.id or item.nguoiPhuTrach.id == entry.nhanVien.id}">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
+									<x:a label="Xóa" class="btn-thaotac up-note" if="${item.nguoiTao.id == entry.nhanVien.id}" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -169,7 +169,7 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<div zclass="form-group right">
+					<div zclass="form-group right" if="${entry.quyen.quanlyduan_them}">
 						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlyduan/add-view">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm mới dự án</span>

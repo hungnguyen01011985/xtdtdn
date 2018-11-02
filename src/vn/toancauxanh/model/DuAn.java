@@ -49,7 +49,6 @@ public class DuAn extends Model<DuAn> {
 	private GiaoViec giaoViec = new GiaoViec();
 	private TepTin taiLieuNDT;
 	private String idNguoiLienQuan = "";
-
 	public DuAn() {
 
 	}

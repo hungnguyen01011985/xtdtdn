@@ -97,25 +97,28 @@
 					</div>
 				</div>
 				<div zclass="col-xs-9">
-					<div zclass="form-group right flex">
+					<div zclass="form-group left flex">
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Đổi người phụ trách</span>
 						</x:button>
-						
+					</div>
+					<div zclass="form-group right flex">
 						<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Danh sách giao việc</span>
 						</x:button>
-						
+					</div>
+					<div zclass="form-group right flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 						<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanBon')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>
-						
+					</div>
+					<div zclass="form-group right flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 						<x:button onClick="@command('goNext', task = 'task_ketThucDuAn')"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ket-thuc-du-an.svg"/>

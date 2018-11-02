@@ -157,13 +157,13 @@
 							<span>Kết thúc dự án</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right flex">
+					<div zclass="form-group right flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 						<x:button onClick="@command('goNext', task = 'task_luuVaTiepTucGiaiDoanBa')" class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
 							<span>Tiếp tục</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right flex">
+					<div zclass="form-group right flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 						<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanHai')" class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
 							<span>Lưu</span>

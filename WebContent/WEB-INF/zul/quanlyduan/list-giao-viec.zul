@@ -112,11 +112,12 @@
 									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 									<x:span>Nhận việc</x:span>
 								</x:a>
-								<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
+								<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color"  if="${item.nguoiGiaoViec.id == entry.nhanVien.id}" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
 									<x:image class="img-edit" width="20px" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 									<x:span>Xóa</x:span>
 								</x:a>
-								<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" onClick="@command('redirectPage',zul='quanlyduan/edit-giao-viec.zul', vm = item, vmArgs = vm)">
+								<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${item.nguoiGiaoViec.id == entry.nhanVien.id}"
+									onClick="@command('redirectPage',zul='quanlyduan/edit-giao-viec.zul', vm = item, vmArgs = vm)">
 									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 									<x:span>Sửa</x:span>
 								</x:a>
@@ -144,7 +145,7 @@
 				
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = duAn, vmArgs = vm)"
+						<x:button if="${entry.quyen.quanlygiaoviec_them}" onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = duAn, vmArgs = vm)"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Giao việc</span>

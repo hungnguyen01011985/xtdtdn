@@ -19,6 +19,8 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
@@ -279,6 +281,7 @@ public class GiaoViec extends Model<GiaoViec>{
 								if(giaoViec != null ) {
 									if(!giaoViec.noId()) {
 										giaoViec.doDelete(true);
+										removeIdInList(giaoViec);
 									}
 								}
 								BindUtils.postNotifyChange(null, null, this, "*");

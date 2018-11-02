@@ -3,9 +3,11 @@ package vn.toancauxanh.service;
 import java.text.Normalizer;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -34,7 +36,10 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.greenglobal.core.CoreObject;
 import vn.toancauxanh.cms.service.HomeService;
+import vn.toancauxanh.model.DuAn;
+import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.NhanVien;
+import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.Setting;
 
@@ -298,6 +303,29 @@ public class BaseObject<T> extends CoreObject<T> {
 		return cellStyle;
 	}
 
+	public List<Long> subString(String text) {
+		List<Long> list = new ArrayList<Long>();
+		for (String w : text.split("@", 0)) {
+			try {
+				list.add(Long.parseLong(w));
+			} catch (Exception ex) {
+				return null;
+			}
+		}
+		return list;
+	}
+	
+	public void removeIdInList(GiaoViec giaoViec) {
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.eq(giaoViec.getDuAn()));
+		DuAn duAn = q.fetchOne();
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId()+"@", ""));
+		duAn.saveNotShowNotification();
+	}
+	
+	public String getKyTu() {
+		return "@";
+	}
+	
 	public String unAccent(String s) {
 		String temp = Normalizer.normalize(s.toLowerCase(), Normalizer.Form.NFD);
 		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
