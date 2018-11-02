@@ -27,12 +27,12 @@ import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 import vn.toancauxanh.model.QGiaoViec;
 
-public class ProcessService extends BasicService<Object>{
-	
+public class ProcessService extends BasicService<Object> {
+
 	public void validateDuLieuThongTinDuAn(Execution execution) {
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuThongTinDuAnHopLe", true);
 	}
-	
+
 	public void luuDuLieuDuAnVaBatDauXucTien(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		String idList = model.getNguoiPhuTrach().getId() + KY_TU;
@@ -47,11 +47,11 @@ public class ProcessService extends BasicService<Object>{
 		model.getGiaoViec().saveNotShowNotification();
 		redirectQuanLyDuAn();
 	}
-	
+
 	public void validateDuLieuGiaiDoanMot(Execution execution) {
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanMotHopLe", true);
 	}
-	
+
 	public void luuDuLieuGiaiDoanMot(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getTaiLieuNDT().saveNotShowNotification();
@@ -59,7 +59,7 @@ public class ProcessService extends BasicService<Object>{
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_MOT, "thoiHanGiaiDoanMot", null);
 		luuDuLieuDonVi(model.getGiaiDoanDuAn());
 	}
-	
+
 	public void validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
@@ -68,7 +68,7 @@ public class ProcessService extends BasicService<Object>{
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanHaiHopLe", !result);
 	}
-	
+
 	public void luuDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getTaiLieuNDT().saveNotShowNotification();
@@ -76,14 +76,14 @@ public class ProcessService extends BasicService<Object>{
 		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI, GiaiDoanXucTien.GIAI_DOAN_MOT);
 		luuDuLieuDonVi(model.getGiaiDoanDuAn());
 	}
-	
+
 	public boolean kiemTraCongViecHoanThanh(DuAn duAn) {
 		boolean result = true;
 		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.eq(duAn));
 		result = q.fetch().stream().anyMatch(item -> !TrangThaiGiaoViec.HOAN_THANH.equals(item.getTrangThaiGiaoViec()));
 		return result;
 	}
-	
+
 	public void capNhatNguoiPhuTrach(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		Object object = ((ExecutionEntity) execution).getVariable("list");
@@ -93,7 +93,7 @@ public class ProcessService extends BasicService<Object>{
 		}
 		model.getNguoiPhuTrach().saveNotShowNotification();
 	}
-	
+
 	public void giaoViecDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		Object object = ((ExecutionEntity) execution).getVariable("list");
@@ -111,19 +111,19 @@ public class ProcessService extends BasicService<Object>{
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
 	}
-	
+
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {
-		kiemTraGiaiDoan(execution, "thoiHanGiaiDoanMot", GiaiDoanXucTien.GIAI_DOAN_MOT);
+		kiemTraGiaiDoan(execution, "isDangOGiaiDoannMot", GiaiDoanXucTien.GIAI_DOAN_MOT);
 	}
-	
+
 	public void validateDuLieuGiaiDoanHai(Execution execution) {
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanHaiHopLe", true);
 	}
-	
+
 	public void thongBaoTreHannGiaiDoanMot(Execution execution) {
 		System.out.println("tre han nhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	}
-	
+
 	public void validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
@@ -132,7 +132,7 @@ public class ProcessService extends BasicService<Object>{
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBaHopLe", !result);
 	}
-	
+
 	public void validateDuLieuGiaiDoanHaiVaKetThucDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
@@ -141,7 +141,7 @@ public class ProcessService extends BasicService<Object>{
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanHaiVaKetThucDuAn", !result);
 	}
-	
+
 	public void luuDuLieuQuayLaiGiaiDoanMot(Execution execution) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_HAI);
@@ -153,20 +153,19 @@ public class ProcessService extends BasicService<Object>{
 		duAn.saveNotShowNotification();
 		redirectGiaiDoanDuAnById(duAn.getId());
 	}
-	
+
 	public void removeGiaiDoanDuAnList(DuAn duAn) {
-		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
-				.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.eq(duAn));
+		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.eq(duAn));
 		q.fetch().forEach(item -> item.doDelete(true));
 	}
-	
+
 	public void luuDuLieuGIaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
-		luuDuLieuTiepTucAndRedirect(execution,GiaiDoanXucTien.GIAI_DOAN_BA,GiaiDoanXucTien.GIAI_DOAN_HAI);
+		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, GiaiDoanXucTien.GIAI_DOAN_HAI);
 	}
-	
+
 	public void validateDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
@@ -175,26 +174,25 @@ public class ProcessService extends BasicService<Object>{
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBonHopLe", !result);
 	}
-	
+
 	public void luuDuLieuGIaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
-		luuDuLieuTiepTucAndRedirect(execution,GiaiDoanXucTien.GIAI_DOAN_BON,GiaiDoanXucTien.GIAI_DOAN_BA);
+		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, GiaiDoanXucTien.GIAI_DOAN_BA);
 	}
-	
-	
+
 	public void luuDuLieuGiaiDoanHai(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI, "thoiHanGiaiDoanHai", null);
 	}
-	
+
 	public void validateDuLieuGiaiDoanBon(Execution execution) {
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBonHopLe", true);
 	}
-	
+
 	public void validateDuLieuGiaiDoanBonVaKetThucDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
@@ -203,7 +201,7 @@ public class ProcessService extends BasicService<Object>{
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", !result);
 	}
-	
+
 	public void luuDuLieuGiaiDoanBon(Execution execution) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
@@ -214,7 +212,7 @@ public class ProcessService extends BasicService<Object>{
 		}
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, "thoiHanGiaiDoanBon", null);
 	}
-	
+
 	private void saveTaiLieuDauGia(DuAn duAn) {
 		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().saveNotShowNotification();
@@ -226,7 +224,7 @@ public class ProcessService extends BasicService<Object>{
 			duAn.getGiaiDoanDuAn().getPhuongAnDauGiaBNBS().saveNotShowNotification();
 		}
 	}
-	
+
 	private void saveTaiLieuDauThau(DuAn duAn) {
 		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().saveNotShowNotification();
@@ -248,18 +246,18 @@ public class ProcessService extends BasicService<Object>{
 		duAn.getGiaiDoanDuAn().getKeHoachGDKD().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getHoSoMoiThauGDKD().saveNotShowNotification();
 	}
-	
+
 	public void validateDuLieuGiaiDoanBa(Execution execution) {
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBaHopLe", true);
 	}
-	
+
 	public void luuDuLieuGiaiDoanBa(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, "thoiHanGiaiDoanBa", null);
 	}
-	
+
 	public void luuDuLieuKetThucDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().equals(GiaiDoanXucTien.GIAI_DOAN_BON)) {
@@ -294,8 +292,8 @@ public class ProcessService extends BasicService<Object>{
 		redirectGiaiDoanDuAnById(duAn.getId());
 		showNotification("", "Cập nhật thành công", "success");
 	}
-	
-	public void luuDuLieuTiepTucAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien,GiaiDoanXucTien giaiDoan) {
+
+	public void luuDuLieuTiepTucAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, GiaiDoanXucTien giaiDoan) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.setGiaiDoanXucTien(giaiDoanXucTien);
 		model.saveNotShowNotification();
@@ -305,15 +303,15 @@ public class ProcessService extends BasicService<Object>{
 		redirectGiaiDoanDuAnById(model.getId());
 		showNotification("", "Cập nhật thành công", "success");
 	}
-	
+
 	public void redirectGiaiDoanDuAnById(Long id) {
-		Executions.sendRedirect("/cp/quanlyduan/"+id);
+		Executions.sendRedirect("/cp/quanlyduan/" + id);
 	}
-	
+
 	public void redirectList() {
 		Executions.sendRedirect("/cp/quanlyduan");
 	}
-	
+
 	public void luuDuLieuDonVi(GiaiDoanDuAn giaiDoanDuAn) {
 		giaiDoanDuAn.getDonViDuAn().forEach(item -> {
 			item.setGiaiDoanDuAn(giaiDoanDuAn);
@@ -322,7 +320,7 @@ public class ProcessService extends BasicService<Object>{
 			item.getCongVanTraLoi().saveNotShowNotification();
 		});
 	}
-	
+
 	public void kiemTraGiaiDoan(Execution execution, String varriable, GiaiDoanXucTien giaiDoan) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		if (giaiDoan.equals(model.getGiaiDoanXucTien())) {
@@ -331,18 +329,15 @@ public class ProcessService extends BasicService<Object>{
 		}
 		((ExecutionEntity) execution).setVariable(varriable, false);
 	}
-	
+
 	public List<PvmTransition> getTransitions(Task task) {
 		List<PvmTransition> result = new ArrayList<>();
-		for (PvmTransition pvmTransition : ((RepositoryServiceImpl) core()
-				.getProcess().getRepositoryService())
-				.getDeployedProcessDefinition(task.getProcessDefinitionId())
-				.findActivity(task.getTaskDefinitionKey())
+		for (PvmTransition pvmTransition : ((RepositoryServiceImpl) core().getProcess().getRepositoryService())
+				.getDeployedProcessDefinition(task.getProcessDefinitionId()).findActivity(task.getTaskDefinitionKey())
 				.getOutgoingTransitions()) {
-			if (((ActivityImpl) pvmTransition
-					.getDestination()).getActivityBehavior() instanceof ExclusiveGatewayActivityBehavior) {
-				List<PvmTransition> outgoingTransitions = pvmTransition
-						.getDestination().getOutgoingTransitions();
+			if (((ActivityImpl) pvmTransition.getDestination())
+					.getActivityBehavior() instanceof ExclusiveGatewayActivityBehavior) {
+				List<PvmTransition> outgoingTransitions = pvmTransition.getDestination().getOutgoingTransitions();
 				if (outgoingTransitions.isEmpty()) {
 					result.add(pvmTransition);
 				} else {
@@ -354,27 +349,18 @@ public class ProcessService extends BasicService<Object>{
 		}
 		return result;
 	}
-	
+
 	public List<PvmTransition> getTransitions(String taskDefinitionKey, String processDefinitionKey) {
-		List<ProcessDefinition> ls = core()
-				.getProcess()
-				.getRepositoryService()
-				.createProcessDefinitionQuery()
-				.processDefinitionKeyLike(processDefinitionKey)
-				.latestVersion()
-				.list();
+		List<ProcessDefinition> ls = core().getProcess().getRepositoryService().createProcessDefinitionQuery()
+				.processDefinitionKeyLike(processDefinitionKey).latestVersion().list();
 		String processDefinitionId = ls.get(0).getId();
 		List<PvmTransition> result = new ArrayList<>();
-		for (PvmTransition pvmTransition : ((RepositoryServiceImpl) core()
-				.getProcess()
-				.getRepositoryService())
-				.getDeployedProcessDefinition(processDefinitionId)
-				.findActivity(taskDefinitionKey) 
+		for (PvmTransition pvmTransition : ((RepositoryServiceImpl) core().getProcess().getRepositoryService())
+				.getDeployedProcessDefinition(processDefinitionId).findActivity(taskDefinitionKey)
 				.getOutgoingTransitions()) {
-			if (((ActivityImpl) pvmTransition
-					.getDestination()).getActivityBehavior() instanceof ExclusiveGatewayActivityBehavior) {
-				List<PvmTransition> outgoingTransitions = pvmTransition
-						.getDestination().getOutgoingTransitions();
+			if (((ActivityImpl) pvmTransition.getDestination())
+					.getActivityBehavior() instanceof ExclusiveGatewayActivityBehavior) {
+				List<PvmTransition> outgoingTransitions = pvmTransition.getDestination().getOutgoingTransitions();
 				if (outgoingTransitions.isEmpty()) {
 					result.add(pvmTransition);
 				} else {
