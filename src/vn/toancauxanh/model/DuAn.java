@@ -17,6 +17,7 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.zul.Window;
@@ -486,4 +487,17 @@ public class DuAn extends Model<DuAn> {
 			}
 		};
 	}
+	
+	private String tienTe;
+
+	@NotifyChange("tienTe")
+	public String getTienTe() {
+		tienTe = CurrencyFormatUtil.formatNumberForRead(tongVonDauTu);
+		return tienTe;
+	}
+
+	public void setTienTe(String tienTe) {
+		this.tienTe = tienTe;
+	}
+	
 }

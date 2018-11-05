@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
@@ -34,6 +36,7 @@ import org.zkoss.zul.Window;
 import com.google.common.base.Strings;
 import com.querydsl.jpa.impl.JPAQuery;
 
+import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.service.Quyen;
 
 @Entity
@@ -53,6 +56,7 @@ public class VaiTro extends Model<VaiTro> {
 	private String tenVaiTro = "";
 	private String alias = "";
 	private int soThuTu;
+	private LoaiVaiTro loaiVaiTro;
 
 	public VaiTro() {
 		super();
@@ -78,6 +82,24 @@ public class VaiTro extends Model<VaiTro> {
 				.where(QNhanVien.nhanVien.trangThai.ne(core().TT_DA_XOA))
 				.where(QNhanVien.nhanVien.vaiTros.contains(this));
 		return q.fetch();
+	}
+	
+	@Transient
+	public List<LoaiVaiTro> getListLoaiVaiTro(){
+		List<LoaiVaiTro> list = new ArrayList<LoaiVaiTro>();
+		list.add(LoaiVaiTro.VAI_TRO_TRUONG_PHONG);
+		list.add(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN);
+		list.add(LoaiVaiTro.VAI_TRO_LANH_DAO);
+		return list;
+	}
+
+	@Enumerated(EnumType.STRING)
+	public LoaiVaiTro getLoaiVaiTro() {
+		return loaiVaiTro;
+	}
+
+	public void setLoaiVaiTro(LoaiVaiTro loaiVaiTro) {
+		this.loaiVaiTro = loaiVaiTro;
 	}
 
 	Set<TreeNode<String[]>> selectedItems = new HashSet<>();

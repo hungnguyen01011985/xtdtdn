@@ -98,6 +98,7 @@
 					<div zclass="form-group">
 						<span>Tổng vốn đầu tư(vnđ)</span>
 						<textbox class="form-control" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goTask','goNext'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư')" placeholder="VNĐ"></textbox>
+						<textbox class="form-control" visible="@load(vm.tienTe eq null)" value="@bind(vm.tienTe)" placeholder="VNĐ"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>

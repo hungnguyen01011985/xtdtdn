@@ -102,7 +102,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
-							<span>Quyết định phê duyệt</span>
+							<span>Tài liệu đính kèm</span>
 							<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
