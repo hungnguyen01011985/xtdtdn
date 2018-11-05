@@ -36,9 +36,9 @@ public class DuAn extends Model<DuAn> {
 	private LinhVucDuAn linhVuc;
 	private String diaDiem;
 	private QuyMoDuAn quyMoDuAn;
-	private double tongVonDauTu;
+	private long tongVonDauTu;
 	private String mucTieuDuAn;
-	private int dienTichSuDungDat;
+	private long dienTichSuDungDat;
 	private String mucDoCanhTranh;
 	private MucDoUuTien mucDoUuTien;
 	private KhaNangDauTu khaNangDauTu;
@@ -49,10 +49,11 @@ public class DuAn extends Model<DuAn> {
 	private GiaoViec giaoViec = new GiaoViec();
 	private TepTin taiLieuNDT;
 	private String idNguoiLienQuan = "";
+
 	public DuAn() {
 
 	}
-	
+
 	public String getIdNguoiLienQuan() {
 		return idNguoiLienQuan;
 	}
@@ -130,14 +131,6 @@ public class DuAn extends Model<DuAn> {
 		this.quyMoDuAn = quyMoDuAn;
 	}
 
-	public double getTongVonDauTu() {
-		return tongVonDauTu;
-	}
-
-	public void setTongVonDauTu(double tongVonDauTu) {
-		this.tongVonDauTu = tongVonDauTu;
-	}
-
 	public String getMucTieuDuAn() {
 		return mucTieuDuAn;
 	}
@@ -146,11 +139,19 @@ public class DuAn extends Model<DuAn> {
 		this.mucTieuDuAn = mucTieuDuAn;
 	}
 
-	public int getDienTichSuDungDat() {
+	public long getTongVonDauTu() {
+		return tongVonDauTu;
+	}
+
+	public void setTongVonDauTu(long tongVonDauTu) {
+		this.tongVonDauTu = tongVonDauTu;
+	}
+
+	public long getDienTichSuDungDat() {
 		return dienTichSuDungDat;
 	}
 
-	public void setDienTichSuDungDat(int dienTichSuDungDat) {
+	public void setDienTichSuDungDat(long dienTichSuDungDat) {
 		this.dienTichSuDungDat = dienTichSuDungDat;
 	}
 
@@ -275,10 +276,10 @@ public class DuAn extends Model<DuAn> {
 		}
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
-	
+
 	// hàm set task khi ấn quay lại giai đoạn 1
 	@Command
-	public void goBack(@BindingParam("task") final String task){
+	public void goBack(@BindingParam("task") final String task) {
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
 		if (task != null) {
@@ -286,9 +287,9 @@ public class DuAn extends Model<DuAn> {
 		}
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
-	
+
 	@Command
-	public void goNext(@BindingParam("task") final String task){
+	public void goNext(@BindingParam("task") final String task) {
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
 		if (task != null) {
@@ -364,7 +365,7 @@ public class DuAn extends Model<DuAn> {
 		duAn.getGiaiDoanDuAn().getDonViDuAn().add(new DonViDuAn());
 		BindUtils.postNotifyChange(null, null, duAn, "*");
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidator() {
 		return new AbstractValidator() {
@@ -444,7 +445,7 @@ public class DuAn extends Model<DuAn> {
 			}
 		};
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidatorTepTin() {
 		return new AbstractValidator() {
@@ -467,7 +468,7 @@ public class DuAn extends Model<DuAn> {
 			}
 		};
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidatorTepTinDonVi() {
 		return new AbstractValidator() {
@@ -489,5 +490,5 @@ public class DuAn extends Model<DuAn> {
 			}
 		};
 	}
-	
+
 }
