@@ -56,9 +56,9 @@ CREATE TABLE IF NOT EXISTS `capdonvi` (
   PRIMARY KEY (`id`),
   KEY `FKj8f045crwo3qj1iro2juw73no` (`nguoiSua_id`),
   KEY `FKlwu9xeremec3qfux5rk19v7yp` (`nguoiTao_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.capdonvi: 2 rows
+-- Dumping data for table bxtdtdn.capdonvi: ~2 rows (approximately)
 DELETE FROM `capdonvi`;
 /*!40000 ALTER TABLE `capdonvi` DISABLE KEYS */;
 INSERT INTO `capdonvi` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `moTa`, `ten`, `nguoiSua_id`, `nguoiTao_id`) VALUES
@@ -302,9 +302,9 @@ CREATE TABLE IF NOT EXISTS `donvixuctien` (
   KEY `FKrhoiq8ydfovah5571ml26eqys` (`nguoiSua_id`),
   KEY `FK10mbxstuk5l7c2pp4bsi8gdbx` (`nguoiTao_id`),
   KEY `FKdxo42sukdy01pmuf6y8xhx2ec` (`capDonVi_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.donvixuctien: 32 rows
+-- Dumping data for table bxtdtdn.donvixuctien: ~9 rows (approximately)
 DELETE FROM `donvixuctien`;
 /*!40000 ALTER TABLE `donvixuctien` DISABLE KEYS */;
 INSERT INTO `donvixuctien` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `moTa`, `ten`, `nguoiSua_id`, `nguoiTao_id`, `capDonVi_id`) VALUES
