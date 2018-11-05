@@ -28,10 +28,10 @@
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<div class="flex">
-							<x:span class="issue-search">Vai trò người dùng<n:small class="required"> *</n:small></x:span>
+							<x:span class="issue-search">Loại vai trò<n:small class="required"> *</n:small></x:span>
 						</div>
 						<combobox width="100%" class="hv-textbox" readonly="true" disabled="${readOnly}"
-							model="@load(vm.listLoaiVaiTro)" placeholder="-Chọn-"
+							model="@load(vm.listLoaiVaiTro)" placeholder="-Chọn loại vai trò-"
 							selectedItem="@bind(vm.loaiVaiTro) @save(vm.loaiVaiTro, before='saveVaiTro') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
 							<template name="model">
 								<comboitem label="@load(each.text)" />
