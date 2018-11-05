@@ -145,7 +145,7 @@
 				
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button if="${entry.quyen.quanlygiaoviec_them}" onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = duAn, vmArgs = vm)"
+						<x:button if="${entry.quyen.quanlyduan_giaoviec}" onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = duAn, vmArgs = vm)"
 								class="btn btn-blue mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Giao việc</span>
