@@ -41,7 +41,7 @@
 					<span>Hồ sơ quy hoạch</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -60,7 +60,7 @@
 					<span>Quyết định phê duyệt quy hoạch</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH, name = 'quyetDinhPheDuyetLQH')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH, name = 'quyetDinhPheDuyetLQH')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -79,7 +79,7 @@
 					<span>Văn bản cho phép chuyển mục đích sử dụng đất</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.vanBanChuyenMucDichSDD.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanChuyenMucDichSDD, name = 'vanBanChuyenMucDichSDD')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanChuyenMucDichSDD, name = 'vanBanChuyenMucDichSDD')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -98,7 +98,7 @@
 					<span>Văn bản đề nghị thu hồi đất</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat, name = 'vanBanDeNghiThuHoiDat')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat, name = 'vanBanDeNghiThuHoiDat')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />

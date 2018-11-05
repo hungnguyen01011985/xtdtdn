@@ -55,7 +55,7 @@
 					<span>Hồ sơ quy hoạch</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -74,7 +74,7 @@
 					<span>Quyết định phê duyệt</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -102,7 +102,7 @@
 					<span>Phương án đấu giá</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.phuongAnDauGia.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'phuongAnDauGia')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'phuongAnDauGia')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -119,7 +119,7 @@
 					<span>Quyết định phê duyệt phương án đấu giá</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetPADG.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetPADG')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetPADG')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -147,7 +147,7 @@
 					<span>Quyết định đấu giá quyền sử dụng đất</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhDauGiaQSDD.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhDauGiaQSDD')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhDauGiaQSDD')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -182,7 +182,7 @@
 					<span>Quyết định phê duyệt giá khởi điểm</span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetGiaKhoiDiem')"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetGiaKhoiDiem')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />

@@ -16,17 +16,17 @@ public class ThongBao extends Model<ThongBao>{
 	private NhanVien nguoiNhan;
 	private LoaiThongBao loaiThongBao;
 	private boolean daXem;
-	private Long idGo;
+	private Long idObject;
 	public ThongBao() {
 		
 	}
 	
-	public Long getIdGo() {
-		return idGo;
+	public Long getIdObject() {
+		return idObject;
 	}
 
-	public void setIdGo(Long idGo) {
-		this.idGo = idGo;
+	public void setIdObject(Long idObject) {
+		this.idObject = idObject;
 	}
 
 	public boolean isDaXem() {
@@ -74,7 +74,7 @@ public class ThongBao extends Model<ThongBao>{
 	public void saveAndRedirect(){
 		doSave();
 		String urlView = "";
-		urlView = urlView.concat("/cp/quanlyduan/"+this.idGo);
+		urlView = urlView.concat("/cp/quanlyduan/" + this.idObject);
 		Executions.getCurrent().sendRedirect(urlView);
 	}
 

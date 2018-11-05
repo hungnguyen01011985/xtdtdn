@@ -28,7 +28,6 @@ import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 import vn.toancauxanh.model.QGiaoViec;
-import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.ThongBao;
 
 public class ProcessService extends BasicService<Object> {
@@ -49,7 +48,7 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().saveNotShowNotification();
-		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao());
+		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao(), model.getGiaoViec().getNguoiGiaoViec());
 		redirectQuanLyDuAn();
 	}
 
@@ -112,7 +111,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn duAn = q.fetchOne();
 		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + model.getGiaoViec().getNguoiDuocGiao().getId() + KY_TU);
 		duAn.saveNotShowNotification();
-		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao());
+		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao(), model.getGiaoViec().getNguoiGiaoViec());
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
@@ -133,24 +132,27 @@ public class ProcessService extends BasicService<Object> {
 	
 	public void thongBaoTreCongViec(DuAn duAn) {
 		/*JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTros.contains()))*/
-		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiPhuTrach());
-		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiTao());
+		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiPhuTrach(), null);
+		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiTao(), null);
 	}
 
-	public void thongBao(DuAn duAn,LoaiThongBao loaiThongBao, NhanVien nguoiNhan) {
+	public void thongBao(DuAn duAn,LoaiThongBao loaiThongBao, NhanVien nguoiNhan, NhanVien nguoiGui) {
 		ThongBao thongBao = new ThongBao();
 		if (LoaiThongBao.TRE_CONG_VIEC.equals(loaiThongBao)) {
-			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiNhan(nguoiNhan);
+			}
 			thongBao.setNoiDung("Có tài liệu trễ hẹn");
 		}
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
 			thongBao.setNguoiNhan(nguoiNhan);
+			thongBao.setNguoiGui(nguoiGui);
 			thongBao.setNoiDung("<x:span class='text-bold-notify'>" + duAn.getNguoiPhuTrach().getHoVaTen()
 					+ " </x:span> <x:span class='text-regular-notify'>có công việc mới </x:span><x:span class='text-bold-notify'>"
 					+ duAn.getGiaoViec().getTenCongViec()
 					+ " </x:span><x:span class='text-regular-notify'>của dự án</x:span> " + duAn.getTenDuAn());
 		}
-		thongBao.setIdGo(duAn.getId());
+		thongBao.setIdObject(duAn.getId());
 		thongBao.setLoaiThongBao(loaiThongBao);
 		thongBao.saveNotShowNotification();
 	}
@@ -373,9 +375,11 @@ public class ProcessService extends BasicService<Object> {
 	public void kiemTraGiaiDoan(Execution execution, String varriable, GiaiDoanXucTien giaiDoan) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(model.getId()));
-		if (giaiDoan.equals(q.fetchOne().getGiaiDoanXucTien())) {
-			((ExecutionEntity) execution).setVariable(varriable, true);
-			return;
+		if (giaiDoan != null && q.fetchOne().getGiaiDoanXucTien() != null) {
+			if (giaiDoan.equals(q.fetchOne().getGiaiDoanXucTien())) {
+				((ExecutionEntity) execution).setVariable(varriable, true);
+				return;
+			}
 		}
 		((ExecutionEntity) execution).setVariable(varriable, false);
 	}

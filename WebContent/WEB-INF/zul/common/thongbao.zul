@@ -4,13 +4,13 @@
 		<n:ul class="box-bell" style="list-style:none;">
 			<n:li class="box-relative dropdown">
 				<n:div onclick="toggleBell()">
-					<x:image class="img-notify" href="${ctxPath}" width="18px" height="20px" src="${contexPath}/assets/icon-bxtdn/notification.svg"/>
+					<x:image class="img-notify" width="18px" height="20px" src="${contexPath}/assets/icon-bxtdn/notification.svg"/>
 					<div class="number-box">
 						<x:span>${vm.sizeNewNotify}</x:span>
 					</div>
 				</n:div>
 				<n:ul class="dropdown-menu box-dropdown-bg" style="left:auto !important; right: -20px;">
-					<div zk:children="@load(vm.targetQuery.fetch())">
+					<div zk:children="@load(vm.page(vm.targetQuery).fetch())">
 						<template name="children">
 							<x:li class="container-notify ${each.daXem ? '' : 'bg-new-notify'}" zk:onClick="@command('viewNotify', item = each)">
 								<div class="image-notify">
@@ -23,7 +23,7 @@
 										</html>
 									</div>
 									<div class="box-content-notify">
-										<x:span class="text-date-notify">14:00 - 30/08/2018</x:span>
+										<x:span class="text-date-notify">${each.ngayTao}</x:span>
 									</div>
 								</div>
 							</x:li>
