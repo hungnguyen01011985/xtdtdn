@@ -138,7 +138,7 @@
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
 					<grid id="grid" model="@load(vm.listThanhVienDoan)"
-						emptyMessage="Không có mục nào trong danh sách">
+						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:left" width="42px"/>
 							<column label="Họ và tên" style="text-align:left" width="200px" />

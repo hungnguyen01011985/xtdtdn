@@ -63,7 +63,7 @@
 	</div>
 	<div class="panel-list">
 		<grid model="@load(vm.page(vm.targetQuery).fetch())" id="grid" 
-			emptyMessage="Không có mục nào trong danh sách">
+			emptyMessage="Không có dữ liệu nào trong danh sách">
 			<columns>
 					<column label="STT" width="5%" />
 					<column label="Họ và tên"  />

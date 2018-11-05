@@ -105,7 +105,7 @@
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
 					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())" sclass="table-qldv"
-						emptyMessage="Không có mục nào trong danh sách">
+						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" width="45px"/>
 							<column label="Tên đoàn" width="180px"/>
