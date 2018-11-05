@@ -25,6 +25,23 @@
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line mg-bottom-5">
+				<div zclass="col-md-12">
+					<div zclass="form-group">
+						<div class="flex">
+							<x:span class="issue-search">Vai trò người dùng<n:small class="required"> *</n:small></x:span>
+						</div>
+						<combobox width="100%" class="hv-textbox" readonly="true" disabled="${readOnly}"
+							model="@load(vm.listLoaiVaiTro)" placeholder="-Chọn-"
+							selectedItem="@bind(vm.loaiVaiTro) @save(vm.loaiVaiTro, before='saveVaiTro') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
+							<template name="model">
+								<comboitem label="@load(each.text)" />
+							</template>
+						</combobox>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div class="col-md-12">
 					<tree multiple="true" checkmark="${!readOnly}"
 						model="@load(vm.model)" selectedItems="@bind(vm.selectedItems)">
