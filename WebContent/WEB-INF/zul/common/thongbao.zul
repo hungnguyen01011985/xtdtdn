@@ -5,11 +5,16 @@
 			<n:li class="box-relative dropdown">
 				<n:div onclick="toggleBell()">
 					<x:image class="img-notify" width="18px" height="20px" src="${contexPath}/assets/icon-bxtdn/notification.svg"/>
-					<div class="number-box">
+					<div class="number-box" if="${vm.sizeNewNotify != 0}">
 						<x:span>${vm.sizeNewNotify}</x:span>
 					</div>
 				</n:div>
+			
 				<n:ul class="dropdown-menu box-dropdown-bg" style="left:auto !important; right: -20px;">
+					<x:li class="container-notify" if="${vm.sizeNewNotify == 0}">
+						<x:span style="padding:15px">Bạn không có thông báo</x:span>
+					</x:li>
+					
 					<div zk:children="@load(vm.page(vm.targetQuery).fetch())">
 						<template name="children">
 							<x:li class="container-notify ${each.daXem ? '' : 'bg-new-notify'}" zk:onClick="@command('viewNotify', item = each)">
