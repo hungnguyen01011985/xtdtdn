@@ -14,8 +14,6 @@ import org.zkoss.util.resource.Labels;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import vn.toancauxanh.model.PhongBan;
-import vn.toancauxanh.model.QPhongBan;
 import vn.toancauxanh.model.QVaiTro;
 import vn.toancauxanh.model.VaiTro;
 

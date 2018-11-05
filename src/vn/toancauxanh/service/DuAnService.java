@@ -51,14 +51,14 @@ public class DuAnService extends BasicService<DuAn> {
 		q.orderBy(QDuAn.duAn.ngaySua.desc());
 		return q;
 	}
-	
+
 	public boolean checkView(Long idNV, String id) {
-		if(id == null || idNV == null || id.trim().isEmpty()) {
+		if (id == null || idNV == null || id.trim().isEmpty()) {
 			return false;
 		}
 		return subString(id).contains(idNV);
 	}
-	
+
 	public List<GiaiDoanXucTien> getListGiaiDoanXucTienAndNull() {
 		List<GiaiDoanXucTien> list = new ArrayList<>();
 		list.add(null);
@@ -68,9 +68,21 @@ public class DuAnService extends BasicService<DuAn> {
 		list.add(GiaiDoanXucTien.GIAI_DOAN_BON);
 		return list;
 	}
-	
+
 	@Command
 	public void reset(@BindingParam("vm") final DuAnService vm) {
 		Executions.sendRedirect("/cp/quanlyduan");
 	}
+
+	/*public List<NhanVien> getListNguoiPhuTrachAndNull() {
+		List<NhanVien> list = new ArrayList<NhanVien>();
+		list.add(null);
+		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(1l))
+				.where(QNhanVien.nhanVien.vaiTros.any().vaiTroNguoiDung.eq(VaiTroNguoiDung.VAI_TRO_CHUYEN_VIEN));
+		if (q != null) {
+			list.addAll(q.fetch());
+			return list;
+		}
+		return list;
+	}*/
 }
