@@ -14,6 +14,7 @@ import org.zkoss.util.resource.Labels;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
+import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.model.QVaiTro;
 import vn.toancauxanh.model.VaiTro;
 
@@ -49,9 +50,9 @@ public final class VaiTroService extends BasicService<VaiTro> {
 
 	public void bootstrap() {
 		if (find(VaiTro.class).fetchCount() < VaiTro.VAITRO_DEFAULTS.length) {
-			for (String vai : VaiTro.VAITRO_DEFAULTS) {
-				if(find(VaiTro.class).where(QVaiTro.vaiTro.alias.eq(vai)).fetchCount() == 0) {
-					VaiTro vaiTro = new VaiTro(Labels.getLabel("vaitro." + vai), vai);
+			for (String objVaiTro : VaiTro.VAITRO_DEFAULTS) {
+				if(find(VaiTro.class).where(QVaiTro.vaiTro.alias.eq(objVaiTro)).fetchCount() == 0) {
+					VaiTro vaiTro = new VaiTro(Labels.getLabel("vaitro." + objVaiTro), objVaiTro, LoaiVaiTro.valueOf(Labels.getLabel("loaiVaiTro." + objVaiTro)));
 					vaiTro.saveNotShowNotification();
 				}
 			}
