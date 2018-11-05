@@ -99,7 +99,7 @@
 				<div class="row">
 						<div class="col-md-12">
 							<div zclass="form-group">
-								<span>Quyết định phê duyệt</span>
+								<span class="issue-search">Quyết định phê duyệt</span>
 								<button visible="@load(empty vm.taiLieu.tenFile)" label="Chọn tài liệu" 
 									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 									onUpload="@command('uploadFileTaiLieu',medias=event.getMedia(),vm = vm, name = 'taiLieu')"
