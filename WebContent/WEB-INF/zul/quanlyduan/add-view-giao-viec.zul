@@ -15,7 +15,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Tên dự án</x:span>
 							</div>
-							<textbox class="form-control" value="@bind(vm.tenDuAn)" disabled="true"></textbox>
+							<textbox class="form-control" value="@load(vm.tenDuAn)" disabled="true"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -24,7 +24,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Giai đoạn</x:span>
 							</div>
-							<textbox class="form-control" value="@bind(vm.giaiDoanXucTien.text)" disabled="true"></textbox>
+							<textbox class="form-control" value="@load(vm.giaiDoanXucTien.text)" disabled="true"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -105,7 +105,7 @@
 							<span>Tài liệu đính kèm</span>
 							<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
+								onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
@@ -132,8 +132,8 @@
 					<div zclass="col-xs-6">
 						<div zclass="form-group right">
 							<x:button class="btn btn-blue mg-btn" onClick="@command('saveGiaoViec', wdn=wdn, list=vmArgs, attr = '*')">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-								<span>Lưu</span>
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
+								<span>Giao việc</span>
 							</x:button>
 						</div>
 					</div>

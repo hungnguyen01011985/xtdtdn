@@ -67,6 +67,10 @@
 	color: #FFFFFF;
 	line-height: 18px;
 }
+.bg-new-notify{
+	background: rgb(237, 242, 250);
+
+}
 
 .btn-grey{
 	background: #E2E5EB;
@@ -155,7 +159,7 @@
 .plan-line{
 	background: #D3D9E2;
 	height:1px;
-	width:71%;
+	width:81%;
 	position:absolute;
 	top: 34px;
 }
@@ -169,7 +173,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width:25%;
+	width:20%;
 }
 
 .plan-title{

@@ -12,6 +12,7 @@
 				<div class="box-tab-panel">
 					<n:div class="title-panel-tab" onClick="toggleTabPanel(this)">
 						<span>ĐƠN VỊ NHẬN CV ĐỀ NGHỊ SỐ ${forEachStatus.index+1}</span>
+						<x:image src="${contexPath}/assets/icon-bxtdn/arrow-up.svg"/>
 					</n:div>
 					<div class="content-tab-panel">
 						<div class="mg-and-bg-and-line-panel">
@@ -70,7 +71,6 @@
 										</div>
 									</div>
 								</idspace>
-								
 							</div>
 						</div>
 							<div class="mg-and-bg-and-line-panel">
