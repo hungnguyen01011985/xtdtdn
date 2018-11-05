@@ -14,6 +14,7 @@
 				}
 			}
 			vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT);
+			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
 		]]>
 	</zscript>
 	<div class="mg-and-bg-and-line">

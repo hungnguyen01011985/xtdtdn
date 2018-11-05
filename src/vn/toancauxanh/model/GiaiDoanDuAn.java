@@ -15,37 +15,37 @@ import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 
 @Entity
-@Table(name="giaidoanduan")
-public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
+@Table(name = "giaidoanduan")
+public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private DuAn duAn;
 	private GiaiDoanXucTien giaiDoanXucTien;
-	//Thông tin giai đoạn 1
+	// Thông tin giai đoạn 1
 	private Date ngayGui;
 	private Date ngayNhanPhanHoi;
 	private TepTin taiLieuGD1;
 	private List<DonViDuAn> donViDuAn = new ArrayList<DonViDuAn>();
-	//Thông tin giai đoạn 2
+	// Thông tin giai đoạn 2
 	private Date ngayKhaoSat;
 	private String ghiChu;
 	private TepTin taiLieuGD2;
 	private Date ngayPhatHanhCVGD2;
 	private TepTin congVanGD2;
-	//Thông tin giai đoạn 3
+	// Thông tin giai đoạn 3
 	private Date ngayGuiUBND;
 	private Date ngayGuiSoXayDung;
 	private Date ngayDuKienNhanPhanHoi;
 	private TepTin taiLieuGD3;
 	private Date ngayPhatHanhCV3;
 	private TepTin congVanGD3;
-	//Thông tin giai đoạn 4
+	// Thông tin giai đoạn 4
 	private PhuongThucLuaChonNDT phuongThucLuaChonNDT;
 	private DonViChuTri donViChuTri;
 	private boolean option = true;
-	//Lập quy hoạch chi tiết 1/500
+	// Lập quy hoạch chi tiết 1/500
 	private DonViTuVan donViTuVan;
 	private TepTin hoSoQuyHoachLQH;
 	private TepTin quyetDinhPheDuyetLQH;
-	//Lập quy hoạch chi tiết 1/2000
+	// Lập quy hoạch chi tiết 1/2000
 	private DonViTuVan donViTuVan2000;
 	private TepTin hoSoQuyHoach2000;
 	private TepTin quyetDinhPheDuyet2000;
@@ -56,31 +56,31 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	private TepTin quyetDinhPheDuyetDanhMuc;
 	private TepTin quyetDinhPheDuyetBoSungKinhPhi;
 	private TepTin phuongAnTaiDinhCu;
-	//Phương án đấu giá quyền sử dụng đất
+	// Phương án đấu giá quyền sử dụng đất
 	private TepTin phuongAnDauGia;
 	private TepTin quyetDinhPheDuyetPADG;
-	//Hồ sơ các khu đất
+	// Hồ sơ các khu đất
 	private TepTin quyetDinhDauGiaQSDD;
-	//Quyết định phê duyệt giá đất khởi điểm đấu giá
+	// Quyết định phê duyệt giá đất khởi điểm đấu giá
 	private Double giaDatKhoiDiemDauGia;
 	private TepTin quyetDinhPheDuyetGiaKhoiDiem;
-	//Đơn vị thực hiện đấu giá
+	// Đơn vị thực hiện đấu giá
 	private DonViTuVan donViThucHien;
-	//Gửi công văn đề nghị bổ sung địa điểm thực hiện dự án
+	// Gửi công văn đề nghị bổ sung địa điểm thực hiện dự án
 	private TepTin vanBanDeNghiBoSung;
 	private TepTin quyetDinhBoSungDanhMuc;
-	//Lập hồ sơ mời tuyển
+	// Lập hồ sơ mời tuyển
 	private TepTin hoSoMoiTuyen;
 	private TepTin quyetDinhPheDuyeHoSoMoiTuyen;
 	private TepTin quyetDinhPheDuyetKetQuaTrungTuyen;
-	//Lập kế hoạch và hồ sơ mời thầu lựa chọn nhà đầu tư
+	// Lập kế hoạch và hồ sơ mời thầu lựa chọn nhà đầu tư
 	private TepTin keHoachLuaChonNhaDauTu;
 	private TepTin hoSoMoiThau;
 	private TepTin quyetDinhPheDuyetMoiThau;
-	//Nhận chuyển nhượng
+	// Nhận chuyển nhượng
 	private TepTin vanBanChuyenMucDichSDD;
 	private TepTin vanBanDeNghiThuHoiDat;
-	//Giai đoạn 5
+	// Giai đoạn 5
 	private String tenCongTy;
 	private String nguoiDaiDienPhapLy;
 	private String diaChi;
@@ -90,7 +90,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	private TepTin giayChungNhanDangKyDoanhNghiep;
 	private TepTin giayChungNhanQuyenSuDungDat;
 	private TepTin taiLieuDinhKem;
-	
+
 	@ManyToOne
 	public TepTin getGiayChungNhanDauTu() {
 		return giayChungNhanDauTu;
@@ -99,7 +99,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setGiayChungNhanDauTu(TepTin giayChungNhanDauTu) {
 		this.giayChungNhanDauTu = giayChungNhanDauTu;
 	}
-	
+
 	@ManyToOne
 	public TepTin getGiayChungNhanDangKyDoanhNghiep() {
 		return giayChungNhanDangKyDoanhNghiep;
@@ -108,7 +108,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setGiayChungNhanDangKyDoanhNghiep(TepTin giayChungNhanDangKyDoanhNghiep) {
 		this.giayChungNhanDangKyDoanhNghiep = giayChungNhanDangKyDoanhNghiep;
 	}
-	
+
 	@ManyToOne
 	public TepTin getGiayChungNhanQuyenSuDungDat() {
 		return giayChungNhanQuyenSuDungDat;
@@ -117,7 +117,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setGiayChungNhanQuyenSuDungDat(TepTin giayChungNhanQuyenSuDungDat) {
 		this.giayChungNhanQuyenSuDungDat = giayChungNhanQuyenSuDungDat;
 	}
-	
+
 	@ManyToOne
 	public TepTin getTaiLieuDinhKem() {
 		return taiLieuDinhKem;
@@ -202,8 +202,8 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getTaiLieuGD1() {
-		if(this.getGiaiDoanXucTien().ordinal()==0) {
-			if(taiLieuGD1==null) {
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(this.getGiaiDoanXucTien())) {
+			if (taiLieuGD1 == null) {
 				taiLieuGD1 = new TepTin();
 			}
 		}
@@ -232,7 +232,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getTaiLieuGD2() {
-		if (this.giaiDoanXucTien.ordinal() == 1) {
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(this.giaiDoanXucTien)) {
 			if (this.taiLieuGD2 == null) {
 				this.taiLieuGD2 = new TepTin();
 			}
@@ -254,7 +254,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getCongVanGD2() {
-		if (this.giaiDoanXucTien.ordinal() == 1) {
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(this.giaiDoanXucTien)) {
 			if (this.congVanGD2 == null) {
 				this.congVanGD2 = new TepTin();
 			}
@@ -292,7 +292,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getTaiLieuGD3() {
-		if (this.giaiDoanXucTien.ordinal() == 2) {
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(this.giaiDoanXucTien)) {
 			if (this.taiLieuGD3 == null) {
 				this.taiLieuGD3 = new TepTin();
 			}
@@ -314,7 +314,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 
 	@ManyToOne
 	public TepTin getCongVanGD3() {
-		if (this.giaiDoanXucTien.ordinal() == 2) {
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(this.giaiDoanXucTien)) {
 			if (this.congVanGD3 == null) {
 				this.congVanGD3 = new TepTin();
 			}
@@ -391,7 +391,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public TepTin getPhuongAnDauGia() {
 		if (this.phuongThucLuaChonNDT != null) {
 			if (this.phuongAnDauGia == null) {
-				if (this.getPhuongThucLuaChonNDT().ordinal() == 0) {
+				if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(this.getPhuongThucLuaChonNDT())) {
 					this.phuongAnDauGia = new TepTin();
 				}
 			}
@@ -410,7 +410,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setGiaDatKhoiDiemDauGia(Double giaDatKhoiDiemDauGia) {
 		this.giaDatKhoiDiemDauGia = giaDatKhoiDiemDauGia;
 	}
-	
+
 	public boolean isOption() {
 		return option;
 	}
@@ -418,7 +418,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setOption(boolean option) {
 		this.option = option;
 	}
-	
+
 	public DonViTuVan getDonViThucHien() {
 		return donViThucHien;
 	}
@@ -510,7 +510,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setQuyetDinhThuHoiDat(TepTin quyetDinhThuHoiDat) {
 		this.quyetDinhThuHoiDat = quyetDinhThuHoiDat;
 	}
-	
+
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetDanhMuc() {
 		if (this.quyetDinhPheDuyetDanhMuc == null) {
@@ -524,7 +524,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setQuyetDinhPheDuyetDanhMuc(TepTin quyetDinhPheDuyetDanhMuc) {
 		this.quyetDinhPheDuyetDanhMuc = quyetDinhPheDuyetDanhMuc;
 	}
-	
+
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetBoSungKinhPhi() {
 		if (this.quyetDinhPheDuyetBoSungKinhPhi == null) {
@@ -538,7 +538,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setQuyetDinhPheDuyetBoSungKinhPhi(TepTin quyetDinhPheDuyetBoSungKinhPhi) {
 		this.quyetDinhPheDuyetBoSungKinhPhi = quyetDinhPheDuyetBoSungKinhPhi;
 	}
-	
+
 	@ManyToOne
 	public TepTin getPhuongAnTaiDinhCu() {
 		if (this.phuongAnTaiDinhCu == null) {
@@ -552,7 +552,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setPhuongAnTaiDinhCu(TepTin phuongAnTaiDinhCu) {
 		this.phuongAnTaiDinhCu = phuongAnTaiDinhCu;
 	}
-	
+
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetPADG() {
 		if (this.quyetDinhPheDuyetPADG == null) {
@@ -562,7 +562,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 		}
 		return quyetDinhPheDuyetPADG;
 	}
-	
+
 	@Transient
 	public boolean checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT phuongThuc) {
 		if (this.getPhuongThucLuaChonNDT() != null) {
@@ -572,11 +572,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 		}
 		return false;
 	}
-	
+
 	public void setQuyetDinhPheDuyetPADG(TepTin quyetDinhPheDuyetPADG) {
 		this.quyetDinhPheDuyetPADG = quyetDinhPheDuyetPADG;
 	}
-	
+
 	@ManyToOne
 	public TepTin getQuyetDinhDauGiaQSDD() {
 		if (this.quyetDinhDauGiaQSDD == null) {
@@ -604,7 +604,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setQuyetDinhPheDuyetGiaKhoiDiem(TepTin quyetDinhPheDuyetGiaKhoiDiem) {
 		this.quyetDinhPheDuyetGiaKhoiDiem = quyetDinhPheDuyetGiaKhoiDiem;
 	}
-	
+
 	@ManyToOne
 	public TepTin getVanBanDeNghiBoSung() {
 		if (this.vanBanDeNghiBoSung == null) {
@@ -620,7 +620,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setVanBanDeNghiBoSung(TepTin vanBanDeNghiBoSung) {
 		this.vanBanDeNghiBoSung = vanBanDeNghiBoSung;
 	}
-	
+
 	@ManyToOne
 	public TepTin getQuyetDinhBoSungDanhMuc() {
 		if (this.quyetDinhBoSungDanhMuc == null) {
@@ -706,7 +706,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setHoSoMoiThau(TepTin hoSoMoiThau) {
 		this.hoSoMoiThau = hoSoMoiThau;
 	}
-	
+
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetMoiThau() {
 		if (this.quyetDinhPheDuyetMoiThau == null) {
@@ -742,7 +742,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setVanBanChuyenMucDichSDD(TepTin vanBanChuyenMucDichSDD) {
 		this.vanBanChuyenMucDichSDD = vanBanChuyenMucDichSDD;
 	}
-	
+
 	@ManyToOne
 	public TepTin getVanBanDeNghiThuHoiDat() {
 		if (this.vanBanDeNghiThuHoiDat == null) {
@@ -756,7 +756,5 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn>{
 	public void setVanBanDeNghiThuHoiDat(TepTin vanBanDeNghiThuHoiDat) {
 		this.vanBanDeNghiThuHoiDat = vanBanDeNghiThuHoiDat;
 	}
-	
-	
-	
+
 }
