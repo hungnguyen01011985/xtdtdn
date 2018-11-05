@@ -13,6 +13,7 @@
 					}
 				}
 			}
+			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
 			vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 		]]>
 	</zscript>
