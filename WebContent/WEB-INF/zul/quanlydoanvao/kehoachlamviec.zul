@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<grid id="grid" model="@load(vm.listCongViecTemp)"
-					emptyMessage="Không có mục nào trong danh sách">
+					emptyMessage="Không có dữ liệu nào trong danh sách">
 					<columns>
 						<column label="STT" style="text-align:center" width="42px"/>
 						<column label="Nội dung công việc" style="text-align:center" />

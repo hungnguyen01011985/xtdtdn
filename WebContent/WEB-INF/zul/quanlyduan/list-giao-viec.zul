@@ -83,7 +83,7 @@
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
 				<grid id="grid" model="@load(vm.page(vm.getTargetQueryByIdDuAn(duAn.getId())).fetch())"
-					emptyMessage="Không có mục nào trong danh sách">
+					emptyMessage="Không có dữ liệu nào trong danh sách">
 					<columns>
 						<column label="STT" width="42px"/>
 						<column label="Tên công việc"/>
