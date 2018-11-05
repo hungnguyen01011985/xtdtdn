@@ -36,7 +36,7 @@
 				<div class="row">
 					<div zclass="col-lg-12">
 						<div class="title-form">
-							<span>Thông tin thêm mới</span>
+							<span>Thêm mới dự án</span>
 						</div>
 					</div>
 				</div>
@@ -73,7 +73,7 @@
 						</div>	
 						<div zclass="col-md-3">
 							<div zclass="form-group">
-								<span>Ngày BĐ xúc tiến: Từ ngày</span> 
+								<span>Ngày bắt đầu xúc tiến</span> 
 								<datebox value="@bind(vm.ngayBatDauXucTien) @save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								 width="100%" placeholder="Chọn ngày" readonly="true" class="hv-db mg-top-8" format="dd/MM/yyyy"/>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -97,7 +97,7 @@
 						</div>
 						<div zclass="col-md-3">
 							<div zclass="form-group">
-								<span>Ngày hoàn thành</span> 
+								<span>Ngày hoàn thành CV</span> 
 								<datebox value="@bind(vm.giaoViec.hanThucHien) @save(vm.giaoViec.hanThucHien, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								 width="100%" placeholder="Chọn ngày" format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" />
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -108,9 +108,8 @@
 						<div class="col-md-12">
 							<div zclass="form-group">
 								<span>Ý kiến chỉ đạo</span>
-								<textbox value="@bind(vm.giaoViec.yKienChiDao) @save(vm.giaoViec.yKienChiDao, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+								<textbox value="@bind(vm.giaoViec.yKienChiDao)"
 									class="form-control" rows="3" placeholder="Nhập ý kiến chỉ đạo" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 					</div>
