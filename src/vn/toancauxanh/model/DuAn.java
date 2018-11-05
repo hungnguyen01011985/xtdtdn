@@ -212,6 +212,7 @@ public class DuAn extends Model<DuAn> {
 		List<PhuongThucLuaChonNDT> list = new ArrayList<PhuongThucLuaChonNDT>();
 		list.add(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 		list.add(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT);
+		list.add(PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG);
 		return list;
 	}
 
@@ -338,19 +339,18 @@ public class DuAn extends Model<DuAn> {
 		if (getGiaiDoanDuAn().getPhuongThucLuaChonNDT() == null) {
 			return;
 		}
-		if (getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 0) {
+		if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
 			if (giatri) {
 				setSrcGiaiDoan4("quanlyduan/dau-gia-co.zul");
 			} else {
 				setSrcGiaiDoan4("quanlyduan/dau-gia-chua.zul");
 			}
 		}
-		if (getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() == 1) {
-			if (giatri) {
-				setSrcGiaiDoan4("quanlyduan/dau-thau-co.zul");
-			} else {
-				setSrcGiaiDoan4("quanlyduan/dau-thau-khong.zul");
-			}
+		if (PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT.equals(getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
+			setSrcGiaiDoan4("quanlyduan/dau-thau.zul");
+		}
+		if (PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG.equals(getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
+			setSrcGiaiDoan4("quanlyduan/nhan-chuyen-nhuong.zul");
 		}
 		BindUtils.postNotifyChange(null, null, duAn, "srcGiaiDoan4");
 		BindUtils.postNotifyChange(null, null, duAn, "option");

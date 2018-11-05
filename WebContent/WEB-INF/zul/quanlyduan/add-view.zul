@@ -71,15 +71,14 @@
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>	
-					
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<span>Ngày BĐ xúc tiến: Từ ngày</span> 
-							<datebox value="@bind(vm.ngayBatDauXucTien) @save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
-							 width="100%" placeholder="Chọn ngày" readonly="true" class="hv-db mg-top-8" format="dd/MM/yyyy"/>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						<div zclass="col-md-3">
+							<div zclass="form-group">
+								<span>Ngày BĐ xúc tiến: Từ ngày</span> 
+								<datebox value="@bind(vm.ngayBatDauXucTien) @save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+								 width="100%" placeholder="Chọn ngày" readonly="true" class="hv-db mg-top-8" format="dd/MM/yyyy"/>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
-					</div>
 						<div zclass="col-md-3">
 							<div zclass="form-group">
 								<span>Giai đoạn xúc tiến</span> 
@@ -121,7 +120,7 @@
 								<span>Quyết định phê duyệt</span>
 								<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
 									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-									onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
+									onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
 								<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">

@@ -52,7 +52,7 @@
 		</div>
 		
 		<div style="display:flex;">
-			<include instant="true" src="/WEB-INF/zul/common/thongbao.zul" />
+			<include instant="true" src="/WEB-INF/zul/common/thongbao.zul" style="z-index:1799;"/>
 			
 			<div viewModel="@id('vm') @init(nhanVien)">
 				<n:ul class="nav box-user-fm">
