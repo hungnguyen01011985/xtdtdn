@@ -62,10 +62,11 @@ public class VaiTro extends Model<VaiTro> {
 		super();
 	}
 
-	public VaiTro(String ten, String quyen) {
+	public VaiTro(String ten, String quyen, LoaiVaiTro loaiVaiTro) {
 		super();
 		tenVaiTro = ten;
 		setAlias(quyen.trim());
+		this.loaiVaiTro = loaiVaiTro;
 	}
 
 	public int getSoThuTu() {
