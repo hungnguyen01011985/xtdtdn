@@ -55,7 +55,9 @@ CREATE TABLE IF NOT EXISTS `capdonvi` (
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKj8f045crwo3qj1iro2juw73no` (`nguoiSua_id`),
-  KEY `FKlwu9xeremec3qfux5rk19v7yp` (`nguoiTao_id`)
+  KEY `FKlwu9xeremec3qfux5rk19v7yp` (`nguoiTao_id`),
+  CONSTRAINT `FKj8f045crwo3qj1iro2juw73no` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKlwu9xeremec3qfux5rk19v7yp` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.capdonvi: ~2 rows (approximately)
@@ -247,9 +249,13 @@ CREATE TABLE IF NOT EXISTS `donviduan` (
   KEY `FKguhew035fr9due90afktyhejr` (`congVanGiaiThich_id`),
   KEY `FKv6emym9npdf5o3gawpcc07a2` (`congVanTraLoi_id`),
   KEY `FK63kkomy32teak8w3ieftmuw7m` (`giaiDoanDuAn_id`),
+  KEY `FKg4a0kg9p53caenhnnbidwspcr` (`capDonVi_id`),
+  KEY `FKdmpqrxwobc7q32b3uur1v9qds` (`donVi_id`),
   CONSTRAINT `FK496c3my4hb98cnl5v66mfuirj` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`),
   CONSTRAINT `FK63kkomy32teak8w3ieftmuw7m` FOREIGN KEY (`giaiDoanDuAn_id`) REFERENCES `giaidoanduan` (`id`),
+  CONSTRAINT `FKdmpqrxwobc7q32b3uur1v9qds` FOREIGN KEY (`donVi_id`) REFERENCES `donvixuctien` (`id`),
   CONSTRAINT `FKdrs18gr9q794gjd8klsqnssi7` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKg4a0kg9p53caenhnnbidwspcr` FOREIGN KEY (`capDonVi_id`) REFERENCES `capdonvi` (`id`),
   CONSTRAINT `FKguhew035fr9due90afktyhejr` FOREIGN KEY (`congVanGiaiThich_id`) REFERENCES `teptin` (`id`),
   CONSTRAINT `FKv6emym9npdf5o3gawpcc07a2` FOREIGN KEY (`congVanTraLoi_id`) REFERENCES `teptin` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -301,7 +307,10 @@ CREATE TABLE IF NOT EXISTS `donvixuctien` (
   PRIMARY KEY (`id`),
   KEY `FKrhoiq8ydfovah5571ml26eqys` (`nguoiSua_id`),
   KEY `FK10mbxstuk5l7c2pp4bsi8gdbx` (`nguoiTao_id`),
-  KEY `FKdxo42sukdy01pmuf6y8xhx2ec` (`capDonVi_id`)
+  KEY `FKdxo42sukdy01pmuf6y8xhx2ec` (`capDonVi_id`),
+  CONSTRAINT `FK10mbxstuk5l7c2pp4bsi8gdbx` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKdxo42sukdy01pmuf6y8xhx2ec` FOREIGN KEY (`capDonVi_id`) REFERENCES `capdonvi` (`id`),
+  CONSTRAINT `FKrhoiq8ydfovah5571ml26eqys` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.donvixuctien: ~32 rows (approximately)
@@ -1294,7 +1303,7 @@ DELETE FROM `vaitro`;
 /*!40000 ALTER TABLE `vaitro` DISABLE KEYS */;
 INSERT INTO `vaitro` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `alias`, `checkKichHoat`, `loaiVaiTro`, `soThuTu`, `tenVaiTro`, `nguoiSua_id`, `nguoiTao_id`) VALUES
 	(1, b'0', '2018-11-05 15:54:45', '2018-11-05 15:34:37', 'ap_dung', 'quantrihethong', b'0', 'VAI_TRO_LANH_DAO', 0, 'Quản trị hệ thống', 1, 1),
-	(2, b'0', '2018-11-05 15:54:00', '2018-11-05 15:34:37', 'ap_dung', 'chuyenvien', b'0', 'VAI_TRO_CHUYEN_VIEN', 0, 'Chuyên viên', 1, 1),
+	(2, b'0', '2018-11-05 19:50:17', '2018-11-05 15:34:37', 'ap_dung', 'chuyenvien', b'0', 'VAI_TRO_CHUYEN_VIEN', 0, 'Chuyên viên', 1, 1),
 	(3, b'0', '2018-11-05 15:54:42', '2018-11-05 15:34:37', 'ap_dung', 'lanhdao', b'0', 'VAI_TRO_LANH_DAO', 0, 'Lãnh đạo', 1, 1),
 	(4, b'0', '2018-11-05 15:54:22', '2018-11-05 15:34:37', 'ap_dung', 'truongphong', b'0', 'VAI_TRO_TRUONG_PHONG', 0, 'Trưởng phòng', 1, 1);
 /*!40000 ALTER TABLE `vaitro` ENABLE KEYS */;
@@ -1308,7 +1317,7 @@ CREATE TABLE IF NOT EXISTS `vaitro_quyens` (
   CONSTRAINT `FKqldf0fggg0f8sc37im018c5ti` FOREIGN KEY (`vaitro_id`) REFERENCES `vaitro` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.vaitro_quyens: ~87 rows (approximately)
+-- Dumping data for table bxtdtdn.vaitro_quyens: ~84 rows (approximately)
 DELETE FROM `vaitro_quyens`;
 /*!40000 ALTER TABLE `vaitro_quyens` DISABLE KEYS */;
 INSERT INTO `vaitro_quyens` (`vaitro_id`, `quyens`) VALUES
@@ -1340,15 +1349,12 @@ INSERT INTO `vaitro_quyens` (`vaitro_id`, `quyens`) VALUES
 	(2, 'vaitro:xem'),
 	(2, 'vaitro:them'),
 	(2, 'vaitro:xoa'),
-	(2, 'quanlyduan:giaoviec'),
 	(2, 'quanlyduan:sua'),
 	(2, 'vaitro:sua'),
 	(2, 'quanlyduan:xoa'),
 	(2, 'quanlyduan:lietke'),
 	(2, 'quanlyduan:them'),
-	(2, 'quanlyduan:nhacnho'),
 	(2, 'quanlyduan:xem'),
-	(2, 'quanlyduan'),
 	(3, 'vaitro:tim'),
 	(3, 'quanlyduan:xem'),
 	(3, 'vaitro:xem'),
