@@ -1,35 +1,45 @@
 package vn.toancauxanh.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.zkoss.bind.BindUtils;
+
+import com.querydsl.jpa.impl.JPAQuery;
 
 @Entity
 @Table(name="donviduan")
 public class DonViDuAn extends Model<DonViDuAn>{
-	private String capDonVi;
-	private String donVi;
+	private CapDonVi capDonVi;
+	private DonViXucTien donVi;
 	private Date ngayNhanTraLoi;
 	private TepTin congVanTraLoi = new TepTin();
 	private Date ngayNhanGiaiThich;
 	private TepTin congVanGiaiThich = new TepTin();
 	private GiaiDoanDuAn giaiDoanDuAn;
 	
-	public String getCapDonVi() {
+	@ManyToOne
+	public CapDonVi getCapDonVi() {
 		return capDonVi;
 	}
 
-	public void setCapDonVi(String capDonVi) {
+	public void setCapDonVi(CapDonVi capDonVi) {
 		this.capDonVi = capDonVi;
+		BindUtils.postNotifyChange(null, null, this, "listDonViXucTien");
 	}
 
-	public String getDonVi() {
+	@ManyToOne
+	public DonViXucTien getDonVi() {
 		return donVi;
 	}
 
-	public void setDonVi(String donVi) {
+	public void setDonVi(DonViXucTien donVi) {
 		this.donVi = donVi;
 	}
 
@@ -76,4 +86,22 @@ public class DonViDuAn extends Model<DonViDuAn>{
 		this.giaiDoanDuAn = giaiDoanDuAn;
 	}
 	
+	@Transient
+	public List<CapDonVi> getListCapDonVi() {
+		List<CapDonVi> list = new ArrayList<CapDonVi>();
+		JPAQuery<CapDonVi> q = find(CapDonVi.class);
+		list.addAll(q.fetch());
+		return list;
+	}
+	
+	@Transient
+	public List<DonViXucTien> getListDonViXucTien() {
+		List<DonViXucTien> list = new ArrayList<DonViXucTien>();
+		JPAQuery<DonViXucTien> q = find(DonViXucTien.class);
+		if (capDonVi != null) {
+			q.where(QDonViXucTien.donViXucTien.capDonVi.eq(capDonVi));
+		}
+		list.addAll(q.fetch());
+		return list;
+	}
 }

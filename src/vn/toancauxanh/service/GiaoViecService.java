@@ -23,7 +23,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		Long id = MapUtils.getLongValue(argDeco(), "nguoiPhuTrach" , 0);
 		String trangThai = MapUtils.getString(argDeco(), "trangThai", "");
 		JPAQuery<GiaoViec> q = find(GiaoViec.class)
-				.where(QGiaoViec.giaoViec.nguoiDuocGiao.eq(core().getNhanVien()).or(QGiaoViec.giaoViec.nguoiGiaoViec.eq(core().getNhanVien())))
+				/*.where(QGiaoViec.giaoViec.nguoiDuocGiao.eq(core().getNhanVien()).or(QGiaoViec.giaoViec.nguoiGiaoViec.eq(core().getNhanVien())))*/
 				.where(QGiaoViec.giaoViec.trangThai.ne(core().TT_DA_XOA))
 				.where(QGiaoViec.giaoViec.duAn.id.eq(idDuAn));
 		if (tuKhoa != null) {
@@ -33,7 +33,6 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 			q.where(QGiaoViec.giaoViec.nguoiDuocGiao.id.eq(id));
 		}
 		if (!trangThai.isEmpty()) {
-			System.out.println("zo");
 			q.where(QGiaoViec.giaoViec.trangThaiGiaoViec.eq(TrangThaiGiaoViec.valueOf(trangThai)));
 		}
 		q.orderBy(QGiaoViec.giaoViec.ngaySua.desc());

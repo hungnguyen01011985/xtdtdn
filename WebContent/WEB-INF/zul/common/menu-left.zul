@@ -31,7 +31,7 @@
 						<x:span class="text-menu">Quản lý đoàn vào</x:span>
 					</n:a>
 				</n:li> -->
-				<n:li class="${resource eq 'quanlyduan' ? 'active-heder-li flex' : 'flex'}">
+				<n:li class="${resource eq 'quanlyduan' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlyduan_lietke}">
 					<n:a href="${execution.contextPath}/cp/quanlyduan">
 						<x:span class="img-menu qlda" zk:if="${resource ne 'quanlyduan'}"></x:span>
 						<x:span class="img-menu qlda" zk:if="${resource eq 'quanlyduan'}"></x:span>
@@ -45,8 +45,8 @@
 						<x:span class="text-menu">Báo cáo thống kê</x:span>
 					</n:a>
 				</n:li> -->
-				<n:li class="${resource eq 'phongban' ? 'active-heder-li flex' : 'flex'}">
-					<n:a href="${execution.contextPath}/cp/phongban">
+				<n:li class="${resource eq 'phongban' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke}">
+					<n:a href="${execution.contextPath}/cp/${resource ne null ? 'phongban' : resource}">
 						<x:span class="img-menu qlht" zk:if="${resource ne 'phongban'}"></x:span>
 						<x:span class="img-menu qlht" zk:if="${resource eq 'phongban'}"></x:span>
 						<x:span class="text-menu">Quản trị hệ thống</x:span>

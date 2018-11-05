@@ -70,7 +70,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
 		if (result) {
-			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanHaiHopLe", !result);
 	}
@@ -144,8 +144,14 @@ public class ProcessService extends BasicService<Object> {
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
 			}
+			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanXucTien())) {
+				thongBao.setNoiDung("Có công văn đề nghị trễ hạn");
+			}
+			if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(duAn.getGiaiDoanXucTien())) {
+				thongBao.setNoiDung("Có công văn xin chủ trương trễ hạn");
+			}
 			thongBao.setNguoiNhan(nguoiNhan);
-			thongBao.setNoiDung("Có tài liệu trễ hẹn");
+			
 		}
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
 			thongBao.setNguoiNhan(nguoiNhan);
@@ -164,7 +170,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
 		if (result) {
-			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBaHopLe", !result);
 	}
@@ -173,7 +179,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
 		if (result) {
-			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanHaiVaKetThucDuAn", !result);
 	}
@@ -206,7 +212,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
 		if (result) {
-			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBonHopLe", !result);
 	}
@@ -233,7 +239,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
 		if (result) {
-			showNotification("Thông báo", "Công việc chưa được hoàn thành", "danger");
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
 		}
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", !result);
 	}*/
@@ -253,8 +259,8 @@ public class ProcessService extends BasicService<Object> {
 	}
 
 	private void saveTaiLieuDauGia(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetPADG().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getQuyetDinhDauGiaQSDD().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGiaKhoiDiem().saveNotShowNotification();
@@ -314,7 +320,7 @@ public class ProcessService extends BasicService<Object> {
 	
 	public void luuDuLieuKetThucDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().equals(GiaiDoanXucTien.GIAI_DOAN_HAI)) {
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 			model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 			model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
@@ -477,5 +483,8 @@ public class ProcessService extends BasicService<Object> {
 		return result;
 	}
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 1b97ac423899df72d63a657b766f979986cedd2c
 }

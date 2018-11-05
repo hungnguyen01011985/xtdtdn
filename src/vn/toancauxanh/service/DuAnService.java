@@ -55,9 +55,15 @@ public class DuAnService extends BasicService<DuAn> {
 		return q;
 	}
 
-	public boolean checkView(Long idNV, String id) {
+	public boolean checkView(Long idNV, String id, GiaiDoanXucTien giaiDoanXucTien, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
 		if (id == null || idNV == null || id.trim().isEmpty()) {
 			return false;
+		}
+		if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(giaiDoanXucTien)) {
+			return false;
+		}
+		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
+			return true;
 		}
 		return subString(id).contains(idNV);
 	}
@@ -88,4 +94,16 @@ public class DuAnService extends BasicService<DuAn> {
 		}
 		return list;
 	}
+	
+	public List<NhanVien> getListNguoiPhuTrach() {
+		List<NhanVien> list = new ArrayList<NhanVien>();
+		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(1l))
+				.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN));
+		if (q != null) {
+			list.addAll(q.fetch());
+			return list;
+		}
+		return list;
+	}
+	
 }
