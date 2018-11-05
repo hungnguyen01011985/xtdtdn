@@ -90,8 +90,8 @@ public class DonViDuAn extends Model<DonViDuAn>{
 	public List<CapDonVi> getListCapDonVi() {
 		List<CapDonVi> list = new ArrayList<CapDonVi>();
 		JPAQuery<CapDonVi> q = find(CapDonVi.class);
-		list.addAll(q.fetch());
 		q.orderBy(QCapDonVi.capDonVi.ten.desc());
+		list.addAll(q.fetch());
 		return list;
 	}
 	
