@@ -300,6 +300,10 @@ public class Entry extends BaseObject<Object> {
 	public final PhongBanService getPhongBans() {
 		return new PhongBanService();
 	}
+	
+	public final DuAnService getDuAns(){
+		return new DuAnService();
+	}
 
 	public final DoanVaoService getDoanVaos() {
 		return new DoanVaoService();

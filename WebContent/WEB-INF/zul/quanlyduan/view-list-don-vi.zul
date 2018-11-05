@@ -20,16 +20,23 @@
 								<div zclass="col-md-3">
 									<div zclass="form-group title-small-textbox">
 										<span>Cấp đơn vị</span>
-										<textbox class="form-control" maxlength="255" value="@bind(each.capDonVi) @save(each.capDonVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
-										<label zclass="error"
-											value="@load(vmsgs[self.previousSibling])" />
+										<combobox readonly="true" model="@load(each.listCapDonVi)" selectedItem="@bind(each.capDonVi)"
+											value="@load(each.capDonVi.ten)" class="his" placeholder="Chọn cấp đơn vị" width="100%">
+											<template name="model">
+												<comboitem label="@load(each.ten)"></comboitem>
+											</template>
+										</combobox>
+										<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 									</div>
 								</div>
 								<div zclass="col-md-3">
 									<div zclass="form-group title-small-textbox">
 										<span>Đơn vị</span>
-										<combobox readonly="true" class="his"
-											placeholder="Chọn đơn vị" width="100%">
+										<combobox readonly="true" model="@load(each.listDonViXucTien)" selectedItem="@bind(each.donVi)" class="his"
+											placeholder="Chọn đơn vị xúc tiến" width="100%">
+											<template name="model">
+												<comboitem label="@load(each.ten)"></comboitem>
+											</template>
 										</combobox>
 									</div>
 								</div>
