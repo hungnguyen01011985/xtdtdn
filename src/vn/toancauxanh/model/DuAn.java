@@ -311,6 +311,9 @@ public class DuAn extends Model<DuAn> {
 		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(getGiaiDoanXucTien())) {
 			return "quanlyduan/giaidoan4.zul";
 		}
+		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(getGiaiDoanXucTien())) {
+			return "quanlyduan/giaidoan5.zul";
+		}
 		return null;
 	}
 

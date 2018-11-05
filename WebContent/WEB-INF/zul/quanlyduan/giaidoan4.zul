@@ -96,7 +96,7 @@
 					</x:button>
 				</div>
 				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
-					<x:button onClick="@command('goNext', task = 'task_ketThucDuAn')"
+					<x:button onClick="@command('goNext', task = 'task_luuDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam')"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tiep-tuc.svg"/>
 						<span>Tiếp tục</span>
