@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `donvixuctien` (
   KEY `FKdxo42sukdy01pmuf6y8xhx2ec` (`capDonVi_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.donvixuctien: ~9 rows (approximately)
+-- Dumping data for table bxtdtdn.donvixuctien: ~32 rows (approximately)
 DELETE FROM `donvixuctien`;
 /*!40000 ALTER TABLE `donvixuctien` DISABLE KEYS */;
 INSERT INTO `donvixuctien` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `moTa`, `ten`, `nguoiSua_id`, `nguoiTao_id`, `capDonVi_id`) VALUES
@@ -351,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `duan` (
   `ngayTao` datetime DEFAULT NULL,
   `trangThai` varchar(255) DEFAULT NULL,
   `diaDiem` varchar(255) DEFAULT NULL,
-  `dienTichSuDungDat` int(11) NOT NULL,
+  `dienTichSuDungDat` varchar(50) NOT NULL,
   `giaiDoanXucTien` varchar(255) DEFAULT NULL,
   `idNguoiLienQuan` varchar(255) DEFAULT NULL,
   `khaNangDauTu` varchar(255) DEFAULT NULL,
@@ -361,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `duan` (
   `ngayBatDauXucTien` datetime DEFAULT NULL,
   `quyMoDuAn` varchar(255) DEFAULT NULL,
   `tenDuAn` varchar(255) DEFAULT NULL,
-  `tongVonDauTu` double NOT NULL,
+  `tongVonDauTu` varchar(50) NOT NULL,
   `nguoiSua_id` bigint(20) DEFAULT NULL,
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   `linhVuc_id` bigint(20) DEFAULT NULL,
@@ -400,7 +400,7 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   `donViTuVan2000` int(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `ghiChu` varchar(255) DEFAULT NULL,
-  `giaDatKhoiDiemDauGia` double DEFAULT NULL,
+  `giaDatKhoiDiemDauGia` varchar(50) DEFAULT NULL,
   `giaiDoanXucTien` int(11) DEFAULT NULL,
   `ngayDuKienNhanPhanHoi` datetime DEFAULT NULL,
   `ngayGui` datetime DEFAULT NULL,
