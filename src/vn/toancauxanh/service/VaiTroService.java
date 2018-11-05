@@ -49,11 +49,10 @@ public final class VaiTroService extends BasicService<VaiTro> {
 	}
 
 	public void bootstrap() {
-		System.out.println(Labels.getLabel("loaiVaiTro.quantrihethong"));
 		if (find(VaiTro.class).fetchCount() < VaiTro.VAITRO_DEFAULTS.length) {
-			for (String vai : VaiTro.VAITRO_DEFAULTS) {
-				if(find(VaiTro.class).where(QVaiTro.vaiTro.alias.eq(vai)).fetchCount() == 0) {
-					VaiTro vaiTro = new VaiTro(Labels.getLabel("vaitro." + vai), vai, LoaiVaiTro.valueOf(Labels.getLabel("loaiVaiTro." + vai)));
+			for (String objVaiTro : VaiTro.VAITRO_DEFAULTS) {
+				if(find(VaiTro.class).where(QVaiTro.vaiTro.alias.eq(objVaiTro)).fetchCount() == 0) {
+					VaiTro vaiTro = new VaiTro(Labels.getLabel("vaitro." + objVaiTro), objVaiTro, LoaiVaiTro.valueOf(Labels.getLabel("loaiVaiTro." + objVaiTro)));
 					vaiTro.saveNotShowNotification();
 				}
 			}
