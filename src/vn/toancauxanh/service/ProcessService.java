@@ -19,6 +19,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
+import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.DuAn;
@@ -28,6 +29,7 @@ import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 import vn.toancauxanh.model.QGiaoViec;
+import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.ThongBao;
 
 public class ProcessService extends BasicService<Object> {
@@ -131,17 +133,18 @@ public class ProcessService extends BasicService<Object> {
 	}
 	
 	public void thongBaoTreCongViec(DuAn duAn) {
-		/*JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTros.contains()))*/
+		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_LANH_DAO).or(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)));
+		q.fetch().forEach(item -> thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, item, null));
 		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiPhuTrach(), null);
-		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiTao(), null);
 	}
 
 	public void thongBao(DuAn duAn,LoaiThongBao loaiThongBao, NhanVien nguoiNhan, NhanVien nguoiGui) {
 		ThongBao thongBao = new ThongBao();
 		if (LoaiThongBao.TRE_CONG_VIEC.equals(loaiThongBao)) {
 			if (nguoiGui != null) {
-				thongBao.setNguoiNhan(nguoiNhan);
+				thongBao.setNguoiGui(nguoiGui);
 			}
+			thongBao.setNguoiNhan(nguoiNhan);
 			thongBao.setNoiDung("Có tài liệu trễ hẹn");
 		}
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
@@ -323,6 +326,9 @@ public class ProcessService extends BasicService<Object> {
 			}
 			if (PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT.equals(model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
 				saveTaiLieuDauThau(model);
+			}
+			if (PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG.equals(model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
+				saveTaiLieuNhanChuyenNhuong(model);
 			}
 		}
 		model.saveNotShowNotification();
