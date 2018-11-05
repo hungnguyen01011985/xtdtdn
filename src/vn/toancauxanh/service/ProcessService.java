@@ -147,7 +147,7 @@ public class ProcessService extends BasicService<Object> {
 			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanXucTien())) {
 				thongBao.setNoiDung("Có công văn đề nghị trễ hạn");
 			}
-			if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(duAn.getGiaiDoanXucTien())) {
+			if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(duAn.getGiaiDoanXucTien())) {
 				thongBao.setNoiDung("Có công văn xin chủ trương trễ hạn");
 			}
 			thongBao.setNguoiNhan(nguoiNhan);
@@ -234,15 +234,6 @@ public class ProcessService extends BasicService<Object> {
 	public void validateDuLieuGiaiDoanBon(Execution execution) {
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBonHopLe", true);
 	}
-
-/*	public void validateDuLieuGiaiDoanBonVaKetThucDuAn(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		boolean result = kiemTraCongViecHoanThanh(model);
-		if (result) {
-			showNotification("", "Công việc chưa được hoàn thành", "danger");
-		}
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", !result);
-	}*/
 
 	public void luuDuLieuGiaiDoanBon(Execution execution) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
@@ -338,8 +329,6 @@ public class ProcessService extends BasicService<Object> {
 		redirectList();
 	}
 	
-	//a
-
 	public void validateDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
@@ -382,10 +371,10 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaiDoanDuAn().getGiayChungNhanDangKyDoanhNghiep().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getGiayChungNhanQuyenSuDungDat().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getTaiLieuDinhKem().saveNotShowNotification();
+		model.saveNotShowNotification();
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_NAM, null, null);
 	}
 	
-	//b
 	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan, Date ngay) {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		duAn.getTaiLieuNDT().saveNotShowNotification();
@@ -393,8 +382,8 @@ public class ProcessService extends BasicService<Object> {
 		duAn.getGiaiDoanDuAn().setDuAn(duAn);
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
-		if (ngay != null) {
-			((ExecutionEntity) execution).setVariable(thoiHan, (Date) duAn.getNgayBatDauXucTien());
+		if (ngay != null && thoiHan != null && !thoiHan.isEmpty()) {
+			((ExecutionEntity) execution).setVariable(thoiHan, (Date) ngay);
 		}
 		redirectGiaiDoanDuAnById(duAn.getId());
 		showNotification("", "Cập nhật thành công", "success");
@@ -482,9 +471,4 @@ public class ProcessService extends BasicService<Object> {
 		}
 		return result;
 	}
-	
-<<<<<<< HEAD
-	
-=======
->>>>>>> 1b97ac423899df72d63a657b766f979986cedd2c
 }

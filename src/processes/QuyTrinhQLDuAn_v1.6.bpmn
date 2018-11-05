@@ -123,7 +123,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_09xuq9k" sourceRef="UserTask_0jquzxa" targetRef="ExclusiveGateway_0t089n7" />
     <bpmn:sequenceFlow id="SequenceFlow_1utc2rn" name="Tiếp tục giai đoạn năm" sourceRef="ExclusiveGateway_0t089n7" targetRef="ServiceTask_1mhrn6z">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">task_luuDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_11jvphj" sourceRef="ExclusiveGateway_0t089n7" targetRef="UserTask_0e1zhv0">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_nguoiPhuTrach'}</bpmn:conditionExpression>
@@ -1062,7 +1062,7 @@
         <di:waypoint x="5174" y="367" />
         <di:waypoint x="5174" y="276" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="5187" y="298" width="60" height="27" />
+          <dc:Bounds x="5174" y="298" width="86" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_0jquzxa_di" bpmnElement="UserTask_0jquzxa">

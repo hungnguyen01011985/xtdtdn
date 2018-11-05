@@ -2,7 +2,20 @@
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd">
 	<zscript>
 		<![CDATA[
+		    if (vm.getGiaiDoanDuAn().getGiayChungNhanDauTu() == null) {
+		    	vm.getGiaiDoanDuAn().setGiayChungNhanDauTu(new vn.toancauxanh.model.TepTin());
+		    }
+		    if (vm.getGiaiDoanDuAn().getGiayChungNhanDangKyDoanhNghiep() == null ) {
+		    	vm.getGiaiDoanDuAn().setGiayChungNhanDangKyDoanhNghiep(new vn.toancauxanh.model.TepTin());
+		    }
+		    if (vm.getGiaiDoanDuAn().getGiayChungNhanQuyenSuDungDat() == null) {
+		    	vm.getGiaiDoanDuAn().setGiayChungNhanQuyenSuDungDat(new vn.toancauxanh.model.TepTin());
+		    }
+		    if (vm.getGiaiDoanDuAn().getTaiLieuDinhKem() == null) {
+		    	vm.getGiaiDoanDuAn().setTaiLieuDinhKem(new vn.toancauxanh.model.TepTin());
+		    }
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_NAM);
+			
 		]]>
 	</zscript>
 	<div> 
@@ -67,21 +80,21 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
 							<span>Tên công ty</span>
-							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.tenCongTy)"></textbox>
+							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.tenCongTy) @save(vm.giaiDoanDuAn.tenCongTy, before={'goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
 							<span>Người đại diện pháp lý</span>
-							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.nguoiDaiDienPhapLy)"></textbox>
+							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.nguoiDaiDienPhapLy) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
 							<span>Địa chỉ</span>
-							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.diaChi)"></textbox>
+							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -90,14 +103,14 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
 							<span>Số điện thoại</span>
-							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.soDienThoai)"></textbox>
+							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
 							<span>Email</span>
-							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.email)"></textbox>
+							<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -146,7 +159,7 @@
 							<span>Giấy chứng nhận quyền sử dụng đất</span>
 							<button visible="@load(empty vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanQuyenSuDungDat')"
+								onUpload="@command('uploadFile',medias= event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanQuyenSuDungDat')"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
