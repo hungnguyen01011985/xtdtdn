@@ -55,7 +55,7 @@
 									<div zclass="form-group">
 										<span>Ngày nhận</span>
 										<datebox format="dd/MM/yyyy" readonly="true" class="hv-db"
-											value="@bind(each.ngayNhanTraLoi)" width="100%" placeholder="Chọn ngày"/>
+											value="@bind(each.ngayNhanTraLoi) @save(each.ngayNhanTraLoi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
 									</div>
 								</div>
 								<idspace>
@@ -93,7 +93,7 @@
 										<div zclass="form-group">
 											<span>Ngày nhận</span>
 											<datebox format="dd/MM/yyyy" readonly="true" class="hv-db"
-												value="@bind(each.ngayNhanGiaiThich)" width="100%"
+												value="@bind(each.ngayNhanGiaiThich) @save(each.ngayNhanGiaiThich, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%"
 												placeholder="Chọn ngày"/>
 										</div>
 									</div>

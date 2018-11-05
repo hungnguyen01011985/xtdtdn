@@ -90,6 +90,7 @@ public class DuAnService extends BasicService<DuAn> {
 	}
 	
 	public List<NhanVien> getListNguoiPhuTrach() {
+		System.out.println("zoooooo");
 		List<NhanVien> list = new ArrayList<NhanVien>();
 		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(1l))
 				.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN));

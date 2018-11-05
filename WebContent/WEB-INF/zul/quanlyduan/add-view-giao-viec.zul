@@ -44,7 +44,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Người được giao</x:span>
 							</div>
-							<combobox model="@load(entry.nhanViens.tacGias)"
+							<combobox model="@load(entry.duAns.listNguoiPhuTrach)"
 								readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.giaoViec.nguoiDuocGiao)" placeholder="Chọn người"
 								value="@load(vm.giaoViec.nguoiDuocGiao.hoVaTen) @save(vm.giaoViec.nguoiDuocGiao.hoVaTen, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
 								<template name="model">
