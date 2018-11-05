@@ -30,7 +30,7 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Người được giao</span> 
-							<combobox model="@load(entry.nhanViens.tacGias)"
+							<combobox model="@load(entry.duAns.listNguoiPhuTrachAndNull)"
 								readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.arg.nguoiPhuTrach)" placeholder="Chọn người">
 								<template name="model">
 									<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>

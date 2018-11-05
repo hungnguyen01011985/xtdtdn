@@ -62,7 +62,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	// Hồ sơ các khu đất
 	private TepTin quyetDinhDauGiaQSDD;
 	// Quyết định phê duyệt giá đất khởi điểm đấu giá
-	private Double giaDatKhoiDiemDauGia;
+	private long giaDatKhoiDiemDauGia;
 	private TepTin quyetDinhPheDuyetGiaKhoiDiem;
 	// Đơn vị thực hiện đấu giá
 	private DonViTuVan donViThucHien;
@@ -403,11 +403,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		this.phuongAnDauGia = phuongAnDauGia;
 	}
 
-	public Double getGiaDatKhoiDiemDauGia() {
+	public long getGiaDatKhoiDiemDauGia() {
 		return giaDatKhoiDiemDauGia;
 	}
 
-	public void setGiaDatKhoiDiemDauGia(Double giaDatKhoiDiemDauGia) {
+	public void setGiaDatKhoiDiemDauGia(long giaDatKhoiDiemDauGia) {
 		this.giaDatKhoiDiemDauGia = giaDatKhoiDiemDauGia;
 	}
 
