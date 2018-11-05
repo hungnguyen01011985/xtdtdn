@@ -99,7 +99,16 @@ body  {
 .wd-header.navbar-default .navbar-nav > li:hover {
 	opacity: 1;
 }
-
+.notify-nothing{
+	margin: 0 auto;
+}
+.notify-nothing span{
+	font-family: Roboto-Regular;
+    font-size: 13px;
+    color: #888888;
+    letter-spacing: 0;
+    line-height: 16px;
+}
 .wd-header.navbar-default .navbar-nav > li.open a.dropdown-toggle,
 .wd-header.navbar-default .navbar-nav > li > a:hover,.wd-header .navbar-default .navbar-nav > li > a:focus,
 .wd-header.navbar-default .navbar-nav>.active>a,.wd-header.navbar-default .navbar-nav>.active>a:hover,.wd-header.navbar-default .navbar-nav>.active>a:focus {

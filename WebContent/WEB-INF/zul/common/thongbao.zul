@@ -12,7 +12,7 @@
 			
 				<n:ul class="dropdown-menu box-dropdown-bg" style="left:auto !important; right: -20px;">
 					<x:li class="container-notify" if="${vm.targetQuery.fetch().size() == 0}">
-						<x:span style="padding:15px">Bạn không có thông báo</x:span>
+						<x:span class="notify-nothing">Bạn không có thông báo</x:span>
 					</x:li>
 					
 					<div zk:children="@load(vm.page(vm.targetQuery).fetch())">

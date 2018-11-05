@@ -96,15 +96,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-						<div class="col-md-12">
-							<div zclass="form-group">
-								<span>Quyết định phê duyệt</span>
-								<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieu.tenFile)">
-									<label class="txt-link-tailieu" value="@bind(vm.taiLieu.tenFile)"/>
-								</div>
+				<div class="row" visible="@load(not empty vm.taiLieu.tenFile)">
+					<div class="col-md-12">
+						<div zclass="form-group">
+							<x:span class="issue-search">Quyết định phê duyệt</x:span>
+							<div class="flex mg-btn-top" >
+								<label class="txt-link-tailieu" value="@bind(vm.taiLieu.tenFile)"/>
 							</div>
 						</div>
+					</div>
 				</div>
 			</div>
 			<div class="mg-and-bg-and-line">

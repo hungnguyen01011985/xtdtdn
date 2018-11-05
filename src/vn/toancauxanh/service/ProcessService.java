@@ -316,7 +316,7 @@ public class ProcessService extends BasicService<Object> {
 			model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
 		}
-		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().equals(GiaiDoanXucTien.GIAI_DOAN_NAM)) {
+		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 			model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
 			model.getGiaiDoanDuAn().getGiayChungNhanDauTu().saveNotShowNotification();
 			model.getGiaiDoanDuAn().getGiayChungNhanDangKyDoanhNghiep().saveNotShowNotification();
@@ -326,6 +326,7 @@ public class ProcessService extends BasicService<Object> {
 		model.saveNotShowNotification();
 		model.getGiaiDoanDuAn().setDuAn(model);
 		model.getGiaiDoanDuAn().saveNotShowNotification();
+		showNotification("", "Cập nhật thành công", "success");
 		redirectList();
 	}
 	

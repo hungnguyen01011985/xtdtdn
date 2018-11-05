@@ -293,9 +293,7 @@ public class DuAn extends Model<DuAn> {
 		variables.put("model", this);
 		if (task != null) {
 			variables.put("goTask", task);
-			System.out.println("zooo");
 		}
-		
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
 

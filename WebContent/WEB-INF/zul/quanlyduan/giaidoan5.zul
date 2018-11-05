@@ -15,7 +15,6 @@
 		    	vm.getGiaiDoanDuAn().setTaiLieuDinhKem(new vn.toancauxanh.model.TepTin());
 		    }
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_NAM);
-			
 		]]>
 	</zscript>
 	<div> 
