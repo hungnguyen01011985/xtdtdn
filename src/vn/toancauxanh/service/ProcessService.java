@@ -18,14 +18,18 @@ import org.zkoss.zk.ui.Executions;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaiDoanDuAn;
 import vn.toancauxanh.model.GiaoViec;
+import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 import vn.toancauxanh.model.QGiaoViec;
+import vn.toancauxanh.model.QNhanVien;
+import vn.toancauxanh.model.ThongBao;
 
 public class ProcessService extends BasicService<Object> {
 
@@ -45,6 +49,7 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().saveNotShowNotification();
+		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao());
 		redirectQuanLyDuAn();
 	}
 
@@ -56,10 +61,10 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getTaiLieuNDT().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getTaiLieuGD1().saveNotShowNotification();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_MOT, "thoiHanGiaiDoanMot", null);
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_MOT, "thoiHanGiaiDoanMot", model.getGiaiDoanDuAn().getNgayNhanPhanHoi());
 		luuDuLieuDonVi(model.getGiaiDoanDuAn());
 	}
-
+	
 	public void validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
@@ -107,6 +112,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn duAn = q.fetchOne();
 		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + model.getGiaoViec().getNguoiDuocGiao().getId() + KY_TU);
 		duAn.saveNotShowNotification();
+		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao());
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
@@ -121,9 +127,34 @@ public class ProcessService extends BasicService<Object> {
 	}
 
 	public void thongBaoTreHannGiaiDoanMot(Execution execution) {
-		System.out.println("tre han nhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		thongBaoTreCongViec(model);
+	}
+	
+	public void thongBaoTreCongViec(DuAn duAn) {
+		/*JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTros.contains()))*/
+		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiPhuTrach());
+		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiTao());
 	}
 
+	public void thongBao(DuAn duAn,LoaiThongBao loaiThongBao, NhanVien nguoiNhan) {
+		ThongBao thongBao = new ThongBao();
+		if (LoaiThongBao.TRE_CONG_VIEC.equals(loaiThongBao)) {
+			thongBao.setNguoiNhan(nguoiNhan);
+			thongBao.setNoiDung("Có tài liệu trễ hẹn");
+		}
+		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
+			thongBao.setNguoiNhan(nguoiNhan);
+			thongBao.setNoiDung("<x:span class='text-bold-notify'>" + duAn.getNguoiPhuTrach().getHoVaTen()
+					+ " </x:span> <x:span class='text-regular-notify'>có công việc mới </x:span><x:span class='text-bold-notify'>"
+					+ duAn.getGiaoViec().getTenCongViec()
+					+ " </x:span><x:span class='text-regular-notify'>của dự án</x:span> " + duAn.getTenDuAn());
+		}
+		thongBao.setIdGo(duAn.getId());
+		thongBao.setLoaiThongBao(loaiThongBao);
+		thongBao.saveNotShowNotification();
+	}
+	
 	public void validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		boolean result = kiemTraCongViecHoanThanh(model);
@@ -210,41 +241,50 @@ public class ProcessService extends BasicService<Object> {
 		if (PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
 			saveTaiLieuDauThau(duAn);
 		}
+		if (PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
+			saveTaiLieuNhanChuyenNhuong(duAn);
+		}
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, "thoiHanGiaiDoanBon", null);
 	}
 
 	private void saveTaiLieuDauGia(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetPADG().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhQDDG().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhQDPD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhDauGiaQSDD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGiaKhoiDiem().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLQH().saveNotShowNotification();
 		if (!duAn.getGiaiDoanDuAn().isOption()) {
-			duAn.getGiaiDoanDuAn().getQuyetDinhBoSungDanhMucDNBS().saveNotShowNotification();
-			duAn.getGiaiDoanDuAn().getPhuongAnDauGiaBNBS().saveNotShowNotification();
+			duAn.getGiaiDoanDuAn().getQuyetDinhBoSungDanhMuc().saveNotShowNotification();
+			duAn.getGiaiDoanDuAn().getVanBanDeNghiBoSung().saveNotShowNotification();
 		}
 	}
 
 	private void saveTaiLieuDauThau(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLKH().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getNghiQuyetPheDuyet().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getVanBanDinhkemNQPD().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getCongTacDoDacLDT().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getGiaiPhongMatBangLDT().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLDT().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getKeHoachSuDungDatLDT().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getVanBanDinhKemTPDDM().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDDM().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetTPDKP().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getCongVanDinhKemTPDKP().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getPhuongAnDauGiaGPMB().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGPMB().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhGDKD().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGDKD().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getHoSoMoiTuyenGDKD().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getKeHoachGDKD().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getHoSoMoiThauGDKD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLQH().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoach2000().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet2000().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getNghiQuyetPheDuyetCongTrinh().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getBaoCaoDoDacKhuDat().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getPheDuyetKeHoachSuDungDat().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhThuHoiDat().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetDanhMuc().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetBoSungKinhPhi().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getPhuongAnTaiDinhCu().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoMoiTuyen().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyeHoSoMoiTuyen().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetKetQuaTrungTuyen().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getKeHoachLuaChonNhaDauTu().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getHoSoMoiThau().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetMoiThau().saveNotShowNotification();
+	}
+	
+	private void saveTaiLieuNhanChuyenNhuong(DuAn duAn) {
+		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLQH().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getVanBanChuyenMucDichSDD().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getVanBanDeNghiThuHoiDat().saveNotShowNotification();
 	}
 
 	public void validateDuLieuGiaiDoanBa(Execution execution) {
@@ -255,12 +295,21 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, "thoiHanGiaiDoanBa", null);
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, "thoiHanGiaiDoanBa", model.getGiaiDoanDuAn().getNgayDuKienNhanPhanHoi());
 	}
-
+	
+	public void kiemTraDangOGiaiDoanBa(Execution execution) {
+		kiemTraGiaiDoan(execution, "isDangOGiaiDoanBa", GiaiDoanXucTien.GIAI_DOAN_BA);
+	}
+	
+	public void thongBaoTreHanGiaiDoanBa(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		thongBaoTreCongViec(model);
+	}
+	
 	public void luuDuLieuKetThucDuAn(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().equals(GiaiDoanXucTien.GIAI_DOAN_BON)) {
+		if (model.getGiaiDoanDuAn().getGiaiDoanXucTien().equals(GiaiDoanXucTien.GIAI_DOAN_HAI)) {
 			model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
 			model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
 			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
@@ -323,7 +372,8 @@ public class ProcessService extends BasicService<Object> {
 
 	public void kiemTraGiaiDoan(Execution execution, String varriable, GiaiDoanXucTien giaiDoan) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		if (giaiDoan.equals(model.getGiaiDoanXucTien())) {
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(model.getId()));
+		if (giaiDoan.equals(q.fetchOne().getGiaiDoanXucTien())) {
 			((ExecutionEntity) execution).setVariable(varriable, true);
 			return;
 		}
