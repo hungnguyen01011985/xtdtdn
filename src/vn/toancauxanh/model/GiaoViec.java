@@ -3,6 +3,8 @@ package vn.toancauxanh.model;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,8 +20,6 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-
-import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
@@ -153,14 +153,13 @@ public class GiaoViec extends Model<GiaoViec>{
 	}
 
 	@Command
-	public void saveGiaoViec(@BindingParam("vmArgs") final Object ob,@BindingParam("attr") final String attr,
-			@BindingParam("vm") final Object vm,@BindingParam("wdn") final Window wd) {
+	public void saveGiaoViec(@BindingParam("vmArgs") final Object ob, @BindingParam("attr") final String attr,
+			@BindingParam("vm") final Object vm, @BindingParam("wdn") final Window wd) {
 		wd.detach();
-		if(taiLieu!=null) {
+		if (taiLieu != null) {
 			taiLieu.saveNotShowNotification();
 		}
 		save();
-		
 		BindUtils.postNotifyChange(null, null, ob, attr);
 	}
 	
