@@ -93,7 +93,8 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin giayChungNhanDangKyDoanhNghiep;
 	private TepTin giayChungNhanQuyenSuDungDat;
 	private TepTin taiLieuDinhKem;
-
+	private Date ngayThongBaoOld;
+	private boolean kiemTraThongBao = true;
 	@ManyToOne
 	public TepTin getGiayChungNhanDauTu() {
 		return giayChungNhanDauTu;
@@ -809,4 +810,22 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		}
 		return list;
 	}
+
+	public Date getNgayThongBaoOld() {
+		return ngayThongBaoOld;
+	}
+
+	public void setNgayThongBaoOld(Date ngayThongBaoOld) {
+		this.ngayThongBaoOld = ngayThongBaoOld;
+	}
+
+	public boolean isKiemTraThongBao() {
+		return kiemTraThongBao;
+	}
+
+	public void setKiemTraThongBao(boolean kiemTraThongBao) {
+		this.kiemTraThongBao = kiemTraThongBao;
+	}
+	
+	
 }

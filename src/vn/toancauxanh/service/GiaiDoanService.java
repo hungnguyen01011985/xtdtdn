@@ -15,7 +15,10 @@ public class GiaiDoanService extends BasicService<GiaiDoanDuAn>{
 					.where(QGiaiDoanDuAn.giaiDoanDuAn.giaiDoanXucTien.eq(giaiDoanXucTien))
 					.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
 			q.setHint("org.hibernate.cacheable", false);
-			q.fetchFirst();
+			if(q.fetchCount() > 0) {
+				return q.fetchFirst();
+			}
+			
 		}
 		return new GiaiDoanDuAn();
 	}
