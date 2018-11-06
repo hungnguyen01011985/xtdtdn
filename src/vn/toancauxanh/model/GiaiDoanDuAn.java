@@ -772,17 +772,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		}
 		return list;
 	}
-
-	@Transient
-	public List<DonVi> getListDonViLapKeHoach() {
-		List<DonVi> list = new ArrayList<DonVi>();
-		JPAQuery<DonVi> q = find(DonVi.class).where(QDonVi.donVi.loaiDonVi.eq(LoaiDonVi.DON_VI_LAP_QUY_HOACH));
-		q.orderBy(QDonVi.donVi.loaiDonVi.desc()).orderBy(QDonVi.donVi.ngayTao.desc());
-		if (q != null) {
-			list.addAll(q.fetch());
-		}
-		return list;
-	}
 	
 	@Transient
 	public List<DonVi> getListDonViChuTri() {

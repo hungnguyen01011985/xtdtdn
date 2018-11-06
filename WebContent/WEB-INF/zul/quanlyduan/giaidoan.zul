@@ -147,7 +147,7 @@
 							</combobox>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<div zclass="form-group" viewModel="@id('taiLieuNDT')@init(vm.taiLieuNDT)">
 							<span>VB đề nghị của NĐT</span>
 							
@@ -163,6 +163,14 @@
 									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 								</x:button>
 							</div>
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
+							<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('saveThongTinDuAn')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+								<span>Lưu thông tin dự án</span>
+							</x:a>
 						</div>
 					</div>
 				</div>
