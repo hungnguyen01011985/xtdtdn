@@ -133,7 +133,7 @@ public class ProcessService extends BasicService<Object> {
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanHaiHopLe", true);
 	}
 
-	public void thongBaoTreHannGiaiDoanMot(Execution execution) {
+	public void thongBaoTreHanGiaiDoanMot(Execution execution) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
 		DuAn duAn = q.fetchFirst();

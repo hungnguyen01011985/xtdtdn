@@ -126,7 +126,7 @@
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				<div form="@id('fx') @bind(vm.giaiDoanDuAn.congVanGD2) @save(vm.giaiDoanDuAn.congVanGD2, before={'goTask','goNext'}) 
+				<div form="@id('fx') @load(vm.giaiDoanDuAn.congVanGD2) @save(vm.giaiDoanDuAn.congVanGD2, before={'goTask','goNext'}) 
 	    				@validator(vm.validatorTepTin, sms = 'congVanGD2', text = 'ngayDuKien', ngayDuKien = vm.giaiDoanDuAn.ngayPhatHanhCVGD2)">
 					<div class="col-md-8" viewModel="@id('congVanGD2')@init(vm.giaiDoanDuAn.congVanGD2)">
 						<div zclass="form-group">

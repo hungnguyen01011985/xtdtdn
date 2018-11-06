@@ -11,9 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import vn.toancauxanh.gg.model.enums.DonViChuTri;
-import vn.toancauxanh.gg.model.enums.DonViTuVan;
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.LoaiDonVi;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 
 @Entity
@@ -41,14 +42,14 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin congVanGD3;
 	// Thông tin giai đoạn 4
 	private PhuongThucLuaChonNDT phuongThucLuaChonNDT;
-	private DonViChuTri donViChuTri;
+	private DonVi donViChuTri;
 	private boolean option = true;
 	// Lập quy hoạch chi tiết 1/500
-	private DonViTuVan donViTuVan;
+	private DonVi donViTuVan;
 	private TepTin hoSoQuyHoachLQH;
 	private TepTin quyetDinhPheDuyetLQH;
 	// Lập quy hoạch chi tiết 1/2000
-	private DonViTuVan donViTuVan2000;
+	private DonVi donViLapKeHoach;
 	private TepTin hoSoQuyHoach2000;
 	private TepTin quyetDinhPheDuyet2000;
 	private TepTin nghiQuyetPheDuyetCongTrinh;
@@ -67,7 +68,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private long giaDatKhoiDiemDauGia;
 	private TepTin quyetDinhPheDuyetGiaKhoiDiem;
 	// Đơn vị thực hiện đấu giá
-	private DonViTuVan donViThucHien;
+	private DonVi donViThucHien;
 	// Gửi công văn đề nghị bổ sung địa điểm thực hiện dự án
 	private TepTin vanBanDeNghiBoSung;
 	private TepTin quyetDinhBoSungDanhMuc;
@@ -234,6 +235,42 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	}
 
 	@ManyToOne
+	public DonVi getDonViChuTri() {
+		return donViChuTri;
+	}
+
+	public void setDonViChuTri(DonVi donViChuTri) {
+		this.donViChuTri = donViChuTri;
+	}
+
+	@ManyToOne
+	public DonVi getDonViTuVan() {
+		return donViTuVan;
+	}
+
+	public void setDonViTuVan(DonVi donViTuVan) {
+		this.donViTuVan = donViTuVan;
+	}
+
+	@ManyToOne
+	public DonVi getDonViLapKeHoach() {
+		return donViLapKeHoach;
+	}
+
+	public void setDonViLapKeHoach(DonVi donViLapKeHoach) {
+		this.donViLapKeHoach = donViLapKeHoach;
+	}
+
+	@ManyToOne
+	public DonVi getDonViThucHien() {
+		return donViThucHien;
+	}
+
+	public void setDonViThucHien(DonVi donViThucHien) {
+		this.donViThucHien = donViThucHien;
+	}
+
+	@ManyToOne
 	public TepTin getTaiLieuGD2() {
 		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(this.giaiDoanXucTien)) {
 			if (this.taiLieuGD2 == null) {
@@ -347,22 +384,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		this.phuongThucLuaChonNDT = phuongThucLuaChonNDT;
 	}
 
-	public DonViChuTri getDonViChuTri() {
-		return donViChuTri;
-	}
-
-	public void setDonViChuTri(DonViChuTri donViChuTri) {
-		this.donViChuTri = donViChuTri;
-	}
-
-	public DonViTuVan getDonViTuVan() {
-		return donViTuVan;
-	}
-
-	public void setDonViTuVan(DonViTuVan donViTuVan) {
-		this.donViTuVan = donViTuVan;
-	}
-
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetLQH() {
 		if (this.phuongThucLuaChonNDT != null) {
@@ -421,14 +442,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	public void setOption(boolean option) {
 		this.option = option;
-	}
-
-	public DonViTuVan getDonViThucHien() {
-		return donViThucHien;
-	}
-
-	public void setDonViThucHien(DonViTuVan donViThucHien) {
-		this.donViThucHien = donViThucHien;
 	}
 
 	@ManyToOne
@@ -725,14 +738,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		this.quyetDinhPheDuyetMoiThau = quyetDinhPheDuyetMoiThau;
 	}
 
-	public DonViTuVan getDonViTuVan2000() {
-		return donViTuVan2000;
-	}
-
-	public void setDonViTuVan2000(DonViTuVan donViTuVan2000) {
-		this.donViTuVan2000 = donViTuVan2000;
-	}
-
 	@ManyToOne
 	public TepTin getVanBanChuyenMucDichSDD() {
 		if (this.vanBanChuyenMucDichSDD == null) {
@@ -760,5 +765,48 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	public void setVanBanDeNghiThuHoiDat(TepTin vanBanDeNghiThuHoiDat) {
 		this.vanBanDeNghiThuHoiDat = vanBanDeNghiThuHoiDat;
 	}
+	
+	@Transient
+	public List<DonVi> getListDonViTuVan() {
+		List<DonVi> list = new ArrayList<DonVi>();
+		JPAQuery<DonVi> q = find(DonVi.class).where(QDonVi.donVi.loaiDonVi.eq(LoaiDonVi.DON_VI_TU_VAN));
+		q.orderBy(QDonVi.donVi.loaiDonVi.desc()).orderBy(QDonVi.donVi.ngayTao.desc());
+		if (q != null) {
+			list.addAll(q.fetch());
+		}
+		return list;
+	}
 
+	@Transient
+	public List<DonVi> getListDonViLapKeHoach() {
+		List<DonVi> list = new ArrayList<DonVi>();
+		JPAQuery<DonVi> q = find(DonVi.class).where(QDonVi.donVi.loaiDonVi.eq(LoaiDonVi.DON_VI_LAP_QUY_HOACH));
+		q.orderBy(QDonVi.donVi.loaiDonVi.desc()).orderBy(QDonVi.donVi.ngayTao.desc());
+		if (q != null) {
+			list.addAll(q.fetch());
+		}
+		return list;
+	}
+	
+	@Transient
+	public List<DonVi> getListDonViChuTri() {
+		List<DonVi> list = new ArrayList<DonVi>();
+		JPAQuery<DonVi> q = find(DonVi.class).where(QDonVi.donVi.loaiDonVi.eq(LoaiDonVi.DON_VI_CHU_TRI));
+		q.orderBy(QDonVi.donVi.loaiDonVi.desc()).orderBy(QDonVi.donVi.ngayTao.desc());
+		if (q != null) {
+			list.addAll(q.fetch());
+		}
+		return list;
+	}
+	
+	@Transient
+	public List<DonVi> getListDonViThucHien() {
+		List<DonVi> list = new ArrayList<DonVi>();
+		JPAQuery<DonVi> q = find(DonVi.class).where(QDonVi.donVi.loaiDonVi.eq(LoaiDonVi.DON_VI_THUC_HIEN));
+		q.orderBy(QDonVi.donVi.loaiDonVi.desc()).orderBy(QDonVi.donVi.ngayTao.desc());
+		if (q != null) {
+			list.addAll(q.fetch());
+		}
+		return list;
+	}
 }

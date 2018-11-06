@@ -30,5 +30,10 @@
 				<span>Quản lý lĩnh vực dự án</span>
 			</x:a>
 		</div>
+		<div class="box-btn-qt">
+			<x:a class="${resource eq 'donvi' ? 'btn-bubble active' : 'btn-bubble'}" href="${execution.contextPath}/cp/donvi">
+				<span>Quản lý đơn vị</span>
+			</x:a>
+		</div>
 	</div>
 </zk>

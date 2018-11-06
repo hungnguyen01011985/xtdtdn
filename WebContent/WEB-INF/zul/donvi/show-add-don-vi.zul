@@ -1,0 +1,3 @@
+<?component name="view" inline="true" macroURI="view.zul"?>
+<view model="${entry.donVis.type().newInstance()}"  vmArgs="${arg.vmArgs}" save="Tạo mới đơn vị" />
+

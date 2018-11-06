@@ -1,0 +1,67 @@
+<idspace>
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
+		closable="true" title="${arg.save}"
+		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
+		whatever="@load(false,after='saveDonVi') @converter('vn.toancauxanh.service.DetachConverter')"
+		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
+		
+			<zscript><![CDATA[
+				vmArgs = arg.get("vmArgs");
+				strSave = arg.get("save");
+			]]></zscript> 
+			
+		<div class="w-popup-content">
+			<div class="row mg-and-bg-and-line mg-bottom-5">
+				<div zclass="col-md-12">
+					<div zclass="form-group">
+						<div class="flex">
+							<x:span class="issue-search">Tên đơn vị<n:small class="required"> *</n:small></x:span>
+						</div>
+						<textbox class="form-control" value="@load(vm.ten) @save(vm.ten, before='saveDonVi') @validator(vm.validateTenDonVi)"
+						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên đơn vị..."></textbox>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+				<div zclass="col-md-12">
+					<div zclass="form-group">
+						<x:span class="issue-search">Mô tả</x:span> 
+						<textbox class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
+					</div>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line mg-bottom-5">
+				<div zclass="col-md-12">
+					<div zclass="form-group">
+						<x:span class="issue-search">Loại đơn vị</x:span> 
+						<combobox width="100%" class="hv-textbox" readonly="true" model="@load(vm.listDonVi)" placeholder="-Chọn loại đơn vị-"
+							selectedItem="@bind(vm.loaiDonVi) @save(vm.loaiDonVi, before='saveDonVi') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
+							<template name="model">
+								<comboitem label="@load(each.text)" />
+							</template>
+						</combobox>
+						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					</div>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+						<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+							<span>Đóng</span>
+						</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Lưu</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</window>
+</idspace>
