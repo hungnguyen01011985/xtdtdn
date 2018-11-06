@@ -12,7 +12,6 @@ import org.zkoss.util.resource.Labels;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import vn.toancauxanh.model.LoaiDiSan;
 import vn.toancauxanh.model.LoaiDiTich;
 import vn.toancauxanh.model.QLoaiDiTich;
 

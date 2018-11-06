@@ -1,7 +1,6 @@
 package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -18,7 +17,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 @Table(name = "linhvucduan")
 public class LinhVucDuAn extends Model<LinhVucDuAn> {
 	private String ten = "";
-	
+
 //	@Lob
 	private String moTa = "";
 
@@ -40,7 +39,7 @@ public class LinhVucDuAn extends Model<LinhVucDuAn> {
 	public void setMoTa(String moTa) {
 		this.moTa = moTa;
 	}
-	
+
 	@Command
 	public void saveLinhVucDuAn(@BindingParam("list") final Object listObject, @BindingParam("attr") final String attr,
 			@BindingParam("wdn") final Window wdn) {
@@ -49,7 +48,7 @@ public class LinhVucDuAn extends Model<LinhVucDuAn> {
 		wdn.detach();
 		BindUtils.postNotifyChange(null, null, listObject, attr);
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidateTenLinhVucDuAn() {
 		return new AbstractValidator() {
@@ -58,7 +57,8 @@ public class LinhVucDuAn extends Model<LinhVucDuAn> {
 				String tenDanhMuc = (String) ctx.getProperty().getValue();
 				String param = tenDanhMuc.trim().replaceAll("\\s+", "");
 				if (!"".equals(param) && param != null && !param.isEmpty()) {
-					JPAQuery<LinhVucDuAn> q = find(LinhVucDuAn.class).where(QLinhVucDuAn.linhVucDuAn.ten.eq(tenDanhMuc));
+					JPAQuery<LinhVucDuAn> q = find(LinhVucDuAn.class)
+							.where(QLinhVucDuAn.linhVucDuAn.ten.eq(tenDanhMuc));
 					if (!LinhVucDuAn.this.noId()) {
 						q.where(QLinhVucDuAn.linhVucDuAn.id.ne(getId()));
 					}
