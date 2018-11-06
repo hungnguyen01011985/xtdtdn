@@ -19,13 +19,11 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
-
-import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
-import vn.toancauxanh.gg.model.enums.LoaiDonVi;
 import vn.toancauxanh.gg.model.enums.MucDoUuTien;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 import vn.toancauxanh.gg.model.enums.QuyMoDuAn;
@@ -486,5 +484,11 @@ public class DuAn extends Model<DuAn> {
 			}
 		};
 	}
-
+	
+	@Command
+	public void saveThongTinDuAn(){
+		this.getTaiLieuNDT().saveNotShowNotification();
+		this.save();
+		Executions.sendRedirect("/cp/quanlyduan/" + this.getId());
+	}
 }

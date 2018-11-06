@@ -87,7 +87,7 @@
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
 					<span>Đơn vị tư vấn</span>
-					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViLapKeHoach())" placeholder="--Chọn--" 
+					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" placeholder="--Chọn--" 
 					selectedItem="@bind(vm.giaiDoanDuAn.donViLapKeHoach) @save(vm.giaiDoanDuAn.donViLapKeHoach, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
 						<template name="model">
 							<comboitem label="@load(each.ten)"></comboitem>

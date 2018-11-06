@@ -61,7 +61,6 @@ public class DonVi extends Model<DonVi> {
 	public List<LoaiDonVi> getListDonVi(){
 		List<LoaiDonVi> list = new ArrayList<LoaiDonVi>();
 		list.add(LoaiDonVi.DON_VI_TU_VAN);
-		list.add(LoaiDonVi.DON_VI_LAP_QUY_HOACH);
 		list.add(LoaiDonVi.DON_VI_CHU_TRI);
 		list.add(LoaiDonVi.DON_VI_THUC_HIEN);
 		return list;
