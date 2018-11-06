@@ -493,13 +493,13 @@ public class DuAn extends Model<DuAn> {
 		transactioner().execute(new TransactionCallbackWithoutResult() {
 			@Override
 			protected void doInTransactionWithoutResult(TransactionStatus status) {
-				if (getTaiLieuNDT() != null) {
-					duAn.getTaiLieuNDT().saveNotShowNotification();
-				}
-				duAn.save();
+				
 				duAn.getGiaiDoanDuAn().setDuAn(duAn);
 				duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
 				duAn.getGiaiDoanDuAn().saveNotShowNotification();
+				getTaiLieuNDT().saveNotShowNotification();
+				duAn.save();
+				
 				Executions.sendRedirect("/cp/quanlyduan/" + duAn.getId());
 			}
 		});
