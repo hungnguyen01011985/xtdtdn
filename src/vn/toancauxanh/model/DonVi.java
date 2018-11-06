@@ -1,133 +1,101 @@
 package vn.toancauxanh.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.zul.Window;
+
+import com.querydsl.jpa.impl.JPAQuery;
+
+import vn.toancauxanh.gg.model.enums.LoaiDonVi;
 
 @Entity
 @Table(name = "donvi")
 public class DonVi extends Model<DonVi> {
-	private String name;
-	private String capTinh="49";
-	private String capHuyen;
-	private String capXa;
-	private String capDonVi;
-	private DonViHanhChinh donViCapTinh;
-	private DonViHanhChinh donViCapHuyen;
-	private DonViHanhChinh donViCapXa;
-	private List<DonViHanhChinh> listDonViCapTinh;
-	private List<DonViHanhChinh> listDonViCapHuyen;
-	private List<DonViHanhChinh> listDonViCapXa;
-	
-	public String getCapTinh() {
-		return capTinh;
+
+	private String ten = "";
+//	@Lob
+	private String moTa = "";
+	private LoaiDonVi loaiDonVi;
+
+	public DonVi() {
 	}
 
-	public void setCapTinh(String capTinh) {
-		this.capTinh = capTinh;
+	public String getTen() {
+		return ten;
 	}
 
-	public String getCapHuyen() {
-		return capHuyen;
+	public void setTen(String ten) {
+		this.ten = ten;
 	}
 
-	public void setCapHuyen(String capHuyen) {
-		this.capHuyen = capHuyen;
+	public String getMoTa() {
+		return moTa;
 	}
 
-	public String getCapXa() {
-		return capXa;
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
 	}
 
-	public void setCapXa(String capXa) {
-		this.capXa = capXa;
+	@Enumerated(EnumType.STRING)
+	public LoaiDonVi getLoaiDonVi() {
+		return loaiDonVi;
 	}
 
-	@Transient
-	public DonViHanhChinh getDonViCapTinh() {
-		return donViCapTinh;
-	}
-
-	public void setDonViCapTinh(DonViHanhChinh donViCapTinh) {
-		this.donViCapTinh = donViCapTinh;
-	}
-
-	@Transient
-	public DonViHanhChinh getDonViCapHuyen() {
-		return donViCapHuyen;
-	}
-
-	public void setDonViCapHuyen(DonViHanhChinh donViCapHuyen) {
-		this.donViCapHuyen = donViCapHuyen;
-	}
-
-	@Transient
-	public DonViHanhChinh getDonViCapXa() {
-		return donViCapXa;
-	}
-
-	public void setDonViCapXa(DonViHanhChinh donViCapXa) {
-		this.donViCapXa = donViCapXa;
-	}
-
-	@Transient
-	public List<DonViHanhChinh> getListDonViCapTinh() {
-		return listDonViCapTinh;
-	}
-
-	public void setListDonViCapTinh(List<DonViHanhChinh> listDonViCapTinh) {
-		this.listDonViCapTinh = listDonViCapTinh;
-	}
-
-	@Transient
-	public List<DonViHanhChinh> getListDonViCapHuyen() {
-		return listDonViCapHuyen;
-	}
-
-	public void setListDonViCapHuyen(List<DonViHanhChinh> listDonViCapHuyen) {
-		this.listDonViCapHuyen = listDonViCapHuyen;
-	}
-
-	@Transient
-	public List<DonViHanhChinh> getListDonViCapXa() {
-		return listDonViCapXa;
-	}
-
-	public void setListDonViCapXa(List<DonViHanhChinh> listDonViCapXa) {
-		this.listDonViCapXa = listDonViCapXa;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setLoaiDonVi(LoaiDonVi loaiDonVi) {
+		this.loaiDonVi = loaiDonVi;
 	}
 	
 	@Transient
-	public String getCapDonVi() {
-		return capDonVi;
+	public List<LoaiDonVi> getListDonVi(){
+		List<LoaiDonVi> list = new ArrayList<LoaiDonVi>();
+		list.add(LoaiDonVi.DON_VI_TU_VAN);
+		list.add(LoaiDonVi.DON_VI_LAP_QUY_HOACH);
+		list.add(LoaiDonVi.DON_VI_CHU_TRI);
+		list.add(LoaiDonVi.DON_VI_THUC_HIEN);
+		return list;
 	}
-
-	public void setCapDonVi(String capDonVi) {
-		this.capDonVi = capDonVi;
-	}
-
+	
 	@Command
-	public void saveDonVi(@BindingParam("wdn") Window wdn, @BindingParam("list") Object object,
-			@BindingParam("attr") String query) {
+	public void saveDonVi(@BindingParam("list") final Object listObject, @BindingParam("attr") final String attr,
+			@BindingParam("wdn") final Window wdn){
+		setTen(getTen().trim().replaceAll("\\s+", " "));
 		save();
 		wdn.detach();
-		BindUtils.postNotifyChange(null, null, object, query);
+		BindUtils.postNotifyChange(null, null, listObject, attr);
 	}
 	
-	
+	@Transient
+	public AbstractValidator getValidateTenDonVi() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				String tenDonVi = (String) ctx.getProperty().getValue();
+				String param = tenDonVi.trim().replaceAll("\\s+", "");
+				if (!"".equals(param) && param != null && !param.isEmpty()) {
+					JPAQuery<DonVi> q = find(DonVi.class).where(QDonVi.donVi.ten.eq(tenDonVi));
+					if (!DonVi.this.noId()) {
+						q.where(QDonVi.donVi.id.ne(getId()));
+					}
+					if (q.fetchCount() > 0) {
+						addInvalidMessage(ctx, "Đã tồn tại đơn vị này");
+					}
+				} else {
+					addInvalidMessage(ctx, "Không được để trống trường này");
+				}
+			}
+		};
+	}
+
 }

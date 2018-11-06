@@ -12,7 +12,7 @@ public class ThongBaoService extends BasicService<ThongBao>{
 	public JPAQuery<ThongBao> getTargetQuery() {
 		JPAQuery<ThongBao> q = find(ThongBao.class)
 				.where(QThongBao.thongBao.nguoiNhan.eq(core().getNhanVien()))
-				.orderBy(QThongBao.thongBao.ngaySua.desc());
+				.orderBy(QThongBao.thongBao.ngayTao.desc());
 		return q;
 	}
 	

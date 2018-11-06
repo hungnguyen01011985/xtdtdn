@@ -20,11 +20,9 @@ import org.zkoss.zul.ListModelList;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.HomeEnum;
-import vn.toancauxanh.model.DiSanVanHoaPhiVatThe;
 import vn.toancauxanh.model.LoaiDiSan;
 import vn.toancauxanh.model.LoaiDiTich;
 import vn.toancauxanh.model.LoaiLeHoi;
-import vn.toancauxanh.model.QDiSanVanHoaPhiVatThe;
 import vn.toancauxanh.model.QLoaiDiSan;
 import vn.toancauxanh.model.QLoaiDiTich;
 import vn.toancauxanh.model.QLoaiLeHoi;
@@ -213,22 +211,6 @@ public class HomeService extends BasicService<Object> {
 
 	public void setSizeLienQuan(long sizeLienQuan) {
 		this.sizeLienQuan = sizeLienQuan;
-	}
-
-	public JPAQuery<DiSanVanHoaPhiVatThe> getTargetQueryDiSanVanHoaPhiVatTheWso2(boolean checkLimit) {
-		long loaiDiSan = MapUtils.getLongValue(argDeco(), "loai");
-		JPAQuery<DiSanVanHoaPhiVatThe> q = find(DiSanVanHoaPhiVatThe.class);
-		if (loaiDiSan > 0) {
-			q.where(QDiSanVanHoaPhiVatThe.diSanVanHoaPhiVatThe.loai.id.eq(loaiDiSan));
-		}
-		if (!searchByKey.isEmpty()) {
-			q.where(QDiSanVanHoaPhiVatThe.diSanVanHoaPhiVatThe.name.like("%" + searchByKey + "%"));
-		}
-		if (checkLimit) {
-			q.limit(limitResult).offset(offset);
-		}
-		q.orderBy(QDiSanVanHoaPhiVatThe.diSanVanHoaPhiVatThe.ngaySua.desc());
-		return q;
 	}
 
 	private String searchCategory = HomeEnum.DITICH.getText();

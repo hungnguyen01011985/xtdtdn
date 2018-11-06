@@ -3,21 +3,17 @@ package vn.toancauxanh.model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.image.AImage;
 import org.zkoss.io.Files;
 import org.zkoss.util.media.Media;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zul.Messagebox;
+
 import vn.toancauxanh.service.ConvertImageFile;
 import vn.toancauxanh.service.ResizeHinhAnh;
 
@@ -138,101 +134,6 @@ public class Image extends Model<Image> {
 		this.imageContent = imageContent;
 	}
 
-	@Command
-	public void uploadImageAvatarLeHoi(@BindingParam("vm") Object vm, @BindingParam("media") Media image) {
-		if (image instanceof org.zkoss.image.Image) {
-			if (image.getName().toLowerCase().endsWith(".png") || image.getName().toLowerCase().endsWith(".jpg") || image.getName().toLowerCase().endsWith(".jpeg")) {
-				int lengthOfImage = image.getByteData().length;
-				if (lengthOfImage > 10000000) {
-					showNotification("Chọn hình ảnh có dung lượng nhỏ hơn 10MB.", "", "error");
-					return;
-				} else {
-					LeHoi leHoi = (LeHoi) vm;
-					String tenFile = image.getName();
-					tenFile = tenFile.replace(" ", "");
-					tenFile = unAccent(tenFile.substring(0, tenFile.lastIndexOf("."))) + "_"
-							+ Calendar.getInstance().getTimeInMillis() + tenFile.substring(tenFile.lastIndexOf("."));
-
-					Image img = new Image(image.getName(), tenFile, "s_" + tenFile, "d_" + tenFile, "b_" + tenFile,
-							"v_" + tenFile, image.getName().substring(image.getName().lastIndexOf(".")),
-							folderStoreFilesLink() + folderStoreFilesLeHoi() + folderStoreFilesImage(), "",
-							(org.zkoss.image.Image) image);
-					leHoi.setAvatarImageTemp(img);
-					BindUtils.postNotifyChange(null, null, vm, "avatarImageTemp");
-				}
-			} else {
-				showNotification("Chọn hình ảnh theo đúng định dạng (*.jpg, *.jpeg, *.png)", "", "danger");
-			}
-		} else {
-			showNotification("File tải lên không phải hình ảnh!", "", "danger");
-		}
-	}
-
-	@Command
-	public void uploadImageAvatarDiSanVanHoaPhiVatThe(@BindingParam("vm") Object vm,
-			@BindingParam("media") Media image) {
-		if (image instanceof org.zkoss.image.Image) {
-			if (image.getName().toLowerCase().endsWith(".png") || image.getName().toLowerCase().endsWith(".jpg") || image.getName().toLowerCase().endsWith(".jpeg")) {
-				int lengthOfImage = image.getByteData().length;
-				if (lengthOfImage > 10000000) {
-					showNotification("Chọn hình ảnh có dung lượng nhỏ hơn 10MB.", "", "error");
-					return;
-				} else {
-					DiSanVanHoaPhiVatThe diSanVanHoaPhiVatThe = (DiSanVanHoaPhiVatThe) vm;
-					String tenFile = image.getName();
-					tenFile = tenFile.replace(" ", "");
-					tenFile = unAccent(tenFile.substring(0, tenFile.lastIndexOf("."))) + "_"
-							+ Calendar.getInstance().getTimeInMillis() + tenFile.substring(tenFile.lastIndexOf("."));
-
-					Image img = new Image(image.getName(), tenFile, "s_" + tenFile, "d_" + tenFile, "b_" + tenFile,
-							"v_" + tenFile, image.getName().substring(image.getName().lastIndexOf(".")),
-							folderStoreFilesLink() + folderStoreFilesDiSan() + folderStoreFilesImage(), "",
-							(org.zkoss.image.Image) image);
-					diSanVanHoaPhiVatThe.setAvatarImageTemp(img);
-					BindUtils.postNotifyChange(null, null, vm, "avatarImageTemp");
-				}
-			} else {
-				showNotification("Chọn hình ảnh theo đúng định dạng (*.jpg, *.jpeg, *.png)", "", "danger");
-			}
-		} else {
-			showNotification("File tải lên không phải hình ảnh!", "", "danger");
-		}
-	}
-
-	
-
-	@Command
-	public void deleteImgLeHoi(@BindingParam("vm") Object vm) {
-		Messagebox.show("Bạn có muốn xóa hình ảnh này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-				Messagebox.QUESTION, new EventListener<Event>() {
-					@Override
-					public void onEvent(final Event event) throws IOException {
-						if (Messagebox.ON_OK.equals(event.getName())) {
-							LeHoi leHoi = (LeHoi) vm;
-							// ditich.getAvatarDitich().setImageContent(null);
-							leHoi.setAvatarImageTemp(null);
-							BindUtils.postNotifyChange(null, null, vm, "avatarImageTemp");
-						}
-					}
-				});
-	}
-
-	@Command
-	public void deleteImgDiSanVanHoaPhiVatThe(@BindingParam("vm") Object vm) {
-		Messagebox.show("Bạn có muốn xóa hình ảnh này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-				Messagebox.QUESTION, new EventListener<Event>() {
-					@Override
-					public void onEvent(final Event event) throws IOException {
-						if (Messagebox.ON_OK.equals(event.getName())) {
-							DiSanVanHoaPhiVatThe diSanVanHoaPhiVatThe = (DiSanVanHoaPhiVatThe) vm;
-							// ditich.getAvatarDitich().setImageContent(null);
-							diSanVanHoaPhiVatThe.setAvatarImageTemp(null);
-							BindUtils.postNotifyChange(null, null, vm, "avatarImageTemp");
-						}
-					}
-				});
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -257,7 +158,6 @@ public class Image extends Model<Image> {
 			FileInputStream fis = new FileInputStream(new java.io.File(path));
 			setMedia(new AImage("", fis));
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 		return media;
