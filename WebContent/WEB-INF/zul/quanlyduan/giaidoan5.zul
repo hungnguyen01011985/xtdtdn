@@ -202,7 +202,7 @@
 					<x:button onClick="@command('goNext', task = 'task_ketThucDuAn')"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ket-thuc-du-an.svg"/>
-						<span>Xúc tiến</span>
+						<span>Kết thúc</span>
 					</x:button>
 				</div>
 				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
