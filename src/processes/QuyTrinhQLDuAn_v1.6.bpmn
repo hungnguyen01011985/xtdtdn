@@ -460,7 +460,7 @@
       <bpmn:outgoing>SequenceFlow_1eii5d0</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_12fxcu6</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1abwru9" name="Thông báo trễ hạn giai đoạn một" camunda:expression="${entry.processService.thongBaoTreHannGiaiDoanMot(execution)}">
+    <bpmn:serviceTask id="ServiceTask_1abwru9" name="Thông báo trễ hạn giai đoạn một" camunda:expression="${entry.processService.thongBaoTreHanGiaiDoanMot(execution)}">
       <bpmn:incoming>SequenceFlow_12fxcu6</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_08wble0</bpmn:outgoing>
     </bpmn:serviceTask>
