@@ -183,7 +183,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0w66kw4" sourceRef="ServiceTask_1blsitl" targetRef="ExclusiveGateway_1a7lpko" />
     <bpmn:sequenceFlow id="SequenceFlow_0pgo8px" sourceRef="Task_1vopk7j" targetRef="ExclusiveGateway_1a7lpko" />
     <bpmn:sequenceFlow id="SequenceFlow_0fpxong" sourceRef="ServiceTask_18jl8qd" targetRef="ExclusiveGateway_17hppw6" />
-    <bpmn:sequenceFlow id="SequenceFlow_01gd2kn" name="Lưu thông tin dự án" sourceRef="UserTask_1rmnevk" targetRef="ServiceTask_18jl8qd" />
+    <bpmn:sequenceFlow id="SequenceFlow_01gd2kn" name="Lưu thông tin dự án và giao việc" sourceRef="UserTask_1rmnevk" targetRef="ServiceTask_18jl8qd" />
     <bpmn:sequenceFlow id="SequenceFlow_14ruv6p" sourceRef="StartEvent_06ohm2d" targetRef="UserTask_1rmnevk" />
     <bpmn:sequenceFlow id="SequenceFlow_1jivqr9" sourceRef="ServiceTask_0g7288y" targetRef="UserTask_1rmnevk" />
     <bpmn:sequenceFlow id="SequenceFlow_03m0eqh" name="Dữ liệu dự án không hợp lệ" sourceRef="ExclusiveGateway_17hppw6" targetRef="ServiceTask_0g7288y">

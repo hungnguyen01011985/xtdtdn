@@ -91,7 +91,7 @@
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>
 					</div>
-					<div zclass="col-md-6" form="@id('fx') @bind(vm.giaiDoanDuAn.taiLieuGD1) @save(vm.giaiDoanDuAn.taiLieuGD1, before={'goTask','goNext'}) 
+					<div zclass="col-md-6" form="@id('fx') @load(vm.giaiDoanDuAn.taiLieuGD1) @save(vm.giaiDoanDuAn.taiLieuGD1, before={'goTask','goNext'}) 
 	    				@validator(vm.validatorTepTin, sms = 'taiLieuGD1', text = 'ngayDuKien', ngayDuKien = vm.giaiDoanDuAn.ngayNhanPhanHoi)">
 						<div zclass="form-group mg-top-8" viewModel="@id('taiLieuGD1') @init(vm.giaiDoanDuAn.taiLieuGD1)">
 							<span>Tài liệu đính kèm</span>

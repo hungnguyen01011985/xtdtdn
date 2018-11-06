@@ -142,7 +142,7 @@
 								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
 								<label value="@load(item.tenDuAn)"></label>
 								<label value="@load(item.diaDiem)"></label>
-								<label value="@load(item.tongVonDauTu) @converter('formatedNumber', format='###,###.## $')"></label>
+								<label value="@load(item.tongVonDauTu) @converter('formatedNumber', format='$ ###,###.##')"></label>
 								<label value="@load(item.ngayBatDauXucTien) @converter('formatedDate',format='dd/MM/yyyy')"></label>
 								<label value="@load(item.linhVuc.ten)"></label>
 								<label value="@load(item.giaiDoanXucTien.text)"></label>

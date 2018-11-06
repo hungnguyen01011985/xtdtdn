@@ -21,10 +21,11 @@ import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.zul.Window;
 
-import vn.toancauxanh.gg.model.enums.DonViChuTri;
-import vn.toancauxanh.gg.model.enums.DonViTuVan;
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
+import vn.toancauxanh.gg.model.enums.LoaiDonVi;
 import vn.toancauxanh.gg.model.enums.MucDoUuTien;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 import vn.toancauxanh.gg.model.enums.QuyMoDuAn;
@@ -226,20 +227,6 @@ public class DuAn extends Model<DuAn> {
 		return list;
 	}
 
-	@Transient
-	public List<DonViChuTri> getListDonViChuTri() {
-		List<DonViChuTri> list = new ArrayList<DonViChuTri>();
-		list.add(DonViChuTri.TRUNG_TAM_PHAT_TRIEN_QUY_DAT);
-		return list;
-	}
-
-	@Transient
-	public List<DonViTuVan> getListDonViTuVan() {
-		List<DonViTuVan> list = new ArrayList<DonViTuVan>();
-		list.add(DonViTuVan.VIEN_QUY_HOACH_DO_THI_DA_NANG);
-		return list;
-	}
-
 	@Command
 	public void savePhuTrach(@BindingParam("wdn") final Window wdn, @BindingParam("list") final Object list,
 			@BindingParam("attr") final String attr) {
@@ -430,17 +417,26 @@ public class DuAn extends Model<DuAn> {
 			private boolean validateNumber(ValidationContext ctx) {
 				boolean rs = true;
 				String text = (String) ctx.getValidatorArg("text");
+				Boolean type = (Boolean) ctx.getValidatorArg("type");
 				Double vonDauTu = 0d;
 				try {
 					vonDauTu = Double.parseDouble((String) ctx.getProperty().getValue());
 				} catch (NumberFormatException e) {
 					addInvalidMessage(ctx, "Bạn phải nhập số");
 				}
-
-				if (vonDauTu < 0) {
-					addInvalidMessage(ctx, text + " phải lớn hơn 0");
-					rs = false;
+				
+				if (type != null) {
+					if (vonDauTu <= 0) {
+						addInvalidMessage(ctx, text + " phải lớn hơn 0");
+						rs = false;
+					}
+				} else {
+					if (vonDauTu < 0) {
+						addInvalidMessage(ctx, text + " phải lớn hơn 0");
+						rs = false;
+					}
 				}
+				
 				return rs;
 			}
 		};

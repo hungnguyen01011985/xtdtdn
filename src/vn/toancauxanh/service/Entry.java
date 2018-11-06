@@ -88,11 +88,6 @@ public class Entry extends BaseObject<Object> {
 	public String NGUOIDUNG = "";
 	@Value("${url.phanquyen}")
 	public String PHANQUYEN = "";
-	@Value("${url.donvihanhchinh}")
-	public String donvihanhchinh = "";
-
-	@Value("${url.donvihanhchinh}")
-	public String DONVIHANHCHINH = "";
 
 	@Value("${url.vaitro}")
 	public String VAITRO = "";
@@ -173,17 +168,6 @@ public class Entry extends BaseObject<Object> {
 	@Value("${url.linhVucDuAn}" + ":" + "${action.xem}")
 	public String LINHVUCDUANXEM;
 
-	@Value("${url.donvihanhchinh}" + ":" + "${action.list}")
-	public String DONVIHANHCHINHLIST;
-	@Value("${url.donvihanhchinh}" + ":" + "${action.them}")
-	public String DONVIHANHCHINHTHEM;
-	@Value("${url.donvihanhchinh}" + ":" + "${action.xem}")
-	public String DONVIHANHCHINHXEM;
-	@Value("${url.donvihanhchinh}" + ":" + "${action.xoa}")
-	public String DONVIHANHCHINHXOA;
-	@Value("${url.donvihanhchinh}" + ":" + "${action.sua}")
-	public String DONVIHANHCHINHSUA;
-
 	@Value("${url.phanquyen}" + ":" + "${action.xem}")
 	public String PHANQUYENXEM;
 	@Value("${url.phanquyen}" + ":" + "${action.them}")
@@ -212,7 +196,7 @@ public class Entry extends BaseObject<Object> {
 
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
-		return new String[] { NGUOIDUNG, DONVIHANHCHINH, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
+		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
 				QUANLYLINHVUCDUAN }; //
 	}
 
@@ -304,6 +288,10 @@ public class Entry extends BaseObject<Object> {
 	public final DuAnService getDuAns(){
 		return new DuAnService();
 	}
+	
+	public final DonViService getDonVis(){
+		return new DonViService();
+	}
 
 	public final DoanVaoService getDoanVaos() {
 		return new DoanVaoService();
@@ -364,14 +352,6 @@ public class Entry extends BaseObject<Object> {
 
 	public final GopYPhanMemService getGopYPhanMem() {
 		return new GopYPhanMemService();
-	}
-
-	public final DonViService getDonVis() {
-		return new DonViService();
-	}
-
-	public final DonViHanhChinhService getDonViHanhChinhs() {
-		return new DonViHanhChinhService();
 	}
 
 	public final LanguageService getLanguages() {
