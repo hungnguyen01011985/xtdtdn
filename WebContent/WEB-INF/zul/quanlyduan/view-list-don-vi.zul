@@ -61,7 +61,7 @@
 									</div>
 								</div>
 								<idspace>
-									<div id="idCongVanTraLoi" zclass="col-md-3" form="@id('fx') @bind(each.congVanTraLoi) @save(each.congVanTraLoi, before={'goTask','goNext'}) 
+									<div id="idCongVanTraLoi" zclass="col-md-3" form="@id('fx') @load(each.congVanTraLoi) @save(each.congVanTraLoi, before={'goTask','goNext'}) 
 			    						@validator(vm.validatorTepTinDonVi, text = 'ngayNhanTraLoi', ngayNhanTraLoi = each.ngayNhanTraLoi)">
 										<div zclass="form-group" viewModel="@id('congVanTraLoi') @init(each.congVanTraLoi)">
 											<span>Hồ sơ quy hoạch</span>
@@ -101,7 +101,7 @@
 										</div>
 									</div>
 									<idspace>
-										<div id="idCongVanGiaiThich" zclass="col-md-3" form="@id('fx') @bind(each.congVanGiaiThich) @save(each.congVanGiaiThich, before={'goTask','goNext'}) 
+										<div id="idCongVanGiaiThich" zclass="col-md-3" form="@id('fx') @load(each.congVanGiaiThich) @save(each.congVanGiaiThich, before={'goTask','goNext'}) 
 			    							@validator(vm.validatorTepTinDonVi, text = 'ngayNhanGiaiThich', ngayNhanGiaiThich = each.ngayNhanGiaiThich)">
 											<div zclass="form-group" viewModel="@id('congVanGiaiThich') @init(each.congVanGiaiThich)">
 												<span>Hồ sơ quy hoạch</span>

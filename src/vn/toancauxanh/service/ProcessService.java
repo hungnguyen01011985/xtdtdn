@@ -421,8 +421,9 @@ public class ProcessService extends BasicService<Object> {
 	public void kiemTraGiaiDoan(Execution execution, String varriable, GiaiDoanXucTien giaiDoan) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(model.getId()));
-		if (giaiDoan != null && q.fetchOne().getGiaiDoanXucTien() != null) {
-			if (giaiDoan.equals(q.fetchOne().getGiaiDoanXucTien())) {
+		DuAn duAn = q.fetchOne();
+		if (duAn != null && giaiDoan != null && duAn.getGiaiDoanXucTien() != null) {
+			if (giaiDoan.equals(duAn.getGiaiDoanXucTien())) {
 				((ExecutionEntity) execution).setVariable(varriable, true);
 				return;
 			}

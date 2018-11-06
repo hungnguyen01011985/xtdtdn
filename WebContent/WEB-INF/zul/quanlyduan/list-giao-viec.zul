@@ -1,7 +1,7 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
 		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
-		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
+		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')" width="90%">
 		 <zscript>
 		 	<![CDATA[
 				vn.toancauxanh.model.DuAn duAn = arg.get("vm");

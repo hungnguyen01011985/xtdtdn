@@ -148,11 +148,11 @@
 								<label value="@load(item.giaiDoanXucTien.text)"></label>
 								<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
 								<div class="thaotac">
-									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}" if="${vm.checkView(entry.nhanVien.id, item.idNguoiLienQuan, item.giaiDoanXucTien, item.nguoiTao, item.nguoiPhuTrach)}">
+									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}" if="${vm.checkEdit(entry.nhanVien.id, item.idNguoiLienQuan, item.giaiDoanXucTien, item.nguoiTao, item.nguoiPhuTrach)}">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" if="${item.nguoiTao.id == entry.nhanVien.id}" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
+									<x:a label="Xóa" class="btn-thaotac up-note" if="${vm.checkDelete(item.giaiDoanXucTien, item.nguoiTao)}" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
