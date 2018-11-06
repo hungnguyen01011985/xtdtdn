@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
@@ -489,19 +487,8 @@ public class DuAn extends Model<DuAn> {
 	
 	@Command
 	public void saveThongTinDuAn(){
-		DuAn duAn = this;
-		transactioner().execute(new TransactionCallbackWithoutResult() {
-			@Override
-			protected void doInTransactionWithoutResult(TransactionStatus status) {
-				
-				duAn.getGiaiDoanDuAn().setDuAn(duAn);
-				duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
-				duAn.getGiaiDoanDuAn().saveNotShowNotification();
-				getTaiLieuNDT().saveNotShowNotification();
-				duAn.save();
-				
-				Executions.sendRedirect("/cp/quanlyduan/" + duAn.getId());
-			}
-		});
+		this.getTaiLieuNDT().saveNotShowNotification();
+		this.save();
+		Executions.sendRedirect("/cp/quanlyduan/" + this.getId());
 	}
 }
