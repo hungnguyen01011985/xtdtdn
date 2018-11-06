@@ -14,9 +14,8 @@ public class GiaiDoanService extends BasicService<GiaiDoanDuAn>{
 					.where(QGiaiDoanDuAn.giaiDoanDuAn.trangThai.ne(core().TT_DA_XOA))
 					.where(QGiaiDoanDuAn.giaiDoanDuAn.giaiDoanXucTien.eq(giaiDoanXucTien))
 					.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
-			if (q.fetch().size() > 0) {
-				return q.fetchFirst();
-			}
+			q.setHint("org.hibernate.cacheable", false);
+			q.fetchFirst();
 		}
 		return new GiaiDoanDuAn();
 	}

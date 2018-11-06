@@ -19,8 +19,6 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import com.querydsl.jpa.impl.JPAQuery;
-
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
