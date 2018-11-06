@@ -141,11 +141,9 @@ public class ProcessService extends BasicService<Object> {
 
 	public boolean kiemTraNgay(Date thoiHan, Date thoiHanOld) {
 		if (thoiHanOld == null) {
-			System.out.println("Thoi han null");
 			return true;
 		}
 		if (thoiHan.compareTo(thoiHanOld) == 0) {
-			System.out.println("thoi han sai");
 			return false;
 		}
 		return true;
