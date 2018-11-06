@@ -128,8 +128,10 @@ public class ProcessService extends BasicService<Object> {
 	}
 
 	public void thongBaoTreHannGiaiDoanMot(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		thongBaoTreCongViec(model);
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchOne();
+		thongBaoTreCongViec(duAn);
 	}
 	
 	public void thongBaoTreCongViec(DuAn duAn) {
@@ -305,8 +307,10 @@ public class ProcessService extends BasicService<Object> {
 	}
 	
 	public void thongBaoTreHanGiaiDoanBa(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		thongBaoTreCongViec(model);
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchOne();
+		thongBaoTreCongViec(duAn);
 	}
 	
 	public void luuDuLieuKetThucDuAn(Execution execution) {
@@ -385,6 +389,7 @@ public class ProcessService extends BasicService<Object> {
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		if (ngay != null && thoiHan != null && !thoiHan.isEmpty()) {
 			((ExecutionEntity) execution).setVariable(thoiHan, (Date) ngay);
+			((ExecutionEntity) execution).setVariable("duAnId", duAn.getId());
 		}
 		redirectGiaiDoanDuAnById(duAn.getId());
 		showNotification("", "Cập nhật thành công", "success");
@@ -419,8 +424,8 @@ public class ProcessService extends BasicService<Object> {
 	}
 
 	public void kiemTraGiaiDoan(Execution execution, String varriable, GiaiDoanXucTien giaiDoan) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(model.getId()));
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
 		DuAn duAn = q.fetchOne();
 		if (duAn != null && giaiDoan != null && duAn.getGiaiDoanXucTien() != null) {
 			if (giaiDoan.equals(duAn.getGiaiDoanXucTien())) {
