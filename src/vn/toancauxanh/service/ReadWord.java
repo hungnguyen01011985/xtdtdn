@@ -21,21 +21,6 @@ public class ReadWord {
 			FileInputStream fis = new FileInputStream("C:\\demo\\gioi_thieu_ve_ban_than.docx");
 			XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
 
-			// XWPFHeaderFooterPolicy policy = new XWPFHeaderFooterPolicy(xdoc);
-			// XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
-			//
-			// XWPFHeader header = policy.getDefaultHeader();
-			// if (header != null) {
-			// System.out.println(header.getText());
-			// }
-			//
-			// XWPFFooter footer = policy.getDefaultFooter();
-			// if (footer != null) {
-			// System.out.println(footer.getText());
-			// }
-			//
-			// System.out.println(extractor.getText());
-
 			List<XWPFParagraph> paragraphList = xdoc.getParagraphs();
 
 			for (XWPFParagraph paragraph : paragraphList) {
@@ -78,14 +63,8 @@ public class ReadWord {
 						Filedownload.save(new ByteArrayInputStream(fileOut.toByteArray()), "application/octet-stream",
 								"xx" + ".docx");
 					}
-
 				}
-
-				System.out.println(paragraph.getText().replace("${name}", "Nguyen Win"));
-
-			
 			}
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -96,33 +75,6 @@ public class ReadWord {
 		try {
 			FileInputStream fis = new FileInputStream("C:\\demo\\gioi_thieu_ve_ban_than.docx");
 			XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
-
-			// XWPFHeaderFooterPolicy policy = new XWPFHeaderFooterPolicy(xdoc);
-			// XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
-			//
-			// XWPFHeader header = policy.getDefaultHeader();
-			// if (header != null) {
-			// System.out.println(header.getText());
-			// }
-			//
-			// XWPFFooter footer = policy.getDefaultFooter();
-			// if (footer != null) {
-			// System.out.println(footer.getText());
-			// }
-			//
-			// System.out.println(extractor.getText());
-
-			// List<XWPFParagraph> paragraphList = xdoc.getParagraphs();
-			//
-			// for (XWPFParagraph paragraph : paragraphList) {
-			// if (paragraph.getText().contains("${name}")) {
-			// paragraph.getText().replace("${name}", "Nguyen Win");
-			// }
-			//
-			// System.out.println(paragraph.getText().replace("${name}", "Nguyen Win"));
-			//
-			// }
-
 			try (XWPFDocument doc = new XWPFDocument()) {
 
 				XWPFParagraph p2 = doc.createParagraph();
@@ -134,15 +86,11 @@ public class ReadWord {
 					if (paragraph.getText().contains("${name}")) {
 						paragraph.getText().replace("${name}", "Nguyen Win");
 					}
-
 					XWPFRun r5 = p2.createRun();
 					r5.setText(paragraph.getText());
 					r5.setFontSize(14);
 					r5.addBreak();
 					r5.addBreak();
-
-					System.out.println(paragraph.getText().replace("${name}", "Nguyen Win"));
-
 				}
 
 				ByteArrayOutputStream fileOut = new ByteArrayOutputStream();
@@ -150,12 +98,9 @@ public class ReadWord {
 				Filedownload.save(new ByteArrayInputStream(fileOut.toByteArray()), "application/octet-stream",
 						"xx" + ".docx");
 			}
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-
 	}
-	
-	
+
 }

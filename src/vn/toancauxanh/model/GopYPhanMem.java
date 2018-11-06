@@ -30,7 +30,6 @@ import org.zkoss.zul.Window;
 import vn.toancauxanh.cms.service.ThamSoService;
 import vn.toancauxanh.service.SendMailTLS;
 
-
 @Entity
 @Table(name = "gopyphanmem")
 public class GopYPhanMem extends Model<GopYPhanMem> {
@@ -48,10 +47,10 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 	private List<String> fileNameNotImg = new ArrayList<>();
 	private List<String> listFileNameSendMail = new ArrayList<>();
 	private List<String> listFileNameAttach = new ArrayList<>();
-	
+
 	private String style = "";
 	private String style_v1 = "";
-	
+
 	@Transient
 	public String getStyle() {
 		return style;
@@ -60,6 +59,7 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 	public void setStyle(String style) {
 		this.style = style;
 	}
+
 	@Transient
 	public String getStyle_v1() {
 		return style_v1;
@@ -157,16 +157,15 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 		}
 		return false;
 	}
-	
+
 	@Transient
 	public void changeStyle() {
-		System.out.println("images : "+ images.size());
-		if(images.size() == 2) {
-			setStyle("float: left; height: 100px; width: "+(float)100/2+"%; position: relative");
-		} else if(images.size() == 1) {
+		if (images.size() == 2) {
+			setStyle("float: left; height: 100px; width: " + (float) 100 / 2 + "%; position: relative");
+		} else if (images.size() == 1) {
 			setStyle("float: left; height: 100px; width: 100%; position: relative");
 		} else {
-			setStyle("float: left; height: 100px; width: "+(float)100/3+"%; position: relative");			
+			setStyle("float: left; height: 100px; width: " + (float) 100 / 3 + "%; position: relative");
 		}
 		setStyle_v1("position: absolute; top: -15px; right: 0px;");
 	}
@@ -175,7 +174,7 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 	public void attachImages(@BindingParam("media") final Media[] medias, @BindingParam("sizeImgOld") int sizeImgOld,
 			@BindingParam("vmsgs") final ValidationMessages vmsgs) {
 		if ((getImages().size() + 1) > 3 || medias.length > 3 || (sizeImgOld + medias.length) > 3) {
-			showNotification("Chỉ được chọn tối đa 3 file","", "error");
+			showNotification("Chỉ được chọn tối đa 3 file", "", "error");
 			return;
 		}
 		int isFileUpload = 0;
@@ -186,15 +185,15 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 			int maxSizeFile = 10 * 1024 * 1024;
 
 			if (!checkSizeFile(maxSizeFile, countByte)) {
-				showNotification("Chỉ được chọn tối đa file có dung lượng 10 Mb","", "error");
+				showNotification("Chỉ được chọn tối đa file có dung lượng 10 Mb", "", "error");
 				return;
 			}
 
 			String tenFile = media.getName();
 			if (checkFileExtension(getFileEx(tenFile))) {
 				tenFile = tenFile.replace(" ", "");
-				tenFile = tenFile.substring(0, tenFile.lastIndexOf(".")) + "_"
-						+ System.nanoTime() + tenFile.substring(tenFile.lastIndexOf("."));
+				tenFile = tenFile.substring(0, tenFile.lastIndexOf(".")) + "_" + System.nanoTime()
+						+ tenFile.substring(tenFile.lastIndexOf("."));
 				if (vmsgs != null) {
 					vmsgs.clearKeyMessages("errLabel");
 				}
@@ -204,21 +203,18 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 						image.setImageContent(
 								new AImage(new File(Executions.getCurrent().getDesktop().getWebApp().getRealPath("")
 										+ "/backend/assets/images/word.svg")));
-						System.out.println(Executions.getCurrent().getDesktop().getWebApp().getRealPath(""));
 						image.setName(media.getName());
 						listFiles.add(media);
 					} else if ("xlsx".equals(getFileEx(tenFile)) || "xls".equals(getFileEx(tenFile))) {
 						image.setImageContent(
 								new AImage(new File(Executions.getCurrent().getDesktop().getWebApp().getRealPath("")
 										+ "/backend/assets/images/excel.svg")));
-						System.out.println(Executions.getCurrent().getDesktop().getWebApp().getRealPath(""));
 						image.setName(media.getName());
 						listFiles.add(media);
 					} else if ("pdf".equals(getFileEx(tenFile))) {
 						image.setImageContent(
 								new AImage(new File(Executions.getCurrent().getDesktop().getWebApp().getRealPath("")
 										+ "/backend/assets/images/pdf.svg")));
-						System.out.println(Executions.getCurrent().getDesktop().getWebApp().getRealPath(""));
 						image.setName(media.getName());
 						listFiles.add(media);
 					} else {
@@ -255,8 +251,7 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 	@Command
 	public void saveGopYPhanMem(@BindingParam("list") final Object listObject, @BindingParam("attr") final String attr,
 			@BindingParam("wdn") final Window wdn, @BindingParam("fileError") String fileNameError) {
-		System.out.println("fileError : " + fileNameError);
-		
+
 		try {
 			listFileNameSendMail = new ArrayList<>();
 			listFileNameAttach = new ArrayList<>();
@@ -271,13 +266,14 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 			}
 			saveImages();
 			saveFiles();
-			
+
 			saveNotShowNotification();
 			showNotification("Gửi góp ý thành công !", "", "success");
 			wdn.detach();
-			
-			SendMailTLS.sendEmailGmail(new ThamSoService().getQueryEmailLienHe().getValue(), "Gop y phan mem quan ly VHTTDL Quang Nam", noiDung, listFileNameSendMail);
-			
+
+			SendMailTLS.sendEmailGmail(new ThamSoService().getQueryEmailLienHe().getValue(),
+					"Gop y phan mem quan ly VHTTDL Quang Nam", noiDung, listFileNameSendMail);
+
 			BindUtils.postNotifyChange(null, null, listObject, attr);
 		} catch (IOException e) {
 			showNotification("Gửi góp ý không thành công !", "", "error");
@@ -387,7 +383,7 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 		}
 		return false;
 	}
-	
+
 	@Transient
 	public String srcImageFile(String fileName) {
 		String src = "";
@@ -407,12 +403,12 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 		getImages().remove(obj);
 		getListImages().remove(obj);
 		listFileNameAttach.remove(String.valueOf(indexFile));
-		for(int i=0; i<getListFiles().size(); i++) {
-			if(getListFiles().get(i).getName().equals(obj.getName())) {
+		for (int i = 0; i < getListFiles().size(); i++) {
+			if (getListFiles().get(i).getName().equals(obj.getName())) {
 				getListFiles().remove(i);
 			}
 		}
-		
+
 		changeStyle();
 		BindUtils.postNotifyChange(null, null, this, attr);
 		BindUtils.postNotifyChange(null, null, this, "sizeImg");
@@ -444,7 +440,6 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 						if (!createDirPath.exists()) {
 							createDirPath.mkdirs();
 						}
-						System.out.println(dirPath);
 						File filePath = new File(dirPath + File.separator + img.getName());
 						Files.copy(filePath, imageContent.getStreamData());
 						listFileNameSendMail.add(dirPath + File.separator + img.getName());
@@ -466,7 +461,6 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 			File filePath = new File(dirPath + File.separator + fileNameNotImg.get(i));
 			Files.copy(filePath, getListFiles().get(i).getStreamData());
 			listFileNameSendMail.add(dirPath + File.separator + fileNameNotImg.get(i));
-			System.out.println(dirPath);
 		}
 	}
 
@@ -483,13 +477,14 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 			showNotification("Không thể tải file!", "", "error");
 		}
 	}
-	
+
 	@Transient
 	public List<String> getListEmail() {
 		List<String> listEmail = new ArrayList<>();
-		/*for(Emails email : new EmailService().getListEmail()) {
-			listEmail.add(email.getEmail());
-		}*/
+		/*
+		 * for(Emails email : new EmailService().getListEmail()) {
+		 * listEmail.add(email.getEmail()); }
+		 */
 		return listEmail;
 	}
 
@@ -499,7 +494,6 @@ public class GopYPhanMem extends Model<GopYPhanMem> {
 			final String DIR_UPLOAD = "uploads/gopy";
 			String filePath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("") + File.separator
 					+ DIR_UPLOAD + File.separator + fileName;
-			System.out.println(filePath);
 			try {
 				File file = new File(filePath);
 				file.delete();

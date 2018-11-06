@@ -155,7 +155,8 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 											.fetchCount();
 								}
 								if ("vaitro".equals(type)) {
-									count = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTros.contains((VaiTro) Model.this))
+									count = find(NhanVien.class)
+											.where(QNhanVien.nhanVien.vaiTros.contains((VaiTro) Model.this))
 											.fetchCount();
 								}
 								if (count == 0) {
@@ -449,22 +450,20 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 		}
 		return date;
 	}
-	
+
 	@Transient
 	public Task getCurrentTask() {
-		List<Task> listPage = core().getProcess().getTaskService()
-				.createTaskQuery().processInstanceBusinessKey(businessKey())
-				.orderByTaskCreateTime().desc().listPage(0, 1);
+		List<Task> listPage = core().getProcess().getTaskService().createTaskQuery()
+				.processInstanceBusinessKey(businessKey()).orderByTaskCreateTime().desc().listPage(0, 1);
 		return listPage.isEmpty() ? null : listPage.get(0);
 	}
-	
+
 	@Transient
 	public boolean isMyTask() {
 		if (getCurrentTask() != null) {
-			List<IdentityLink> identities = core().getProcess()
-					.getTaskService().getIdentityLinksForTask(getCurrentTask().getId());
+			List<IdentityLink> identities = core().getProcess().getTaskService()
+					.getIdentityLinksForTask(getCurrentTask().getId());
 			for (IdentityLink identity : identities) {
-				System.out.println(identity.getGroupId());
 				if (core().getNhanVien().getListNhom().contains(identity.getGroupId())) {
 					return true;
 				}
@@ -472,14 +471,12 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 		}
 		return false;
 	}
-	
+
 	@Command
-	public void doAction(@BindingParam("flow") final PvmTransition flow, 
-			@BindingParam("list") final Object listObject, 
-			@BindingParam("attr") final String attr,
-			@BindingParam("vm") final Object vm,
+	public void doAction(@BindingParam("flow") final PvmTransition flow, @BindingParam("list") final Object listObject,
+			@BindingParam("attr") final String attr, @BindingParam("vm") final Object vm,
 			@BindingParam("wdn") final Window wdn) {
-		if(wdn != null) {
+		if (wdn != null) {
 			wdn.detach();
 		}
 		Map<String, Object> variables = new HashMap<>();
@@ -487,38 +484,30 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 		variables.put("model", this);
 		variables.put("list", listObject);
 		variables.put("attr", attr);
-		if(vm != null) {
+		if (vm != null) {
 			variables.put("vm", vm);
 		}
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
-		
+
 	}
-	
+
 	@Command
-	public void doActionWithKey(@BindingParam("flow") final PvmTransition flow, 
+	public void doActionWithKey(@BindingParam("flow") final PvmTransition flow,
 			@BindingParam("processDefinitionKey") final String processDefinitionKey,
-			@BindingParam("list") final Object listObject, 
-			@BindingParam("attr") final String attr, 
+			@BindingParam("list") final Object listObject, @BindingParam("attr") final String attr,
 			@BindingParam("wdn") final Window wdn) {
 		Task task = null;
 		if (getCurrentTask() == null) {
 			save();
-			ProcessInstance processInstance = core()
-				.getProcess()
-				.getRuntimeService()
-				.startProcessInstanceByKey(processDefinitionKey, businessKey());
-			task = core()
-					.getProcess()
-					.getTaskService()
-					.createTaskQuery()
-	                .processInstanceId(processInstance.getId())
-	                //.taskCandidateGroup("dev-managers")
-	                .singleResult();
-			System.out.println("Add task"+task.getId());
+			ProcessInstance processInstance = core().getProcess().getRuntimeService()
+					.startProcessInstanceByKey(processDefinitionKey, businessKey());
+			task = core().getProcess().getTaskService().createTaskQuery().processInstanceId(processInstance.getId())
+					.singleResult();
+			System.out.println("Add task" + task.getId());
 		} else {
 			task = getCurrentTask();
 		}
- 		Map<String, Object> variables = new HashMap<>();
+		Map<String, Object> variables = new HashMap<>();
 		variables.put("flow", flow.getId());
 		variables.put("model", this);
 		variables.put("list", listObject);

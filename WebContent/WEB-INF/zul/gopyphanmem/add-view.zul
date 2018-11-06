@@ -18,7 +18,6 @@
 
 			fileName = arg.get("fileName");
 			fileNameError = "/uploads/gopy/"+fileName;
-			System.out.println("fileNameError : "+fileNameError)
 			
 		]]></zscript>
 		<script type="text/javascript">

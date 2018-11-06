@@ -1,7 +1,8 @@
-<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd" >
-	<window title="Thông báo lỗi" 
-		width="400px" mode="modal" closable="true" position="center,top">
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+	<window title="Thông báo lỗi" width="400px" mode="modal"
+		closable="true" position="center,top">
 		<zscript>
 		String msg = "";
 		Throwable t = (Throwable) Executions.getCurrent().getAttribute("javax.servlet.error.exception");
@@ -22,9 +23,7 @@
 				BasicService app = new BasicService();
 				try {
 					emailDN = app.nhanVien.tenDangNhap;
-					System.out.println("emailDN: " + emailDN);
 				} catch (Exception ex) {
-					System.out.println("emailDNx: " + emailDN);
 				} 
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			    PrintStream ps = new PrintStream(baos);

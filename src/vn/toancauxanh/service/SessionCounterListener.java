@@ -31,7 +31,6 @@ public class SessionCounterListener extends BaseObject<Object>
 	public transient final Logger LOG = LogManager.getLogger(SessionCounterListener.class.getName());
 
 	public static int getTotalActiveSession() {
-		// System.out.println("session size:" + sessions.size());
 		return sessions.size();
 	}
 
@@ -69,9 +68,6 @@ public class SessionCounterListener extends BaseObject<Object>
 			s.doDelete(false);
 		}
 		LOG.info("Destroy session, ID:" + event.getSession().getId());
-		// if(totalActiveSessions>0)
-		// totalActiveSessions--;
-		// LOG.info("sessionDestroyed, total:" + totalActiveSessions);
 	}
 
 	@Override
@@ -120,11 +116,11 @@ public class SessionCounterListener extends BaseObject<Object>
 		/*
 		 * if (!session.isNew()) { LOG.info("Old session, ID:"+session.getId());
 		 * 
-		 * Date dayAgo = new Date(System.currentTimeMillis() - 24 * 60 * 60 *
-		 * 1000); Date hourAgo = new Date(System.currentTimeMillis() - 60 * 60 *
-		 * 1000); Date minuteAgo = new Date(System.currentTimeMillis() - 60 *
-		 * 1000); Date created = new Date(session.getCreationTime()); Date
-		 * accessed = new Date(session.getLastAccessedTime());
+		 * Date dayAgo = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+		 * Date hourAgo = new Date(System.currentTimeMillis() - 60 * 60 * 1000); Date
+		 * minuteAgo = new Date(System.currentTimeMillis() - 60 * 1000); Date created =
+		 * new Date(session.getCreationTime()); Date accessed = new
+		 * Date(session.getLastAccessedTime());
 		 * 
 		 * LOG.info("Created:"+ created); LOG.info("Last accessed:"+ accessed);
 		 * 

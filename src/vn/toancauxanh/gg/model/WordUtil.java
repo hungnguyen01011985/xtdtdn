@@ -23,7 +23,6 @@ public final class WordUtil {
 		// 1. find the table
 		Tbl tempTable = getTemplateTable(tables, placeholders[0]);
 		if (tempTable == null) {
-			System.out.println(placeholders[0] + " not found");
 			return;
 		}
 		List<Object> rows = getAllElementFromObject(tempTable, Tr.class);
