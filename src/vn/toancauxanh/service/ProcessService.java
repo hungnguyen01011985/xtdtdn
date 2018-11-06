@@ -64,13 +64,12 @@ public class ProcessService extends BasicService<Object> {
 		model.getTaiLieuNDT().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getTaiLieuGD1().saveNotShowNotification();
 		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_MOT, "thoiHanGiaiDoanMot", model.getGiaiDoanDuAn().getNgayNhanPhanHoi());
-		luuDuLieuDonVi(model.getGiaiDoanDuAn());
 	}
 	
 	public void validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		boolean result = kiemTraCongViecHoanThanh(duAn);
 		if (result) {
 			showNotification("", "Công việc chưa được hoàn thành", "danger");
@@ -83,7 +82,6 @@ public class ProcessService extends BasicService<Object> {
 		model.getTaiLieuNDT().saveNotShowNotification();
 		model.getGiaiDoanDuAn().getTaiLieuGD1().saveNotShowNotification();
 		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI, GiaiDoanXucTien.GIAI_DOAN_MOT);
-		luuDuLieuDonVi(model.getGiaiDoanDuAn());
 	}
 
 	public boolean kiemTraCongViecHoanThanh(DuAn duAn) {
@@ -97,31 +95,31 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		Object object = ((ExecutionEntity) execution).getVariable("list");
 		String attr = (String) ((ExecutionEntity) execution).getVariable("attr");
-		System.out.println("Truoc"+model.getNguoiPhuTrach().getHoVaTen());
-		model.getNguoiPhuTrach().saveNotShowNotification();
-		model.saveNotShowNotification();
-		System.out.println("SAU"+model.getNguoiPhuTrach().getHoVaTen());
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchFirst();
+		duAn.setNguoiPhuTrach(model.getNguoiPhuTrach());
+		duAn.save();
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
 	}
 
 	public void giaoViecDuAn(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		Object object = ((ExecutionEntity) execution).getVariable("list");
-		String attr = (String) ((ExecutionEntity) execution).getVariable("attr");
-		model.getGiaoViec().setDuAn(model);
-		model.getGiaoViec().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
-		model.getGiaoViec().setNguoiGiaoViec(core().getNhanVien());
-		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
-		model.getGiaoViec().saveNotShowNotification();
-		System.out.println(model.getGiaoViec().getNguoiDuocGiao().getHoVaTen());
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
 		DuAn duAn = q.fetchFirst();
-		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + model.getGiaoViec().getNguoiDuocGiao().getId() + KY_TU);
+		GiaoViec giaoViec = (GiaoViec) ((ExecutionEntity) execution).getVariable("giaoViec");
+		Object object = ((ExecutionEntity) execution).getVariable("list");
+		String attr = (String) ((ExecutionEntity) execution).getVariable("attr");
+		giaoViec.setDuAn(duAn);
+		giaoViec.setGiaiDoanXucTien(duAn.getGiaiDoanXucTien());
+		giaoViec.setNguoiGiaoViec(core().getNhanVien());
+		giaoViec.getTaiLieu().saveNotShowNotification();
+		giaoViec.saveNotShowNotification();
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 		duAn.saveNotShowNotification();
-		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao(), model.getGiaoViec().getNguoiGiaoViec());
+		thongBao(duAn, LoaiThongBao.CONG_VIEC_MOI, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec());
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
@@ -138,7 +136,7 @@ public class ProcessService extends BasicService<Object> {
 	public void thongBaoTreHannGiaiDoanMot(Execution execution) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		thongBaoTreCongViec(duAn);
 	}
 	
@@ -179,7 +177,7 @@ public class ProcessService extends BasicService<Object> {
 	public void validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		boolean result = kiemTraCongViecHoanThanh(duAn);
 		if (result) {
 			showNotification("", "Công việc chưa được hoàn thành", "danger");
@@ -190,7 +188,7 @@ public class ProcessService extends BasicService<Object> {
 	public void validateDuLieuGiaiDoanHaiVaKetThucDuAn(Execution execution) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		boolean result = kiemTraCongViecHoanThanh(duAn);
 		if (result) {
 			showNotification("", "Công việc chưa được hoàn thành", "danger");
@@ -225,7 +223,7 @@ public class ProcessService extends BasicService<Object> {
 	public void validateDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		boolean result = kiemTraCongViecHoanThanh(duAn);
 		if (result) {
 			showNotification("", "Công việc chưa được hoàn thành", "danger");
@@ -323,7 +321,7 @@ public class ProcessService extends BasicService<Object> {
 	public void thongBaoTreHanGiaiDoanBa(Execution execution) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		thongBaoTreCongViec(duAn);
 	}
 	
@@ -351,7 +349,7 @@ public class ProcessService extends BasicService<Object> {
 	public void validateDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam(Execution execution) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		boolean result = kiemTraCongViecHoanThanh(duAn);
 		if (result) {
 			showNotification("", "Công việc chưa được hoàn thành", "danger");
@@ -380,7 +378,7 @@ public class ProcessService extends BasicService<Object> {
 	public void validateDuLieuGiaiDoanNamVaKetThucDuAn(Execution execution) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		boolean result = kiemTraCongViecHoanThanh(duAn);
 		if (result) {
 			showNotification("", "Công việc chưa được hoàn thành", "danger");
@@ -408,6 +406,9 @@ public class ProcessService extends BasicService<Object> {
 		if (ngay != null && thoiHan != null && !thoiHan.isEmpty()) {
 			((ExecutionEntity) execution).setVariable(thoiHan, (Date) ngay);
 		}
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+			luuDuLieuDonVi(duAn.getGiaiDoanDuAn());
+		}
 		redirectGiaiDoanDuAnById(duAn.getId());
 		showNotification("", "Cập nhật thành công", "success");
 	}
@@ -419,6 +420,9 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaiDoanDuAn().setDuAn(model);
 		model.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoan);
 		model.getGiaiDoanDuAn().saveNotShowNotification();
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+			luuDuLieuDonVi(model.getGiaiDoanDuAn());
+		}
 		redirectGiaiDoanDuAnById(model.getId());
 		showNotification("", "Cập nhật thành công", "success");
 	}
@@ -443,7 +447,7 @@ public class ProcessService extends BasicService<Object> {
 	public void kiemTraGiaiDoan(Execution execution, String varriable, GiaiDoanXucTien giaiDoan) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		if (duAn != null && giaiDoan != null && duAn.getGiaiDoanXucTien() != null) {
 			if (giaiDoan.equals(duAn.getGiaiDoanXucTien())) {
 				((ExecutionEntity) execution).setVariable(varriable, true);

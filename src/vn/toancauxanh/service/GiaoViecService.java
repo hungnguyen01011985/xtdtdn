@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.MapUtils;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.zul.Window;
@@ -38,12 +39,14 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 			q.where(QGiaoViec.giaoViec.trangThaiGiaoViec.eq(TrangThaiGiaoViec.valueOf(trangThai)));
 		}
 		q.orderBy(QGiaoViec.giaoViec.ngaySua.desc());
+		q.setHint("org.hibernate.cacheable", false);
 		return q;
 	}
 	
 	@Command
-	public void closePopup(@BindingParam("wdn") final Window wdn) {
+	public void closePopup(@BindingParam("wdn") final Window wdn, @BindingParam("vm") Object vm) {
 		wdn.detach();
+		BindUtils.postNotifyChange(null, null, vm, "targetQueryByIdDuAn");
 	}
 	
 	public List<TrangThaiGiaoViec> getListTrangThaiGiaoViec(){

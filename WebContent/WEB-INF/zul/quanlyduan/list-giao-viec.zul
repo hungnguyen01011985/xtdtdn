@@ -7,7 +7,6 @@
 				vn.toancauxanh.model.DuAn duAn = arg.get("vm");
 				vmArgs = arg.get("vmArgs");
 				vm.arg.put("idDuAn", duAn.getId());
-				
 		 	]]>
 		 </zscript>
 		<div class="w-popup-content-medium">
@@ -28,7 +27,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Người được giao</span> 
@@ -41,7 +39,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Trạng thái</span> 
@@ -132,7 +129,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('closePopup', wdn=wdn)">
+						<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('closePopup', wdn=wdn, vm = vm)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 							<span>Đóng</span>
 						</x:button>
