@@ -37,7 +37,6 @@ public class SessionCounterListener extends BaseObject<Object>
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		event.getServletContext().setAttribute(ATTRIBUTE_NAME, this);
-		LOG.info("Destroy context");
 	}
 
 	@Override
@@ -47,14 +46,6 @@ public class SessionCounterListener extends BaseObject<Object>
 
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
-		/*
-		 * HttpSession session = event.getSession(); if (session.isNew()) {
-		 * sessions.put(session.getId(),session);
-		 * LOG.info("New session, ID:"+session.getId()); SessionCount s = new
-		 * SessionCount(session.getId()); s.saveNotShowNotification(); }
-		 */
-		// totalActiveSessions++;
-		// LOG.info("sessionCreated, total:" + totalActiveSessions);
 	}
 
 	@Override
@@ -113,21 +104,6 @@ public class SessionCounterListener extends BaseObject<Object>
 				}
 			}
 		}
-		/*
-		 * if (!session.isNew()) { LOG.info("Old session, ID:"+session.getId());
-		 * 
-		 * Date dayAgo = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
-		 * Date hourAgo = new Date(System.currentTimeMillis() - 60 * 60 * 1000); Date
-		 * minuteAgo = new Date(System.currentTimeMillis() - 60 * 1000); Date created =
-		 * new Date(session.getCreationTime()); Date accessed = new
-		 * Date(session.getLastAccessedTime());
-		 * 
-		 * LOG.info("Created:"+ created); LOG.info("Last accessed:"+ accessed);
-		 * 
-		 * if (created.before(dayAgo) || accessed.before(minuteAgo)) {
-		 * sessions.remove(session.getId()); } }
-		 */
-
 	}
 
 	public static SessionCounterListener getInstance(ServletContext context) {

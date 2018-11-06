@@ -8,9 +8,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 
 import vn.toancauxanh.model.NhanVien;
 
-
 public final class Quyen extends HashMap<String, Boolean> {
-	
+
 	public static transient final Logger LOG = LogManager.getLogger(Quyen.class.getName());
 	private static final long serialVersionUID = 1074541145578559487L;
 	public static final char CHAR_CACH = ':';
@@ -44,11 +43,12 @@ public final class Quyen extends HashMap<String, Boolean> {
 
 	@Override
 	public Boolean get(Object key_) {
-		// Object key là phần truyền vào bên home.zul. VD : baiviet_lietke ( phần này truyền từ url param )
+		// Object key là phần truyền vào bên home.zul. VD : baiviet_lietke ( phần này
+		// truyền từ url param )
 		if (key_ == null) {
 			return false;
 		}
-		//LOG.info(key_ + "");
+
 		if (id != 0 && nguoiTao != null && nguoiTao.equals(new BasicService<>().core().getNhanVien())) {
 			return true;
 		}
@@ -59,8 +59,9 @@ public final class Quyen extends HashMap<String, Boolean> {
 		if (id != 0) {
 			key += CACH + id;
 		}
-		boolean result = realm.isPermitted(null, key.replace('_', CHAR_CACH)); // Thay thế _ thành : => vd : baiviet:lietke
-		return result; // true thì oke, false...
+		boolean result = realm.isPermitted(null, key.replace('_', CHAR_CACH));
+		// Thay thế _ thành : => vd : baiviet:lietke
+		return result;
 	}
-	
+
 }
