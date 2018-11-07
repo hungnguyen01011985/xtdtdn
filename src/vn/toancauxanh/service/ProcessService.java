@@ -127,11 +127,11 @@ public class ProcessService extends BasicService<Object> {
 
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		boolean kiemTra1 = kiemTraGiaiDoan(execution, GiaiDoanXucTien.GIAI_DOAN_MOT);
+		boolean kiemTraGiaiDoan = kiemTraGiaiDoan(execution, GiaiDoanXucTien.GIAI_DOAN_MOT);
 		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(model.getId()))
 				.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
 		GiaiDoanDuAn giaiDoanDuAn = q.fetchFirst();
-		if (kiemTraNgay(giaiDoanDuAn.getNgayNhanPhanHoi(), giaiDoanDuAn.getNgayThongBaoOld()) && kiemTra1) {
+		if (kiemTraNgay(giaiDoanDuAn.getNgayNhanPhanHoi(), giaiDoanDuAn.getNgayThongBaoOld()) && kiemTraGiaiDoan) {
 			((ExecutionEntity) execution).setVariable("isDangOGiaiDoannMot", true);
 			return;
 		}
@@ -166,7 +166,6 @@ public class ProcessService extends BasicService<Object> {
 	}
 
 	public void thongBao(DuAn duAn, LoaiThongBao loaiThongBao, NhanVien nguoiNhan, NhanVien nguoiGui, String tenCongViec) {
-		System.out.println("zzz"+duAn.getGiaoViec().getTenCongViec());
 		ThongBao thongBao = new ThongBao();
 		if (LoaiThongBao.TRE_CONG_VIEC.equals(loaiThongBao)) {
 			if (nguoiGui != null) {
@@ -336,11 +335,11 @@ public class ProcessService extends BasicService<Object> {
 	
 	public void kiemTraDangOGiaiDoanBa(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		boolean kiemTra1 = kiemTraGiaiDoan(execution, GiaiDoanXucTien.GIAI_DOAN_BA);
+		boolean kiemTraGiaiDoan = kiemTraGiaiDoan(execution, GiaiDoanXucTien.GIAI_DOAN_BA);
 		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(model.getId()))
 				.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
 		GiaiDoanDuAn giaiDoanDuAn = q.fetchFirst();
-		if (kiemTraNgay(giaiDoanDuAn.getNgayDuKienNhanPhanHoi(), giaiDoanDuAn.getNgayThongBaoOld()) && kiemTra1) {
+		if (kiemTraNgay(giaiDoanDuAn.getNgayDuKienNhanPhanHoi(), giaiDoanDuAn.getNgayThongBaoOld()) && kiemTraGiaiDoan) {
 			((ExecutionEntity) execution).setVariable("isDangOGiaiDoanBa", true);
 			return;
 		}
