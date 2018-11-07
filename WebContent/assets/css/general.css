@@ -519,3 +519,14 @@
 		
 	}
 }
+
+.pop-up-width{
+	width: 90%;
+}
+
+/* @media(max-width: 768px){
+	.pop-up-width{
+		width: 100%;
+		height: calc(100% - 60px);
+	}
+} */
