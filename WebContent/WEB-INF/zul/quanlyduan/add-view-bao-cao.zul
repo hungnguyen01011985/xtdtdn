@@ -120,7 +120,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div zclass="form-group">
-							<span>Đính kèm kết quả</span>
+							<x:span class="issue-search">Đính kèm kết quả</x:span>
 							<button visible="@load(empty vm.taiLieuKetQua.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm, name = '*')"
