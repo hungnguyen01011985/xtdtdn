@@ -19,7 +19,6 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
@@ -489,6 +488,5 @@ public class DuAn extends Model<DuAn> {
 	public void saveThongTinDuAn(){
 		this.getTaiLieuNDT().saveNotShowNotification();
 		this.save();
-		Executions.sendRedirect("/cp/quanlyduan/" + this.getId());
 	}
 }
