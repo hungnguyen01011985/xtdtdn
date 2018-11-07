@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -91,7 +93,8 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin giayChungNhanDangKyDoanhNghiep;
 	private TepTin giayChungNhanQuyenSuDungDat;
 	private TepTin taiLieuDinhKem;
-
+	private Date ngayThongBaoOld;
+	private boolean kiemTraThongBao = true;
 	@ManyToOne
 	public TepTin getGiayChungNhanDauTu() {
 		return giayChungNhanDauTu;
@@ -177,6 +180,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		this.donViDuAn = donViDuAn;
 	}
 
+	@Enumerated(EnumType.STRING)
 	public GiaiDoanXucTien getGiaiDoanXucTien() {
 		return giaiDoanXucTien;
 	}
@@ -371,7 +375,8 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	public void setDuAn(DuAn duAn) {
 		this.duAn = duAn;
 	}
-
+	
+	@Enumerated(EnumType.STRING)
 	public PhuongThucLuaChonNDT getPhuongThucLuaChonNDT() {
 		return phuongThucLuaChonNDT;
 	}
@@ -794,4 +799,22 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		}
 		return list;
 	}
+
+	public Date getNgayThongBaoOld() {
+		return ngayThongBaoOld;
+	}
+
+	public void setNgayThongBaoOld(Date ngayThongBaoOld) {
+		this.ngayThongBaoOld = ngayThongBaoOld;
+	}
+
+	public boolean isKiemTraThongBao() {
+		return kiemTraThongBao;
+	}
+
+	public void setKiemTraThongBao(boolean kiemTraThongBao) {
+		this.kiemTraThongBao = kiemTraThongBao;
+	}
+	
+	
 }

@@ -15,12 +15,12 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public final class LoginFilter implements Filter {
+	@SuppressWarnings("unused")
 	private static final Logger LOG = LogManager.getLogger(LoginFilter.class.getName());
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
-		LOG.info("filter");
 		new BaseObject<>().core().getNhanVien(false, (HttpServletRequest) request, (HttpServletResponse) response);
 		filterChain.doFilter(request, response);
 	}

@@ -7,7 +7,6 @@
 		import org.hibernate.search.jpa.*; 
 		import vn.toancauxanh.service.*;
 		import org.hibernate.search.query.dsl.*;
-		System.out.println("reindex");
 		entry = new vn.toancauxanh.service.BaseObject().core();
 		entry.baiViets.reindex(500);
 ]]>

@@ -50,7 +50,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		Map<Object, Object> arg = super.getArg();
 		return arg;
 	}
-	
+
 	public NhanVien fetchNhanVien(boolean saving) {
 		if (Executions.getCurrent() == null) {
 			return null;
@@ -58,7 +58,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		return getNhanVien(saving, (HttpServletRequest) Executions.getCurrent().getNativeRequest(),
 				(HttpServletResponse) Executions.getCurrent().getNativeResponse());
 	}
-	
+
 	public NhanVien getNhanVien() {
 		return fetchNhanVien(false);
 	}
@@ -107,7 +107,7 @@ public class BaseObject<T> extends CoreObject<T> {
 
 		return isSave && nhanVien != null && nhanVien.noId() ? null : nhanVien;
 	}
-	
+
 	public void setActivePage(int value) {
 		getArg().put(SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGE), value + 1);
 	}
@@ -139,13 +139,12 @@ public class BaseObject<T> extends CoreObject<T> {
 			@BindingParam("notify") Object beanObject, @BindingParam("attr") @Default(value = "*") String fields) {
 		invoke(null, ten, null, beanObject, fields, null, false);
 	}
-	
+
 	@Command
 	public final void cmdLoadPageFrontEnd(@BindingParam("ten") @Default(value = "") final String ten,
 			@BindingParam("notify") Object beanObject, @BindingParam("attr") @Default(value = "*") String fields) {
 		invoke(null, ten, null, beanObject, "detail", null, false);
 	}
-
 
 	@Transient
 	public Entry core() {
@@ -172,7 +171,6 @@ public class BaseObject<T> extends CoreObject<T> {
 		return new HomeService();
 	}
 
-
 	public NhanVien fetchNhanVienSaving() {
 		return fetchNhanVien(true);
 	}
@@ -186,8 +184,9 @@ public class BaseObject<T> extends CoreObject<T> {
 			url.append(":").append(req.getServerPort()); // app name
 		}
 		try {
-			res.sendRedirect(url + req.getContextPath() + "/login"); // Phan redirect url neu k co user dang nhap va dang
-																// xuat
+			res.sendRedirect(url + req.getContextPath() + "/login"); // Phan redirect url neu k co user dang nhap va
+																		// dang
+			// xuat
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -228,12 +227,12 @@ public class BaseObject<T> extends CoreObject<T> {
 	public boolean isNhanVienDaKichHoat() {
 		return !getNhanVien().isCheckKichHoat();
 	}
-	
+
 	@Command
 	public void redirectQuanLyDuAn() {
 		Executions.sendRedirect("/cp/quanlyduan");
 	}
-	
+
 	@Command
 	public void redirectPage(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
 			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom) {
@@ -243,7 +242,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		args.put("nhom", nhom);
 		Executions.createComponents(zul, null, args);
 	}
-	
+
 	@Command
 	public void redirectPageDoanVao(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
 			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom) {
@@ -253,11 +252,11 @@ public class BaseObject<T> extends CoreObject<T> {
 		args.put("nhom", nhom);
 		Executions.createComponents(zul, null, args);
 	}
-	
+
 	@Command
 	public void redirectPageAction(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
-			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom, @BindingParam("readOnly") boolean readOnly) {
-		System.out.println("readOnly: " + readOnly);
+			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom,
+			@BindingParam("readOnly") boolean readOnly) {
 		Map<String, Object> args = new HashMap<>();
 		args.put("vmArgs", vmArgs);
 		args.put("vm", vm);
@@ -314,16 +313,17 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return list;
 	}
-	
+
 	public void removeIdInList(GiaoViec giaoViec) {
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.eq(giaoViec.getDuAn()));
 		DuAn duAn = q.fetchOne();
-		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId()+KY_TU, ""));
+		duAn.setIdNguoiLienQuan(
+				duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId() + KY_TU, ""));
 		duAn.saveNotShowNotification();
 	}
-	
+
 	public static final String KY_TU = "@";
-	
+
 	public String unAccent(String s) {
 		String temp = Normalizer.normalize(s.toLowerCase(), Normalizer.Form.NFD);
 		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
@@ -333,24 +333,24 @@ public class BaseObject<T> extends CoreObject<T> {
 
 	public void showNotification(String title, String content, String type) {
 		switch (type) {
-			case "success": {
-				Clients.evalJavaScript("toastrSuccess('"+ title +"', '"+ content +"')");
-				break;
-			}
-			case "info": {
-				Clients.evalJavaScript("toastrInfo('"+ title +"', '"+ content +"')");
-				break;
-			}
-			case "warning": {
-				Clients.evalJavaScript("toastrWarning('"+ title +"', '"+ content +"')");
-				break;
-			}
-			case "danger": {
-				Clients.evalJavaScript("toastrError('"+ title +"', '"+ content +"')");
-				break;
-			}
+		case "success": {
+			Clients.evalJavaScript("toastrSuccess('" + title + "', '" + content + "')");
+			break;
 		}
-		
+		case "info": {
+			Clients.evalJavaScript("toastrInfo('" + title + "', '" + content + "')");
+			break;
+		}
+		case "warning": {
+			Clients.evalJavaScript("toastrWarning('" + title + "', '" + content + "')");
+			break;
+		}
+		case "danger": {
+			Clients.evalJavaScript("toastrError('" + title + "', '" + content + "')");
+			break;
+		}
+		}
+
 	}
 
 	@Command

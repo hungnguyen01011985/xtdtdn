@@ -12,9 +12,7 @@ import org.zkoss.util.resource.Labels;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import vn.toancauxanh.model.LoaiDiTich;
 import vn.toancauxanh.model.LoaiLeHoi;
-import vn.toancauxanh.model.QLoaiDiTich;
 import vn.toancauxanh.model.QLoaiLeHoi;
 
 public class LoaiLeHoiService extends BasicService<LoaiLeHoi>{

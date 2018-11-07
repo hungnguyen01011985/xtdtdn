@@ -242,7 +242,7 @@ public class DuAn extends Model<DuAn> {
 			@BindingParam("attr") final String attr) {
 		wdn.detach();
 		Map<String, Object> variables = new HashMap<>();
-		variables.put("model", this);
+		variables.put("giaoViec", this.getGiaoViec());
 		variables.put("goTask", "task_giaoViec");
 		variables.put("list", list);
 		variables.put("attr", attr);

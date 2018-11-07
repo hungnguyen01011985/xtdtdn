@@ -6,6 +6,7 @@
 		 	<![CDATA[
 				vn.toancauxanh.model.DuAn duAn = arg.get("vm");
 				vmArgs = arg.get("vmArgs");
+				vm.arg.put("idDuAn", duAn.getId());
 		 	]]>
 		 </zscript>
 		<div class="w-popup-content-medium">
@@ -26,7 +27,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Người được giao</span> 
@@ -39,7 +39,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Trạng thái</span> 
@@ -82,67 +81,60 @@
 			</div>
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-				<grid id="grid" model="@load(vm.page(vm.getTargetQueryByIdDuAn(duAn.getId())).fetch())"
-					emptyMessage="Không có dữ liệu nào trong danh sách">
-					<columns>
-						<column label="STT" width="42px"/>
-						<column label="Tên công việc"/>
-						<column label="Người giao việc"/>
-						<column label="Người được giao"/>
-						<column label="Ngày giao việc"/>
-						<column label="Hạn thực hiện"/>
-						<column label="Trạng thái"/>
-						<column label="Thao tác" width="210px" />
-					</columns>
-					<template name="model">
-						<row viewModel="@id('item') @init(each)">
-							<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-							<label value="@load(item.tenCongViec)"></label>
-							<label value="@load(item.nguoiGiaoViec.hoVaTen)"></label>
-							<label value="@load(item.nguoiDuocGiao.hoVaTen)"></label>
-							<label value="@load(item.ngayGiao) @converter('formatedDate',format='dd/MM/YYYY')"></label>
-							<label value="@load(item.hanThucHien) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
-							<label value="@load(item.trangThaiGiaoViec.text)" class="@load(item.trangThaiGiaoViec)"></label>
-							<div class="thaotac">
-								<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 2 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('redirectPage',zul='quanlyduan/add-bao-cao.zul', vm = item, vmArgs = vm)">
-									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-									<x:span>Báo cáo</x:span>
-								</x:a>
-								<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 1 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('redirectPage',zul='quanlyduan/add-nhan-viec.zul', vm = item, vmArgs = vm)">
-									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-									<x:span>Nhận việc</x:span>
-								</x:a>
-								<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color"  if="${item.nguoiGiaoViec.id == entry.nhanVien.id}" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
-									<x:image class="img-edit" width="20px" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
-									<x:span>Xóa</x:span>
-								</x:a>
-								<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${item.nguoiGiaoViec.id == entry.nhanVien.id}"
-									onClick="@command('redirectPage',zul='quanlyduan/edit-giao-viec.zul', vm = item, vmArgs = vm)">
-									<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-									<x:span>Sửa</x:span>
-								</x:a>
-								
-							</div>
-						</row>
-					</template>
-					<rows>
-						<row>
-							
-						</row>
-					</rows>
-				</grid>
-			</div>
+					<grid id="grid" model="@load(vm.page(vm.targetQueryByIdDuAn).fetch())"
+						emptyMessage="Không có dữ liệu nào trong danh sách">
+						<columns>
+							<column label="STT" width="42px"/>
+							<column label="Tên công việc"/>
+							<column label="Người giao việc"/>
+							<column label="Người được giao"/>
+							<column label="Ngày giao việc"/>
+							<column label="Hạn thực hiện"/>
+							<column label="Trạng thái"/>
+							<column label="Thao tác" width="210px" />
+						</columns>
+						<template name="model">
+							<row viewModel="@id('item') @init(each)">
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
+								<label value="@load(item.tenCongViec)"></label>
+								<label value="@load(item.nguoiGiaoViec.hoVaTen)"></label>
+								<label value="@load(item.nguoiDuocGiao.hoVaTen)"></label>
+								<label value="@load(item.ngayGiao) @converter('formatedDate',format='dd/MM/YYYY')"></label>
+								<label value="@load(item.hanThucHien) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
+								<label value="@load(item.trangThaiGiaoViec.text)" class="@load(item.trangThaiGiaoViec)"></label>
+								<div class="thaotac">
+									<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 2 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('redirectPage',zul='quanlyduan/add-bao-cao.zul', vm = item, vmArgs = vm)">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+										<x:span>Báo cáo</x:span>
+									</x:a>
+									<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 1 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('redirectPage',zul='quanlyduan/add-nhan-viec.zul', vm = item, vmArgs = vm)">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+										<x:span>Nhận việc</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color"  if="${item.nguoiGiaoViec.id == entry.nhanVien.id}" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
+										<x:image class="img-edit" width="20px" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+									<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${item.nguoiGiaoViec.id == entry.nhanVien.id}"
+										onClick="@command('redirectPage',zul='quanlyduan/edit-giao-viec.zul', vm = item, vmArgs = vm)">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+								</div>
+							</row>
+						</template>
+					</grid>
+				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
+						<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('closePopup', wdn=wdn, vm = vm)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 							<span>Đóng</span>
 						</x:button>
 					</div>
 				</div>
-				
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
 						<x:button if="${entry.quyen.quanlyduan_giaoviec}" onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = duAn, vmArgs = vm)"

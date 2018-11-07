@@ -94,8 +94,8 @@ public class BaseValid extends AbstractValidator {
 				java.util.logging.Logger.getAnonymousLogger().info(ctx.getBindContext().getComponent() + "");
 				java.util.logging.Logger.getAnonymousLogger().info(ctx.getBindContext().getComponent().getId() + "");
 				if (msgid == null) {
-					addInvalidMessage(ctx,msg.toString());
-					addInvalidMessage(ctx, "errorEmpty",msg.toString());
+					addInvalidMessage(ctx, msg.toString());
+					addInvalidMessage(ctx, "errorEmpty", msg.toString());
 				} else {
 					addInvalidMessage(ctx, msgid.toString(), msg.toString());
 				}
@@ -119,7 +119,7 @@ public class BaseValid extends AbstractValidator {
 				result = true;
 			} else {
 				addInvalidMessage(ctx, "Xác nhận mật khẩu không trùng khớp!");
-				addInvalidMessage(ctx,"errorPass", "Xác nhận mật khẩu không trùng khớp!");
+				addInvalidMessage(ctx, "errorPass", "Xác nhận mật khẩu không trùng khớp!");
 				result = false;
 			}
 		}
@@ -138,23 +138,6 @@ public class BaseValid extends AbstractValidator {
 		return result;
 	}
 
-	// private boolean validateCaptcha(final ValidationContext ctx) {
-	// String captcha = (String) ctx.getValidatorArg("captcha");
-	// System.out.println("captcha: " + captcha);
-	// final String recaptcha = (String) ctx.getValidatorArg("recaptcha");
-	// System.out.println("recaptcha: " + recaptcha);
-	//
-	// boolean result;
-	// if (captcha != null && captcha.equals(recaptcha)) {
-	// result = true;
-	// } else {
-	// addInvalidMessage(ctx, "captchaerr", "Mã kiểm tra không đúng.");
-	// result = false;
-	// }
-	// System.out.println("ket qua: " + result);
-	// return result;
-	// }
-
 	private boolean validateUnique(final ValidationContext ctx) {
 		boolean result;
 		final Object field = ctx.getValidatorArg("field");
@@ -166,11 +149,7 @@ public class BaseValid extends AbstractValidator {
 			JPAQuery<?> q = basicService.find(object.getClass());
 			Path<?> path = (Path<?>) q.getMetadata().getJoins().get(0).getTarget();
 			PathBuilder<?> pb = new PathBuilder<>(object.getClass(), path.getMetadata().getName());
-			// Model<?> a = alias(object.getClass(),
-			// path.getMetadata().getName());
-			// q =
-			// q.where($(a.getTrangThai()).ne(basicService.core().TT_DA_XOA))
-			// .where($(a.getId()).ne(object.getId()))
+
 			q = q.where(pb.get(QModel.model.trangThai).ne(basicService.core().TT_DA_XOA))
 					.where(pb.get(QModel.model.id).ne(object.getId()))
 					.where(Expressions.path(Object.class, path, field.toString()).eq(ctx.getProperty().getValue()));
@@ -192,14 +171,14 @@ public class BaseValid extends AbstractValidator {
 
 		return result;
 	}
-	
+
 	private boolean validateNamSinh(final ValidationContext ctx) {
 		boolean result = true;
 		String messg = "Năm sinh không được lớn hơn năm hiện tại";
 		final Boolean flag = (Boolean) ctx.getValidatorArg("flagNamSinh");
 		String namSinhStr = (String) ctx.getValidatorArg("namSinh");
 		Date now = new Date();
-		if (flag == null || flag==false) {
+		if (flag == null || flag == false) {
 			return true;
 		}
 		if (namSinhStr != null && !namSinhStr.isEmpty()) {
@@ -214,7 +193,7 @@ public class BaseValid extends AbstractValidator {
 		}
 		return result;
 	}
-	
+
 	private boolean validateNgaySinh(final ValidationContext ctx) {
 		boolean result = true;
 		String messg = "Không được để trống trường này.";
@@ -224,7 +203,7 @@ public class BaseValid extends AbstractValidator {
 		Date ngaySinh = (Date) ctx.getValidatorArg("ngaySinhConstraint");
 		int namSinh = 0;
 		final Boolean flag = (Boolean) ctx.getValidatorArg("flagBirth");
-		if (flag == null || flag==false) {
+		if (flag == null || flag == false) {
 			return true;
 		} else {
 			try {
@@ -241,7 +220,8 @@ public class BaseValid extends AbstractValidator {
 				if (ngaySinh.after(now)) {
 					addInvalidMessage(ctx, messg1);
 					result = false;
-				} else if (DateUtils.toCalendar(now).get(Calendar.YEAR) - DateUtils.toCalendar(ngaySinh).get(Calendar.YEAR) > 150){
+				} else if (DateUtils.toCalendar(now).get(Calendar.YEAR)
+						- DateUtils.toCalendar(ngaySinh).get(Calendar.YEAR) > 150) {
 					addInvalidMessage(ctx, messg2);
 					result = false;
 				}

@@ -45,7 +45,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @MappedSuperclass
 @Audited(withModifiedFlag = true)
-public class CoreModel <T> extends CoreObject<T> {	
+public class CoreModel<T> extends CoreObject<T> {
 	private long version;
 	private transient long instanceTime;
 	protected String contextResource;
@@ -56,27 +56,23 @@ public class CoreModel <T> extends CoreObject<T> {
 	protected boolean xoaByTrangThai;
 	protected StatusType trangThai = StatusType.AP_DUNG;
 
-
 	public long version() {
 		return version;
 	}
 
 	@Command
-	public void cmd(@BindingParam("ten") final String ten)
-			throws IllegalAccessException, IllegalArgumentException,
+	public void cmd(@BindingParam("ten") final String ten) throws IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException {
-		//System.out.println("cmd ten: " + ten);
 		final Method method = getClass().getMethod(ten);
 		if (method.isAnnotationPresent(Command.class)) {
 			method.invoke(this);
 		}
-		//invoke(null, ten, null, null, "", null, false);
 	}
 
 	public void setVersion(final long revision1) {
 		version = revision1;
 	}
-	
+
 	@Transient
 	public List<T> getHistories() {
 		final List<T> result = new ArrayList<T>();
@@ -126,7 +122,8 @@ public class CoreModel <T> extends CoreObject<T> {
 					if (method.getParameterTypes().length == 0 && method.getName().startsWith("get")
 							&& !method.isAnnotationPresent(Transient.class)) {
 						Class<?> returnType = method.getReturnType();
-						if (CoreModel.class.isAssignableFrom(returnType) || Collection.class.isAssignableFrom(returnType)) {
+						if (CoreModel.class.isAssignableFrom(returnType)
+								|| Collection.class.isAssignableFrom(returnType)) {
 							methods.add(method);
 						}
 					}
@@ -193,19 +190,16 @@ public class CoreModel <T> extends CoreObject<T> {
 		}
 		return result;
 	}
-	
+
 	@PostLoad
 	protected void loaded() {
 		if (instanceTime == 0) {
 			instanceTime = System.currentTimeMillis();
 		}
 	}
-	
+
 	@Transient
 	public long getInstanceTime() {
-		// if (instanceTime == 0) {
-		// instanceTime = System.currentTimeMillis();
-		// }
 		return instanceTime;
 	}
 
@@ -228,7 +222,7 @@ public class CoreModel <T> extends CoreObject<T> {
 	public void validate() {
 		//
 	}
-	
+
 	@Override
 	public void setDaXoa(boolean deleted) {
 		this.daXoa = deleted;
@@ -236,23 +230,23 @@ public class CoreModel <T> extends CoreObject<T> {
 			setTrangThai(StatusType.DA_XOA);
 		}
 	}
-	
+
 	@Transient
 	public boolean isApDung() {
 		return trangThai == StatusType.AP_DUNG;
 	}
-	
+
 	@Transient
 	public boolean permitted() {
 		return trangThai != StatusType.DA_XOA;
 	}
-	
+
 	public void setApDung(final boolean isApdung) {
 		if (isApdung != isApDung()) {
 			trangThai = isApdung ? StatusType.AP_DUNG : StatusType.KHONG_AP_DUNG;
 		}
 	}
-	
+
 	@Field(index = org.hibernate.search.annotations.Index.YES, analyze = Analyze.NO, store = Store.YES)
 	@Transient
 	public String getDeleteStatus() {
@@ -264,7 +258,7 @@ public class CoreModel <T> extends CoreObject<T> {
 			return "khongapdung";
 		}
 	}
-	
+
 	@Transient
 	public boolean isXoaByTrangThai() {
 		return xoaByTrangThai;
@@ -273,7 +267,7 @@ public class CoreModel <T> extends CoreObject<T> {
 	public void setXoaByTrangThai(final boolean xoaByTrangThai1) {
 		xoaByTrangThai = xoaByTrangThai1;
 	}
-	
+
 	@Command
 	public void thayDoiHieuLuc() {
 		setApDung(!isApDung());
@@ -281,17 +275,17 @@ public class CoreModel <T> extends CoreObject<T> {
 		setChange("apdung");
 		Clients.showNotification("Thay đổi hiệu lực thành công!", "info", null, "top_right", 5000);
 	}
-	
+
 	@Transient
 	public String getSaveActionName() {
 		return ngayTao.equals(ngaySua) ? "tạo" : "cập nhật";
 	}
-	
+
 	public void saveValidate() {
 		validate();
 		save();
 	}
-	
+
 	@Transient
 	public String getTepDinhKem() {
 		return "";
@@ -315,7 +309,7 @@ public class CoreModel <T> extends CoreObject<T> {
 					});
 		}
 	}
-	
+
 	@Command
 	public void downloadFile() throws IOException {
 		final String path = fileFolder() + getTepDinhKem();
@@ -332,7 +326,7 @@ public class CoreModel <T> extends CoreObject<T> {
 			Clients.showNotification("Không tìm thấy tập tin!", "error", null, "top_right", 5000);
 		}
 	}
-	
+
 	@Transient
 	public String getTenFileDinhKem() {
 		String tenFileRename;
@@ -357,7 +351,7 @@ public class CoreModel <T> extends CoreObject<T> {
 	public boolean isPdfFile() {
 		return getTepDinhKem() != null && getTenFileDinhKem().charAt(getTenFileDinhKem().length() - 1) == 'f';
 	}
-	
+
 	@Command
 	@NotifyChange({ "tenFileDinhKem", "tepDinhKem" })
 	public void uploadFile(@BindingParam("media") final Media media) throws IOException {
@@ -382,11 +376,11 @@ public class CoreModel <T> extends CoreObject<T> {
 		}
 		setCloseConfirm(true);
 	}
-	
+
 	public void setContextResource(final String contextResource1) {
 		contextResource = contextResource1;
 	}
-	
+
 	@Override
 	@Id
 	@JsonProperty
@@ -394,17 +388,17 @@ public class CoreModel <T> extends CoreObject<T> {
 	public Long getId() {
 		return id == null ? Long.valueOf(0) : id;
 	}
-	
+
 	@Transient
 	public String getViewUrl() {
 		return "";
 	}
-	
+
 	@Transient
 	public String getUniqueField() {
 		return QCoreModel.coreModel.id.getMetadata().getName();
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@org.hibernate.annotations.Index(name = "ngaySua")
 	public Date getNgaySua() {
@@ -422,20 +416,20 @@ public class CoreModel <T> extends CoreObject<T> {
 	public boolean isDaXoa() {
 		return this.daXoa;
 	}
-	
+
 	@Enumerated(EnumType.STRING)
 	@SuppressWarnings("deprecation")
 	@org.hibernate.annotations.Index(name = "trangThai")
 	public StatusType getTrangThai() {
 		return trangThai;
 	}
-	
+
 	@Override
 	public void doSave() {
 		setNgaySua(new Date());
 		if (noId()) {
 			setNgayTao(getNgaySua());
-		}	
+		}
 		loaded();
 		super.doSave();
 	}
