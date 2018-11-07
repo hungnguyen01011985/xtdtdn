@@ -1338,6 +1338,10 @@ ul.z-tabs-content {
 	width: 800px;
 }
 
+.arrow-down{
+	display: none;
+}
+
 .qlda {
 	background-image: url('../../assets/icon-bxtdn/ql-du-an.svg');
 }

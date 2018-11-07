@@ -178,19 +178,24 @@
 		</div>
 		<include src="${vm.getSrc()}"></include>
 		<n:script>
-		function toggleTabPanel(doiTuong){
-			var zz =  $(doiTuong).parent();
-			if($(zz).find(".content-tab-panel").css("height")=="0px"){
-				$(".zz").css("height","auto");
-				$(zz).find(".content-tab-panel").css("height","auto");
-				$(zz).find(".content-tab-panel").css("visibility","visible");
-			}else{
-				$(".zz").css("height","49px");
-				$(zz).find(".content-tab-panel").css("height","0px");
-				$(zz).find(".content-tab-panel").css("visibility","hidden");
+			function toggleTabPanel(doiTuong) {
+				var objDonVi =  $(doiTuong).parent();
+				if ($(objDonVi).find('.arrow-up').css('display') == 'none') {
+					$(objDonVi).find('.arrow-up').css('display','block');
+					$(objDonVi).find('.arrow-down').css('display','none');
+				} else {
+					$(objDonVi).find('.arrow-down').css('display','block');
+					$(objDonVi).find('.arrow-up').css('display','none');
+				}
+				
+				if ($(objDonVi).find(".content-tab-panel").css("height")=="0px") {
+					$(objDonVi).find(".content-tab-panel").css("height","auto");
+					$(objDonVi).find(".content-tab-panel").css("visibility","visible");
+				} else {
+					$(objDonVi).find(".content-tab-panel").css("height","0px");
+					$(objDonVi).find(".content-tab-panel").css("visibility","hidden");
+				}
 			}
-			
-		}
-	</n:script>
+		</n:script>
 </div>
 </window>
