@@ -126,7 +126,7 @@
 							</x:button>
 						</div>
 					</div>
-					<div zclass="col-xs-6">
+					<div zclass="col-xs-6" visible="${readOnly}">
 						<div zclass="form-group right">
 							<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveGiaoViec',wdn=wdn, vmArgs=vmArgs, attr = '*')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
