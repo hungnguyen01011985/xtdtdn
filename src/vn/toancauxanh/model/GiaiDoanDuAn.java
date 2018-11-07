@@ -95,6 +95,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin taiLieuDinhKem;
 	private Date ngayThongBaoOld;
 	private boolean kiemTraThongBao = true;
+
 	@ManyToOne
 	public TepTin getGiayChungNhanDauTu() {
 		return giayChungNhanDauTu;
@@ -375,7 +376,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	public void setDuAn(DuAn duAn) {
 		this.duAn = duAn;
 	}
-	
+
 	@Enumerated(EnumType.STRING)
 	public PhuongThucLuaChonNDT getPhuongThucLuaChonNDT() {
 		return phuongThucLuaChonNDT;
@@ -766,7 +767,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	public void setVanBanDeNghiThuHoiDat(TepTin vanBanDeNghiThuHoiDat) {
 		this.vanBanDeNghiThuHoiDat = vanBanDeNghiThuHoiDat;
 	}
-	
+
 	@Transient
 	public List<DonVi> getListDonViTuVan() {
 		List<DonVi> list = new ArrayList<DonVi>();
@@ -777,7 +778,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		}
 		return list;
 	}
-	
+
 	@Transient
 	public List<DonVi> getListDonViChuTri() {
 		List<DonVi> list = new ArrayList<DonVi>();
@@ -788,7 +789,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		}
 		return list;
 	}
-	
+
 	@Transient
 	public List<DonVi> getListDonViThucHien() {
 		List<DonVi> list = new ArrayList<DonVi>();
@@ -815,6 +816,5 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	public void setKiemTraThongBao(boolean kiemTraThongBao) {
 		this.kiemTraThongBao = kiemTraThongBao;
 	}
-	
-	
+
 }
