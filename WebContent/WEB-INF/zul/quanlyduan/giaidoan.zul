@@ -180,6 +180,14 @@
 		<n:script>
 		function toggleTabPanel(doiTuong){
 			var zz =  $(doiTuong).parent();
+			if($(zz).find('.arrow-up').css('display') == 'none'){
+				$(zz).find('.arrow-up').css('display','block');
+				$(zz).find('.arrow-down').css('display','none');
+			}else{
+				$(zz).find('.arrow-down').css('display','block');
+				$(zz).find('.arrow-up').css('display','none');
+			}
+			
 			if($(zz).find(".content-tab-panel").css("height")=="0px"){
 				$(".zz").css("height","auto");
 				$(zz).find(".content-tab-panel").css("height","auto");
