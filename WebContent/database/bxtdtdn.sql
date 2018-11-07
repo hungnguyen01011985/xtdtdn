@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `donvi` (
   KEY `FKh4r0e2r8rma8vovk8w8cvdtcs` (`nguoiTao_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.donvi: ~7 rows (approximately)
+-- Dumping data for table bxtdtdn.donvi: ~6 rows (approximately)
 DELETE FROM `donvi`;
 /*!40000 ALTER TABLE `donvi` DISABLE KEYS */;
 INSERT INTO `donvi` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `loaiDonVi`, `moTa`, `ten`, `nguoiSua_id`, `nguoiTao_id`) VALUES
@@ -296,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   `email` varchar(255) DEFAULT NULL,
   `ghiChu` varchar(255) DEFAULT NULL,
   `giaDatKhoiDiemDauGia` bigint(20) DEFAULT NULL,
-  `giaiDoanXucTien` int(11) DEFAULT NULL,
+  `giaiDoanXucTien` varchar(50) DEFAULT NULL,
   `ngayDuKienNhanPhanHoi` datetime DEFAULT NULL,
   `ngayGui` datetime DEFAULT NULL,
   `ngayGuiSoXayDung` datetime DEFAULT NULL,
@@ -307,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   `ngayPhatHanhCVGD2` datetime DEFAULT NULL,
   `nguoiDaiDienPhapLy` varchar(255) DEFAULT NULL,
   `option` bit(1) NOT NULL,
-  `phuongThucLuaChonNDT` int(11) DEFAULT NULL,
+  `phuongThucLuaChonNDT` varchar(50) DEFAULT NULL,
   `soDienThoai` varchar(255) DEFAULT NULL,
   `tenCongTy` varchar(255) DEFAULT NULL,
   `nguoiSua_id` bigint(20) DEFAULT NULL,
@@ -1099,7 +1099,7 @@ CREATE TABLE IF NOT EXISTS `vaitro` (
   CONSTRAINT `FK9b0cfnlecgosjvuq6lkxe8fy9` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.vaitro: ~4 rows (approximately)
+-- Dumping data for table bxtdtdn.vaitro: ~0 rows (approximately)
 DELETE FROM `vaitro`;
 /*!40000 ALTER TABLE `vaitro` DISABLE KEYS */;
 INSERT INTO `vaitro` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `alias`, `checkKichHoat`, `loaiVaiTro`, `soThuTu`, `tenVaiTro`, `nguoiSua_id`, `nguoiTao_id`) VALUES
@@ -1118,7 +1118,7 @@ CREATE TABLE IF NOT EXISTS `vaitro_quyens` (
   CONSTRAINT `FKqldf0fggg0f8sc37im018c5ti` FOREIGN KEY (`vaitro_id`) REFERENCES `vaitro` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.vaitro_quyens: ~83 rows (approximately)
+-- Dumping data for table bxtdtdn.vaitro_quyens: ~0 rows (approximately)
 DELETE FROM `vaitro_quyens`;
 /*!40000 ALTER TABLE `vaitro_quyens` DISABLE KEYS */;
 INSERT INTO `vaitro_quyens` (`vaitro_id`, `quyens`) VALUES
