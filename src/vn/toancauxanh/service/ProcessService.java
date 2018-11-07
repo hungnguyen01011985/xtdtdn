@@ -50,7 +50,7 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().saveNotShowNotification();
-		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao(), model.getGiaoViec().getNguoiGiaoViec());
+		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao(), model.getGiaoViec().getNguoiGiaoViec(), model.getGiaoViec().getTenCongViec());
 		((ExecutionEntity) execution).setVariable("duAnId", model.getId());
 		redirectQuanLyDuAn();
 	}
@@ -119,7 +119,7 @@ public class ProcessService extends BasicService<Object> {
 		giaoViec.saveNotShowNotification();
 		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 		duAn.saveNotShowNotification();
-		thongBao(duAn, LoaiThongBao.CONG_VIEC_MOI, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec());
+		thongBao(duAn, LoaiThongBao.CONG_VIEC_MOI, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getTenCongViec());
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
@@ -127,12 +127,11 @@ public class ProcessService extends BasicService<Object> {
 
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		boolean kiemTra1 = kiemTraGiaiDoan(execution, "isDangOGiaiDoannMot", GiaiDoanXucTien.GIAI_DOAN_MOT);
+		boolean kiemTraGiaiDoan = kiemTraGiaiDoan(execution, GiaiDoanXucTien.GIAI_DOAN_MOT);
 		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(model.getId()))
-				.where(QGiaiDoanDuAn.giaiDoanDuAn.giaiDoanXucTien.eq(GiaiDoanXucTien.GIAI_DOAN_MOT))
 				.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
 		GiaiDoanDuAn giaiDoanDuAn = q.fetchFirst();
-		if (kiemTraNgay(giaiDoanDuAn.getNgayNhanPhanHoi(), giaiDoanDuAn.getNgayThongBaoOld()) && kiemTra1) {
+		if (kiemTraNgay(giaiDoanDuAn.getNgayNhanPhanHoi(), giaiDoanDuAn.getNgayThongBaoOld()) && kiemTraGiaiDoan) {
 			((ExecutionEntity) execution).setVariable("isDangOGiaiDoannMot", true);
 			return;
 		}
@@ -162,21 +161,21 @@ public class ProcessService extends BasicService<Object> {
 	
 	public void thongBaoTreCongViec(DuAn duAn) {
 		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_LANH_DAO).or(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)));
-		q.fetch().forEach(item -> thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, item, null));
-		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiPhuTrach(), null);
+		q.fetch().forEach(item -> thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, item, null, null));
+		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiPhuTrach(), null, null);
 	}
 
-	public void thongBao(DuAn duAn,LoaiThongBao loaiThongBao, NhanVien nguoiNhan, NhanVien nguoiGui) {
+	public void thongBao(DuAn duAn, LoaiThongBao loaiThongBao, NhanVien nguoiNhan, NhanVien nguoiGui, String tenCongViec) {
 		ThongBao thongBao = new ThongBao();
 		if (LoaiThongBao.TRE_CONG_VIEC.equals(loaiThongBao)) {
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
 			}
 			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanXucTien())) {
-				thongBao.setNoiDung("Có công văn đề nghị trễ hạn");
+				thongBao.setNoiDung("Công văn đề nghị đã đến hạn nhận phản hồi");
 			}
 			if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(duAn.getGiaiDoanXucTien())) {
-				thongBao.setNoiDung("Có công văn xin chủ trương trễ hạn");
+				thongBao.setNoiDung("Công văn xin chủ trương đã đến hạn nhận phản hồi");
 			}
 			thongBao.setNguoiNhan(nguoiNhan);
 			
@@ -186,7 +185,7 @@ public class ProcessService extends BasicService<Object> {
 			thongBao.setNguoiGui(nguoiGui);
 			thongBao.setNoiDung("<x:span class='text-bold-notify'>" + nguoiNhan.getHoVaTen()
 					+ " </x:span> <x:span class='text-regular-notify'>có công việc mới </x:span><x:span class='text-bold-notify'>"
-					+ duAn.getGiaoViec().getTenCongViec()
+					+ tenCongViec
 					+ " </x:span><x:span class='text-regular-notify'>của dự án</x:span> " + duAn.getTenDuAn());
 		}
 		thongBao.setIdObject(duAn.getId());
@@ -335,7 +334,16 @@ public class ProcessService extends BasicService<Object> {
 	}
 	
 	public void kiemTraDangOGiaiDoanBa(Execution execution) {
-		kiemTraGiaiDoan(execution, "isDangOGiaiDoanBa", GiaiDoanXucTien.GIAI_DOAN_BA);
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		boolean kiemTraGiaiDoan = kiemTraGiaiDoan(execution, GiaiDoanXucTien.GIAI_DOAN_BA);
+		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(model.getId()))
+				.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
+		GiaiDoanDuAn giaiDoanDuAn = q.fetchFirst();
+		if (kiemTraNgay(giaiDoanDuAn.getNgayDuKienNhanPhanHoi(), giaiDoanDuAn.getNgayThongBaoOld()) && kiemTraGiaiDoan) {
+			((ExecutionEntity) execution).setVariable("isDangOGiaiDoanBa", true);
+			return;
+		}
+		((ExecutionEntity) execution).setVariable("isDangOGiaiDoanBa", false);
 	}
 	
 	public void thongBaoTreHanGiaiDoanBa(Execution execution) {
@@ -422,12 +430,20 @@ public class ProcessService extends BasicService<Object> {
 		duAn.saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().setDuAn(duAn);
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
-		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien()) || GiaiDoanXucTien.GIAI_DOAN_BA.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 			if (duAn.getGiaiDoanDuAn().isKiemTraThongBao()) {
 				duAn.getGiaiDoanDuAn().setKiemTraThongBao(false);
 			} else {
 				JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.id.eq(duAn.getGiaiDoanDuAn().getId()));
 				duAn.getGiaiDoanDuAn().setNgayThongBaoOld(q.fetchFirst().getNgayNhanPhanHoi());
+			}
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+			if (duAn.getGiaiDoanDuAn().isKiemTraThongBao()) {
+				duAn.getGiaiDoanDuAn().setKiemTraThongBao(false);
+			} else {
+				JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.id.eq(duAn.getGiaiDoanDuAn().getId()));
+				duAn.getGiaiDoanDuAn().setNgayThongBaoOld(q.fetchFirst().getNgayDuKienNhanPhanHoi());
 			}
 		}
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
@@ -472,7 +488,7 @@ public class ProcessService extends BasicService<Object> {
 		});
 	}
 
-	public boolean kiemTraGiaiDoan(Execution execution, String varriable, GiaiDoanXucTien giaiDoan) {
+	public boolean kiemTraGiaiDoan(Execution execution, GiaiDoanXucTien giaiDoan) {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
 		DuAn duAn = q.fetchFirst();
