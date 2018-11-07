@@ -125,9 +125,9 @@ CREATE TABLE IF NOT EXISTS `donvi` (
   PRIMARY KEY (`id`),
   KEY `FKqo1cbpspkivr6nmmtlb71wo4e` (`nguoiSua_id`),
   KEY `FKh4r0e2r8rma8vovk8w8cvdtcs` (`nguoiTao_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.donvi: 7 rows
+-- Dumping data for table bxtdtdn.donvi: ~7 rows (approximately)
 DELETE FROM `donvi`;
 /*!40000 ALTER TABLE `donvi` DISABLE KEYS */;
 INSERT INTO `donvi` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `loaiDonVi`, `moTa`, `ten`, `nguoiSua_id`, `nguoiTao_id`) VALUES
@@ -351,6 +351,8 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   `donViLapKeHoach_id` bigint(20) DEFAULT NULL,
   `donViThucHien_id` bigint(20) DEFAULT NULL,
   `donViTuVan_id` bigint(20) DEFAULT NULL,
+  `kiemTraThongBao` bit(1) NOT NULL,
+  `ngayThongBaoOld` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKc0tg50cys89jo0ppipmx65vc6` (`nguoiSua_id`),
   KEY `FKiovtr2bkv8rtnq9fu7w3u69m4` (`nguoiTao_id`),
@@ -740,7 +742,7 @@ DELETE FROM `nhanvien`;
 /*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
 INSERT INTO `nhanvien` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `checkKichHoat`, `chucVu`, `diaChi`, `email`, `hoVaTen`, `matKhau`, `ngaySinh`, `pathAvatar`, `salkey`, `selectedDV`, `soDienThoai`, `nguoiSua_id`, `nguoiTao_id`, `phongBan_id`) VALUES
 	(1, b'0', '2018-11-05 15:34:08', '2018-11-05 15:34:08', 'ap_dung', b'0', '', '', 'admin@greenglobal.vn', 'Super Admin', 'RvxJVVj3R+X7PNPj9AcCJuvTMlGtPSI8', NULL, '', 'iZz36mQl2qfG4ZZEnjUSdTzdTWjn4wQo', b'0', '', NULL, NULL, NULL),
-	(2, b'0', '2018-11-05 15:59:11', '2018-11-05 15:59:11', 'ap_dung', b'0', '', '', 'trangvtk@danang.gov.vn', 'Võ Thị Kiều Trang', 'laazf97nxzQtNu3Js3q1D5p1UySHgNNi', NULL, '', 'urCf2zlLSw806FGDDHSt5TSwPSJryvE+', b'0', '', 1, 1, 1),
+	(2, b'0', '2018-11-07 08:46:59', '2018-11-05 15:59:11', 'ap_dung', b'0', '', '', 'trangvtk@danang.gov.vn', 'Võ Thị Kiều Trang', 'laazf97nxzQtNu3Js3q1D5p1UySHgNNi', NULL, '', 'urCf2zlLSw806FGDDHSt5TSwPSJryvE+', b'0', '', 1, 1, 1),
 	(3, b'0', '2018-11-05 15:59:29', '2018-11-05 15:59:29', 'ap_dung', b'0', '', '', 'maintt@danang.gov.vn', 'Nguyễn Thị Tuyết Mai', 'A9UePq+rNdWznt2kqIkgeN8hFfEgfTiW', NULL, '', 'fRgJ//2MonOykjh0RKrSjk0of3F6AO9E', b'0', '', 1, 1, 1),
 	(4, b'0', '2018-11-05 15:59:45', '2018-11-05 15:59:45', 'ap_dung', b'0', '', '', 'hieutt@danang.gov.vn', 'Trần Trung Hiếu', 'U7B1QJ4mQPHD/yy6XE7rwFVEvn5Qq87N', NULL, '', 'ZrehvZoll2UZnIRmG6bjNHphP9ZdYMTn', b'0', '', 1, 1, 1),
 	(5, b'0', '2018-11-05 16:00:03', '2018-11-05 16:00:03', 'ap_dung', b'0', '', '', 'tuvxc@danang.gov.vn', 'Vũ Xuân Cẩm Tú', 'mTByyoF0OaJ6W937c3kiBXO4RL9Vzy1s', NULL, '', 't1l2bAchxVu8a0+ASCApYUpinZAoOET1', b'0', '', 1, 1, 1),
@@ -783,7 +785,7 @@ CREATE TABLE IF NOT EXISTS `nhanvien_vaitro` (
 DELETE FROM `nhanvien_vaitro`;
 /*!40000 ALTER TABLE `nhanvien_vaitro` DISABLE KEYS */;
 INSERT INTO `nhanvien_vaitro` (`nhanvien_id`, `vaitros_id`) VALUES
-	(2, 2),
+	(2, 4),
 	(3, 2),
 	(4, 2),
 	(5, 2),
