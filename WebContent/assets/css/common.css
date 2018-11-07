@@ -2109,3 +2109,9 @@ filter: saturate(0.3);
 		margin: 10px 15px;
 	}
 }
+
+.reset-width .z-window-content{
+	background:white !important;
+	height:auto !important;
+	overflow:hidden !important;
+}
