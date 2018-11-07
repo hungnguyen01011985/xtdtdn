@@ -1,6 +1,6 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
-		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
+		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width reset-width"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
 		 <zscript>
 		 	<![CDATA[
