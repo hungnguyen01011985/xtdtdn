@@ -169,6 +169,12 @@
 						<span>Lưu</span>
 					</x:button>
 				</div>
+				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
+					<x:button onClick="@command('goBack', task = 'task_quayLaiGiaiDoanMot')" class="btn btn-blue">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
+						<span>Quay lại giai đoạn một</span>
+					</x:button>
+				</div>
 				<div zclass="form-group right-mg flex">
 					<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
 						class="btn btn-blue">

@@ -227,11 +227,20 @@ public class ProcessService extends BasicService<Object> {
 	}
 	
 	public void luuDuLieuQuayLaiGiaiDoanMot(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn model = q.fetchFirst();
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_BA);
+		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(model.getGiaiDoanXucTien())) {
+			duAn.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
+			duAn.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(model.getGiaiDoanXucTien())) {
+			duAn.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
+			duAn.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
+		}
 		removeGiaiDoanDuAnList(duAn);
 		duAn.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		duAn.saveNotShowNotification();
