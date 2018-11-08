@@ -1,9 +1,8 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
 		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width1 reset-width"
-		closable="true" viewModel="@id('vm') @init(arg.vm)">
+		closable="true" viewModel="@id('vm') @init(arg.model)">
 		 <zscript>
-		 	
 		 </zscript>
 		<div class="w-popup-content-medium">
 			<div class="panel-box border-box">

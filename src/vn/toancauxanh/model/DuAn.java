@@ -20,7 +20,10 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
+
+import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
@@ -474,6 +477,14 @@ public class DuAn extends Model<DuAn> {
 				}
 			}
 		};
+	}
+	
+	@Command
+	public void redirectTaiLieu(@BindingParam("zul") String zul, @BindingParam("giaiDoan") GiaiDoanDuAn giaiDoanDuAn) {
+		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.eq(giaiDoanDuAn));
+		Map<String, Object> args = new HashMap<>();
+		args.put("model", q.fetchFirst());
+		Executions.createComponents(zul, null, args);
 	}
 	
 	@Command
