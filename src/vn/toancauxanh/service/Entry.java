@@ -292,6 +292,10 @@ public class Entry extends BaseObject<Object> {
 	public final DonViService getDonVis(){
 		return new DonViService();
 	}
+	
+	public final CapDonViService getCapDonVis(){
+		return new CapDonViService();
+	}
 
 	public final DoanVaoService getDoanVaos() {
 		return new DoanVaoService();
