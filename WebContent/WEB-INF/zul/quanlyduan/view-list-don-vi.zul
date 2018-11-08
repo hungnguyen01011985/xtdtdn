@@ -83,45 +83,6 @@
 								</idspace>
 							</div>
 						</div>
-							<div class="mg-and-bg-and-line-panel">
-								<div class="row">
-									<div zclass="col-md-12">
-										<div class="title-small-page">
-											<span>CV giải thích lý do trễ</span>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div zclass="col-md-3">
-										<div zclass="form-group">
-											<span>Ngày nhận</span>
-											<datebox format="dd/MM/yyyy" readonly="true" class="hv-db"
-												value="@bind(each.ngayNhanGiaiThich)" width="100%"
-												placeholder="Chọn ngày"/>
-										</div>
-									</div>
-									<idspace>
-										<div id="idCongVanGiaiThich" zclass="col-md-3" form="@id('fx') @load(each.congVanGiaiThich) @save(each.congVanGiaiThich, before={'goTask','goNext'}) 
-			    							@validator(vm.validatorTepTinDonVi, text = 'ngayNhanGiaiThich', ngayNhanGiaiThich = each.ngayNhanGiaiThich)">
-											<div zclass="form-group" viewModel="@id('congVanGiaiThich') @init(each.congVanGiaiThich)">
-												<span>Công văn đính kèm</span>
-												<button visible="@load(empty each.congVanGiaiThich.tenFile)" label="Chọn tài liệu" 
-													class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-													onUpload="@command('uploadFile',medias=event.getMedia(),vm = each , name = 'congVanGiaiThich', error = errCongVanGiaiThich)"
-													upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-												</button>
-												<div class="flex mg-btn-top" visible="@load(not empty each.congVanGiaiThich.tenFile)">
-													<label class="txt-link-tailieu" value="@bind(each.congVanGiaiThich.tenFile)"/>
-													<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanGiaiThich , vm = each, name = 'congVanGiaiThich')">
-														<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-													</x:button>
-												</div>
-												<label zclass="error" value="@load(vmsgs[idCongVanGiaiThich])" id="errCongVanGiaiThich"/>
-											</div>
-										</div>
-									</idspace>
-								</div>
-						</div>
 					</div>
 				</div>
 			</template>
