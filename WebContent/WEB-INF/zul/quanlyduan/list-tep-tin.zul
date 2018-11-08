@@ -1,0 +1,64 @@
+<idspace>
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
+		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width1 reset-width"
+		closable="true" viewModel="@id('vm') @init(arg.vm)">
+		 <zscript>
+		 	
+		 </zscript>
+		<div class="w-popup-content-medium">
+			<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<button label="Chọn tài liệu" 
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								onUpload="@command('uploadFile',medias=event.medias)"
+								upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+							</button>
+						
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<grid id="grid" model="@load(vm.tepTins)"
+						emptyMessage="Không có dữ liệu nào trong danh sách">
+						<columns>
+							<column label="STT" width="42px"/>
+							<column label="Tên tài liệu"/>
+							<column label="Thao tác" width="210px" />
+						</columns>
+						<template name="model">
+							<row viewModel="@id('item') @init(each)">
+								<label value="@bind(forEachStatus.index)" class="link-title" />
+								<textbox value="@bind(each.tenFile)"></textbox>
+								<div class="thaotac">
+								</div>
+							</row>
+						</template>
+					</grid>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+						<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('closePopup', wdn=wdn, vm = vm)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+							<span>Đóng</span>
+						</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:button if="${entry.quyen.quanlyduan_giaoviec}" onClick="@command('saveTepTins')"
+								class="btn btn-blue mg-btn">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Lưu</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</window>
+</idspace>

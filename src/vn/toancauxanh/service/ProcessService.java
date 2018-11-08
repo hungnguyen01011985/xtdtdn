@@ -50,6 +50,11 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().saveNotShowNotification();
+		GiaiDoanDuAn giaiDoan = new GiaiDoanDuAn();
+		giaiDoan.setDuAn(model);
+		giaiDoan.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
+		giaiDoan.saveNotShowNotification();
+		giaiDoan.getTaiLieuGD1().saveNotShowNotification();
 		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao(), model.getGiaoViec().getNguoiGiaoViec(), model.getGiaoViec().getTenCongViec());
 		((ExecutionEntity) execution).setVariable("duAnId", model.getId());
 		redirectQuanLyDuAn();
