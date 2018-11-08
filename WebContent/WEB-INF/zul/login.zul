@@ -51,7 +51,7 @@
 			<div zclass="col-md-12">
 				<div class="form-group">
 					<x:span class="issue-search font-text-lg">Tài khoản đăng nhập<n:small class="required">*</n:small></x:span> 
-					<textbox type="text"
+					<textbox type="text" onOK='vm.login(account.getValue(), password.getValue());'
 						class="form-control user-input font-text-lg" id="account" placeholder="" onCreate="self.focus()" onBlur="password.focus()"/> 
 					<label class="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>

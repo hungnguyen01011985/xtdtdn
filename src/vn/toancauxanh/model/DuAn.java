@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -25,19 +26,20 @@ import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
 import vn.toancauxanh.gg.model.enums.MucDoUuTien;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
-import vn.toancauxanh.gg.model.enums.QuyMoDuAn;
 
 @Entity
 @Table(name = "duan")
 public class DuAn extends Model<DuAn> {
 	private String tenDuAn;
-	private LinhVucDuAn linhVuc;
 	private String diaDiem;
-	private QuyMoDuAn quyMoDuAn;
-	private long tongVonDauTu;
-	private String mucTieuDuAn;
-	private long dienTichSuDungDat;
+	private String quyMoDuAn;
+	private String idNguoiLienQuan = "";
 	private String mucDoCanhTranh;
+	@Lob
+	private String mucTieuDuAn;
+	private long tongVonDauTu;
+	private long dienTichSuDungDat;
+	private LinhVucDuAn linhVuc;
 	private MucDoUuTien mucDoUuTien;
 	private KhaNangDauTu khaNangDauTu;
 	private NhanVien nguoiPhuTrach = new NhanVien();
@@ -46,7 +48,7 @@ public class DuAn extends Model<DuAn> {
 	private GiaiDoanDuAn giaiDoanDuAn;
 	private GiaoViec giaoViec = new GiaoViec();
 	private TepTin taiLieuNDT;
-	private String idNguoiLienQuan = "";
+	
 
 	public DuAn() {
 
@@ -120,12 +122,11 @@ public class DuAn extends Model<DuAn> {
 		this.diaDiem = diaDiem;
 	}
 
-	@Enumerated(EnumType.STRING)
-	public QuyMoDuAn getQuyMoDuAn() {
+	public String getQuyMoDuAn() {
 		return quyMoDuAn;
 	}
 
-	public void setQuyMoDuAn(QuyMoDuAn quyMoDuAn) {
+	public void setQuyMoDuAn(String quyMoDuAn) {
 		this.quyMoDuAn = quyMoDuAn;
 	}
 
@@ -212,15 +213,6 @@ public class DuAn extends Model<DuAn> {
 		list.add(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 		list.add(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT);
 		list.add(PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG);
-		return list;
-	}
-
-	@Transient
-	public List<QuyMoDuAn> getListQuyMoDuAn() {
-		List<QuyMoDuAn> list = new ArrayList<QuyMoDuAn>();
-		list.add(QuyMoDuAn.QUY_MO_LON);
-		list.add(QuyMoDuAn.QUY_MO_VUA);
-		list.add(QuyMoDuAn.QUY_MO_NHO);
 		return list;
 	}
 

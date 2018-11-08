@@ -78,7 +78,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<span>Địa điểm</span>
-							<textbox class="form-control" value="@bind(vm.diaDiem)" placeholder="Nhập địa điểm"></textbox>
+							<textbox class="form-control" maxlength="255" value="@bind(vm.diaDiem)" placeholder="Nhập địa điểm"></textbox>
 						</div>
 					</div>
 				</div>
@@ -86,11 +86,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<span>Quy mô dự án</span>
-							<combobox readonly="true" model="@load(vm.listQuyMoDuAn)" selectedItem="@bind(vm.quyMoDuAn)" class="his" placeholder="Chọn quy mô dự án" width="100%">
-								<template name="model">
-									<comboitem label="@load(each.text)" />
-								</template>
-							</combobox>
+							<textbox class="form-control" maxlength="255" value="@bind(vm.quyMoDuAn)" placeholder="Nhập quy mô dự án"></textbox>
 						</div>
 					</div>
 					<div zclass="col-md-3">
@@ -120,7 +116,7 @@
 					<div zclass="col-md-9">
 						<div zclass="form-group">
 							<span>Mức độ cạnh tranh</span>
-							<textbox class="form-control" placeholder="Nhập mức độ cạnh tranh" value="@bind(vm.mucDoCanhTranh)"></textbox>
+							<textbox class="form-control" maxlength="255" placeholder="Nhập mức độ cạnh tranh" value="@bind(vm.mucDoCanhTranh)"></textbox>
 						</div>
 					</div>
 				</div>
