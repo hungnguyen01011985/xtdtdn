@@ -38,7 +38,7 @@
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<x:span class="issue-search">Mô tả</x:span> 
-						<textbox class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
+						<textbox maxlength="255" rows="3" class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
 			</div>

@@ -1,32 +1,29 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
-		closable="true" title="${arg.save}"
-		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
-		whatever="@load(false,after='saveLinhVucDuAn') @converter('vn.toancauxanh.service.DetachConverter')"
+		closable="true" title="${arg.save}" onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
+		whatever="@load(false,after='saveCapDonVi') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
-		
-			<zscript><![CDATA[
-				vmArgs = arg.get("vmArgs");
-				strSave = arg.get("save");
-			]]></zscript> 
-			
+		<zscript><![CDATA[
+			vmArgs = arg.get("vmArgs");
+			strSave = arg.get("save");
+		]]></zscript> 
 		<div class="w-popup-content">
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<div class="flex">
-							<x:span class="issue-search">Tên lĩnh vực dự án<n:small class="required"> *</n:small></x:span>
+							<x:span class="issue-search">Tên cấp đơn vị<n:small class="required"> *</n:small></x:span>
 						</div>
-						<textbox class="form-control" value="@load(vm.ten)@save(vm.ten, before='saveLinhVucDuAn') @validator(vm.validateTenLinhVucDuAn)"
-						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveLinhVucDuAn', list=vmArgs, attr='targetQuery', wdn=wdn)"	placeholder="Nhập tên lĩnh vực..."></textbox>
+						<textbox class="form-control" value="@load(vm.ten) @save(vm.ten, before='saveCapDonVi') @validator(vm.validateTenCapDonVi)"
+						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên cấp đơn vị..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				<div zclass="col-md-12">
 					<div zclass="form-group">
-						<x:span class="issue-search">Mô tả</x:span>
-						<textbox maxlength="255" rows="3" class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveLinhVucDuAn', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
+						<x:span class="issue-search">Mô tả</x:span> 
+						<textbox maxlength="255" rows="3" class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
 			</div>
@@ -41,7 +38,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveLinhVucDuAn', list=vmArgs, attr='targetQuery', wdn=wdn)">
+						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>
