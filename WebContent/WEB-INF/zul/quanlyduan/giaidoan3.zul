@@ -48,7 +48,7 @@
 								<span>4</span>
 							</div>
 							<div class="plan-title">
-								<span>Lựa chọn nhà đầu</span>
+								<span>Lựa chọn nhà đầu tư</span>
 							</div>
 						</div>
 						<div class="plan-item">
@@ -56,7 +56,7 @@
 								<span>5</span>
 							</div>
 							<div class="plan-title">
-								<span>Thành lập pháp nhân</span>
+								<span>Nhà đầu tư</span>
 							</div>
 						</div>
 					</div>
@@ -151,6 +151,7 @@
 					</div>
 				</div>
 			</div>
+			<include src="quanlyduan/view-list-tep-tins.zul"></include>
 			<div class="mg-and-bg-and-line">
 				<div class="row">
 					<div zclass="form-group left flex">

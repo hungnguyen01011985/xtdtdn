@@ -1,15 +1,24 @@
 package vn.toancauxanh.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.util.media.Media;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -29,6 +38,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private List<DonViDuAn> donViDuAn = new ArrayList<DonViDuAn>();
 	// Thông tin giai đoạn 2
 	private Date ngayKhaoSat;
+	@Lob
 	private String ghiChu;
 	private TepTin taiLieuGD2;
 	private Date ngayPhatHanhCVGD2;
@@ -94,7 +104,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin taiLieuDinhKem;
 	private Date ngayThongBaoOld;
 	private boolean kiemTraThongBao = true;
-
+	private List<TepTin> tepTins = new ArrayList<TepTin>();
 	@ManyToOne
 	public TepTin getGiayChungNhanDauTu() {
 		return giayChungNhanDauTu;
@@ -806,6 +816,15 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	public void setKiemTraThongBao(boolean kiemTraThongBao) {
 		this.kiemTraThongBao = kiemTraThongBao;
+	}
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	public List<TepTin> getTepTins() {
+		return tepTins;
+	}
+
+	public void setTepTins(List<TepTin> tepTins) {
+		this.tepTins = tepTins;
 	}
 
 }
