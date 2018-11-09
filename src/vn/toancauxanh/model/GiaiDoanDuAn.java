@@ -826,13 +826,5 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	public void setTepTins(List<TepTin> tepTins) {
 		this.tepTins = tepTins;
 	}
-	
-	@Command
-	public void saveTepTins() {
-		tepTins.forEach(item -> {
-			item.saveNotShowNotification();
-		});
-		saveNotShowNotification();
-	}
 
 }
