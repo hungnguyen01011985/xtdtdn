@@ -656,6 +656,10 @@
 	width: 50%;
 }
 
+.width-80{
+	width: 80%;
+}
+
 /* @media(max-width: 768px){
 	.pop-up-width{
 		width: 100%;

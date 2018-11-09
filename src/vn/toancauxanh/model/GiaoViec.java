@@ -23,8 +23,8 @@ import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
 @Entity
-@Table(name="giaoviec")
-public class GiaoViec extends Model<GiaoViec>{
+@Table(name = "giaoviec")
+public class GiaoViec extends Model<GiaoViec> {
 	private DuAn duAn;
 	private String tenCongViec;
 	private String yKienChiDao;
