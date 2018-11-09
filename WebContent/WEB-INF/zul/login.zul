@@ -50,7 +50,9 @@
 		<div zclass="row">
 			<div zclass="col-md-12">
 				<div class="form-group">
-					<x:span class="issue-search font-text-lg">Tài khoản đăng nhập<n:small class="required">*</n:small></x:span> 
+					<div class="flex">
+						<x:span class="issue-search">Tài khoản đăng nhập<n:small class="required"> *</n:small></x:span>
+					</div> 
 					<textbox type="text" onOK='vm.login(account.getValue(), password.getValue());'
 						class="form-control user-input font-text-lg" id="account" placeholder="" onCreate="self.focus()" onBlur="password.focus()"/> 
 					<label class="error" value="@load(vmsgs[self.previousSibling])" />
@@ -60,7 +62,9 @@
 		<div zclass="row">
 			<div zclass="col-md-12">
 				<div class="form-group">
-					<x:span class="issue-search">Mật khẩu<n:small class="required">*</n:small></x:span> 
+					<div class="flex">
+						<x:span class="issue-search">Mật khẩu<n:small class="required"> *</n:small></x:span>
+					</div>  
 					<textbox id="password" placeholder="" class="form-control pass-input" type="password" 
 											onOK='vm.login(account.getValue(), password.getValue());' />
 					<label class="error" value="@load(vmsgs[self.previousSibling])" />

@@ -147,12 +147,8 @@ public class NhanVien extends Model<NhanVien> {
 		this.matKhau2 = matKhau2;
 	}
 	
-	@Transient
+	@ManyToOne
 	public VaiTro getVaiTro() {
-		if (vaiTro != null) {
-			vaiTros = new HashSet<>();
-			getVaiTros().add(vaiTro);
-		}
 		return vaiTro;
 	}
 
@@ -539,6 +535,10 @@ public class NhanVien extends Model<NhanVien> {
 		}
 		if (matKhau2 != null && !matKhau2.isEmpty()) {
 			updatePassword(matKhau2);
+		}
+		if (vaiTro != null) {
+			vaiTros = new HashSet<VaiTro>();
+			getVaiTros().add(vaiTro);
 		}
 		saveImage();
 		save();

@@ -19,24 +19,27 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
 @Entity
-@Table(name="giaoviec")
-public class GiaoViec extends Model<GiaoViec>{
+@Table(name = "giaoviec")
+public class GiaoViec extends Model<GiaoViec> {
 	private DuAn duAn;
 	private String tenCongViec;
+	private String yKienChiDao;
+	private String ketQua;
 	private NhanVien nguoiGiaoViec = new NhanVien();
 	private NhanVien nguoiDuocGiao = new NhanVien();
-	private Date ngayGiao;
+	private Date ngayGiao = new Date();
 	private Date hanThucHien;
+	private Date ngayHoanThanh;
 	private GiaiDoanXucTien giaiDoanXucTien;
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
-	private String yKienChiDao;
 	private TepTin taiLieu = new TepTin();
-	private Date ngayHoanThanh;
-	private String ketQua;
+	
 	private TepTin taiLieuKetQua;
+	private LoaiCongViec loaiCongViec;
 	
 	public String getyKienChiDao() {
 		return yKienChiDao;
@@ -147,6 +150,15 @@ public class GiaoViec extends Model<GiaoViec>{
 
 	public void setTaiLieuKetQua(TepTin taiLieuKetQua) {
 		this.taiLieuKetQua = taiLieuKetQua;
+	}
+	
+	@Enumerated(EnumType.STRING)
+	public LoaiCongViec getLoaiCongViec() {
+		return loaiCongViec;
+	}
+
+	public void setLoaiCongViec(LoaiCongViec loaiCongViec) {
+		this.loaiCongViec = loaiCongViec;
 	}
 
 	@Command
