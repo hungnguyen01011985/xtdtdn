@@ -48,7 +48,7 @@
 								<span>4</span>
 							</div>
 							<div class="plan-title plan-title-active">
-								<span>Lựa chọn nhà đầu</span>
+								<span>Lựa chọn nhà đầu tư</span>
 							</div>
 						</div>
 						<div class="plan-item">
@@ -56,7 +56,7 @@
 								<span>5</span>
 							</div>
 							<div class="plan-title">
-								<span>Thành lập pháp nhân</span>
+								<span>Nhà đầu tư</span>
 							</div>
 						</div>
 					</div>
@@ -88,6 +88,7 @@
 				</div>
 			</div>
 			<include src="@load(vm.srcGiaiDoan4)"></include>
+			<include src="quanlyduan/view-list-tep-tins.zul"></include>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="form-group left-mg flex">
 					<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('redirectQuanLyDuAn')">

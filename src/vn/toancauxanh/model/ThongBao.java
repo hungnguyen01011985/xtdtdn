@@ -1,6 +1,7 @@
 package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -11,6 +12,7 @@ import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 @Entity
 @Table(name="thongbao")
 public class ThongBao extends Model<ThongBao>{
+	@Lob
 	private String noiDung;
 	private NhanVien nguoiGui;
 	private NhanVien nguoiNhan;

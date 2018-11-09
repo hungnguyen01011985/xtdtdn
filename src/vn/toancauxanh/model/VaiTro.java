@@ -88,6 +88,7 @@ public class VaiTro extends Model<VaiTro> {
 	@Transient
 	public List<LoaiVaiTro> getListLoaiVaiTro() {
 		List<LoaiVaiTro> list = new ArrayList<LoaiVaiTro>();
+		list.add(LoaiVaiTro.VAI_TRO_QUAN_TRI);
 		list.add(LoaiVaiTro.VAI_TRO_TRUONG_PHONG);
 		list.add(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN);
 		list.add(LoaiVaiTro.VAI_TRO_LANH_DAO);
