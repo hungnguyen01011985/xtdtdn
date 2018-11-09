@@ -1,0 +1,44 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" >
+		<div class="w-popup-content-medium">
+			<div class="panel-box border-box" style="margin:0;">
+			<div zclass="row">
+				<div zclass="col-lg-6">
+					<div class="title-form">
+						<span>Tài liệu khác</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<button label="Chọn tài liệu" 
+						class="btn bg-btn-tailieu mg-btn-top right-mg flex" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+						onUpload="@command('uploadFile',medias=event.medias)"
+						upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+					</button>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<label visible="@load(vm.giaiDoanDuAn.tepTins.size() eq 0)" class="text-no-empty">Chưa có tài liệu nào</label>
+				<div class="box-tep-tin" style="display:flex;flex-direction:column;" children="@bind(vm.giaiDoanDuAn.tepTins)">
+					<template name="children">
+						<div class="item-tep-tin">
+							<div class="box-type-file">
+								<label value="@load(each.typeFile)"></label>
+							</div>
+							<div class="box-ten-file">
+								<textbox value="@bind(each.tenFile)" width="500px" style="margin-top:0;"></textbox>
+							</div>
+							<div class="box-text-file">
+								<label value="@load(each.tenFile)"></label>
+							</div>
+							<div class="box-thao-tac" style="margin-right:15px;">
+								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
+									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+								</x:button>
+							</div>
+						</div>
+					</template>
+				</div>
+			</div>
+		</div>
+	</div>
+</window>

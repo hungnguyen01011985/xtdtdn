@@ -50,11 +50,6 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		model.getGiaoViec().saveNotShowNotification();
-		GiaiDoanDuAn giaiDoan = new GiaiDoanDuAn();
-		giaiDoan.setDuAn(model);
-		giaiDoan.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
-		giaiDoan.saveNotShowNotification();
-		giaiDoan.getTaiLieuGD1().saveNotShowNotification();
 		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao(), model.getGiaoViec().getNguoiGiaoViec(), model.getGiaoViec().getTenCongViec());
 		((ExecutionEntity) execution).setVariable("duAnId", model.getId());
 		redirectQuanLyDuAn();
@@ -177,10 +172,10 @@ public class ProcessService extends BasicService<Object> {
 				thongBao.setNguoiGui(nguoiGui);
 			}
 			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanXucTien())) {
-				thongBao.setNoiDung("Công văn đề nghị giới thiệu địa điểm đã đến hạn nhận phản hồi");
+				thongBao.setNoiDung("Công văn đề nghị giới thiệu địa điểm đã đến hạn nhận phản hồi của dự án" + duAn.getTenDuAn());
 			}
 			if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(duAn.getGiaiDoanXucTien())) {
-				thongBao.setNoiDung("Công văn xin chủ trương đã đến hạn nhận phản hồi");
+				thongBao.setNoiDung("Công văn xin chủ trương đã đến hạn nhận phản hồi của dự án" + duAn.getTenDuAn());
 			}
 			thongBao.setNguoiNhan(nguoiNhan);
 			
@@ -246,6 +241,7 @@ public class ProcessService extends BasicService<Object> {
 			duAn.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
 			duAn.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
 		}
+		luuTaiLieuKhac(duAn.getGiaiDoanDuAn());
 		removeGiaiDoanDuAnList(duAn);
 		duAn.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		duAn.saveNotShowNotification();
@@ -395,6 +391,7 @@ public class ProcessService extends BasicService<Object> {
 		}
 		model.saveNotShowNotification();
 		model.getGiaiDoanDuAn().setDuAn(model);
+		luuTaiLieuKhac(model.getGiaiDoanDuAn());
 		model.getGiaiDoanDuAn().saveNotShowNotification();
 		showNotification("", "Cập nhật thành công", "success");
 		redirectList();
@@ -472,6 +469,7 @@ public class ProcessService extends BasicService<Object> {
 				duAn.getGiaiDoanDuAn().setNgayThongBaoOld(q.fetchFirst().getNgayDuKienNhanPhanHoi());
 			}
 		}
+		luuTaiLieuKhac(duAn.getGiaiDoanDuAn());
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		if (ngay != null && thoiHan != null && !thoiHan.isEmpty()) {
 			 ((ExecutionEntity) execution).setVariable(thoiHan, ngay);			
@@ -479,16 +477,23 @@ public class ProcessService extends BasicService<Object> {
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 			luuDuLieuDonVi(duAn.getGiaiDoanDuAn());
 		}
+		
 		redirectGiaiDoanDuAnById(duAn.getId());
 		showNotification("", "Cập nhật thành công", "success");
 	}
 
+	public void luuTaiLieuKhac(GiaiDoanDuAn giaiDoan) {
+		giaiDoan.getTepTins().forEach(item -> {
+			item.saveNotShowNotification();
+		});
+	}
 	public void luuDuLieuTiepTucAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, GiaiDoanXucTien giaiDoan) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.setGiaiDoanXucTien(giaiDoanXucTien);
 		model.saveNotShowNotification();
 		model.getGiaiDoanDuAn().setDuAn(model);
 		model.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoan);
+		luuTaiLieuKhac(model.getGiaiDoanDuAn());
 		model.getGiaiDoanDuAn().saveNotShowNotification();
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 			luuDuLieuDonVi(model.getGiaiDoanDuAn());

@@ -19,6 +19,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
 @Entity
@@ -37,6 +38,7 @@ public class GiaoViec extends Model<GiaoViec>{
 	private Date ngayHoanThanh;
 	private String ketQua;
 	private TepTin taiLieuKetQua;
+	private LoaiCongViec loaiCongViec;
 	
 	public String getyKienChiDao() {
 		return yKienChiDao;
@@ -147,6 +149,15 @@ public class GiaoViec extends Model<GiaoViec>{
 
 	public void setTaiLieuKetQua(TepTin taiLieuKetQua) {
 		this.taiLieuKetQua = taiLieuKetQua;
+	}
+	
+	@Enumerated(EnumType.STRING)
+	public LoaiCongViec getLoaiCongViec() {
+		return loaiCongViec;
+	}
+
+	public void setLoaiCongViec(LoaiCongViec loaiCongViec) {
+		this.loaiCongViec = loaiCongViec;
 	}
 
 	@Command

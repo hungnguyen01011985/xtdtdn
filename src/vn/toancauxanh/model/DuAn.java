@@ -1,6 +1,8 @@
 package vn.toancauxanh.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +22,11 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
-import org.zkoss.zk.ui.Executions;
+import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-
-import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
@@ -37,7 +40,6 @@ public class DuAn extends Model<DuAn> {
 	private String diaDiem;
 	private String quyMoDuAn;
 	private String idNguoiLienQuan = "";
-	private String mucDoCanhTranh;
 	@Lob
 	private String mucTieuDuAn;
 	private long tongVonDauTu;
@@ -155,14 +157,6 @@ public class DuAn extends Model<DuAn> {
 
 	public void setDienTichSuDungDat(long dienTichSuDungDat) {
 		this.dienTichSuDungDat = dienTichSuDungDat;
-	}
-
-	public String getMucDoCanhTranh() {
-		return mucDoCanhTranh;
-	}
-
-	public void setMucDoCanhTranh(String mucDoCanhTranh) {
-		this.mucDoCanhTranh = mucDoCanhTranh;
 	}
 
 	@Enumerated(EnumType.STRING)
@@ -480,16 +474,52 @@ public class DuAn extends Model<DuAn> {
 	}
 	
 	@Command
-	public void redirectTaiLieu(@BindingParam("zul") String zul, @BindingParam("giaiDoan") GiaiDoanDuAn giaiDoanDuAn) {
-		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.eq(giaiDoanDuAn));
-		Map<String, Object> args = new HashMap<>();
-		args.put("model", q.fetchFirst());
-		Executions.createComponents(zul, null, args);
-	}
-	
-	@Command
 	public void saveThongTinDuAn(){
 		this.getTaiLieuNDT().saveNotShowNotification();
 		this.save();
+	}
+	
+	@Command
+	public void uploadFile(@BindingParam("medias") Object[] medias) {
+		for (Object item : medias) {
+			Media media = (Media) item;
+			if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
+					|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
+					|| media.getName().toLowerCase().endsWith(".xlsx")) {
+				if (media.getByteData().length > 50000000) {
+					showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
+				} else {
+					String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
+							+ Calendar.getInstance().getTimeInMillis()
+							+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
+					TepTin tepTin = new TepTin();
+					tepTin.setNameHash(tenFile);
+					tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
+					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+					tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+					tepTin.setMedia(media);
+					this.giaiDoanDuAn.getTepTins().add(tepTin);
+					BindUtils.postNotifyChange(null, null, this.giaiDoanDuAn, "tepTins");
+				}
+			} else {
+				showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
+						"Có tệp không đúng định dạng", "danger");
+			}
+		}
+	}
+	
+	@Command
+	public void deleteFile(@BindingParam("index") final int index) {
+		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
+			Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(final Event event) throws IOException {
+					if (Messagebox.ON_OK.equals(event.getName())) {
+						giaiDoanDuAn.getTepTins().remove(index);
+						BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "tepTins");
+						showNotification("Đã xóa", "", "success");
+					}
+				}
+			});
 	}
 }

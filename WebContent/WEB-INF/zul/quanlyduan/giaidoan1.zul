@@ -60,7 +60,7 @@
 								<span>5</span>
 							</div>
 							<div class="plan-title">
-								<span>Thành lập pháp nhân</span>
+								<span>Nhà đầu tư</span>
 							</div>
 						</div>
 					</div>
@@ -118,17 +118,12 @@
 					<span>Thêm đơn vị nhận CV</span>
 				</x:button>
 			</div>
+			<include src="quanlyduan/view-list-tep-tins.zul"></include>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="form-group left-mg flex">
 					<x:button  class="btn bg-btn-tailieu btn-grey"  onClick="@command('redirectQuanLyDuAn')">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 						<span>Đóng</span>
-					</x:button>
-				</div>
-				<div zclass="form-group left-mg flex">
-					<x:button  class="btn bg-btn-tailieu btn-grey"  onClick="@command('redirectTaiLieu',zul='quanlyduan/list-tep-tin.zul', giaiDoan = vm.giaiDoanDuAn)">
-						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
-						<span>Tài liệu</span>
 					</x:button>
 				</div>
 				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
