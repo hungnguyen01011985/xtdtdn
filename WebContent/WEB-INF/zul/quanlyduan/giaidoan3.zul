@@ -83,15 +83,6 @@
 				
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
-							<span>Ngày gửi sở xây dựng</span>
-							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGuiSoXayDung) @save(vm.giaiDoanDuAn.ngayGuiSoXayDung, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
-								width="100%" placeholder="Chọn ngày"/>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-					</div>
-				
-					<div zclass="col-md-3">
-						<div zclass="form-group mg-top-8">
 							<span>Ngày dự kiến nhận phản hồi</span>
 							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi) @save(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								width="100%" placeholder="Chọn ngày"/>

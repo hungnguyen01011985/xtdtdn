@@ -35,10 +35,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin congVanGD2;
 	// Thông tin giai đoạn 3
 	private Date ngayGuiUBND;
-	private Date ngayGuiSoXayDung;
 	private Date ngayDuKienNhanPhanHoi;
-	private TepTin taiLieuGD3;
 	private Date ngayPhatHanhCV3;
+	private TepTin taiLieuGD3;
 	private TepTin congVanGD3;
 	// Thông tin giai đoạn 4
 	private PhuongThucLuaChonNDT phuongThucLuaChonNDT;
@@ -314,14 +313,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	public void setNgayGuiUBND(Date ngayGuiUBND) {
 		this.ngayGuiUBND = ngayGuiUBND;
-	}
-
-	public Date getNgayGuiSoXayDung() {
-		return ngayGuiSoXayDung;
-	}
-
-	public void setNgayGuiSoXayDung(Date ngayGuiSoXayDung) {
-		this.ngayGuiSoXayDung = ngayGuiSoXayDung;
 	}
 
 	public Date getNgayDuKienNhanPhanHoi() {
