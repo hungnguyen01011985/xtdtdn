@@ -26,16 +26,17 @@ import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 public class GiaoViec extends Model<GiaoViec>{
 	private DuAn duAn;
 	private String tenCongViec;
+	private String yKienChiDao;
+	private String ketQua;
 	private NhanVien nguoiGiaoViec = new NhanVien();
 	private NhanVien nguoiDuocGiao = new NhanVien();
-	private Date ngayGiao;
+	private Date ngayGiao = new Date();
 	private Date hanThucHien;
+	private Date ngayHoanThanh;
 	private GiaiDoanXucTien giaiDoanXucTien;
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
-	private String yKienChiDao;
 	private TepTin taiLieu = new TepTin();
-	private Date ngayHoanThanh;
-	private String ketQua;
+	
 	private TepTin taiLieuKetQua;
 	
 	public String getyKienChiDao() {
