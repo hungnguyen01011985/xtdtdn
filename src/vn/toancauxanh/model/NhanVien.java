@@ -147,7 +147,7 @@ public class NhanVien extends Model<NhanVien> {
 		this.matKhau2 = matKhau2;
 	}
 	
-	@Transient
+	@ManyToOne
 	public VaiTro getVaiTro() {
 		if (vaiTro != null) {
 			vaiTros = new HashSet<>();
