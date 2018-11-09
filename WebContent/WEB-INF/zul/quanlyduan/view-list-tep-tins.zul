@@ -18,7 +18,7 @@
 			</div>
 			<div zclass="row mg-and-bg-and-line">
 				<label visible="@load(vm.giaiDoanDuAn.tepTins.size() eq 0)" class="text-no-empty">Chưa có tài liệu nào</label>
-				<div class="box-tep-tin" style="display:flex;flex-direction:column;" children="@bind(vm.giaiDoanDuAn.tepTins)">
+				<div class="box-tep-tin" children="@bind(vm.giaiDoanDuAn.tepTins)">
 					<template name="children">
 						<div class="item-tep-tin">
 							<div class="box-type-file">
