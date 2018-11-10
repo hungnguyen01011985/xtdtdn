@@ -660,9 +660,23 @@
 	width: 80%;
 }
 
+#closeTab{
+	height: 0px;
+}
+
 /* @media(max-width: 768px){
 	.pop-up-width{
 		width: 100%;
 		height: calc(100% - 60px);
 	}
 } */
+.swap{
+	display: flex;
+	justify-content: center;
+	padding-bottom: 15px;
+}
+.bg-color-tab{
+	background-color: #FAFBFB;
+	display: flex;
+	justify-content: center;
+}
