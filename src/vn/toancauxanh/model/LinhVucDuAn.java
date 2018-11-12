@@ -1,6 +1,7 @@
 package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -18,7 +19,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 public class LinhVucDuAn extends Model<LinhVucDuAn> {
 	private String ten = "";
 
-//	@Lob
+	@Lob
 	private String moTa = "";
 
 	public LinhVucDuAn() {
