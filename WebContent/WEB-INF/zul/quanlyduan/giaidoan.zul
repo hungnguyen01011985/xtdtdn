@@ -43,7 +43,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="content-tab-panel1" visible="@load(vm.checkTab)">
+			<div class="content-tab-panel1">
 				<div zclass="mg-and-bg-and-line">
 					<div class="row">
 						<div zclass="col-md-12">
@@ -167,7 +167,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div class="mg-and-bg-and-line bg-color-tab" zk:onClick="@command('swap')">
 				<x:image zk:visible="@load(!vm.checkTab)" class="swap-arrow" src="${contexPath}/assets/icon-bxtdn/arrow-select.svg"/>
 				<x:image zk:visible="@load(vm.checkTab)" class="swap-arrow" src="${contexPath}/assets/icon-bxtdn/arrow-up.svg"/>
@@ -188,25 +187,20 @@
 				}
 				
 				if ($(objDonVi).find(".content-tab-panel").css("height")=="0px") {
-					$(objDonVi).find(".content-tab-panel").css("height","auto");
-					$(objDonVi).find(".content-tab-panel").css("visibility","visible");
+					$(objDonVi).find(".content-tab-panel").css("height","212px");
+					
 				} else {
 					$(objDonVi).find(".content-tab-panel").css("height","0px");
-					$(objDonVi).find(".content-tab-panel").css("visibility","hidden");
+				}
+			}
+			function toggleTabThongTinDuAn(){
+				if ($(".content-tab-panel1").css("height")=="0px") {
+					$(".content-tab-panel1").css("height","505px");
+				} else {
+					$(".content-tab-panel1").css("height","0px");
 				}
 			}
 			
-			function toggleTab(object) {
-				var item = $(object).parent();
-				console.log(item);
-				if ($(item).find(".content-tab-panel1").css("height")=="0px") {
-					$(item).find(".content-tab-panel1").css("height","auto");
-					$(item).find(".content-tab-panel1").css("height","visible"); 
-				} else {
-					$(item).find(".content-tab-panel1").css("height","0px");
-					$(item).find(".content-tab-panel1").css("height","hidden");
-				} 
-			}
 		</n:script>
 </div>
 </window>

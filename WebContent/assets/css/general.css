@@ -459,7 +459,8 @@
 
 .mg-and-bg-and-line-panel {
 	border-top: 1px solid #D9DEE6;
-	padding: 15px 7.5px 0 7.5px;
+	padding: 15px 22.5px 0 22.5px;
+	margin:0 -15px;
 }
 
 .btn-mg-lg .col-md-2 {
@@ -625,15 +626,22 @@
 	display: flex;
 	flex-direction: column;
 	height: auto;
-	transition: all .5 ease;
 	border: 1px solid #D9DEE6;
 	margin-bottom: 15px;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    
 }
 
 .content-tab-panel {
 	margin: 0 15px 0 15px;
+	transition: height .5s ease;
+	height: 212px;
 }
-
+.content-tab-panel1{
+	
+}
 .hidden-tab-panel {
 	height: 0;
 	visibility: hidden;
