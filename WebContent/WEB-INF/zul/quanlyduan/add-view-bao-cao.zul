@@ -97,7 +97,7 @@
 				<div class="row" visible="@load(not empty vm.taiLieu.tenFile)">
 					<div class="col-md-12">
 						<div zclass="form-group">
-							<x:span class="issue-search">Quyết định phê duyệt</x:span>
+							<x:span class="issue-search">Tài liệu đính kèm</x:span>
 							<div class="flex mg-btn-top" >
 								<label class="txt-link-tailieu" value="@bind(vm.taiLieu.tenFile)"/>
 							</div>
@@ -130,20 +130,31 @@
 					</div>
 				</div>
 				
-				<div class="row">
+				<div class="row" visible="${readOnly}">
 					<div class="col-md-12">
 						<div zclass="form-group">
 							<x:span class="issue-search">Đính kèm kết quả</x:span>
-							<button disabled="${!readOnly}" visible="@load(empty vm.taiLieuKetQua.tenFile)" label="Chọn tài liệu" 
+							<button visible="@load(empty vm.taiLieuKetQua.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm, name = '*')"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuKetQua.tenFile)">
 								<label class="txt-link-tailieu" value="@bind(vm.taiLieuKetQua.tenFile)"/>
-								<x:button zk:disabled="${!readOnly}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieuKetQua , vm = vm, name='*')">
+								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieuKetQua , vm = vm, name='*')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 								</x:button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row" visible="@load(not empty vm.taiLieuKetQua.tenFile and !readOnly)">
+					<div class="col-md-12">
+						<div zclass="form-group">
+							<x:span class="issue-search">Đính kèm kết quả</x:span>
+							<div class="flex mg-btn-top" >
+								<label class="txt-link-tailieu" value="@bind(vm.taiLieuKetQua.tenFile)"/>
 							</div>
 						</div>
 					</div>
@@ -161,7 +172,7 @@
 					</div>
 					<div zclass="col-xs-6" visible="${readOnly}">
 						<div zclass="form-group right">
-							<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveBaoCao',wdn=wdn, vmArgs=vmArgs, attr = 'targetQuery')">
+							<x:button class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveBaoCao',wdn=wdn, vmArgs=vmArgs, attr = 'targetQuery')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
 								<span>Hoàn thành</span>
 							</x:button>
