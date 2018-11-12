@@ -172,7 +172,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div class="mg-and-bg-and-line bg-color-tab" zk:onClick="@command('swap')">
 				<x:image zk:visible="@load(!vm.checkTab)" src="${contexPath}/assets/icon-bxtdn/arrow-select.svg"/>
 				<x:image zk:visible="@load(vm.checkTab)" src="${contexPath}/assets/icon-bxtdn/arrow-up.svg"/>
@@ -212,6 +211,16 @@
 					$(item).find(".content-tab-panel1").css("height","hidden");
 				} 
 			}
+			function removeTitleCss(index){
+				var x = document.getElementsByClassName("plan-title");
+				var i;
+				for ( i = 5 ; i > 0 ; i--){
+					var ob = x[i];
+					$(ob).removeClass("plan-title-active");
+				}
+				var obj = x[index];
+				$(obj).addClass("plan-title-active");
+			}
 		</n:script>
-</div>
+	</div>
 </window>

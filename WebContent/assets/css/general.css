@@ -194,6 +194,11 @@
 	color: #39A94B !important;
 }
 
+.underline-redirect{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 .plan-number {
 	width: 40px;
 	height: 40px;

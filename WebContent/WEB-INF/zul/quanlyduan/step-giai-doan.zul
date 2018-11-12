@@ -8,7 +8,7 @@
 								${vm.getCssPlan(giaiDoanMot, 'imageOrNumber', false)}
 								<x:image src="${contexPath}${vm.getCssPlan(giaiDoanMot, 'imageOrNumber', true)}"/>
 							</div>
-							<div class="plan-title ${vm.getCssPlan(giaiDoanMot, 'cssTitle', false)}">
+							<div id="titleGiaiDoan1" class="plan-title ${vm.getCssPlan(giaiDoanMot, 'cssTitle', false)}">
 								<span>Giới thiệu địa điểm</span>
 							</div>
 						</div>
@@ -17,7 +17,7 @@
 								<span>${vm.getCssPlan(giaiDoanHai, 'imageOrNumber', false)}</span>
 								<x:image src="${contexPath}${vm.getCssPlan(giaiDoanHai, 'imageOrNumber', true)}"/>
 							</div>
-							<div class="plan-title ${vm.getCssPlan(giaiDoanHai, 'cssTitle', false)}">
+							<div id="titleGiaiDoan2" class="plan-title ${vm.getCssPlan(giaiDoanHai, 'cssTitle', false)}">
 								<span>Khảo sát địa điểm</span>
 							</div>
 						</div>
@@ -26,7 +26,7 @@
 								${vm.getCssPlan(giaiDoanBa, 'imageOrNumber', false)}
 								<x:image src="${contexPath}${vm.getCssPlan(giaiDoanBa, 'imageOrNumber', true)}"/>
 							</div>
-							<div class="plan-title ${vm.getCssPlan(giaiDoanBa, 'cssTitle', false)}">
+							<div id="titleGiaiDoan3" class="plan-title ${vm.getCssPlan(giaiDoanBa, 'cssTitle', false)}">
 								<span>Xin chủ trương</span>
 							</div>
 						</div>
@@ -35,7 +35,7 @@
 								${vm.getCssPlan(giaiDoanBon, 'imageOrNumber', false)}
 								<x:image src="${contexPath}${vm.getCssPlan(giaiDoanBon, 'imageOrNumber', true)}"/>
 							</div>
-							<div class="plan-title ${vm.getCssPlan(giaiDoanBon, 'cssTitle', false)}">
+							<div id="titleGiaiDoan4" class="plan-title ${vm.getCssPlan(giaiDoanBon, 'cssTitle', false)}">
 								<span>Lựa chọn nhà đầu tư</span>
 							</div>
 						</div>
@@ -44,7 +44,7 @@
 								${vm.getCssPlan(giaiDoanNam, 'imageOrNumber', false)}
 								<x:image src="${contexPath}${vm.getCssPlan(giaiDoanNam, 'imageOrNumber', true)}"/>
 							</div>
-							<div class="plan-title ${vm.getCssPlan(giaiDoanNam, 'cssTitle', false)}">
+							<div id="titleGiaiDoan5" class="plan-title ${vm.getCssPlan(giaiDoanNam, 'cssTitle', false)}">
 								<span>Nhà đầu tư</span>
 							</div>
 						</div>

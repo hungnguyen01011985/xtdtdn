@@ -26,6 +26,7 @@ import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -345,40 +346,57 @@ public class DuAn extends Model<DuAn> {
 	}
 	
 	@Command
+	public void redirectXemChiTietDuAn(@BindingParam("id") Long id) {
+		String url = "/cp/quanlyduan/chitiet/";
+		Executions.sendRedirect(url.concat(id.toString()));
+	}
+	
+	@Command
 	public void redirectGiaiDoanDuAn(@BindingParam("giaiDoan") GiaiDoanXucTien giaiDoan) {
+		int index = -1;
 		if (giaiDoan.ordinal() > this.getGiaiDoanXucTien().ordinal()) {
 			return;
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(giaiDoan)) {
 			setSrcGiaiDoanDuAn("quanlyduan/giaidoan1.zul");
+			index = 0;
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(giaiDoan)) {
 			setSrcGiaiDoanDuAn("quanlyduan/giaidoan2.zul");
+			index = 1;
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(giaiDoan)) {
 			setSrcGiaiDoanDuAn("quanlyduan/giaidoan3.zul");
+			index = 2;
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(giaiDoan)) {
 			setSrcGiaiDoanDuAn("quanlyduan/giaidoan4.zul");
+			index = 3;
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(giaiDoan)) {
 			setSrcGiaiDoanDuAn("quanlyduan/giaidoan5.zul");
+			index = 4;
+		}
+		if (index != -1) {
+			Clients.evalJavaScript("removeTitleCss("+index+")");
 		}
 		BindUtils.postNotifyChange(null, null, this, "srcGiaiDoanDuAn");
 		
 	}
-
+	
+	public boolean checkDangOGiaiDoan(GiaiDoanXucTien giaiDoan) {
+		if (giaiDoan.equals(this.getGiaiDoanXucTien())) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void setSrcGiaiDoanDuAn(String srcGiaiDoanDuAn) {
 		this.srcGiaiDoanDuAn = srcGiaiDoanDuAn;
 	}
 
 	private String srcGiaiDoan4;
 
-	@Command
-	public void redirectXemChiTietDuAn(@BindingParam("id") Long id) {
-		Executions.sendRedirect("cp/quanlyduan/chitiet/"+id);
-	}
-	
 	@Transient
 	public String getSrcGiaiDoan4() {
 		return srcGiaiDoan4;

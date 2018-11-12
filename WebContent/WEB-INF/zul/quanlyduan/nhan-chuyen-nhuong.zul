@@ -29,7 +29,7 @@
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
 					<span>Đơn vị tư vấn</span>
-					<combobox buttonVisible="${action}" class="his mg-top-8 ${action ? '' : 'input-no-button' }" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+					<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.ten)"></comboitem>
 						</template>
@@ -40,7 +40,7 @@
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8" viewModel="@id('hoSoQuyHoachLQH') @init(vm.giaiDoanDuAn.hoSoQuyHoachLQH)">
 					<span>Hồ sơ quy hoạch</span>
-					<button if="${action}" visible="@load(empty vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)" label="Chọn tài liệu" 
+					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
@@ -48,7 +48,7 @@
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)">
 						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)"/>
-						<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoQuyHoachLQH , vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')">
+						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoQuyHoachLQH , vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 						</x:button>
 					</div>
@@ -59,7 +59,7 @@
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhPheDuyetLQH') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH)">
 					<span>Quyết định phê duyệt quy hoạch</span>
-					<button if="${action}" visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)" label="Chọn tài liệu" 
+					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH, name = 'quyetDinhPheDuyetLQH')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
@@ -67,7 +67,7 @@
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)">
 						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)"/>
-						<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')">
+						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 						</x:button>
 					</div>
@@ -78,7 +78,7 @@
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('vanBanChuyenMucDichSDD') @init(vm.giaiDoanDuAn.vanBanChuyenMucDichSDD)">
 					<span>Văn bản cho phép chuyển mục đích sử dụng đất</span>
-					<button if="${action}" visible="@load(empty vm.giaiDoanDuAn.vanBanChuyenMucDichSDD.tenFile)" label="Chọn tài liệu" 
+					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.vanBanChuyenMucDichSDD.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanChuyenMucDichSDD, name = 'vanBanChuyenMucDichSDD')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
@@ -86,7 +86,7 @@
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.vanBanChuyenMucDichSDD.tenFile)">
 						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.vanBanChuyenMucDichSDD.tenFile)"/>
-						<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.vanBanChuyenMucDichSDD , vm = vm.giaiDoanDuAn, name = 'vanBanChuyenMucDichSDD')">
+						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.vanBanChuyenMucDichSDD , vm = vm.giaiDoanDuAn, name = 'vanBanChuyenMucDichSDD')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 						</x:button>
 					</div>
@@ -97,7 +97,7 @@
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('vanBanDeNghiThuHoiDat') @init(vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat)">
 					<span>Văn bản đề nghị thu hồi đất</span>
-					<button if="${action}" visible="@load(empty vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat.tenFile)" label="Chọn tài liệu" 
+					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat, name = 'vanBanDeNghiThuHoiDat')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
@@ -105,7 +105,7 @@
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat.tenFile)">
 						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat.tenFile)"/>
-						<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat , vm = vm.giaiDoanDuAn, name = 'vanBanDeNghiThuHoiDat')">
+						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat , vm = vm.giaiDoanDuAn, name = 'vanBanDeNghiThuHoiDat')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 						</x:button>
 					</div>
