@@ -9,11 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
@@ -819,6 +821,8 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	}
 	
 	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name = "giaidoanduan_teptin", joinColumns = {
+			@JoinColumn(name = "giaidoanduan_id") }, inverseJoinColumns = { @JoinColumn(name = "teptin_id") })
 	public List<TepTin> getTepTins() {
 		return tepTins;
 	}
