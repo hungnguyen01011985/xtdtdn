@@ -4,13 +4,13 @@
 		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" width="1000px"
 		whatever="@load(false,after='savePhongBan') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
-			<zscript><![CDATA[
-				vmArgs = arg.get("vmArgs");
-				strSave = arg.get("save");
-				readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
-				import java.awt.image.*;
-				BufferedImage imageNull = new BufferedImage(400, 300, BufferedImage.TYPE_INT_ARGB);
-			]]></zscript> 
+		<zscript><![CDATA[
+			vmArgs = arg.get("vmArgs");
+			strSave = arg.get("save");
+			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
+			import java.awt.image.*;
+			BufferedImage imageNull = new BufferedImage(400, 300, BufferedImage.TYPE_INT_ARGB);
+		]]></zscript> 
 			
 		<div class="w-popup-user">
 			<div class="mg-and-bg-and-line flex" style="padding:15px;">
@@ -182,6 +182,5 @@
 					</div>
 			</div>
 		</div>
-			
 	</window>
 </idspace>

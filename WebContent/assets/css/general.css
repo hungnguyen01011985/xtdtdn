@@ -98,18 +98,30 @@
 	cursor: pointer !important;
 }
 
-.btn-green {
-	background: #23A76E;
-	border: 1px solid #23A76E;
+.btn-base{
+	display: flex;
 	height: 36px;
+	justify-content: center;
+	align-items: center;
 	border-radius: 3px !important;
 }
 
-.btn-green span {
-	font-family: Roboto-Bold;
+.btn-green{
+	background: #30B350;
+	border: 1px solid #30B350;
+}
+
+.btn-gray{
+	background: #23A76E;
+	border: 1px solid #23A76E;
+}
+
+.btn-base span {
+	font-family: Roboto-Bold !important;
 	font-size: 13px;
 	color: #FFFFFF;
 	line-height: 18px;
+	cursor: pointer !important;
 }
 
 .bg-new-notify {
@@ -168,14 +180,17 @@
 }
 
 .CHUA_LAM {
+	font-weight: bold;
 	color: #AA8A3E !important;
 }
 
 .DANG_LAM {
+	font-weight: bold;
 	color: #628CF0 !important;
 }
 
 .HOAN_THANH {
+	font-weight: bold;
 	color: #39A94B !important;
 }
 
@@ -661,9 +676,28 @@
 	width: 80%;
 }
 
+#closeTab{
+	height: 0px;
+}
+
 /* @media(max-width: 768px){
 	.pop-up-width{
 		width: 100%;
 		height: calc(100% - 60px);
 	}
 } */
+.swap{
+	display: flex;
+	justify-content: center;
+	padding: 0px 0px 15px 5px;
+}
+.swap span{
+	font-family: Roboto-Regular;
+	font-weight: 500;
+}
+.bg-color-tab{
+	background-color: #F9FAFB;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}

@@ -1,6 +1,7 @@
 package vn.toancauxanh.model;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,7 +12,6 @@ import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -41,10 +41,10 @@ public class DuAn extends Model<DuAn> {
 	private String diaDiem;
 	private String quyMoDuAn;
 	private String idNguoiLienQuan = "";
-	@Lob
+	//@Lob
 	private String mucTieuDuAn;
-	private long tongVonDauTu;
-	private long dienTichSuDungDat;
+	private Double tongVonDauTu = 0.0;
+	private Double dienTichSuDungDat = 0.0;
 	private LinhVucDuAn linhVuc;
 	private MucDoUuTien mucDoUuTien;
 	private KhaNangDauTu khaNangDauTu;
@@ -55,6 +55,7 @@ public class DuAn extends Model<DuAn> {
 	private GiaoViec giaoViec = new GiaoViec();
 	private TepTin taiLieuNDT;
 	
+	private boolean checkTab;
 
 	public DuAn() {
 
@@ -144,19 +145,19 @@ public class DuAn extends Model<DuAn> {
 		this.mucTieuDuAn = mucTieuDuAn;
 	}
 
-	public long getTongVonDauTu() {
+	public Double getTongVonDauTu() {
 		return tongVonDauTu;
 	}
 
-	public void setTongVonDauTu(long tongVonDauTu) {
+	public void setTongVonDauTu(Double tongVonDauTu) {
 		this.tongVonDauTu = tongVonDauTu;
 	}
 
-	public long getDienTichSuDungDat() {
+	public Double getDienTichSuDungDat() {
 		return dienTichSuDungDat;
 	}
 
-	public void setDienTichSuDungDat(long dienTichSuDungDat) {
+	public void setDienTichSuDungDat(Double dienTichSuDungDat) {
 		this.dienTichSuDungDat = dienTichSuDungDat;
 	}
 
@@ -386,7 +387,16 @@ public class DuAn extends Model<DuAn> {
 	public void setSrcGiaiDoan4(String srcGiaiDoan4) {
 		this.srcGiaiDoan4 = srcGiaiDoan4;
 	}
+	
+	@Transient
+	public boolean isCheckTab() {
+		return checkTab;
+	}
 
+	public void setCheckTab(boolean checkTab) {
+		this.checkTab = checkTab;
+	}
+	
 	@ManyToOne
 	public TepTin getTaiLieuNDT() {
 		return taiLieuNDT;
@@ -489,13 +499,9 @@ public class DuAn extends Model<DuAn> {
 				boolean rs = true;
 				String text = (String) ctx.getValidatorArg("text");
 				Boolean type = (Boolean) ctx.getValidatorArg("type");
-				Double vonDauTu = 0d;
-				try {
-					vonDauTu = Double.parseDouble((String) ctx.getProperty().getValue());
-				} catch (NumberFormatException e) {
-					addInvalidMessage(ctx, "Bạn phải nhập số");
-				}
-				
+				Double vonDauTu = 0.0;
+				BigDecimal param = (BigDecimal) ctx.getProperty().getValue();
+				vonDauTu = param.doubleValue();
 				if (type != null) {
 					if (vonDauTu <= 0) {
 						addInvalidMessage(ctx, text + " phải lớn hơn 0");
@@ -507,7 +513,6 @@ public class DuAn extends Model<DuAn> {
 						rs = false;
 					}
 				}
-				
 				return rs;
 			}
 		};
@@ -606,5 +611,11 @@ public class DuAn extends Model<DuAn> {
 					}
 				}
 			});
+	}
+	
+	@Command
+	public void swap() {
+		checkTab = !checkTab;
+		BindUtils.postNotifyChange(null, null, this, "checkTab");
 	}
 }

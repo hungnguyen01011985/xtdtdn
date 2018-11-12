@@ -106,7 +106,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:a class="btn btn-blue" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+						<x:a class="btn btn-base btn-gray" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
 						</x:a>
