@@ -73,7 +73,9 @@
 				<div class="row">
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<span>Ngày khảo sát</span>
+							<div class="flex">
+								<x:span class="issue-search">Ngày khảo sát<n:small class="required"> *</n:small></x:span>
+							</div>
 							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayKhaoSat) @save(vm.giaiDoanDuAn.ngayKhaoSat, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								 width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -83,7 +85,9 @@
 				<div class="row">
 					<div zclass="col-md-12">
 						<div zclass="form-group">
-							<span>Ghi chú</span>
+							<div class="flex">
+								<x:span class="issue-search">Ghi chú<n:small class="required"> *</n:small></x:span>
+							</div>
 							<textbox class="form-control" rows="4" placeholder="Nhập ghi chú" value="@bind(vm.giaiDoanDuAn.ghiChu) @save(vm.giaiDoanDuAn.ghiChu, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -92,7 +96,7 @@
 				<div class="row">
 					<div class="col-md-12" viewModel="@id('taiLieuGD2')@init(vm.giaiDoanDuAn.taiLieuGD2)">
 						<div zclass="form-group">
-							<span>Tài liệu kèm theo</span>
+							<x:span class="issue-search">Tài liệu kèm theo</x:span>
 							<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD2.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuGD2')"
@@ -120,7 +124,9 @@
 			<div class="row">
 				<div zclass="col-md-3">
 					<div zclass="form-group">
-						<span>Ngày phát hành CV</span> 
+						<div class="flex">
+							<x:span class="issue-search">Ngày phát hành CV<n:small class="required"> *</n:small></x:span>
+						</div> 
 						<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCVGD2) @save(vm.giaiDoanDuAn.ngayPhatHanhCVGD2, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -130,7 +136,9 @@
 	    				@validator(vm.validatorTepTin, sms = 'congVanGD2', text = 'ngayDuKien', ngayDuKien = vm.giaiDoanDuAn.ngayPhatHanhCVGD2)">
 					<div class="col-md-8" viewModel="@id('congVanGD2')@init(vm.giaiDoanDuAn.congVanGD2)">
 						<div zclass="form-group">
-							<span>Tài liệu kèm theo</span>
+							<div class="flex">
+								<x:span class="issue-search">Tài liệu kèm theo<n:small class="required"> *</n:small></x:span>
+							</div>
 							<button visible="@load(empty vm.giaiDoanDuAn.congVanGD2.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'congVanGD2', error = error)"
