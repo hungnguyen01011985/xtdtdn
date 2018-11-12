@@ -23,6 +23,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
@@ -271,28 +272,112 @@ public class DuAn extends Model<DuAn> {
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
 
+	private String srcGiaiDoanDuAn;
+	
 	@Transient
-	public String getSrc() {
-		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan1.zul";
+	public String getSrcGiaiDoanDuAn() {
+		if (srcGiaiDoanDuAn == null || srcGiaiDoanDuAn.isEmpty()) {
+			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien()) || GiaiDoanXucTien.CHUA_HOAN_THANH.equals(getGiaiDoanXucTien()) || GiaiDoanXucTien.HOAN_THANH.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan1.zul";
+			}
+			if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan2.zul";
+			}
+			if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan3.zul";
+			}
+			if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan4.zul";
+			}
+			if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan5.zul";
+			}
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan2.zul";
+		return srcGiaiDoanDuAn;
+	}
+	
+	@Transient
+	public String getCssPlan(GiaiDoanXucTien giaiDoan, String type, boolean check) {
+		if (type.equals("cssNumber")) {
+			if (giaiDoan.equals(this.giaiDoanXucTien)) {
+				return "plan-number-active";
+			}
+			if (giaiDoan.ordinal() < this.getGiaiDoanXucTien().ordinal()) {
+				return "plan-number-completed";
+			}
+			return "";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan3.zul";
+		if (type.equals("cssTitle")) {
+			if (giaiDoan.equals(this.giaiDoanXucTien)) {
+				return "plan-title-active";
+			}
+			return "";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan4.zul";
+		if (type.equals("imageOrNumber")) {
+			if (giaiDoan.ordinal() < this.getGiaiDoanXucTien().ordinal()) {
+				if (!check) {
+					return "";
+				}
+				return "/assets/icon-bxtdn/check-qua-giai-doan.svg";
+			} else {
+				if (check) {
+					return "";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(giaiDoan)) {
+					return "1";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(giaiDoan)) {
+					return "2";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(giaiDoan)) {
+					return "3";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(giaiDoan)) {
+					return "4";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(giaiDoan)) {
+					return "5";
+				}
+			}
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan5.zul";
+		return "";
+	}
+	
+	@Command
+	public void redirectGiaiDoanDuAn(@BindingParam("giaiDoan") GiaiDoanXucTien giaiDoan) {
+		if (giaiDoan.ordinal() > this.getGiaiDoanXucTien().ordinal()) {
+			return;
 		}
-		return null;
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan1.zul");
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan2.zul");
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan3.zul");
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan4.zul");
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan5.zul");
+		}
+		BindUtils.postNotifyChange(null, null, this, "srcGiaiDoanDuAn");
+		
+	}
+
+	public void setSrcGiaiDoanDuAn(String srcGiaiDoanDuAn) {
+		this.srcGiaiDoanDuAn = srcGiaiDoanDuAn;
 	}
 
 	private String srcGiaiDoan4;
 
+	@Command
+	public void redirectXemChiTietDuAn(@BindingParam("id") Long id) {
+		Executions.sendRedirect("cp/quanlyduan/chitiet/"+id);
+	}
+	
 	@Transient
 	public String getSrcGiaiDoan4() {
 		return srcGiaiDoan4;
