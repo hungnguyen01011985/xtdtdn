@@ -20,7 +20,9 @@
 							<div class="row">
 								<div zclass="col-md-3">
 									<div zclass="form-group title-small-textbox">
-										<span>Cấp đơn vị</span>
+										<div class="flex">
+											<x:span class="issue-search">Cấp đơn vị<n:small class="required"> *</n:small></x:span>
+										</div>
 										<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" readonly="true" model="@load(each.listCapDonVi)" selectedItem="@bind(each.capDonVi) @save(each.capDonVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 											value="@load(each.capDonVi.ten)" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }" placeholder="Chọn cấp đơn vị" width="100%">
 											<template name="model">
@@ -32,7 +34,9 @@
 								</div>
 								<div zclass="col-md-3">
 									<div zclass="form-group title-small-textbox">
-										<span>Đơn vị</span>
+										<div class="flex">
+											<x:span class="issue-search">Đơn vị<n:small class="required"> *</n:small></x:span>
+										</div>
 										<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" readonly="true" model="@load(each.listDonViXucTien)" selectedItem="@bind(each.donVi) @save(each.donVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" 
 											placeholder="Chọn đơn vị xúc tiến" width="100%" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }">
 											<template name="model">
@@ -55,7 +59,9 @@
 							<div class="row">
 								<div zclass="col-md-3">
 									<div zclass="form-group">
-										<span>Ngày nhận</span>
+										<div class="flex">
+											<x:span class="issue-search">Ngày nhận<n:small class="required"> *</n:small></x:span>
+										</div>
 										<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" class="hv-db ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }"
 											value="@bind(each.ngayNhanTraLoi) @save(each.ngayNhanTraLoi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
 										<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -65,7 +71,9 @@
 									<div id="idCongVanTraLoi" zclass="col-md-3" form="@id('fx') @load(each.congVanTraLoi) @save(each.congVanTraLoi, before={'goTask','goNext'}) 
 			    						@validator(vm.validatorTepTinDonVi, text = 'ngayNhanTraLoi', ngayNhanTraLoi = each.ngayNhanTraLoi)">
 										<div zclass="form-group" viewModel="@id('congVanTraLoi') @init(each.congVanTraLoi)">
-											<span>Công văn đính kèm</span>
+											<div class="flex">
+												<x:span class="issue-search">Công văn đính kèm<n:small class="required"> *</n:small></x:span>
+											</div>
 											<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
 												class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 												onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'congVanTraLoi', error = errorCongVanTraLoi)"

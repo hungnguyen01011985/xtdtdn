@@ -697,8 +697,11 @@
 	padding: 0px 0px 15px 5px;
 }
 .swap span{
-	font-family: Roboto-Regular;
+	font-family: Roboto-Bold;
 	font-weight: 500;
+}
+.swap-arrow{
+	padding-bottom: 2px;
 }
 .bg-color-tab{
 	background-color: #F9FAFB;

@@ -33,22 +33,28 @@
 				<div class="row">
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
-							<span>Tên công ty</span>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.tenCongTy) @save(vm.giaiDoanDuAn.tenCongTy, before={'goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
+							<div class="flex">
+								<x:span class="issue-search">Tên công ty<n:small class="required"> *</n:small></x:span>
+							</div>
+							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.tenCongTy) @save(vm.giaiDoanDuAn.tenCongTy, before={'goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên công ty"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
-							<span>Người đại diện pháp lý</span>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.nguoiDaiDienPhapLy) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
+							<div class="flex">
+								<x:span class="issue-search">Người đại diện pháp lý<n:small class="required"> *</n:small></x:span>
+							</div>
+							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.nguoiDaiDienPhapLy) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập người đại diện pháp lý"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
-							<span>Địa chỉ</span>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
+							<div class="flex">
+								<x:span class="issue-search">Địa chỉ<n:small class="required"> *</n:small></x:span>
+							</div>
+							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập địa chỉ"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -56,15 +62,19 @@
 				<div class="row">
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
-							<span>Số điện thoại</span>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
+							<div class="flex">
+								<x:span class="issue-search">Số điện thoại<n:small class="required"> *</n:small></x:span>
+							</div>
+							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập số điện thoại"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group mg-top-8">
-							<span>Email</span>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
+							<div class="flex">
+								<x:span class="issue-search">Email<n:small class="required"> *</n:small></x:span>
+							</div>
+							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập email"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -72,7 +82,7 @@
 				<div class="row">
 					<div zclass="col-md-12">
 						<div zclass="form-group" viewModel="@id('giayChungNhanDauTu') @init(vm.giaiDoanDuAn.giayChungNhanDauTu)">
-							<span>Giấy chứng nhận đầu tư</span>
+							<x:span class="issue-search">Giấy chứng nhận đầu tư</x:span>
 							<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" visible="@load(empty vm.giaiDoanDuAn.giayChungNhanDauTu.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanDauTu')"
@@ -91,7 +101,7 @@
 				<div class="row">
 					<div zclass="col-md-12">
 						<div zclass="form-group" viewModel="@id('giayChungNhanDangKyDoanhNghiep') @init(vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep)">
-							<span>Giấy chứng nhận đăng ký doanh nghiệp</span>
+							<x:span class="issue-search">Giấy chứng nhận đăng ký doanh nghiệp</x:span>
 							<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" visible="@load(empty vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanDangKyDoanhNghiep')"
@@ -110,7 +120,7 @@
 				<div class="row">
 					<div zclass="col-md-12">
 						<div zclass="form-group" viewModel="@id('giayChungNhanQuyenSuDungDat') @init(vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat)">
-							<span>Giấy chứng nhận quyền sử dụng đất</span>
+							<x:span class="issue-search">Giấy chứng nhận quyền sử dụng đất</x:span>
 							<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" visible="@load(empty vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias= event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanQuyenSuDungDat')"
@@ -129,7 +139,7 @@
 				<div class="row">
 					<div zclass="col-md-12">
 						<div zclass="form-group" viewModel="@id('taiLieuDinhKem') @init(vm.giaiDoanDuAn.taiLieuDinhKem)">
-							<span>Tài liệu đính kèm</span>
+							<x:span class="issue-search">Tài liệu đính kèm</x:span>
 							<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" visible="@load(empty vm.giaiDoanDuAn.taiLieuDinhKem.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuDinhKem')"
