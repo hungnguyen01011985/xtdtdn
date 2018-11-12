@@ -55,7 +55,6 @@ public class DuAn extends Model<DuAn> {
 	private TepTin taiLieuNDT;
 	
 	private boolean checkTab;
-	
 
 	public DuAn() {
 
@@ -312,7 +311,7 @@ public class DuAn extends Model<DuAn> {
 	public void setCheckTab(boolean checkTab) {
 		this.checkTab = checkTab;
 	}
-
+	
 	@ManyToOne
 	public TepTin getTaiLieuNDT() {
 		return taiLieuNDT;
@@ -531,7 +530,6 @@ public class DuAn extends Model<DuAn> {
 	
 	@Command
 	public void swap(){
-		System.out.println("zoooooooo");
 		checkTab = !checkTab;
 		BindUtils.postNotifyChange(null, null, this, "checkTab");
 	}

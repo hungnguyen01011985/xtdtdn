@@ -168,10 +168,12 @@
 				</div>
 			</div>
 			
-			<n:div class="mg-and-bg-and-line bg-color-tab">
-				<x:image class="swap-down" src="${contexPath}/assets/icon-bxtdn/arrow-select.svg"/>
-				<span class="swap" zk:onClick="@command('swap')">XEM THÊM THÔNG TIN</span>
-			</n:div>
+			<div class="mg-and-bg-and-line bg-color-tab" zk:onClick="@command('swap')">
+				<x:image zk:visible="@load(!vm.checkTab)" src="${contexPath}/assets/icon-bxtdn/arrow-select.svg"/>
+				<x:image zk:visible="@load(vm.checkTab)" src="${contexPath}/assets/icon-bxtdn/arrow-up.svg"/>
+				<span zk:visible="@load(!vm.checkTab)" class="swap">XEM THÊM THÔNG TIN</span>
+				<span zk:visible="@load(vm.checkTab)" class="swap">ẨN BỚT THÔNG TIN</span>
+			</div>
 		</div>
 		<include src="${vm.getSrc()}"></include>
 		<n:script>
