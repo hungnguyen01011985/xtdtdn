@@ -529,7 +529,7 @@ public class DuAn extends Model<DuAn> {
 	}
 	
 	@Command
-	public void swap(){
+	public void swap() {
 		checkTab = !checkTab;
 		BindUtils.postNotifyChange(null, null, this, "checkTab");
 	}

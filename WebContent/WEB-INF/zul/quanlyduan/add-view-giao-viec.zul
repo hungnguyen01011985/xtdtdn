@@ -131,7 +131,7 @@
 					</div>
 					<div zclass="col-xs-6">
 						<div zclass="form-group right">
-							<x:button class="btn btn-blue mg-btn" onClick="@command('saveGiaoViec', wdn=wdn, list=vmArgs, attr = '*')">
+							<x:button class="btn btn-base btn-green mg-btn" onClick="@command('saveGiaoViec', wdn=wdn, list=vmArgs, attr = '*')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
 								<span>Giao việc</span>
 							</x:button>
