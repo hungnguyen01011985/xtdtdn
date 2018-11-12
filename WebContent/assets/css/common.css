@@ -88,7 +88,13 @@ html, body {
 	margin-top: 4px;
 	height: 30px
 }
-
+.input-no-button input{
+	width:100% !important;
+	border:1px solid #E0E2E6 !important;
+}
+.input-no-button .z-combobox-input[readonly]{
+	width:100% !important;
+}
 .wd-header .navbar-brand {
 	padding: 2px 10px;
 	height: auto;
