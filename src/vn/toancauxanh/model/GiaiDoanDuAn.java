@@ -1,7 +1,6 @@
 package vn.toancauxanh.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,11 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.JoinColumn;
-
-import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.util.media.Media;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -76,7 +70,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	// Hồ sơ các khu đất
 	private TepTin quyetDinhDauGiaQSDD;
 	// Quyết định phê duyệt giá đất khởi điểm đấu giá
-	private long giaDatKhoiDiemDauGia;
+	private Double giaDatKhoiDiemDauGia = 0.0;
 	private TepTin quyetDinhPheDuyetGiaKhoiDiem;
 	// Đơn vị thực hiện đấu giá
 	private DonVi donViThucHien;
@@ -433,11 +427,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		this.phuongAnDauGia = phuongAnDauGia;
 	}
 
-	public long getGiaDatKhoiDiemDauGia() {
+	public Double getGiaDatKhoiDiemDauGia() {
 		return giaDatKhoiDiemDauGia;
 	}
 
-	public void setGiaDatKhoiDiemDauGia(long giaDatKhoiDiemDauGia) {
+	public void setGiaDatKhoiDiemDauGia(Double giaDatKhoiDiemDauGia) {
 		this.giaDatKhoiDiemDauGia = giaDatKhoiDiemDauGia;
 	}
 

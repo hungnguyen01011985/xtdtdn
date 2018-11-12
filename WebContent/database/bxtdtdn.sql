@@ -96,12 +96,7 @@ CREATE TABLE IF NOT EXISTS `doanvao` (
   KEY `FKp3mnmxf3nr816yi313x8mchy` (`nguoiTao_id`),
   KEY `FKaf8apslvv3b7y4jg9qii5l9jp` (`congVanChiDaoUB_id`),
   KEY `FKd78wuneumsmt71747fcuei9cg` (`nguoiPhuTrach_id`),
-  KEY `FKefg299mok0jcsmbel3bs786ht` (`taiLieu_id`),
-  CONSTRAINT `FK7yboq69ojpgbter6d99b5ebt2` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FKaf8apslvv3b7y4jg9qii5l9jp` FOREIGN KEY (`congVanChiDaoUB_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKd78wuneumsmt71747fcuei9cg` FOREIGN KEY (`nguoiPhuTrach_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FKefg299mok0jcsmbel3bs786ht` FOREIGN KEY (`taiLieu_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKp3mnmxf3nr816yi313x8mchy` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
+  KEY `FKefg299mok0jcsmbel3bs786ht` (`taiLieu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.doanvao: ~0 rows (approximately)
@@ -118,16 +113,18 @@ CREATE TABLE IF NOT EXISTS `donvi` (
   `ngayTao` datetime DEFAULT NULL,
   `trangThai` varchar(255) DEFAULT NULL,
   `loaiDonVi` varchar(255) DEFAULT NULL,
-  `moTa` varchar(255) DEFAULT NULL,
+  `moTa` longtext,
   `ten` varchar(255) DEFAULT NULL,
   `nguoiSua_id` bigint(20) DEFAULT NULL,
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKqo1cbpspkivr6nmmtlb71wo4e` (`nguoiSua_id`),
-  KEY `FKh4r0e2r8rma8vovk8w8cvdtcs` (`nguoiTao_id`)
+  KEY `FKh4r0e2r8rma8vovk8w8cvdtcs` (`nguoiTao_id`),
+  CONSTRAINT `FKh4r0e2r8rma8vovk8w8cvdtcs` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKqo1cbpspkivr6nmmtlb71wo4e` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.donvi: ~6 rows (approximately)
+-- Dumping data for table bxtdtdn.donvi: ~7 rows (approximately)
 DELETE FROM `donvi`;
 /*!40000 ALTER TABLE `donvi` DISABLE KEYS */;
 INSERT INTO `donvi` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `loaiDonVi`, `moTa`, `ten`, `nguoiSua_id`, `nguoiTao_id`) VALUES
@@ -148,8 +145,6 @@ CREATE TABLE IF NOT EXISTS `donviduan` (
   `ngaySua` datetime DEFAULT NULL,
   `ngayTao` datetime DEFAULT NULL,
   `trangThai` varchar(255) DEFAULT NULL,
-  `capDonVi` varchar(255) DEFAULT NULL,
-  `donVi` varchar(255) DEFAULT NULL,
   `ngayNhanGiaiThich` datetime DEFAULT NULL,
   `ngayNhanTraLoi` datetime DEFAULT NULL,
   `nguoiSua_id` bigint(20) DEFAULT NULL,
@@ -254,7 +249,6 @@ CREATE TABLE IF NOT EXISTS `duan` (
   `giaiDoanXucTien` varchar(255) DEFAULT NULL,
   `idNguoiLienQuan` varchar(255) DEFAULT NULL,
   `khaNangDauTu` varchar(255) DEFAULT NULL,
-  `mucDoCanhTranh` varchar(255) DEFAULT NULL,
   `mucDoUuTien` varchar(255) DEFAULT NULL,
   `mucTieuDuAn` varchar(255) DEFAULT NULL,
   `ngayBatDauXucTien` datetime DEFAULT NULL,
@@ -271,12 +265,7 @@ CREATE TABLE IF NOT EXISTS `duan` (
   KEY `FKl434e4x3lmw1a6ey0nohkr35c` (`nguoiTao_id`),
   KEY `FK6fo7bn4lv30v3kacvo40j46g5` (`linhVuc_id`),
   KEY `FK85se4j733smob6atk11dtvxgo` (`nguoiPhuTrach_id`),
-  KEY `FK3pvdbi6bus3lwsorxnrx6dhkf` (`taiLieuNDT_id`),
-  CONSTRAINT `FK3pvdbi6bus3lwsorxnrx6dhkf` FOREIGN KEY (`taiLieuNDT_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK6fo7bn4lv30v3kacvo40j46g5` FOREIGN KEY (`linhVuc_id`) REFERENCES `linhvucduan` (`id`),
-  CONSTRAINT `FK85se4j733smob6atk11dtvxgo` FOREIGN KEY (`nguoiPhuTrach_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FKipdmghhwn0k31w37cpdydigwd` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FKl434e4x3lmw1a6ey0nohkr35c` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
+  KEY `FK3pvdbi6bus3lwsorxnrx6dhkf` (`taiLieuNDT_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.duan: ~0 rows (approximately)
@@ -295,19 +284,20 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   `diaChi` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `ghiChu` varchar(255) DEFAULT NULL,
-  `giaDatKhoiDiemDauGia` bigint(20) DEFAULT NULL,
-  `giaiDoanXucTien` varchar(50) DEFAULT NULL,
+  `giaDatKhoiDiemDauGia` bigint(20) NOT NULL,
+  `giaiDoanXucTien` varchar(255) DEFAULT NULL,
+  `kiemTraThongBao` bit(1) NOT NULL,
   `ngayDuKienNhanPhanHoi` datetime DEFAULT NULL,
   `ngayGui` datetime DEFAULT NULL,
-  `ngayGuiSoXayDung` datetime DEFAULT NULL,
   `ngayGuiUBND` datetime DEFAULT NULL,
   `ngayKhaoSat` datetime DEFAULT NULL,
   `ngayNhanPhanHoi` datetime DEFAULT NULL,
   `ngayPhatHanhCV3` datetime DEFAULT NULL,
   `ngayPhatHanhCVGD2` datetime DEFAULT NULL,
+  `ngayThongBaoOld` datetime DEFAULT NULL,
   `nguoiDaiDienPhapLy` varchar(255) DEFAULT NULL,
   `option` bit(1) NOT NULL,
-  `phuongThucLuaChonNDT` varchar(50) DEFAULT NULL,
+  `phuongThucLuaChonNDT` varchar(255) DEFAULT NULL,
   `soDienThoai` varchar(255) DEFAULT NULL,
   `tenCongTy` varchar(255) DEFAULT NULL,
   `nguoiSua_id` bigint(20) DEFAULT NULL,
@@ -315,6 +305,10 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   `baoCaoDoDacKhuDat_id` bigint(20) DEFAULT NULL,
   `congVanGD2_id` bigint(20) DEFAULT NULL,
   `congVanGD3_id` bigint(20) DEFAULT NULL,
+  `donViChuTri_id` bigint(20) DEFAULT NULL,
+  `donViLapKeHoach_id` bigint(20) DEFAULT NULL,
+  `donViThucHien_id` bigint(20) DEFAULT NULL,
+  `donViTuVan_id` bigint(20) DEFAULT NULL,
   `duAn_id` bigint(20) DEFAULT NULL,
   `giayChungNhanDangKyDoanhNghiep_id` bigint(20) DEFAULT NULL,
   `giayChungNhanDauTu_id` bigint(20) DEFAULT NULL,
@@ -347,18 +341,16 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   `vanBanChuyenMucDichSDD_id` bigint(20) DEFAULT NULL,
   `vanBanDeNghiBoSung_id` bigint(20) DEFAULT NULL,
   `vanBanDeNghiThuHoiDat_id` bigint(20) DEFAULT NULL,
-  `donViChuTri_id` bigint(20) DEFAULT NULL,
-  `donViLapKeHoach_id` bigint(20) DEFAULT NULL,
-  `donViThucHien_id` bigint(20) DEFAULT NULL,
-  `donViTuVan_id` bigint(20) DEFAULT NULL,
-  `kiemTraThongBao` bit(1) NOT NULL,
-  `ngayThongBaoOld` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKc0tg50cys89jo0ppipmx65vc6` (`nguoiSua_id`),
   KEY `FKiovtr2bkv8rtnq9fu7w3u69m4` (`nguoiTao_id`),
   KEY `FK3k456x2prsltyaib0v3aqo40k` (`baoCaoDoDacKhuDat_id`),
   KEY `FK13v10ictjd7tufnep9f7pkb2e` (`congVanGD2_id`),
   KEY `FK9khye8wkfwkxwc7jkitjmb351` (`congVanGD3_id`),
+  KEY `FKaveeq0mftnl3197kdfnya7pvy` (`donViChuTri_id`),
+  KEY `FK8se3deuwrgsi6fx4kl1ghs99k` (`donViLapKeHoach_id`),
+  KEY `FKkccvqdnpcp905ao88e2knibfy` (`donViThucHien_id`),
+  KEY `FKg0s9q91sdoi7i1fb1lqyc4yxd` (`donViTuVan_id`),
   KEY `FK367hkqbgdslb2m3lddji89nc6` (`duAn_id`),
   KEY `FK47690nqyiikgpmojllh59s446` (`giayChungNhanDangKyDoanhNghiep_id`),
   KEY `FKs1t0q6hji8phhcwi3jfj1od8u` (`giayChungNhanDauTu_id`),
@@ -390,50 +382,28 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   KEY `FK54lkb2gimh4oiwpt23lrqujfn` (`taiLieuGD3_id`),
   KEY `FKp2ojg9eqfo8a0adelae5789yg` (`vanBanChuyenMucDichSDD_id`),
   KEY `FK98wb9lo3g6jmm4pwp1j9jk3j9` (`vanBanDeNghiBoSung_id`),
-  KEY `FKqagb4is0rwe57s8buqou8l4c5` (`vanBanDeNghiThuHoiDat_id`),
-  CONSTRAINT `FK13v10ictjd7tufnep9f7pkb2e` FOREIGN KEY (`congVanGD2_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK15ybv8uu4clk8fe3fl7wa766l` FOREIGN KEY (`quyetDinhPheDuyetKetQuaTrungTuyen_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK30auw378vfv0xjitwos8hdbte` FOREIGN KEY (`keHoachLuaChonNhaDauTu_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK367hkqbgdslb2m3lddji89nc6` FOREIGN KEY (`duAn_id`) REFERENCES `duan` (`id`),
-  CONSTRAINT `FK3f48e8k69dkltn4dfgc9ycj9j` FOREIGN KEY (`hoSoMoiTuyen_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK3k456x2prsltyaib0v3aqo40k` FOREIGN KEY (`baoCaoDoDacKhuDat_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK47690nqyiikgpmojllh59s446` FOREIGN KEY (`giayChungNhanDangKyDoanhNghiep_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK5304t69kusn98vnbvkac7tsfk` FOREIGN KEY (`nghiQuyetPheDuyetCongTrinh_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK54lkb2gimh4oiwpt23lrqujfn` FOREIGN KEY (`taiLieuGD3_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK7b8m4swxei7lw9yjdt4ojo77h` FOREIGN KEY (`taiLieuGD1_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK8j30yicpo5k5r0miu0j9jehkd` FOREIGN KEY (`quyetDinhBoSungDanhMuc_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK8nb9eb2c1yt2tcsn049o0cdxu` FOREIGN KEY (`taiLieuDinhKem_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK98wb9lo3g6jmm4pwp1j9jk3j9` FOREIGN KEY (`vanBanDeNghiBoSung_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FK9khye8wkfwkxwc7jkitjmb351` FOREIGN KEY (`congVanGD3_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKaqx5swb048j26pmat7da9iq6b` FOREIGN KEY (`hoSoQuyHoachLQH_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKc0tg50cys89jo0ppipmx65vc6` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FKcna1e638vtd0ly0cefsbs96o5` FOREIGN KEY (`phuongAnTaiDinhCu_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKet5xnvq9dclcbso869giasf6k` FOREIGN KEY (`quyetDinhPheDuyetBoSungKinhPhi_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKfeokeu9wyd8e4v8k90gabxt4t` FOREIGN KEY (`giayChungNhanQuyenSuDungDat_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKgimoch72f5l1b4s9hit4dc8ty` FOREIGN KEY (`quyetDinhDauGiaQSDD_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKgo5hsmtncd6hr3o0cc06l6e1s` FOREIGN KEY (`quyetDinhPheDuyet2000_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKgwmh7c7vtvy08uweclioh94em` FOREIGN KEY (`taiLieuGD2_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKhv8lk8c6aerdaym0pmb0j67rv` FOREIGN KEY (`quyetDinhPheDuyetGiaKhoiDiem_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKic5u40grsamr45srt1gye5kig` FOREIGN KEY (`quyetDinhPheDuyetPADG_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKikf8uio2qjpv3qcxibp5i04u5` FOREIGN KEY (`quyetDinhPheDuyetLQH_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKiovtr2bkv8rtnq9fu7w3u69m4` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FKkjaw0cyhvgghhalhymg56ybxs` FOREIGN KEY (`hoSoMoiThau_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKko8a9ec548y0yygdjub15to4v` FOREIGN KEY (`quyetDinhPheDuyetMoiThau_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKlq8y7ft7n3l7a2f8aq0ypbxv6` FOREIGN KEY (`phuongAnDauGia_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKot4epkpvesre0o9h06c5a1rpg` FOREIGN KEY (`quyetDinhPheDuyeHoSoMoiTuyen_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKp2ojg9eqfo8a0adelae5789yg` FOREIGN KEY (`vanBanChuyenMucDichSDD_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKqagb4is0rwe57s8buqou8l4c5` FOREIGN KEY (`vanBanDeNghiThuHoiDat_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKqb0kj47fm0840hvidu0ht37jq` FOREIGN KEY (`quyetDinhPheDuyetDanhMuc_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKrv4ck2rkuf9325ubfrfhm1kty` FOREIGN KEY (`quyetDinhThuHoiDat_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKs1t0q6hji8phhcwi3jfj1od8u` FOREIGN KEY (`giayChungNhanDauTu_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKtfr03bnqxbtoactrsoj8c4i7t` FOREIGN KEY (`hoSoQuyHoach2000_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKto9tplet4aplud6nxmsmmayu7` FOREIGN KEY (`pheDuyetKeHoachSuDungDat_id`) REFERENCES `teptin` (`id`)
+  KEY `FKqagb4is0rwe57s8buqou8l4c5` (`vanBanDeNghiThuHoiDat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.giaidoanduan: ~0 rows (approximately)
 DELETE FROM `giaidoanduan`;
 /*!40000 ALTER TABLE `giaidoanduan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `giaidoanduan` ENABLE KEYS */;
+
+-- Dumping structure for table bxtdtdn.giaidoanduan_tepTins
+DROP TABLE IF EXISTS `giaidoanduan_tepTins`;
+CREATE TABLE IF NOT EXISTS `giaidoanduan_tepTins` (
+  `GiaiDoanDuAn_id` bigint(20) NOT NULL,
+  `tepTins_id` bigint(20) NOT NULL,
+  KEY `FKk5fordnhpm4xe8hfcy0hvn05b` (`GiaiDoanDuAn_id`),
+  KEY `FK3jjenhyoyewiqnn9v32nmax6d` (`tepTins_id`),
+  CONSTRAINT `FK3jjenhyoyewiqnn9v32nmax6d` FOREIGN KEY (`tepTins_id`) REFERENCES `teptin` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table bxtdtdn.giaidoanduan_tepTins: ~0 rows (approximately)
+DELETE FROM `giaidoanduan_tepTins`;
+/*!40000 ALTER TABLE `giaidoanduan_tepTins` DISABLE KEYS */;
+/*!40000 ALTER TABLE `giaidoanduan_tepTins` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.giaoviec
 DROP TABLE IF EXISTS `giaoviec`;
@@ -446,6 +416,7 @@ CREATE TABLE IF NOT EXISTS `giaoviec` (
   `giaiDoanXucTien` varchar(255) DEFAULT NULL,
   `hanThucHien` datetime DEFAULT NULL,
   `ketQua` varchar(255) DEFAULT NULL,
+  `loaiCongViec` varchar(255) DEFAULT NULL,
   `ngayGiao` datetime DEFAULT NULL,
   `ngayHoanThanh` datetime DEFAULT NULL,
   `tenCongViec` varchar(255) DEFAULT NULL,
@@ -465,14 +436,7 @@ CREATE TABLE IF NOT EXISTS `giaoviec` (
   KEY `FKjpb7j625yctta0ar1as62ea79` (`nguoiDuocGiao_id`),
   KEY `FK7koe49gx4fwfrtqjt5c1mnpju` (`nguoiGiaoViec_id`),
   KEY `FK8wvh4hnwxwkr081alfgiaatsp` (`taiLieu_id`),
-  KEY `FKl7t2w9u86m83h4j1e0g1u0qnw` (`taiLieuKetQua_id`),
-  CONSTRAINT `FK1jkhxiuynhv7kg8lpysxgxa36` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FK7koe49gx4fwfrtqjt5c1mnpju` FOREIGN KEY (`nguoiGiaoViec_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FK8wvh4hnwxwkr081alfgiaatsp` FOREIGN KEY (`taiLieu_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKc03v84oo8ne7yrq07j0xbk3nx` FOREIGN KEY (`duAn_id`) REFERENCES `duan` (`id`),
-  CONSTRAINT `FKjpb7j625yctta0ar1as62ea79` FOREIGN KEY (`nguoiDuocGiao_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FKl7t2w9u86m83h4j1e0g1u0qnw` FOREIGN KEY (`taiLieuKetQua_id`) REFERENCES `teptin` (`id`),
-  CONSTRAINT `FKrtob3779e4wj2cn2uo88tjlku` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
+  KEY `FKl7t2w9u86m83h4j1e0g1u0qnw` (`taiLieuKetQua_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.giaoviec: ~0 rows (approximately)
@@ -728,30 +692,33 @@ CREATE TABLE IF NOT EXISTS `nhanvien` (
   `nguoiSua_id` bigint(20) DEFAULT NULL,
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   `phongBan_id` bigint(20) DEFAULT NULL,
+  `vaiTro_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKea6is3f6do1ybghqu5uo8xiap` (`nguoiSua_id`),
   KEY `FKlyyrr2uas0f50iupka9ergm8x` (`nguoiTao_id`),
   KEY `FK3qvwtuxp7rmr2kvksmb0bh34g` (`phongBan_id`),
+  KEY `FKj6192ntptfiiw2ie88p77jb5n` (`vaiTro_id`),
   CONSTRAINT `FK3qvwtuxp7rmr2kvksmb0bh34g` FOREIGN KEY (`phongBan_id`) REFERENCES `phongban` (`id`),
   CONSTRAINT `FKea6is3f6do1ybghqu5uo8xiap` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKj6192ntptfiiw2ie88p77jb5n` FOREIGN KEY (`vaiTro_id`) REFERENCES `vaitro` (`id`),
   CONSTRAINT `FKlyyrr2uas0f50iupka9ergm8x` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.nhanvien: ~11 rows (approximately)
 DELETE FROM `nhanvien`;
 /*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
-INSERT INTO `nhanvien` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `checkKichHoat`, `chucVu`, `diaChi`, `email`, `hoVaTen`, `matKhau`, `ngaySinh`, `pathAvatar`, `salkey`, `selectedDV`, `soDienThoai`, `nguoiSua_id`, `nguoiTao_id`, `phongBan_id`) VALUES
-	(1, b'0', '2018-11-05 15:34:08', '2018-11-05 15:34:08', 'ap_dung', b'0', '', '', 'admin@greenglobal.vn', 'Super Admin', 'RvxJVVj3R+X7PNPj9AcCJuvTMlGtPSI8', NULL, '', 'iZz36mQl2qfG4ZZEnjUSdTzdTWjn4wQo', b'0', '', NULL, NULL, NULL),
-	(2, b'0', '2018-11-07 08:46:59', '2018-11-05 15:59:11', 'ap_dung', b'0', '', '', 'trangvtk@danang.gov.vn', 'Võ Thị Kiều Trang', 'laazf97nxzQtNu3Js3q1D5p1UySHgNNi', NULL, '', 'urCf2zlLSw806FGDDHSt5TSwPSJryvE+', b'0', '', 1, 1, 1),
-	(3, b'0', '2018-11-05 15:59:29', '2018-11-05 15:59:29', 'ap_dung', b'0', '', '', 'maintt@danang.gov.vn', 'Nguyễn Thị Tuyết Mai', 'A9UePq+rNdWznt2kqIkgeN8hFfEgfTiW', NULL, '', 'fRgJ//2MonOykjh0RKrSjk0of3F6AO9E', b'0', '', 1, 1, 1),
-	(4, b'0', '2018-11-05 15:59:45', '2018-11-05 15:59:45', 'ap_dung', b'0', '', '', 'hieutt@danang.gov.vn', 'Trần Trung Hiếu', 'U7B1QJ4mQPHD/yy6XE7rwFVEvn5Qq87N', NULL, '', 'ZrehvZoll2UZnIRmG6bjNHphP9ZdYMTn', b'0', '', 1, 1, 1),
-	(5, b'0', '2018-11-05 16:00:03', '2018-11-05 16:00:03', 'ap_dung', b'0', '', '', 'tuvxc@danang.gov.vn', 'Vũ Xuân Cẩm Tú', 'mTByyoF0OaJ6W937c3kiBXO4RL9Vzy1s', NULL, '', 't1l2bAchxVu8a0+ASCApYUpinZAoOET1', b'0', '', 1, 1, 1),
-	(6, b'0', '2018-11-05 16:00:22', '2018-11-05 16:00:22', 'ap_dung', b'0', '', '', 'lamhtm@danang.gov.vn', 'Huỳnh Thị Mai Lâm', 'zj2eKBA+hhZUSjL0kto9TWzPTL3LNjC4', NULL, '', '+Edm/m+2dfD6aWUMip6h5Hx8D+Tbi1SG', b'0', '', 1, 1, 1),
-	(7, b'0', '2018-11-05 16:00:53', '2018-11-05 16:00:53', 'ap_dung', b'0', '', '', 'ducvm@danang.gov.vn', 'Vũ Minh Đức', '/xWfDKYK5ppTL9nxaHvHkMR5A/JXhJA6', NULL, '', 'VJvoywVC2jgjCgvYO7roOkvDtl/pZwPQ', b'0', '', 1, 1, 1),
-	(8, b'0', '2018-11-05 16:01:12', '2018-11-05 16:01:12', 'ap_dung', b'0', '', '', 'thangtna@danang.gov.vn', 'Trần Nguyễn An Thắng', 'GGCEslJSPxt241k3bBoJrDqRV5jY4N71', NULL, '', 'DTOPo0OfXNeb5IJM0fxOZa1p0V6cJczr', b'0', '', 1, 1, 1),
-	(9, b'0', '2018-11-05 16:01:51', '2018-11-05 16:01:51', 'ap_dung', b'0', '', '', 'lanhdao@danang.gov.vn', 'Lãnh đạo', '7FxtkTr3iHy+XvvbSoG6GAV5DJy9ieXc', NULL, '', 'dEUMni2ho6g6yqAGShJFdwoV/FYRQd1A', b'0', '', 1, 1, 1),
-	(10, b'0', '2018-11-05 16:02:12', '2018-11-05 16:02:12', 'ap_dung', b'0', '', '', 'truongphong001@danang.gov.vn', 'Trưởng phòng 001', '1Vm9Fxiuo6tWGUyQPGKVa8jTSYocHArO', NULL, '', 'lUy2xOQeHJgu6gSIkAo4gZP1XcAjGtoA', b'0', '', 1, 1, 1),
-	(11, b'0', '2018-11-05 16:02:28', '2018-11-05 16:02:28', 'ap_dung', b'0', '', '', 'truongphong002@danang.gov.vn', 'Trưởng phòng 002', 'rYOm6Ldi0Kw0+XUM1cC1jQdKQYWMrNo6', NULL, '', 'UpNRrh7hRBCkYnd/H8TYHsx3qZ+7oPlj', b'0', '', 1, 1, 1);
+INSERT INTO `nhanvien` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `checkKichHoat`, `chucVu`, `diaChi`, `email`, `hoVaTen`, `matKhau`, `ngaySinh`, `pathAvatar`, `salkey`, `selectedDV`, `soDienThoai`, `nguoiSua_id`, `nguoiTao_id`, `phongBan_id`, `vaiTro_id`) VALUES
+	(1, b'0', '2018-11-05 15:34:08', '2018-11-05 15:34:08', 'ap_dung', b'0', '', '', 'admin@greenglobal.vn', 'Super Admin', 'RvxJVVj3R+X7PNPj9AcCJuvTMlGtPSI8', NULL, '', 'iZz36mQl2qfG4ZZEnjUSdTzdTWjn4wQo', b'0', '', NULL, NULL, NULL, NULL),
+	(2, b'0', '2018-11-07 08:46:59', '2018-11-05 15:59:11', 'ap_dung', b'0', '', '', 'trangvtk@danang.gov.vn', 'Võ Thị Kiều Trang', 'laazf97nxzQtNu3Js3q1D5p1UySHgNNi', NULL, '', 'urCf2zlLSw806FGDDHSt5TSwPSJryvE+', b'0', '', 1, 1, 1, NULL),
+	(3, b'0', '2018-11-05 15:59:29', '2018-11-05 15:59:29', 'ap_dung', b'0', '', '', 'maintt@danang.gov.vn', 'Nguyễn Thị Tuyết Mai', 'A9UePq+rNdWznt2kqIkgeN8hFfEgfTiW', NULL, '', 'fRgJ//2MonOykjh0RKrSjk0of3F6AO9E', b'0', '', 1, 1, 1, NULL),
+	(4, b'0', '2018-11-05 15:59:45', '2018-11-05 15:59:45', 'ap_dung', b'0', '', '', 'hieutt@danang.gov.vn', 'Trần Trung Hiếu', 'U7B1QJ4mQPHD/yy6XE7rwFVEvn5Qq87N', NULL, '', 'ZrehvZoll2UZnIRmG6bjNHphP9ZdYMTn', b'0', '', 1, 1, 1, NULL),
+	(5, b'0', '2018-11-05 16:00:03', '2018-11-05 16:00:03', 'ap_dung', b'0', '', '', 'tuvxc@danang.gov.vn', 'Vũ Xuân Cẩm Tú', 'mTByyoF0OaJ6W937c3kiBXO4RL9Vzy1s', NULL, '', 't1l2bAchxVu8a0+ASCApYUpinZAoOET1', b'0', '', 1, 1, 1, NULL),
+	(6, b'0', '2018-11-05 16:00:22', '2018-11-05 16:00:22', 'ap_dung', b'0', '', '', 'lamhtm@danang.gov.vn', 'Huỳnh Thị Mai Lâm', 'zj2eKBA+hhZUSjL0kto9TWzPTL3LNjC4', NULL, '', '+Edm/m+2dfD6aWUMip6h5Hx8D+Tbi1SG', b'0', '', 1, 1, 1, NULL),
+	(7, b'0', '2018-11-05 16:00:53', '2018-11-05 16:00:53', 'ap_dung', b'0', '', '', 'ducvm@danang.gov.vn', 'Vũ Minh Đức', '/xWfDKYK5ppTL9nxaHvHkMR5A/JXhJA6', NULL, '', 'VJvoywVC2jgjCgvYO7roOkvDtl/pZwPQ', b'0', '', 1, 1, 1, NULL),
+	(8, b'0', '2018-11-05 16:01:12', '2018-11-05 16:01:12', 'ap_dung', b'0', '', '', 'thangtna@danang.gov.vn', 'Trần Nguyễn An Thắng', 'GGCEslJSPxt241k3bBoJrDqRV5jY4N71', NULL, '', 'DTOPo0OfXNeb5IJM0fxOZa1p0V6cJczr', b'0', '', 1, 1, 1, NULL),
+	(9, b'0', '2018-11-05 16:01:51', '2018-11-05 16:01:51', 'ap_dung', b'0', '', '', 'lanhdao@danang.gov.vn', 'Lãnh đạo', '7FxtkTr3iHy+XvvbSoG6GAV5DJy9ieXc', NULL, '', 'dEUMni2ho6g6yqAGShJFdwoV/FYRQd1A', b'0', '', 1, 1, 1, NULL),
+	(10, b'0', '2018-11-05 16:02:12', '2018-11-05 16:02:12', 'ap_dung', b'0', '', '', 'truongphong001@danang.gov.vn', 'Trưởng phòng 001', '1Vm9Fxiuo6tWGUyQPGKVa8jTSYocHArO', NULL, '', 'lUy2xOQeHJgu6gSIkAo4gZP1XcAjGtoA', b'0', '', 1, 1, 1, NULL),
+	(11, b'0', '2018-11-05 16:02:28', '2018-11-05 16:02:28', 'ap_dung', b'0', '', '', 'truongphong002@danang.gov.vn', 'Trưởng phòng 002', 'rYOm6Ldi0Kw0+XUM1cC1jQdKQYWMrNo6', NULL, '', 'UpNRrh7hRBCkYnd/H8TYHsx3qZ+7oPlj', b'0', '', 1, 1, 1, NULL);
 /*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.nhanvien_quyens
@@ -921,9 +888,7 @@ CREATE TABLE IF NOT EXISTS `teptin` (
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKrrosiyu0g66a2g269ubsin7mh` (`nguoiSua_id`),
-  KEY `FKrcexf7uj6tqr098i97larre3x` (`nguoiTao_id`),
-  CONSTRAINT `FKrcexf7uj6tqr098i97larre3x` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FKrrosiyu0g66a2g269ubsin7mh` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`)
+  KEY `FKrcexf7uj6tqr098i97larre3x` (`nguoiTao_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.teptin: ~0 rows (approximately)
@@ -1039,11 +1004,7 @@ CREATE TABLE IF NOT EXISTS `thongbao` (
   KEY `FKpieyg7mkasgkf1jl4gxj3qsvw` (`nguoiSua_id`),
   KEY `FK83hv7q7ahv7mbktsy8tn4mwb7` (`nguoiTao_id`),
   KEY `FK3kymlanbdgk6u8f9kwxbeqa58` (`nguoiGui_id`),
-  KEY `FK4ua79gs8n01q2v8nblg9bccls` (`nguoiNhan_id`),
-  CONSTRAINT `FK3kymlanbdgk6u8f9kwxbeqa58` FOREIGN KEY (`nguoiGui_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FK4ua79gs8n01q2v8nblg9bccls` FOREIGN KEY (`nguoiNhan_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FK83hv7q7ahv7mbktsy8tn4mwb7` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`),
-  CONSTRAINT `FKpieyg7mkasgkf1jl4gxj3qsvw` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`)
+  KEY `FK4ua79gs8n01q2v8nblg9bccls` (`nguoiNhan_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.thongbao: ~0 rows (approximately)
@@ -1099,7 +1060,7 @@ CREATE TABLE IF NOT EXISTS `vaitro` (
   CONSTRAINT `FK9b0cfnlecgosjvuq6lkxe8fy9` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.vaitro: ~0 rows (approximately)
+-- Dumping data for table bxtdtdn.vaitro: ~4 rows (approximately)
 DELETE FROM `vaitro`;
 /*!40000 ALTER TABLE `vaitro` DISABLE KEYS */;
 INSERT INTO `vaitro` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `alias`, `checkKichHoat`, `loaiVaiTro`, `soThuTu`, `tenVaiTro`, `nguoiSua_id`, `nguoiTao_id`) VALUES
@@ -1118,7 +1079,7 @@ CREATE TABLE IF NOT EXISTS `vaitro_quyens` (
   CONSTRAINT `FKqldf0fggg0f8sc37im018c5ti` FOREIGN KEY (`vaitro_id`) REFERENCES `vaitro` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.vaitro_quyens: ~0 rows (approximately)
+-- Dumping data for table bxtdtdn.vaitro_quyens: ~83 rows (approximately)
 DELETE FROM `vaitro_quyens`;
 /*!40000 ALTER TABLE `vaitro_quyens` DISABLE KEYS */;
 INSERT INTO `vaitro_quyens` (`vaitro_id`, `quyens`) VALUES
