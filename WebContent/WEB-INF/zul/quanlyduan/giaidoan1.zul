@@ -77,7 +77,9 @@
 				<div class="row">
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
-							<span>Ngày gửi</span>
+							<div class="flex">
+								<x:span class="issue-search">Ngày gửi<n:small class="required"> *</n:small></x:span>
+							</div>
 							<datebox format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayGui) @save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'}) @validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateStart'])" />
@@ -85,7 +87,9 @@
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
-							<span>Ngày dự kiến nhận phản hồi</span>
+							<div class="flex">
+								<x:span class="issue-search">Ngày dự kiến nhận phản hồi<n:small class="required"> *</n:small></x:span>
+							</div>
 							<datebox format="dd/MM/yyyy" readonly="true" disabled="@load(vm.giaiDoanDuAn.ngayGui eq null)" class="hv-db mg-top-8" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi) @save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before={'goTask','goNext'}) @validator(vm.validator, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
@@ -94,7 +98,9 @@
 					<div zclass="col-md-6" form="@id('fx') @load(vm.giaiDoanDuAn.taiLieuGD1) @save(vm.giaiDoanDuAn.taiLieuGD1, before={'goTask','goNext'}) 
 	    				@validator(vm.validatorTepTin, sms = 'taiLieuGD1', text = 'ngayDuKien', ngayDuKien = vm.giaiDoanDuAn.ngayNhanPhanHoi)">
 						<div zclass="form-group mg-top-8" viewModel="@id('taiLieuGD1') @init(vm.giaiDoanDuAn.taiLieuGD1)">
-							<span>Tài liệu đính kèm</span>
+							<div class="flex">
+								<x:span class="issue-search">Tài liệu đính kèm<n:small class="required"> *</n:small></x:span>
+							</div>
 							<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm.giaiDoanDuAn, name = 'taiLieuGD1', error = error)"

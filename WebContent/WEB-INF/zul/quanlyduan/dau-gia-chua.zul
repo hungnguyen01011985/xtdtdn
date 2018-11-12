@@ -37,7 +37,7 @@
 		<div class="row">
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('vanBanDeNghiBoSung') @init(vm.giaiDoanDuAn.vanBanDeNghiBoSung)">
-					<span>Văn bản đề nghị bổ sung</span>
+					<x:span class="issue-search">Văn bản đề nghị bổ sung</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.vanBanDeNghiBoSung.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'vanBanDeNghiBoSung')"
@@ -54,7 +54,7 @@
 			</div>
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhBoSungDanhMuc') @init(vm.giaiDoanDuAn.quyetDinhBoSungDanhMuc)">
-					<span>Quyết định bổ sung danh mục</span>
+					<x:span class="issue-search">Quyết định bổ sung danh mục</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhBoSungDanhMuc.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhBoSungDanhMuc')"
@@ -82,7 +82,9 @@
 		<div class="row">
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
-					<span>Đơn vị tư vấn</span>
+					<div class="flex">
+						<x:span class="issue-search">Đơn vị tư vấn<n:small class="required"> *</n:small></x:span>
+					</div>
 					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.ten)"></comboitem>
@@ -93,7 +95,7 @@
 			</div>
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8" viewModel="@id('hoSoQuyHoachLQH') @init(vm.giaiDoanDuAn.hoSoQuyHoachLQH)">
-					<span>Hồ sơ quy hoạch</span>
+					<x:span class="issue-search">Hồ sơ quy hoạch</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
@@ -113,7 +115,7 @@
 		<div class="row">
 			<div zclass="col-md-12">
 				<div zclass="form-group" viewModel="@id('quyetDinhPheDuyetLQH') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH)">
-					<span>Quyết định phê duyệt</span>
+					<x:span class="issue-search">Quyết định phê duyệt</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')"
@@ -141,7 +143,7 @@
 		<div class="row">
 			<div zclass="col-md-4 mg-top-8">
 				<div zclass="form-group" viewModel="@id('phuongAnDauGia') @init(vm.giaiDoanDuAn.phuongAnDauGia)">
-					<span>Phương án đấu giá</span>
+					<x:span class="issue-search">Phương án đấu giá</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.phuongAnDauGia.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'phuongAnDauGia')"
@@ -158,7 +160,7 @@
 			</div>
 			<div zclass="col-md-4 mg-top-8">
 				<div zclass="form-group" viewModel="@id('quyetDinhPheDuyetPADG') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetPADG)">
-					<span>Quyết định phê duyệt phương án đấu giá</span>
+					<x:span class="issue-search">Quyết định phê duyệt phương án đầu giá</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetPADG.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetPADG')"
@@ -186,7 +188,7 @@
 		<div class="row">
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhDauGiaQSDD') @init(vm.giaiDoanDuAn.quyetDinhDauGiaQSDD)">
-					<span>Quyết định đấu giá quyền sử dụng đất</span>
+					<x:span class="issue-search">Quyết định đấu giá quyền sử dụng đất</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhDauGiaQSDD.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhDauGiaQSDD')"
@@ -214,14 +216,16 @@
 		<div class="row">
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
-					<span>Giá khởi điểm đấu giá (VNĐ)</span> 
-					<textbox class="form-control" value="@bind(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia) @save(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia, before='goNext') @validator(vm.validatorVonDauTu, text = 'Giá khởi điểm đấu giá')" placeholder="Nhập giá khởi điểm đấu giá"></textbox>
+					<div class="flex">
+						<x:span class="issue-search">Giá khởi điểm đấu giá(USD)<n:small class="required"> *</n:small></x:span>
+					</div>  
+					<decimalbox format="$#,##0" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia) @save(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia, before='goNext') @validator(vm.validatorVonDauTu, text = 'Giá khởi điểm đấu giá', type = true)" />
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhPheDuyetGiaKhoiDiem') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem)">
-					<span>Quyết định phê duyệt giá khởi điểm</span>
+					<x:span class="issue-search">Quyết định phê duyệt giá khởi điểm</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetGiaKhoiDiem')"
@@ -249,6 +253,9 @@
 		<div class="row">
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
+					<div class="flex">
+						<x:span class="issue-search">Đơn vị thực hiện<n:small class="required"> *</n:small></x:span>
+					</div>
 					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViThucHien) @save(vm.giaiDoanDuAn.donViThucHien, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.ten)"></comboitem>

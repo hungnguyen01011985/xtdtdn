@@ -28,7 +28,9 @@
 		<div class="row">
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
-					<span>Đơn vị tư vấn</span>
+					<div class="flex">
+						<x:span class="issue-search">Đơn vị tư vấn<n:small class="required"> *</n:small></x:span>
+					</div>
 					<combobox class="his mg-top-8" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.ten)"></comboitem>
@@ -39,7 +41,7 @@
 			</div>
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8" viewModel="@id('hoSoQuyHoachLQH') @init(vm.giaiDoanDuAn.hoSoQuyHoachLQH)">
-					<span>Hồ sơ quy hoạch</span>
+					<x:span class="issue-search">Hồ sơ quy hoạch</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
@@ -58,7 +60,7 @@
 		<div class="row">
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhPheDuyetLQH') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH)">
-					<span>Quyết định phê duyệt quy hoạch</span>
+					<x:span class="issue-search">Quyết định phê duyệt quy hoạch</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH, name = 'quyetDinhPheDuyetLQH')"
@@ -77,7 +79,7 @@
 		<div class="row">
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('vanBanChuyenMucDichSDD') @init(vm.giaiDoanDuAn.vanBanChuyenMucDichSDD)">
-					<span>Văn bản cho phép chuyển mục đích sử dụng đất</span>
+					<x:span class="issue-search">Văn bản cho phép chuyển mục đích sử dụng đất</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.vanBanChuyenMucDichSDD.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanChuyenMucDichSDD, name = 'vanBanChuyenMucDichSDD')"
@@ -96,7 +98,7 @@
 		<div class="row">
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('vanBanDeNghiThuHoiDat') @init(vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat)">
-					<span>Văn bản đề nghị thu hồi đất</span>
+					<x:span class="issue-search">Văn bản đề nghị thu hồi đất</x:span>
 					<button visible="@load(empty vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
 						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat, name = 'vanBanDeNghiThuHoiDat')"
