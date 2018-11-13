@@ -4,6 +4,10 @@
 		<![CDATA[
 			vn.toancauxanh.model.GiaiDoanDuAn giaiDoan = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), vm.getGiaiDoanXucTien());
 			vm.setGiaiDoanDuAn(giaiDoan);
+			list = new vn.toancauxanh.service.HoSoKhuDatService().getListHoSoKhuDatById(item.getId());
+		    if (list != null){
+		    	vm.getGiaiDoanDuAn().getHoSoKhuDats().addAll(list);
+		    }
 			if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT() != null){
 				if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() !=0){
 					vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
@@ -13,10 +17,7 @@
 					}
 				}
 			}
-			list = new vn.toancauxanh.service.HoSoKhuDatService().getListHoSoKhuDatById(item.getId());
-		    if (list != null){
-		    	vm.getGiaiDoanDuAn().getHoSoKhuDats().addAll(list);
-		    }
+			
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
 			vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 		]]>

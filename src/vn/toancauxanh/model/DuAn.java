@@ -1,7 +1,6 @@
 package vn.toancauxanh.model;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -519,8 +518,13 @@ public class DuAn extends Model<DuAn> {
 				String text = (String) ctx.getValidatorArg("text");
 				Boolean type = (Boolean) ctx.getValidatorArg("type");
 				Double vonDauTu = 0.0;
-				BigDecimal param = (BigDecimal) ctx.getProperty().getValue();
-				vonDauTu = param.doubleValue();
+				try {
+					vonDauTu = Double.parseDouble(ctx.getProperty().getValue().toString()) ;
+				} catch (NumberFormatException e) {
+					addInvalidMessage(ctx, "Bạn phải nhập số");
+				} catch (NullPointerException e) {
+					addInvalidMessage(ctx, "Bạn phải nhập số");
+				}
 				if (type != null) {
 					if (vonDauTu <= 0) {
 						addInvalidMessage(ctx, text + " phải lớn hơn 0");
@@ -528,7 +532,7 @@ public class DuAn extends Model<DuAn> {
 					}
 				} else {
 					if (vonDauTu < 0) {
-						addInvalidMessage(ctx, text + " phải lớn hơn 0");
+						addInvalidMessage(ctx, text + " phải lớn hơn bằng 0");
 						rs = false;
 					}
 				}
