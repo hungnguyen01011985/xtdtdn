@@ -72,11 +72,11 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
-							<column label="Tên" style="text-align:center" />
+							<column label="Tên" style="text-align:center" width="20%" />
 							<column label="Email" style="text-align:center" />
 							<column label="Phòng ban" style="text-align:center" />
-							<column label="Vị trí" style="text-align:center" />
-							<column label="Thao tác" style="text-align:center"/>
+							<column label="Vị trí" style="text-align:center" hflex="min" />
+							<column label="Thao tác" style="text-align:center" width="140px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">

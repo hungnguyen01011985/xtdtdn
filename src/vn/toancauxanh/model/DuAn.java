@@ -1,6 +1,9 @@
 package vn.toancauxanh.model;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +12,6 @@ import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -20,6 +22,12 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
+import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
@@ -34,11 +42,10 @@ public class DuAn extends Model<DuAn> {
 	private String diaDiem;
 	private String quyMoDuAn;
 	private String idNguoiLienQuan = "";
-	private String mucDoCanhTranh;
-	@Lob
+	//@Lob
 	private String mucTieuDuAn;
-	private long tongVonDauTu;
-	private long dienTichSuDungDat;
+	private Double tongVonDauTu = 0.0;
+	private Double dienTichSuDungDat = 0.0;
 	private LinhVucDuAn linhVuc;
 	private MucDoUuTien mucDoUuTien;
 	private KhaNangDauTu khaNangDauTu;
@@ -48,6 +55,8 @@ public class DuAn extends Model<DuAn> {
 	private GiaiDoanDuAn giaiDoanDuAn;
 	private GiaoViec giaoViec = new GiaoViec();
 	private TepTin taiLieuNDT;
+	
+	private boolean checkTab;
 	
 
 	public DuAn() {
@@ -138,28 +147,20 @@ public class DuAn extends Model<DuAn> {
 		this.mucTieuDuAn = mucTieuDuAn;
 	}
 
-	public long getTongVonDauTu() {
+	public Double getTongVonDauTu() {
 		return tongVonDauTu;
 	}
 
-	public void setTongVonDauTu(long tongVonDauTu) {
+	public void setTongVonDauTu(Double tongVonDauTu) {
 		this.tongVonDauTu = tongVonDauTu;
 	}
 
-	public long getDienTichSuDungDat() {
+	public Double getDienTichSuDungDat() {
 		return dienTichSuDungDat;
 	}
 
-	public void setDienTichSuDungDat(long dienTichSuDungDat) {
+	public void setDienTichSuDungDat(Double dienTichSuDungDat) {
 		this.dienTichSuDungDat = dienTichSuDungDat;
-	}
-
-	public String getMucDoCanhTranh() {
-		return mucDoCanhTranh;
-	}
-
-	public void setMucDoCanhTranh(String mucDoCanhTranh) {
-		this.mucDoCanhTranh = mucDoCanhTranh;
 	}
 
 	@Enumerated(EnumType.STRING)
@@ -274,24 +275,125 @@ public class DuAn extends Model<DuAn> {
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
 
+	private String srcGiaiDoanDuAn;
+	
 	@Transient
-	public String getSrc() {
-		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan1.zul";
+	public String getSrcGiaiDoanDuAn() {
+		if (srcGiaiDoanDuAn == null || srcGiaiDoanDuAn.isEmpty()) {
+			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien()) || GiaiDoanXucTien.CHUA_HOAN_THANH.equals(getGiaiDoanXucTien()) || GiaiDoanXucTien.HOAN_THANH.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan1.zul";
+			}
+			if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan2.zul";
+			}
+			if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan3.zul";
+			}
+			if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan4.zul";
+			}
+			if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(getGiaiDoanXucTien())) {
+				return "quanlyduan/giaidoan5.zul";
+			}
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan2.zul";
+		return srcGiaiDoanDuAn;
+	}
+	
+	@Transient
+	public String getCssPlan(GiaiDoanXucTien giaiDoan, String type, boolean check) {
+		if (type.equals("cssNumber")) {
+			if (giaiDoan.equals(this.giaiDoanXucTien)) {
+				return "plan-number-active";
+			}
+			if (giaiDoan.ordinal() < this.getGiaiDoanXucTien().ordinal()) {
+				return "plan-number-completed";
+			}
+			return "";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan3.zul";
+		if (type.equals("cssTitle")) {
+			if (giaiDoan.equals(this.giaiDoanXucTien)) {
+				return "plan-title-active";
+			}
+			return "";
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan4.zul";
+		if (type.equals("imageOrNumber")) {
+			if (giaiDoan.ordinal() < this.getGiaiDoanXucTien().ordinal()) {
+				if (!check) {
+					return "";
+				}
+				return "/assets/icon-bxtdn/check-qua-giai-doan.svg";
+			} else {
+				if (check) {
+					return "";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(giaiDoan)) {
+					return "1";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(giaiDoan)) {
+					return "2";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(giaiDoan)) {
+					return "3";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(giaiDoan)) {
+					return "4";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(giaiDoan)) {
+					return "5";
+				}
+			}
 		}
-		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(getGiaiDoanXucTien())) {
-			return "quanlyduan/giaidoan5.zul";
+		return "";
+	}
+	
+	@Command
+	public void redirectXemChiTietDuAn(@BindingParam("id") Long id) {
+		String url = "/cp/quanlyduan/chitiet/";
+		Executions.sendRedirect(url.concat(id.toString()));
+	}
+	
+	@Command
+	public void redirectGiaiDoanDuAn(@BindingParam("giaiDoan") GiaiDoanXucTien giaiDoan) {
+		int index = -1;
+		if (giaiDoan.ordinal() > this.getGiaiDoanXucTien().ordinal()) {
+			return;
 		}
-		return null;
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan1.zul");
+			index = 0;
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan2.zul");
+			index = 1;
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan3.zul");
+			index = 2;
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan4.zul");
+			index = 3;
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(giaiDoan)) {
+			setSrcGiaiDoanDuAn("quanlyduan/giaidoan5.zul");
+			index = 4;
+		}
+		if (index != -1) {
+			Clients.evalJavaScript("removeTitleCss("+index+")");
+		}
+		BindUtils.postNotifyChange(null, null, this, "srcGiaiDoanDuAn");
+		
+	}
+	
+	public boolean checkDangOGiaiDoan(GiaiDoanXucTien giaiDoan) {
+		if (giaiDoan.equals(this.getGiaiDoanXucTien())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void setSrcGiaiDoanDuAn(String srcGiaiDoanDuAn) {
+		this.srcGiaiDoanDuAn = srcGiaiDoanDuAn;
 	}
 
 	private String srcGiaiDoan4;
@@ -304,7 +406,16 @@ public class DuAn extends Model<DuAn> {
 	public void setSrcGiaiDoan4(String srcGiaiDoan4) {
 		this.srcGiaiDoan4 = srcGiaiDoan4;
 	}
+	
+	@Transient
+	public boolean isCheckTab() {
+		return checkTab;
+	}
 
+	public void setCheckTab(boolean checkTab) {
+		this.checkTab = checkTab;
+	}
+	
 	@ManyToOne
 	public TepTin getTaiLieuNDT() {
 		return taiLieuNDT;
@@ -407,13 +518,9 @@ public class DuAn extends Model<DuAn> {
 				boolean rs = true;
 				String text = (String) ctx.getValidatorArg("text");
 				Boolean type = (Boolean) ctx.getValidatorArg("type");
-				Double vonDauTu = 0d;
-				try {
-					vonDauTu = Double.parseDouble((String) ctx.getProperty().getValue());
-				} catch (NumberFormatException e) {
-					addInvalidMessage(ctx, "Bạn phải nhập số");
-				}
-				
+				Double vonDauTu = 0.0;
+				BigDecimal param = (BigDecimal) ctx.getProperty().getValue();
+				vonDauTu = param.doubleValue();
 				if (type != null) {
 					if (vonDauTu <= 0) {
 						addInvalidMessage(ctx, text + " phải lớn hơn 0");
@@ -425,7 +532,6 @@ public class DuAn extends Model<DuAn> {
 						rs = false;
 					}
 				}
-				
 				return rs;
 			}
 		};
@@ -480,5 +586,69 @@ public class DuAn extends Model<DuAn> {
 	public void saveThongTinDuAn(){
 		this.getTaiLieuNDT().saveNotShowNotification();
 		this.save();
+	}
+	
+	@Command
+	public void uploadFile(@BindingParam("medias") Object[] medias) {
+		for (Object item : medias) {
+			Media media = (Media) item;
+			if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
+					|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
+					|| media.getName().toLowerCase().endsWith(".xlsx")) {
+				if (media.getByteData().length > 50000000) {
+					showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
+				} else {
+					String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
+							+ Calendar.getInstance().getTimeInMillis()
+							+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
+					TepTin tepTin = new TepTin();
+					tepTin.setNameHash(tenFile);
+					tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
+					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+					tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+					tepTin.setMedia(media);
+					this.giaiDoanDuAn.getTepTins().add(tepTin);
+					BindUtils.postNotifyChange(null, null, this.giaiDoanDuAn, "tepTins");
+				}
+			} else {
+				showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
+						"Có tệp không đúng định dạng", "danger");
+			}
+		}
+	}
+	
+	@Command
+	public void deleteFile(@BindingParam("index") final int index) {
+		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
+			Messagebox.QUESTION, new EventListener<Event>() {
+				@Override
+				public void onEvent(final Event event) throws IOException {
+					if (Messagebox.ON_OK.equals(event.getName())) {
+						giaiDoanDuAn.getTepTins().remove(index);
+						BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "tepTins");
+						showNotification("Đã xóa", "", "success");
+					}
+				}
+			});
+	}
+	
+	@Command
+	public void swap() {
+		checkTab = !checkTab;
+		Clients.evalJavaScript("toggleTabThongTinDuAn()");
+		BindUtils.postNotifyChange(null, null, this, "checkTab");
+	}
+	
+	@Command
+	public void addNewHoSoKhuDat(@BindingParam("vm") DuAn duAn) {
+		duAn.getGiaiDoanDuAn().getHoSoKhuDats().add(new HoSoKhuDat());
+		BindUtils.postNotifyChange(null, null, duAn , "*");
+	}
+	
+	@Command
+	public void deleteHoSoKhuDat(@BindingParam("obj") final HoSoKhuDat item, @BindingParam("vm") DuAn duAn){
+		duAn.getGiaiDoanDuAn().getHoSoKhuDats().remove(item);
+		duAn.getGiaiDoanDuAn().getListXoaHoSoKhuDat().add(item);
+		BindUtils.postNotifyChange(null, null, duAn , "*");
 	}
 }

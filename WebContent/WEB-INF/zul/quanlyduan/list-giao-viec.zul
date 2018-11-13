@@ -55,7 +55,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-tailieu primary btn-grey ">
+						<x:button class="btn bg-btn-dong btn-grey">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
 							<span>Tìm kiếm lại</span>
 						</x:button>
@@ -63,7 +63,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button class="btn primary btn-blue" onClick="@command('cmd', notify=duAn, attr='targetQueryByIdDuAn')">
+						<x:button class="btn btn-base btn-gray" onClick="@command('cmd', notify=duAn, attr='targetQueryByIdDuAn')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
 						</x:button>
@@ -129,7 +129,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('closePopup', wdn=wdn, vm = vm)">
+						<x:button class="btn bg-btn-dong btn-grey" onClick="@command('closePopup', wdn=wdn, vm = vm)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 							<span>Đóng</span>
 						</x:button>
@@ -138,7 +138,7 @@
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
 						<x:button if="${entry.quyen.quanlyduan_giaoviec}" onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = duAn, vmArgs = vm)"
-								class="btn btn-blue mg-btn">
+								class="btn btn-base btn-green mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Giao việc</span>
 						</x:button>

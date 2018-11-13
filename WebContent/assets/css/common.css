@@ -88,7 +88,13 @@ html, body {
 	margin-top: 4px;
 	height: 30px
 }
-
+.input-no-button input{
+	width:100% !important;
+	border:1px solid #E0E2E6 !important;
+}
+.input-no-button .z-combobox-input[readonly]{
+	width:100% !important;
+}
 .wd-header .navbar-brand {
 	padding: 2px 10px;
 	height: auto;
@@ -719,7 +725,7 @@ html, body {
 
 .nav-title-page h5 {
 	font-family: Montserrat-Bold;
-	font-size: 13px;
+	font-size: 12px;
 	color: #FFFFFF;
 	text-align: left;
 	margin: 0;
@@ -727,9 +733,9 @@ html, body {
 }
 
 .logo-image {
-	height: 40px;
-	margin: 10px 15px;
-	width: 40px;
+	height: 30px;
+    margin: 13px 11px 12px 15px;
+    width: 40px;
 }
 /* Upload File*/
 .wd-upload-btn {
@@ -2574,8 +2580,11 @@ the spark styles
 .rest-content-wd .z-window-content {
 	height: auto !important;
 	overflow: inherit !important;
+	
 }
-
+.rest-content-wd{
+	overflow: inherit !important;
+}
 .popup-vaitro {
 	max-width: 600px;
 }

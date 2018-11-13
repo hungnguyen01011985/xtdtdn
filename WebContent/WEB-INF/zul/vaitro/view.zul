@@ -1,15 +1,15 @@
 <idspace>
-	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" class="content-popup"
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" class="content-popup width-50"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" closable="true" title="${arg.save}"
 		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
 		whatever="@load(false,after='savePhongBan') @converter('vn.toancauxanh.service.DetachConverter')"
-		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
-		
-			<zscript><![CDATA[
-				vmArgs = arg.get("vmArgs");
-				strSave = arg.get("save");
-			]]></zscript> 
-			
+		viewModel="@id('vm') @init(arg.model)"
+		validationMessages="@id('vmsgs')">
+
+		<zscript><![CDATA[
+			vmArgs = arg.get("vmArgs");
+			strSave = arg.get("save");
+		]]></zscript> 
 			
 		<div class="border-box" style="margin-bottom:0;">
 			<div class="row mg-and-bg-and-line mg-bottom-5">
