@@ -67,8 +67,9 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	// Phương án đấu giá quyền sử dụng đất
 	private TepTin phuongAnDauGia;
 	private TepTin quyetDinhPheDuyetPADG;
-	// Hồ sơ các khu đất
-	private TepTin quyetDinhDauGiaQSDD;
+	// Hồ sơ khu đất
+	private List<HoSoKhuDat> hoSoKhuDats = new ArrayList<HoSoKhuDat>();
+	private List<HoSoKhuDat> listXoaHoSoKhuDat = new ArrayList<HoSoKhuDat>();
 	// Quyết định phê duyệt giá đất khởi điểm đấu giá
 	private Double giaDatKhoiDiemDauGia = 0.0;
 	private TepTin quyetDinhPheDuyetGiaKhoiDiem;
@@ -184,6 +185,15 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	public void setDonViDuAn(List<DonViDuAn> donViDuAn) {
 		this.donViDuAn = donViDuAn;
+	}
+	
+	@Transient
+	public List<HoSoKhuDat> getHoSoKhuDats() {
+		return hoSoKhuDats;
+	}
+
+	public void setHoSoKhuDats(List<HoSoKhuDat> hoSoKhuDats) {
+		this.hoSoKhuDats = hoSoKhuDats;
 	}
 
 	@Enumerated(EnumType.STRING)
@@ -594,20 +604,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	}
 
 	@ManyToOne
-	public TepTin getQuyetDinhDauGiaQSDD() {
-		if (this.quyetDinhDauGiaQSDD == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT)) {
-				quyetDinhDauGiaQSDD = new TepTin();
-			}
-		}
-		return quyetDinhDauGiaQSDD;
-	}
-
-	public void setQuyetDinhDauGiaQSDD(TepTin quyetDinhDauGiaQSDD) {
-		this.quyetDinhDauGiaQSDD = quyetDinhDauGiaQSDD;
-	}
-
-	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetGiaKhoiDiem() {
 		if (this.quyetDinhPheDuyetGiaKhoiDiem == null) {
 			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT)) {
@@ -797,6 +793,15 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		}
 		return list;
 	}
+	
+	@Transient
+	public List<HoSoKhuDat> getListXoaHoSoKhuDat() {
+		return listXoaHoSoKhuDat;
+	}
+
+	public void setListXoaHoSoKhuDat(List<HoSoKhuDat> listXoaHoSoKhuDat) {
+		this.listXoaHoSoKhuDat = listXoaHoSoKhuDat;
+	}
 
 	public Date getNgayThongBaoOld() {
 		return ngayThongBaoOld;
@@ -824,5 +829,4 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	public void setTepTins(List<TepTin> tepTins) {
 		this.tepTins = tepTins;
 	}
-
 }
