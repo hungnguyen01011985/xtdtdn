@@ -625,16 +625,16 @@ public class DuAn extends Model<DuAn> {
 	@Command
 	public void deleteFile(@BindingParam("index") final int index) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-			Messagebox.QUESTION, new EventListener<Event>() {
-				@Override
-				public void onEvent(final Event event) throws IOException {
-					if (Messagebox.ON_OK.equals(event.getName())) {
-						giaiDoanDuAn.getTepTins().remove(index);
-						BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "tepTins");
-						showNotification("Đã xóa", "", "success");
+				Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) throws IOException {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							giaiDoanDuAn.getTepTins().remove(index);
+							BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "tepTins");
+							showNotification("Đã xóa", "", "success");
+						}
 					}
-				}
-			});
+				});
 	}
 	
 	@Command

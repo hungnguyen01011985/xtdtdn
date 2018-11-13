@@ -63,6 +63,10 @@
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD2, name = 'taiLieuGD2')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuGD2')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 						</div>
 					</div>
@@ -105,6 +109,10 @@
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.congVanGD2, name = 'congVanGD2')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'congVanGD2', error = error)"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 							<label zclass="error" value="@load(vmsgs['congVanGD2'])" id="error"/>
 						</div>

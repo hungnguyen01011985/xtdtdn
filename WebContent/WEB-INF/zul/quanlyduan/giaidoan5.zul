@@ -94,6 +94,10 @@
 								<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giayChungNhanDauTu , vm = vm.giaiDoanDuAn, name = 'giayChungNhanDauTu')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanDauTu')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 						</div>
 					</div>
@@ -113,6 +117,10 @@
 								<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep , vm = vm.giaiDoanDuAn, name = 'giayChungNhanDangKyDoanhNghiep')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanDangKyDoanhNghiep')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 						</div>
 					</div>
@@ -132,6 +140,10 @@
 								<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat , vm = vm.giaiDoanDuAn, name = 'giayChungNhanQuyenSuDungDat')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile',medias= event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanQuyenSuDungDat')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 						</div>
 					</div>
@@ -151,6 +163,10 @@
 								<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.taiLieuDinhKem , vm = vm.giaiDoanDuAn, name = 'taiLieuDinhKem')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuDinhKem')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 						</div>
 					</div>

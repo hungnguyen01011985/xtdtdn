@@ -394,10 +394,28 @@
 .btn-refesh-tai-lieu:hover{
 	background: #30B350 !important;
 }
+.btn-refesh-tai-lieu:focus{
+	background: #30B350 !important;
+}
 .z-button:focus{
 	background:#4274ED;
 	color:#FFF;
 	border: 1px solid #045AC2;
+}
+.style-txt-file{
+	height:36px;
+	align-items: center;
+	display: flex;
+}
+.txt-link-tai-lieu-fix{
+	font-family: Roboto-Medium;
+    font-size: 13px;
+    color: #4274ED;
+    text-align: left;
+    line-height: 18px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .bg-btn-dongtailieu {
 	color: #5C6376;

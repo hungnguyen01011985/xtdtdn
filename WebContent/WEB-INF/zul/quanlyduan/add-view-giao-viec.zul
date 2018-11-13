@@ -104,15 +104,19 @@
 						<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
 							<span class="issue-search">Tài liệu đính kèm</span>
 							<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 								onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
 								<label class="txt-link-tailieu" value="@bind(vm.giaoViec.taiLieu.tenFile)"/>
 								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaoViec.taiLieu, vm = vm.giaoViec, name='taiLieu')">
-									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 							<label zclass="error" value="@load(vmsgs['fileGiaoViec'])" />
 						</div>

@@ -257,7 +257,8 @@ public class GiaoViec extends Model<GiaoViec> {
 	}
 	
 	@Command
-	public void deleteFile(@BindingParam("vm") final Object vm, @BindingParam("ob") TepTin ob) {
+	public void deleteFile(@BindingParam("vm") final Object vm, @BindingParam("ob") TepTin ob,
+			@BindingParam("name") final String name) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
 			Messagebox.QUESTION, new EventListener<Event>() {
 				@Override
@@ -268,7 +269,8 @@ public class GiaoViec extends Model<GiaoViec> {
 						ob.setTenFile("");
 						ob.setPathFile("");
 						ob.setMedia(null);
-						BindUtils.postNotifyChange(null, null, vm, "taiLieu");
+						BindUtils.postNotifyChange(null, null, ob, "*");
+						BindUtils.postNotifyChange(null, null, vm, name);
 						showNotification("Đã xóa", "", "success");
 					}
 				}

@@ -72,6 +72,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoQuyHoachLQH , vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -91,6 +95,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -119,6 +127,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.phuongAnDauGia , vm = vm.giaiDoanDuAn, name = 'phuongAnDauGia')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'phuongAnDauGia')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -136,6 +148,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetPADG , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetPADG')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetPADG')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -177,6 +193,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhDauGiaQSDD , vm = vm.giaiDoanDuAn, name = 'quyetDinhDauGiaQSDD')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhDauGiaQSDD')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -214,6 +234,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetGiaKhoiDiem')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetGiaKhoiDiem')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
