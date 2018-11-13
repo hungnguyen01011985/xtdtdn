@@ -43,7 +43,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Ghi chú<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control" rows="4" placeholder="Nhập ghi chú" value="@bind(vm.giaiDoanDuAn.ghiChu) @save(vm.giaiDoanDuAn.ghiChu, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+							<textbox class="form-control" disabled="${!action}" rows="4" placeholder="Nhập ghi chú" value="@bind(vm.giaiDoanDuAn.ghiChu) @save(vm.giaiDoanDuAn.ghiChu, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -63,7 +63,7 @@
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD2, name = 'taiLieuGD2')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuGD2')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
@@ -109,7 +109,7 @@
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.congVanGD2, name = 'congVanGD2')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'congVanGD2', error = error)"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>

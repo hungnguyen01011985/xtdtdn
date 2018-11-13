@@ -23,7 +23,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Phương thức lựa chọn nhà đầu tư<n:small class="required"> *</n:small></x:span>
 						</div>
-						<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" model="@load(vm.getListPhuongThucLuaChonNDT())" readonly="true" width="100%" placeholder="--Chọn--" selectedItem="@bind(vm.giaiDoanDuAn.phuongThucLuaChonNDT) @save(vm.giaiDoanDuAn.phuongThucLuaChonNDT, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" disabled="${!action}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" model="@load(vm.getListPhuongThucLuaChonNDT())" readonly="true" width="100%" placeholder="--Chọn--" selectedItem="@bind(vm.giaiDoanDuAn.phuongThucLuaChonNDT) @save(vm.giaiDoanDuAn.phuongThucLuaChonNDT, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 						onSelect="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)" onCreate="@command('srcGiaiDoanBon',giatri=vm.giaiDoanDuAn.option, vmArgs = vm)" value="@load(vm.giaiDoanDuAn.phuongThucLuaChonNDT.text)">
 							<template name="model">
 								<comboitem label="@load(each.text)"></comboitem>
@@ -37,7 +37,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Đơn vị chủ trì<n:small class="required"> *</n:small></x:span>
 						</div>
-						<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" width="100%" readonly="true" model="@load(vm.giaiDoanDuAn.getListDonViChuTri())" selectedItem="@bind(vm.giaiDoanDuAn.donViChuTri) @save(vm.giaiDoanDuAn.donViChuTri, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+						<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" disabled="${!action}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" width="100%" readonly="true" model="@load(vm.giaiDoanDuAn.getListDonViChuTri())" selectedItem="@bind(vm.giaiDoanDuAn.donViChuTri) @save(vm.giaiDoanDuAn.donViChuTri, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 							<template name="model">
 								<comboitem label="@load(each.ten)"></comboitem>
 							</template>

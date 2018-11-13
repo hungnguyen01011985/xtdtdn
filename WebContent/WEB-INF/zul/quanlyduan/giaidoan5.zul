@@ -36,7 +36,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Tên công ty<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.tenCongTy) @save(vm.giaiDoanDuAn.tenCongTy, before={'goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên công ty"></textbox>
+							<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(vm.giaiDoanDuAn.tenCongTy) @save(vm.giaiDoanDuAn.tenCongTy, before={'goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên công ty"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -45,7 +45,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Người đại diện pháp lý<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.nguoiDaiDienPhapLy) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập người đại diện pháp lý"></textbox>
+							<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(vm.giaiDoanDuAn.nguoiDaiDienPhapLy) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập người đại diện pháp lý"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Địa chỉ<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập địa chỉ"></textbox>
+							<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập địa chỉ"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -65,7 +65,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Số điện thoại<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập số điện thoại"></textbox>
+							<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập số điện thoại"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -74,7 +74,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Email<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập email"></textbox>
+							<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập email"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -94,7 +94,7 @@
 								<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giayChungNhanDauTu , vm = vm.giaiDoanDuAn, name = 'giayChungNhanDauTu')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanDauTu')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
@@ -117,7 +117,7 @@
 								<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep , vm = vm.giaiDoanDuAn, name = 'giayChungNhanDangKyDoanhNghiep')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanDangKyDoanhNghiep')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
@@ -140,7 +140,7 @@
 								<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat , vm = vm.giaiDoanDuAn, name = 'giayChungNhanQuyenSuDungDat')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('uploadFile',medias= event.getMedia(),vm = vm.giaiDoanDuAn, name = 'giayChungNhanQuyenSuDungDat')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
@@ -163,7 +163,7 @@
 								<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanNam)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.taiLieuDinhKem , vm = vm.giaiDoanDuAn, name = 'taiLieuDinhKem')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuDinhKem')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>

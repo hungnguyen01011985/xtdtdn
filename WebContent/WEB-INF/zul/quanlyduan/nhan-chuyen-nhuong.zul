@@ -31,7 +31,7 @@
 					<div class="flex">
 						<x:span class="issue-search">Đơn vị tư vấn<n:small class="required"> *</n:small></x:span>
 					</div>
-					<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+					<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" disabled="${!action}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.ten)"></comboitem>
 						</template>
@@ -53,7 +53,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoQuyHoachLQH , vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -76,7 +76,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH, name = 'quyetDinhPheDuyetLQH')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -99,7 +99,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.vanBanChuyenMucDichSDD , vm = vm.giaiDoanDuAn, name = 'vanBanChuyenMucDichSDD')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanChuyenMucDichSDD, name = 'vanBanChuyenMucDichSDD')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -122,7 +122,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat , vm = vm.giaiDoanDuAn, name = 'vanBanDeNghiThuHoiDat')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat, name = 'vanBanDeNghiThuHoiDat')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>

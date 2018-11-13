@@ -302,6 +302,11 @@ public class DuAn extends Model<DuAn> {
 	@Transient
 	public String getCssPlan(GiaiDoanXucTien giaiDoan, String type, boolean check) {
 		if (type.equals("cssNumber")) {
+			if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(this.getGiaiDoanXucTien())) {
+				if (giaiDoan.ordinal() > GiaiDoanXucTien.GIAI_DOAN_BA.ordinal()) {
+					return "";
+				}
+			}
 			if (giaiDoan.equals(this.giaiDoanXucTien)) {
 				return "plan-number-active";
 			}
@@ -311,12 +316,26 @@ public class DuAn extends Model<DuAn> {
 			return "";
 		}
 		if (type.equals("cssTitle")) {
+			System.out.println("zô cssss");
 			if (giaiDoan.equals(this.giaiDoanXucTien)) {
 				return "plan-title-active";
 			}
 			return "";
 		}
 		if (type.equals("imageOrNumber")) {
+			if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(this.getGiaiDoanXucTien())) {
+				if (giaiDoan.ordinal() > GiaiDoanXucTien.GIAI_DOAN_BA.ordinal()) {
+					if (check) {
+						return "";
+					}
+					if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(giaiDoan)) {
+						return "4";
+					}
+					if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(giaiDoan)) {
+						return "5";
+					}
+				}
+			}
 			if (giaiDoan.ordinal() < this.getGiaiDoanXucTien().ordinal()) {
 				if (!check) {
 					return "";
@@ -354,9 +373,15 @@ public class DuAn extends Model<DuAn> {
 	
 	@Command
 	public void redirectGiaiDoanDuAn(@BindingParam("giaiDoan") GiaiDoanXucTien giaiDoan) {
+		System.out.println("zo redirect");
 		int index = -1;
 		if (giaiDoan.ordinal() > this.getGiaiDoanXucTien().ordinal()) {
 			return;
+		}
+		if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(this.getGiaiDoanXucTien())) {
+			if (giaiDoan.ordinal() > GiaiDoanXucTien.GIAI_DOAN_BA.ordinal()) {
+				return ;
+			}
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(giaiDoan)) {
 			setSrcGiaiDoanDuAn("quanlyduan/giaidoan1.zul");
