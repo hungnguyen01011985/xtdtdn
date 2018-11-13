@@ -31,6 +31,7 @@ public class TepTin extends Model<TepTin> {
 	private String pathFile;
 	private String typeFile;
 	private String nameHash;
+	private String tenTaiLieu;
 	
 	private Media media;
 
@@ -66,6 +67,14 @@ public class TepTin extends Model<TepTin> {
 
 	public void setPathFile(String pathFile) {
 		this.pathFile = pathFile;
+	}
+
+	public String getTenTaiLieu() {
+		return tenTaiLieu;
+	}
+
+	public void setTenTaiLieu(String tenTaiLieu) {
+		this.tenTaiLieu = tenTaiLieu;
 	}
 
 	@Transient

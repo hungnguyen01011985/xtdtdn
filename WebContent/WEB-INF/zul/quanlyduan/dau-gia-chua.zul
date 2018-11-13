@@ -2,8 +2,12 @@
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd reset-bg">
 <zscript>
 		<![CDATA[
-			vn.toancauxanh.model.GiaiDoanDuAn giaiDoan4 = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), vm.getGiaiDoanXucTien());
-			vm.setGiaiDoanDuAn(giaiDoan4);
+			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), giaiDoanBon);
+			vm.setGiaiDoanDuAn(item);
+			list = new vn.toancauxanh.service.HoSoKhuDatService().getListHoSoKhuDatById(item.getId());
+		    if (list != null){
+		    	vm.getGiaiDoanDuAn().getHoSoKhuDats().addAll(list);
+		    }
 			if (vm.getGiaiDoanDuAn().isOption()){
 				vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
 				vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
@@ -26,7 +30,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">
@@ -71,7 +75,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">
@@ -131,7 +135,7 @@
 			</div>
 		</div>				
 	</div>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">
@@ -176,7 +180,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">
@@ -186,7 +190,7 @@
 		</div>
 		<include src="quanlyduan/view-list-ho-so-khu-dat.zul"></include>
 	</div>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">
@@ -223,7 +227,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">

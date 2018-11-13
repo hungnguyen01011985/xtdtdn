@@ -126,13 +126,13 @@
 							<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
 								<x:span class="issue-search">Quyết định phê duyệt</x:span> 
 								<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
-									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 									onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
 								<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
 									<label class="txt-link-tailieu" value="@bind(vm.giaoViec.taiLieu.tenFile)"/>
-									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaoViec.taiLieu , vm = vm, name='giaoViec')">
+									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
 										<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 									</x:button>
 								</div>
@@ -143,7 +143,7 @@
 				<div class="row mg-and-bg-and-line">
 					<div zclass="col-xs-6">
 						<div zclass="form-group">
-							<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('redirectQuanLyDuAn')">
+							<x:button class="btn bg-btn-dong btn-grey" onClick="@command('redirectQuanLyDuAn')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 									<span>Đóng</span>
 							</x:button>
