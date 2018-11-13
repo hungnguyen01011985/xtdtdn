@@ -7,6 +7,7 @@
 	</zscript>
 	<zscript>
 		<![CDATA[
+		    action = arg.get("action");
 			String id = execution.getParameter("id");
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
 			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
@@ -14,6 +15,11 @@
 			if (vm.getTaiLieuNDT() == null){
 				vm.setTaiLieuNDT(new vn.toancauxanh.model.TepTin());
 			}
+			giaiDoanMot = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT;
+			giaiDoanHai = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_HAI;
+			giaiDoanBa = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BA;
+			giaiDoanBon = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON;
+			giaiDoanNam = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_NAM;
 		]]>
 	</zscript>
 	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"> 
@@ -35,16 +41,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel-box border-box">
+		<div class="panel-box border-box" style="padding:0;">
 			<div zclass="row">
 				<div zclass="col-lg-12">
-					<div class="title-form">
+					<div class="title-form title-form-duan">
 						<span>Thông tin dự án</span>
 					</div>
 				</div>
 			</div>
-			<div class="content-tab-panel1">
-				<div zclass="mg-and-bg-and-line">
+				<div zclass="mg-and-bg-and-line" style="padding: 15px 22px 0 22px;">
 					<div class="row">
 						<div zclass="col-md-12">
 							<div zclass="form-group">
@@ -53,128 +58,129 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div zclass="col-md-3">
-							<div zclass="form-group">
-								<x:span class="issue-search">Người phụ trách</x:span> 
-								<textbox class="form-control" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)"/>
+				</div>
+					<div class="content-tab-panel1">
+						<div class="row">
+							<div zclass="col-md-3">
+								<div zclass="form-group">
+									<x:span class="issue-search">Người phụ trách</x:span> 
+									<textbox class="form-control" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)"/>
+								</div>
 							</div>
-						</div>
-						<div zclass="col-md-3">
-							<div zclass="form-group">
-								<x:span class="issue-search">Ngày bắt đầu xúc tiến</x:span>
-								<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
+							<div zclass="col-md-3">
+								<div zclass="form-group">
+									<x:span class="issue-search">Ngày bắt đầu xúc tiến</x:span>
+									<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
+								</div>
 							</div>
-						</div>
-						<div zclass="col-md-3">
-							<div zclass="form-group">
-								<x:span class="issue-search">Lĩnh vực</x:span>
-								<combobox readonly="true" model="@load(entry.linhVucs.targetQuery.fetch())" selectedItem="@bind(vm.linhVuc)" class="his" placeholder="Chọn loại lĩnh vực" width="100%">
-									<template name="model">
-										<comboitem label="@load(each.ten)" />
-									</template>
-								</combobox>
+							<div zclass="col-md-3">
+								<div zclass="form-group">
+									<x:span class="issue-search">Lĩnh vực</x:span>
+									<combobox buttonVisible="${action}" readonly="true" model="@load(entry.linhVucs.targetQuery.fetch())" selectedItem="@bind(vm.linhVuc)" class="his ${action ? '' : 'input-no-button' }" placeholder="Chọn loại lĩnh vực" width="100%">
+										<template name="model">
+											<comboitem label="@load(each.ten)" />
+										</template>
+									</combobox>
+								</div>
 							</div>
-						</div>
-						<div zclass="col-md-3">
-							<div zclass="form-group">
-								<x:span class="issue-search">Địa điểm</x:span>
-								<textbox class="form-control" maxlength="255" value="@bind(vm.diaDiem)" placeholder="Nhập địa điểm"></textbox>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div zclass="col-md-3">
-							<div zclass="form-group">
-								<x:span class="issue-search">Quy mô dự án</x:span>
-								<textbox class="form-control" maxlength="255" value="@bind(vm.quyMoDuAn)" placeholder="Nhập quy mô dự án"></textbox>
-							</div>
-						</div>
-						<div zclass="col-md-3">
-							<div zclass="form-group">
-								<x:span class="issue-search">Tổng vốn đầu tư(USD)</x:span>
-								<decimalbox format="$#,##0" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goTask', 'goNext'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư')" />
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div zclass="col-md-12">
-							<div zclass="form-group">
-								<x:span class="issue-search">Mục tiêu dự án</x:span>
-								<textbox class="form-control" rows="3" placeholder="Nhập mục tiêu dự án" value="@bind(vm.mucTieuDuAn)"></textbox>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div zclass="col-md-3">
-							<div zclass="form-group">
-								<x:span class="issue-search">Diện tích sử dụng đất(ha)</x:span>
-								<decimalbox format="#,##0 ha" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goTask','goNext'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất')" />
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div zclass="col-md-3">
-							<div zclass="form-group">
-								<x:span class="issue-search">Mức độ ưu tiên</x:span>
-								<combobox readonly="true" model="@load(vm.listMucDoUuTien)" selectedItem="@bind(vm.mucDoUuTien)"
-									class="his" placeholder="Chọn mức độ ưu tiên" width="100%">
-									<template name="model">
-										<comboitem label="@load(each.text)"></comboitem>
-									</template>
-								</combobox>
-							</div>
-						</div>
-						<div zclass="col-md-3">
-							<div zclass="form-group">
-								<x:span class="issue-search">Khả năng đầu tư</x:span>
-								<combobox readonly="true" model="@load(vm.listKhaNangDauTu)" selectedItem="@bind(vm.khaNangDauTu)"
-									 class="his" placeholder="Chọn khả năng đầu tư" width="100%">
-									<template name="model">
-										<comboitem label="@load(each.text)"></comboitem>
-									</template>
-								</combobox>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div zclass="form-group" viewModel="@id('taiLieuNDT')@init(vm.taiLieuNDT)">
-								<x:span class="issue-search">Văn bản đề nghị của NĐT</x:span>
-								
-								<button visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
-									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieuNDT')"
-									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-								</button>
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-								<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuNDT.tenFile)">
-									<label class="txt-link-tailieu" value="@bind(vm.taiLieuNDT.tenFile)"/>
-									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.taiLieuNDT, name = 'taiLieuNDT')">
-										<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-									</x:button>
+							<div zclass="col-md-3">
+								<div zclass="form-group">
+									<x:span class="issue-search">Địa điểm</x:span>
+									<textbox class="form-control" maxlength="255" value="@bind(vm.diaDiem)" placeholder="Nhập địa điểm"></textbox>
 								</div>
 							</div>
 						</div>
-						<div zclass="col-md-3">
-							<div zclass="form-group" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
-								<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('saveThongTinDuAn')">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-									<span>Lưu thông tin dự án</span>
-								</x:a>
+						<div class="row">
+							<div zclass="col-md-3">
+								<div zclass="form-group">
+									<x:span class="issue-search">Quy mô dự án</x:span>
+									<textbox class="form-control" maxlength="255" value="@bind(vm.quyMoDuAn)" placeholder="Nhập quy mô dự án"></textbox>
+								</div>
+							</div>
+							<div zclass="col-md-3">
+								<div zclass="form-group">
+									<x:span class="issue-search">Tổng vốn đầu tư(USD)</x:span>
+									<decimalbox format="$#,##0" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goTask', 'goNext'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư')" />
+									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div zclass="col-md-12">
+								<div zclass="form-group">
+									<x:span class="issue-search">Mục tiêu dự án</x:span>
+									<textbox class="form-control" rows="3" placeholder="Nhập mục tiêu dự án" value="@bind(vm.mucTieuDuAn)"></textbox>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div zclass="col-md-3">
+								<div zclass="form-group">
+									<x:span class="issue-search">Diện tích sử dụng đất(ha)</x:span>
+									<decimalbox format="#,##0 ha" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goTask','goNext'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất')" />
+									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div zclass="col-md-3">
+								<div zclass="form-group">
+									<x:span class="issue-search">Mức độ ưu tiên</x:span>
+									<combobox buttonVisible="${action}" readonly="true" model="@load(vm.listMucDoUuTien)" selectedItem="@bind(vm.mucDoUuTien)"
+										class="his ${action ? '' : 'input-no-button' }" placeholder="Chọn mức độ ưu tiên" width="100%">
+										<template name="model">
+											<comboitem label="@load(each.text)"></comboitem>
+										</template>
+									</combobox>
+								</div>
+							</div>
+							<div zclass="col-md-3">
+								<div zclass="form-group">
+									<x:span class="issue-search">Khả năng đầu tư</x:span>
+									<combobox buttonVisible="${action}" readonly="true" model="@load(vm.listKhaNangDauTu)" selectedItem="@bind(vm.khaNangDauTu)"
+										 class="his ${action ? '' : 'input-no-button' }" placeholder="Chọn khả năng đầu tư" width="100%">
+										<template name="model">
+											<comboitem label="@load(each.text)"></comboitem>
+										</template>
+									</combobox>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div zclass="form-group" viewModel="@id('taiLieuNDT')@init(vm.taiLieuNDT)">
+									<x:span class="issue-search">Văn bản đề nghị của NĐT</x:span>
+									<button if="${action}" visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
+										class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+										onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieuNDT')"
+										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+									</button>
+									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+									<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuNDT.tenFile)">
+										<label class="txt-link-tailieu" value="@bind(vm.taiLieuNDT.tenFile)"/>
+										<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.taiLieuNDT, name = 'taiLieuNDT')">
+											<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+										</x:button>
+									</div>
+								</div>
+							</div>
+							<div zclass="col-md-3">
+								<div zclass="form-group" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id}">
+									<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('saveThongTinDuAn')">
+										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+										<span>Lưu thông tin dự án</span>
+									</x:a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
+				
 			<div class="mg-and-bg-and-line bg-color-tab" zk:onClick="@command('swap')">
 				<x:image zk:visible="@load(!vm.checkTab)" class="swap-arrow" src="${contexPath}/assets/icon-bxtdn/arrow-select.svg"/>
 				<x:image zk:visible="@load(vm.checkTab)" class="swap-arrow" src="${contexPath}/assets/icon-bxtdn/arrow-up.svg"/>
 				<span zk:visible="@load(!vm.checkTab)" class="swap">XEM THÊM THÔNG TIN</span>
-				<span zk:visible="@load(vm.checkTab)" class="swap">ẨN BỚT THÔNG TIN</span>
+				<span zk:visible="@load(vm.checkTab)" class="swap">RÚT GỌN THÔNG TIN</span>
 			</div>
 		</div>
-		<include src="${vm.getSrc()}"></include>
+		<include src="@load(vm.srcGiaiDoanDuAn)"></include>
 		<n:script>
 			function toggleTabPanel(doiTuong) {
 				var objDonVi =  $(doiTuong).parent();
@@ -186,21 +192,32 @@
 					$(objDonVi).find('.arrow-up').css('display','none');
 				}
 				
-				if ($(objDonVi).find(".content-tab-panel").css("height")=="0px") {
-					$(objDonVi).find(".content-tab-panel").css("height","212px");
+				if ($(objDonVi).find(".content-tab-panel").css("max-height")=="0px") {
+					$(objDonVi).find(".content-tab-panel").css("max-height","263px");
 					
 				} else {
-					$(objDonVi).find(".content-tab-panel").css("height","0px");
+					$(objDonVi).find(".content-tab-panel").css("max-height","0px");
 				}
 			}
 			function toggleTabThongTinDuAn(){
 				if ($(".content-tab-panel1").css("height")=="0px") {
-					$(".content-tab-panel1").css("height","505px");
+					$(".content-tab-panel1").css("height","412px");
+					
 				} else {
 					$(".content-tab-panel1").css("height","0px");
+					
 				}
 			}
-			
+			function removeTitleCss(index){
+				var x = document.getElementsByClassName("plan-title");
+				var i;
+				for ( i = 5 ; i > 0 ; i--){
+					var ob = x[i];
+					$(ob).removeClass("plan-title-active");
+				}
+				var obj = x[index];
+				$(obj).addClass("plan-title-active");
+			}
 		</n:script>
-</div>
+	</div>
 </window>
