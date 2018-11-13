@@ -53,7 +53,7 @@
 						<div zclass="form-group">
 							<x:span class="issue-search">Tài liệu kèm theo</x:span>
 							<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" visible="@load(empty vm.giaiDoanDuAn.taiLieuGD2.tenFile)" label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuGD2')"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
@@ -61,7 +61,7 @@
 							<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.taiLieuGD2.tenFile)">
 								<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.taiLieuGD2.tenFile)"/>
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD2, name = 'taiLieuGD2')">
-									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
 							</div>
 						</div>
@@ -95,7 +95,7 @@
 								<x:span class="issue-search">Tài liệu kèm theo<n:small class="required"> *</n:small></x:span>
 							</div>
 							<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" visible="@load(empty vm.giaiDoanDuAn.congVanGD2.tenFile)" label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'congVanGD2', error = error)"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
@@ -103,7 +103,7 @@
 							<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.congVanGD2.tenFile)">
 								<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.congVanGD2.tenFile)"/>
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.congVanGD2, name = 'congVanGD2')">
-									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
 							</div>
 							<label zclass="error" value="@load(vmsgs['congVanGD2'])" id="error"/>

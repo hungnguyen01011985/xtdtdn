@@ -75,14 +75,14 @@
 												<x:span class="issue-search">Công văn đính kèm<n:small class="required"> *</n:small></x:span>
 											</div>
 											<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
-												class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+												class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 												onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'congVanTraLoi', error = errorCongVanTraLoi)"
 												upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 											</button>
 											<div class="flex mg-btn-top" visible="@load(not empty each.congVanTraLoi.tenFile)">
 												<label class="txt-link-tailieu" value="@load(each.congVanTraLoi.tenFile)"/>
 												<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
-													<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+													<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 												</x:button>
 											</div>
 											<label zclass="error" value="@load(vmsgs[idCongVanTraLoi])" id="errorCongVanTraLoi"/>

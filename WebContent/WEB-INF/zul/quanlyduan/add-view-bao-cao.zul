@@ -135,7 +135,7 @@
 						<div zclass="form-group">
 							<x:span class="issue-search">Đính kèm kết quả</x:span>
 							<button visible="@load(empty vm.taiLieuKetQua.tenFile)" label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm, name = '*')"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
@@ -164,7 +164,7 @@
 				<div class="row">
 					<div zclass="col-xs-6">
 						<div zclass="form-group">
-							<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='*')">
+							<x:button  class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='*')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 								<span>Đóng</span>
 							</x:button>

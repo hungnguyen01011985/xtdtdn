@@ -10,7 +10,7 @@
 				</div>
 				<div class="col-md-6">
 					<button label="Chọn tài liệu" 
-						class="btn bg-btn-tailieu mg-btn-top right-mg flex" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+						class="btn bg-btn-tailieu mg-btn-top right-mg flex" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 						onUpload="@command('uploadFile',medias=event.medias)"
 						upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
@@ -32,7 +32,7 @@
 							</div>
 							<div class="box-thao-tac" style="margin-right:15px;">
 								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
-									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
 							</div>
 						</div>

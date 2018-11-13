@@ -149,7 +149,7 @@
 								<div zclass="form-group" viewModel="@id('taiLieuNDT')@init(vm.taiLieuNDT)">
 									<x:span class="issue-search">Văn bản đề nghị của NĐT</x:span>
 									<button if="${action}" visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
-										class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+										class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 										onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm, name = 'taiLieuNDT')"
 										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 									</button>
@@ -157,7 +157,7 @@
 									<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuNDT.tenFile)">
 										<label class="txt-link-tailieu" value="@bind(vm.taiLieuNDT.tenFile)"/>
 										<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.taiLieuNDT, name = 'taiLieuNDT')">
-											<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+											<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 										</x:button>
 									</div>
 								</div>
