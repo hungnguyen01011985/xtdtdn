@@ -63,7 +63,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button class="btn btn-base btn-gray" onClick="@command('cmd', notify=duAn, attr='targetQueryByIdDuAn')">
+						<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=duAn, attr='targetQueryByIdDuAn')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
 						</x:button>

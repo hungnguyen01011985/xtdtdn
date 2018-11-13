@@ -136,19 +136,22 @@
 							<x:span class="issue-search">Đính kèm kết quả</x:span>
 							<button visible="@load(empty vm.taiLieuKetQua.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
-								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm, name = '*')"
+								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm, name = 'taiLieuKetQua')"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuKetQua.tenFile)">
 								<label class="txt-link-tailieu" value="@bind(vm.taiLieuKetQua.tenFile)"/>
-								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieuKetQua , vm = vm, name='*')">
+								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieuKetQua, vm = vm , name = 'taiLieuKetQua')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm, name = 'taiLieuKetQua')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				
 				<div class="row" visible="@load(not empty vm.taiLieuKetQua.tenFile and !readOnly)">
 					<div class="col-md-12">
 						<div zclass="form-group">

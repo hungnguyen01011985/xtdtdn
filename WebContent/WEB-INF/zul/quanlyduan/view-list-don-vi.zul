@@ -84,6 +84,11 @@
 												<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
 													<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 												</x:button>
+												<button
+													class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+													onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'congVanTraLoi', error = errorCongVanTraLoi)"
+													upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+												</button>
 											</div>
 											<label zclass="error" value="@load(vmsgs[idCongVanTraLoi])" id="errorCongVanTraLoi"/>
 										</div>
