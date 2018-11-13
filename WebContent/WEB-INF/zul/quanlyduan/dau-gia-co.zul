@@ -11,14 +11,13 @@
 			if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT() != null){
 				if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT().ordinal() !=0){
 					vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
-					alert("zo");
 				} else {
 					if (!vm.getGiaiDoanDuAn().isOption()){
-						alert("zo");
 						vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
 					}
 				}
 			}
+			
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
 			vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 		]]>
@@ -169,6 +168,18 @@
 		<include src="quanlyduan/view-list-ho-so-khu-dat.zul"></include>
 		<div class="row">
 			<div zclass="col-md-12">
+				<div zclass="form-group">
+					<div>
+						<x:button class="btn btn-base btn-green" onClick="@command('addNewHoSoKhuDat', vm = vm)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm hồ sơ</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhDauGiaQSDD') @init(vm.giaiDoanDuAn.quyetDinhDauGiaQSDD)">
 					<x:span class="issue-search">Quyết định đấu giá quyền sử dụng đất</x:span>
 					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.quyetDinhDauGiaQSDD.tenFile)" label="Chọn tài liệu" 
@@ -256,4 +267,5 @@
 			</div>
 		</div>	
 	</div>
+	<include src="quanlyduan/view-list-tep-tins.zul"></include>
 </window>

@@ -1,7 +1,6 @@
 package vn.toancauxanh.model;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -316,7 +315,6 @@ public class DuAn extends Model<DuAn> {
 			return "";
 		}
 		if (type.equals("cssTitle")) {
-			System.out.println("zô cssss");
 			if (giaiDoan.equals(this.giaiDoanXucTien)) {
 				return "plan-title-active";
 			}
@@ -373,7 +371,6 @@ public class DuAn extends Model<DuAn> {
 	
 	@Command
 	public void redirectGiaiDoanDuAn(@BindingParam("giaiDoan") GiaiDoanXucTien giaiDoan) {
-		System.out.println("zo redirect");
 		int index = -1;
 		if (giaiDoan.ordinal() > this.getGiaiDoanXucTien().ordinal()) {
 			return;
@@ -544,8 +541,13 @@ public class DuAn extends Model<DuAn> {
 				String text = (String) ctx.getValidatorArg("text");
 				Boolean type = (Boolean) ctx.getValidatorArg("type");
 				Double vonDauTu = 0.0;
-				BigDecimal param = (BigDecimal) ctx.getProperty().getValue();
-				vonDauTu = param.doubleValue();
+				try {
+					vonDauTu = Double.parseDouble(ctx.getProperty().getValue().toString()) ;
+				} catch (NumberFormatException e) {
+					addInvalidMessage(ctx, "Bạn phải nhập số");
+				} catch (NullPointerException e) {
+					addInvalidMessage(ctx, "Bạn phải nhập số");
+				}
 				if (type != null) {
 					if (vonDauTu <= 0) {
 						addInvalidMessage(ctx, text + " phải lớn hơn 0");
@@ -553,7 +555,7 @@ public class DuAn extends Model<DuAn> {
 					}
 				} else {
 					if (vonDauTu < 0) {
-						addInvalidMessage(ctx, text + " phải lớn hơn 0");
+						addInvalidMessage(ctx, text + " phải lớn hơn bằng 0");
 						rs = false;
 					}
 				}
@@ -701,8 +703,16 @@ public class DuAn extends Model<DuAn> {
 	
 	@Command
 	public void deleteHoSoKhuDat(@BindingParam("obj") final HoSoKhuDat item, @BindingParam("vm") DuAn duAn){
-		duAn.getGiaiDoanDuAn().getHoSoKhuDats().remove(item);
-		duAn.getGiaiDoanDuAn().getListXoaHoSoKhuDat().add(item);
-		BindUtils.postNotifyChange(null, null, duAn , "*");
+		Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+				new EventListener<Event>() {
+			@Override
+			public void onEvent(final Event event) {
+				if (Messagebox.ON_OK.equals(event.getName())) {
+					duAn.getGiaiDoanDuAn().getHoSoKhuDats().remove(item);
+					duAn.getGiaiDoanDuAn().getListXoaHoSoKhuDat().add(item);
+					BindUtils.postNotifyChange(null, null, duAn , "*");
+				}
+			}
+		});
 	}
 }

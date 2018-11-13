@@ -1,4 +1,7 @@
 <div class="row bg-color-box" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml">
+	<zscript deferred="true">
+		Clients.evalJavaScript("setTitleCss()");
+	</zscript>
 				<div zclass="col-lg-12">
 					<div class="box-plan">
 						<div class="plan-line">

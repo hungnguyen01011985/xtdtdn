@@ -224,6 +224,15 @@
 				var obj = x[index];
 				$(obj).addClass("plan-title-active");
 			}
+			function setTitleCss(){
+				if ($(".plan-title-active")[0]){
+					return;
+				} else {
+					var x = document.getElementsByClassName("plan-title");
+					var obj = x[0];
+					$(obj).addClass("plan-title-active");
+				}
+			}
 		</n:script>
 	</div>
 </window>

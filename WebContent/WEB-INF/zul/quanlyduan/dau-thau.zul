@@ -461,4 +461,5 @@
 			</div>
 		</div>
 	</div>
+	<include src="quanlyduan/view-list-tep-tins.zul"></include>
 </window>
