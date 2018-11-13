@@ -308,9 +308,9 @@ public class ProcessService extends BasicService<Object> {
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetPADG().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhDauGiaQSDD().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGiaKhoiDiem().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLQH().saveNotShowNotification();
+		luuDuHoSoKhuDat(duAn.getGiaiDoanDuAn());
 		if (!duAn.getGiaiDoanDuAn().isOption()) {
 			duAn.getGiaiDoanDuAn().getQuyetDinhBoSungDanhMuc().saveNotShowNotification();
 			duAn.getGiaiDoanDuAn().getVanBanDeNghiBoSung().saveNotShowNotification();
@@ -530,6 +530,19 @@ public class ProcessService extends BasicService<Object> {
 		}
 		return false;
 		/*((ExecutionEntity) execution).setVariable(varriable, false);*/
+	}
+	
+	public void luuDuHoSoKhuDat(GiaiDoanDuAn giaiDoanDuAn) {
+		giaiDoanDuAn.getHoSoKhuDats().forEach(item -> {
+			item.getQuyetDinhDauGiaQSDD().saveNotShowNotification();
+			item.setGiaiDoanDuAn(giaiDoanDuAn);
+			item.saveNotShowNotification();
+		});
+		
+		giaiDoanDuAn.getListXoaHoSoKhuDat().forEach(item ->{
+			item.setDaXoa(true);
+			item.saveNotShowNotification();
+		});
 	}
 
 	public List<PvmTransition> getTransitions(Task task) {

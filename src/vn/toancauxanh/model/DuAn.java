@@ -55,6 +55,7 @@ public class DuAn extends Model<DuAn> {
 	private TepTin taiLieuNDT;
 	
 	private boolean checkTab;
+	
 
 	public DuAn() {
 
@@ -532,5 +533,18 @@ public class DuAn extends Model<DuAn> {
 	public void swap() {
 		checkTab = !checkTab;
 		BindUtils.postNotifyChange(null, null, this, "checkTab");
+	}
+	
+	@Command
+	public void addNewHoSoKhuDat(@BindingParam("vm") DuAn duAn) {
+		duAn.getGiaiDoanDuAn().getHoSoKhuDats().add(new HoSoKhuDat());
+		BindUtils.postNotifyChange(null, null, duAn , "*");
+	}
+	
+	@Command
+	public void deleteHoSoKhuDat(@BindingParam("obj") final HoSoKhuDat item, @BindingParam("vm") DuAn duAn){
+		duAn.getGiaiDoanDuAn().getHoSoKhuDats().remove(item);
+		duAn.getGiaiDoanDuAn().getListXoaHoSoKhuDat().add(item);
+		BindUtils.postNotifyChange(null, null, duAn , "*");
 	}
 }
