@@ -2,8 +2,8 @@
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd reset-bg">
 <zscript>
 		<![CDATA[
-			vn.toancauxanh.model.GiaiDoanDuAn dauThau = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), vm.getGiaiDoanXucTien());
-			vm.setGiaiDoanDuAn(dauThau);
+			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), giaiDoanBon);
+			vm.setGiaiDoanDuAn(item);
 			if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT() == null || !vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT.equals(vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())){
 				vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
 			} else {
@@ -17,7 +17,7 @@
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
 		]]>
 	</zscript>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">
@@ -75,7 +75,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">
@@ -261,7 +261,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">
@@ -327,7 +327,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mg-and-bg-and-line">
+	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
 			<div zclass="col-md-12">
 				<div class="title-big-page" style="margin-bottom:0;">

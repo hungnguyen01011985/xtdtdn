@@ -391,6 +391,9 @@
 	color:#FFF;
 	border: 1px solid #045AC2;
 }
+.btn-refesh-tai-lieu:hover{
+	background: #30B350 !important;
+}
 .z-button:focus{
 	background:#4274ED;
 	color:#FFF;
@@ -770,6 +773,15 @@
     align-items: baseline;
     cursor: pointer;
 }
+.mg-and-bg-and-line-fix{
+	border-top: 1px solid #F4F6F8;
+    padding: 15px 22.5px 0 22.5px;
+    margin:0 -15px;
+    
+}
+.rs-mg-left{
+	margin-left:0px !important;
+}
 
 .padding-top-33{
 	padding-top: 33px;
@@ -777,4 +789,22 @@
 
 .margin-left-10{
 	margin-left: 10px;
+}
+.flex-style-btn-fix {
+	display: flex;
+    align-items: flex-end;
+    height: 62px;
+}
+.btn-refesh-tai-lieu {
+	color: #5C6376;
+    display: flex;
+    height: 36px;
+    justify-content: center;
+    align-items: center;
+    background: #30B350;
+    border: 1px solid #E2E5EB !important;
+    border-radius: 3px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin-left: 10px;
 }

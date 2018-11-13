@@ -142,7 +142,7 @@
 							<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuKetQua.tenFile)">
 								<label class="txt-link-tailieu" value="@bind(vm.taiLieuKetQua.tenFile)"/>
 								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieuKetQua , vm = vm, name='*')">
-									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
 							</div>
 						</div>

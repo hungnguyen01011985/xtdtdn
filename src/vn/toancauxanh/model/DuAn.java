@@ -609,6 +609,7 @@ public class DuAn extends Model<DuAn> {
 					tepTin.setNameHash(tenFile);
 					tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 					tepTin.setMedia(media);
 					this.giaiDoanDuAn.getTepTins().add(tepTin);
@@ -634,6 +635,34 @@ public class DuAn extends Model<DuAn> {
 					}
 				}
 			});
+	}
+	
+	@Command
+	public void reUploadFile(@BindingParam("medias") final Object medias, @BindingParam("index") final int index) {
+		Media media = (Media) medias;
+		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
+				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
+				|| media.getName().toLowerCase().endsWith(".xlsx")) {
+			if (media.getByteData().length > 50000000) {
+				showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
+			} else {
+				String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
+						+ Calendar.getInstance().getTimeInMillis()
+						+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
+				TepTin tepTin = new TepTin();
+				tepTin.setNameHash(tenFile);
+				tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
+				tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+				tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
+				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+				tepTin.setMedia(media);
+				giaiDoanDuAn.getTepTins().set(index, tepTin);
+				BindUtils.postNotifyChange(null, null, this.giaiDoanDuAn, "tepTins");
+			}
+		} else {
+			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
+					"Có tệp không đúng định dạng", "danger");
+		}
 	}
 	
 	@Command
