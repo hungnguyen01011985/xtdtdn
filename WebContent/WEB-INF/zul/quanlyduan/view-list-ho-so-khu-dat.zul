@@ -22,17 +22,17 @@
 					</div>
 				</div>
 				<div zclass="col-md-8 flex">
-					<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhDauGiaQSDD') @init(each.quyetDinhDauGiaQSDD)">
+					<div zclass="form-group mg-top-8" viewModel="@id('taiLieu') @init(each.taiLieu)">
 						<x:span class="issue-search">Tài liệu đính kèm</x:span>
-						<button visible="@load(empty each.quyetDinhDauGiaQSDD.tenFile)" label="Chọn tài liệu" 
+						<button visible="@load(empty each.taiLieu.tenFile)" label="Chọn tài liệu" 
 							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-							onUpload="@command('uploadFile', medias=event.getMedia(),vm = each, name = 'quyetDinhDauGiaQSDD')"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = each, name = 'taiLieu')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						<div class="flex mg-btn-top" visible="@load(not empty each.quyetDinhDauGiaQSDD.tenFile)">
-							<label class="txt-link-tailieu-khu-dat" value="@bind(each.quyetDinhDauGiaQSDD.tenFile)"/>
-							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.quyetDinhDauGiaQSDD , vm = each, name = 'quyetDinhDauGiaQSDD')">
+						<div class="flex mg-btn-top" visible="@load(not empty each.taiLieu.tenFile)">
+							<label class="txt-link-tailieu-khu-dat" value="@bind(each.taiLieu.tenFile)"/>
+							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.taiLieu , vm = each, name = 'taiLieu')">
 								<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 							</x:button>
 						</div>

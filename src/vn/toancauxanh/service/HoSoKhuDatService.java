@@ -11,7 +11,7 @@ public class HoSoKhuDatService extends BaseObject<HoSoKhuDat> {
 	public List<HoSoKhuDat> getListHoSoKhuDatById(Long idGiaiDoan) {
 		if (idGiaiDoan != null) {
 			JPAQuery<HoSoKhuDat> q = find(HoSoKhuDat.class).where(QHoSoKhuDat.hoSoKhuDat.giaiDoanDuAn.id.eq(idGiaiDoan));
-			if (q.fetch().size() > 0) {
+			if (q.fetchCount() > 0) {
 				return q.fetch();
 			}
 		}

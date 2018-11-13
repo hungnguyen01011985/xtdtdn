@@ -11,7 +11,7 @@ public class DonViDuAnService extends BaseObject<DonViDuAn> {
 	public List<DonViDuAn> getListDonViById(Long idGiaiDoan) {
 		if (idGiaiDoan != null) {
 			JPAQuery<DonViDuAn> q = find(DonViDuAn.class).where(QDonViDuAn.donViDuAn.giaiDoanDuAn.id.eq(idGiaiDoan));
-			if (q.fetch().size() > 0) {
+			if (q.fetchCount() > 0) {
 				return q.fetch();
 			}
 		}
