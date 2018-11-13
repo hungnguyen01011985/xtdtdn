@@ -9,7 +9,7 @@ import javax.persistence.Table;
 public class HoSoKhuDat extends Model<HoSoKhuDat> {
 
 	private String tenHoSoKhuDat = "";
-	private TepTin quyetDinhDauGiaQSDD = new TepTin();
+	private TepTin taiLieu = new TepTin();
 	private GiaiDoanDuAn giaiDoanDuAn;
 
 	public String getTenHoSoKhuDat() {
@@ -21,12 +21,12 @@ public class HoSoKhuDat extends Model<HoSoKhuDat> {
 	}
 
 	@ManyToOne
-	public TepTin getQuyetDinhDauGiaQSDD() {
-		return quyetDinhDauGiaQSDD;
+	public TepTin getTaiLieu() {
+		return taiLieu;
 	}
 
-	public void setQuyetDinhDauGiaQSDD(TepTin quyetDinhDauGiaQSDD) {
-		this.quyetDinhDauGiaQSDD = quyetDinhDauGiaQSDD;
+	public void setTaiLieu(TepTin taiLieu) {
+		this.taiLieu = taiLieu;
 	}
 
 	@ManyToOne

@@ -2,12 +2,12 @@
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" class="form-list content-reset rest-content-wd">
 	<zscript>
 		<![CDATA[
+			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), giaiDoanMot);
+			vm.setGiaiDoanDuAn(item);
 			list = new vn.toancauxanh.service.DonViDuAnService().getListDonViById(item.getId());
 			if (list != null){
 				vm.getGiaiDoanDuAn().getDonViDuAn().addAll(list);
 			}
-			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), giaiDoanMot);
-			vm.setGiaiDoanDuAn(item);
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT);
 			
 		]]>
@@ -59,7 +59,7 @@
 							</div>
 							<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)" label="Chọn tài liệu" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}"
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
-								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm.giaiDoanDuAn, name = 'taiLieuGD1', error = error)"
+								onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaiDoanDuAn, name = 'taiLieuGD1', error = error)"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)">
@@ -67,6 +67,11 @@
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD1, name = 'taiLieuGD1')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
+								<button
+									class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaiDoanDuAn, name = 'taiLieuGD1', error = error)"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 							<label zclass="error" value="@load(vmsgs['taiLieuGD1'])" id="error"/>
 						</div>

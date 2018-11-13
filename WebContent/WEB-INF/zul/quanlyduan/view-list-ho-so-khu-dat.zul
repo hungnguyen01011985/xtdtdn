@@ -1,5 +1,5 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml">
+<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style="overflow:visible;">
 	<zscript>
 		<![CDATA[
 			if (vm.getGiaiDoanDuAn().getHoSoKhuDats().size() == null || vm.getGiaiDoanDuAn().getHoSoKhuDats().size() == 0) {
@@ -10,47 +10,37 @@
 	<div children="@bind(vm.getGiaiDoanDuAn().getHoSoKhuDats())">
 		<template name="children">
 			<div class="row">
-			
 				<div zclass="col-md-4" style="margin-top: 8px;">
 					<div zclass="form-group">
 						<div class="flex">
-							<x:span class="issue-search">Tên hồ sơ</x:span>
+							<x:span class="issue-search">Tên hồ sơ số ${forEachStatus.index + 1}</x:span>
 						</div>
 						<textbox class="form-control" placeholder="Nhập tên hồ sơ" value="@bind(each.tenHoSoKhuDat)"
 							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				<div zclass="col-md-8 flex">
-					<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhDauGiaQSDD') @init(each.quyetDinhDauGiaQSDD)">
+				<div zclass="col-md-8" style="display:flex;justify-content: space-between;">
+					<div zclass="form-group mg-top-8" viewModel="@id('taiLieu') @init(each.taiLieu)">
 						<x:span class="issue-search">Tài liệu đính kèm</x:span>
-						<button visible="@load(empty each.quyetDinhDauGiaQSDD.tenFile)" label="Chọn tài liệu" 
-							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-							onUpload="@command('uploadFile', medias=event.getMedia(),vm = each, name = 'quyetDinhDauGiaQSDD')"
+						<button visible="@load(empty each.taiLieu.tenFile)" label="Chọn tài liệu" 
+							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = each, name = 'taiLieu')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						<div class="flex mg-btn-top" visible="@load(not empty each.quyetDinhDauGiaQSDD.tenFile)">
-							<label class="txt-link-tailieu-khu-dat" value="@bind(each.quyetDinhDauGiaQSDD.tenFile)"/>
-							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.quyetDinhDauGiaQSDD , vm = each, name = 'quyetDinhDauGiaQSDD')">
-								<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+						<div class="flex mg-btn-top" visible="@load(not empty each.taiLieu.tenFile)">
+							<label class="txt-link-tailieu-khu-dat" value="@bind(each.taiLieu.tenFile)"/>
+							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.taiLieu , vm = each, name = 'taiLieu')">
+								<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 							</x:button>
 						</div>
 					</div>
-				
-					<div class="padding-top-33" zk:if="${forEachStatus.last and vm.getGiaiDoanDuAn().getHoSoKhuDats().size() > 1}">
-						<div zclass="form-group">
-							<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteHoSoKhuDat', obj = each, vm = vm)">
-								<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-							</x:button>
-						</div>
-					</div>
-					
-					<div class="padding-top-33 margin-left-10" zk:if="${forEachStatus.last}">
-						<div zclass="form-group">
-							<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('addNewHoSoKhuDat', vm = vm)">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi-don-vi.svg"/>
-								<span>Thêm hồ sơ</span>
+					<div zclass="form-group mg-top-8 flex-style-btn-fix">
+						<div zk:if="${!forEachStatus.first}">
+							<x:button class="btn bg-btn-dong btn-grey" zk:onClick="@command('deleteHoSoKhuDat', obj = each, vm = vm)">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg"/>
+								<span>Hủy hồ sơ</span>
 							</x:button>
 						</div>
 					</div>

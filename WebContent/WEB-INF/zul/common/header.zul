@@ -39,7 +39,7 @@
 		<div class="box-header-left">
 			<div zclass="menu-header-logo">
 				<n:div>
-					<x:image href="${ctxPath}" class="logo-image" src="${contexPath}/assets/icon-bxtdn/logo.png"/>
+					<n:a href="${ctxPath}/cp"><x:image class="logo-image" src="${contexPath}/assets/icon-bxtdn/logo.png"/></n:a>
 				</n:div>
 				<n:a class="nav-title-page" href="${ctxPath}/cp">
 					<n:h5 style="margin-top:10px;">BAN XÚC TIẾN VÀ</n:h5>

@@ -1,7 +1,6 @@
 package vn.toancauxanh.model;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -519,8 +518,13 @@ public class DuAn extends Model<DuAn> {
 				String text = (String) ctx.getValidatorArg("text");
 				Boolean type = (Boolean) ctx.getValidatorArg("type");
 				Double vonDauTu = 0.0;
-				BigDecimal param = (BigDecimal) ctx.getProperty().getValue();
-				vonDauTu = param.doubleValue();
+				try {
+					vonDauTu = Double.parseDouble(ctx.getProperty().getValue().toString()) ;
+				} catch (NumberFormatException e) {
+					addInvalidMessage(ctx, "Bạn phải nhập số");
+				} catch (NullPointerException e) {
+					addInvalidMessage(ctx, "Bạn phải nhập số");
+				}
 				if (type != null) {
 					if (vonDauTu <= 0) {
 						addInvalidMessage(ctx, text + " phải lớn hơn 0");
@@ -528,7 +532,7 @@ public class DuAn extends Model<DuAn> {
 					}
 				} else {
 					if (vonDauTu < 0) {
-						addInvalidMessage(ctx, text + " phải lớn hơn 0");
+						addInvalidMessage(ctx, text + " phải lớn hơn bằng 0");
 						rs = false;
 					}
 				}
@@ -605,6 +609,7 @@ public class DuAn extends Model<DuAn> {
 					tepTin.setNameHash(tenFile);
 					tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 					tepTin.setMedia(media);
 					this.giaiDoanDuAn.getTepTins().add(tepTin);
@@ -620,16 +625,44 @@ public class DuAn extends Model<DuAn> {
 	@Command
 	public void deleteFile(@BindingParam("index") final int index) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-			Messagebox.QUESTION, new EventListener<Event>() {
-				@Override
-				public void onEvent(final Event event) throws IOException {
-					if (Messagebox.ON_OK.equals(event.getName())) {
-						giaiDoanDuAn.getTepTins().remove(index);
-						BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "tepTins");
-						showNotification("Đã xóa", "", "success");
+				Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) throws IOException {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							giaiDoanDuAn.getTepTins().remove(index);
+							BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "tepTins");
+							showNotification("Đã xóa", "", "success");
+						}
 					}
-				}
-			});
+				});
+	}
+	
+	@Command
+	public void reUploadFile(@BindingParam("medias") final Object medias, @BindingParam("index") final int index) {
+		Media media = (Media) medias;
+		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
+				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
+				|| media.getName().toLowerCase().endsWith(".xlsx")) {
+			if (media.getByteData().length > 50000000) {
+				showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
+			} else {
+				String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
+						+ Calendar.getInstance().getTimeInMillis()
+						+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
+				TepTin tepTin = new TepTin();
+				tepTin.setNameHash(tenFile);
+				tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
+				tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+				tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
+				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+				tepTin.setMedia(media);
+				giaiDoanDuAn.getTepTins().set(index, tepTin);
+				BindUtils.postNotifyChange(null, null, this.giaiDoanDuAn, "tepTins");
+			}
+		} else {
+			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
+					"Có tệp không đúng định dạng", "danger");
+		}
 	}
 	
 	@Command
@@ -647,8 +680,16 @@ public class DuAn extends Model<DuAn> {
 	
 	@Command
 	public void deleteHoSoKhuDat(@BindingParam("obj") final HoSoKhuDat item, @BindingParam("vm") DuAn duAn){
-		duAn.getGiaiDoanDuAn().getHoSoKhuDats().remove(item);
-		duAn.getGiaiDoanDuAn().getListXoaHoSoKhuDat().add(item);
-		BindUtils.postNotifyChange(null, null, duAn , "*");
+		Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+				new EventListener<Event>() {
+			@Override
+			public void onEvent(final Event event) {
+				if (Messagebox.ON_OK.equals(event.getName())) {
+					duAn.getGiaiDoanDuAn().getHoSoKhuDats().remove(item);
+					duAn.getGiaiDoanDuAn().getListXoaHoSoKhuDat().add(item);
+					BindUtils.postNotifyChange(null, null, duAn , "*");
+				}
+			}
+		});
 	}
 }
