@@ -189,12 +189,10 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	
 	@Transient
 	public List<HoSoKhuDat> getHoSoKhuDats() {
-		System.out.println("1234");
 		return hoSoKhuDats;
 	}
 
 	public void setHoSoKhuDats(List<HoSoKhuDat> hoSoKhuDats) {
-		System.out.println("1234123123");
 		this.hoSoKhuDats = hoSoKhuDats;
 	}
 
