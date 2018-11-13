@@ -4,6 +4,10 @@
 		<![CDATA[
 			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), giaiDoanBon);
 			vm.setGiaiDoanDuAn(item);
+			list = new vn.toancauxanh.service.HoSoKhuDatService().getListHoSoKhuDatById(item.getId());
+		    if (list != null){
+		    	vm.getGiaiDoanDuAn().getHoSoKhuDats().addAll(list);
+		    }
 			if (vm.getGiaiDoanDuAn().isOption()){
 				vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
 				vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);

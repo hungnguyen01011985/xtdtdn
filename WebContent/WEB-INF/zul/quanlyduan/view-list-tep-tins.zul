@@ -20,12 +20,14 @@
 						</div>
 						<div class="col-md-8">
 							<div class="flex mg-btn-top">
-								<x:button class="btn bg-btn-dongtailieu btn-grey rs-mg-left" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD1, name = 'taiLieuGD1')">
+								<x:button class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD1, name = 'taiLieuGD1')">
-									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
-								</x:button>
+								<button
+									class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('reUploadFile', medias=event.media, index = forEachStatus.index)"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 						</div>
 					</div>
