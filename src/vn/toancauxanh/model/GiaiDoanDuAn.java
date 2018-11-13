@@ -70,6 +70,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	// Hồ sơ khu đất
 	private List<HoSoKhuDat> hoSoKhuDats = new ArrayList<HoSoKhuDat>();
 	private List<HoSoKhuDat> listXoaHoSoKhuDat = new ArrayList<HoSoKhuDat>();
+	private TepTin quyetDinhDauGiaQSDD;
 	// Quyết định phê duyệt giá đất khởi điểm đấu giá
 	private Double giaDatKhoiDiemDauGia = 0.0;
 	private TepTin quyetDinhPheDuyetGiaKhoiDiem;
@@ -432,9 +433,25 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 		}
 		return phuongAnDauGia;
 	}
-
+	
 	public void setPhuongAnDauGia(TepTin phuongAnDauGia) {
 		this.phuongAnDauGia = phuongAnDauGia;
+	}
+	
+	@ManyToOne
+	public TepTin getQuyetDinhDauGiaQSDD() {
+		if (this.phuongThucLuaChonNDT != null) {
+			if (this.quyetDinhDauGiaQSDD == null) {
+				if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(this.getPhuongThucLuaChonNDT())) {
+					this.quyetDinhDauGiaQSDD = new TepTin();
+				}
+			}
+		}
+		return quyetDinhDauGiaQSDD;
+	}
+
+	public void setQuyetDinhDauGiaQSDD(TepTin quyetDinhDauGiaQSDD) {
+		this.quyetDinhDauGiaQSDD = quyetDinhDauGiaQSDD;
 	}
 
 	public Double getGiaDatKhoiDiemDauGia() {
