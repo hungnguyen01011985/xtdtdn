@@ -13,6 +13,7 @@
 				vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 				vm.getGiaiDoanDuAn().setOption(false);
 			}
+			
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
 		]]>
 	</zscript>
@@ -213,6 +214,25 @@
 			</div>
 		</div>
 		<include src="quanlyduan/view-list-ho-so-khu-dat.zul"></include>
+		<div class="row">
+			<div zclass="col-md-12">
+				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhDauGiaQSDD') @init(vm.giaiDoanDuAn.quyetDinhDauGiaQSDD)">
+					<x:span class="issue-search">Quyết định đấu giá quyền sử dụng đất</x:span>
+					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.quyetDinhDauGiaQSDD.tenFile)" label="Chọn tài liệu" 
+						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
+						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhDauGiaQSDD')"
+						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+					</button>
+					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhDauGiaQSDD.tenFile)">
+						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.quyetDinhDauGiaQSDD.tenFile)"/>
+						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhDauGiaQSDD , vm = vm.giaiDoanDuAn, name = 'quyetDinhDauGiaQSDD')">
+							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="mg-and-bg-and-line-fix">
 		<div class="row">
