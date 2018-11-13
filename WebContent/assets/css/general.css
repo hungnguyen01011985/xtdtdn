@@ -760,3 +760,12 @@
     align-items: baseline;
     cursor: pointer;
 }
+.mg-and-bg-and-line-fix{
+	border-top: 1px solid #F4F6F8;
+    padding: 15px 22.5px 0 22.5px;
+    margin:0 -15px;
+    
+}
+.rs-mg-left{
+	margin-left:0px !important;
+}

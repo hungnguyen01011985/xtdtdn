@@ -1,44 +1,43 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
-	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" >
+	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style="overflow:visible;margin-bottom:15px;">
 		<div class="w-popup-content-medium">
-			<div class="panel-box border-box" style="margin:0;">
-			<div zclass="row">
-				<div zclass="col-lg-6">
-					<div class="title-form">
-						<span>Tài liệu khác</span>
+			<div zclass="mg-and-bg-and-line-fix">
+				<div class="row">
+					<div zclass="col-md-12">
+						<div class="title-small-page">
+							<span>Tài liệu khác</span>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<button label="Chọn tài liệu" 
-						class="btn bg-btn-tailieu mg-btn-top right-mg flex" image="/assets/icon-bxtdn/tai-tai-lieu.png"
-						onUpload="@command('uploadFile',medias=event.medias)"
-						upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-					</button>
-				</div>
 			</div>
-			<div zclass="row mg-and-bg-and-line">
-				<label visible="@load(vm.giaiDoanDuAn.tepTins.size() eq 0)" class="text-no-empty">Chưa có tài liệu nào</label>
-				<div class="box-tep-tin" children="@bind(vm.giaiDoanDuAn.tepTins)">
-					<template name="children">
-						<div class="item-tep-tin">
-							<div class="box-type-file">
-								<label value="@load(each.typeFile)"></label>
+			<div children="@bind(vm.giaiDoanDuAn.tepTins)" style="padding:0 7.5px;">
+				<template name="children">
+					<div class="row">
+						<div class="col-md-4">
+							<div zclass="form-group">
+								<textbox class="form-control" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
 							</div>
-							<div class="box-ten-file">
-								<textbox value="@bind(each.tenFile)" width="500px" style="margin-top:0;"></textbox>
-							</div>
-							<div class="box-text-file">
-								<label value="@load(each.tenFile)"></label>
-							</div>
-							<div class="box-thao-tac" style="margin-right:15px;">
-								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
+						</div>
+						<div class="col-md-4">
+							<div class="flex mg-btn-top">
+								<x:button class="btn bg-btn-dongtailieu btn-grey rs-mg-left" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD1, name = 'taiLieuGD1')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
 							</div>
 						</div>
-					</template>
+					</div>
+				</template>
+			</div>
+			<div style="padding:0 7.5px">
+				<div class="row">
+					<div class="col-md-12">
+						<button label="Chọn tài liệu"
+							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
+							onUpload="@command('uploadFile', medias=event.medias)"
+							upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</window>
+	</window>

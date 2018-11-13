@@ -604,6 +604,7 @@ public class DuAn extends Model<DuAn> {
 					tepTin.setNameHash(tenFile);
 					tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 					tepTin.setMedia(media);
 					this.giaiDoanDuAn.getTepTins().add(tepTin);
