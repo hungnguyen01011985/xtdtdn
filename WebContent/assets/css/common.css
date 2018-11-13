@@ -2580,8 +2580,11 @@ the spark styles
 .rest-content-wd .z-window-content {
 	height: auto !important;
 	overflow: inherit !important;
+	
 }
-
+.rest-content-wd{
+	overflow: inherit !important;
+}
 .popup-vaitro {
 	max-width: 600px;
 }

@@ -58,14 +58,14 @@
 								<x:span class="issue-search">Tài liệu đính kèm<n:small class="required"> *</n:small></x:span>
 							</div>
 							<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)" label="Chọn tài liệu" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}"
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm.giaiDoanDuAn, name = 'taiLieuGD1', error = error)"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)">
 								<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.taiLieuGD1.tenFile)" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.taiLieuGD1)"/>
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD1, name = 'taiLieuGD1')">
-									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
 							</div>
 							<label zclass="error" value="@load(vmsgs['taiLieuGD1'])" id="error"/>
@@ -75,15 +75,15 @@
 			</div>
 			<include src="quanlyduan/view-list-don-vi.zul"></include>
 			<div zclass="form-group" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}">
-				<x:button class="btn bg-btn-tailieu btn-grey" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" onClick="@command('addNewDonVi', vm = vm)">
-					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi-don-vi.svg"/>
+				<x:button class="btn btn-them-moi-don-vi btn-grey" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" onClick="@command('addNewDonVi', vm = vm)">
+					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 					<span>Thêm đơn vị nhận CV</span>
 				</x:button>
 			</div>
 			<include src="quanlyduan/view-list-tep-tins.zul"></include>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="form-group left-mg flex">
-					<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('redirectQuanLyDuAn')">
+					<x:button class="btn bg-btn-dong btn-grey" onClick="@command('redirectQuanLyDuAn')">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 						<span>Đóng</span>
 					</x:button>

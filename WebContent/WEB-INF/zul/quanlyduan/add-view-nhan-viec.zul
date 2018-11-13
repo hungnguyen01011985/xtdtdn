@@ -111,7 +111,7 @@
 				<div class="row">
 					<div zclass="col-xs-6">
 						<div zclass="form-group">
-							<x:button  class="btn bg-btn-tailieu btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='*')">
+							<x:button class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='*')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 								<span>Đóng</span>
 							</x:button>

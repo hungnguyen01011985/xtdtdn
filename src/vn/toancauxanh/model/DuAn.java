@@ -634,6 +634,7 @@ public class DuAn extends Model<DuAn> {
 	@Command
 	public void swap() {
 		checkTab = !checkTab;
+		Clients.evalJavaScript("toggleTabThongTinDuAn()");
 		BindUtils.postNotifyChange(null, null, this, "checkTab");
 	}
 }
