@@ -52,6 +52,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoQuyHoachLQH , vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -70,6 +74,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -111,6 +119,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoQuyHoach2000 , vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoach2000')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm, name = 'hoSoQuyHoach2000')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -129,6 +141,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyet2000 , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyet2000')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm, name = 'quyetDinhPheDuyet2000')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -147,6 +163,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.nghiQuyetPheDuyetCongTrinh , vm = vm.giaiDoanDuAn, name = 'nghiQuyetPheDuyetCongTrinh')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.nghiQuyetPheDuyetCongTrinh, name = 'nghiQuyetPheDuyetCongTrinh')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -165,6 +185,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.baoCaoDoDacKhuDat , vm = vm.giaiDoanDuAn, name = 'baoCaoDoDacKhuDat')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.baoCaoDoDacKhuDat, name = 'baoCaoDoDacKhuDat')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -183,6 +207,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.pheDuyetKeHoachSuDungDat , vm = vm.giaiDoanDuAn, name = 'pheDuyetKeHoachSuDungDat')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.pheDuyetKeHoachSuDungDat, name = 'pheDuyetKeHoachSuDungDat')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -201,6 +229,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhThuHoiDat , vm = vm.giaiDoanDuAn, name = 'quyetDinhThuHoiDat')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhThuHoiDat, name = 'quyetDinhThuHoiDat')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -219,6 +251,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetDanhMuc , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetDanhMuc')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyetDanhMuc, name = 'quyetDinhPheDuyetDanhMuc')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -237,6 +273,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetBoSungKinhPhi , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetBoSungKinhPhi')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyetBoSungKinhPhi, name = 'quyetDinhPheDuyetBoSungKinhPhi')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -256,6 +296,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.phuongAnTaiDinhCu , vm = vm.giaiDoanDuAn, name = 'phuongAnTaiDinhCu')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.phuongAnTaiDinhCu, name = 'phuongAnTaiDinhCu')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -284,6 +328,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoMoiTuyen , vm = vm.giaiDoanDuAn, name = 'hoSoMoiTuyen')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm, name = 'hoSoMoiTuyen')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -303,6 +351,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyeHoSoMoiTuyen , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyeHoSoMoiTuyen')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyeHoSoMoiTuyen, name = 'quyetDinhPheDuyeHoSoMoiTuyen')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -322,6 +374,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetKetQuaTrungTuyen , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetKetQuaTrungTuyen')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyetKetQuaTrungTuyen, name = 'quyetDinhPheDuyetKetQuaTrungTuyen')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -350,6 +406,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.keHoachLuaChonNhaDauTu , vm = vm.giaiDoanDuAn, name = 'keHoachLuaChonNhaDauTu')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.keHoachLuaChonNhaDauTu, name = 'keHoachLuaChonNhaDauTu')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -369,6 +429,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoMoiThau , vm = vm.giaiDoanDuAn, name = 'hoSoMoiThau')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.hoSoMoiThau, name = 'hoSoMoiThau')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>
@@ -388,6 +452,10 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetMoiThau , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetMoiThau')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
+						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+							onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhPheDuyetMoiThau, name = 'quyetDinhPheDuyetMoiThau')"
+							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
 					</div>
 				</div>
 			</div>

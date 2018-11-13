@@ -60,9 +60,13 @@
 								</button>
 								<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.taiLieuGD3.tenFile)">
 									<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.taiLieuGD3.tenFile)"/>
-									<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanBa)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD2, name = 'taiLieuGD3')">
+									<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanBa)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD3, name = 'taiLieuGD3')">
 										<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 									</x:button>
+									<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+										onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuGD3', error = errTaiLieuGD3)"
+										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+									</button>
 								</div>
 								<label zclass="error" value="@load(vmsgs['taiLieuGD3'])" id="errTaiLieuGD3"/>
 							</div>
@@ -106,6 +110,10 @@
 									<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanBa)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.congVanGD3, name = 'congVanGD3')">
 										<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 									</x:button>
+									<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+										onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'congVanGD3', error = errCongVanGD3)"
+										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+									</button>
 								</div>
 								<label zclass="error" value="@load(vmsgs['congVanGD3'])" id="errCongVanGD3"/>
 							</div>
@@ -143,7 +151,7 @@
 						</x:button>
 					</div>
 					<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanBa)}">
-						<x:button onClick="@command('goBack', task = 'task_quayLaigiaiDoanBa')" class="btn btn-blue">
+						<x:button onClick="@command('goBack', task = 'task_quayLaiGiaiDoanMot')" class="btn btn-blue">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
 							<span>Quay lại giai đoạn một</span>
 						</x:button>
