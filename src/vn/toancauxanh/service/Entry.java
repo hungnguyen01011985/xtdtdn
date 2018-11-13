@@ -269,7 +269,13 @@ public class Entry extends BaseObject<Object> {
 
 	@RequestMapping(value = "/cp/quanlyduan/{id:\\d+}")
 	public String giaidoan(@PathVariable Long id) {
-		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/giaidoan.zul&id="
+		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/add-giai-doan.zul&id="
+				+ id;
+	}
+	
+	@RequestMapping(value = "/cp/quanlyduan/chitiet/{id:\\d+}")
+	public String xemChiTiet(@PathVariable Long id) {
+		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/view-giai-doan.zul&id="
 				+ id;
 	}
 

@@ -55,7 +55,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-tailieu primary btn-grey ">
+						<x:button class="btn bg-btn-dong btn-grey">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
 							<span>Tìm kiếm lại</span>
 						</x:button>
@@ -129,7 +129,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-tailieu btn-grey" onClick="@command('closePopup', wdn=wdn, vm = vm)">
+						<x:button class="btn bg-btn-dong btn-grey" onClick="@command('closePopup', wdn=wdn, vm = vm)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 							<span>Đóng</span>
 						</x:button>

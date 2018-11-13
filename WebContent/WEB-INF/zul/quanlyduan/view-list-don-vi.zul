@@ -19,12 +19,12 @@
 						<div class="mg-and-bg-and-line-panel">
 							<div class="row">
 								<div zclass="col-md-3">
-									<div zclass="form-group">
+									<div zclass="form-group title-small-textbox">
 										<div class="flex">
 											<x:span class="issue-search">Cấp đơn vị<n:small class="required"> *</n:small></x:span>
 										</div>
-										<combobox readonly="true" model="@load(each.listCapDonVi)" selectedItem="@bind(each.capDonVi) @save(each.capDonVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
-											value="@load(each.capDonVi.ten)" class="his" placeholder="Chọn cấp đơn vị" width="100%">
+										<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" readonly="true" model="@load(each.listCapDonVi)" selectedItem="@bind(each.capDonVi) @save(each.capDonVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+											value="@load(each.capDonVi.ten)" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }" placeholder="Chọn cấp đơn vị" width="100%">
 											<template name="model">
 												<comboitem label="@load(each.ten)"></comboitem>
 											</template>
@@ -37,8 +37,8 @@
 										<div class="flex">
 											<x:span class="issue-search">Đơn vị<n:small class="required"> *</n:small></x:span>
 										</div>
-										<combobox readonly="true" model="@load(each.listDonViXucTien)" selectedItem="@bind(each.donVi) @save(each.donVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" class="his"
-											placeholder="Chọn đơn vị xúc tiến" width="100%">
+										<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" readonly="true" model="@load(each.listDonViXucTien)" selectedItem="@bind(each.donVi) @save(each.donVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" 
+											placeholder="Chọn đơn vị xúc tiến" width="100%" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }">
 											<template name="model">
 												<comboitem label="@load(each.ten)"></comboitem>
 											</template>
@@ -62,7 +62,7 @@
 										<div class="flex">
 											<x:span class="issue-search">Ngày nhận<n:small class="required"> *</n:small></x:span>
 										</div>
-										<datebox format="dd/MM/yyyy" readonly="true" class="hv-db"
+										<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" class="hv-db ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }"
 											value="@bind(each.ngayNhanTraLoi) @save(each.ngayNhanTraLoi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
 										<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 									</div>
@@ -74,15 +74,15 @@
 											<div class="flex">
 												<x:span class="issue-search">Công văn đính kèm<n:small class="required"> *</n:small></x:span>
 											</div>
-											<button visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
-												class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+											<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
+												class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 												onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'congVanTraLoi', error = errorCongVanTraLoi)"
 												upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 											</button>
 											<div class="flex mg-btn-top" visible="@load(not empty each.congVanTraLoi.tenFile)">
 												<label class="txt-link-tailieu" value="@load(each.congVanTraLoi.tenFile)"/>
-												<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
-													<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+												<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
+													<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 												</x:button>
 											</div>
 											<label zclass="error" value="@load(vmsgs[idCongVanTraLoi])" id="errorCongVanTraLoi"/>
