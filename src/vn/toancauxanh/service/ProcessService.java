@@ -308,6 +308,7 @@ public class ProcessService extends BasicService<Object> {
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetPADG().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().getQuyetDinhDauGiaQSDD().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGiaKhoiDiem().saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLQH().saveNotShowNotification();
 		luuDuHoSoKhuDat(duAn.getGiaiDoanDuAn());
@@ -534,7 +535,7 @@ public class ProcessService extends BasicService<Object> {
 	
 	public void luuDuHoSoKhuDat(GiaiDoanDuAn giaiDoanDuAn) {
 		giaiDoanDuAn.getHoSoKhuDats().forEach(item -> {
-			item.getQuyetDinhDauGiaQSDD().saveNotShowNotification();
+			item.getTaiLieu().saveNotShowNotification();
 			item.setGiaiDoanDuAn(giaiDoanDuAn);
 			item.saveNotShowNotification();
 		});
