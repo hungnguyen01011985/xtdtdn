@@ -680,8 +680,16 @@ public class DuAn extends Model<DuAn> {
 	
 	@Command
 	public void deleteHoSoKhuDat(@BindingParam("obj") final HoSoKhuDat item, @BindingParam("vm") DuAn duAn){
-		duAn.getGiaiDoanDuAn().getHoSoKhuDats().remove(item);
-		duAn.getGiaiDoanDuAn().getListXoaHoSoKhuDat().add(item);
-		BindUtils.postNotifyChange(null, null, duAn , "*");
+		Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+				new EventListener<Event>() {
+			@Override
+			public void onEvent(final Event event) {
+				if (Messagebox.ON_OK.equals(event.getName())) {
+					duAn.getGiaiDoanDuAn().getHoSoKhuDats().remove(item);
+					duAn.getGiaiDoanDuAn().getListXoaHoSoKhuDat().add(item);
+					BindUtils.postNotifyChange(null, null, duAn , "*");
+				}
+			}
+		});
 	}
 }
