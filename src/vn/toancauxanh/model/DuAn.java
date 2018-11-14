@@ -32,6 +32,8 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
 import vn.toancauxanh.gg.model.enums.MucDoUuTien;

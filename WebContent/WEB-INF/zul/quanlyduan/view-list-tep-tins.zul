@@ -42,7 +42,7 @@
 			<div style="padding:0 7.5px">
 				<div class="row">
 					<div class="col-md-12">
-						<button if="${action}" label="Chọn tài liệu" class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
+						<button if="${action}" label="Thêm tài liệu" class="btn bg-btn-tailieu-green mg-btn-top" image="${contexPath}/assets/icon-bxtdn/them-moi.svg"
 							onUpload="@command('uploadFile', medias=event.medias)"
 							upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>

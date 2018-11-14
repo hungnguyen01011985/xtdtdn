@@ -132,7 +132,7 @@
 								</button>
 								<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
 									<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaoViec.taiLieu)" value="@bind(vm.giaoViec.taiLieu.tenFile)"/>
-									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
+									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.giaoViec.taiLieu, name = 'taiLieu')">
 										<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
 									</x:button>
 								</div>

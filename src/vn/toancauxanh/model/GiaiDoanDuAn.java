@@ -14,6 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.zkoss.bind.ValidationContext;
+import org.zkoss.bind.validator.AbstractValidator;
+
 import javax.persistence.JoinColumn;
 
 import com.querydsl.jpa.impl.JPAQuery;
@@ -845,5 +849,44 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	public void setTepTins(List<TepTin> tepTins) {
 		this.tepTins = tepTins;
+	}
+	
+	@Transient
+	public AbstractValidator getValidatorEmail() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(final ValidationContext ctx) {
+				String value = (String) ctx.getProperty().getValue();
+				String param = value.trim().replaceAll("\\s+", "");
+				if (param == null || "".equals(param) || param.isEmpty()) {
+					addInvalidMessage(ctx, "Không được để trống trường này");
+				} else if (!value.trim().matches(".+@.+\\.[a-z]+")) {
+					addInvalidMessage(ctx, "Email không đúng định dạng");
+				} else {
+					JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
+							.where(QGiaiDoanDuAn.giaiDoanDuAn.email.eq(value));
+					if (!GiaiDoanDuAn.this.noId()) {
+						q.where(QGiaiDoanDuAn.giaiDoanDuAn.id.ne(getId()));
+					}
+					if (q.fetchCount() > 0) {
+						addInvalidMessage(ctx, "Email đã được sử dụng");
+					}
+				}
+			}
+		};
+	}
+	
+	@Transient
+	public AbstractValidator getValidateSoDienThoai() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(final ValidationContext ctx) {
+				String value = (String) ctx.getProperty().getValue();
+				if (!value.isEmpty() && !value.trim()
+						.matches("^\\+?\\d{1,3}?[- .]?\\(?(?:\\d{2,3})\\)?[- .]?\\d\\d\\d[- .]?\\d\\d\\d\\d$")) {
+					addInvalidMessage(ctx, "Số điện thoại không đúng định dạng.");
+				}
+			}
+		};
 	}
 }
