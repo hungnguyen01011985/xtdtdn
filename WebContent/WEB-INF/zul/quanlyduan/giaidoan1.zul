@@ -34,9 +34,9 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<div class="flex">
-								<x:span class="issue-search">Ngày gửi<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Ngày gửi<n:small class="required"> *</n:small></x:span>
 							</div>
-							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayGui) @save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'}) @validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
+							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? 'datebox-txt-style' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayGui) @save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'}) @validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateStart'])" />
 						</div>
@@ -44,9 +44,9 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<div class="flex">
-								<x:span class="issue-search">Ngày dự kiến nhận phản hồi<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Ngày dự kiến nhận phản hồi<n:small class="required"> *</n:small></x:span>
 							</div>
-							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" disabled="@load(vm.giaiDoanDuAn.ngayGui eq null)" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi) @save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before={'goTask','goNext'}) @validator(vm.validator, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
+							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" disabled="@load(vm.giaiDoanDuAn.ngayGui eq null)" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? 'datebox-txt-style' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi) @save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before={'goTask','goNext'}) @validator(vm.validator, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>
@@ -55,7 +55,7 @@
 	    				@validator(vm.validatorTepTin, sms = 'taiLieuGD1', text = 'ngayDuKien', ngayDuKien = vm.giaiDoanDuAn.ngayNhanPhanHoi)">
 						<div zclass="form-group mg-top-8" viewModel="@id('taiLieuGD1') @init(vm.giaiDoanDuAn.taiLieuGD1)">
 							<div class="flex">
-								<x:span class="issue-search">Tài liệu đính kèm<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Tài liệu đính kèm<n:small class="required"> *</n:small></x:span>
 							</div>
 							<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)" label="Chọn tài liệu" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}"
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
@@ -63,11 +63,14 @@
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)">
+								<div class="box-img-tai-lieu">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
+								</div>
 								<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.taiLieuGD1.tenFile)" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.taiLieuGD1)"/>
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD1, name = 'taiLieuGD1')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaiDoanDuAn, name = 'taiLieuGD1', error = error)"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>

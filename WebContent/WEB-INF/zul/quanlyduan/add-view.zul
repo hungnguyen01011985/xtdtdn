@@ -131,10 +131,17 @@
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
 								<div class="flex mg-btn-top" visible="@load(not empty vm.giaoViec.taiLieu.tenFile)">
+									<div class="box-img-tai-lieu">
+										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
+									</div>
 									<label class="txt-link-tailieu" value="@bind(vm.giaoViec.taiLieu.tenFile)"/>
-									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
-										<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
+									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaoViec, ob = vm.giaoViec.taiLieu, name = 'taiLieu')">
+										<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 									</x:button>
+									<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+										onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
+										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+									</button>
 								</div>
 							</div>
 						</div>

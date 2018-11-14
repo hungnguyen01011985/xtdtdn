@@ -15,12 +15,13 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div zclass="form-group">
-								<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
+								<textbox class="form-control textbox-txt-style" disabled="${!action}" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div zclass="form-group mg-top-8">
 								<a href="" class="style-txt-file">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 									<label value="@load(each.tenFile)" class="txt-link-tai-lieu-fix"></label>
 								</a>
 							</div>
