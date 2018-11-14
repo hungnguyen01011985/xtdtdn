@@ -30,7 +30,7 @@
 						</button>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						<div class="flex mg-btn-top" visible="@load(not empty each.taiLieu.tenFile)">
-							<label class="txt-link-tailieu-khu-dat" value="@bind(each.taiLieu.tenFile)"/>
+							<label class="txt-link-tailieu-khu-dat pointer-cls" onClick="@command('downLoadTepTin', ob = each.taiLieu)" value="@bind(each.taiLieu.tenFile)"/>
 							<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.taiLieu , vm = each, name = 'taiLieu')">
 								<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 							</x:button>

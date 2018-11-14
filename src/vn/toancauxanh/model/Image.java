@@ -183,51 +183,6 @@ public class Image extends Model<Image> {
 		saveNotShowNotification();
 	}
 
-	public void saveFileImageDiTich() throws IOException {
-		if (media != null) {
-			final File baseDir = new File(folderStoreDiTich() + folderStoreFilesImage() + getNameFileHash());
-			Files.copy(baseDir, media.getStreamData());
-			ResizeHinhAnh.saveMediumAndSmall(folderStoreDiTich() + folderStoreFilesImage(), this);
-			setMedia(null);
-		}
-	}
-
-	public void saveFileImageLeHoi() throws IOException {
-		if (media != null) {
-			final File baseDir = new File(folderStoreLeHoi() + folderStoreFilesImage() + getNameFileHash());
-			Files.copy(baseDir, media.getStreamData());
-			ResizeHinhAnh.saveMediumAndSmall(folderStoreLeHoi() + folderStoreFilesImage(), this);
-			setMedia(null);
-		}
-	}
-
-	public void saveFileImageDiSan() throws IOException {
-		if (media != null) {
-			final File baseDir = new File(folderStoreDiSan() + folderStoreFilesImage() + getNameFileHash());
-			Files.copy(baseDir, media.getStreamData());
-			ResizeHinhAnh.saveMediumAndSmall(folderStoreDiSan() + folderStoreFilesImage(), this);
-			setMedia(null);
-		}
-	}
-
-	@Command
-	public void saveImageDiTich() throws IOException {
-		saveFileImageDiTich();
-		saveNotShowNotification();
-	}
-
-	@Command
-	public void saveImageLeHoi() throws IOException {
-		saveFileImageLeHoi();
-		saveNotShowNotification();
-	}
-
-	@Command
-	public void saveImageDiSan() throws IOException {
-		saveFileImageDiSan();
-		saveNotShowNotification();
-	}
-
 	@Transient
 	public boolean isCheckRemove() {
 		return checkRemove;

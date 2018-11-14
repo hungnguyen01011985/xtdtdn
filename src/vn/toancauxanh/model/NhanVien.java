@@ -503,7 +503,7 @@ public class NhanVien extends Model<NhanVien> {
 	protected void saveImage() throws IOException {
 		Image imageContent = getAvatarImage();
 		if (imageContent != null) {
-			final File baseDir = new File(this.folderStore().concat(getPathAvatar()));
+			final File baseDir = new File(this.folderStoreImage().concat(getPathAvatar()));
 			Files.copy(baseDir, imageContent.getStreamData());
 			setAvatarImage(null);
 		}

@@ -49,7 +49,7 @@
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.vanBanDeNghiBoSung.tenFile)">
-						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.vanBanDeNghiBoSung.tenFile)"/>
+						<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.vanBanDeNghiBoSung)" value="@bind(vm.giaiDoanDuAn.vanBanDeNghiBoSung.tenFile)"/>
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.vanBanDeNghiBoSung , vm = vm.giaiDoanDuAn, name = 'vanBanDeNghiBoSung')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
@@ -70,7 +70,7 @@
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhBoSungDanhMuc.tenFile)">
-						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.quyetDinhBoSungDanhMuc.tenFile)"/>
+						<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.quyetDinhBoSungDanhMuc)" value="@bind(vm.giaiDoanDuAn.quyetDinhBoSungDanhMuc.tenFile)"/>
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhBoSungDanhMuc , vm = vm.giaiDoanDuAn, name = 'quyetDinhBoSungDanhMuc')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
@@ -115,7 +115,7 @@
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)">
-						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)"/>
+						<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.hoSoQuyHoachLQH)" value="@bind(vm.giaiDoanDuAn.hoSoQuyHoachLQH.tenFile)"/>
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoQuyHoachLQH , vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
@@ -138,7 +138,7 @@
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)">
-						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)"/>
+						<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH)" value="@bind(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)"/>
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
@@ -170,7 +170,7 @@
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.phuongAnDauGia.tenFile)">
-						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.phuongAnDauGia.tenFile)"/>
+						<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.phuongAnDauGia)" value="@bind(vm.giaiDoanDuAn.phuongAnDauGia.tenFile)"/>
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.phuongAnDauGia , vm = vm.giaiDoanDuAn, name = 'phuongAnDauGia')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
@@ -191,7 +191,7 @@
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhPheDuyetPADG.tenFile)">
-						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.quyetDinhPheDuyetPADG.tenFile)"/>
+						<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetPADG)" value="@bind(vm.giaiDoanDuAn.quyetDinhPheDuyetPADG.tenFile)"/>
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetPADG , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetPADG')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
@@ -236,7 +236,7 @@
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhDauGiaQSDD.tenFile)">
-						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.quyetDinhDauGiaQSDD.tenFile)"/>
+						<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.quyetDinhDauGiaQSDD)" value="@bind(vm.giaiDoanDuAn.quyetDinhDauGiaQSDD.tenFile)"/>
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhDauGiaQSDD , vm = vm.giaiDoanDuAn, name = 'quyetDinhDauGiaQSDD')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
@@ -273,7 +273,7 @@
 					</button>
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem.tenFile)">
-						<label class="txt-link-tailieu" value="@bind(vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem.tenFile)"/>
+						<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem)" value="@bind(vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem.tenFile)"/>
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetGiaKhoiDiem')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>

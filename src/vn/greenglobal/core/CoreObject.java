@@ -403,12 +403,17 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 
 	public String folderStoreFiles() {
 		final String result = ctx().getEnvironment().getProperty("filestore.root")
-				+ ctx().getEnvironment().getProperty("filestore.folder") + File.separator;
+				+ ctx().getEnvironment().getProperty("filestore.folder") + ctx().getEnvironment().getProperty("filestore.files");
 		return result.replace('/', File.separatorChar);
 	}
 
-	public String folderStore() { // ForderStore sẽ dẫn đến cái thư mục up load
-		final String result = folderStoreFiles() + getClass().getSimpleName().toLowerCase() + File.separator;
+	public String folderStoreTaiLieu() { // ForderStore sẽ dẫn đến cái thư mục up load
+		final String result = folderStoreFiles() + ctx().getEnvironment().getProperty("filestore.folderteptin");
+		return result.replace('/', File.separatorChar);
+	}
+	
+	public String folderStoreImage() { // ForderStore sẽ dẫn đến cái thư mục up load
+		final String result = folderStoreFiles() + ctx().getEnvironment().getProperty("filestore.folderimage");
 		return result.replace('/', File.separatorChar);
 	}
 
@@ -419,49 +424,6 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 
 	public String folderStoreFilesLink() {
 		final String result = ctx().getEnvironment().getProperty("filestore.link");
-		return result.replace('/', File.separatorChar);
-	}
-
-	public String folderStoreFilesTaiLieu() {
-		final String result = ctx().getEnvironment().getProperty("filestore.folertailieu");
-		return result.replace('/', File.separatorChar);
-	}
-
-	public String folderStoreFilesDiTich() {
-		final String result = ctx().getEnvironment().getProperty("filestore.ditich");
-		return result.replace('/', File.separatorChar);
-	}
-
-	public String folderStoreFilesLeHoi() {
-		final String result = ctx().getEnvironment().getProperty("filestore.lehoi");
-		return result.replace('/', File.separatorChar);
-	}
-
-	public String folderStoreFilesDiSan() {
-		final String result = ctx().getEnvironment().getProperty("filestore.disan");
-		return result.replace('/', File.separatorChar);
-	}
-
-	public String folderStoreDiTich() { // ForderStore sẽ dẫn đến cái thư mục up
-										// load
-		final String result = folderStoreFiles() + folderStoreFilesDiTich() + File.separator;
-		return result.replace('/', File.separatorChar);
-	}
-
-	public String folderStoreLeHoi() { // ForderStore sẽ dẫn đến cái thư mục up
-										// load
-		final String result = folderStoreFiles() + folderStoreFilesLeHoi() + File.separator;
-		return result.replace('/', File.separatorChar);
-	}
-
-	public String folderStoreDiSan() { // ForderStore sẽ dẫn đến cái thư mục up
-										// load
-		final String result = folderStoreFiles() + folderStoreFilesDiSan() + File.separator;
-		return result.replace('/', File.separatorChar);
-	}
-	
-	public String folderStoreThamSo() { // ForderStore sẽ dẫn đến cái thư mục up load
-		final String result = ctx().getEnvironment().getProperty("filestore.thamso");
 		return result.replace('/', File.separatorChar);
 	}
 

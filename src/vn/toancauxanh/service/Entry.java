@@ -2,6 +2,7 @@
 package vn.toancauxanh.service;
 
 import java.io.File;
+
 import javax.sql.DataSource;
 
 import org.camunda.bpm.engine.ProcessEngine;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -26,13 +26,11 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zhtml.Object;
+
 import vn.toancauxanh.cms.service.HomeService;
 import vn.toancauxanh.cms.service.LanguageService;
 import vn.toancauxanh.cms.service.PhongBanService;
-import vn.toancauxanh.cms.service.ThamSoService;
 import vn.toancauxanh.gg.model.QuocGia;
-import vn.toancauxanh.model.NhanVien;
-import vn.toancauxanh.model.ThanhVienDoan;
 import vn.toancauxanh.model.VaiTro;
 
 @SuppressWarnings({ "unused" })
@@ -332,14 +330,6 @@ public class Entry extends BaseObject<Object> {
 		return getNhanVien().getTatCaQuyen();
 	}
 
-	public final ThamSoService getThamSos() {
-		return new ThamSoService();
-	}
-
-	public final VideoService getVideos() {
-		return new VideoService();
-	}
-
 	public final ThucTrangDitichService getThucTrangDitichs() {
 		return new ThucTrangDitichService();
 	}
@@ -358,10 +348,6 @@ public class Entry extends BaseObject<Object> {
 
 	public final HomeService getHomes() {
 		return new HomeService();
-	}
-
-	public final GopYPhanMemService getGopYPhanMem() {
-		return new GopYPhanMemService();
 	}
 
 	public final LanguageService getLanguages() {

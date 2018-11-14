@@ -210,7 +210,7 @@ public class DoanVao extends Model<DoanVao> {
 				tepTin.setNameHash(tenFile);
 				tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
-				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesLeHoi() + folderStoreFilesTepTin());
+				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				tepTin.setMedia(media);
 				setTaiLieu(tepTin);
 				setCheckTaiLieu(true);
