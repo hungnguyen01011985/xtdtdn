@@ -13,16 +13,16 @@
 				<div zclass="col-md-4" style="margin-top: 8px;">
 					<div zclass="form-group">
 						<div class="flex">
-							<x:span class="issue-search">Tên hồ sơ số ${forEachStatus.index + 1}</x:span>
+							<x:span class="label-txt-style">Tên hồ sơ số ${forEachStatus.index + 1}</x:span>
 						</div>
-						<textbox class="form-control" disabled="${!action}" placeholder="Nhập tên hồ sơ" value="@bind(each.tenHoSoKhuDat)"
+						<textbox class="form-control textbox-txt-style" disabled="${!action}" placeholder="Nhập tên hồ sơ" value="@bind(each.tenHoSoKhuDat)"
 							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				<div zclass="col-md-8" style="display:flex;justify-content: space-between;">
 					<div zclass="form-group mg-top-8" viewModel="@id('taiLieu') @init(each.taiLieu)">
-						<x:span class="issue-search">Tài liệu đính kèm</x:span>
+						<x:span class="label-txt-style">Tài liệu đính kèm</x:span>
 						<button if="${action}" visible="@load(empty each.taiLieu.tenFile)" label="Chọn tài liệu" 
 							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 							onUpload="@command('uploadFile', medias=event.getMedia(),vm = each, name = 'taiLieu')"
@@ -31,9 +31,13 @@
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						<div class="flex mg-btn-top" visible="@load(not empty each.taiLieu.tenFile)">
 							<label class="txt-link-tailieu-khu-dat pointer-cls" onClick="@command('downLoadTepTin', ob = each.taiLieu)" value="@bind(each.taiLieu.tenFile)"/>
-							<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.taiLieu , vm = each, name = 'taiLieu')">
+							<x:button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.taiLieu , vm = each, name = 'taiLieu')">
 								<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 							</x:button>
+							<button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien)}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								onUpload="@command('uploadFile', medias=event.getMedia(),vm = each, name = 'taiLieu')"
+								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+							</button>
 						</div>
 					</div>
 					<div zclass="form-group mg-top-8 flex-style-btn-fix">

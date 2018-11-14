@@ -110,7 +110,11 @@
 	background: #30B350;
 	border: 1px solid #30B350;
 }
-
+.box-img-tai-lieu{
+	height:36px;
+	display:flex;
+	align-items:center;
+}
 .btn-gray{
 	background: #23A76E;
 	border: 1px solid #23A76E;
@@ -300,10 +304,42 @@
 	line-height: 18px;
 }
 
-.btn {
-	
+.label-txt-style {
+	font-family: Roboto-Regular;
+	font-size: 13px;
+	color: #292A2D;
+	line-height: 18px;
+}
+.textbox-txt-style{
+	font-family: Roboto-Medium;
+	font-size: 13px;
+	color: #292A2D;
+	text-align: left;
+}
+.datebox-txt-style .z-datebox-input{
+	font-family: Roboto-Medium;
+	font-size: 13px;
+	color: #292A2D;
+	text-align: left;
+	background: #FFF;
+}
+::placeholder {
+    font-family: Roboto-Regular;
+	font-size: 13px;
+	color: #9C9FA7;
 }
 
+:-ms-input-placeholder {
+    font-family: Roboto-Regular;
+	font-size: 13px;
+	color: #9C9FA7;
+}
+
+::-ms-input-placeholder {
+    font-family: Roboto-Regular;
+	font-size: 13px;
+	color: #9C9FA7;
+}
 .mg-btn {
 	margin-left: 15px;
 }
