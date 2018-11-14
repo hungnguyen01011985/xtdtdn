@@ -103,7 +103,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin giayChungNhanDauTu;
 	private TepTin giayChungNhanDangKyDoanhNghiep;
 	private TepTin giayChungNhanQuyenSuDungDat;
-	private TepTin taiLieuDinhKem;
 	private Date ngayThongBaoOld;
 	private boolean kiemTraThongBao = true;
 	private List<TepTin> tepTins = new ArrayList<TepTin>();
@@ -132,15 +131,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	public void setGiayChungNhanQuyenSuDungDat(TepTin giayChungNhanQuyenSuDungDat) {
 		this.giayChungNhanQuyenSuDungDat = giayChungNhanQuyenSuDungDat;
-	}
-
-	@ManyToOne
-	public TepTin getTaiLieuDinhKem() {
-		return taiLieuDinhKem;
-	}
-
-	public void setTaiLieuDinhKem(TepTin taiLieuDinhKem) {
-		this.taiLieuDinhKem = taiLieuDinhKem;
 	}
 
 	public String getTenCongTy() {

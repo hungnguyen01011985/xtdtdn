@@ -10,7 +10,7 @@
 		    action = arg.get("action");
 			String id = execution.getParameter("id");
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
-			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(),vm.getGiaiDoanXucTien());
+			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), vm.getGiaiDoanXucTien());
 			vm.setGiaiDoanDuAn(item);
 			if (vm.getTaiLieuNDT() == null){
 				vm.setTaiLieuNDT(new vn.toancauxanh.model.TepTin());
@@ -55,8 +55,8 @@
 					<div class="row">
 						<div zclass="col-md-12">
 							<div zclass="form-group">
-								<x:span class="issue-search">Tên dự án</x:span>
-								<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(vm.tenDuAn)" placeholder="Nhập tên dự án"/>
+								<x:span class="label-txt-style">Tên dự án</x:span>
+								<textbox class="form-control textbox-txt-style" disabled="${!action}" maxlength="255" value="@bind(vm.tenDuAn)" placeholder="Nhập tên dự án"/>
 							</div>
 						</div>
 					</div>
@@ -65,19 +65,19 @@
 						<div class="row">
 							<div zclass="col-md-3">
 								<div zclass="form-group">
-									<x:span class="issue-search">Người phụ trách</x:span> 
-									<textbox class="form-control" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)"/>
+									<x:span class="label-txt-style">Người phụ trách</x:span> 
+									<textbox class="form-control textbox-txt-style" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)"/>
 								</div>
 							</div>
 							<div zclass="col-md-3">
 								<div zclass="form-group">
-									<x:span class="issue-search">Ngày bắt đầu xúc tiến</x:span>
+									<x:span class="label-txt-style">Ngày bắt đầu xúc tiến</x:span>
 									<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
 								</div>
 							</div>
 							<div zclass="col-md-3">
 								<div zclass="form-group">
-									<x:span class="issue-search">Lĩnh vực</x:span>
+									<x:span class="label-txt-style">Lĩnh vực</x:span>
 									<combobox buttonVisible="${action}" disabled="${!action}" readonly="true" model="@load(entry.linhVucs.targetQuery.fetch())" selectedItem="@bind(vm.linhVuc)" class="his ${action ? '' : 'input-no-button' }" placeholder="Chọn loại lĩnh vực" width="100%">
 										<template name="model">
 											<comboitem label="@load(each.ten)" />
@@ -87,22 +87,22 @@
 							</div>
 							<div zclass="col-md-3">
 								<div zclass="form-group">
-									<x:span class="issue-search">Địa điểm</x:span>
-									<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(vm.diaDiem)" placeholder="Nhập địa điểm"></textbox>
+									<x:span class="label-txt-style">Địa điểm</x:span>
+									<textbox class="form-control textbox-txt-style" disabled="${!action}" maxlength="255" value="@bind(vm.diaDiem)" placeholder="Nhập địa điểm"></textbox>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div zclass="col-md-3">
 								<div zclass="form-group">
-									<x:span class="issue-search">Quy mô dự án</x:span>
-									<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(vm.quyMoDuAn)" placeholder="Nhập quy mô dự án"></textbox>
+									<x:span class="label-txt-style">Quy mô dự án</x:span>
+									<textbox class="form-control textbox-txt-style" disabled="${!action}" maxlength="255" value="@bind(vm.quyMoDuAn)" placeholder="Nhập quy mô dự án"></textbox>
 								</div>
 							</div>
 							<div zclass="col-md-3">
 								<div zclass="form-group">
-									<x:span class="issue-search">Tổng vốn đầu tư(USD)</x:span>
-									<decimalbox format="$#,##0" disabled="${!action}" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goTask', 'goNext'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư')" />
+									<x:span class="label-txt-style">Tổng vốn đầu tư(USD)</x:span>
+									<decimalbox format="$#,##0" disabled="${!action}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8" width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goTask', 'goNext'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư')" />
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 								</div>
 							</div>
@@ -110,16 +110,16 @@
 						<div class="row">
 							<div zclass="col-md-12">
 								<div zclass="form-group">
-									<x:span class="issue-search">Mục tiêu dự án</x:span>
-									<textbox class="form-control" disabled="${!action}" rows="3" placeholder="Nhập mục tiêu dự án" value="@bind(vm.mucTieuDuAn)"></textbox>
+									<x:span class="label-txt-style">Mục tiêu dự án</x:span>
+									<textbox class="form-control textbox-txt-style" disabled="${!action}" rows="3" placeholder="Nhập mục tiêu dự án" value="@bind(vm.mucTieuDuAn)"></textbox>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div zclass="col-md-3">
 								<div zclass="form-group">
-									<x:span class="issue-search">Diện tích sử dụng đất(ha)</x:span>
-									<decimalbox format="#,##0 ha" disabled="${!action}" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goTask','goNext'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất')" />
+									<x:span class="label-txt-style">Diện tích sử dụng đất(ha)</x:span>
+									<decimalbox format="#,##0 ha" disabled="${!action}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8" width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goTask','goNext'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất')" />
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 								</div>
 							</div>
@@ -127,7 +127,7 @@
 						<div class="row">
 							<div zclass="col-md-3">
 								<div zclass="form-group">
-									<x:span class="issue-search">Mức độ ưu tiên</x:span>
+									<x:span class="label-txt-style">Mức độ ưu tiên</x:span>
 									<combobox buttonVisible="${action}" disabled="${!action}" readonly="true" model="@load(vm.listMucDoUuTien)" selectedItem="@bind(vm.mucDoUuTien)"
 										class="his ${action ? '' : 'input-no-button' }" placeholder="Chọn mức độ ưu tiên" width="100%">
 										<template name="model">
@@ -138,7 +138,7 @@
 							</div>
 							<div zclass="col-md-3">
 								<div zclass="form-group">
-									<x:span class="issue-search">Khả năng đầu tư</x:span>
+									<x:span class="label-txt-style">Khả năng đầu tư</x:span>
 									<combobox buttonVisible="${action}" disabled="${!action}" readonly="true" model="@load(vm.listKhaNangDauTu)" selectedItem="@bind(vm.khaNangDauTu)"
 										 class="his ${action ? '' : 'input-no-button' }" placeholder="Chọn khả năng đầu tư" width="100%">
 										<template name="model">
@@ -149,7 +149,7 @@
 							</div>
 							<div class="col-md-3">
 								<div zclass="form-group" viewModel="@id('taiLieuNDT')@init(vm.taiLieuNDT)">
-									<x:span class="issue-search">Văn bản đề nghị của NĐT</x:span>
+									<x:span class="label-txt-style">Văn bản đề nghị của NĐT</x:span>
 									<button if="${action}" visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
 										class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 										onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'taiLieuNDT')"
@@ -157,6 +157,9 @@
 									</button>
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 									<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuNDT.tenFile)">
+										<div class="box-img-tai-lieu">
+											<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
+										</div>
 										<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuNDT)" value="@bind(vm.taiLieuNDT.tenFile)"/>
 										<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.taiLieuNDT, name = 'taiLieuNDT')">
 											<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
