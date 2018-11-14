@@ -23,7 +23,7 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Tên công việc</span> 
-							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)"></textbox>
+							<textbox class="form-control" onOK="@command('cmd', notify=duAn, attr='targetQueryByIdDuAn')" value="@bind(vm.arg.tuKhoa)" ></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
