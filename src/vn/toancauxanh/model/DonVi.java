@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,7 +26,7 @@ import vn.toancauxanh.gg.model.enums.LoaiDonVi;
 public class DonVi extends Model<DonVi> {
 
 	private String ten = "";
-//	@Lob
+	@Lob
 	private String moTa = "";
 	private LoaiDonVi loaiDonVi;
 
