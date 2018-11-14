@@ -81,10 +81,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
 			<div zclass="col-md-4">
-				<div zclass="form-group" viewModel="@id('quyetDinhPheDuyetLQH') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH)">
+				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhPheDuyetLQH') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH)">
 					<x:span class="label-txt-style">Quyết định phê duyệt</x:span>
 					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
@@ -230,7 +228,7 @@
 					<div class="flex">
 						<x:span class="label-txt-style">Giá khởi điểm đấu giá(USD)<n:small class="required"> *</n:small></x:span>
 					</div> 
-					<decimalbox format="$#,##0" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon)}" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia) @save(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia, before='goNext') @validator(vm.validatorVonDauTu, text = 'Giá khởi điểm đấu giá', type = true)" />
+					<decimalbox format="#,##0" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon)}" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia) @save(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia, before='goNext') @validator(vm.validatorVonDauTu, text = 'Giá khởi điểm đấu giá', type = true)" />
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
