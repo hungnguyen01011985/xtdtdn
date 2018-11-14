@@ -21,7 +21,7 @@
 						<div class="col-md-3">
 							<div zclass="form-group mg-top-8">
 								<a href="" class="style-txt-file">
-									<label value="@load(each.tenFile)" class="txt-link-tai-lieu-fix"></label>
+									<label value="@load(each.tenFile)" onClick="@command('downLoadTepTin', ob = each)" class="txt-link-tai-lieu-fix"></label>
 								</a>
 							</div>
 						</div>

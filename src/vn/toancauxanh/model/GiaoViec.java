@@ -1,8 +1,11 @@
 package vn.toancauxanh.model;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,6 +18,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -199,7 +203,7 @@ public class GiaoViec extends Model<GiaoViec> {
 	
 	@Command
 	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final Object object,
-			@BindingParam("name") final String name) {
+			@BindingParam("name") final String name) throws IOException {
 		Media media = (Media) medias;
 		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
 				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
@@ -219,6 +223,7 @@ public class GiaoViec extends Model<GiaoViec> {
 				taiLieuKetQua.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				taiLieuKetQua.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				taiLieuKetQua.setMedia(media);
+				taiLieuKetQua.saveFileTepTin();
 				BindUtils.postNotifyChange(null, null, object, name);
 	
 			}
@@ -299,6 +304,25 @@ public class GiaoViec extends Model<GiaoViec> {
 							}
 						}
 					});
+		}
+	}
+	
+	@Command
+	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
+		if (!object.getPathFile().isEmpty()) {
+			final String path = folderStoreTaiLieu() + object.getNameHash();
+			System.out.println("path: " + path);
+			if (new java.io.File(path).exists()) {
+				try {
+					System.out.println("file:///" + path);
+					Filedownload.save(new URL("file:///" + path)
+							.openStream(), null, object.getTenFile().concat(object.getTypeFile()));
+				} catch (IOException e) {
+					showNotification("Không tìm thấy file", "Thông báo", "danger");
+				}
+			} else {
+				showNotification("Không tìm thấy file", "Thông báo", "danger");
+			}
 		}
 	}
 	

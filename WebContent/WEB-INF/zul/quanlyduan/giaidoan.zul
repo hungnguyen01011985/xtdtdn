@@ -155,7 +155,7 @@
 									</button>
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 									<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuNDT.tenFile)">
-										<label class="txt-link-tailieu" value="@bind(vm.taiLieuNDT.tenFile)"/>
+										<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuNDT)" value="@bind(vm.taiLieuNDT.tenFile)"/>
 										<x:button if="${action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.taiLieuNDT, name = 'taiLieuNDT')">
 											<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 										</x:button>

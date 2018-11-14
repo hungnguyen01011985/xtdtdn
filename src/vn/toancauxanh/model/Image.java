@@ -170,6 +170,7 @@ public class Image extends Model<Image> {
 	public void saveFileImage() throws Exception {
 		if (media != null) {
 			final File baseDir = new File(folderStoreFilesHome() + getImageUrl() + getNameFileHash());
+			System.out.println("baseDir: " + folderStoreFilesHome() + getImageUrl() + getNameFileHash());
 			Files.copy(baseDir, media.getStreamData());
 			ConvertImageFile.convertImageFromPngToJpg(folderStoreFilesHome() + getImageUrl(), getNameFileHash());
 			ResizeHinhAnh.saveMediumAndSmall(folderStoreFilesHome() + getImageUrl(), this);
@@ -180,51 +181,6 @@ public class Image extends Model<Image> {
 	@Command
 	public void saveImage() throws Exception {
 		saveFileImage();
-		saveNotShowNotification();
-	}
-
-	public void saveFileImageDiTich() throws IOException {
-		if (media != null) {
-			final File baseDir = new File(folderStoreDiTich() + folderStoreFilesImage() + getNameFileHash());
-			Files.copy(baseDir, media.getStreamData());
-			ResizeHinhAnh.saveMediumAndSmall(folderStoreDiTich() + folderStoreFilesImage(), this);
-			setMedia(null);
-		}
-	}
-
-	public void saveFileImageLeHoi() throws IOException {
-		if (media != null) {
-			final File baseDir = new File(folderStoreLeHoi() + folderStoreFilesImage() + getNameFileHash());
-			Files.copy(baseDir, media.getStreamData());
-			ResizeHinhAnh.saveMediumAndSmall(folderStoreLeHoi() + folderStoreFilesImage(), this);
-			setMedia(null);
-		}
-	}
-
-	public void saveFileImageDiSan() throws IOException {
-		if (media != null) {
-			final File baseDir = new File(folderStoreDiSan() + folderStoreFilesImage() + getNameFileHash());
-			Files.copy(baseDir, media.getStreamData());
-			ResizeHinhAnh.saveMediumAndSmall(folderStoreDiSan() + folderStoreFilesImage(), this);
-			setMedia(null);
-		}
-	}
-
-	@Command
-	public void saveImageDiTich() throws IOException {
-		saveFileImageDiTich();
-		saveNotShowNotification();
-	}
-
-	@Command
-	public void saveImageLeHoi() throws IOException {
-		saveFileImageLeHoi();
-		saveNotShowNotification();
-	}
-
-	@Command
-	public void saveImageDiSan() throws IOException {
-		saveFileImageDiSan();
 		saveNotShowNotification();
 	}
 

@@ -88,7 +88,7 @@ public class TepTin extends Model<TepTin> {
 
 	public void saveFileTepTin() throws IOException {
 		if (media != null) {
-			final File baseDir = new File((folderStoreFilesHome() + getPathFile()).concat(getNameHash()));
+			final File baseDir = new File(folderStoreTaiLieu() + getNameHash());
 			Files.copy(baseDir, media.getStreamData());
 			setMedia(null);
 			BindUtils.postNotifyChange(null, null, this, "media");
@@ -117,10 +117,10 @@ public class TepTin extends Model<TepTin> {
 	@Command
 	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
 		if (!object.getPathFile().isEmpty()) {
-			final String path = folderRoot() + object.getPathFile();
+			final String path = folderStoreTaiLieu() + object.getNameHash();
 			if (new java.io.File(path).exists()) {
 				try {
-					Filedownload.save(new URL("file://" + folderRoot() + object.getPathFile() + object.getNameHash())
+					Filedownload.save(new URL("file:///" + path)
 							.openStream(), null, object.getTenFile().concat(object.getTypeFile()));
 				} catch (IOException e) {
 					showNotification("Không tìm thấy file", "Thông báo", "danger");
@@ -133,7 +133,7 @@ public class TepTin extends Model<TepTin> {
 
 	@Command
 	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final Object object,
-			@BindingParam("name") final String name, @BindingParam("error") Label error) {
+			@BindingParam("name") final String name, @BindingParam("error") Label error) throws IOException {
 		Media media = (Media) medias;
 		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
 				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
@@ -153,6 +153,7 @@ public class TepTin extends Model<TepTin> {
 				if (error != null) {
 					error.setValue("");
 				}
+				saveFileTepTin();
 				BindUtils.postNotifyChange(null, null, this, "*");
 				BindUtils.postNotifyChange(null, null, object, name);
 			}

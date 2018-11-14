@@ -1,6 +1,8 @@
 package vn.toancauxanh.model;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,6 +28,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -613,11 +616,35 @@ public class DuAn extends Model<DuAn> {
 					tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 					tepTin.setMedia(media);
 					this.giaiDoanDuAn.getTepTins().add(tepTin);
+					this.giaiDoanDuAn.getTepTins().forEach(obj -> {
+						try {
+							obj.saveFileTepTin();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					});
 					BindUtils.postNotifyChange(null, null, this.giaiDoanDuAn, "tepTins");
 				}
 			} else {
 				showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
 						"Có tệp không đúng định dạng", "danger");
+			}
+		}
+	}
+	
+	@Command
+	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
+		if (!object.getPathFile().isEmpty()) {
+			final String path = folderStoreTaiLieu() + object.getNameHash();
+			if (new java.io.File(path).exists()) {
+				try {
+					Filedownload.save(new URL("file:///" + path)
+							.openStream(), null, object.getTenFile().concat(object.getTypeFile()));
+				} catch (IOException e) {
+					showNotification("Không tìm thấy file", "Thông báo", "danger");
+				}
+			} else {
+				showNotification("Không tìm thấy file", "Thông báo", "danger");
 			}
 		}
 	}
