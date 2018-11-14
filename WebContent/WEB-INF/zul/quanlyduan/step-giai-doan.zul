@@ -48,7 +48,7 @@
 								<x:image src="${contexPath}${vm.getCssPlan(giaiDoanNam, 'imageOrNumber', true)}"/>
 							</div>
 							<div id="titleGiaiDoan5" class="plan-title ${vm.getCssPlan(giaiDoanNam, 'cssTitle', false)}">
-								<span>Nhà đầu tư</span>
+								<span>Chủ đầu tư</span>
 							</div>
 						</div>
 					</div>

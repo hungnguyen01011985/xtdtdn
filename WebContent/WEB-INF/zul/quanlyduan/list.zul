@@ -80,7 +80,7 @@
 					</div>
 					<div zclass="col-md-4">
 						<div zclass="form-group">
-							<span>Thời gian xúc tiến từ ngày</span>
+							<span>Ngày BĐ Xúc tiến: Từ ngày</span>
 							<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>

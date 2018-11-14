@@ -124,7 +124,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div zclass="form-group" viewModel="@id('fileGiaoViec') @init(vm.giaoViec.taiLieu)">
-								<x:span class="label-txt-style">Quyết định phê duyệt</x:span> 
+								<x:span class="label-txt-style">VB đề nghị</x:span> 
 								<button visible="@load(empty vm.giaoViec.taiLieu.tenFile)" label="Chọn tài liệu" 
 									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 									onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaoViec, name = 'taiLieu')"
@@ -161,7 +161,7 @@
 							<template name="children">
 								<x:button onClick="@command('doActionWithKey', flow=each, processDefinitionKey='quanLyDuAn', list=vmArgs, attr='targetQuery')" 
 									class="btn btn-blue mg-btn">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 									<span>${each.getProperty('name')}</span>
 								</x:button>
 							</template>
