@@ -218,6 +218,10 @@
 	margin-right: 5px;
 }
 
+.bg-btn-tailieu-green img {
+	margin-right: 5px;
+}
+
 .plan-number-active {
 	width: 40px;
 	height: 40px;
@@ -422,6 +426,31 @@
 	color:#FFF;
 	border-radius: 3px !important;
 }
+
+.bg-btn-tailieu-green {
+	font-family: Roboto-Regular !important;
+	font-size: 13px;
+	color: #5C6376;
+	display: flex;
+	height: 36px;
+	justify-content: center;
+	align-items: center;
+	background: #30B350;
+	border: 1px solid #30B350;
+	color:#FFF;
+	border-radius: 3px !important;
+}
+
+.bg-btn-tailieu-green:hover{
+	background:#30B350 !important;
+	border: 1px solid #30B350 !important;
+}
+
+.bg-btn-tailieu-green:focus{
+	background: #30B350 !important;
+	border: 1px solid #30B350 !important;
+}
+
 .z-button:hover {
 	background:#4274ED;
 	color:#FFF;
@@ -515,6 +544,14 @@
 }
 
 .bg-btn-tailieu span {
+	font-family: Roboto-Bold !important;
+	font-size: 13px;
+	color: #5C6376;
+	line-height: 18px;
+	cursor: pointer !important;
+}
+
+.bg-btn-tailieu-green span {
 	font-family: Roboto-Bold !important;
 	font-size: 13px;
 	color: #5C6376;

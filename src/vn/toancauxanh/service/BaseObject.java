@@ -264,6 +264,19 @@ public class BaseObject<T> extends CoreObject<T> {
 		args.put("readOnly", readOnly);
 		Executions.createComponents(zul, null, args);
 	}
+	
+	@Command
+	public void redirectPageActionGiaoViec(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
+			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom,
+			@BindingParam("readOnly") boolean readOnly, @BindingParam("title") String title) {
+		Map<String, Object> args = new HashMap<>();
+		args.put("vmArgs", vmArgs);
+		args.put("vm", vm);
+		args.put("nhom", nhom);
+		args.put("readOnly", readOnly);
+		args.put("title", title);
+		Executions.createComponents(zul, null, args);
+	}
 
 	@SuppressWarnings("deprecation")
 	protected CellStyle setBorderAndFont(final Workbook workbook, final int borderSize, final boolean isTitle,
