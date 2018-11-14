@@ -15,7 +15,7 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div zclass="form-group">
-								<textbox class="form-control" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
+								<textbox class="form-control" disabled="${!action}" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -27,11 +27,10 @@
 						</div>
 						<div class="col-md-4">
 							<div class="flex mg-btn-top">
-								<x:button class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
+								<x:button if="${action}" class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button
-									class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('reUploadFile', medias=event.media, index = forEachStatus.index)"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
@@ -43,8 +42,7 @@
 			<div style="padding:0 7.5px">
 				<div class="row">
 					<div class="col-md-12">
-						<button label="Chọn tài liệu"
-							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
+						<button if="${action}" label="Chọn tài liệu" class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 							onUpload="@command('uploadFile', medias=event.medias)"
 							upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>

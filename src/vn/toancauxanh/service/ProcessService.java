@@ -168,25 +168,19 @@ public class ProcessService extends BasicService<Object> {
 	public void thongBao(DuAn duAn, LoaiThongBao loaiThongBao, NhanVien nguoiNhan, NhanVien nguoiGui, String tenCongViec) {
 		ThongBao thongBao = new ThongBao();
 		if (LoaiThongBao.TRE_CONG_VIEC.equals(loaiThongBao)) {
-			if (nguoiGui != null) {
-				thongBao.setNguoiGui(nguoiGui);
-			}
 			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanXucTien())) {
-				thongBao.setNoiDung("Công văn đề nghị giới thiệu địa điểm đã đến hạn nhận phản hồi của dự án" + duAn.getTenDuAn());
+				thongBao.setNoiDung("Công văn đề nghị giới thiệu địa điểm đã đến hạn nhận phản hồi của dự án @" + duAn.getTenDuAn());
 			}
 			if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(duAn.getGiaiDoanXucTien())) {
-				thongBao.setNoiDung("Công văn xin chủ trương đã đến hạn nhận phản hồi của dự án" + duAn.getTenDuAn());
+				thongBao.setNoiDung("Công văn xin chủ trương đã đến hạn nhận phản hồi của dự án @" + duAn.getTenDuAn());
 			}
-			thongBao.setNguoiNhan(nguoiNhan);
-			
 		}
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
-			thongBao.setNguoiNhan(nguoiNhan);
+			thongBao.setNoiDung(" có công việc mới @"+tenCongViec+"@ của dự án @"+duAn.getTenDuAn());
+		}
+		thongBao.setNguoiNhan(nguoiNhan);
+		if (nguoiGui != null) {
 			thongBao.setNguoiGui(nguoiGui);
-			thongBao.setNoiDung("<x:span class='text-bold-notify'>" + nguoiNhan.getHoVaTen()
-					+ " </x:span> <x:span class='text-regular-notify'>có công việc mới </x:span><x:span class='text-bold-notify'>"
-					+ tenCongViec
-					+ " </x:span><x:span class='text-regular-notify'>của dự án</x:span> " + duAn.getTenDuAn());
 		}
 		thongBao.setIdObject(duAn.getId());
 		thongBao.setLoaiThongBao(loaiThongBao);

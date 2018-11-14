@@ -5,7 +5,7 @@
 			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), giaiDoanBon);
 			vm.setGiaiDoanDuAn(item);
 			list = new vn.toancauxanh.service.HoSoKhuDatService().getListHoSoKhuDatById(item.getId());
-		    if (list != null){
+			if (list != null){
 		    	vm.getGiaiDoanDuAn().getHoSoKhuDats().addAll(list);
 		    }
 			if (vm.getGiaiDoanDuAn().isOption()){
@@ -13,7 +13,6 @@
 				vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
 				vm.getGiaiDoanDuAn().setOption(false);
 			}
-			
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
 		]]>
 	</zscript>
@@ -54,7 +53,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.vanBanDeNghiBoSung , vm = vm.giaiDoanDuAn, name = 'vanBanDeNghiBoSung')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'vanBanDeNghiBoSung')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -75,7 +74,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhBoSungDanhMuc , vm = vm.giaiDoanDuAn, name = 'quyetDinhBoSungDanhMuc')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhBoSungDanhMuc')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -98,7 +97,7 @@
 					<div class="flex">
 						<x:span class="issue-search">Đơn vị tư vấn<n:small class="required"> *</n:small></x:span>
 					</div>
-					<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+					<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" disabled="${!action}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.ten)"></comboitem>
 						</template>
@@ -120,7 +119,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.hoSoQuyHoachLQH , vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'hoSoQuyHoachLQH')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -143,7 +142,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetLQH , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetLQH')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -175,7 +174,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.phuongAnDauGia , vm = vm.giaiDoanDuAn, name = 'phuongAnDauGia')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'phuongAnDauGia')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -196,7 +195,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetPADG , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetPADG')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetPADG')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -214,6 +213,18 @@
 			</div>
 		</div>
 		<include src="quanlyduan/view-list-ho-so-khu-dat.zul"></include>
+		<div class="row">
+			<div zclass="col-md-12">
+				<div zclass="form-group">
+					<div>
+						<x:button class="btn btn-base btn-green" onClick="@command('addNewHoSoKhuDat', vm = vm)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm hồ sơ</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div zclass="col-md-12">
 				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhDauGiaQSDD') @init(vm.giaiDoanDuAn.quyetDinhDauGiaQSDD)">
@@ -248,7 +259,7 @@
 					<div class="flex">
 						<x:span class="issue-search">Giá khởi điểm đấu giá(USD)<n:small class="required"> *</n:small></x:span>
 					</div>  
-					<decimalbox format="$#,##0" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia) @save(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia, before='goNext') @validator(vm.validatorVonDauTu, text = 'Giá khởi điểm đấu giá', type = true)" />
+					<decimalbox format="$#,##0" disabled="${!action}" locale="it" style="text-align: right; margin-top: 8px;" class="form-control" width="100%" value="@bind(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia) @save(vm.giaiDoanDuAn.giaDatKhoiDiemDauGia, before='goNext') @validator(vm.validatorVonDauTu, text = 'Giá khởi điểm đấu giá', type = true)" />
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
@@ -266,7 +277,7 @@
 						<x:button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.quyetDinhPheDuyetGiaKhoiDiem , vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetGiaKhoiDiem')">
 							<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 						</x:button>
-						<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+						<button if="${action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 							onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'quyetDinhPheDuyetGiaKhoiDiem')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
@@ -289,7 +300,7 @@
 					<div class="flex">
 						<x:span class="issue-search">Đơn vị thực hiện<n:small class="required"> *</n:small></x:span>
 					</div>
-					<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViThucHien) @save(vm.giaiDoanDuAn.donViThucHien, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+					<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" disabled="${!action}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViThucHien) @save(vm.giaiDoanDuAn.donViThucHien, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.ten)"></comboitem>
 						</template>
@@ -299,4 +310,5 @@
 			</div>
 		</div>	
 	</div>
+	<include src="quanlyduan/view-list-tep-tins.zul"></include>
 </window>
