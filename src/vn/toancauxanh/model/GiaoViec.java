@@ -311,10 +311,8 @@ public class GiaoViec extends Model<GiaoViec> {
 	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
 		if (!object.getPathFile().isEmpty()) {
 			final String path = folderStoreTaiLieu() + object.getNameHash();
-			System.out.println("path: " + path);
 			if (new java.io.File(path).exists()) {
 				try {
-					System.out.println("file:///" + path);
 					Filedownload.save(new URL("file:///" + path)
 							.openStream(), null, object.getTenFile().concat(object.getTypeFile()));
 				} catch (IOException e) {
