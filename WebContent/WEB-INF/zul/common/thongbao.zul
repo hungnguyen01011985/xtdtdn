@@ -58,6 +58,7 @@
 							</x:li>
 						</template>
 					</div>
+					<n:a target="_blank" href="${ctxPath}/cp/thongbao">aaaaaaaaa</n:a>
 				</n:ul>
 			</n:li>
 		</n:ul>
