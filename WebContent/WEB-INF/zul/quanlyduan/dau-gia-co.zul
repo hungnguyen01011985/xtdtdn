@@ -177,10 +177,10 @@
 			</div>
 		</div>
 		<include src="quanlyduan/view-list-ho-so-khu-dat.zul"></include>
-		<div class="row">
+		<div class="row" if="${action and vm.checkDangOGiaiDoan(giaiDoanBon)}">
 			<div zclass="col-md-12">
 				<div zclass="form-group">
-					<div>
+					<div >
 						<x:button class="btn btn-base btn-green" onClick="@command('addNewHoSoKhuDat', vm = vm)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm hồ sơ</span>
