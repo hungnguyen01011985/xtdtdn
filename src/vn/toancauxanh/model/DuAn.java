@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -44,7 +45,7 @@ public class DuAn extends Model<DuAn> {
 	private String diaDiem;
 	private String quyMoDuAn;
 	private String idNguoiLienQuan = "";
-	//@Lob
+	@Lob
 	private String mucTieuDuAn;
 	private Double tongVonDauTu = 0.0;
 	private Double dienTichSuDungDat = 0.0;
