@@ -902,3 +902,7 @@
 .pointer-cls{
 	cursor: pointer;
 }
+
+.bg-color-blue span{
+	color: #428bca !important;
+}
