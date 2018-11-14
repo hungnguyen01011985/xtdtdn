@@ -11,16 +11,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.imgscalr.Scalr;
-
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-import vn.toancauxanh.model.Setting;
-import vn.toancauxanh.model.Video;
+import org.imgscalr.Scalr;
 
 import com.mysema.commons.lang.Pair;
+
+import vn.toancauxanh.model.Setting;
 
 public class ResizeHinhAnh {
 
@@ -68,25 +67,6 @@ public class ResizeHinhAnh {
 			ImageIO.write(resizeImagePng3, extension, outFile3);
 
 			String outFileStr4 = strFolderStore + "v_" + image.getNameFileHash();
-			File outFile4 = new File(outFileStr4);
-			int type4 = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-			BufferedImage resizeImagePng4 = resizeImage(originalImage, type4, list_size.get(3).getFirst(),
-					list_size.get(3).getSecond());
-			ImageIO.write(resizeImagePng4, extension, outFile4);
-		}
-	}
-	
-	public static void saveMediumAndSmallVideo(String strFolderStore, Video video) throws IOException {
-		String fileUrl = strFolderStore + video.getPathAvatar();
-		File file = new File(fileUrl);
-		if (file.exists()) {
-			// BufferedImage originalImage = ImageIO.read(file);
-			BufferedImage originalImage = readImage(file);
-
-			List<Pair<Integer, Integer>> list_size = getHeightSmallAndMedium();
-			String extension = video.getPathAvatar().substring(video.getPathAvatar().lastIndexOf(".") + 1);
-			
-			String outFileStr4 = strFolderStore + "v_" + video.getPathAvatar();
 			File outFile4 = new File(outFileStr4);
 			int type4 = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
 			BufferedImage resizeImagePng4 = resizeImage(originalImage, type4, list_size.get(3).getFirst(),

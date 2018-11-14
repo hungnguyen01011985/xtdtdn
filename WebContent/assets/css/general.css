@@ -862,3 +862,6 @@
     padding-right: 15px !important;
     margin-left: 10px;
 }
+.pointer-cls{
+	cursor: pointer;
+}
