@@ -170,7 +170,6 @@ public class Image extends Model<Image> {
 	public void saveFileImage() throws Exception {
 		if (media != null) {
 			final File baseDir = new File(folderStoreFilesHome() + getImageUrl() + getNameFileHash());
-			System.out.println("baseDir: " + folderStoreFilesHome() + getImageUrl() + getNameFileHash());
 			Files.copy(baseDir, media.getStreamData());
 			ConvertImageFile.convertImageFromPngToJpg(folderStoreFilesHome() + getImageUrl(), getNameFileHash());
 			ResizeHinhAnh.saveMediumAndSmall(folderStoreFilesHome() + getImageUrl(), this);
