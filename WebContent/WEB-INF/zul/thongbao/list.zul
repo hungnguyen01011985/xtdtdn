@@ -4,14 +4,21 @@
 	 class="form-list">
 	<zscript>
 		<![CDATA[
-			page.title = "Quản trị hệ thống";
+			page.title = "Quản lý thông báo";
 			congViec = vn.toancauxanh.gg.model.enums.LoaiThongBao.CONG_VIEC_MOI;
 			treCongVan = vn.toancauxanh.gg.model.enums.LoaiThongBao.TRE_CONG_VIEC;
 		]]>
 	</zscript>
 	<div> 
-		<include src="/WEB-INF/zul/common/panel.zul"></include>
-		
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Thông báo
+					</n:span>
+				</div>
+			</div>
+		</div>
 		<div class="panel-box border-box">
 			<div zclass="row mg-top-no-line">	
 				<div zclass="col-md-4">
