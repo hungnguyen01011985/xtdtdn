@@ -39,7 +39,7 @@
 								<x:image src="${contexPath}${vm.getCssPlan(giaiDoanBon, 'imageOrNumber', true)}"/>
 							</div>
 							<div id="titleGiaiDoan4" class="plan-title ${vm.getCssPlan(giaiDoanBon, 'cssTitle', false)}">
-								<span>Lựa chọn nhà đầu tư</span>
+								<span>Lựa chọn NĐT</span>
 							</div>
 						</div>
 						<div class="plan-item">
@@ -48,7 +48,7 @@
 								<x:image src="${contexPath}${vm.getCssPlan(giaiDoanNam, 'imageOrNumber', true)}"/>
 							</div>
 							<div id="titleGiaiDoan5" class="plan-title ${vm.getCssPlan(giaiDoanNam, 'cssTitle', false)}">
-								<span>Nhà đầu tư</span>
+								<span>Chủ đầu tư</span>
 							</div>
 						</div>
 					</div>
