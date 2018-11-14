@@ -1,6 +1,10 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <zk xmlns:n="native" xmlns:zk="zk" xmlns:x="xhtml" xmlns:u="zul" xmlns:w="client" >
 	<div viewModel="@id('vm') @init('vn.toancauxanh.service.ThongBaoService')">
+		<zscript>
+			congViec = vn.toancauxanh.gg.model.enums.LoaiThongBao.CONG_VIEC_MOI;
+			treCongVan = vn.toancauxanh.gg.model.enums.LoaiThongBao.TRE_CONG_VIEC;
+		</zscript>
 		<n:ul class="box-bell" style="list-style:none;">
 			<n:li class="box-relative dropdown">
 				<n:div onclick="toggleBell()">
@@ -9,12 +13,10 @@
 						<x:span>${vm.sizeNewNotify}</x:span>
 					</div>
 				</n:div>
-			
 				<n:ul class="dropdown-menu box-dropdown-bg" style="left:auto !important; right: -20px;">
 					<x:li class="container-notify" if="${vm.targetQuery.fetch().size() == 0}">
 						<x:span class="notify-nothing">Bạn không có thông báo</x:span>
 					</x:li>
-					
 					<div zk:children="@load(vm.page(vm.targetQuery).fetch())">
 						<template name="children">
 							<x:li class="container-notify ${each.daXem ? '' : 'bg-new-notify'}" zk:onClick="@command('viewNotify', item = each)">
@@ -23,9 +25,31 @@
 								</div>
 								<div class="content-notify">
 									<div class="box-content-notify">
-										<html>
-											${each.noiDung}
-										</html>
+										<div if="${treCongVan == each.loaiThongBao}">
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 0)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 1)}
+											</x:span>
+										</div>
+										<div if="${congViec == each.loaiThongBao}">
+											<x:span class="text-bold-notify">
+												${each.nguoiNhan.hoVaTen}
+											</x:span>
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 0)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 1)}
+											</x:span>
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 2)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 3)}
+											</x:span>
+										</div>
 									</div>
 									<div class="box-content-notify">
 										<x:span class="text-date-notify">${each.ngayTao}</x:span>

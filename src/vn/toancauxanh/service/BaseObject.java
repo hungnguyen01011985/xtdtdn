@@ -314,6 +314,17 @@ public class BaseObject<T> extends CoreObject<T> {
 		return list;
 	}
 
+	public String subStringThongBao(String text, int index) {
+		int i = 0;
+		for (String w : text.split("@", 0)) {
+			if (index == i ) {
+				return w;
+			}
+			i++;
+		}
+		return null;
+	}
+	
 	public void removeIdInList(GiaoViec giaoViec) {
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.eq(giaoViec.getDuAn()));
 		DuAn duAn = q.fetchOne();
