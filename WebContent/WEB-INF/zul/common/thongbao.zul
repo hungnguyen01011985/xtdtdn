@@ -59,7 +59,7 @@
 						</template>
 					</div>
 				</n:ul>
-				<div class="loadmore none-display" visible="@load(vm.targetQuery.fetchCount() > 10)">
+				<div class="loadmore none-display" if="${vm.targetQuery.fetchCount() > 10}">
 					<x:a target="_blank" class="link-thong-bao" href="${ctxPath}/cp/thongbao">Xem tất cả</x:a>
 				</div>
 			</n:li>
