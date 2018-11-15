@@ -85,8 +85,7 @@ public class ThongBao extends Model<ThongBao>{
 		return "DANG_LAM";
 	}
 	
-	public void saveAndRedirect(){
-		doSave();
+	public void redirect(){
 		String urlView = "";
 		urlView = urlView.concat("/cp/quanlyduan/" + this.idObject);
 		Executions.getCurrent().sendRedirect(urlView, "_blank");
@@ -96,9 +95,10 @@ public class ThongBao extends Model<ThongBao>{
 	public void viewNotify(@BindingParam("vm") Object vm, @BindingParam("attr") String attr) {
 		if (!this.daXem) {
 			this.setDaXem(true);
+			this.saveNotShowNotification();
+			BindUtils.postNotifyChange(null, null, vm, attr);
 		}
-		this.saveAndRedirect();
-		BindUtils.postNotifyChange(null, null, vm, attr);
+		this.redirect();
 	}
 
 }
