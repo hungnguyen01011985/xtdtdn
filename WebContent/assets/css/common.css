@@ -571,9 +571,11 @@ html, body {
 	color:#333;
 }     
 .z-paging-noborder {
-	font-size: 19px;
+	font-size: 24px;
     color: #3A3C41;
     font-weight: 500;
+    padding-top: 3px;
+    padding-bottom: 7px;
 }
 .z-paging-noborder:hover {
 	border: 1px solid #D3D9E2;
