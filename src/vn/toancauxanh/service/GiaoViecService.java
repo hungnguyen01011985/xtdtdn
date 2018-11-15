@@ -43,6 +43,16 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		return q;
 	}
 	
+	public JPAQuery<GiaoViec> getTargetQueryByIdDuAnNotHoanThanh() {
+		Long idDuAn = MapUtils.getLongValue(argDeco(), "idDuAn");
+		JPAQuery<GiaoViec> q = find(GiaoViec.class)
+				.where(QGiaoViec.giaoViec.duAn.id.eq(idDuAn));
+		q.where(QGiaoViec.giaoViec.trangThaiGiaoViec.ne(TrangThaiGiaoViec.HOAN_THANH));
+		q.orderBy(QGiaoViec.giaoViec.ngaySua.desc());
+		q.setHint("org.hibernate.cacheable", false);
+		return q;
+	}
+	
 	@Command
 	public void closePopup(@BindingParam("wdn") final Window wdn, @BindingParam("vm") Object vm) {
 		wdn.detach();
