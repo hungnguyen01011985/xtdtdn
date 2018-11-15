@@ -13,7 +13,7 @@
 		<div class="panel-box">
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<listbox id="listbox" multiple="true" checkmark="true" model="@load(vm.page(vm.targetQueryByIdDuAn).fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
+					<listbox id="listbox" multiple="true" checkmark="true" model="@load(vm.page(vm.targetQueryByIdDuAnNotHoanThanh).fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
 						<listhead>
 							<listheader label="" width="50px"></listheader>
 							<listheader label="STT"></listheader>
