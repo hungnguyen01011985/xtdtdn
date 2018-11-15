@@ -326,6 +326,16 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return list;
 	}
+	
+	public Date resetHourMinuteSecondMilli(Date date) {
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE,0);
+		calendar.set(Calendar.SECOND,0);
+		calendar.set(Calendar.MILLISECOND,0);
+		return calendar.getTime();
+	}
 
 	public String subStringThongBao(String text, int index) {
 		int i = 0;

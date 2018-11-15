@@ -124,6 +124,9 @@
 							</row>
 						</template>
 					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQueryByIdDuAn.fetchCount())" mold="os"
+						visible="@load(vm.targetQueryByIdDuAn.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQueryByIdDuAn')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">

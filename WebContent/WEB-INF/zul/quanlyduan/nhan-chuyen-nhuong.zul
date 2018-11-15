@@ -7,8 +7,6 @@
 			if (vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT() == null || !vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG.equals(vm.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())){
 				vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
 			} else {
-				vn.toancauxanh.model.GiaiDoanDuAn giaiDoan = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), vm.getGiaiDoanXucTien());
-				vm.setGiaiDoanDuAn(giaiDoan);
 				if (!vm.getGiaiDoanDuAn().isOption()){
 					vm.setGiaiDoanDuAn(new vn.toancauxanh.model.GiaiDoanDuAn());
 				}
