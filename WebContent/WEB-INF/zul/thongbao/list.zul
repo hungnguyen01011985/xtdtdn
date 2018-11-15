@@ -83,7 +83,7 @@
 							<row viewModel="@id('item') @init(each)">
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
 								<div if="${treCongVan == each.loaiThongBao}">
-									<x:a target="_blank" zk:onClick="@command('viewNotify', item = each, vm = vm, attr = 'targetQuery')" class="link-title pointer-cls">
+									<x:a target="_blank" zk:onClick="@command('viewNotify', href = '/cp/quanlyduan/', item = each, vm = vm, attr = 'targetQuery')" class="link-title pointer-cls">
 										<x:span class="text-regular-notify ${!each.daXem ? 'bg-color-blue' : ''}">
 											${vm.subStringThongBao(each.noiDung, 0)}
 										</x:span>
@@ -93,7 +93,7 @@
 									</x:a>
 								</div>
 								<div if="${congViec == each.loaiThongBao}">
-									<x:a target="_blank" zk:onClick="@command('viewNotify', item = each, vm = vm, attr = 'targetQuery')" class="link-title pointer-cls">
+									<x:a target="_blank" zk:onClick="@command('viewNotify', href = '/cp/quanlyduan/', item = each, vm = vm, attr = 'targetQuery')" class="link-title pointer-cls">
 										<x:span class="text-bold-notify ${!each.daXem ? 'bg-color-blue' : ''}">
 											${each.nguoiNhan.hoVaTen}
 										</x:span>

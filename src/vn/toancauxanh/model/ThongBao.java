@@ -86,20 +86,21 @@ public class ThongBao extends Model<ThongBao> {
 		return "DANG_LAM";
 	}
 
-	public void redirect() {
+	public void redirect(String href) {
 		String urlView = "";
-		urlView = urlView.concat("/cp/quanlyduan/" + this.idObject);
+		urlView = urlView.concat(href + this.idObject);
 		Executions.getCurrent().sendRedirect(urlView, "_blank");
 	}
 
 	@Command
-	public void viewNotify(@BindingParam("vm") Object vm, @BindingParam("attr") String attr) {
+	public void viewNotify(@BindingParam("vm") Object vm, @BindingParam("attr") String attr,
+			@BindingParam("href") String href) {
 		if (!this.daXem) {
 			this.setDaXem(true);
 			this.saveNotShowNotification();
 			BindUtils.postNotifyChange(null, null, vm, attr);
 		}
-		this.redirect();
+		this.redirect(href);
 	}
 
 }
