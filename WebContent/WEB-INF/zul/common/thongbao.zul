@@ -14,7 +14,7 @@
 					</div>
 				</n:div>
 				<n:ul class="dropdown-menu box-dropdown-bg" style="left:auto !important; right: -20px;">
-					<x:li class="container-notify" if="${vm.targetQuery.fetch().size() == 0}">
+					<x:li class="container-notify" if="${vm.targetQuery.fetchCount() == 0}">
 						<x:span class="notify-nothing">Bạn không có thông báo</x:span>
 					</x:li>
 					<div zk:children="@load(vm.page(vm.targetQuery).fetch())">
@@ -58,8 +58,10 @@
 							</x:li>
 						</template>
 					</div>
-					<n:a target="_blank" href="${ctxPath}/cp/thongbao">aaaaaaaaa</n:a>
 				</n:ul>
+				<div class="loadmore none-display" if="${vm.targetQuery.fetchCount() > 10}">
+					<x:a target="_blank" class="link-thong-bao" href="${ctxPath}/cp/thongbao">Xem tất cả</x:a>
+				</div>
 			</n:li>
 		</n:ul>
 	</div>

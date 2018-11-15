@@ -899,10 +899,31 @@
     padding-right: 15px !important;
     margin-left: 10px;
 }
-.pointer-cls{
+.pointer-cls {
 	cursor: pointer;
 }
 
-.bg-color-blue span{
+.bg-color-blue span {
 	color: #428bca !important;
+}
+.loadmore {
+	top: 530px;
+    display: flex;
+    position: fixed;
+    width: 300px;
+    height: 30px;
+    background: #fff;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #dddfe2;
+    right: 109px;
+    left: auto !important;
+    z-index: 100000;
+}
+.none-display {
+	display: none;
+}
+
+.link-thong-bao:hover {
+	text-decoration: underline;
 }
