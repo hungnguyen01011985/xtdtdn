@@ -547,13 +547,16 @@ html, body {
 	
 }
 .z-paging-button.z-paging-selected {
+	margin: 0;
+    width: auto;
+    height: auto;
 	font-family: Roboto-Medium;
 	font-size: 13px;
 	color: #FFFFFF;
-	letter-spacing: 0;
 	line-height: 18px;
 	background: #2569D4;
-	border-radius: 2px;
+	border-radius: 2px 0 0 2px;
+	border-top: 2px solid #2569D4;
 }
 .z-paging-button {
 	margin: 0;
@@ -571,9 +574,11 @@ html, body {
 	color:#333;
 }     
 .z-paging-noborder {
-	font-size: 19px;
+	font-size: 24px;
     color: #3A3C41;
     font-weight: 500;
+    padding-top: 3px;
+    padding-bottom: 7px;
 }
 .z-paging-noborder:hover {
 	border: 1px solid #D3D9E2;
