@@ -1,28 +1,67 @@
 package vn.toancauxanh.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections.MapUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
+import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.model.QThongBao;
 import vn.toancauxanh.model.ThongBao;
 
-public class ThongBaoService extends BasicService<ThongBao>{
+public class ThongBaoService extends BasicService<ThongBao> {
 	public JPAQuery<ThongBao> getTargetQuery() {
-		JPAQuery<ThongBao> q = find(ThongBao.class)
-				.where(QThongBao.thongBao.nguoiNhan.eq(core().getNhanVien()))
+		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
+		String loaiThongBao = MapUtils.getString(argDeco(), "loaiThongBao", "");
+		String trangThai = MapUtils.getString(argDeco(), "trangThai", "").trim();
+		JPAQuery<ThongBao> q = find(ThongBao.class).where(QThongBao.thongBao.nguoiNhan.eq(core().getNhanVien()))
 				.orderBy(QThongBao.thongBao.ngayTao.desc());
+		if (param != null && !param.isEmpty() && !"".equals(param)) {
+			String tuKhoa = "%" + param + "%";
+			q.where(QThongBao.thongBao.noiDung.like(tuKhoa));
+		}
+
+		if (loaiThongBao != null && !loaiThongBao.isEmpty()) {
+			q.where(QThongBao.thongBao.loaiThongBao.eq(LoaiThongBao.valueOf(loaiThongBao)));
+		}
+
+		if ("true".equals(trangThai)) {
+			q.where(QThongBao.thongBao.daXem.eq(true));
+		} else if ("false".equals(trangThai)) {
+			q.where(QThongBao.thongBao.daXem.eq(false));
+		}
 		return q;
 	}
-	
+
 	public Long getSizeNewNotify() {
 		return getTargetQuery().where(QThongBao.thongBao.daXem.eq(false)).fetchCount();
 	}
 
 	@Command
-	public void viewNotify(@BindingParam("item")ThongBao thongBao) {
+	public void viewNotify(@BindingParam("item") ThongBao thongBao) {
 		thongBao.setDaXem(true);
 		thongBao.saveAndRedirect();
+	}
+
+	public List<LoaiThongBao> getListThongBaoAndNull() {
+		List<LoaiThongBao> list = new ArrayList<LoaiThongBao>();
+		list.add(null);
+		list.add(LoaiThongBao.CONG_VIEC_MOI);
+		list.add(LoaiThongBao.TRE_CONG_VIEC);
+		return list;
+	}
+
+	public Map<String, String> getTrangThaiThongBao() {
+		HashMap<String, String> result = new HashMap<>();
+		result.put(null, "      ");
+		result.put("false", "Chưa xem");
+		result.put("true", "Đã xem");
+		return result;
 	}
 }

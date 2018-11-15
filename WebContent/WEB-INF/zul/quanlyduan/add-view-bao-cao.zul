@@ -97,7 +97,7 @@
 				<div class="row" visible="@load(not empty vm.taiLieu.tenFile)">
 					<div class="col-md-12">
 						<div zclass="form-group">
-							<x:span class="issue-search">Tài liệu đính kèm</x:span>
+							<x:span class="issue-search">File đính kèm</x:span>
 							<div class="flex mg-btn-top" >
 								<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieu)" value="@bind(vm.taiLieu.tenFile)"/>
 							</div>

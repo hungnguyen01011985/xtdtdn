@@ -60,10 +60,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div zclass="col-md-12">
-				<div zclass="form-group" viewModel="@id('quyetDinhPheDuyetLQH') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH)">
+			<div zclass="col-md-4">
+				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhPheDuyetLQH') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH)">
 					<x:span class="label-txt-style">Quyết định phê duyệt</x:span>
 					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
@@ -133,9 +131,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div zclass="col-md-12">
+			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhPheDuyet2000') @init(vm.giaiDoanDuAn.quyetDinhPheDuyet2000)">
 					<x:span class="label-txt-style">Quyết định phê duyệt</x:span>
 					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyet2000.tenFile)" label="Chọn tài liệu" 

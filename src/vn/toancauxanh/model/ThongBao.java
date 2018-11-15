@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.zk.ui.Executions;
 
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
@@ -73,11 +75,25 @@ public class ThongBao extends Model<ThongBao>{
 		this.loaiThongBao = loaiThongBao;
 	}
 	
+	@Transient
+	public String getClassColor(){
+		if (this.daXem) {
+			return "CHUA_LAM";
+		}
+		return "DANG_LAM";
+	}
+	
 	public void saveAndRedirect(){
 		doSave();
 		String urlView = "";
 		urlView = urlView.concat("/cp/quanlyduan/" + this.idObject);
 		Executions.getCurrent().sendRedirect(urlView);
+	}
+	
+	@Command
+	public void viewNotify() {
+		this.setDaXem(true);
+		this.saveAndRedirect();
 	}
 
 }

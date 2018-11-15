@@ -61,9 +61,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div zclass="col-md-12">
+			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8" viewModel="@id('quyetDinhPheDuyetLQH') @init(vm.giaiDoanDuAn.quyetDinhPheDuyetLQH)">
 					<x:span class="label-txt-style">Quyết định phê duyệt quy hoạch</x:span>
 					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.quyetDinhPheDuyetLQH.tenFile)" label="Chọn tài liệu" 
@@ -89,7 +87,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div zclass="col-md-12">
+			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8" viewModel="@id('vanBanChuyenMucDichSDD') @init(vm.giaiDoanDuAn.vanBanChuyenMucDichSDD)">
 					<x:span class="label-txt-style">Văn bản cho phép chuyển mục đích sử dụng đất</x:span>
 					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.vanBanChuyenMucDichSDD.tenFile)" label="Chọn tài liệu" 
@@ -113,9 +111,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div zclass="col-md-12">
+			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8" viewModel="@id('vanBanDeNghiThuHoiDat') @init(vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat)">
 					<x:span class="label-txt-style">Văn bản đề nghị thu hồi đất</x:span>
 					<button if="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" visible="@load(empty vm.giaiDoanDuAn.vanBanDeNghiThuHoiDat.tenFile)" label="Chọn tài liệu" 

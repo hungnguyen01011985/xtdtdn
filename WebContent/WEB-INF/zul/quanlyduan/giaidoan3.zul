@@ -29,7 +29,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<div class="flex">
-								<x:span class="label-txt-style">Ngày gửi UBND<n:small class="required"> *</n:small></x:span>
+								<x:span class="issue-search">Ngày gửi<n:small class="required"> *</n:small></x:span>
 							</div>
 							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBa)}" format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBa) ? 'datebox-txt-style' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayGuiUBND) @save(vm.giaiDoanDuAn.ngayGuiUBND, before={'goTask','goNext'}) @validator(vm.validatorNgay, endDate = vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi, firstText = 'Ngày gửi', secondText = 'Ngày dự kiến nhận phản hồi', type = true)"
 								width="100%" placeholder="Chọn ngày"/>
@@ -81,7 +81,7 @@
 				<div class="row">
 					<div zclass="col-md-12">
 						<div class="title-small-page" style="margin-bottom:0;">
-							<span>Ý kiến của UBND thành phó</span>
+							<span>Ý kiến của UBND thành phố</span>
 						</div>
 					</div>
 				</div>

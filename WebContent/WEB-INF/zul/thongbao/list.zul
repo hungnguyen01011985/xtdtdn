@@ -1,0 +1,126 @@
+<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('vn.toancauxanh.service.ThongBaoService')"
+	 class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Quản lý thông báo";
+			congViec = vn.toancauxanh.gg.model.enums.LoaiThongBao.CONG_VIEC_MOI;
+			treCongVan = vn.toancauxanh.gg.model.enums.LoaiThongBao.TRE_CONG_VIEC;
+		]]>
+	</zscript>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Thông báo
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row mg-top-no-line">	
+				<div zclass="col-md-4">
+					<div zclass="form-group">
+						<x:span class="issue-search">Nhập nội dung thông báo</x:span> 
+						<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
+							 placeholder="Nhập nội dung.."></textbox>
+					</div>
+				</div>
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<x:span class="issue-search">Loại thông báo</x:span>
+						<combobox readonly="true" class="his" model="@load(vm.listThongBaoAndNull)" 
+							value="@load(vm.arg.loaiThongBao eq null ? 'Tất cả' : vm.arg.loaiThongBao.text)" selectedItem="@bind(vm.arg.loaiThongBao)" placeholder="Chọn loại thông báo" width="100%">
+							<template name="model">
+								<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
+							</template>
+						</combobox>
+					</div>
+				</div>
+				<div zclass="col-md-3">
+					<div zclass="form-group">
+						<x:span class="issue-search">Trạng thái</x:span>
+						<combobox readonly="true" class="his" model="@load(vm.trangThaiThongBao)" 
+							value="@load(each.value eq null ? 'Tất cả' : each.value)" selectedItem="@bind(vm.arg.trangThai)" placeholder="Chọn loại thông báo" width="100%">
+							<template name="model">
+								<comboitem label="@load(each.value eq '      ' ? 'Tất cả' : each.value)" />
+							</template>
+						</combobox>
+					</div>
+				</div>
+				<div zclass="col-md-2">
+					<div zclass="form-group">
+						<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+							<span>Tìm kiếm</span>
+						</x:a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Danh sách thông báo</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
+						emptyMessage="Không có dữ liệu nào trong danh sách">
+						<columns>
+							<column label="STT" style="text-align:center" width="42px"/>
+							<column label="Nội dung" style="text-align:center" width="600px" />
+							<column label="Loại thông báo" style="text-align:center" />
+							<column label="Trạng thái" style="text-align:center" />
+						</columns>
+						<template name="model">
+							<row viewModel="@id('item') @init(each)">
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
+								<div if="${treCongVan == each.loaiThongBao}">
+									<x:a zk:onClick="@command('viewNotify', item = each)" class="link-title pointer-cls">
+										<x:span class="text-regular-notify ${!each.daXem ? 'bg-color-blue' : ''}">
+											${vm.subStringThongBao(each.noiDung, 0)}
+										</x:span>
+										<x:span class="text-bold-notify ${!each.daXem ? 'bg-color-blue' : ''}">
+											${vm.subStringThongBao(each.noiDung, 1)}
+										</x:span>
+									</x:a>
+								</div>
+								<div if="${congViec == each.loaiThongBao}">
+									<x:a target="_blank" zk:onClick="@command('viewNotify', item = each)" class="link-title pointer-cls">
+										<x:span class="text-bold-notify ${!each.daXem ? 'bg-color-blue' : ''}">
+											${each.nguoiNhan.hoVaTen}
+										</x:span>
+										<x:span class="text-regular-notify ${!each.daXem ? 'bg-color-blue' : ''}">
+											${vm.subStringThongBao(each.noiDung, 0)}
+										</x:span>
+										<x:span class="text-bold-notify ${!each.daXem ? 'bg-color-blue' : ''}">
+											${vm.subStringThongBao(each.noiDung, 1)}
+										</x:span>
+										<x:span class="text-regular-notify ${!each.daXem ? 'bg-color-blue' : ''}">
+											${vm.subStringThongBao(each.noiDung, 2)}
+										</x:span>
+										<x:span class="text-bold-notify ${!each.daXem ? 'bg-color-blue' : ''}">
+											${vm.subStringThongBao(each.noiDung, 3)}
+										</x:span>
+									</x:a>
+								</div>
+								<label value="@load(item.loaiThongBao.text)" style="font-weight: bold;"></label>
+								<label value="@load(item.daXem ? 'Đã xem' : 'Chưa xem')" class="@load(each.classColor)"></label>
+							</row>
+						</template>
+					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+				</div>
+			</div>
+		</div>
+	</div>
+</window>
