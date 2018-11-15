@@ -569,7 +569,12 @@ html, body {
 	font-size: 13px;
 	line-height: 18px;
 	color:#333;
-} 
+}     
+.z-paging-noborder {
+	font-size: 19px;
+    color: #3A3C41;
+    font-weight: 500;
+}
 .z-paging-noborder:hover {
 	border: 1px solid #D3D9E2;
 	border-right:none;
