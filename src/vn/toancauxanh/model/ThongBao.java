@@ -94,7 +94,9 @@ public class ThongBao extends Model<ThongBao>{
 	
 	@Command
 	public void viewNotify(@BindingParam("vm") Object vm, @BindingParam("attr") String attr) {
-		this.setDaXem(true);
+		if (!this.daXem) {
+			this.setDaXem(true);
+		}
 		this.saveAndRedirect();
 		BindUtils.postNotifyChange(null, null, vm, attr);
 	}
