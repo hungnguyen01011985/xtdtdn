@@ -1,11 +1,12 @@
 package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import vn.toancauxanh.gg.model.QuocGia;
+import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 
 @Entity
 @Table(name = "thanhviendoan")
@@ -13,11 +14,10 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 	private String hoVaTen = "";
 	private String donVi = "";
 	private String chucDanh = "";
-	private int quocGia;
+	private QuocGiaEnum quocGia;
 	private String email = "";
 	private String soDienThoai = "";
 	private DoanVao doanVao;
-	private QuocGia quocGiaTemp;
 
 	public ThanhVienDoan() {
 	}
@@ -46,20 +46,12 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 		this.chucDanh = chucDanh;
 	}
 
-	@Transient
-	public QuocGia getQuocGiaTemp() {
-		return quocGiaTemp;
-	}
-
-	public void setQuocGiaTemp(QuocGia quocGiaTemp) {
-		this.quocGiaTemp = quocGiaTemp;
-	}
-
-	public int getQuocGia() {
+	@Enumerated(EnumType.STRING)
+	public QuocGiaEnum getQuocGia() {
 		return quocGia;
 	}
 
-	public void setQuocGia(int quocGia) {
+	public void setQuocGia(QuocGiaEnum quocGia) {
 		this.quocGia = quocGia;
 	}
 

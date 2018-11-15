@@ -30,7 +30,6 @@ import org.zkoss.zhtml.Object;
 import vn.toancauxanh.cms.service.HomeService;
 import vn.toancauxanh.cms.service.LanguageService;
 import vn.toancauxanh.cms.service.PhongBanService;
-import vn.toancauxanh.gg.model.QuocGia;
 import vn.toancauxanh.model.VaiTro;
 
 @SuppressWarnings({ "unused" })
@@ -319,10 +318,6 @@ public class Entry extends BaseObject<Object> {
 
 	public final VaiTroService getVaiTros() {
 		return new VaiTroService();
-	}
-
-	public final QuocGia getQuocGias() {
-		return new QuocGia();
 	}
 
 	public final Quyen getQuyen() {

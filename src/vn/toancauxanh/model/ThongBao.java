@@ -6,6 +6,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.zk.ui.Executions;
 
@@ -91,9 +93,10 @@ public class ThongBao extends Model<ThongBao>{
 	}
 	
 	@Command
-	public void viewNotify() {
+	public void viewNotify(@BindingParam("vm") Object vm, @BindingParam("attr") String attr) {
 		this.setDaXem(true);
 		this.saveAndRedirect();
+		BindUtils.postNotifyChange(null, null, vm, attr);
 	}
 
 }

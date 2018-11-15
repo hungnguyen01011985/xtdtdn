@@ -58,10 +58,10 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<x:span class="issue-search">Quốc gia</x:span>
-							<combobox id="cbbQuocGia" model="@load(entry.quocGias.listQuocGiaAndNull)" placeholder="Tất cả"
-								readonly="true" class="his" width="100%" onCreate="@command('loadQuocGia')" selectedItem="@bind(vm.quocGiaTemp)" onSelect="@command('selectQuocGia')">
+							<combobox id="cbbQuocGia" model="@load(vm.listQuocGiaAndNull)" placeholder="Chọn quốc gia"
+								readonly="true" class="his" width="100%" selectedItem="@bind(vm.quocGia)">
 								<template name="model">
-									<comboitem label="@load(each.tenQuocGia eq null ? 'Tất cả' : each.tenQuocGia)"/>
+									<comboitem label="@load(each.text eq null ? 'Tất cả' : each.text)"/>
 								</template>
 							</combobox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />

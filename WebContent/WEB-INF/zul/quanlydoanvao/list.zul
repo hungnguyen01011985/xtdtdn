@@ -48,9 +48,9 @@
 						<div zclass="form-group">
 							<x:span class="issue-search">Quốc gia</x:span> 
 							<combobox readonly="true" class="his" selectedIndex="@bind(vm.arg.quocGia)"
-								model="@load(entry.quocGias.listQuocGiaAndNull)" placeholder="Tất cả" width="100%">
+								model="@load(vm.listQuocGiaAndNull)" placeholder="Tất cả" width="100%">
 								<template name="model">
-									<comboitem label="@load(each.tenQuocGia eq null ? 'Tất cả' : each.tenQuocGia)" />
+									<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
 								</template>
 							</combobox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
