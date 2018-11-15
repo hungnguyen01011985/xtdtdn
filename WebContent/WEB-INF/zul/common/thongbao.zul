@@ -17,7 +17,8 @@
 					<x:li class="container-notify" if="${vm.targetQuery.fetchCount() == 0}">
 						<x:span class="notify-nothing">Bạn không có thông báo</x:span>
 					</x:li>
-					<div zk:children="@load(vm.page(vm.targetQuery).fetch())">
+					<div class="box-content-thongbao" zk:children="@load(vm.page(vm.targetQuery).fetch())" style="max-height: 500px;
+   						 overflow-y: scroll;">
 						<template name="children">
 							<x:li class="container-notify ${each.daXem ? '' : 'bg-new-notify'}" zk:onClick="@command('viewNotify', item = each)">
 								<div class="image-notify">
@@ -58,10 +59,10 @@
 							</x:li>
 						</template>
 					</div>
+					<div class="show-all-notify" if="${vm.targetQuery.fetchCount() > 10}">
+						<x:a target="_blank" class="link-thong-bao" href="${ctxPath}/cp/thongbao">Xem tất cả</x:a>
+					</div>
 				</n:ul>
-				<div class="loadmore none-display" if="${vm.targetQuery.fetchCount() > 10}">
-					<x:a target="_blank" class="link-thong-bao" href="${ctxPath}/cp/thongbao">Xem tất cả</x:a>
-				</div>
 			</n:li>
 		</n:ul>
 	</div>

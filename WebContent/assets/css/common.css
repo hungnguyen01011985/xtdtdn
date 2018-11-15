@@ -547,13 +547,16 @@ html, body {
 	
 }
 .z-paging-button.z-paging-selected {
+	margin: 0;
+    width: auto;
+    height: auto;
 	font-family: Roboto-Medium;
 	font-size: 13px;
 	color: #FFFFFF;
-	letter-spacing: 0;
 	line-height: 18px;
 	background: #2569D4;
-	border-radius: 2px;
+	border-radius: 2px 0 0 2px;
+	border-top: 2px solid #2569D4;
 }
 .z-paging-button {
 	margin: 0;
@@ -569,7 +572,14 @@ html, body {
 	font-size: 13px;
 	line-height: 18px;
 	color:#333;
-} 
+}     
+/* .z-paging-noborder {
+	font-size: 24px;
+    color: #3A3C41;
+    font-weight: 500;
+    padding-top: 3px;
+    padding-bottom: 7px;
+} */
 .z-paging-noborder:hover {
 	border: 1px solid #D3D9E2;
 	border-right:none;
@@ -732,7 +742,12 @@ html, body {
 .dropdown-menu {
 	z-index: 1999;
 }
-
+.show-all-notify {
+	display:flex;
+	justify-content: center;
+    align-items: center;
+    height: 30px;
+}
 .wd-header .nav>li>a>img {
 	width: 22px;
 	height: 20px;
@@ -2440,8 +2455,6 @@ the spark styles
 	box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.30);
 	margin: 0 !important;
 	padding: 0 !important;
-	max-height: 500px;
-	overflow-y: auto;
 	border-radius: 4px 0 4px 4px;
 }
 
@@ -2540,15 +2553,15 @@ the spark styles
 	line-height: 16px;
 }
 
-.box-dropdown-bg::-webkit-scrollbar {
+.box-content-thongbao::-webkit-scrollbar {
 	width: 5px;
 }
 
-.box-dropdown-bg::-webkit-scrollbar-track {
+.box-content-thongbao::-webkit-scrollbar-track {
 	background: #f1f1f1;
 }
 
-.box-dropdown-bg::-webkit-scrollbar-thumb {
+.box-content-thongbao::-webkit-scrollbar-thumb {
 	background: #888;
 }
 
