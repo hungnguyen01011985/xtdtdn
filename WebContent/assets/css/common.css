@@ -738,7 +738,12 @@ html, body {
 .dropdown-menu {
 	z-index: 1999;
 }
-
+.show-all-notify {
+	display:flex;
+	justify-content: center;
+    align-items: center;
+    height: 30px;
+}
 .wd-header .nav>li>a>img {
 	width: 22px;
 	height: 20px;
@@ -2446,8 +2451,6 @@ the spark styles
 	box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.30);
 	margin: 0 !important;
 	padding: 0 !important;
-	max-height: 500px;
-	overflow-y: auto;
 	border-radius: 4px 0 4px 4px;
 }
 
@@ -2546,15 +2549,15 @@ the spark styles
 	line-height: 16px;
 }
 
-.box-dropdown-bg::-webkit-scrollbar {
+.box-content-thongbao::-webkit-scrollbar {
 	width: 5px;
 }
 
-.box-dropdown-bg::-webkit-scrollbar-track {
+.box-content-thongbao::-webkit-scrollbar-track {
 	background: #f1f1f1;
 }
 
-.box-dropdown-bg::-webkit-scrollbar-thumb {
+.box-content-thongbao::-webkit-scrollbar-thumb {
 	background: #888;
 }
 
