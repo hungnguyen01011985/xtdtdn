@@ -1,6 +1,6 @@
 <idspace>
-	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
-		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width1 reset-width"
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="700px"
+		id="wdn" border="normal" title="Nhắc nhở công việc" mode="modal" action="show: slideIn" class="tcx-modal reset-width"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
 		 <zscript>
 		 	<![CDATA[
@@ -13,25 +13,25 @@
 		<div class="panel-box">
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<listbox id="listbox" multiple="true" checkmark="true" model="@load(vm.page(vm.targetQueryByIdDuAnNotHoanThanh).fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
+					<listbox id="listbox" selectedItems="@bind(vm.selectItems)" multiple="true" checkmark="true" model="@load(vm.page(vm.targetQueryByIdDuAnNotHoanThanh).fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
 						<listhead>
-							<listheader label="" width="50px"></listheader>
-							<listheader label="STT"></listheader>
+							<listheader label="" width="40px" align="center"></listheader>
+							<listheader label="STT" width="45px" align="center"></listheader>
 							<listheader label="Tên công việc"></listheader>
 							<listheader label="Người được giao"></listheader>
 							<listheader label="Ngày giao"></listheader>
 							<listheader label="Hạn thực hiện"></listheader>
-							<listheader label="Trạng thái"></listheader>
+							<listheader label="Trạng thái" width="90px"></listheader>
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label=""></listcell>
-								<listcell label="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></listcell>
+								<listcell label="" style="text-align:center;"></listcell>
+								<listcell style="text-align:center;" label="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></listcell>
 								<listcell label="@load(each.tenCongViec)"></listcell>
 								<listcell label="@load(each.nguoiDuocGiao.hoVaTen)"></listcell>
-								<listcell label="@load(each.ngayGiao)"></listcell>
-								<listcell label="@load(each.hanThucHien)"></listcell>
-								<listcell label="@load(each.trangThaiGiaoViec.text)"></listcell>
+								<listcell label="@load(each.ngayGiao) @converter('formatedDate',format='dd/MM/yyyy')"></listcell>
+								<listcell label="@load(each.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')"></listcell>
+								<listcell label="@load(each.trangThaiGiaoViec.text)" class="@load(each.trangThaiGiaoViec)"></listcell>
 							</listitem>
 						</template>
 					</listbox>
@@ -51,7 +51,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button if="${entry.quyen.quanlyduan_giaoviec}" onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = duAn, vmArgs = vm)"
+						<x:button onClick="@command('nhacNhoCongViec', wdn = wdn)"
 								class="btn btn-base btn-green mg-btn">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Nhắc nhở</span>

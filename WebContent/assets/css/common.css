@@ -738,8 +738,11 @@ html, body {
 	padding: 2px 0;
 	font-family: Roboto-Medium;
 }
-.z-listitem .z-listitem-selected .z-listitem-checkable {
-	background:#4274ED;
+.z-listitem-selected .z-listitem-checkable {
+	background:#4274ED !important;
+}
+.z-listitem-icon {
+	color:#FFF !important;
 }
 .dropdown-menu {
 	z-index: 1999;
