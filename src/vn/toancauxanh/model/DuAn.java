@@ -479,7 +479,7 @@ public class DuAn extends Model<DuAn> {
 	}
 
 	@Transient
-	public AbstractValidator getValidator() {
+	public AbstractValidator getValidatorNgay() {
 		return new AbstractValidator() {
 			@Override
 			public void validate(ValidationContext ctx) {
@@ -497,6 +497,7 @@ public class DuAn extends Model<DuAn> {
 				String secondText = (String) ctx.getValidatorArg("secondText");
 				Date endDate = (Date) ctx.getValidatorArg("endDate");
 				Date dateStart = (Date) ctx.getValidatorArg("dateStart");
+				
 				boolean result = true;
 				if (type) {
 					Date checkDate = (Date) ctx.getProperty().getValue();
@@ -504,7 +505,13 @@ public class DuAn extends Model<DuAn> {
 						addInvalidMessage(ctx, "dateStart", firstText + " không được để trống");
 						result = false;
 					}
-					if (checkDate != null && endDate != null && checkDate.compareTo(endDate) > 0) {
+					Calendar calendar=Calendar.getInstance();
+					calendar.setTime(checkDate);
+					calendar.set(Calendar.HOUR_OF_DAY, 0);
+					calendar.set(Calendar.MINUTE,0);
+					calendar.set(Calendar.SECOND,0);
+					calendar.set(Calendar.MILLISECOND,0);
+					if (checkDate != null && endDate != null && calendar.getTime().compareTo(endDate) > 0) {
 						addInvalidMessage(ctx, "dateEnd",
 								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
 						result = false;
@@ -515,7 +522,13 @@ public class DuAn extends Model<DuAn> {
 						addInvalidMessage(ctx, "dateEnd", secondText + " không được để trống");
 						result = false;
 					}
-					if (dateStart != null && checkDate != null && dateStart.compareTo(checkDate) > 0) {
+					Calendar calendar=Calendar.getInstance();
+					calendar.setTime(dateStart);
+					calendar.set(Calendar.HOUR_OF_DAY, 0);
+					calendar.set(Calendar.MINUTE,0);
+					calendar.set(Calendar.SECOND,0);
+					calendar.set(Calendar.MILLISECOND,0);
+					if (dateStart != null && checkDate != null && calendar.getTime().compareTo(checkDate) > 0) {
 						addInvalidMessage(ctx, "dateEnd",
 								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
 						result = false;

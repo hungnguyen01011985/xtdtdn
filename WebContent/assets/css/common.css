@@ -544,31 +544,39 @@ html, body {
 
 .z-paging-button.z-paging-selected {
 	font-family: Roboto-Medium;
-	font-size: 14px;
+	font-size: 13px;
 	color: #FFFFFF;
 	letter-spacing: 0;
 	line-height: 18px;
 	background: #0076D7;
 	border-radius: 2px;
 }
-
+.z-paging-button {
+	margin-right:0px !important;
+	width:30px !important;
+	height:30px !important;
+	text-align:center;
+	padding-top:4px;
+}
 .z-paging-button {
 	background: #FFFFFF;
-	border: 1px solid #E0E2E6;
-	border-radius: 2px;
+	border: 1px solid #D3D9E2;
+	border-right:none;
+	border-radius: 2px 0 0 2px;
 	font-family: Roboto-Regular;
 	font-size: 14px;
 	color: #4A4A4A;
 	line-height: 18px;
 }
-
+.z-paging-noborder:hover {
+	border: 1px solid #D3D9E2;
+}
 .z-paging-navigate a:hover {
 	text-decoration: none;
 }
 
 .z-paging-button.z-paging-noborder {
-	border: none;
-	font-size: 13px;
+	border-right: 1px solid #E0E2E6;
 }
 
 .form-trogiup {

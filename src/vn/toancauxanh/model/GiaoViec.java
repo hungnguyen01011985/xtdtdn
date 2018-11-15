@@ -11,10 +11,14 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.sys.ValidationMessages;
+import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -324,4 +328,64 @@ public class GiaoViec extends Model<GiaoViec> {
 		}
 	}
 	
+	@Transient
+	public AbstractValidator getValidatorNgay() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+				if (vmsgs != null) {
+					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
+					vmsgs.clearMessages(ctx.getBindContext().getComponent());
+				}
+				validateNgayHoanThanh(ctx);
+			}
+
+			private boolean validateNgayHoanThanh(final ValidationContext ctx) {
+				Boolean type = (Boolean) ctx.getValidatorArg("type");
+				String firstText = (String) ctx.getValidatorArg("firstText");
+				String secondText = (String) ctx.getValidatorArg("secondText");
+				Date endDate = (Date) ctx.getValidatorArg("endDate");
+				Date dateStart = (Date) ctx.getValidatorArg("dateStart");
+				
+				boolean result = true;
+				if (type) {
+					Date checkDate = (Date) ctx.getProperty().getValue();
+					if (checkDate == null) {
+						addInvalidMessage(ctx, "dateStart", firstText + " không được để trống");
+						result = false;
+					}
+					Calendar calendar=Calendar.getInstance();
+					calendar.setTime(checkDate);
+					calendar.set(Calendar.HOUR_OF_DAY, 0);
+					calendar.set(Calendar.MINUTE,0);
+					calendar.set(Calendar.SECOND,0);
+					calendar.set(Calendar.MILLISECOND,0);
+					if (checkDate != null && endDate != null && calendar.getTime().compareTo(endDate) > 0) {
+						addInvalidMessage(ctx, "dateEnd",
+								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
+						result = false;
+					}
+				} else {
+					Date checkDate = (Date) ctx.getProperty().getValue();
+					if (checkDate == null) {
+						addInvalidMessage(ctx, "dateEnd", secondText + " không được để trống");
+						result = false;
+					}
+					Calendar calendar=Calendar.getInstance();
+					calendar.setTime(dateStart);
+					calendar.set(Calendar.HOUR_OF_DAY, 0);
+					calendar.set(Calendar.MINUTE,0);
+					calendar.set(Calendar.SECOND,0);
+					calendar.set(Calendar.MILLISECOND,0);
+					if (dateStart != null && checkDate != null && calendar.getTime().compareTo(checkDate) > 0) {
+						addInvalidMessage(ctx, "dateEnd",
+								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
+						result = false;
+					}
+				}
+				return result;
+			}
+		};
+	}
 }

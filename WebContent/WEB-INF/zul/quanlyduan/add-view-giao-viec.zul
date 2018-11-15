@@ -73,8 +73,8 @@
 								<x:span class="label-txt-style">Ngày giao</x:span>
 							</div>
 							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8 datebox-txt-style" width="100%" placeholder="Chọn ngày"
-								value="@bind(vm.giaoViec.ngayGiao) @save(vm.giaoViec.ngayGiao, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								value="@bind(vm.giaoViec.ngayGiao) @save(vm.giaoViec.ngayGiao, before={'saveGiaoViec'}) @validator(vm.validatorNgay, endDate = vm.giaoViec.hanThucHien, firstText = 'Ngày Giao', secondText = 'Hạn thực hiện', type = true)"/>
+							<label zclass="error" value="@load(vmsgs['dateStart'])" />
 						</div>
 					</div>
 					<div zclass="col-md-6">
@@ -83,8 +83,8 @@
 								<x:span class="label-txt-style">Hạn thực hiện<n:small class="required"> *</n:small></x:span>
 							</div>
 							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8 datebox-txt-style" width="100%" placeholder="Chọn ngày" 
-								value="@bind(vm.giaoViec.hanThucHien) @save(vm.giaoViec.hanThucHien, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								value="@bind(vm.giaoViec.hanThucHien) @save(vm.giaoViec.hanThucHien, before={'saveGiaoViec'}) @validator(vm.validatorNgay, dateStart = vm.giaoViec.ngayGiao, firstText = 'Ngày Giao', secondText = 'Hạn thực hiện', type = false)"/>
+							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>
 					</div>
 				</div>
