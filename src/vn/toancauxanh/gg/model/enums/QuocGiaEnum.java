@@ -198,8 +198,8 @@ public enum QuocGiaEnum {
 	
 	String text;
 
-	QuocGiaEnum(final String text) {
-		this.text = text;
+	QuocGiaEnum(final String txt) {
+		text = txt;
 	}
 
 	public String getText() {

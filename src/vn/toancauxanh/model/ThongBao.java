@@ -14,8 +14,8 @@ import org.zkoss.zk.ui.Executions;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 
 @Entity
-@Table(name="thongbao")
-public class ThongBao extends Model<ThongBao>{
+@Table(name = "thongbao")
+public class ThongBao extends Model<ThongBao> {
 	@Lob
 	private String noiDung;
 	private NhanVien nguoiGui;
@@ -23,10 +23,11 @@ public class ThongBao extends Model<ThongBao>{
 	private LoaiThongBao loaiThongBao;
 	private boolean daXem;
 	private Long idObject;
+
 	public ThongBao() {
-		
+
 	}
-	
+
 	public Long getIdObject() {
 		return idObject;
 	}
@@ -50,7 +51,7 @@ public class ThongBao extends Model<ThongBao>{
 	public void setNoiDung(String noiDung) {
 		this.noiDung = noiDung;
 	}
-	
+
 	@ManyToOne
 	public NhanVien getNguoiGui() {
 		return nguoiGui;
@@ -76,27 +77,30 @@ public class ThongBao extends Model<ThongBao>{
 	public void setLoaiThongBao(LoaiThongBao loaiThongBao) {
 		this.loaiThongBao = loaiThongBao;
 	}
-	
+
 	@Transient
-	public String getClassColor(){
+	public String getClassColor() {
 		if (this.daXem) {
 			return "CHUA_LAM";
 		}
 		return "DANG_LAM";
 	}
-	
-	public void saveAndRedirect(){
-		doSave();
+
+	public void redirect(String href) {
 		String urlView = "";
-		urlView = urlView.concat("/cp/quanlyduan/" + this.idObject);
+		urlView = urlView.concat(href + this.idObject);
 		Executions.getCurrent().sendRedirect(urlView, "_blank");
 	}
-	
+
 	@Command
-	public void viewNotify(@BindingParam("vm") Object vm, @BindingParam("attr") String attr) {
-		this.setDaXem(true);
-		this.saveAndRedirect();
-		BindUtils.postNotifyChange(null, null, vm, attr);
+	public void viewNotify(@BindingParam("vm") Object vm, @BindingParam("attr") String attr,
+			@BindingParam("href") String href) {
+		if (!this.daXem) {
+			this.setDaXem(true);
+			this.saveNotShowNotification();
+			BindUtils.postNotifyChange(null, null, vm, attr);
+		}
+		this.redirect(href);
 	}
 
 }
