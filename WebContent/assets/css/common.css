@@ -553,7 +553,8 @@ html, body {
 	letter-spacing: 0;
 	line-height: 18px;
 	background: #2569D4;
-	border-radius: 2px;
+	border-radius: 2px 0 0 2px;
+	border-top: 2px solid #2569D4;
 }
 .z-paging-button {
 	margin: 0;
