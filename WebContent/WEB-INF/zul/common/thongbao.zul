@@ -59,7 +59,7 @@
 							</x:li>
 						</template>
 					</div>
-					<div class="show-all-notify">
+					<div class="show-all-notify" if="${vm.targetQuery.fetchCount() > 10}">
 						<x:a target="_blank" class="link-thong-bao" href="${ctxPath}/cp/thongbao">Xem tất cả</x:a>
 					</div>
 				</n:ul>
