@@ -116,7 +116,7 @@
 							</row>
 						</template>
 					</grid>
-					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())"
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
 						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
 						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
 				</div>
