@@ -52,8 +52,6 @@ public class DuAnService extends BasicService<DuAn> {
 		} else if (getFixTuNgay() != null && getFixDenNgay() != null) {
 			q.where(QDuAn.duAn.ngayBatDauXucTien.between(getFixTuNgay(), getFixDenNgay()));
 		}
-		System.out.println("zo123");
-		Clients.evalJavaScript("changeTextPaging()");
 		q.orderBy(QDuAn.duAn.ngaySua.desc());
 		return q;
 	}

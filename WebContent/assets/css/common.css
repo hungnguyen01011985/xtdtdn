@@ -540,6 +540,7 @@ html, body {
 .z-paging.z-paging-os {
 	float: right;
 	padding-top: 8px;
+	margin-bottom:15px;
 }
 
 .z-paging-button.z-paging-selected {

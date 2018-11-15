@@ -506,13 +506,7 @@ public class DuAn extends Model<DuAn> {
 						addInvalidMessage(ctx, "dateStart", firstText + " không được để trống");
 						result = false;
 					}
-					Calendar calendar=Calendar.getInstance();
-					calendar.setTime(checkDate);
-					calendar.set(Calendar.HOUR_OF_DAY, 0);
-					calendar.set(Calendar.MINUTE,0);
-					calendar.set(Calendar.SECOND,0);
-					calendar.set(Calendar.MILLISECOND,0);
-					if (checkDate != null && endDate != null && calendar.getTime().compareTo(endDate) > 0) {
+					if (checkDate != null && endDate != null && resetHourMinuteSecondMilli(checkDate).compareTo(endDate) > 0) {
 						addInvalidMessage(ctx, "dateEnd",
 								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
 						result = false;
@@ -523,13 +517,7 @@ public class DuAn extends Model<DuAn> {
 						addInvalidMessage(ctx, "dateEnd", secondText + " không được để trống");
 						result = false;
 					}
-					Calendar calendar=Calendar.getInstance();
-					calendar.setTime(dateStart);
-					calendar.set(Calendar.HOUR_OF_DAY, 0);
-					calendar.set(Calendar.MINUTE,0);
-					calendar.set(Calendar.SECOND,0);
-					calendar.set(Calendar.MILLISECOND,0);
-					if (dateStart != null && checkDate != null && calendar.getTime().compareTo(checkDate) > 0) {
+					if (dateStart != null && checkDate != null && resetHourMinuteSecondMilli(dateStart).compareTo(checkDate) > 0) {
 						addInvalidMessage(ctx, "dateEnd",
 								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
 						result = false;
