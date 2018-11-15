@@ -547,13 +547,16 @@ html, body {
 	
 }
 .z-paging-button.z-paging-selected {
+	margin: 0;
+    width: auto;
+    height: auto;
 	font-family: Roboto-Medium;
 	font-size: 13px;
 	color: #FFFFFF;
 	letter-spacing: 0;
 	line-height: 18px;
 	background: #2569D4;
-	border-radius: 2px;
+	border-radius: 2px 0 0 2px;
 }
 .z-paging-button {
 	margin: 0;
