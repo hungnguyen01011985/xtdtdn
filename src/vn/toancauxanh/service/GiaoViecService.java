@@ -49,11 +49,6 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		return q;
 	}
 	
-	@Command
-	public void selectedItems() {
-		
-	}
-	
 	public JPAQuery<GiaoViec> getTargetQueryByIdDuAnNotHoanThanh() {
 		Long idDuAn = MapUtils.getLongValue(argDeco(), "idDuAn");
 		JPAQuery<GiaoViec> q = find(GiaoViec.class)
@@ -68,7 +63,8 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	public void nhacNhoCongViec(@BindingParam("wdn") Window wdn) {
 		selectItems.forEach(item -> {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung(core().getNhanVien().getHoVaTen()+"@ có nhắc nhở bạn trong công việc @"+ item.getTenCongViec()+"@ của dự án @"+item.getDuAn().getTenDuAn()+"@. Hãy hoàn thành công việc.");
+			thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @" + item.getTenCongViec()
+							+ "@ của dự án @" + item.getDuAn().getTenDuAn() + "@. Hãy hoàn thành công việc.");
 			thongBao.setNguoiGui(core().getNhanVien());
 			thongBao.setNguoiNhan(item.getNguoiDuocGiao());
 			thongBao.setIdObject(item.getDuAn().getId());
@@ -102,9 +98,4 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		this.selectItems = selectItems;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
 }
