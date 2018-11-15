@@ -339,9 +339,9 @@ public class BaseObject<T> extends CoreObject<T> {
 
 	public String subStringThongBao(String text, int index) {
 		int i = 0;
-		for (String w : text.split("@", 0)) {
-			if (index == i ) {
-				return w;
+		for (String txt : text.split("@", 0)) {
+			if (index == i) {
+				return txt;
 			}
 			i++;
 		}
