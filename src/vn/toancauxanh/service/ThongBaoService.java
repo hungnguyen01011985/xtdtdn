@@ -59,7 +59,7 @@ public class ThongBaoService extends BasicService<ThongBao> {
 
 	public Map<String, String> getTrangThaiThongBao() {
 		HashMap<String, String> result = new HashMap<>();
-		result.put(null, "      ");
+		result.put(null, null);
 		result.put("false", "Chưa xem");
 		result.put("true", "Đã xem");
 		return result;

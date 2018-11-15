@@ -132,19 +132,23 @@
 				if ($(".box-dropdown-bg").css("display") == "none"){
 					$(".box-dropdown-bg").css("display", "block");
 					$(".bg-popup-box").css("display", "block");
+					$(".none-display").css("display", "flex");
 				} else {
 					$(".box-dropdown-bg").css("display","none");
 					$(".bg-popup-box").css("display","none");
+					$(".none-display").css("display","none");
 				}
 			} else {
 				if ($(".box-dropdown-bg").css("display") == "none") {
 					$(".box-dropdown-bg").css("display","block");
 					$(".bg-popup-box").css("display","block");
+					$(".none-display").css("display","flex");
 					$("html").css("overflow","hidden");
 					$("body").css("overflow","hidden");
 				} else {
 					$(".box-dropdown-bg").css("display","none");
 					$(".bg-popup-box").css("display","none");
+					$(".none-display").css("display","none");
 					$("html").css("overflow","auto");
 					$("body").css("overflow","auto");
 				}

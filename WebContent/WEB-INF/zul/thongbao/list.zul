@@ -45,7 +45,7 @@
 						<combobox readonly="true" class="his" model="@load(vm.trangThaiThongBao)" 
 							value="@load(each.value eq null ? 'Tất cả' : each.value)" selectedItem="@bind(vm.arg.trangThai)" placeholder="Chọn loại thông báo" width="100%">
 							<template name="model">
-								<comboitem label="@load(each.value eq '      ' ? 'Tất cả' : each.value)" />
+								<comboitem label="@load(each.value eq null ? 'Tất cả' : each.value)" />
 							</template>
 						</combobox>
 					</div>
@@ -83,7 +83,7 @@
 							<row viewModel="@id('item') @init(each)">
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
 								<div if="${treCongVan == each.loaiThongBao}">
-									<x:a zk:onClick="@command('viewNotify', item = each)" class="link-title pointer-cls">
+									<x:a target="_blank" zk:onClick="@command('viewNotify', item = each)" class="link-title pointer-cls">
 										<x:span class="text-regular-notify ${!each.daXem ? 'bg-color-blue' : ''}">
 											${vm.subStringThongBao(each.noiDung, 0)}
 										</x:span>

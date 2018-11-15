@@ -87,7 +87,7 @@ public class ThongBao extends Model<ThongBao>{
 		doSave();
 		String urlView = "";
 		urlView = urlView.concat("/cp/quanlyduan/" + this.idObject);
-		Executions.getCurrent().sendRedirect(urlView);
+		Executions.getCurrent().sendRedirect(urlView, "_blank");
 	}
 	
 	@Command
