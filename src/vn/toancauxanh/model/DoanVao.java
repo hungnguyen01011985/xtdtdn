@@ -178,6 +178,7 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void selectQuocGia() {
+		System.out.println("zooooooooo");
 		if (getQuocGiaTemp() != null) {
 			setQuocGia(getQuocGiaTemp().getId());
 		}
@@ -410,7 +411,8 @@ public class DoanVao extends Model<DoanVao> {
 			BindUtils.postNotifyChange(null, null, this, "flag");
 		} else {
 			List<ThanhVienDoan> listThanhVienDoan = getListTaoMoiThanhVienDoanLuuTam();
-			listThanhVienDoan.add(getThanhVienDoanTemp());
+			listThanhVienDoan.add(this.getThanhVienDoanTemp());
+			System.out.println(this.getThanhVienDoanTemp().getQuocGia());
 			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
 		}
 		reset();

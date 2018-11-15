@@ -1,7 +1,7 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" xmlns:w="client" apply="org.zkoss.bind.BindComposer"
 	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="${arg.save}"
-	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')" class="content-popup">
+	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')" class="content-popup pop-up-width1">
 	<zscript>
 		<![CDATA[
 			strSave = arg.get("save");
@@ -82,7 +82,7 @@
 						<div zclass="form-group">
 							<x:span class="issue-search">Quốc gia</x:span> 
 							<combobox id="cbbQuocGia" model="@load(entry.quocGias.listQuocGiaAndNull)" placeholder="Tất cả"
-								readonly="true" class="his" width="100%" value="@bind(vm.thanhVienDoanTemp.quocGiaTemp.tenQuocGia)" selectedItem="@bind(vm.thanhVienDoanTemp.quocGiaTemp)" onSelect="@command('selectQuocGia')">
+								readonly="true" class="his" width="100%" onCreate="@command('loadQuocGia')" selectedItem="@bind(vm.thanhVienDoanTemp.quocGiaTemp)" onSelect="@command('selectQuocGia')">
 								<template name="model">
 									<comboitem label="@load(each.tenQuocGia eq null ? 'Tất cả' : each.tenQuocGia)"/>
 								</template>
@@ -155,7 +155,7 @@
 								<label value="@load(each.hoVaTen)" style="text-align:left; display: block;"></label>
 								<label value="@load(each.chucDanh)" style="text-align:left; display: block;"></label>
 								<label value="@load(each.donVi)" style="text-align:left; display: block;"></label>
-								<label value="@load(each.quocGia)" style="text-align:left; display: block;"></label>
+								<label value="@load(entry.quocGias.getTenQuocGia(each.quocGia))" style="text-align:left; display: block;"></label>
 								<label value="@load(each.email)" style="text-align:left; display: block;"></label>
 								<label value="@load(each.soDienThoai)" style="text-align:left; display: block;"></label>
 								<div class="thaotac" style="text-align:left">

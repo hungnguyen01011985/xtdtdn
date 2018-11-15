@@ -5,9 +5,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
-
 import vn.toancauxanh.gg.model.QuocGia;
 
 @Entity
@@ -89,12 +86,5 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 
 	public void setDoanVao(DoanVao doanVao) {
 		this.doanVao = doanVao;
-	}
-
-	@Command
-	public void selectQuocGia(@BindingParam("quocgia") QuocGia ob) {
-		if (getQuocGiaTemp() != null) {
-			setQuocGia(getQuocGiaTemp().getId());
-		}
 	}
 }
