@@ -899,14 +899,14 @@
     padding-right: 15px !important;
     margin-left: 10px;
 }
-.pointer-cls{
+.pointer-cls {
 	cursor: pointer;
 }
 
-.bg-color-blue span{
+.bg-color-blue span {
 	color: #428bca !important;
 }
-.loadmore{
+.loadmore {
 	top: 530px;
     display: flex;
     position: fixed;
@@ -920,10 +920,10 @@
     left: auto !important;
     z-index: 100000;
 }
-.none-display{
+.none-display {
 	display: none;
 }
 
-.link-thong-bao:hover{
+.link-thong-bao:hover {
 	text-decoration: underline;
 }
