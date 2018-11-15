@@ -89,9 +89,6 @@ public class Entry extends BaseObject<Object> {
 
 	@Value("${url.vaitro}")
 	public String VAITRO = "";
-	
-	@Value("${url.thongbao}")
-	public String THONGBAO = "";
 
 	// uend
 	public char CHAR_CACH = ':';
@@ -194,11 +191,6 @@ public class Entry extends BaseObject<Object> {
 	public String VAITROSUA = "";
 	@Value("${url.vaitro}" + ":" + "${action.tim}")
 	public String VAITROTIMKIEM;
-	
-	@Value("${url.thongbao}" + ":" + "${action.xem}")
-	public String THONGBAOXEM = "";
-	@Value("${url.thongbao}" + ":" + "${action.list}")
-	public String THONGBAOLIST = "";
 
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
