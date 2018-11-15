@@ -36,7 +36,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Ngày gửi<n:small class="required"> *</n:small></x:span>
 							</div>
-							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? 'datebox-txt-style' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayGui) @save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'}) @validator(vm.validator, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
+							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? 'datebox-txt-style' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayGui) @save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'}) @validator(vm.validatorNgay, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateStart'])" />
 						</div>
@@ -46,7 +46,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Ngày dự kiến nhận phản hồi<n:small class="required"> *</n:small></x:span>
 							</div>
-							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" disabled="@load(vm.giaiDoanDuAn.ngayGui eq null)" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? 'datebox-txt-style' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi) @save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before={'goTask','goNext'}) @validator(vm.validator, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
+							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" disabled="@load(vm.giaiDoanDuAn.ngayGui eq null)" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? 'datebox-txt-style' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi) @save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before={'goTask','goNext'}) @validator(vm.validatorNgay, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>
