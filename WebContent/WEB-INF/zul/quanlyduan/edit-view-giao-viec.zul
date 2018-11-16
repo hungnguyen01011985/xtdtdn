@@ -106,10 +106,8 @@
 									<div class="box-img-tai-lieu">
 										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 									</div>
-									<label if="@load(vm.taiLieu.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieu)" value="@bind(vm.taiLieu.tenFile)"/>
-									<x:a target="_blank" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('redirect', ob = vm.taiLieu)">
-										<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
-									</x:a>
+									<label visible="@load(vm.taiLieu.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieu)" value="@bind(vm.taiLieu.tenFile)"/>
+									<a visible="@load(!vm.taiLieu.noId())" label="@bind(vm.taiLieu.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieu)"></a>
 									<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieu , vm = vm, name='taiLieu')">
 										<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 									</x:button>

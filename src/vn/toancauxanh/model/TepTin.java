@@ -186,9 +186,29 @@ public class TepTin extends Model<TepTin> {
 	}
 	
 	@Command
-	public void redirect(@BindingParam("ob") TepTin ob){
-		String fileView = "";
-		fileView = fileView.concat(ob.pathFile + ob.nameHash);
-		Executions.getCurrent().sendRedirect(fileView, "_blank");
+	public void redirect(@BindingParam("ob") TepTin ob) {
+		String serverName = "";
+		String href = "";
+		String ipBrowser = "";
+		int serverPort = 0;
+		serverName = Executions.getCurrent().getServerName();
+		serverPort = Executions.getCurrent().getServerPort();
+		ipBrowser = Executions.getCurrent().getContextPath();
+		System.out.println("serverName: " + serverName);
+		System.out.println("serverPort: " + serverPort);
+		System.out.println("ipBrowser: " + ipBrowser);
+		if (serverName != null) {
+			String url = "";
+			if (serverName.contains("192.168.1.247") || serverName.contains("http://projects.greenglobal.vn:6782")) {
+				url = "http://projects.greenglobal.vn:6782";
+				href = ("Http://" + url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			} else if ("localhost".equals(serverName) || "192.168.1.14".equals(serverName)) {
+				url = serverName.concat(":" + serverPort);
+				href = ("Http://" + url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			} else {
+				href = ("/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			}
+		}
+		Executions.getCurrent().sendRedirect(href, "_blank");
 	}
 }
