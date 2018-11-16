@@ -176,7 +176,7 @@ public class ProcessService extends BasicService<Object> {
 			}
 		}
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
-			thongBao.setNoiDung(" có công việc mới @"+tenCongViec+"@ của dự án @"+duAn.getTenDuAn());
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen()+"@ có công việc mới @"+tenCongViec+"@ của dự án @"+duAn.getTenDuAn());
 		}
 		thongBao.setNguoiNhan(nguoiNhan);
 		if (nguoiGui != null) {

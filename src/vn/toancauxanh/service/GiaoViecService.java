@@ -61,18 +61,23 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	
 	@Command
 	public void nhacNhoCongViec(@BindingParam("wdn") Window wdn) {
-		selectItems.forEach(item -> {
-			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @" + item.getTenCongViec()
-							+ "@ của dự án @" + item.getDuAn().getTenDuAn() + "@. Hãy hoàn thành công việc.");
-			thongBao.setNguoiGui(core().getNhanVien());
-			thongBao.setNguoiNhan(item.getNguoiDuocGiao());
-			thongBao.setIdObject(item.getDuAn().getId());
-			thongBao.setLoaiThongBao(LoaiThongBao.NHAC_NHO_CONG_VIEC);
-			thongBao.saveNotShowNotification();
-		});
-		showNotification("", "Nhắc nhở hoàn thành", "success");
-		wdn.detach();
+		if (selectItems.size() == 0) {
+			showNotification("", "Bạn chưa chọn công việc nào", "danger");
+		} else {
+			selectItems.forEach(item -> {
+				ThongBao thongBao = new ThongBao();
+				thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @" + item.getTenCongViec()
+								+ "@ của dự án @" + item.getDuAn().getTenDuAn() + "@. Hãy hoàn thành công việc.");
+				thongBao.setNguoiGui(core().getNhanVien());
+				thongBao.setNguoiNhan(item.getNguoiDuocGiao());
+				thongBao.setIdObject(item.getDuAn().getId());
+				thongBao.setLoaiThongBao(LoaiThongBao.NHAC_NHO_CONG_VIEC);
+				thongBao.saveNotShowNotification();
+			});
+			showNotification("", "Nhắc nhở hoàn thành", "success");
+			wdn.detach();
+		}
+		
 	}
 	
 	@Command
