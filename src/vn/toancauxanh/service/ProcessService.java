@@ -123,6 +123,7 @@ public class ProcessService extends BasicService<Object> {
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
+		showNotification("", "Giao việc thành công", "success");
 	}
 
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {
@@ -176,7 +177,7 @@ public class ProcessService extends BasicService<Object> {
 			}
 		}
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
-			thongBao.setNoiDung(" có công việc mới @"+tenCongViec+"@ của dự án @"+duAn.getTenDuAn());
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của dự án @" + duAn.getTenDuAn());
 		}
 		thongBao.setNguoiNhan(nguoiNhan);
 		if (nguoiGui != null) {
