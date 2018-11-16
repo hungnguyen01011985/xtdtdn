@@ -11,7 +11,8 @@
 			String giaiDoanXucTien = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT.getText();
 		]]>
 	</zscript>
-	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"> 
+	<label if="${!entry.quyen.quanlyduan_them}">Bạn không có quyền truy cập chức năng này!</label>
+	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')" if="${entry.quyen.quanlyduan_them}"> 
 		<div class="panel-box">
 			<div zclass="row">
 				<div zclass="col-lg-12">

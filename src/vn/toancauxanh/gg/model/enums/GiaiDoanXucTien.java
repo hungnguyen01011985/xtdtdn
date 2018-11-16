@@ -1,6 +1,6 @@
 package vn.toancauxanh.gg.model.enums;
 
-public enum GiaiDoanXucTien {
+public enum GiaiDoanXucTien{
 	GIAI_DOAN_MOT("Giới thiệu địa điểm"),
 	GIAI_DOAN_HAI("Khảo sát địa điểm"),
 	GIAI_DOAN_BA("Xin chủ trương"),
