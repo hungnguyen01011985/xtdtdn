@@ -1,6 +1,6 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
-		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width1 reset-width" width="1300px"
+		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width1 reset-width"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
 		 <zscript>
 		 	<![CDATA[
@@ -66,8 +66,8 @@
 						<columns>
 							<column label="STT" width="42px"/>
 							<column label="Tên công việc"/>
-							<column label="Người giao việc" width="200px"/>
-							<column label="Người được giao" width="150px"/>
+							<column label="Người giao việc"/>
+							<column label="Người được giao"/>
 							<column label="Ngày giao việc" width="120px"/>
 							<column label="Hạn thực hiện" width="120px"/>
 							<column label="Trạng thái" width="100px"/>
