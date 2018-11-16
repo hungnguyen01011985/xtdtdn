@@ -104,7 +104,7 @@
 						<div zclass="col-md-3">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Ngày hoành thành CV<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Ngày hoàn thành CV<n:small class="required"> *</n:small></x:span>
 								</div>
 								<datebox value="@bind(vm.giaoViec.hanThucHien) @save(vm.giaoViec.hanThucHien, before={'doAction','doActionWithKey'}) @validator(vm.validatorNgay, dateStart = vm.ngayBatDauXucTien, firstText = 'Ngày bắt đầu xúc tiến', secondText = 'Ngày hoàn thành', type = false)"
 									 width="100%" placeholder="Chọn ngày" format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8 datebox-txt-style" />
