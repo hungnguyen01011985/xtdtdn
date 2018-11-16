@@ -99,17 +99,10 @@
 								</div>
 							</row>
 						</template>
-						<foot visible="@load(vm.targetQueryNhanVien.fetchCount() gt 10)">
-							<footer span="6">
-								<div class="">
-									<paging pageSize="@load(vm.arg.pagesize)"
-										totalSize="@load(vm.targetQueryNhanVien.fetchCount())"
-										activePage="@bind(vm.arg.page)"
-										onPaging="@command('cmd', notify=vm, attr='targetQueryNhanVien')" />
-								</div>
-							</footer>
-						</foot>
 					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQueryNhanVien.fetchCount())" mold="os"
+						visible="@load(vm.targetQueryNhanVien.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQueryNhanVien')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">

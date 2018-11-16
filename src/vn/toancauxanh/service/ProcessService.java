@@ -123,6 +123,7 @@ public class ProcessService extends BasicService<Object> {
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
+		showNotification("", "Giao việc thành công", "success");
 	}
 
 	public void kiemTraDangOGiaiDoanMot(Execution execution) {

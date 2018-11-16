@@ -129,7 +129,7 @@
 					<div if="${entry.quyen.quanlyduan_nhacnho}" zclass="form-group right-mg flex" style="margin:0;">
 						<x:button onClick="@command('redirectPage', zul='quanlyduan/list-nhac-nho.zul', vm = duAn)"
 							class="btn btn-blue">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/nhac-nho.svg"/>
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/nhac-nho-white.svg"/>
 							<span>Nhắc nhở</span>
 						</x:button>
 					</div>

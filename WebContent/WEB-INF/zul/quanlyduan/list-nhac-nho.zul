@@ -56,7 +56,7 @@
 					<div zclass="form-group right">
 						<x:button onClick="@command('nhacNhoCongViec', wdn = wdn)"
 								class="btn btn-base btn-green mg-btn">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/nhac-nho-white.svg"/>
 							<span>Nhắc nhở</span>
 						</x:button>
 					</div>
