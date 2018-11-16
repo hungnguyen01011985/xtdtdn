@@ -955,8 +955,11 @@
 	cursor: pointer;
 }
 
-.bg-color-blue span {
+.bg-color-blue {
 	color: #428bca !important;
+}
+.mg-bt-15 {
+	margin-bottom:15px;
 }
 .loadmore {
 	top: 530px;

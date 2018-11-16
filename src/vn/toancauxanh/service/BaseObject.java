@@ -348,9 +348,17 @@ public class BaseObject<T> extends CoreObject<T> {
 		return null;
 	}
 	
+	public String subStringThongBaoNoIndex(String text) {
+		StringBuilder builder = new StringBuilder();
+		for (String txt : text.split("@", 0)) {
+			builder.append(txt);
+		}
+		return builder.toString();
+	}
+	
 	public void removeIdInList(GiaoViec giaoViec) {
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.eq(giaoViec.getDuAn()));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		duAn.setIdNguoiLienQuan(
 				duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId() + KY_TU, ""));
 		duAn.saveNotShowNotification();

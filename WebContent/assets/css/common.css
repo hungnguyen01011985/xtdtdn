@@ -536,11 +536,14 @@ html, body {
 .name-q {
 	text-transform: uppercase;
 }
-
+.w-popup-content-medium {
+	margin-top: -15px;
+}
 .z-paging.z-paging-os {
 	float: right;
 	margin-bottom:15px;
 	background:#FFF;
+	padding-right:0;
 }
 .z-paging-button:hover {
 	border-color:#D3D9E2;

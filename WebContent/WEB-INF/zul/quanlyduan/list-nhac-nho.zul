@@ -13,7 +13,10 @@
 		<div class="panel-box">
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<listbox id="listbox" selectedItems="@bind(vm.selectItems)" multiple="true" checkmark="true" model="@load(vm.page(vm.targetQueryByIdDuAnNotHoanThanh).fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
+					<div class="mg-bt-15">
+						<span>Chọn công việc cần nhắc nhở bên dưới</span>
+					</div>
+					<listbox id="listbox" class="mg-bt-15" selectedItems="@bind(vm.selectItems)" multiple="true" checkmark="true" model="@load(vm.page(vm.targetQueryByIdDuAnNotHoanThanh).fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
 						<listhead>
 							<listheader label="" width="40px" align="center"></listheader>
 							<listheader label="STT" width="45px" align="center"></listheader>
@@ -53,7 +56,7 @@
 					<div zclass="form-group right">
 						<x:button onClick="@command('nhacNhoCongViec', wdn = wdn)"
 								class="btn btn-base btn-green mg-btn">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/nhac-nho-white.svg"/>
 							<span>Nhắc nhở</span>
 						</x:button>
 					</div>

@@ -37,19 +37,19 @@
 										</div>
 										<div if="${congViec == each.loaiThongBao}">
 											<x:span class="text-bold-notify">
-												${each.nguoiNhan.hoVaTen}
-											</x:span>
-											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 0)}
 											</x:span>
-											<x:span class="text-bold-notify">
+											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 1)}
 											</x:span>
-											<x:span class="text-regular-notify">
+											<x:span class="text-bold-notify">
 												${vm.subStringThongBao(each.noiDung, 2)}
 											</x:span>
-											<x:span class="text-bold-notify">
+											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 3)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 4)}
 											</x:span>
 										</div>
 										<div if="${nhacNho == each.loaiThongBao}">
