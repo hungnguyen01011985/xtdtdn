@@ -117,6 +117,7 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 			@Override
 			public void validate(final ValidationContext ctx) {
 				String value = (String) ctx.getProperty().getValue();
+				System.out.println("value: " + value);
 				if (!value.isEmpty() && !value.trim()
 						.matches("^\\+?\\d{1,3}?[- .]?\\(?(?:\\d{2,3})\\)?[- .]?\\d\\d\\d[- .]?\\d\\d\\d\\d$")) {
 					addInvalidMessage(ctx, "Số điện thoại không đúng định dạng.");

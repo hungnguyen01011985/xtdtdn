@@ -52,55 +52,58 @@
 						</div>
 					</div>
 				</div>
-				<div class="row mg-and-bg-and-line" validationMessages="@id('vmsgs1')">
+				<div class="mg-and-bg-and-line">
+					<div class="row">
 						<div zclass="col-md-4">
 							<x:div class="form-group" id="focus">
 								<x:span class="issue-search">Họ và tên</x:span>  
-								<textbox id="aaa" class="form-control" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"
-								 value="@load(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên thành viên.."></textbox>
-								<label zclass="error" value="@load(vmsgs1['aaa'])" />
+								<textbox class="form-control" value="@load(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"
+								  placeholder="Nhập tên thành viên.."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</x:div>
 						</div>
 						
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="issue-search">Chức danh</x:span>  
-								<textbox id="chucDanh" class="form-control" value="@load(vm.thanhVienDoanTemp.chucDanh) @save(vm.thanhVienDoanTemp.chucDanh, before='saveThanhVienDoan')" placeholder="Nhập chức danh.."></textbox>
+								<textbox class="form-control" value="@load(vm.thanhVienDoanTemp.chucDanh) @save(vm.thanhVienDoanTemp.chucDanh, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập chức danh.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="issue-search">Đơn vị</x:span> 
-								<textbox id="donVi" class="form-control" value="@bind(vm.thanhVienDoanTemp.donVi)" placeholder="Nhập đơn vị.."></textbox>
+								<textbox id="donVi" class="form-control" value="@bind(vm.thanhVienDoanTemp.donVi) @save(vm.thanhVienDoanTemp.donVi, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập đơn vị.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
-						
-					<div zclass="col-md-4">
-						<div zclass="form-group">
-							<x:span class="issue-search">Quốc gia</x:span> 
-							<combobox id="cbbQuocGia" model="@load(vm.listQuocGia)" placeholder="Chọn quốc gia"
-								readonly="true" class="his" width="100%" selectedItem="@bind(vm.thanhVienDoanTemp.quocGia)">
-								<template name="model">
-									<comboitem label="@load(each.text)"/>
-								</template>
-							</combobox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
 					</div>
-					<div zclass="col-md-4">
-						<div zclass="form-group">
-							<x:span class="issue-search">Email</x:span>  
-							<textbox id="email" class="form-control" value="@bind(vm.thanhVienDoanTemp.email) @save(vm.thanhVienDoanTemp.email, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validatorEmail)" placeholder="Nhập email.."></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					<div class="row">
+						<div zclass="col-md-4">
+							<div zclass="form-group">
+								<x:span class="issue-search">Quốc gia</x:span> 
+								<combobox id="cbbQuocGia" model="@load(vm.listQuocGia)" placeholder="Chọn quốc gia"
+									readonly="true" class="his" width="100%" selectedItem="@bind(vm.thanhVienDoanTemp.quocGia) @save(vm.thanhVienDoanTemp.quocGia, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')">
+									<template name="model">
+										<comboitem label="@load(each.text)"/>
+									</template>
+								</combobox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
-					</div>
-					<div zclass="col-md-4">
-						<div zclass="form-group">
-							<x:span class="issue-search">Số điện thoại</x:span>  
-							<textbox id="soDienThoai" class="form-control" value="@bind(vm.thanhVienDoanTemp.soDienThoai)" placeholder="Nhập số điện thoại.."></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						<div zclass="col-md-4">
+							<div zclass="form-group">
+								<x:span class="issue-search">Email</x:span>  
+								<textbox id="email" class="form-control" value="@bind(vm.thanhVienDoanTemp.email) @save(vm.thanhVienDoanTemp.email, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validatorEmail)" placeholder="Nhập email.."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+						<div zclass="col-md-4">
+							<div zclass="form-group">
+								<x:span class="issue-search">Số điện thoại</x:span>  
+								<textbox class="form-control" value="@bind(vm.thanhVienDoanTemp.soDienThoai) @save(vm.thanhVienDoanTemp.soDienThoai, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validateSoDienThoai)" placeholder="Nhập số điện thoại.."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
 					</div>
 				</div>

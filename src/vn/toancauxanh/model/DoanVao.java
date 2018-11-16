@@ -28,8 +28,6 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import com.querydsl.jpa.impl.JPAQuery;
-
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiEnum;
 
