@@ -1,7 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style="overflow:visible;margin-bottom:15px;">
 		<div class="w-popup-content-medium">
-			<div zclass="mg-and-bg-and-line-fix">
+			<div zclass="mg-and-bg-and-line-fix" style="margin-bottom: 4px;">
 				<div class="row">
 					<div zclass="col-md-12">
 						<div class="title-small-page">
@@ -14,11 +14,17 @@
 				<template name="children">
 					<div class="row">
 						<div class="col-md-4">
+							<div class="flex">
+								<x:span zk:if="${forEachStatus.first}" class="label-txt-style">Tên tài liệu</x:span>
+							</div>
 							<div zclass="form-group">
 								<textbox class="form-control textbox-txt-style" disabled="${!action}" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
 							</div>
 						</div>
 						<div class="col-md-3">
+							<div class="flex">
+								<x:span zk:if="${forEachStatus.first}" class="label-txt-style">Tài liệu đính kèm</x:span>
+							</div>
 							<div zclass="form-group mg-top-8">
 								<a href="" class="style-txt-file">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
@@ -26,7 +32,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-4 ${forEachStatus.first ? 'margin-top-17' : ''}">
 							<div class="flex mg-btn-top">
 								<x:button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien)}" class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
