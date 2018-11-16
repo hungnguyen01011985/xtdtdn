@@ -20,6 +20,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Filedownload;
@@ -374,5 +375,12 @@ public class GiaoViec extends Model<GiaoViec> {
 				return result;
 			}
 		};
+	}
+	
+	@Command
+	public void redirect(@BindingParam("ob") TepTin ob){
+		String fileView = "";
+		fileView = fileView.concat(ob.getPathFile() + ob.getNameHash());
+		Executions.sendRedirect("/"+fileView);
 	}
 }

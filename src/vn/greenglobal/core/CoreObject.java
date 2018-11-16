@@ -421,9 +421,19 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 		final String result = ctx().getEnvironment().getProperty("filestore.home");
 		return result.replace('/', File.separatorChar);
 	}
+	
+	public String folderFilesStore() {
+		final String result = ctx().getEnvironment().getProperty("filestore.files");
+		return result.replace('/', File.separatorChar);
+	}
 
 	public String folderStoreFilesLink() {
 		final String result = ctx().getEnvironment().getProperty("filestore.link");
+		return result.replace('/', File.separatorChar);
+	}
+	
+	public String folderStoreTepTin() {
+		final String result = ctx().getEnvironment().getProperty("filestore.folderteptin");
 		return result.replace('/', File.separatorChar);
 	}
 

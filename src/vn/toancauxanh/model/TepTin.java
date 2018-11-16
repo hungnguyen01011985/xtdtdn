@@ -17,6 +17,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.io.Files;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Filedownload;
@@ -148,7 +149,7 @@ public class TepTin extends Model<TepTin> {
 				this.setNameHash(tenFile);
 				this.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
-				this.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+				this.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
 				this.setMedia(media);
 				if (error != null) {
 					error.setValue("");
@@ -183,5 +184,11 @@ public class TepTin extends Model<TepTin> {
 				}
 			});
 	}
-
+	
+	@Command
+	public void redirect(@BindingParam("ob") TepTin ob){
+		String fileView = "";
+		fileView = fileView.concat(ob.pathFile + ob.nameHash);
+		Executions.getCurrent().sendRedirect(fileView, "_blank");
+	}
 }
