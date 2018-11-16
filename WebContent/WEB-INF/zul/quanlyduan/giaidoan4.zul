@@ -23,8 +23,10 @@
 						<div class="flex">
 							<x:span class="issue-search">Phương thức lựa chọn nhà đầu tư<n:small class="required"> *</n:small></x:span>
 						</div>
-						<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon)}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" model="@load(vm.getListPhuongThucLuaChonNDT())" readonly="true" width="100%" placeholder="--Chọn--" selectedItem="@bind(vm.giaiDoanDuAn.phuongThucLuaChonNDT) @save(vm.giaiDoanDuAn.phuongThucLuaChonNDT, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
-						onSelect="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)" onCreate="@command('srcGiaiDoanBon',giatri=vm.giaiDoanDuAn.option, vmArgs = vm)" value="@load(vm.giaiDoanDuAn.phuongThucLuaChonNDT.text)">
+						<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
+							disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" 
+							model="@load(vm.getListPhuongThucLuaChonNDT())" readonly="true" width="100%" placeholder="--Chọn--" selectedItem="@bind(vm.giaiDoanDuAn.phuongThucLuaChonNDT) @save(vm.giaiDoanDuAn.phuongThucLuaChonNDT, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+							onSelect="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)" onCreate="@command('srcGiaiDoanBon',giatri=vm.giaiDoanDuAn.option, vmArgs = vm)" value="@load(vm.giaiDoanDuAn.phuongThucLuaChonNDT.text)">
 							<template name="model">
 								<comboitem label="@load(each.text)"></comboitem>
 							</template>
@@ -37,7 +39,11 @@
 						<div class="flex">
 							<x:span class="issue-search">Đơn vị chủ trì<n:small class="required"> *</n:small></x:span>
 						</div>
-						<combobox buttonVisible="${action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon)}" class="his mg-top-8 ${action and action and vm.checkDangOGiaiDoan(giaiDoanBon) ? '' : 'input-no-button' }" width="100%" readonly="true" model="@load(vm.giaiDoanDuAn.getListDonViChuTri())" selectedItem="@bind(vm.giaiDoanDuAn.donViChuTri) @save(vm.giaiDoanDuAn.donViChuTri, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
+						<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
+							disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
+							class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" 
+							width="100%" readonly="true" model="@load(vm.giaiDoanDuAn.getListDonViChuTri())" placeholder="--Chọn--"
+							selectedItem="@bind(vm.giaiDoanDuAn.donViChuTri) @save(vm.giaiDoanDuAn.donViChuTri, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
 							<template name="model">
 								<comboitem label="@load(each.ten)"></comboitem>
 							</template>
@@ -54,14 +60,14 @@
 						<span>Đóng</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanBon) and entry.quyen.quanlyduan_sua}">
 					<x:button onClick="@command('goNext', task = 'task_luuDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam')"
 						class="btn btn-base btn-green">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tiep-tuc.svg"/>
 						<span>Tiếp tục</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanBon) and entry.quyen.quanlyduan_sua}">
 					<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanBon')"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
@@ -75,7 +81,7 @@
 						<span>Danh sách giao việc</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiTao.id == entry.nhanVien.id and action and action and vm.checkDangOGiaiDoan(giaiDoanBon)}">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiTao.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanBon)  and entry.quyen.quanlyduan_phutrach}">
 					<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/doi-nguoi-phu-trach.svg"/>

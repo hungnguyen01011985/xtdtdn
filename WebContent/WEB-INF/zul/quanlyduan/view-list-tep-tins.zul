@@ -1,5 +1,5 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
-	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style="overflow:visible;margin-bottom:15px;">
+	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style="overflow:visible;margin-bottom:15px;margin-top:15px;">
 		<div class="w-popup-content-medium">
 			<div zclass="mg-and-bg-and-line-fix" style="margin-bottom: 4px;">
 				<div class="row">
@@ -18,7 +18,7 @@
 								<x:span zk:if="${forEachStatus.first}" class="label-txt-style">Tên tài liệu</x:span>
 							</div>
 							<div zclass="form-group">
-								<textbox class="form-control textbox-txt-style" disabled="${!action}" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
+								<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -34,10 +34,10 @@
 						</div>
 						<div class="col-md-4 ${forEachStatus.first ? 'margin-top-17' : ''}">
 							<div class="flex mg-btn-top">
-								<x:button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien)}" class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
+								<x:button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien)}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('reUploadFile', medias=event.media, index = forEachStatus.index)"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
@@ -49,7 +49,7 @@
 			<div style="padding:0 7.5px">
 				<div class="row">
 					<div class="col-md-12">
-						<button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien)}" label="Thêm tài liệu" class="btn bg-btn-tailieu-green mg-btn-top" image="/assets/icon-bxtdn/them-moi.svg"
+						<button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" label="Thêm tài liệu" class="btn bg-btn-tailieu-green mg-btn-top" image="/assets/icon-bxtdn/them-moi.svg"
 							onUpload="@command('uploadFile', medias=event.medias)"
 							upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>

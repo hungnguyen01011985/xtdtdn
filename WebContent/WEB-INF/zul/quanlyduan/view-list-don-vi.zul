@@ -23,8 +23,8 @@
 										<div class="flex">
 											<x:span class="issue-search">Cấp đơn vị<n:small class="required"> *</n:small></x:span>
 										</div>
-										<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanMot)}" readonly="true" model="@load(each.listCapDonVi)" selectedItem="@bind(each.capDonVi) @save(each.capDonVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
-											value="@load(each.capDonVi.ten)" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }" placeholder="Chọn cấp đơn vị" width="100%">
+										<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanMot) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" readonly="true" model="@load(each.listCapDonVi)" selectedItem="@bind(each.capDonVi) @save(each.capDonVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+											value="@load(each.capDonVi.ten)" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" placeholder="Chọn cấp đơn vị" width="100%">
 											<template name="model">
 												<comboitem label="@load(each.ten)"></comboitem>
 											</template>
@@ -37,8 +37,8 @@
 										<div class="flex">
 											<x:span class="issue-search">Đơn vị<n:small class="required"> *</n:small></x:span>
 										</div>
-										<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanMot)}" readonly="true" model="@load(each.listDonViXucTien)" selectedItem="@bind(each.donVi) @save(each.donVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" 
-											placeholder="Chọn đơn vị xúc tiến" width="100%" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? '' : 'input-no-button' }">
+										<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanMot) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" readonly="true" model="@load(each.listDonViXucTien)" selectedItem="@bind(each.donVi) @save(each.donVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" 
+											placeholder="Chọn đơn vị xúc tiến" width="100%" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }">
 											<template name="model">
 												<comboitem label="@load(each.ten)"></comboitem>
 											</template>
@@ -62,7 +62,7 @@
 										<div class="flex">
 											<x:span class="label-txt-style">Ngày phát hành công văn<n:small class="required"> *</n:small></x:span>
 										</div>
-										<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" format="dd/MM/yyyy" readonly="true" class="hv-db ${action and vm.checkDangOGiaiDoan(giaiDoanMot) ? 'datebox-txt-style' : 'input-no-button' }"
+										<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy" readonly="true" class="hv-db ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? 'datebox-txt-style' : 'input-no-button' }"
 											value="@bind(each.ngayNhanTraLoi) @save(each.ngayNhanTraLoi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
 										<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 									</div>
@@ -74,7 +74,7 @@
 											<div class="flex">
 												<x:span class="label-txt-style">Tài liệu đính kèm<n:small class="required"> *</n:small></x:span>
 											</div>
-											<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
+											<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
 												class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 												onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'congVanTraLoi', error = errorCongVanTraLoi)"
 												upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
@@ -84,10 +84,10 @@
 													<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 												</div>
 												<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = each.congVanTraLoi)" value="@load(each.congVanTraLoi.tenFile)"/>
-												<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
+												<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
 													<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 												</x:button>
-												<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+												<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 													onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'congVanTraLoi', error = errorCongVanTraLoi)"
 													upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 												</button>
