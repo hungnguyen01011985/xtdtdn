@@ -52,16 +52,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="row mg-and-bg-and-line">
+				<div class="row mg-and-bg-and-line" validationMessages="@id('vmsgs1')">
 						<div zclass="col-md-4">
 							<x:div class="form-group" id="focus">
 								<x:span class="issue-search">Họ và tên</x:span>  
-								<textbox class="form-control" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"
-								 value="@load(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan')@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên.."></textbox>
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								<textbox id="aaa" class="form-control" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"
+								 value="@load(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên thành viên.."></textbox>
+								<label zclass="error" value="@load(vmsgs1['aaa'])" />
 							</x:div>
 						</div>
-						
 						
 						<div zclass="col-md-4">
 							<div zclass="form-group">
@@ -81,10 +80,10 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<x:span class="issue-search">Quốc gia</x:span> 
-							<combobox id="cbbQuocGia" model="@load(entry.quocGias.listQuocGiaAndNull)" placeholder="Tất cả"
-								readonly="true" class="his" width="100%" onCreate="@command('loadQuocGia')" selectedItem="@bind(vm.thanhVienDoanTemp.quocGiaTemp)" onSelect="@command('selectQuocGia')">
+							<combobox id="cbbQuocGia" model="@load(vm.listQuocGia)" placeholder="Chọn quốc gia"
+								readonly="true" class="his" width="100%" selectedItem="@bind(vm.thanhVienDoanTemp.quocGia)">
 								<template name="model">
-									<comboitem label="@load(each.tenQuocGia eq null ? 'Tất cả' : each.tenQuocGia)"/>
+									<comboitem label="@load(each.text)"/>
 								</template>
 							</combobox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -93,7 +92,7 @@
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<x:span class="issue-search">Email</x:span>  
-							<textbox id="email" class="form-control" value="@bind(vm.thanhVienDoanTemp.email)" placeholder="Nhập email.."></textbox>
+							<textbox id="email" class="form-control" value="@bind(vm.thanhVienDoanTemp.email) @save(vm.thanhVienDoanTemp.email, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validatorEmail)" placeholder="Nhập email.."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -155,7 +154,7 @@
 								<label value="@load(each.hoVaTen)" style="text-align:left; display: block;"></label>
 								<label value="@load(each.chucDanh)" style="text-align:left; display: block;"></label>
 								<label value="@load(each.donVi)" style="text-align:left; display: block;"></label>
-								<label value="@load(entry.quocGias.getTenQuocGia(each.quocGia))" style="text-align:left; display: block;"></label>
+								<label value="@load(each.quocGia.text)" style="text-align:left; display: block;"></label>
 								<label value="@load(each.email)" style="text-align:left; display: block;"></label>
 								<label value="@load(each.soDienThoai)" style="text-align:left; display: block;"></label>
 								<div class="thaotac" style="text-align:left">

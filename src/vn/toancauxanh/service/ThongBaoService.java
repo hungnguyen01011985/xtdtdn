@@ -43,11 +43,6 @@ public class ThongBaoService extends BasicService<ThongBao> {
 		return getTargetQuery().where(QThongBao.thongBao.daXem.eq(false)).fetchCount();
 	}
 
-	@Command
-	public void viewNotify(@BindingParam("item") ThongBao thongBao) {
-		thongBao.setDaXem(true);
-		thongBao.saveAndRedirect();
-	}
 
 	public List<LoaiThongBao> getListThongBaoAndNull() {
 		List<LoaiThongBao> list = new ArrayList<LoaiThongBao>();
