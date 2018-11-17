@@ -31,7 +31,10 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Ngày khảo sát<n:small class="required"> *</n:small></x:span>
 							</div>
-							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai)}" format="dd/MM/yyyy" readonly="true" class="hv-db datebox-txt-style mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanHai) ? '' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayKhaoSat) @save(vm.giaiDoanDuAn.ngayKhaoSat, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
+								disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
+								format="dd/MM/yyyy" readonly="true" class="hv-db datebox-txt-style mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button' }" 
+								value="@bind(vm.giaiDoanDuAn.ngayKhaoSat) @save(vm.giaiDoanDuAn.ngayKhaoSat, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								 width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -43,7 +46,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Ghi chú</x:span>
 							</div>
-							<textbox class="form-control" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai)}" rows="4" placeholder="Nhập ghi chú" value="@bind(vm.giaiDoanDuAn.ghiChu)"></textbox>
+							<textbox class="form-control" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" rows="4" placeholder="Nhập ghi chú" value="@bind(vm.giaiDoanDuAn.ghiChu)"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -52,7 +55,7 @@
 					<div class="col-md-12" viewModel="@id('taiLieuGD2')@init(vm.giaiDoanDuAn.taiLieuGD2)">
 						<div zclass="form-group">
 							<x:span class="label-txt-style">Tài liệu kèm theo</x:span>
-							<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" visible="@load(empty vm.giaiDoanDuAn.taiLieuGD2.tenFile)" label="Chọn tài liệu" 
+							<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty vm.giaiDoanDuAn.taiLieuGD2.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuGD2')"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
@@ -64,10 +67,10 @@
 								</div>
 								<label visible="@load(vm.giaiDoanDuAn.taiLieuGD2.noId())" class="txt-link-tailieu pointer-cls" value="@bind(vm.giaiDoanDuAn.taiLieuGD2.tenFile)" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.taiLieuGD2)" />
 								<a visible="@load(!vm.giaiDoanDuAn.taiLieuGD2.noId())" label="@bind(vm.giaiDoanDuAn.taiLieuGD2.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.giaiDoanDuAn.taiLieuGD2)"></a>
-								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD2, name = 'taiLieuGD2')">
+								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD2, name = 'taiLieuGD2')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'taiLieuGD2')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
@@ -90,7 +93,10 @@
 						<div class="flex">
 							<x:span class="label-txt-style">Ngày phát hành CV<n:small class="required"> *</n:small></x:span>
 						</div> 
-						<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai)}" format="dd/MM/yyyy" readonly="true" class="hv-db datebox-txt-style mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanHai) ? '' : 'input-no-button' }" value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCVGD2) @save(vm.giaiDoanDuAn.ngayPhatHanhCVGD2, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
+							disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" format="dd/MM/yyyy" readonly="true" 
+							class="hv-db datebox-txt-style mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button' }" 
+							value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCVGD2) @save(vm.giaiDoanDuAn.ngayPhatHanhCVGD2, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
@@ -102,7 +108,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Tài liệu kèm theo<n:small class="required"> *</n:small></x:span>
 							</div>
-							<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" visible="@load(empty vm.giaiDoanDuAn.congVanGD2.tenFile)" label="Chọn tài liệu" 
+							<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty vm.giaiDoanDuAn.congVanGD2.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 								onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'congVanGD2', error = error)"
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
@@ -114,10 +120,10 @@
 								</div>
 								<label visible="@load(vm.giaiDoanDuAn.congVanGD2.noId())" class="txt-link-tailieu pointer-cls" value="@bind(vm.giaiDoanDuAn.congVanGD2.tenFile)" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.congVanGD2)"/>
 								<a visible="@load(!vm.giaiDoanDuAn.congVanGD2.noId())" label="@bind(vm.giaiDoanDuAn.congVanGD2.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.giaiDoanDuAn.congVanGD2)"></a>
-								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.congVanGD2, name = 'congVanGD2')">
+								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.congVanGD2, name = 'congVanGD2')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('uploadFile',medias=event.getMedia(),vm = vm.giaiDoanDuAn, name = 'congVanGD2', error = error)"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
@@ -137,19 +143,19 @@
 						<span>Đóng</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai)}">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_sua}">
 					<x:button onClick="@command('goNext', task = 'task_luuVaTiepTucGiaiDoanBa')" class="btn btn-base btn-green">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tiep-tuc.svg" />
 						<span>Tiếp tục</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai)}">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_sua}">
 					<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanHai')" class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
 						<span>Lưu</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai)}">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_sua}">
 					<x:button onClick="@command('goBack', task = 'task_quayLaigiaiDoanHai')" class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
 						<span>Quay lại giai đoạn một</span>
@@ -162,7 +168,7 @@
 						<span>Danh sách giao việc</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiTao.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai)}">
+				<div zclass="form-group right-mg flex" if="${vm.nguoiTao.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_phutrach}">
 					<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
 						class="btn btn-blue">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/doi-nguoi-phu-trach.svg"/>

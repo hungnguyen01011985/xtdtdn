@@ -36,6 +36,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.greenglobal.core.CoreObject;
 import vn.toancauxanh.cms.service.HomeService;
+import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.NhanVien;
@@ -478,5 +479,18 @@ public class BaseObject<T> extends CoreObject<T> {
 		args.put("title", title);
 		args.put("content", content);
 		Executions.createComponents("/frontend/common/notification-error.zul", null, args);
+	}
+	
+	public boolean checkEdit(Long idNV, String id, GiaiDoanXucTien giaiDoanXucTien, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
+		if (id == null || idNV == null || id.trim().isEmpty()) {
+			return false;
+		}
+		if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(giaiDoanXucTien) || GiaiDoanXucTien.HOAN_THANH.equals(giaiDoanXucTien)) {
+			return false;
+		}
+		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
+			return true;
+		}
+		return subString(id).contains(idNV);
 	}
 }
