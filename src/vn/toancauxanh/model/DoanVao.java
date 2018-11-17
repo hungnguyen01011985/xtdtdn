@@ -1,6 +1,8 @@
 package vn.toancauxanh.model;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,6 +11,10 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -25,6 +31,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -46,10 +53,9 @@ public class DoanVao extends Model<DoanVao> {
 	private NhanVien nguoiPhuTrach = new NhanVien();
 	private List<KeHoachLamViec> listKeHoachLamViec;
 	private String link;
-	private TepTin taiLieu;
-	private TepTin congVanChiDaoUB;
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
+	private List<TepTin> tepTins = new ArrayList<TepTin>();
 
 
 	public DoanVao() {
@@ -118,24 +124,6 @@ public class DoanVao extends Model<DoanVao> {
 		this.link = link;
 	}
 
-	@ManyToOne
-	public TepTin getTaiLieu() {
-		return taiLieu;
-	}
-
-	public void setTaiLieu(TepTin taiLieu) {
-		this.taiLieu = taiLieu;
-	}
-
-	public void setCongVanChiDaoUB(TepTin congVanChiDaoUB) {
-		this.congVanChiDaoUB = congVanChiDaoUB;
-	}
-
-	@ManyToOne
-	public TepTin getCongVanChiDaoUB() {
-		return congVanChiDaoUB;
-	}
-
 	@Enumerated(EnumType.STRING)
 	public TrangThaiEnum getTrangThaiTiepDoan() {
 		return trangThaiTiepDoan;
@@ -172,9 +160,90 @@ public class DoanVao extends Model<DoanVao> {
 	public void setCheckTaiLieu(boolean checkTaiLieu) {
 		this.checkTaiLieu = checkTaiLieu;
 	}
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name = "doanvao_teptin", joinColumns = {
+			@JoinColumn(name = "doanvao_id") }, inverseJoinColumns = { @JoinColumn(name = "teptin_id") })
+	public List<TepTin> getTepTins() {
+		return tepTins;
+	}
 
+	public void setTepTins(List<TepTin> tepTins) {
+		this.tepTins = tepTins;
+	}
+	
 	@Command
-	public void uploadFile(@BindingParam("medias") final Object medias) {
+	public void uploadFile(@BindingParam("medias") Object[] medias) {
+		for (Object item : medias) {
+			Media media = (Media) item;
+			if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
+					|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
+					|| media.getName().toLowerCase().endsWith(".xlsx")) {
+				if (media.getByteData().length > 50000000) {
+					showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
+				} else {
+					String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
+							+ Calendar.getInstance().getTimeInMillis()
+							+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
+					TepTin tepTin = new TepTin();
+					tepTin.setNameHash(tenFile);
+					tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
+					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
+					tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+					tepTin.setMedia(media);
+					this.getTepTins().add(tepTin);
+					this.getTepTins().forEach(obj -> {
+						try {
+							obj.saveFileTepTin();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					});
+					BindUtils.postNotifyChange(null, null, this, "tepTins");
+				}
+			} else {
+				showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
+						"Có tệp không đúng định dạng", "danger");
+			}
+		}
+	}
+	
+	@Command
+	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
+		if (!object.getPathFile().isEmpty()) {
+			final String path = folderStoreTaiLieu() + object.getNameHash();
+			if (new java.io.File(path).exists()) {
+				try {
+					Filedownload.save(new URL("file:///" + path)
+							.openStream(), null, object.getTenFile().concat(object.getTypeFile()));
+				} catch (IOException e) {
+					showNotification("Không tìm thấy file", "Thông báo", "danger");
+				}
+			} else {
+				showNotification("Không tìm thấy file", "Thông báo", "danger");
+			}
+		}
+	}
+	
+	@Command
+	public void deleteFile(@BindingParam("index") final int index) {
+		DoanVao doanVao = this;
+		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
+				Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) throws IOException {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							doanVao.getTepTins().remove(index);
+							BindUtils.postNotifyChange(null, null, this, "tepTins");
+							showNotification("Đã xóa", "", "success");
+						}
+					}
+				});
+	}
+	
+	@Command
+	public void reUploadFile(@BindingParam("medias") final Object medias, @BindingParam("index") final int index) {
 		Media media = (Media) medias;
 		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
 				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
@@ -189,34 +258,16 @@ public class DoanVao extends Model<DoanVao> {
 				tepTin.setNameHash(tenFile);
 				tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+				tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				tepTin.setMedia(media);
-				setTaiLieu(tepTin);
-				setCheckTaiLieu(true);
-				BindUtils.postNotifyChange(null, null, this, "taiLieu");
-				BindUtils.postNotifyChange(null, null, this, "checkTaiLieu");
+				this.getTepTins().set(index, tepTin);
+				BindUtils.postNotifyChange(null, null, this, "tepTins");
 			}
 		} else {
 			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
 					"Có tệp không đúng định dạng", "danger");
 		}
-	}
-
-	@Command
-	public void deleteFile(@BindingParam("vm") DoanVao ob) {
-		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-				Messagebox.QUESTION, new EventListener<Event>() {
-					@Override
-					public void onEvent(final Event event) throws IOException {
-						if (Messagebox.ON_OK.equals(event.getName())) {
-							setTaiLieu(null);
-							setCheckTaiLieu(false);
-							BindUtils.postNotifyChange(null, null, ob, "taiLieu");
-							BindUtils.postNotifyChange(null, null, ob, "checkTaiLieu");
-							showNotification("Đã xóa", "", "success");
-						}
-					}
-				});
 	}
 
 	@Command
@@ -238,9 +289,9 @@ public class DoanVao extends Model<DoanVao> {
 						thanhVienDoan.saveNotShowNotification();
 					}
 				}
-				if (getTaiLieu() != null) {
-					getTaiLieu().save();
-				}
+				doanVao.getTepTins().forEach(item -> {
+					item.saveNotShowNotification();
+				});
 				save();
 				redirectPageList("/cp/quanlydoanvao", null);
 			}

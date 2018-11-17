@@ -76,7 +76,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-tailieu primary btn-grey ">
+						<x:button class="btn bg-btn-dong btn-grey">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
 							<span>Tìm kiếm lại</span>
 						</x:button>
@@ -84,7 +84,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button class="btn primary btn-blue" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+						<x:button class="btn btn-base btn-gray" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
 						</x:button>
@@ -127,7 +127,7 @@
 								<label value="@load(each.noiDoanDiTham)"></label>
 								<label value="@load(each.trangThaiTiepDoan.text)"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" href="${execution.contextPath}/cp/quanlydoanvao/capnhatketqua">
+									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlydoanvao/${each.id}">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Cập nhật</x:span>
 									</x:a>
@@ -139,6 +139,9 @@
 							</row>
 						</template>
 					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
@@ -146,7 +149,7 @@
 					<div zclass="form-group right">
 						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlydoanvao/add-view">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
-							<span>Thêm mới đoàn vào</span>
+							<span>Thêm đoàn vào</span>
 						</x:a>
 					</div>
 				</div>

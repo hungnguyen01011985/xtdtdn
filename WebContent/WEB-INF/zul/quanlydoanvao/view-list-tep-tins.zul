@@ -1,0 +1,54 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style=";margin-bottom:15px;">
+		<div class="w-popup-content-medium">
+			<div zclass="mg-and-bg-and-line-fix">
+				<div class="row">
+					<div zclass="col-md-12">
+						<div class="title-small-page">
+							<span>Tài liệu khác</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div children="@bind(vm.tepTins)" style="padding:0 7.5px;">
+				<template name="children">
+					<div class="row">
+						<div class="col-md-4">
+							<div zclass="form-group">
+								<textbox class="form-control textbox-txt-style" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div zclass="form-group mg-top-8">
+								<a href="" class="style-txt-file">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
+									<label value="@load(each.tenFile)" onClick="@command('downLoadTepTin', ob = each)" class="txt-link-tai-lieu-fix"></label>
+								</a>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="flex mg-btn-top">
+								<x:button class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
+									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
+								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('reUploadFile', medias=event.media, index = forEachStatus.index)"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
+							</div>
+						</div>
+					</div>
+				</template>
+			</div>
+			<div style="padding:0 7.5px">
+				<div class="row">
+					<div class="col-md-12">
+						<button label="Thêm tài liệu" class="btn bg-btn-tailieu-green mg-btn-top" image="/assets/icon-bxtdn/them-moi.svg"
+							onUpload="@command('uploadFile', medias=event.medias)"
+							upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</window>

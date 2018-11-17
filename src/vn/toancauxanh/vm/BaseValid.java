@@ -40,7 +40,6 @@ public class BaseValid extends AbstractValidator {
 	private boolean validateConstraint(final ValidationContext ctx) {
 		boolean result;
 		final Object constraint = ctx.getValidatorArg("constraint"); // Lấy dữ liệu biến param đặt trong @Validator
-		System.out.println("zooooooooo");
 		if (constraint == null) {
 			result = true;
 		} else {

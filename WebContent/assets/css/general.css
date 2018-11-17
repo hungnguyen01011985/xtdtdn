@@ -427,6 +427,10 @@
 	border-radius: 3px !important;
 }
 
+.dv-color span{
+	color: #ffffff !important;
+}
+
 .bg-btn-tailieu-green {
 	font-family: Roboto-Regular !important;
 	font-size: 13px;

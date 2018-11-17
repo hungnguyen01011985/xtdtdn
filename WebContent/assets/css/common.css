@@ -1082,6 +1082,14 @@ div .label-merge-header {
 	border-radius: 0;
 }
 
+.z-datebox-button:hover .z-datebox-icon{
+	color: #6B6C70 !important;
+}
+
+.z-datebox-icon{
+	color: #6B6C70 !important;
+}
+
 .z-tabbox-top>.z-tabs .z-tab.z-tab-selected:first-child, .z-tab-selected,
 	.z-tab-selected:hover, .z-tabpanels {
 	background: #3ba4c2;
@@ -1263,6 +1271,11 @@ ul.z-tabs-content {
 	background: rgba(121, 149, 216, 0.1);
 	height: calc(100vh - 60px);
 	overflow: auto;
+}
+
+.doanvao-tailieu .z-window-content {
+	height: auto !important;
+	overflow: inherit !important;
 }
 /*ghi de*/
 .z-page {
