@@ -36,7 +36,11 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.greenglobal.core.CoreObject;
 import vn.toancauxanh.cms.service.HomeService;
+<<<<<<< HEAD
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
+=======
+import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+>>>>>>> 7d5b6affc762345810117d8c51fb8d2bf7c943c0
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.NhanVien;
@@ -340,18 +344,26 @@ public class BaseObject<T> extends CoreObject<T> {
 
 	public String subStringThongBao(String text, int index) {
 		int i = 0;
-		for (String w : text.split("@", 0)) {
-			if (index == i ) {
-				return w;
+		for (String txt : text.split("@", 0)) {
+			if (index == i) {
+				return txt;
 			}
 			i++;
 		}
 		return null;
 	}
 	
+	public String subStringThongBaoNoIndex(String text) {
+		StringBuilder builder = new StringBuilder();
+		for (String txt : text.split("@", 0)) {
+			builder.append(txt);
+		}
+		return builder.toString();
+	}
+	
 	public void removeIdInList(GiaoViec giaoViec) {
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.eq(giaoViec.getDuAn()));
-		DuAn duAn = q.fetchOne();
+		DuAn duAn = q.fetchFirst();
 		duAn.setIdNguoiLienQuan(
 				duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId() + KY_TU, ""));
 		duAn.saveNotShowNotification();
@@ -679,5 +691,18 @@ public class BaseObject<T> extends CoreObject<T> {
 		list.add(null);
 		list.addAll(getListQuocGia());
 		return list;
+	}
+	
+	public boolean checkEdit(Long idNV, String id, GiaiDoanXucTien giaiDoanXucTien, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
+		if (id == null || idNV == null || id.trim().isEmpty()) {
+			return false;
+		}
+		if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(giaiDoanXucTien) || GiaiDoanXucTien.HOAN_THANH.equals(giaiDoanXucTien)) {
+			return false;
+		}
+		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
+			return true;
+		}
+		return subString(id).contains(idNV);
 	}
 }

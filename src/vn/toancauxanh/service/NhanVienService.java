@@ -72,7 +72,7 @@ public final class NhanVienService extends BasicService<NhanVien> {
 			q.where(QNhanVien.nhanVien.trangThai.eq(paramtrangThai));
 		}
 		q.orderBy(QNhanVien.nhanVien.trangThai.asc());
-		return q.orderBy(QNhanVien.nhanVien.id.desc());
+		return q.orderBy(QNhanVien.nhanVien.ngaySua.desc());
 	}
 
 	@Command

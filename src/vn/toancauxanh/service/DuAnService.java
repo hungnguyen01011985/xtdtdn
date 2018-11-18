@@ -55,19 +55,6 @@ public class DuAnService extends BasicService<DuAn> {
 		return q;
 	}
 
-	public boolean checkEdit(Long idNV, String id, GiaiDoanXucTien giaiDoanXucTien, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
-		if (id == null || idNV == null || id.trim().isEmpty()) {
-			return false;
-		}
-		if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(giaiDoanXucTien) || GiaiDoanXucTien.HOAN_THANH.equals(giaiDoanXucTien)) {
-			return false;
-		}
-		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
-			return true;
-		}
-		return subString(id).contains(idNV);
-	}
-	
 	public boolean checkDelete(GiaiDoanXucTien giaiDoanXucTien, NhanVien nguoiTao) {
 		if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(giaiDoanXucTien)
 				|| GiaiDoanXucTien.HOAN_THANH.equals(giaiDoanXucTien)) {

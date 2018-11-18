@@ -536,11 +536,14 @@ html, body {
 .name-q {
 	text-transform: uppercase;
 }
-
+.w-popup-content-medium {
+	margin-top: -15px;
+}
 .z-paging.z-paging-os {
 	float: right;
 	margin-bottom:15px;
 	background:#FFF;
+	padding-right:0;
 }
 .z-paging-button:hover {
 	border-color:#D3D9E2;
@@ -738,7 +741,12 @@ html, body {
 	padding: 2px 0;
 	font-family: Roboto-Medium;
 }
-
+.z-listitem-selected .z-listitem-checkable {
+	background:#4274ED !important;
+}
+.z-listitem-icon {
+	color:#FFF !important;
+}
 .dropdown-menu {
 	z-index: 1999;
 }

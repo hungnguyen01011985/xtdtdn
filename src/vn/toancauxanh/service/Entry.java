@@ -69,6 +69,8 @@ public class Entry extends BaseObject<Object> {
 	public String GIAOVIEC = ""; // duoc giao viec
 	@Value("${action.nhacnho}")
 	public String NHACNHO = "";
+	@Value("${action.phutrach}") // duoc cap nhat nguoi phu trach
+	public String PHUTRACH = "";
 
 	@Value("${url.quanlyduan}")
 	public String QUANLYDUAN = "";
@@ -109,6 +111,8 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDUANGIAOVIEC;
 	@Value("${url.quanlyduan}" + ":" + "${action.nhacnho}")
 	public String QUANLYDUANNHACNHO;
+	@Value("${url.quanlyduan}" + ":" + "${action.phutrach}")
+	public String QUANLYDUANPHUTRACH;
 
 	@Value("${url.quanlydoanvao}" + ":" + "${action.list}")
 	public String QUANLYDOANVAOLIST;
@@ -197,7 +201,7 @@ public class Entry extends BaseObject<Object> {
 	}
 
 	public String[] getACTIONS() {
-		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO };
+		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO, PHUTRACH };
 	}
 
 	static {

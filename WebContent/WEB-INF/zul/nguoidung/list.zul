@@ -73,8 +73,8 @@
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên" style="text-align:center" width="20%" />
-							<column label="Email" style="text-align:center" />
-							<column label="Phòng ban" style="text-align:center" />
+							<column label="Email" style="text-align:center" width="20%"/>
+							<column label="Phòng ban" style="text-align:center" width="30%"/>
 							<column label="Vị trí" style="text-align:center" hflex="min" />
 							<column label="Thao tác" style="text-align:center" width="140px"/>
 						</columns>
@@ -99,17 +99,10 @@
 								</div>
 							</row>
 						</template>
-						<foot visible="@load(vm.targetQueryNhanVien.fetchCount() gt 10)">
-							<footer span="6">
-								<div class="">
-									<paging pageSize="@load(vm.arg.pagesize)"
-										totalSize="@load(vm.targetQueryNhanVien.fetchCount())"
-										activePage="@bind(vm.arg.page)"
-										onPaging="@command('cmd', notify=vm, attr='targetQueryNhanVien')" />
-								</div>
-							</footer>
-						</foot>
 					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQueryNhanVien.fetchCount())" mold="os"
+						visible="@load(vm.targetQueryNhanVien.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQueryNhanVien')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">

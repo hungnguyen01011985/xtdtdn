@@ -29,14 +29,55 @@
 .title-form {
 	padding: 15px 0;
 }
-
+.CHUA_LAM .z-listcell-content {
+	font-family: Roboto-Bold;
+    color: #AA8A3E !important;
+}
+.DANG_LAM .z-listcell-content {
+	font-family: Roboto-Bold;
+    color: #628CF0 !important;
+}
+.z-listitem .z-listcell {
+	border-left: 1px solid #cfcfcf !important;
+}
+.z-listitem .z-listcell:first-child {
+	border-left:none !important;
+}
+.z-listitem-selected .z-listcell-content {
+	background: #FFF !important;
+}
+.z-listitem-selected .z-listcell:first-child {
+	border-bottom:1px solid #cfcfcf !important;
+}
+.z-listitem-selected .z-listcell {
+	border-bottom:1px solid #cfcfcf !important;
+}
+.z-listheader-checkable.z-listheader-checked .z-listheader-icon {
+	justify-content: center;
+    align-items: center;
+    line-height: 18px;
+    display: flex;
+}
+.z-listheader-checkable {
+	width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    border-color: #cfcfcf;
+    background: #FFF;
+}
+.z-listheader-checked {
+	background: #4274ED !important;
+}
+.z-listheader-checkable.z-listheader-checked .z-listheader-icon {
+	color:#FFF;
+}
 .title-form span {
 	font-family: Roboto-Bold;
 	font-size: 16px;
 	color: #292A2D;
 	line-height: 25px;
 }
-.item-tep-tin{
+.item-tep-tin {
 	display:flex; 
 	margin-bottom:15px; 
 	align-items: center;
@@ -45,7 +86,7 @@
 	display:flex;
 	flex-direction:column;
 }
-.box-type-file{
+.box-type-file {
 	margin-left: 7.5px;
 	margin-right:15px;
 	width:36px;
@@ -61,13 +102,13 @@
 	margin-top:0;
 	margin-right:15px;
 }
-.text-no-empty{
+.text-no-empty {
 	text-align: center;
 	display: block;
 	font-size: 15px;
 	padding-bottom: 15px;
 }
-.box-text-file{
+.box-text-file {
 	margin-top:0;
 	margin-right:5px;
 }
@@ -98,7 +139,7 @@
 	cursor: pointer !important;
 }
 
-.btn-base{
+.btn-base {
 	display: flex;
 	height: 36px;
 	justify-content: center;
@@ -106,11 +147,11 @@
 	border-radius: 3px !important;
 }
 
-.btn-green{
+.btn-green {
 	background: #30B350;
 	border: 1px solid #30B350;
 }
-.box-img-tai-lieu{
+.box-img-tai-lieu {
 	height:36px;
 	display:flex;
 	align-items:center;
@@ -119,7 +160,6 @@
 	background: #23A76E;
 	border: 1px solid #23A76E;
 }
-
 .btn-base span {
 	font-family: Roboto-Bold !important;
 	font-size: 13px;
@@ -183,25 +223,37 @@
 }
 
 .CHUA_LAM {
-	font-weight: bold;
+	font-family: Roboto-Bold;
 	color: #AA8A3E !important;
 }
 
 .DANG_LAM {
-	font-weight: bold;
+	font-family: Roboto-Bold;
 	color: #628CF0 !important;
 }
 
 .HOAN_THANH {
-	font-weight: bold;
+	font-family: Roboto-Bold;
 	color: #39A94B !important;
 }
 
-.underline-redirect{
+.underline-redirect {
 	text-decoration: underline;
 	cursor: pointer;
 }
-
+.z-listitem-selected>.z-listcell>.z-listcell-content>.z-listitem-checkable .z-listitem-icon {
+	justify-content: center;
+    align-items: center;
+    line-height: 18px;
+    display: flex;
+}
+.z-listitem-checkable {
+	width:20px;
+	height:20px;
+	border-radius: 3px;
+    border-color: #cfcfcf;
+    background: #FFF;
+}
 .plan-number {
 	width: 40px;
 	height: 40px;
@@ -314,13 +366,13 @@
 	color: #292A2D;
 	line-height: 18px;
 }
-.textbox-txt-style{
+.textbox-txt-style {
 	font-family: Roboto-Medium;
 	font-size: 13px;
 	color: #292A2D;
 	text-align: left;
 }
-.datebox-txt-style .z-datebox-input{
+.datebox-txt-style .z-datebox-input {
 	font-family: Roboto-Medium;
 	font-size: 13px;
 	color: #292A2D;
@@ -907,8 +959,11 @@
 	cursor: pointer;
 }
 
-.bg-color-blue span {
+.bg-color-blue {
 	color: #428bca !important;
+}
+.mg-bt-15 {
+	margin-bottom:15px;
 }
 .loadmore {
 	top: 530px;
@@ -930,4 +985,8 @@
 
 .link-thong-bao:hover {
 	text-decoration: underline;
+}
+
+.margin-top-17 {
+	margin-top: 17px;
 }

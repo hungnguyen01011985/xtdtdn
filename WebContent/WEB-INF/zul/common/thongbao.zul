@@ -4,6 +4,7 @@
 		<zscript>
 			congViec = vn.toancauxanh.gg.model.enums.LoaiThongBao.CONG_VIEC_MOI;
 			treCongVan = vn.toancauxanh.gg.model.enums.LoaiThongBao.TRE_CONG_VIEC;
+			nhacNho = vn.toancauxanh.gg.model.enums.LoaiThongBao.NHAC_NHO_CONG_VIEC;
 		</zscript>
 		<n:ul class="box-bell" style="list-style:none;">
 			<n:li class="box-relative dropdown">
@@ -20,7 +21,7 @@
 					<div class="box-content-thongbao" zk:children="@load(vm.page(vm.targetQuery).fetch())" style="max-height: 500px;
    						 overflow-y: scroll;">
 						<template name="children">
-							<x:li class="container-notify ${each.daXem ? '' : 'bg-new-notify'}" zk:onClick="@command('viewNotify', item = each)">
+							<x:li class="container-notify ${each.daXem ? '' : 'bg-new-notify'}" zk:onClick="@command('viewNotify', item = each, href = '/cp/quanlyduan/')">
 								<div class="image-notify">
 									<x:image href="${ctxPath}" width="44px" height="44px" src="${contexPath}/assets/img/employeebig.png"/>
 								</div>
@@ -36,19 +37,39 @@
 										</div>
 										<div if="${congViec == each.loaiThongBao}">
 											<x:span class="text-bold-notify">
-												${each.nguoiNhan.hoVaTen}
-											</x:span>
-											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 0)}
 											</x:span>
-											<x:span class="text-bold-notify">
+											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 1)}
 											</x:span>
-											<x:span class="text-regular-notify">
+											<x:span class="text-bold-notify">
 												${vm.subStringThongBao(each.noiDung, 2)}
 											</x:span>
-											<x:span class="text-bold-notify">
+											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 3)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 4)}
+											</x:span>
+										</div>
+										<div if="${nhacNho == each.loaiThongBao}">
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 0)}
+											</x:span>
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 1)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 2)}
+											</x:span>
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 3)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 4)}
+											</x:span>
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 5)}
 											</x:span>
 										</div>
 									</div>

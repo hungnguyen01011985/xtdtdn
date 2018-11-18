@@ -11,7 +11,8 @@
 			String giaiDoanXucTien = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT.getText();
 		]]>
 	</zscript>
-	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"> 
+	<label if="${!entry.quyen.quanlyduan_them}">Bạn không có quyền truy cập chức năng này!</label>
+	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')" if="${entry.quyen.quanlyduan_them}"> 
 		<div class="panel-box">
 			<div zclass="row">
 				<div zclass="col-lg-12">
@@ -104,7 +105,7 @@
 						<div zclass="col-md-3">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Ngày hoành thành CV<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Ngày hoàn thành CV<n:small class="required"> *</n:small></x:span>
 								</div>
 								<datebox value="@bind(vm.giaoViec.hanThucHien) @save(vm.giaoViec.hanThucHien, before={'doAction','doActionWithKey'}) @validator(vm.validatorNgay, dateStart = vm.ngayBatDauXucTien, firstText = 'Ngày bắt đầu xúc tiến', secondText = 'Ngày hoàn thành', type = false)"
 									 width="100%" placeholder="Chọn ngày" format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8 datebox-txt-style" />

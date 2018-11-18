@@ -167,7 +167,7 @@
 			<div class="mg-and-bg-and-line">
 					<div zclass="col-md-6">
 						<div zclass="form-group">
-							<x:button  class="btn bg-btn-tailieu btn-grey" zk:onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQueryNhanVien')">
+							<x:button  class="btn bg-btn-dong btn-grey" zk:onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQueryNhanVien')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 								<span>Đóng</span>
 							</x:button>
