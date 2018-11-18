@@ -107,10 +107,10 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" width="45px"/>
-							<column label="Tên đoàn" width="180px"/>
-							<column label="Quốc gia" width="110px"/>
+							<column label="Tên đoàn" width="300px" />
+							<column label="Quốc gia" width="250px" />
 							<column label="Số người" width="90px"/>
-							<column label="Tóm tắt nội dung" width="200px"/>
+							<column label="Tóm tắt nội dung" />
 							<column label="Thời gian đến" width="110px"/>
 							<column label="Nơi đoàn đi thăm" width="200px"/>
 							<column label="Trạng thái" width="90px"/>
@@ -119,13 +119,13 @@
 						<template name="model">
 							<row>
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-								<label value="@load(each.tenDoanVao)"></label>
+								<label class="underline-redirect" value="@load(each.tenDoanVao)"></label>
 								<label value="@load(each.quocGia.text)"></label>
 								<label value="@load(each.soNguoi)"></label>
 								<label value="@load(each.tomTatNoiDungKQ)"></label>
 								<label value="@load(each.thoiGianDenLamViec) @converter('formatedDate',format='dd/MM/YYYY')"></label>
 								<label value="@load(each.noiDoanDiTham)"></label>
-								<label value="@load(each.trangThaiTiepDoan.text)"></label>
+								<label value="@load(each.trangThaiTiepDoan.text)" class="@load(each.trangThaiTiepDoan)"></label>
 								<div class="thaotac" style="text-align:center">
 									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlydoanvao/${each.id}">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>

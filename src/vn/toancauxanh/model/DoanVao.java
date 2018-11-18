@@ -278,16 +278,26 @@ public class DoanVao extends Model<DoanVao> {
 			@Override
 			protected void doInTransactionWithoutResult(TransactionStatus status) {
 				if (!listThanhVienDoan.isEmpty() && listThanhVienDoan != null) {
-					for (ThanhVienDoan thanhVienDoan : listThanhVienDoan) {
-						thanhVienDoan.setDoanVao(doanVao);
-						thanhVienDoan.saveNotShowNotification();
-					}
+					listThanhVienDoan.forEach(item -> {
+						item.setDoanVao(doanVao);
+						item.saveNotShowNotification();
+					});
 				}
 				if (!listXoaThanhVienDoan.isEmpty() && listXoaThanhVienDoan != null) {
-					for (ThanhVienDoan thanhVienDoan : listXoaThanhVienDoan) {
-						thanhVienDoan.setDoanVao(doanVao);
-						thanhVienDoan.setDaXoa(true);
-						thanhVienDoan.saveNotShowNotification();
+					listXoaThanhVienDoan.forEach(item -> {
+						item.setDoanVao(doanVao);
+						item.setDaXoa(true);
+						item.saveNotShowNotification();
+					});
+				}
+
+				if (!listCongViecLuuTam.isEmpty() && listCongViecLuuTam != null) {
+					int index = 0;
+					for (CongViec congViec : listCongViecLuuTam) {
+						index++;
+						congViec.setDoanVao(doanVao);
+						congViec.setSoThuTu(index);
+						congViec.saveNotShowNotification();
 					}
 				}
 				doanVao.getTepTins().forEach(item -> {
@@ -503,5 +513,18 @@ public class DoanVao extends Model<DoanVao> {
 	public void saveDanhSachThanhVienDoan(@BindingParam("wdn") final Window wdn) {
 		showNotification("Lưu thành công!", "", "success");
 		wdn.detach();
+	}
+	
+	//======================================================================================
+	
+	private List<CongViec> listCongViecLuuTam = new ArrayList<>();
+
+	@Transient
+	public List<CongViec> getListCongViecLuuTam() {
+		return listCongViecLuuTam;
+	}
+
+	public void setListCongViecLuuTam(List<CongViec> listCongViecLuuTam) {
+		this.listCongViecLuuTam = listCongViecLuuTam;
 	}
 }

@@ -1,6 +1,6 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
-	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="${arg.save}"
+	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="Kế hoạch làm việc"
 	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init('vn.toancauxanh.service.CongViecService')" validationMessages="@id('vmsgs')" class="content-popup pop-up-width1">
 	<zscript>
 		<![CDATA[
@@ -8,7 +8,9 @@
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
 			vmArgs = arg.get("vmArgs");
 			vm.arg.put("idDoanVao", doanVao.getId());
-			int soThuTu = 0;
+			enum2 = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN;
+			enum3 = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_CONG_TAC_KHAC;
+			enum1 = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC;
 		]]>
 	</zscript>
 	<div> 
@@ -52,17 +54,15 @@
 					emptyMessage="Không có dữ liệu nào trong danh sách">
 					<columns>
 						<column label="STT" style="text-align:center" width="42px"/>
-						<column label="qqqqq" style="text-align:center" width="42px"/>
 						<column label="Nội dung công việc" style="text-align:center" />
-						<column label="Người thực hiện" style="text-align:center" />
-						<column label="Thời gian" style="text-align:center" />
-						<column label="Trạng thái" style="text-align:center" />
+						<column label="Người thực hiện" width="200px" style="text-align:center" />
+						<column label="Thời gian" width="200px" style="text-align:center" />
+						<column label="Trạng thái" width="200px" style="text-align:center" />
 						<column label="Ghi chú" style="text-align:center" />
 					</columns>
 					<template name="model">
 						<row viewModel="@id('item') @init(each)">
-							<label value="@load(each.loaiCongViec ? '-' : each.soThuTu)"></label>
-							<label value="@load(forEachStatus.count)"></label>
+							<label value="@load(enum1 eq each.noiDungCongViec ? '1' : '-' or enum2 eq each.noiDungCongViec ? '2' : '-' or enum3 eq each.noiDungCongViec ? '3' : '-')"></label>
 							<label value="@load(each.noiDungCongViec.text)" style="@load(each.loaiCongViec ? '' : 'font-weight:bold')"></label>
 							<combobox visible="@load(each.loaiCongViec)" readonly="true" model="@load(entry.duAns.listNguoiPhuTrach)" selectedItem="@bind(each.nguoiThucHien)" class="his reset-mg-pd" placeholder="Chọn người thực hiện" width="100%">
 								<template name="model">
@@ -71,17 +71,12 @@
 							</combobox>
 							<datebox visible="@load(each.loaiCongViec)" format="dd/MM/yyyy" class="hv-db" value="@bind(each.thoiGian)"
 								 width="100%" placeholder="Chọn ngày"/>
-							<combobox visible="@load(each.loaiCongViec)" readonly="true" model="@load(vm.listTrangThaiCongViec)" selectedItem="@bind(each.trangThaiCongViec)" class="his" placeholder="Trạng thái" width="100%">
+							<combobox visible="@load(each.loaiCongViec)" disabled="true" model="@load(vm.listTrangThaiCongViec)" selectedItem="@bind(each.trangThaiCongViec)" class="his ${each.trangThaiCongViec}" placeholder="Trạng thái" width="100%">
 								<template name="model">
 									<comboitem label="@load(each.text)" />
 								</template>
 							</combobox>
-							<label value="@load(each.loaiCongViec ? '-' : each.ghiChu)"></label>
-							<!-- <zscript>
-								<![CDATA[
-								    ++soThuTu;
-								]]>
-								</zscript> -->
+							<textbox visible="@load(each.loaiCongViec)" class="form-control" maxlength="1024" value="@bind(each.ghiChu)" placeholder="-"></textbox>
 						</row>
 					</template>
 				</grid>

@@ -25,6 +25,7 @@ public class CongViec extends Model<CongViec> {
 	private NoiDungCongViec noiDungCongViec;
 	private TrangThaiCongViec trangThaiCongViec = TrangThaiCongViec.CHUA_THUC_HIEN;
 	private DoanVao doanVao;
+	private int soThuTu = 0;
 
 	public CongViec() {
 	}
@@ -47,6 +48,14 @@ public class CongViec extends Model<CongViec> {
 		this.ghiChu = ghiChu;
 	}
 	
+	public int getSoThuTu() {
+		return soThuTu;
+	}
+
+	public void setSoThuTu(int soThuTu) {
+		this.soThuTu = soThuTu;
+	}
+
 	public boolean isLoaiCongViec() {
 		return loaiCongViec;
 	}
@@ -118,4 +127,13 @@ public class CongViec extends Model<CongViec> {
 		list.add(new CongViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, nguoiThucHien, thoiGian, trangThaiCongViec, ghiChu, true));
 		return list;
 	}
+
+	@Override
+	public String toString() {
+		return "CongViec [ghiChu=" + ghiChu + ", loaiCongViec=" + loaiCongViec + ", nguoiThucHien=" + nguoiThucHien
+				+ ", thoiGian=" + thoiGian + ", noiDungCongViec=" + noiDungCongViec + ", trangThaiCongViec="
+				+ trangThaiCongViec + ", doanVao=" + doanVao + "]";
+	}
+	
+	
 }

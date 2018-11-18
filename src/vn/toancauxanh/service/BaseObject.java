@@ -36,11 +36,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.greenglobal.core.CoreObject;
 import vn.toancauxanh.cms.service.HomeService;
-<<<<<<< HEAD
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
-=======
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
->>>>>>> 7d5b6affc762345810117d8c51fb8d2bf7c943c0
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.NhanVien;

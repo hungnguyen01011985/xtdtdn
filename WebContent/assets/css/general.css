@@ -237,6 +237,22 @@
 	color: #39A94B !important;
 }
 
+.CHUA_THUC_HIEN input{
+	font-family: Roboto-Bold;
+	color: #AA8A3E !important;
+}
+
+.DANG_THUC_HIEN input{
+	font-family: Roboto-Bold;
+	color: #628CF0 !important;
+}
+
+.HOAN_THANH input{
+	font-family: Roboto-Bold;
+	color: #39A94B !important;
+}
+
+
 .underline-redirect {
 	text-decoration: underline;
 	cursor: pointer;
@@ -254,6 +270,22 @@
     border-color: #cfcfcf;
     background: #FFF;
 }
+
+.CHUA_TIEP {
+	font-family: Roboto-Bold;
+	color: #AA8A3E !important;
+}
+
+.DANG_TIEP {
+	font-family: Roboto-Bold;
+	color: #628CF0 !important;
+}
+
+.DA_TIEP {
+	font-family: Roboto-Bold;
+	color: #39A94B !important;
+}
+
 .plan-number {
 	width: 40px;
 	height: 40px;

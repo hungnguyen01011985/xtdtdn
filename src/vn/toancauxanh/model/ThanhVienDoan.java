@@ -91,21 +91,18 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 		return new AbstractValidator() {
 			@Override
 			public void validate(final ValidationContext ctx) {
-				String value = (String) ctx.getProperty().getValue();
-				String param = value.trim().replaceAll("\\s+", "");
-				if (param == null || "".equals(param) || param.isEmpty()) {
-					addInvalidMessage(ctx, "Không được để trống trường này");
-				} else if (!value.trim().matches(".+@.+\\.[a-z]+")) {
-					addInvalidMessage(ctx, "Email không đúng định dạng");
-				} else {
+				String param = (String) ctx.getProperty().getValue();
+				if (param == null || "".equals(param) || param.trim().matches(".+@.+\\.[a-z]+")) {
 					JPAQuery<ThanhVienDoan> q = find(ThanhVienDoan.class)
-							.where(QThanhVienDoan.thanhVienDoan.email.eq(value));
+							.where(QThanhVienDoan.thanhVienDoan.email.eq(param));
 					if (!ThanhVienDoan.this.noId()) {
 						q.where(QThanhVienDoan.thanhVienDoan.id.ne(getId()));
 					}
 					if (q.fetchCount() > 0) {
 						addInvalidMessage(ctx, "Email đã được sử dụng");
 					}
+				} else {
+					addInvalidMessage(ctx, "Email không đúng định dạng");
 				}
 			}
 		};

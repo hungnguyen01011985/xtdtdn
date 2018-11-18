@@ -32,7 +32,7 @@ public class CongViecService extends BasicService<CongViec> {
 	public List<CongViec> getListCongViec() {
 		Long idDoanVao = MapUtils.getLongValue(argDeco(), "idDoanVao");
 		if (idDoanVao != null && idDoanVao > 0) {
-			JPAQuery<CongViec> q = find(CongViec.class).where(QCongViec.congViec.doanVao.id.eq(Long.valueOf(idDoanVao)));
+			JPAQuery<CongViec> q = find(CongViec.class).where(QCongViec.congViec.doanVao.id.eq(Long.valueOf(idDoanVao))).orderBy(QCongViec.congViec.soThuTu.asc());
 			if (q != null && q.fetchCount() > 0) {
 				listCongViec.addAll(q.fetch());
 				return listCongViec;
@@ -59,10 +59,8 @@ public class CongViecService extends BasicService<CongViec> {
 	
 	@Command
 	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao, @BindingParam("wdn") final Window wdn){
-		for (CongViec item : listCongViec) {
-			item.setDoanVao(doanVao);
-			item.saveNotShowNotification();
-		}
+		doanVao.getListCongViecLuuTam().clear();
+		doanVao.getListCongViecLuuTam().addAll(listCongViec);
 		showNotification("Lưu thành công!", "", "success");
 		wdn.detach();
 	}
