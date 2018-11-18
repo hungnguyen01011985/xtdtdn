@@ -1,2 +1,0 @@
-<?component name="kehoachlamviec" inline="true" macroURI="kehoachlamviec.zul"?>
-<kehoachlamviec model="${arg.vm}" save="Kế hoạch làm việc" />

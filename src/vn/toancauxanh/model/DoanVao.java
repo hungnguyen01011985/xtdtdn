@@ -55,6 +55,7 @@ public class DoanVao extends Model<DoanVao> {
 	private String link;
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
+	private CongViec congViec = new CongViec();
 	private List<TepTin> tepTins = new ArrayList<TepTin>();
 
 
@@ -365,6 +366,15 @@ public class DoanVao extends Model<DoanVao> {
 	public void setThanhVienDoanTemp(ThanhVienDoan thanhVienDoanTemp) {
 		this.thanhVienDoanTemp = thanhVienDoanTemp;
 	}
+	
+	@Transient
+	public CongViec getCongViec() {
+		return congViec;
+	}
+
+	public void setCongViec(CongViec congViec) {
+		this.congViec = congViec;
+	}
 
 	private List<ThanhVienDoan> listThanhVienDoan = new ArrayList<ThanhVienDoan>();
 	private List<ThanhVienDoan> listThanhVienTheoDoan = new ArrayList<ThanhVienDoan>();
@@ -494,5 +504,4 @@ public class DoanVao extends Model<DoanVao> {
 		showNotification("Lưu thành công!", "", "success");
 		wdn.detach();
 	}
-	
 }
