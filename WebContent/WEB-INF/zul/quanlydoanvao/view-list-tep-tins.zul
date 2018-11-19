@@ -42,7 +42,7 @@
 			</div>
 			<div style="padding:0 7.5px">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-12" if="${!action}">
 						<button label="Thêm tài liệu" class="btn bg-btn-tailieu-green mg-btn-top" image="/assets/icon-bxtdn/them-moi.svg"
 							onUpload="@command('uploadFile', medias=event.medias)"
 							upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">

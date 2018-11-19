@@ -117,9 +117,9 @@
 							<column label="Thao tác" width="140px"/>
 						</columns>
 						<template name="model">
-							<row>
+							<row viewModel="@id('item') @init(each)">
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-								<label class="underline-redirect" value="@load(each.tenDoanVao)"></label>
+								<label class="underline-redirect" value="@load(each.tenDoanVao)" onClick="@command('redirectXemChiTietDoanVao', id = item.id)"></label>
 								<label value="@load(each.quocGia.text)"></label>
 								<label value="@load(each.soNguoi)"></label>
 								<label value="@load(each.tomTatNoiDungKQ)"></label>
@@ -147,7 +147,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
 					<div zclass="form-group right" if="${entry.quyen.quanlydoanvao_them}">
-						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlydoanvao/add-view">
+						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlydoanvao/show-doan-vao">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm đoàn vào</span>
 						</x:a>

@@ -431,6 +431,12 @@ public class DoanVao extends Model<DoanVao> {
 	public void setListTaoMoiThanhVienDoanLuuTam(List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam) {
 		this.listTaoMoiThanhVienDoanLuuTam = listTaoMoiThanhVienDoanLuuTam;
 	}
+	
+	@Command
+	public void redirectXemChiTietDoanVao(@BindingParam("id") Long id) {
+		String url = "/cp/quanlydoanvao/detail/";
+		Executions.sendRedirect(url.concat(id.toString()));
+	}
 
 	@Command
 	public void saveThanhVienDoan() {

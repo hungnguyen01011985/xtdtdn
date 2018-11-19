@@ -1,2 +1,2 @@
 <?component name="danhsachthanhvien" inline="true" macroURI="danhsachthanhvien.zul"?>
-<danhsachthanhvien model="${arg.vm}" save="Danh sách thành viên" />
+<danhsachthanhvien model="${arg.vm}" readOnly="${arg.readOnly}" save="Danh sách thành viên" />

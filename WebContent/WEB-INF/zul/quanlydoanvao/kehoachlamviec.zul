@@ -7,6 +7,7 @@
 			page.title = "Kế hoạch làm việc";
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
 			vmArgs = arg.get("vmArgs");
+			readOnly = arg.get("readOnly");
 			vm.arg.put("idDoanVao", doanVao.getId());
 			congTacHauCan = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN;
 			congViecKhac = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_CONG_TAC_KHAC;
@@ -35,7 +36,7 @@
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="issue-search">Thời gian đến làm việc</x:span> 
-								<datebox disabled="true" format="dd/MM/yyyy" class="hv-db" value="@bind(doanVao.thoiGianDenLamViec)" width="100%" placeholder="Chọn ngày"/>
+								<datebox buttonVisible="${!readOnly}" disabled="true" format="dd/MM/yyyy" class="hv-db ${!readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.thoiGianDenLamViec)" width="100%" placeholder="Chọn ngày"/>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -64,15 +65,15 @@
 						<row viewModel="@id('item') @init(each)">
 							<label value="@load(nhanSuLamViec eq each.noiDungCongViec ? '1' : '-' or congTacHauCan eq each.noiDungCongViec ? '2' : '-' or congViecKhac eq each.noiDungCongViec ? '3' : '-')"></label>
 							<label value="@load(each.noiDungCongViec.text)" style="@load(each.loaiNoiDungCongViec ? '' : 'font-weight:bold')"></label>
-							<combobox visible="@load(each.loaiNoiDungCongViec)" readonly="true" model="@load(entry.duAns.listNguoiPhuTrach)" selectedItem="@bind(each.nguoiDuocGiao)" class="his reset-mg-pd" placeholder="Chọn người thực hiện" width="100%">
+							<combobox buttonVisible="${!readOnly}" disabled="${readOnly}" visible="@load(each.loaiNoiDungCongViec)" readonly="true" model="@load(entry.duAns.listNguoiPhuTrach)" selectedItem="@bind(each.nguoiDuocGiao)" class="his reset-mg-pd pd-left-3 ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
 								<template name="model">
 									<comboitem label="@load(each.hoVaTen)" />
 								</template>
 							</combobox>
-							<datebox visible="@load(each.loaiNoiDungCongViec)" constraint="no past" format="dd/MM/yyyy" class="hv-db" value="@bind(each.hanThucHien)"
+							<datebox buttonVisible="${!readOnly}" disabled="${readOnly}" visible="@load(each.loaiNoiDungCongViec)" constraint="no past" format="dd/MM/yyyy" class="hv-db pd-left-3 ${!readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(each.hanThucHien)"
 								 width="100%" placeholder="Chọn ngày"/>
 							<label visible="@load(each.loaiNoiDungCongViec)" value="@load(item.trangThaiGiaoViec.text)" class="TRANG_THAI ${item.trangThaiGiaoViec}"></label>
-							<textbox style="border: none;" visible="@load(each.loaiNoiDungCongViec)" class="form-control" maxlength="255" value="@bind(each.ghiChu)" placeholder="-"></textbox>
+							<textbox disabled="${readOnly}" style="border: none; margin-top: 0;" visible="@load(each.loaiNoiDungCongViec)" class="form-control" maxlength="255" value="@bind(each.ghiChu)" placeholder="-"></textbox>
 						</row>
 					</template>
 				</grid>
@@ -87,7 +88,7 @@
 						</div>
 					</div>
 					<div zclass="col-xs-6">
-						<div zclass="form-group right">
+						<div zclass="form-group right" if="${!readOnly}">
 							<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveKeHoachLamViec', doanVao = doanVao, wdn = wdn)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 								<span>Lưu</span>

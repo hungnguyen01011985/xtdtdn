@@ -18,6 +18,10 @@
 	line-height: 18px;
 }
 
+.pd-left-3 input{
+	padding-left: 5px !important;
+}
+
 .page-header-title {
 	font-family: Roboto-Medium;
 	font-size: 24px;
