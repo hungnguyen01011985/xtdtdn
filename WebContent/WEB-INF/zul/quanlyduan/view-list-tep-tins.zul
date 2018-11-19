@@ -28,7 +28,8 @@
 							<div zclass="form-group mg-top-8">
 								<a href="" class="style-txt-file">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
-									<label value="@load(each.tenFile)" onClick="@command('downLoadTepTin', ob = each)" class="txt-link-tai-lieu-fix"></label>
+									<label visible="@load(each.noId())" value="@load(each.tenFile)" onClick="@command('downLoadTepTin', ob = each)" class="txt-link-tai-lieu-fix"></label>
+									<a visible="@load(!each.noId())" label="@bind(each.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = each)"></a>
 								</a>
 							</div>
 						</div>

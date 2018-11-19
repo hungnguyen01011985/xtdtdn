@@ -99,7 +99,8 @@
 						<div zclass="form-group">
 							<x:span class="issue-search">File đính kèm</x:span>
 							<div class="flex mg-btn-top" >
-								<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieu)" value="@bind(vm.taiLieu.tenFile)"/>
+								<label visible="@load(vm.taiLieu.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieu)" value="@bind(vm.taiLieu.tenFile)"/>
+								<a visible="@load(!vm.taiLieu.noId())" label="@bind(vm.taiLieu.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieu)"></a>
 							</div>
 						</div>
 					</div>
@@ -140,7 +141,8 @@
 								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 							</button>
 							<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuKetQua.tenFile)">
-								<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuKetQua)" value="@bind(vm.taiLieuKetQua.tenFile)"/>
+								<label visible="@load(vm.taiLieuKetQua.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuKetQua)" value="@bind(vm.taiLieuKetQua.tenFile)"/>
+								<a visible="@load(!vm.taiLieuKetQua.noId())" label="@bind(vm.taiLieuKetQua.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieuKetQua)"></a>
 								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieuKetQua, vm = vm , name = 'taiLieuKetQua')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
@@ -157,7 +159,8 @@
 						<div zclass="form-group">
 							<x:span class="issue-search">Đính kèm kết quả</x:span>
 							<div class="flex mg-btn-top" >
-								<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuKetQua)" value="@bind(vm.taiLieuKetQua.tenFile)"/>
+								<label visible="@load(vm.taiLieuKetQua.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuKetQua)" value="@bind(vm.taiLieuKetQua.tenFile)"/>
+								<a visible="@load(!vm.taiLieuKetQua.noId())" label="@bind(vm.taiLieuKetQua.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieuKetQua)"></a>
 							</div>
 						</div>
 					</div>
