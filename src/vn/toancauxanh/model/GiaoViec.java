@@ -1,5 +1,6 @@
 package vn.toancauxanh.model;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,6 +23,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Filedownload;
@@ -301,7 +303,7 @@ public class GiaoViec extends Model<GiaoViec> {
 	}
 	
 	@Command
-	public void uploadFileTaiLieu(@BindingParam("medias") final Object medias) {
+	public void uploadFileTaiLieu(@BindingParam("medias") final Object medias) throws IOException {
 		Media media = (Media) medias;
 		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
 				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
@@ -320,6 +322,7 @@ public class GiaoViec extends Model<GiaoViec> {
 				getTaiLieu().setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				getTaiLieu().setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				getTaiLieu().setMedia(media);
+				getTaiLieu().saveFileTepTin();
 				BindUtils.postNotifyChange(null, null, this, "taiLieu");
 			}
 		} else {
@@ -457,5 +460,32 @@ public class GiaoViec extends Model<GiaoViec> {
 		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
 		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
 		return list;
+	}
+	
+	@Command
+	public void redirect(@BindingParam("ob") TepTin ob) {
+		String serverName = "";
+		String href = "";
+		String ipBrowser = "";
+		int serverPort = 0;
+		serverName = Executions.getCurrent().getServerName();
+		serverPort = Executions.getCurrent().getServerPort();
+		ipBrowser = Executions.getCurrent().getContextPath();
+		System.out.println("serverName: " + serverName);
+		System.out.println("serverPort: " + serverPort);
+		System.out.println("ipBrowser: " + ipBrowser);
+		if (serverName != null) {
+			String url = "";
+			if (serverName.contains("192.168.1.247") || serverName.contains("projects.greenglobal.vn")) {
+				url = "http://projects.greenglobal.vn:6782";
+				href = (url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			} else if ("localhost".equals(serverName) || "192.168.1.14".equals(serverName)) {
+				url = serverName.concat(":" + serverPort);
+				href = ("http://" + url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			} else {
+				href = ("/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			}
+		}
+		Executions.getCurrent().sendRedirect(href, "_blank");
 	}
 }

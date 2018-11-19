@@ -94,7 +94,8 @@
 								<div class="box-img-tai-lieu">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 								</div>
-								<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.giayChungNhanDauTu)" value="@bind(vm.giaiDoanDuAn.giayChungNhanDauTu.tenFile)"/>
+								<label visible="@load(vm.giaiDoanDuAn.giayChungNhanDauTu.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.giayChungNhanDauTu)" value="@bind(vm.giaiDoanDuAn.giayChungNhanDauTu.tenFile)"/>
+								<a visible="@load(!vm.giaiDoanDuAn.giayChungNhanDauTu.noId())" label="@bind(vm.giaiDoanDuAn.giayChungNhanDauTu.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.giaiDoanDuAn.giayChungNhanDauTu)"></a>
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanNam) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giayChungNhanDauTu , vm = vm.giaiDoanDuAn, name = 'giayChungNhanDauTu')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
@@ -118,7 +119,8 @@
 								<div class="box-img-tai-lieu">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 								</div>
-								<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep)" value="@bind(vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep.tenFile)"/>
+								<label visible="@load(vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep)" value="@bind(vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep.tenFile)"/>
+								<a visible="@load(!vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep.noId())" label="@bind(vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep)"></a>
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanNam) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giayChungNhanDangKyDoanhNghiep , vm = vm.giaiDoanDuAn, name = 'giayChungNhanDangKyDoanhNghiep')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
@@ -142,7 +144,8 @@
 								<div class="box-img-tai-lieu">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 								</div>
-								<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat)" value="@bind(vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat.tenFile)"/>
+								<label visible="@load(vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat)" value="@bind(vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat.tenFile)"/>
+								<a visible="@load(!vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat.noId())" label="@bind(vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat)"></a>
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanNam) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.giaiDoanDuAn.giayChungNhanQuyenSuDungDat , vm = vm.giaiDoanDuAn, name = 'giayChungNhanQuyenSuDungDat')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
