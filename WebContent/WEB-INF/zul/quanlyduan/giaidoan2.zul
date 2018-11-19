@@ -71,7 +71,8 @@
 								<div class="box-img-tai-lieu">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 								</div>
-								<label class="txt-link-tailieu pointer-cls" value="@bind(vm.giaiDoanDuAn.taiLieuGD2.tenFile)" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.taiLieuGD2)" />
+								<label visible="@load(vm.giaiDoanDuAn.taiLieuGD2.noId())" class="txt-link-tailieu pointer-cls" value="@bind(vm.giaiDoanDuAn.taiLieuGD2.tenFile)" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.taiLieuGD2)" />
+								<a visible="@load(!vm.giaiDoanDuAn.taiLieuGD2.noId())" label="@bind(vm.giaiDoanDuAn.taiLieuGD2.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.giaiDoanDuAn.taiLieuGD2)"></a>
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.taiLieuGD2, name = 'taiLieuGD2')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
@@ -123,7 +124,8 @@
 								<div class="box-img-tai-lieu">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 								</div>
-								<label class="txt-link-tailieu pointer-cls" value="@bind(vm.giaiDoanDuAn.congVanGD2.tenFile)" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.congVanGD2)"/>
+								<label visible="@load(vm.giaiDoanDuAn.congVanGD2.noId())" class="txt-link-tailieu pointer-cls" value="@bind(vm.giaiDoanDuAn.congVanGD2.tenFile)" onClick="@command('downLoadTepTin', ob = vm.giaiDoanDuAn.congVanGD2)"/>
+								<a visible="@load(!vm.giaiDoanDuAn.congVanGD2.noId())" label="@bind(vm.giaiDoanDuAn.congVanGD2.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.giaiDoanDuAn.congVanGD2)"></a>
 								<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm.giaiDoanDuAn, ob = vm.giaiDoanDuAn.congVanGD2, name = 'congVanGD2')">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>

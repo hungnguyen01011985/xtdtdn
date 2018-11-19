@@ -1,5 +1,6 @@
 package vn.toancauxanh.model;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -618,6 +619,7 @@ public class DuAn extends Model<DuAn> {
 	public void saveThongTinDuAn(){
 		this.getTaiLieuNDT().saveNotShowNotification();
 		this.save();
+		BindUtils.postNotifyChange(null, null, this, "taiLieuNDT");
 	}
 	
 	@Command
@@ -709,6 +711,13 @@ public class DuAn extends Model<DuAn> {
 				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				tepTin.setMedia(media);
 				giaiDoanDuAn.getTepTins().set(index, tepTin);
+				this.giaiDoanDuAn.getTepTins().forEach(obj -> {
+					try {
+						obj.saveFileTepTin();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
 				BindUtils.postNotifyChange(null, null, this.giaiDoanDuAn, "tepTins");
 			}
 		} else {
@@ -745,4 +754,31 @@ public class DuAn extends Model<DuAn> {
 		});
 	}
 	
+	@Command
+	public void redirect(@BindingParam("ob") TepTin ob) {
+		String serverName = "";
+		String href = "";
+		String ipBrowser = "";
+		int serverPort = 0;
+		serverName = Executions.getCurrent().getServerName();
+		serverPort = Executions.getCurrent().getServerPort();
+		ipBrowser = Executions.getCurrent().getContextPath();
+		System.out.println("serverName: " + serverName);
+		System.out.println("serverPort: " + serverPort);
+		System.out.println("ipBrowser: " + ipBrowser);
+		if (serverName != null) {
+			String url = "";
+			if (serverName.contains("192.168.1.247") || serverName.contains("projects.greenglobal.vn")) {
+				url = "http://projects.greenglobal.vn:6782";
+				href = (url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			} else if ("localhost".equals(serverName) || "192.168.1.14".equals(serverName)) {
+				url = serverName.concat(":" + serverPort);
+				href = ("http://" + url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			} else {
+				href = ("/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			}
+		}
+		Executions.getCurrent().sendRedirect(href, "_blank");
+	}
+
 }

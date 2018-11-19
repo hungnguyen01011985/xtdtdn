@@ -101,7 +101,8 @@
 						<div zclass="form-group">
 							<x:span class="issue-search">Quyết định phê duyệt</x:span>
 							<div class="flex mg-btn-top" >
-								<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieu)" value="@bind(vm.taiLieu.tenFile)"/>
+								<label visible="@load(vm.taiLieu.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieu)" value="@bind(vm.taiLieu.tenFile)"/>
+								<a visible="@load(!vm.taiLieu.noId())" label="@bind(vm.taiLieu.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieu)"></a>
 							</div>
 						</div>
 					</div>
