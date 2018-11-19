@@ -13,6 +13,18 @@
 			}
 			vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG);
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
+			if (vm.giaiDoanDuAn.getHoSoQuyHoachLQH() == null) {
+				vm.giaiDoanDuAn.setHoSoQuyHoachLQH(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyetLQH() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyetLQH(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getVanBanChuyenMucDichSDD() == null) {
+				vm.giaiDoanDuAn.setVanBanChuyenMucDichSDD(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getVanBanDeNghiThuHoiDat() == null) {
+				vm.giaiDoanDuAn.setVanBanDeNghiThuHoiDat(new vn.toancauxanh.model.TepTin());
+			}
 		]]>
 	</zscript>
 	<div class="mg-and-bg-and-line-fix">

@@ -8,6 +8,9 @@
 			if (list != null){
 				vm.getGiaiDoanDuAn().getDonViDuAn().addAll(list);
 			}
+			if (vm.getGiaiDoanDuAn().getTaiLieuGD1() == null) {
+				vm.getGiaiDoanDuAn().setTaiLieuGD1(new vn.toancauxanh.model.TepTin());
+			}
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT);
 			
 		]]>

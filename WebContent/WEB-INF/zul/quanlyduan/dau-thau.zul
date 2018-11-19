@@ -13,6 +13,57 @@
 			}
 			vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT);
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyetLQH() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyetLQH(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getHoSoQuyHoachLQH() == null) {
+				vm.giaiDoanDuAn.setHoSoQuyHoachLQH(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getHoSoQuyHoach2000() == null) {
+				vm.giaiDoanDuAn.setHoSoQuyHoach2000(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyet2000() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyet2000(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh() == null) {
+				vm.giaiDoanDuAn.setNghiQuyetPheDuyetCongTrinh(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getBaoCaoDoDacKhuDat() == null) {
+				vm.giaiDoanDuAn.setBaoCaoDoDacKhuDat(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getPheDuyetKeHoachSuDungDat() == null) {
+				vm.giaiDoanDuAn.setPheDuyetKeHoachSuDungDat(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhThuHoiDat() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhThuHoiDat(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyetDanhMuc(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyetBoSungKinhPhi(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getPhuongAnTaiDinhCu() == null) {
+				vm.giaiDoanDuAn.setPhuongAnTaiDinhCu(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getHoSoMoiTuyen() == null) {
+				vm.giaiDoanDuAn.setHoSoMoiTuyen(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyeHoSoMoiTuyen(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyetKetQuaTrungTuyen(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getKeHoachLuaChonNhaDauTu() == null) {
+				vm.giaiDoanDuAn.setKeHoachLuaChonNhaDauTu(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getHoSoMoiThau() == null) {
+				vm.giaiDoanDuAn.setHoSoMoiThau(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyetMoiThau(new vn.toancauxanh.model.TepTin());
+			}
 		]]>
 	</zscript>
 	<div class="mg-and-bg-and-line-fix">

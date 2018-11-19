@@ -476,7 +476,7 @@ public class DuAn extends Model<DuAn> {
 	@Command
 	public void addNewDonVi(@BindingParam("vm") DuAn duAn) {
 		duAn.getGiaiDoanDuAn().getDonViDuAn().add(new DonViDuAn());
-		BindUtils.postNotifyChange(null, null, duAn, "*");
+		BindUtils.postNotifyChange(null, null, duAn.getGiaiDoanDuAn().getDonViDuAn(), "*");
 	}
 
 	@Transient
@@ -739,9 +739,10 @@ public class DuAn extends Model<DuAn> {
 				if (Messagebox.ON_OK.equals(event.getName())) {
 					duAn.getGiaiDoanDuAn().getHoSoKhuDats().remove(item);
 					duAn.getGiaiDoanDuAn().getListXoaHoSoKhuDat().add(item);
-					BindUtils.postNotifyChange(null, null, duAn , "*");
+					BindUtils.postNotifyChange(null, null, duAn.getGiaiDoanDuAn().getHoSoKhuDats() , "*");
 				}
 			}
 		});
 	}
+	
 }
