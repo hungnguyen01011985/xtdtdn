@@ -768,14 +768,12 @@ public class DuAn extends Model<DuAn> {
 		System.out.println("ipBrowser: " + ipBrowser);
 		if (serverName != null) {
 			String url = "";
-			if (serverName.contains("192.168.1.247") || serverName.contains("http://projects.greenglobal.vn:6782")
-					|| "192.168.1.247".equals(serverName) || "http://projects.greenglobal.vn:6782".equals(serverName)) {
+			if (serverName.contains("192.168.1.247") || serverName.contains("projects.greenglobal.vn")) {
 				url = "http://projects.greenglobal.vn:6782";
-				href = ("Http://" + url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
-			} else if ("localhost".equals(serverName) || "192.168.1.14".equals(serverName)
-					|| serverName.contains("localhost")) {
+				href = (url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+			} else if ("localhost".equals(serverName) || "192.168.1.14".equals(serverName)) {
 				url = serverName.concat(":" + serverPort);
-				href = ("Http://" + url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
+				href = ("http://" + url + "/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
 			} else {
 				href = ("/" + ob.getPathFile() + ob.getNameHash()).replace(File.separatorChar, '/');
 			}
