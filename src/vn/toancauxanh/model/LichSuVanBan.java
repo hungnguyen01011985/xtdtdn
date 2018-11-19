@@ -1,14 +1,18 @@
 package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 
 @Entity
 @Table(name="lichsuvanban")
 public class LichSuVanBan extends Model<LichSuVanBan>{
 	private DuAn duAn;
-	private GiaiDoanDuAn giaiDoanDuAn;
+	private GiaiDoanXucTien giaiDoanXucTien;
 	private TepTin vanBan;
 	private NhanVien nguoiNhap;
 
@@ -19,15 +23,6 @@ public class LichSuVanBan extends Model<LichSuVanBan>{
 
 	public void setDuAn(DuAn duAn) {
 		this.duAn = duAn;
-	}
-
-	@ManyToOne
-	public GiaiDoanDuAn getGiaiDoanDuAn() {
-		return giaiDoanDuAn;
-	}
-
-	public void setGiaiDoanDuAn(GiaiDoanDuAn giaiDoanDuAn) {
-		this.giaiDoanDuAn = giaiDoanDuAn;
 	}
 
 	@ManyToOne
@@ -47,6 +42,16 @@ public class LichSuVanBan extends Model<LichSuVanBan>{
 	public void setNguoiNhap(NhanVien nguoiNhap) {
 		this.nguoiNhap = nguoiNhap;
 	}
+
+	@Enumerated(EnumType.STRING)
+	public GiaiDoanXucTien getGiaiDoanXucTien() {
+		return giaiDoanXucTien;
+	}
+
+	public void setGiaiDoanXucTien(GiaiDoanXucTien giaiDoanXucTien) {
+		this.giaiDoanXucTien = giaiDoanXucTien;
+	}
+	
 	
 	
 }

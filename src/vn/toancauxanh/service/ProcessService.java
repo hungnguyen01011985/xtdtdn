@@ -320,7 +320,7 @@ public class ProcessService extends BasicService<Object> {
 		listTepTins.forEach(item -> {
 			LichSuVanBan lichSuVanBan = new LichSuVanBan();
 			lichSuVanBan.setDuAn(duAn);
-			lichSuVanBan.setGiaiDoanDuAn(duAn.getGiaiDoanDuAn());
+			lichSuVanBan.setGiaiDoanXucTien(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien());
 			lichSuVanBan.setVanBan(item);
 			lichSuVanBan.setNguoiNhap(item.getNguoiTao());
 			lichSuVanBan.saveNotShowNotification();
