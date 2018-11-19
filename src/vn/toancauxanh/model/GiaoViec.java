@@ -489,12 +489,4 @@ public class GiaoViec extends Model<GiaoViec> {
 		Executions.getCurrent().sendRedirect(href, "_blank");
 	}
 
-	@Override
-	public String toString() {
-		return "GiaoViec [soThuTu=" + soThuTu + ", noiDungCongViec=" + noiDungCongViec + ", trangThaiGiaoViec="
-				+ trangThaiGiaoViec + ", loaiCongViec="
-				+ loaiCongViec + "]";
-	}
-	
-	
 }

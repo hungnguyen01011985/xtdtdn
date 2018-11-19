@@ -1,6 +1,6 @@
-<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<?page title="Thêm mới đoàn vào" contentType="text/html;charset=UTF-8"?>
 <window id="wdn" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" class="form-list doanvao-tailieu">
+	apply="org.zkoss.bind.BindComposer" class="form-list doan-vao-tai-lieu">
 	<zscript>
 		page.title = "Thêm mới đoàn vào";
 	</zscript>
@@ -51,8 +51,8 @@
 								<div class="flex">
 									<x:span class="issue-search">Tên đoàn<n:small class="required"> *</n:small></x:span>
 								</div>
-								<textbox id="ten" class="form-control" placeholder="Nhập tên đoàn.." maxlength="1024"
-								value="@bind(vm.tenDoanVao) @save(vm.tenDoanVao,before='saveDoanVao') @validator(vm.validatorTenDoan)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<textbox id="ten" class="form-control" placeholder="Nhập tên đoàn.." maxlength="255"
+								value="@bind(vm.tenDoanVao) @save(vm.tenDoanVao, before='saveDoanVao') @validator(vm.validatorTenDoan)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -75,7 +75,7 @@
 								<div class="flex">
 									<x:span class="issue-search">Số người<n:small class="required"> *</n:small></x:span>
 								</div>
-								<textbox class="form-control" placeholder="0" value="@bind(vm.soNguoi) @save(vm.soNguoi,before='saveDoanVao') @validator(vm.validatorSoNguoi)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<textbox class="form-control" placeholder="0" value="@bind(vm.soNguoi) @save(vm.soNguoi, before='saveDoanVao') @validator(vm.validatorSoNguoi)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -95,7 +95,7 @@
 									<x:span class="issue-search">Người phụ trách<n:small class="required"> *</n:small></x:span>
 								</div>
 								<combobox model="@load(entry.duAns.listNguoiPhuTrach)"
-									readonly="true" class="his" width="100%" selectedItem="@bind(vm.nguoiPhuTrach) @save(vm.nguoiPhuTrach.hoVaTen ,before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="Chọn người"
+									readonly="true" class="his" width="100%" selectedItem="@bind(vm.nguoiPhuTrach) @save(vm.nguoiPhuTrach.hoVaTen, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="Chọn người"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())">
 									<template name="model">
 										<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>
@@ -111,7 +111,7 @@
 								<div class="flex">
 									<x:span class="issue-search">Nơi đoàn đi thăm<n:small class="required"> *</n:small></x:span> 
 								</div>
-								<textbox class="form-control" maxlength="1024" value="@bind(vm.noiDoanDiTham) @save(vm.noiDoanDiTham,before='saveDoanVao') @validator(vm.validatorNoiDoanDiTham)" placeholder="Nhập nơi đi thăm..." onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<textbox class="form-control" maxlength="255" value="@bind(vm.noiDoanDiTham) @save(vm.noiDoanDiTham, before='saveDoanVao') @validator(vm.validatorNoiDoanDiTham)" placeholder="Nhập nơi đi thăm..." onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>

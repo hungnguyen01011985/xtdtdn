@@ -271,13 +271,13 @@ public class DoanVao extends Model<DoanVao> {
 	@Command
 	public void saveDoanVao() {
 		save();
-		if (!listThanhVienDoan.isEmpty() && listThanhVienDoan != null) {
+		if (listThanhVienDoan != null && !listThanhVienDoan.isEmpty()) {
 			listThanhVienDoan.forEach(item -> {
 				item.setDoanVao(this);
 				item.saveNotShowNotification();
 			});
 		}
-		if (!listXoaThanhVienDoan.isEmpty() && listXoaThanhVienDoan != null) {
+		if (listXoaThanhVienDoan != null && !listXoaThanhVienDoan.isEmpty()) {
 			listXoaThanhVienDoan.forEach(item -> {
 				item.setDoanVao(this);
 				item.setDaXoa(true);
@@ -285,7 +285,7 @@ public class DoanVao extends Model<DoanVao> {
 			});
 		}
 
-		if (!listCongViecLuuTam.isEmpty() && listCongViecLuuTam != null) {
+		if (listCongViecLuuTam != null && !listCongViecLuuTam.isEmpty()) {
 			int index = 0;
 			for (GiaoViec congViec : listCongViecLuuTam) {
 				congViec.getTaiLieu().saveNotShowNotification();

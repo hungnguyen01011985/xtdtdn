@@ -1,4 +1,4 @@
-<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<?page title="Quản lý đoàn vào" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" viewModel="@id('vm') @init('vn.toancauxanh.service.DoanVaoService')"
 	apply="org.zkoss.bind.BindComposer" class="form-list">
 	<zscript>
@@ -123,11 +123,11 @@
 								<label value="@load(each.quocGia.text)"></label>
 								<label value="@load(each.soNguoi)"></label>
 								<label value="@load(each.tomTatNoiDungKQ)"></label>
-								<label value="@load(each.thoiGianDenLamViec) @converter('formatedDate',format='dd/MM/YYYY')"></label>
+								<label value="@load(each.thoiGianDenLamViec) @converter('formatedDate', format='dd/MM/YYYY')"></label>
 								<label value="@load(each.noiDoanDiTham)"></label>
 								<label value="@load(each.trangThaiTiepDoan.text)" class="TRANG_THAI ${each.trangThaiTiepDoan}"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlydoanvao/${each.id}" zk:if="${vm.checkEditDoanVao(entry.nhanVien.id, each.nguoiTao, each.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
+									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlydoanvao/edit/${each.id}" zk:if="${vm.checkEditDoanVao(entry.nhanVien.id, each.nguoiTao, each.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Cập nhật</x:span>
 									</x:a>

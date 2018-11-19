@@ -1090,11 +1090,11 @@ div .label-merge-header {
 	border-radius: 0;
 }
 
-.z-datebox-button:hover .z-datebox-icon{
+.z-datebox-button:hover .z-datebox-icon {
 	color: #6B6C70 !important;
 }
 
-.z-datebox-icon{
+.z-datebox-icon {
 	color: #6B6C70 !important;
 }
 
@@ -1281,7 +1281,7 @@ ul.z-tabs-content {
 	overflow: auto;
 }
 
-.doanvao-tailieu .z-window-content {
+.doan-vao-tai-lieu .z-window-content {
 	height: auto !important;
 	overflow: inherit !important;
 }

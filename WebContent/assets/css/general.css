@@ -234,15 +234,15 @@
 	color: #2FA442 !important;
 }
 
-.CHUA_LAM input{
+.CHUA_LAM input {
 	color: #A17200 !important;
 }
 
-.DANG_LAM input{
+.DANG_LAM input {
 	color: #4274ED !important;
 }
 
-.HOAN_THANH input{
+.HOAN_THANH input {
 	color: #2FA442 !important;
 }
 
@@ -265,7 +265,7 @@
     background: #FFF;
 }
 
-.TRANG_THAI{
+.TRANG_THAI {
 	font-family: Roboto-Medium;
 	font-size: 13px;
 	letter-spacing: 0;
@@ -509,7 +509,7 @@
 	border-radius: 3px !important;
 }
 
-.dv-color span{
+.dv-color span {
 	color: #ffffff !important;
 }
 
@@ -527,12 +527,12 @@
 	border-radius: 3px !important;
 }
 
-.bg-btn-tailieu-green:hover{
+.bg-btn-tailieu-green:hover {
 	background:#30B350 !important;
 	border: 1px solid #30B350 !important;
 }
 
-.bg-btn-tailieu-green:focus{
+.bg-btn-tailieu-green:focus {
 	background: #30B350 !important;
 	border: 1px solid #30B350 !important;
 }
@@ -542,23 +542,23 @@
 	color:#FFF;
 	border: 1px solid #045AC2;
 }
-.btn-refesh-tai-lieu:hover{
+.btn-refesh-tai-lieu:hover {
 	background: #30B350 !important;
 }
-.btn-refesh-tai-lieu:focus{
+.btn-refesh-tai-lieu:focus {
 	background: #30B350 !important;
 }
-.z-button:focus{
+.z-button:focus {
 	background:#4274ED;
 	color:#FFF;
 	border: 1px solid #045AC2;
 }
-.style-txt-file{
+.style-txt-file {
 	height:36px;
 	align-items: center;
 	display: flex;
 }
-.txt-link-tai-lieu-fix{
+.txt-link-tai-lieu-fix {
 	font-family: Roboto-Medium;
     font-size: 13px;
     color: #4274ED;

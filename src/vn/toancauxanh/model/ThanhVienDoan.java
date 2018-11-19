@@ -93,8 +93,9 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 			public void validate(final ValidationContext ctx) {
 				String param = (String) ctx.getProperty().getValue();
 				if (param == null || "".equals(param) || param.trim().matches(".+@.+\\.[a-z]+")) {
-					JPAQuery<ThanhVienDoan> q = find(ThanhVienDoan.class)
-							.where(QThanhVienDoan.thanhVienDoan.email.eq(param));
+					JPAQuery<ThanhVienDoan> q = find(ThanhVienDoan.class).where(QThanhVienDoan.thanhVienDoan.email
+							.eq(param).and(QThanhVienDoan.thanhVienDoan.email.isNotEmpty())
+							.and(QThanhVienDoan.thanhVienDoan.email.isNotNull()));
 					if (!ThanhVienDoan.this.noId()) {
 						q.where(QThanhVienDoan.thanhVienDoan.id.ne(getId()));
 					}

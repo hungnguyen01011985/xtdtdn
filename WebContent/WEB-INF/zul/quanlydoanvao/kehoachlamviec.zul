@@ -1,4 +1,4 @@
-<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<?page title="Kế hoạch làm việc" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
 	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="Kế hoạch làm việc"
 	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')" validationMessages="@id('vmsgs')" class="content-popup pop-up-width1">
@@ -8,9 +8,9 @@
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
 			vmArgs = arg.get("vmArgs");
 			vm.arg.put("idDoanVao", doanVao.getId());
-			enum2 = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN;
-			enum3 = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_CONG_TAC_KHAC;
-			enum1 = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC;
+			congTacHauCan = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN;
+			congViecKhac = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_CONG_TAC_KHAC;
+			nhanSuLamViec = vn.toancauxanh.gg.model.enums.NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC;
 		]]>
 	</zscript>
 	<div> 
@@ -62,7 +62,7 @@
 					</columns>
 					<template name="model">
 						<row viewModel="@id('item') @init(each)">
-							<label value="@load(enum1 eq each.noiDungCongViec ? '1' : '-' or enum2 eq each.noiDungCongViec ? '2' : '-' or enum3 eq each.noiDungCongViec ? '3' : '-')"></label>
+							<label value="@load(nhanSuLamViec eq each.noiDungCongViec ? '1' : '-' or congTacHauCan eq each.noiDungCongViec ? '2' : '-' or congViecKhac eq each.noiDungCongViec ? '3' : '-')"></label>
 							<label value="@load(each.noiDungCongViec.text)" style="@load(each.loaiNoiDungCongViec ? '' : 'font-weight:bold')"></label>
 							<combobox visible="@load(each.loaiNoiDungCongViec)" readonly="true" model="@load(entry.duAns.listNguoiPhuTrach)" selectedItem="@bind(each.nguoiDuocGiao)" class="his reset-mg-pd" placeholder="Chọn người thực hiện" width="100%">
 								<template name="model">
@@ -72,7 +72,7 @@
 							<datebox visible="@load(each.loaiNoiDungCongViec)" constraint="no past" format="dd/MM/yyyy" class="hv-db" value="@bind(each.hanThucHien)"
 								 width="100%" placeholder="Chọn ngày"/>
 							<label visible="@load(each.loaiNoiDungCongViec)" value="@load(item.trangThaiGiaoViec.text)" class="TRANG_THAI ${item.trangThaiGiaoViec}"></label>
-							<textbox style="border: none;" visible="@load(each.loaiNoiDungCongViec)" class="form-control" maxlength="1024" value="@bind(each.ghiChu)" placeholder="-"></textbox>
+							<textbox style="border: none;" visible="@load(each.loaiNoiDungCongViec)" class="form-control" maxlength="255" value="@bind(each.ghiChu)" placeholder="-"></textbox>
 						</row>
 					</template>
 				</grid>
