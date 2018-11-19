@@ -120,11 +120,11 @@
 						<div zclass="col-md-12">
 							<div zclass="form-group flex">
 								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width" zk:onClick="@command('redirectPage', zul='quanlydoanvao/kehoachlamviec.zul',vm = vm)">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tao-ke-hoach-lam-viec.svg"/>
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
 									<span>Tạo kế hoạch làm việc</span>
 								</x:a>
 								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul',vm = vm)">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/danh-sach-thanh-vien.svg"/>
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ds-giao-viec.svg"/>
 									<span>Danh sách thành viên</span>
 								</x:a>
 							</div>
@@ -156,7 +156,7 @@
 				<div class="row mg-and-bg-and-line">
 					<div zclass="col-xs-6">
 						<div zclass="form-group">
-							<x:button class="btn bg-btn-dong btn-grey">
+							<x:button class="btn bg-btn-dong btn-grey" onClick="@command('redirectQuanLyDoanVao')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 								<span>Đóng</span>
 							</x:button>

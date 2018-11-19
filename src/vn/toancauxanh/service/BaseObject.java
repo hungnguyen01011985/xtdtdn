@@ -234,6 +234,11 @@ public class BaseObject<T> extends CoreObject<T> {
 	public void redirectQuanLyDuAn() {
 		Executions.sendRedirect("/cp/quanlyduan");
 	}
+	
+	@Command
+	public void redirectQuanLyDoanVao() {
+		Executions.sendRedirect("/cp/quanlydoanvao");
+	}
 
 	@Command
 	public void redirectPage(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
