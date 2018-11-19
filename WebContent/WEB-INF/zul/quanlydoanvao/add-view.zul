@@ -164,7 +164,7 @@
 					</div>
 					<div zclass="col-xs-6">
 						<div zclass="form-group right">
-							<x:button class="btn btn-base btn-green" onClick="@command('saveDoanVao')">
+							<x:button class="btn btn-blue mg-btn" onClick="@command('saveDoanVao')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 								<span>Lưu</span>
 							</x:button>

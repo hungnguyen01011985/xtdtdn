@@ -55,7 +55,9 @@
 					<div class="row">
 						<div zclass="col-md-4">
 							<div zclass="form-group">
-								<x:span class="issue-search">Họ và tên</x:span>  
+								<div class="flex">
+									<x:span class="issue-search">Họ và tên<n:small class="required"> *</n:small></x:span>
+								</div>  
 								<textbox maxlength="256" class="form-control" value="@bind(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập họ tên.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
@@ -78,7 +80,9 @@
 					<div class="row">
 						<div zclass="col-md-4">
 							<div zclass="form-group">
-								<x:span class="issue-search">Quốc gia</x:span> 
+								<div class="flex">
+									<x:span class="issue-search">Quốc gia<n:small class="required"> *</n:small></x:span>
+								</div> 
 								<combobox id="cbbQuocGia" model="@load(vm.listQuocGia)" placeholder="Chọn quốc gia"
 									readonly="true" class="his" width="100%" selectedItem="@bind(vm.thanhVienDoanTemp.quocGia) @save(vm.thanhVienDoanTemp.quocGia, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')">
 									<template name="model">
@@ -184,7 +188,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button class="btn btn-blue" zk:onClick="@command('saveDanhSachThanhVienDoan', wdn = wdn)">
+						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveDanhSachThanhVienDoan', wdn = wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>

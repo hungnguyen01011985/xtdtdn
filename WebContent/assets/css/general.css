@@ -223,33 +223,27 @@
 }
 
 .CHUA_LAM {
-	font-family: Roboto-Bold;
-	color: #AA8A3E !important;
+	color: #A17200 !important;
 }
 
 .DANG_LAM {
-	font-family: Roboto-Bold;
-	color: #628CF0 !important;
+	color: #4274ED !important;
 }
 
 .HOAN_THANH {
-	font-family: Roboto-Bold;
-	color: #39A94B !important;
+	color: #2FA442 !important;
 }
 
-.CHUA_THUC_HIEN input{
-	font-family: Roboto-Bold;
-	color: #AA8A3E !important;
+.CHUA_LAM input{
+	color: #A17200 !important;
 }
 
-.DANG_THUC_HIEN input{
-	font-family: Roboto-Bold;
-	color: #628CF0 !important;
+.DANG_LAM input{
+	color: #4274ED !important;
 }
 
 .HOAN_THANH input{
-	font-family: Roboto-Bold;
-	color: #39A94B !important;
+	color: #2FA442 !important;
 }
 
 
@@ -271,19 +265,23 @@
     background: #FFF;
 }
 
+.TRANG_THAI{
+	font-family: Roboto-Medium;
+	font-size: 13px;
+	letter-spacing: 0;
+	line-height: 18px;
+}
+
 .CHUA_TIEP {
-	font-family: Roboto-Bold;
-	color: #AA8A3E !important;
+	color: #A17200 !important;
 }
 
 .DANG_TIEP {
-	font-family: Roboto-Bold;
-	color: #628CF0 !important;
+	color: #4274ED !important;
 }
 
 .DA_TIEP {
-	font-family: Roboto-Bold;
-	color: #39A94B !important;
+	color: #2FA442 !important;
 }
 
 .plan-number {

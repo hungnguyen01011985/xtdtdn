@@ -103,13 +103,13 @@
 			</div>
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())" sclass="table-qldv"
+					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
-							<column label="STT" width="45px"/>
-							<column label="Tên đoàn" width="300px" />
-							<column label="Quốc gia" width="250px" />
-							<column label="Số người" width="90px"/>
+							<column label="STT" width="42px"/>
+							<column label="Tên đoàn" />
+							<column label="Quốc gia"  />
+							<column label="Số người" />
 							<column label="Tóm tắt nội dung" />
 							<column label="Thời gian đến" width="110px"/>
 							<column label="Nơi đoàn đi thăm" width="200px"/>
@@ -125,13 +125,13 @@
 								<label value="@load(each.tomTatNoiDungKQ)"></label>
 								<label value="@load(each.thoiGianDenLamViec) @converter('formatedDate',format='dd/MM/YYYY')"></label>
 								<label value="@load(each.noiDoanDiTham)"></label>
-								<label value="@load(each.trangThaiTiepDoan.text)" class="@load(each.trangThaiTiepDoan)"></label>
+								<label value="@load(each.trangThaiTiepDoan.text)" class="TRANG_THAI ${each.trangThaiTiepDoan}"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlydoanvao/${each.id}">
+									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlydoanvao/${each.id}" zk:if="${vm.checkEditDoanVao(entry.nhanVien.id, each.nguoiTao, each.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Cập nhật</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note">
+									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${vm.checkDeleteDoanVao(each.nguoiTao) and entry.quyen.quanlydoanvao_xoa}">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -146,7 +146,7 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<div zclass="form-group right">
+					<div zclass="form-group right" if="${entry.quyen.quanlydoanvao_them}">
 						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlydoanvao/add-view">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm đoàn vào</span>

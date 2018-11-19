@@ -3,8 +3,10 @@ package vn.toancauxanh.model;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,26 +30,45 @@ import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
+import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
 @Entity
 @Table(name = "giaoviec")
 public class GiaoViec extends Model<GiaoViec> {
 	private DuAn duAn;
+	private DoanVao doanVao;
 	private String tenCongViec;
 	private String yKienChiDao;
 	private String ketQua;
+	private String ghiChu;
+	private int soThuTu;
+	private boolean loaiNoiDungCongViec;
 	private NhanVien nguoiGiaoViec = new NhanVien();
 	private NhanVien nguoiDuocGiao = new NhanVien();
 	private Date ngayGiao = new Date();
 	private Date hanThucHien;
 	private Date ngayHoanThanh;
+	private NoiDungCongViec noiDungCongViec;
 	private GiaiDoanXucTien giaiDoanXucTien;
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
 	private TepTin taiLieu = new TepTin();
 	
 	private TepTin taiLieuKetQua;
 	private LoaiCongViec loaiCongViec;
+	
+	public GiaoViec() {
+	}
+
+	public GiaoViec(NoiDungCongViec noiDungCongViec, NhanVien nguoiDuocGiao, Date hanThucHien,
+			TrangThaiGiaoViec trangThaiGiaoViec, String ghiChu, boolean loaiNoiDungCongViec) {
+		this.noiDungCongViec = noiDungCongViec;
+		this.nguoiDuocGiao = nguoiDuocGiao;
+		this.hanThucHien = hanThucHien;
+		this.trangThaiGiaoViec = trangThaiGiaoViec;
+		this.ghiChu = ghiChu;
+		this.loaiNoiDungCongViec = loaiNoiDungCongViec;
+	}
 	
 	public String getyKienChiDao() {
 		return yKienChiDao;
@@ -74,6 +95,14 @@ public class GiaoViec extends Model<GiaoViec> {
 		this.tenCongViec = tenCongViec;
 	}
 	
+	public boolean isLoaiNoiDungCongViec() {
+		return loaiNoiDungCongViec;
+	}
+
+	public void setLoaiNoiDungCongViec(boolean loaiNoiDungCongViec) {
+		this.loaiNoiDungCongViec = loaiNoiDungCongViec;
+	}
+
 	@ManyToOne
 	public NhanVien getNguoiGiaoViec() {
 		return nguoiGiaoViec;
@@ -169,6 +198,31 @@ public class GiaoViec extends Model<GiaoViec> {
 		this.loaiCongViec = loaiCongViec;
 	}
 
+	@ManyToOne
+	public DoanVao getDoanVao() {
+		return doanVao;
+	}
+
+	public void setDoanVao(DoanVao doanVao) {
+		this.doanVao = doanVao;
+	}
+
+	public String getGhiChu() {
+		return ghiChu;
+	}
+
+	public void setGhiChu(String ghiChu) {
+		this.ghiChu = ghiChu;
+	}
+
+	public int getSoThuTu() {
+		return soThuTu;
+	}
+
+	public void setSoThuTu(int soThuTu) {
+		this.soThuTu = soThuTu;
+	}
+
 	@Command
 	public void saveGiaoViec(@BindingParam("vmArgs") final Object ob, @BindingParam("attr") final String attr,
 			@BindingParam("vm") final Object vm, @BindingParam("wdn") final Window wd) {
@@ -180,6 +234,15 @@ public class GiaoViec extends Model<GiaoViec> {
 		BindUtils.postNotifyChange(null, null, ob, attr);
 	}
 	
+	@Enumerated(EnumType.STRING)
+	public NoiDungCongViec getNoiDungCongViec() {
+		return noiDungCongViec;
+	}
+
+	public void setNoiDungCongViec(NoiDungCongViec noiDungCongViec) {
+		this.noiDungCongViec = noiDungCongViec;
+	}
+
 	@Command
 	public void saveNhanViec(@BindingParam("item") final GiaoViec ob,
 			@BindingParam("vm") final Object vm, @BindingParam("wdn") final Window wdn) {
@@ -374,5 +437,25 @@ public class GiaoViec extends Model<GiaoViec> {
 				return result;
 			}
 		};
+	}
+	
+	@Transient
+	public List<GiaoViec> getListGiaoViecKhoiTao(){
+		List<GiaoViec> list = new ArrayList<GiaoViec>();
+		list.add(new GiaoViec(NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC, nguoiDuocGiao, null, null, null, false));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_NGUOI_DUOC_PHAN_CONG, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUYEN_VIEN, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN, nguoiDuocGiao, null, null, null, false));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_PHONG_HOP, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_HOA_QUA, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_THIET_BI, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_TAI_LIEU, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_KHAC, nguoiDuocGiao, null, null, null, false));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_XAY_DUNG_CHUONG_TRINH, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_XAC_NHAN_LAI_THONG_TIN, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
+		return list;
 	}
 }

@@ -19,8 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
@@ -55,7 +53,6 @@ public class DoanVao extends Model<DoanVao> {
 	private String link;
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
-	private CongViec congViec = new CongViec();
 	private List<TepTin> tepTins = new ArrayList<TepTin>();
 
 
@@ -273,40 +270,37 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void saveDoanVao() {
-		DoanVao doanVao = this;
-		transactioner().execute(new TransactionCallbackWithoutResult() {
-			@Override
-			protected void doInTransactionWithoutResult(TransactionStatus status) {
-				if (!listThanhVienDoan.isEmpty() && listThanhVienDoan != null) {
-					listThanhVienDoan.forEach(item -> {
-						item.setDoanVao(doanVao);
-						item.saveNotShowNotification();
-					});
-				}
-				if (!listXoaThanhVienDoan.isEmpty() && listXoaThanhVienDoan != null) {
-					listXoaThanhVienDoan.forEach(item -> {
-						item.setDoanVao(doanVao);
-						item.setDaXoa(true);
-						item.saveNotShowNotification();
-					});
-				}
+		save();
+		if (!listThanhVienDoan.isEmpty() && listThanhVienDoan != null) {
+			listThanhVienDoan.forEach(item -> {
+				item.setDoanVao(this);
+				item.saveNotShowNotification();
+			});
+		}
+		if (!listXoaThanhVienDoan.isEmpty() && listXoaThanhVienDoan != null) {
+			listXoaThanhVienDoan.forEach(item -> {
+				item.setDoanVao(this);
+				item.setDaXoa(true);
+				item.saveNotShowNotification();
+			});
+		}
 
-				if (!listCongViecLuuTam.isEmpty() && listCongViecLuuTam != null) {
-					int index = 0;
-					for (CongViec congViec : listCongViecLuuTam) {
-						index++;
-						congViec.setDoanVao(doanVao);
-						congViec.setSoThuTu(index);
-						congViec.saveNotShowNotification();
-					}
-				}
-				doanVao.getTepTins().forEach(item -> {
-					item.saveNotShowNotification();
-				});
-				save();
-				redirectPageList("/cp/quanlydoanvao", null);
+		if (!listCongViecLuuTam.isEmpty() && listCongViecLuuTam != null) {
+			int index = 0;
+			for (GiaoViec congViec : listCongViecLuuTam) {
+				congViec.getTaiLieu().saveNotShowNotification();
+				index++;
+				congViec.setDoanVao(this);
+				congViec.setNguoiGiaoViec(core().getNhanVien());
+				congViec.setSoThuTu(index);
+				congViec.getNguoiDuocGiao().saveNotShowNotification();
+				congViec.saveNotShowNotification();
 			}
+		}
+		this.getTepTins().forEach(item -> {
+			item.saveNotShowNotification();
 		});
+		redirectPageList("/cp/quanlydoanvao", null);
 	}
 
 	@Command
@@ -377,15 +371,6 @@ public class DoanVao extends Model<DoanVao> {
 		this.thanhVienDoanTemp = thanhVienDoanTemp;
 	}
 	
-	@Transient
-	public CongViec getCongViec() {
-		return congViec;
-	}
-
-	public void setCongViec(CongViec congViec) {
-		this.congViec = congViec;
-	}
-
 	private List<ThanhVienDoan> listThanhVienDoan = new ArrayList<ThanhVienDoan>();
 	private List<ThanhVienDoan> listThanhVienTheoDoan = new ArrayList<ThanhVienDoan>();
 	private List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam = new ArrayList<ThanhVienDoan>();
@@ -517,14 +502,14 @@ public class DoanVao extends Model<DoanVao> {
 	
 	//======================================================================================
 	
-	private List<CongViec> listCongViecLuuTam = new ArrayList<>();
+	private List<GiaoViec> listCongViecLuuTam = new ArrayList<>();
 
 	@Transient
-	public List<CongViec> getListCongViecLuuTam() {
+	public List<GiaoViec> getListCongViecLuuTam() {
 		return listCongViecLuuTam;
 	}
 
-	public void setListCongViecLuuTam(List<CongViec> listCongViecLuuTam) {
+	public void setListCongViecLuuTam(List<GiaoViec> listCongViecLuuTam) {
 		this.listCongViecLuuTam = listCongViecLuuTam;
 	}
 }

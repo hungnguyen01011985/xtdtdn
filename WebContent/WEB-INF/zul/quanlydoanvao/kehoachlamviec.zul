@@ -1,7 +1,7 @@
 <?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
 	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="Kế hoạch làm việc"
-	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init('vn.toancauxanh.service.CongViecService')" validationMessages="@id('vmsgs')" class="content-popup pop-up-width1">
+	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')" validationMessages="@id('vmsgs')" class="content-popup pop-up-width1">
 	<zscript>
 		<![CDATA[
 			page.title = "Kế hoạch làm việc";
@@ -50,7 +50,7 @@
 					</div>
 				</div>
 				
-				<grid id="grid" model="@load(vm.listCongViec)"
+				<grid id="grid" model="@load(vm.listGiaoViec)"
 					emptyMessage="Không có dữ liệu nào trong danh sách">
 					<columns>
 						<column label="STT" style="text-align:center" width="42px"/>
@@ -63,20 +63,16 @@
 					<template name="model">
 						<row viewModel="@id('item') @init(each)">
 							<label value="@load(enum1 eq each.noiDungCongViec ? '1' : '-' or enum2 eq each.noiDungCongViec ? '2' : '-' or enum3 eq each.noiDungCongViec ? '3' : '-')"></label>
-							<label value="@load(each.noiDungCongViec.text)" style="@load(each.loaiCongViec ? '' : 'font-weight:bold')"></label>
-							<combobox visible="@load(each.loaiCongViec)" readonly="true" model="@load(entry.duAns.listNguoiPhuTrach)" selectedItem="@bind(each.nguoiThucHien)" class="his reset-mg-pd" placeholder="Chọn người thực hiện" width="100%">
+							<label value="@load(each.noiDungCongViec.text)" style="@load(each.loaiNoiDungCongViec ? '' : 'font-weight:bold')"></label>
+							<combobox visible="@load(each.loaiNoiDungCongViec)" readonly="true" model="@load(entry.duAns.listNguoiPhuTrach)" selectedItem="@bind(each.nguoiDuocGiao)" class="his reset-mg-pd" placeholder="Chọn người thực hiện" width="100%">
 								<template name="model">
 									<comboitem label="@load(each.hoVaTen)" />
 								</template>
 							</combobox>
-							<datebox visible="@load(each.loaiCongViec)" format="dd/MM/yyyy" class="hv-db" value="@bind(each.thoiGian)"
+							<datebox visible="@load(each.loaiNoiDungCongViec)" constraint="no past" format="dd/MM/yyyy" class="hv-db" value="@bind(each.hanThucHien)"
 								 width="100%" placeholder="Chọn ngày"/>
-							<combobox visible="@load(each.loaiCongViec)" disabled="true" model="@load(vm.listTrangThaiCongViec)" selectedItem="@bind(each.trangThaiCongViec)" class="his ${each.trangThaiCongViec}" placeholder="Trạng thái" width="100%">
-								<template name="model">
-									<comboitem label="@load(each.text)" />
-								</template>
-							</combobox>
-							<textbox visible="@load(each.loaiCongViec)" class="form-control" maxlength="1024" value="@bind(each.ghiChu)" placeholder="-"></textbox>
+							<label visible="@load(each.loaiNoiDungCongViec)" value="@load(item.trangThaiGiaoViec.text)" class="TRANG_THAI ${item.trangThaiGiaoViec}"></label>
+							<textbox style="border: none;" visible="@load(each.loaiNoiDungCongViec)" class="form-control" maxlength="1024" value="@bind(each.ghiChu)" placeholder="-"></textbox>
 						</row>
 					</template>
 				</grid>
@@ -92,7 +88,7 @@
 					</div>
 					<div zclass="col-xs-6">
 						<div zclass="form-group right">
-							<x:button class="btn btn-base btn-green" zk:onClick="@command('saveKeHoachLamViec', doanVao = doanVao, wdn = wdn)">
+							<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveKeHoachLamViec', doanVao = doanVao, wdn = wdn)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 								<span>Lưu</span>
 							</x:button>

@@ -702,4 +702,21 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return subString(id).contains(idNV);
 	}
+	
+	public boolean checkEditDoanVao(Long idNV, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
+		if (idNV == null) {
+			return false;
+		}
+		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean checkDeleteDoanVao(NhanVien nguoiTao) {
+		if (nguoiTao.equals(core().getNhanVien())) {
+			return true;
+		}
+		return false;
+	}
 }

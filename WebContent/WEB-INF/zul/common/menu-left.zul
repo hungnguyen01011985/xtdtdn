@@ -24,7 +24,7 @@
 						<x:span class="text-menu">Quản lý giao việc</x:span>
 					</n:a>
 				</n:li> -->
-				<n:li class="${resource eq 'quanlydoanvao' ? 'active-heder-li flex' : 'flex'}">
+				<n:li class="${resource eq 'quanlydoanvao' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlydoanvao_lietke}">
 					<n:a href="${execution.contextPath}/cp/quanlydoanvao">
 						<x:span class="img-menu qldv" zk:if="${resource ne 'quanlydoanvao'}"></x:span>
 						<x:span class="img-menu qldv" zk:if="${resource eq 'quanlydoanvao'}"></x:span>

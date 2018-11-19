@@ -16,6 +16,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
+import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.QGiaoViec;
 import vn.toancauxanh.model.ThongBao;
@@ -27,6 +28,8 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	private static final long serialVersionUID = 2132978067148535799L;
 	
 	private Set<GiaoViec> selectItems = new HashSet<>();
+	private List<GiaoViec> listGiaoViec = new ArrayList<GiaoViec>();
+	private GiaoViec giaoViec = new GiaoViec();
 	
 	public JPAQuery<GiaoViec> getTargetQueryByIdDuAn() {
 		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
@@ -103,4 +106,39 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		this.selectItems = selectItems;
 	}
 
+	public GiaoViec getGiaoViec() {
+		return giaoViec;
+	}
+
+	public void setGiaoViec(GiaoViec giaoViec) {
+		this.giaoViec = giaoViec;
+	}
+
+	public List<GiaoViec> getListGiaoViec() {
+		Long idDoanVao = MapUtils.getLongValue(argDeco(), "idDoanVao");
+		if (idDoanVao != null && idDoanVao > 0) {
+			JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.doanVao.id.eq(Long.valueOf(idDoanVao))).orderBy(QGiaoViec.giaoViec.soThuTu.asc());
+			if (q != null && q.fetchCount() > 0) {
+				listGiaoViec.addAll(q.fetch());
+				return listGiaoViec;
+			} else {
+				listGiaoViec.addAll(giaoViec.getListGiaoViecKhoiTao());
+			}
+		} else {
+			listGiaoViec.addAll(giaoViec.getListGiaoViecKhoiTao());
+		}
+		return listGiaoViec;
+	}
+	
+	public void setListGiaoViec(List<GiaoViec> listGiaoViec) {
+		this.listGiaoViec = listGiaoViec;
+	}
+	
+	@Command
+	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao, @BindingParam("wdn") final Window wdn){
+		doanVao.getListCongViecLuuTam().clear();
+		doanVao.getListCongViecLuuTam().addAll(listGiaoViec);
+		showNotification("Lưu thành công!", "", "success");
+		wdn.detach();
+	}
 }
