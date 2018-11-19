@@ -24,7 +24,6 @@
 								<textbox maxlength="255" class="form-control" readonly="${readOnly}" value="@bind(vm.hoVaTen)@save(vm.hoVaTen, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập tên người dùng..."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-								<label value="@load(vm.avatarImage eq null ? vm.avatarImage.name : 'ko zoooo')"></label>
 							</div>
 						</div>
 						<div zclass="col-md-6" >

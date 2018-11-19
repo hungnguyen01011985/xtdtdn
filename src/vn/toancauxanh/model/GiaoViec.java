@@ -44,7 +44,7 @@ public class GiaoViec extends Model<GiaoViec> {
 	private String yKienChiDao;
 	private String ketQua;
 	private String ghiChu;
-	private int soThuTu;
+	private int soThuTu = 0;
 	private boolean loaiNoiDungCongViec;
 	private NhanVien nguoiGiaoViec = new NhanVien();
 	private NhanVien nguoiDuocGiao = new NhanVien();
@@ -488,4 +488,13 @@ public class GiaoViec extends Model<GiaoViec> {
 		}
 		Executions.getCurrent().sendRedirect(href, "_blank");
 	}
+
+	@Override
+	public String toString() {
+		return "GiaoViec [soThuTu=" + soThuTu + ", noiDungCongViec=" + noiDungCongViec + ", trangThaiGiaoViec="
+				+ trangThaiGiaoViec + ", loaiCongViec="
+				+ loaiCongViec + "]";
+	}
+	
+	
 }

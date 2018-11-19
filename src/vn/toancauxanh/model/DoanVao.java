@@ -6,9 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -504,14 +502,14 @@ public class DoanVao extends Model<DoanVao> {
 	
 	//======================================================================================
 	
-	private Set<GiaoViec> listCongViecLuuTam = new HashSet<GiaoViec>();
+	private List<GiaoViec> listCongViecLuuTam = new ArrayList<GiaoViec>();
 
 	@Transient
-	public Set<GiaoViec> getListCongViecLuuTam() {
+	public List<GiaoViec> getListCongViecLuuTam() {
 		return listCongViecLuuTam;
 	}
 
-	public void setListCongViecLuuTam(Set<GiaoViec> listCongViecLuuTam) {
+	public void setListCongViecLuuTam(List<GiaoViec> listCongViecLuuTam) {
 		this.listCongViecLuuTam = listCongViecLuuTam;
 	}
 

@@ -29,7 +29,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	 */
 	private static final long serialVersionUID = 6984673095113713236L;
 	private Set<GiaoViec> selectItems = new HashSet<>();
-	private Set<GiaoViec> listGiaoViec = new HashSet<GiaoViec>();
+	private List<GiaoViec> listGiaoViec = new ArrayList<GiaoViec>();
 	
 	public JPAQuery<GiaoViec> getTargetQueryByIdDuAn() {
 		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
@@ -106,7 +106,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		this.selectItems = selectItems;
 	}
 
-	public Set<GiaoViec> getListGiaoViec() {
+	public List<GiaoViec> getListGiaoViec() {
 		GiaoViec giaoViec = new GiaoViec();
 		Long idDoanVao = MapUtils.getLongValue(argDeco(), "idDoanVao");
 		if (idDoanVao != null && idDoanVao > 0) {
@@ -120,10 +120,13 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		} else {
 			listGiaoViec.addAll(giaoViec.getListGiaoViecKhoiTao());
 		}
+		for (GiaoViec giaoViec2 : listGiaoViec) {
+			System.out.println(giaoViec2.getSoThuTu());
+		}
 		return listGiaoViec;
 	}
 	
-	public void setListGiaoViec(Set<GiaoViec> listGiaoViec) {
+	public void setListGiaoViec(List<GiaoViec> listGiaoViec) {
 		this.listGiaoViec = listGiaoViec;
 	}
 
