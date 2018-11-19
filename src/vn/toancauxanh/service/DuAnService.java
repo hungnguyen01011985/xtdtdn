@@ -7,7 +7,6 @@ import org.apache.commons.collections.MapUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.util.Clients;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -68,35 +67,11 @@ public class DuAnService extends BasicService<DuAn> {
 		}
 	}
 
-	public List<GiaiDoanXucTien> getListGiaiDoanXucTienAndNull() {
-		List<GiaiDoanXucTien> list = new ArrayList<>();
-		list.add(null);
-		list.add(GiaiDoanXucTien.GIAI_DOAN_MOT);
-		list.add(GiaiDoanXucTien.GIAI_DOAN_HAI);
-		list.add(GiaiDoanXucTien.GIAI_DOAN_BA);
-		list.add(GiaiDoanXucTien.GIAI_DOAN_BON);
-		list.add(GiaiDoanXucTien.CHUA_HOAN_THANH);
-		list.add(GiaiDoanXucTien.HOAN_THANH);
-		return list;
-	}
-
 	@Command
 	public void reset(@BindingParam("vm") final DuAnService vm) {
 		Executions.sendRedirect("/cp/quanlyduan");
 	}
 
-	public List<NhanVien> getListNguoiPhuTrachAndNull() {
-		List<NhanVien> list = new ArrayList<NhanVien>();
-		list.add(null);
-		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(1l))
-				.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN));
-		if (q != null) {
-			list.addAll(q.fetch());
-			return list;
-		}
-		return list;
-	}
-	
 	public List<NhanVien> getListNguoiPhuTrach() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
 		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(1l))

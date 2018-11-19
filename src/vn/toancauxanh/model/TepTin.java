@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -152,6 +151,7 @@ public class TepTin extends Model<TepTin> {
 				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				this.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
 				this.setMedia(media);
+				this.setNgayTao(null);
 				if (error != null) {
 					error.setValue("");
 				}
@@ -178,6 +178,7 @@ public class TepTin extends Model<TepTin> {
 						tepTin.setTenFile(null);
 						tepTin.setPathFile(null);
 						tepTin.setMedia(null);
+						tepTin.setNgayTao(null);
 						BindUtils.postNotifyChange(null, null, tepTin, "*");
 						BindUtils.postNotifyChange(null, null, object, name);
 						showNotification("Đã xóa", "", "success");

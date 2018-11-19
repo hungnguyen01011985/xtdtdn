@@ -297,7 +297,7 @@
 					<x:span class="label-txt-style">Quyết định thu hồi đất</x:span>
 					<button if="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty vm.giaiDoanDuAn.quyetDinhThuHoiDat.tenFile)" label="Chọn tài liệu" 
 						class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
-						onUpload="@command('uploadFile', medias=event.getMedia(),vm = vm.giaiDoanDuAn.quyetDinhThuHoiDat, name = 'quyetDinhThuHoiDat')"
+						onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm.giaiDoanDuAn.quyetDinhThuHoiDat, name = 'quyetDinhThuHoiDat')"
 						upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 					</button>
 					<div class="flex mg-btn-top" visible="@load(not empty vm.giaiDoanDuAn.quyetDinhThuHoiDat.tenFile)">
