@@ -34,7 +34,7 @@
 							<div zclass="col-md-4">
 								<div zclass="form-group">
 									<span>Người nhập</span> 
-									<combobox id="cbbPhuTrach" readonly="true" class="his" model="@load(vm.listNguoiPhuTrachAndNull)" value="@load(vm.arg.nhanVien eq null ? 'Tất cả' : vm.arg.nhanVien.hoVaTen)"
+									<combobox id="cbbNguoiNhap" readonly="true" class="his" model="@load(vm.listNguoiPhuTrachAndNull)" value="@load(vm.arg.nhanVien eq null ? 'Tất cả' : vm.arg.nhanVien.hoVaTen)"
 										selectedItem="@bind(vm.arg.nhanVien)" placeholder="Tất cả" width="100%">
 										<template name="model">
 											<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
@@ -75,7 +75,7 @@
 								<label value="@load(each.giaiDoanXucTien.text)"></label>
 								<label value="@load(each.nguoiNhap.hoVaTen)"></label>
 								<label value="@load(each.vanBan.ngaySua) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
-								<label viewModel="@id('tepTin') @init(each.vanBan)" value="@load(tepTin.tenFile)" onClick="@command('downLoadTepTin', ob = tepTin)" style="color: #4274ED;cursor:pointer;"></label>
+								<label viewModel="@id('tepTin') @init(each.vanBan)" value="@load(tepTin.tenFile)" onClick="@command('redirect', ob = tepTin)" style="color: #4274ED;cursor:pointer;"></label>
 							</row>
 						</template>
 					</grid>
@@ -87,25 +87,9 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-dong btn-grey" onClick="@command('closePopup', wdn = wdn)">
+						<x:button class="btn bg-btn-dong btn-grey" zk:onClick="wdn.detach();">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 							<span>Đóng</span>
-						</x:button>
-					</div>
-				</div>
-				<div zclass="col-xs-6">
-					<div zclass="form-group right">
-						<x:button if="${entry.quyen.quanlyduan_giaoviec}" onClick="@command('redirectPage',zul='quanlyduan/add-giao-viec.zul', vm = duAn, vmArgs = vm)"
-								class="btn btn-base btn-green mg-btn">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
-							<span>Giao việc</span>
-						</x:button>
-					</div>
-					<div if="${entry.quyen.quanlyduan_nhacnho}" zclass="form-group right-mg flex" style="margin:0;">
-						<x:button onClick="@command('redirectPage', zul='quanlyduan/list-nhac-nho.zul', vm = duAn)"
-							class="btn btn-blue">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/nhac-nho-white.svg"/>
-							<span>Nhắc nhở</span>
 						</x:button>
 					</div>
 				</div>

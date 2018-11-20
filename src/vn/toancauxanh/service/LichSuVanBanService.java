@@ -1,6 +1,7 @@
 package vn.toancauxanh.service;
 
 import org.apache.commons.collections.MapUtils;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.zul.Window;
@@ -31,13 +32,6 @@ public class LichSuVanBanService extends BasicService<LichSuVanBan>{
 		
 		q.orderBy(QLichSuVanBan.lichSuVanBan.vanBan.ngayTao.desc());
 		return q;
-	}
-	
-	@Command
-	public void closePopup(@BindingParam("wdn") Window wdn) {
-		if (wdn != null) {
-			wdn.detach();
-		}
 	}
 	
 }

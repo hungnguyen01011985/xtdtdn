@@ -30,7 +30,6 @@ import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 import vn.toancauxanh.model.QGiaoViec;
-import vn.toancauxanh.model.QLichSuVanBan;
 import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.TepTin;
 import vn.toancauxanh.model.ThongBao;
@@ -185,25 +184,17 @@ public class ProcessService extends BasicService<Object> {
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(model.getGiaiDoanXucTien())) {
-			saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_HAI, false);
+			saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_HAI, true);
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(model.getGiaiDoanXucTien())) {
-			saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_BA, false);
+			saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_BA, true);
 		}
-		luuTaiLieuKhac(duAn.getGiaiDoanDuAn(), false);
+		luuTaiLieuKhac(duAn.getGiaiDoanDuAn(), true);
 		removeGiaiDoanDuAnList(duAn);
-		removeLichSuVanBan(duAn);
 		duAn.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		duAn.saveNotShowNotification();
 		redirectGiaiDoanDuAnById(duAn.getId());
 		showNotification("", "Cập nhật thành công", "success");
-	}
-	
-	public void removeLichSuVanBan(DuAn duAn) {
-		JPAQuery<LichSuVanBan> q = find(LichSuVanBan.class).where(QLichSuVanBan.lichSuVanBan.duAn.eq(duAn));
-		q.fetch().forEach(item -> {
-			item.doDelete(true);
-		});
 	}
 	
 	public void removeGiaiDoanDuAnList(DuAn duAn) {
