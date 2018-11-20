@@ -19,6 +19,24 @@
 			}
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON);
 			vm.getGiaiDoanDuAn().setPhuongThucLuaChonNDT(vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT);
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyetPADG() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyetPADG(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getHoSoQuyHoachLQH() == null) {
+				vm.giaiDoanDuAn.setHoSoQuyHoachLQH(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getPhuongAnDauGia() == null) {
+				vm.giaiDoanDuAn.setPhuongAnDauGia(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhDauGiaQSDD() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhDauGiaQSDD(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyetGiaKhoiDiem(new vn.toancauxanh.model.TepTin());
+			}
+			if (vm.giaiDoanDuAn.getQuyetDinhPheDuyetLQH() == null) {
+				vm.giaiDoanDuAn.setQuyetDinhPheDuyetLQH(new vn.toancauxanh.model.TepTin());
+			}
 		]]>
 	</zscript>
 	<div style="height:75px;margin:0 -7.5px;">

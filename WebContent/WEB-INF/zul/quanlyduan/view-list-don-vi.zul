@@ -7,8 +7,15 @@
 			}
 		]]>
 	</zscript>
-	<div children="@bind(vm.getGiaiDoanDuAn().getDonViDuAn())">
+	<div children="@bind(vm.giaiDoanDuAn.donViDuAn)">
 			<template name="children">
+				<zscript>
+					<![CDATA[
+						if (each.congVanTraLoi == null) {
+								each.setCongVanTraLoi(new vn.toancauxanh.model.TepTin());
+						}
+					]]>
+				</zscript>
 				<div class="box-tab-panel">
 					<n:div class="title-panel-tab" onClick="toggleTabPanel(this)">
 						<span>ĐƠN VỊ NHẬN CV ĐỀ NGHỊ SỐ ${forEachStatus.index+1}</span>

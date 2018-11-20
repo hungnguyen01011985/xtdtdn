@@ -697,7 +697,7 @@ public class BaseObject<T> extends CoreObject<T> {
 	}
 	
 	@Transient
-	public List<NhanVien> getListNguoiPhuTrachAndNull() {
+	public List<NhanVien> getListNguoiPhuTrachDoanVaoAndNull() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
 		list.add(null);
 		list.addAll(getListNguoiPhuTrach());
@@ -745,5 +745,29 @@ public class BaseObject<T> extends CoreObject<T> {
 			return true;
 		}
 		return false;
+	}
+	
+	public List<NhanVien> getListNguoiPhuTrachAndNull() {
+		List<NhanVien> list = new ArrayList<NhanVien>();
+		list.add(null);
+		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(1l))
+				.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN));
+		if (q != null) {
+			list.addAll(q.fetch());
+			return list;
+		}
+		return list;
+	}
+	
+	public List<GiaiDoanXucTien> getListGiaiDoanXucTienAndNull() {
+		List<GiaiDoanXucTien> list = new ArrayList<>();
+		list.add(null);
+		list.add(GiaiDoanXucTien.GIAI_DOAN_MOT);
+		list.add(GiaiDoanXucTien.GIAI_DOAN_HAI);
+		list.add(GiaiDoanXucTien.GIAI_DOAN_BA);
+		list.add(GiaiDoanXucTien.GIAI_DOAN_BON);
+		list.add(GiaiDoanXucTien.CHUA_HOAN_THANH);
+		list.add(GiaiDoanXucTien.HOAN_THANH);
+		return list;
 	}
 }

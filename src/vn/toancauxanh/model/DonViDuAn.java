@@ -19,9 +19,7 @@ public class DonViDuAn extends Model<DonViDuAn>{
 	private CapDonVi capDonVi;
 	private DonViXucTien donVi;
 	private Date ngayNhanTraLoi;
-	private TepTin congVanTraLoi = new TepTin();
-	private Date ngayNhanGiaiThich;
-	private TepTin congVanGiaiThich = new TepTin();
+	private TepTin congVanTraLoi;
 	private GiaiDoanDuAn giaiDoanDuAn;
 	
 	@ManyToOne
@@ -58,23 +56,6 @@ public class DonViDuAn extends Model<DonViDuAn>{
 
 	public void setCongVanTraLoi(TepTin congVanTraLoi) {
 		this.congVanTraLoi = congVanTraLoi;
-	}
-
-	public Date getNgayNhanGiaiThich() {
-		return ngayNhanGiaiThich;
-	}
-
-	public void setNgayNhanGiaiThich(Date ngayNhanGiaiThich) {
-		this.ngayNhanGiaiThich = ngayNhanGiaiThich;
-	}
-	
-	@ManyToOne
-	public TepTin getCongVanGiaiThich() {
-		return congVanGiaiThich;
-	}
-
-	public void setCongVanGiaiThich(TepTin congVanGiaiThich) {
-		this.congVanGiaiThich = congVanGiaiThich;
 	}
 	
 	@ManyToOne

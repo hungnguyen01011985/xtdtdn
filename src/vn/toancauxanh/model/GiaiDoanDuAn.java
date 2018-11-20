@@ -218,11 +218,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getTaiLieuGD1() {
-		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(this.getGiaiDoanXucTien())) {
-			if (taiLieuGD1 == null) {
-				taiLieuGD1 = new TepTin();
-			}
-		}
 		return taiLieuGD1;
 	}
 
@@ -284,11 +279,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getTaiLieuGD2() {
-		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(this.giaiDoanXucTien)) {
-			if (this.taiLieuGD2 == null) {
-				this.taiLieuGD2 = new TepTin();
-			}
-		}
 		return taiLieuGD2;
 	}
 
@@ -306,11 +296,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getCongVanGD2() {
-		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(this.giaiDoanXucTien)) {
-			if (this.congVanGD2 == null) {
-				this.congVanGD2 = new TepTin();
-			}
-		}
 		return congVanGD2;
 	}
 
@@ -336,11 +321,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getTaiLieuGD3() {
-		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(this.giaiDoanXucTien)) {
-			if (this.taiLieuGD3 == null) {
-				this.taiLieuGD3 = new TepTin();
-			}
-		}
 		return taiLieuGD3;
 	}
 
@@ -358,11 +338,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getCongVanGD3() {
-		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(this.giaiDoanXucTien)) {
-			if (this.congVanGD3 == null) {
-				this.congVanGD3 = new TepTin();
-			}
-		}
 		return congVanGD3;
 	}
 
@@ -390,11 +365,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetLQH() {
-		if (this.phuongThucLuaChonNDT != null) {
-			if (this.quyetDinhPheDuyetLQH == null) {
-				this.quyetDinhPheDuyetLQH = new TepTin();
-			}
-		}
 		return quyetDinhPheDuyetLQH;
 	}
 
@@ -404,11 +374,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getHoSoQuyHoachLQH() {
-		if (this.phuongThucLuaChonNDT != null) {
-			if (this.hoSoQuyHoachLQH == null) {
-				this.hoSoQuyHoachLQH = new TepTin();
-			}
-		}
 		return hoSoQuyHoachLQH;
 	}
 
@@ -418,13 +383,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getPhuongAnDauGia() {
-		if (this.phuongThucLuaChonNDT != null) {
-			if (this.phuongAnDauGia == null) {
-				if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(this.getPhuongThucLuaChonNDT())) {
-					this.phuongAnDauGia = new TepTin();
-				}
-			}
-		}
 		return phuongAnDauGia;
 	}
 	
@@ -434,13 +392,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	
 	@ManyToOne
 	public TepTin getQuyetDinhDauGiaQSDD() {
-		if (this.phuongThucLuaChonNDT != null) {
-			if (this.quyetDinhDauGiaQSDD == null) {
-				if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(this.getPhuongThucLuaChonNDT())) {
-					this.quyetDinhDauGiaQSDD = new TepTin();
-				}
-			}
-		}
 		return quyetDinhDauGiaQSDD;
 	}
 
@@ -466,11 +417,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getHoSoQuyHoach2000() {
-		if (this.hoSoQuyHoach2000 == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				hoSoQuyHoach2000 = new TepTin();
-			}
-		}
 		return hoSoQuyHoach2000;
 	}
 
@@ -480,11 +426,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyet2000() {
-		if (this.quyetDinhPheDuyet2000 == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				quyetDinhPheDuyet2000 = new TepTin();
-			}
-		}
 		return quyetDinhPheDuyet2000;
 	}
 
@@ -494,11 +435,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getNghiQuyetPheDuyetCongTrinh() {
-		if (this.nghiQuyetPheDuyetCongTrinh == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				nghiQuyetPheDuyetCongTrinh = new TepTin();
-			}
-		}
 		return nghiQuyetPheDuyetCongTrinh;
 	}
 
@@ -508,11 +444,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getBaoCaoDoDacKhuDat() {
-		if (this.baoCaoDoDacKhuDat == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				baoCaoDoDacKhuDat = new TepTin();
-			}
-		}
 		return baoCaoDoDacKhuDat;
 	}
 
@@ -522,11 +453,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getPheDuyetKeHoachSuDungDat() {
-		if (this.pheDuyetKeHoachSuDungDat == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				pheDuyetKeHoachSuDungDat = new TepTin();
-			}
-		}
 		return pheDuyetKeHoachSuDungDat;
 	}
 
@@ -536,11 +462,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhThuHoiDat() {
-		if (this.quyetDinhThuHoiDat == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				quyetDinhThuHoiDat = new TepTin();
-			}
-		}
 		return quyetDinhThuHoiDat;
 	}
 
@@ -550,11 +471,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetDanhMuc() {
-		if (this.quyetDinhPheDuyetDanhMuc == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				quyetDinhPheDuyetDanhMuc = new TepTin();
-			}
-		}
 		return quyetDinhPheDuyetDanhMuc;
 	}
 
@@ -564,11 +480,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetBoSungKinhPhi() {
-		if (this.quyetDinhPheDuyetBoSungKinhPhi == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				quyetDinhPheDuyetBoSungKinhPhi = new TepTin();
-			}
-		}
 		return quyetDinhPheDuyetBoSungKinhPhi;
 	}
 
@@ -578,11 +489,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getPhuongAnTaiDinhCu() {
-		if (this.phuongAnTaiDinhCu == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				phuongAnTaiDinhCu = new TepTin();
-			}
-		}
 		return phuongAnTaiDinhCu;
 	}
 
@@ -592,21 +498,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetPADG() {
-		if (this.quyetDinhPheDuyetPADG == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT)) {
-				quyetDinhPheDuyetPADG = new TepTin();
-			}
-		}
 		return quyetDinhPheDuyetPADG;
 	}
 
 	@Transient
 	public boolean checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT phuongThuc) {
-		if (this.getPhuongThucLuaChonNDT() != null) {
-			if (phuongThuc.equals(this.getPhuongThucLuaChonNDT())) {
-				return true;
-			}
-		}
 		return false;
 	}
 
@@ -616,11 +512,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetGiaKhoiDiem() {
-		if (this.quyetDinhPheDuyetGiaKhoiDiem == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT)) {
-				quyetDinhPheDuyetGiaKhoiDiem = new TepTin();
-			}
-		}
 		return quyetDinhPheDuyetGiaKhoiDiem;
 	}
 
@@ -630,13 +521,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getVanBanDeNghiBoSung() {
-		if (this.vanBanDeNghiBoSung == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT)) {
-				if (!this.option) {
-					this.vanBanDeNghiBoSung = new TepTin();
-				}
-			}
-		}
 		return vanBanDeNghiBoSung;
 	}
 
@@ -646,13 +530,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhBoSungDanhMuc() {
-		if (this.quyetDinhBoSungDanhMuc == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT)) {
-				if (!this.option) {
-					this.quyetDinhBoSungDanhMuc = new TepTin();
-				}
-			}
-		}
 		return quyetDinhBoSungDanhMuc;
 	}
 
@@ -662,11 +539,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getHoSoMoiTuyen() {
-		if (this.hoSoMoiTuyen == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				hoSoMoiTuyen = new TepTin();
-			}
-		}
 		return hoSoMoiTuyen;
 	}
 
@@ -676,11 +548,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyeHoSoMoiTuyen() {
-		if (this.quyetDinhPheDuyeHoSoMoiTuyen == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				quyetDinhPheDuyeHoSoMoiTuyen = new TepTin();
-			}
-		}
 		return quyetDinhPheDuyeHoSoMoiTuyen;
 	}
 
@@ -690,11 +557,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetKetQuaTrungTuyen() {
-		if (this.quyetDinhPheDuyetKetQuaTrungTuyen == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				quyetDinhPheDuyetKetQuaTrungTuyen = new TepTin();
-			}
-		}
 		return quyetDinhPheDuyetKetQuaTrungTuyen;
 	}
 
@@ -704,11 +566,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getKeHoachLuaChonNhaDauTu() {
-		if (this.keHoachLuaChonNhaDauTu == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				keHoachLuaChonNhaDauTu = new TepTin();
-			}
-		}
 		return keHoachLuaChonNhaDauTu;
 	}
 
@@ -718,11 +575,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getHoSoMoiThau() {
-		if (this.hoSoMoiThau == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				hoSoMoiThau = new TepTin();
-			}
-		}
 		return hoSoMoiThau;
 	}
 
@@ -732,11 +584,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getQuyetDinhPheDuyetMoiThau() {
-		if (this.quyetDinhPheDuyetMoiThau == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT)) {
-				quyetDinhPheDuyetMoiThau = new TepTin();
-			}
-		}
 		return quyetDinhPheDuyetMoiThau;
 	}
 
@@ -746,11 +593,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getVanBanChuyenMucDichSDD() {
-		if (this.vanBanChuyenMucDichSDD == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG)) {
-				vanBanChuyenMucDichSDD = new TepTin();
-			}
-		}
 		return vanBanChuyenMucDichSDD;
 	}
 
@@ -760,11 +602,6 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	@ManyToOne
 	public TepTin getVanBanDeNghiThuHoiDat() {
-		if (this.vanBanDeNghiThuHoiDat == null) {
-			if (checkTaiLieuByPhuongThuc(PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG)) {
-				vanBanDeNghiThuHoiDat = new TepTin();
-			}
-		}
 		return vanBanDeNghiThuHoiDat;
 	}
 

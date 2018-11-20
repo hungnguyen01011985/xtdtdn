@@ -8,6 +8,9 @@
 			if (list != null){
 				vm.getGiaiDoanDuAn().getDonViDuAn().addAll(list);
 			}
+			if (vm.getGiaiDoanDuAn().getTaiLieuGD1() == null) {
+				vm.getGiaiDoanDuAn().setTaiLieuGD1(new vn.toancauxanh.model.TepTin());
+			}
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT);
 			
 		]]>
@@ -15,9 +18,14 @@
 	<div> 
 		<div class="panel-box border-box mg-bottom-15">
 			<div zclass="row">
-				<div zclass="col-lg-12">
+				<div zclass="col-lg-6">
 					<div class="title-form">
 						<span>Thông tin giai đoạn dự án</span>
+					</div>
+				</div>
+				<div zclass="col-lg-6">
+					<div class="box-lich-su-van-ban" onClick="@command('redirectPage', zul='quanlyduan/list-lich-su-van-ban.zul', vm = vm)">
+						<span>Lịch sử văn bản</span>
 					</div>
 				</div>
 			</div>
