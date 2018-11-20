@@ -12,22 +12,23 @@
 			</div>
 			<div children="@bind(vm.tepTins)" style="padding:0 7.5px;">
 				<template name="children">
-					<div class="row">
+					<div class="row" viewModel="@id('item') @init(each)">
 						<div class="col-md-4">
 							<div zclass="form-group">
-								<textbox class="form-control textbox-txt-style" maxlength="255" value="@bind(each.tenTaiLieu)"></textbox>
+								<textbox disabled="${action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(each.tenFile)"></textbox>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div zclass="form-group mg-top-8">
 								<a href="" class="style-txt-file">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
-									<label value="@load(each.tenFile)" onClick="@command('downLoadTepTin', ob = each)" class="txt-link-tai-lieu-fix"></label>
+									<label visible="@load(each.noId())" value="@load(each.tenFile)" onClick="@command('downLoadTepTin', ob = each)" class="txt-link-tai-lieu-fix"></label>
+									<a visible="@load(!each.noId())" label="@bind(each.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = each)"></a>
 								</a>
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="flex mg-btn-top">
+							<div class="flex mg-btn-top" if="${!action}">
 								<x:button class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>

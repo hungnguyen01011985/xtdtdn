@@ -33,6 +33,7 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiEnum;
 
@@ -46,14 +47,15 @@ public class DoanVao extends Model<DoanVao> {
 	private String deXuatCVPhuTrach = "";
 	private String yKienChiDao = "";
 	private String noiDoanDiTham;
+	private String link;
 	private int soNguoi;
 	private Date thoiGianDenLamViec = new Date();
 	private NhanVien nguoiPhuTrach = new NhanVien();
 	private List<KeHoachLamViec> listKeHoachLamViec;
-	private String link;
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
 	private List<TepTin> tepTins = new ArrayList<TepTin>();
+	private TepTin congVanChiDao;
 
 
 	public DoanVao() {
@@ -100,6 +102,15 @@ public class DoanVao extends Model<DoanVao> {
 
 	public void setNguoiPhuTrach(NhanVien nguoiPhuTrach) {
 		this.nguoiPhuTrach = nguoiPhuTrach;
+	}
+	
+	@ManyToOne
+	public TepTin getCongVanChiDao() {
+		return congVanChiDao;
+	}
+
+	public void setCongVanChiDao(TepTin congVanChiDao) {
+		this.congVanChiDao = congVanChiDao;
 	}
 
 	public String getNoiDoanDiTham() {
@@ -270,6 +281,9 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void saveDoanVao() {
+		this.getTepTins().forEach(item -> {
+			item.saveNotShowNotification();
+		});
 		save();
 		if (listThanhVienDoan != null && !listThanhVienDoan.isEmpty()) {
 			listThanhVienDoan.forEach(item -> {
@@ -293,13 +307,11 @@ public class DoanVao extends Model<DoanVao> {
 				congViec.setDoanVao(this);
 				congViec.setNguoiGiaoViec(core().getNhanVien());
 				congViec.setSoThuTu(index);
+				congViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
 				congViec.getNguoiDuocGiao().saveNotShowNotification();
 				congViec.saveNotShowNotification();
 			}
 		}
-		this.getTepTins().forEach(item -> {
-			item.saveNotShowNotification();
-		});
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
 
@@ -509,7 +521,7 @@ public class DoanVao extends Model<DoanVao> {
 	//======================================================================================
 	
 	private List<GiaoViec> listCongViecLuuTam = new ArrayList<GiaoViec>();
-
+	
 	@Transient
 	public List<GiaoViec> getListCongViecLuuTam() {
 		return listCongViecLuuTam;
@@ -519,5 +531,27 @@ public class DoanVao extends Model<DoanVao> {
 		this.listCongViecLuuTam = listCongViecLuuTam;
 	}
 
-	
+	@Command
+	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao,
+			@BindingParam("wdn") final Window wdn) {
+		boolean checkDieuKien = false;
+		boolean checkSoLuong = false;
+		List<GiaoViec> list = new ArrayList<GiaoViec>();
+		list.addAll(doanVao.getListCongViecLuuTam());
+		for (GiaoViec item : list) {
+			if ((!"".equals(item.getNguoiDuocGiao().getHoVaTen()) && item.getHanThucHien() == null)
+					|| ("".equals(item.getNguoiDuocGiao().getHoVaTen()) && item.getHanThucHien() != null)) {
+				checkDieuKien = true;
+			} else if (!"".equals(item.getNguoiDuocGiao().getHoVaTen()) && item.getHanThucHien() != null) {
+				checkSoLuong = true;
+			}
+
+		}
+		if (checkDieuKien || !checkSoLuong) {
+			showNotification("Công việc phải được nhập đủ người được giao và hạn thực hiện !", "", "danger");
+		} else {
+			showNotification("Lưu thành công!", "", "success");
+			wdn.detach();
+		}
+	}
 }

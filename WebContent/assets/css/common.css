@@ -2497,15 +2497,36 @@ the spark styles
 }
 
 .z-row-content>.z-combobox-readonly>.z-combobox-input {
-	border: none;
-	background-color: transparent;
+	border: none !important;
+	background-color: transparent !important;
 	padding-left: 0;
+}
+
+.color-txt input {
+	font-family: Roboto-Medium !important;
+	font-size: 13px !important;
+	letter-spacing: 0 !important;
+	line-height: 18px !important;
+	color: #000000 !important;
 }
 
 .z-row-content>.z-datebox .z-datebox-input {
 	border: none !important;
-	background-color: transparent;
+	background-color: transparent !important;
 	padding-left: 0;
+}
+
+.z-row-content>.z-datebox .z-datebox-input:focus {
+	border: none !important;
+	background-color: transparent !important;
+	padding-left: 0;
+}
+
+.z-row-content>.edit-datebox-kh.z-datebox .z-datebox-input:focus {
+	border: none !important;
+	background-color: transparent !important;
+	padding-left: 0;
+	box-shadow: none !important;
 }
 
 .z-row-content>.z-datebox .z-datebox-button {
@@ -2516,6 +2537,20 @@ the spark styles
 .z-row-content>.z-combobox-readonly>.z-combobox-button {
 	border: none;
 	background-color: transparent;
+}
+
+.color-txt {
+	font-family: Roboto-Medium !important;
+	font-size: 13px !important;
+	letter-spacing: 0 !important;
+	line-height: 18px !important;
+}
+
+.edit-textbox-kh {
+	border: none !important;
+    margin-top: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
 }
 
 .z-row-content .z-combobox-button:hover, .z-bandbox-button:hover,

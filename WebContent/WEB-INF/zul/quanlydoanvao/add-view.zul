@@ -2,13 +2,14 @@
 <window id="wdn" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
 	apply="org.zkoss.bind.BindComposer" class="form-list doan-vao-tai-lieu">
 	<zscript>
-		page.title = "Xem chi thông tin đoàn vào";
+		page.title = "Thông tin đoàn vào";
 	</zscript>
 	<zscript>
 		<![CDATA[
 				String id = execution.getParameter("id");
 		        vn.toancauxanh.model.DoanVao vm = new vn.toancauxanh.service.DoanVaoService().getDoanVaoById(id);
 		        action = arg.get("action");
+		        visible = arg.get("visible");
 		]]>
 	</zscript>
 	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"
@@ -94,7 +95,7 @@
 								<div class="flex">
 									<x:span class="issue-search">Người phụ trách<n:small class="required"> *</n:small></x:span>
 								</div>
-								<combobox buttonVisible="${!action}" model="@load(entry.duAns.listNguoiPhuTrach)" disabled="${action}"
+								<combobox buttonVisible="${!action}" model="@load(vm.listNguoiPhuTrach)" disabled="${action}"
 									readonly="true" class="his ${!action ? '' : 'input-no-button'}" width="100%" selectedItem="@bind(vm.nguoiPhuTrach) @save(vm.nguoiPhuTrach.hoVaTen, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="Chọn người"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())">
 									<template name="model">
@@ -113,24 +114,6 @@
 								</div>
 								<textbox disabled="${action}" class="form-control" maxlength="255" value="@bind(vm.noiDoanDiTham) @save(vm.noiDoanDiTham, before='saveDoanVao') @validator(vm.validatorNoiDoanDiTham)" placeholder="Nhập nơi đi thăm..." onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div zclass="col-md-12">
-							<div zclass="form-group flex">
-								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width" zk:onClick="@command('redirectPageAction', zul='quanlydoanvao/kehoachlamviec.zul',vm = vm, readOnly = action)">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
-									<span>Tạo kế hoạch làm việc</span>
-								</x:a>
-								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPageAction', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul', vm = vm, readOnly = action)">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ds-giao-viec.svg"/>
-									<span>Danh sách thành viên</span>
-								</x:a>
-								<x:a zk:visible="${action}" class="btn bg-btn-tailieu dv-color mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul',vm = vm)">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cap-nhat-kq.svg"/>
-									<span>Cập nhật KQ</span>
-								</x:a>
 							</div>
 						</div>
 					</div>
@@ -156,6 +139,71 @@
 				</div>
 				
 				<include src="quanlydoanvao/view-list-tep-tins.zul"></include>
+				<div class="mg-and-bg-and-line-fix mg-bottom-5">
+					<div class="row">
+						<div zclass="col-md-12">
+							<div zclass="form-group flex">
+								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width" zk:onClick="@command('redirectPageAction', zul='quanlydoanvao/kehoachlamviec.zul',vm = vm, readOnly = action)">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ke-hoach-lam-viec.svg"/>
+									<span>Tạo kế hoạch làm việc</span>
+								</x:a>
+								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPageAction', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul', vm = vm, readOnly = action)">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ds-giao-viec.svg"/>
+									<span>Danh sách thành viên</span>
+								</x:a>
+								<!-- <x:a zk:visible="${!vm.noId() and visible}" class="btn bg-btn-tailieu dv-color mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul',vm = vm)">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cap-nhat-kq.svg"/>
+									<span>Cập nhật KQ</span>
+								</x:a> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="mg-and-bg-and-line-fix mg-bottom-5" if="${action}">
+					<div class="row">
+						<div zclass="col-md-12">
+							<div class="title-form" style="padding:0;padding-bottom:15px;">
+								<span>Kết quả tiếp đoàn</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div zclass="col-md-12">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Tóm tắt nội dung - KQ tiếp đoàn</x:span> 
+								</div>
+								<textbox rows="4" disabled="${action}" class="form-control" maxlength="255" value="@bind(vm.tomTatNoiDungKQ)" placeholder="Nhập nội dung tóm tắt..."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div zclass="col-md-12">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Đề xuất của CV phụ trách</x:span> 
+								</div>
+								<textbox rows="4" disabled="${action}" class="form-control" maxlength="255" value="@bind(vm.deXuatCVPhuTrach)" placeholder="Nhập đề xuất..."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div zclass="col-md-12">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Ý kiến chỉ đạo</x:span> 
+								</div>
+								<textbox rows="4" disabled="${action}" class="form-control" maxlength="255" value="@bind(vm.yKienChiDao)" placeholder="Nhập ý kiến chỉ đạo..."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+					</div>
+				</div>
 				
 				<div class="row mg-and-bg-and-line">
 					<div zclass="col-xs-6">

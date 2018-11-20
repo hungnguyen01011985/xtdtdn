@@ -38,6 +38,7 @@ import vn.greenglobal.core.CoreObject;
 import vn.toancauxanh.cms.service.HomeService;
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.NhanVien;
@@ -692,6 +693,27 @@ public class BaseObject<T> extends CoreObject<T> {
 		List<QuocGiaEnum> list = new ArrayList<QuocGiaEnum>();
 		list.add(null);
 		list.addAll(getListQuocGia());
+		return list;
+	}
+	
+	@Transient
+	public List<NhanVien> getListNguoiPhuTrachAndNull() {
+		List<NhanVien> list = new ArrayList<NhanVien>();
+		list.add(null);
+		list.addAll(getListNguoiPhuTrach());
+		return list;
+	}
+	
+	@Transient
+	public List<NhanVien> getListNguoiPhuTrach() {
+		List<NhanVien> list = new ArrayList<NhanVien>();
+		JPAQuery<NhanVien> q = find(NhanVien.class)
+				.where(QNhanVien.nhanVien.phongBan.id.eq(1l).or(QNhanVien.nhanVien.phongBan.id.eq(2l)))
+				.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN));
+		if (q != null) {
+			list.addAll(q.fetch());
+			return list;
+		}
 		return list;
 	}
 	

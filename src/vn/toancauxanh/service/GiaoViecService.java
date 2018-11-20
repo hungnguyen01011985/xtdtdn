@@ -16,7 +16,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
-import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.QGiaoViec;
 import vn.toancauxanh.model.ThongBao;
@@ -105,9 +104,8 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		this.selectItems = selectItems;
 	}
 
-	public List<GiaoViec> getListGiaoViec() {
+	public List<GiaoViec> getTargetQueryById(Long idDoanVao) {
 		GiaoViec giaoViec = new GiaoViec();
-		Long idDoanVao = MapUtils.getLongValue(argDeco(), "idDoanVao");
 		if (idDoanVao != null && idDoanVao > 0) {
 			JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.doanVao.id.eq(Long.valueOf(idDoanVao)))
 					.orderBy(QGiaoViec.giaoViec.soThuTu.asc());
@@ -115,23 +113,15 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 				listGiaoViec.addAll(q.fetch());
 				return listGiaoViec;
 			} else {
-				listGiaoViec.addAll(giaoViec.getListGiaoViecKhoiTao());
+				return giaoViec.getListGiaoViecKhoiTao();
 			}
+
 		} else {
-			listGiaoViec.addAll(giaoViec.getListGiaoViecKhoiTao());
+			return giaoViec.getListGiaoViecKhoiTao();
 		}
-		return listGiaoViec;
 	}
 	
 	public void setListGiaoViec(List<GiaoViec> listGiaoViec) {
 		this.listGiaoViec = listGiaoViec;
-	}
-
-	@Command
-	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao, @BindingParam("wdn") final Window wdn){
-		doanVao.getListCongViecLuuTam().clear();
-		doanVao.getListCongViecLuuTam().addAll(listGiaoViec);
-		showNotification("Lưu thành công!", "", "success");
-		wdn.detach();
 	}
 }
