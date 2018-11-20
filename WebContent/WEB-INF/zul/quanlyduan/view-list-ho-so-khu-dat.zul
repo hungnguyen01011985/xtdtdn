@@ -5,10 +5,18 @@
 			if (vm.getGiaiDoanDuAn().getHoSoKhuDats().size() == null || vm.getGiaiDoanDuAn().getHoSoKhuDats().size() == 0) {
 				vm.getGiaiDoanDuAn().getHoSoKhuDats().add(new vn.toancauxanh.model.HoSoKhuDat());
 			}
+			
 		]]>
 	</zscript>
-	<div children="@bind(vm.getGiaiDoanDuAn().getHoSoKhuDats())">
+	<div children="@bind(vm.giaiDoanDuAn.hoSoKhuDats)">
 		<template name="children">
+			<zscript>
+				<![CDATA[
+					if (each.taiLieu == null) {
+							each.setTaiLieu(new vn.toancauxanh.model.TepTin());
+					}
+				]]>
+			</zscript>
 			<div class="row">
 				<div zclass="col-md-4" style="margin-top: 8px;">
 					<div zclass="form-group">
@@ -25,7 +33,7 @@
 						<x:span class="label-txt-style">Tài liệu đính kèm</x:span>
 						<button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty each.taiLieu.tenFile)" label="Chọn tài liệu" 
 							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
-							onUpload="@command('uploadFile', medias=event.getMedia(),vm = each, name = 'taiLieu')"
+							onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'taiLieu')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 						</button>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />

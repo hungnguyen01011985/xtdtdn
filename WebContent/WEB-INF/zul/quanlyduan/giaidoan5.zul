@@ -19,9 +19,14 @@
 	<div> 
 		<div class="panel-box border-box mg-bottom-15">
 			<div zclass="row">
-				<div zclass="col-lg-12">
+				<div zclass="col-lg-6">
 					<div class="title-form">
-						<span>Thông tin giai đoạn dự án 5</span>
+						<span>Thông tin giai đoạn dự án</span>
+					</div>
+				</div>
+				<div zclass="col-lg-6">
+					<div class="box-lich-su-van-ban" onClick="@command('redirectPage', zul='quanlyduan/list-lich-su-van-ban.zul', vm = vm)">
+						<span>Lịch sử văn bản</span>
 					</div>
 				</div>
 			</div>

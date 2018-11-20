@@ -17,7 +17,11 @@
 	color: #404247;
 	line-height: 18px;
 }
-
+.box-lich-su-van-ban {
+	float: right;
+    padding-top: 15px;
+    cursor: pointer;
+}
 .page-header-title {
 	font-family: Roboto-Medium;
 	font-size: 24px;

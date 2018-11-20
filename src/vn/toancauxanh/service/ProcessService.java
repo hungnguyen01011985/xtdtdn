@@ -25,15 +25,19 @@ import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaiDoanDuAn;
 import vn.toancauxanh.model.GiaoViec;
+import vn.toancauxanh.model.LichSuVanBan;
 import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 import vn.toancauxanh.model.QGiaoViec;
 import vn.toancauxanh.model.QNhanVien;
+import vn.toancauxanh.model.TepTin;
 import vn.toancauxanh.model.ThongBao;
 
 public class ProcessService extends BasicService<Object> {
-
+	
+	private List<TepTin> listTepTins = new ArrayList<TepTin>();
+	
 	public void validateDuLieuThongTinDuAn(Execution execution) {
 		((ExecutionEntity) execution).setVariable("isValidateDuLieuThongTinDuAnHopLe", true);
 	}
@@ -62,8 +66,8 @@ public class ProcessService extends BasicService<Object> {
 	public void luuDuLieuGiaiDoanMot(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getTaiLieuNDT().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getTaiLieuGD1().saveNotShowNotification();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_MOT, "thoiHanGiaiDoanMot", model.getGiaiDoanDuAn().getNgayNhanPhanHoi(), "thoiHanGiaiDoanMotOld");
+		saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_MOT, false);
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_MOT, "thoiHanGiaiDoanMot", model, "thoiHanGiaiDoanMotOld");
 	}
 	
 	public void validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
@@ -80,10 +84,10 @@ public class ProcessService extends BasicService<Object> {
 	public void luuDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		model.getTaiLieuNDT().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getTaiLieuGD1().saveNotShowNotification();
+		saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_MOT, true);
 		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI, GiaiDoanXucTien.GIAI_DOAN_MOT);
 	}
-
+	
 	public boolean kiemTraCongViecHoanThanh(DuAn duAn) {
 		boolean result = true;
 		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.eq(duAn));
@@ -139,6 +143,326 @@ public class ProcessService extends BasicService<Object> {
 		((ExecutionEntity) execution).setVariable("isDangOGiaiDoanMot", false);
 	}
 
+	public void validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchFirst();
+		boolean result = kiemTraCongViecHoanThanh(duAn);
+		if (result) {
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBaHopLe", !result);
+	}
+
+	public void validateDuLieuGiaiDoanBaVaKetThucDuAn(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchFirst();
+		boolean result = kiemTraCongViecHoanThanh(duAn);
+		if (result) {
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBaVaKetThucDuAn", !result);
+	}
+	
+	public void validateDuLieuQuayLaiGiaiDoanMot(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchFirst();
+		boolean result = kiemTraCongViecHoanThanh(duAn);
+		if (result) {
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuQuayLaiGIaiDoanMotHopLe", !result);
+	}
+	
+	public void luuDuLieuQuayLaiGiaiDoanMot(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn model = q.fetchFirst();
+		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
+		duAn.getGiaiDoanDuAn().saveNotShowNotification();
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(model.getGiaiDoanXucTien())) {
+			saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_HAI, true);
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(model.getGiaiDoanXucTien())) {
+			saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_BA, true);
+		}
+		luuTaiLieuKhac(duAn.getGiaiDoanDuAn(), true);
+		removeGiaiDoanDuAnList(duAn);
+		duAn.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
+		duAn.saveNotShowNotification();
+		redirectGiaiDoanDuAnById(duAn.getId());
+		showNotification("", "Cập nhật thành công", "success");
+	}
+	
+	public void removeGiaiDoanDuAnList(DuAn duAn) {
+		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.eq(duAn));
+		q.fetch().forEach(item -> item.doDelete(true));
+	}
+
+	public void luuDuLieuGIaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_HAI, true);
+		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, GiaiDoanXucTien.GIAI_DOAN_HAI);
+	}
+	
+	public void luuDuLieuGiaiDoanHai(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_HAI, false);
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI, null, model, null);
+	}
+	
+	public void validateDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchFirst();
+		boolean result = kiemTraCongViecHoanThanh(duAn);
+		if (result) {
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBonHopLe", !result);
+	}
+
+	public void luuDuLieuGIaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_BA, true);
+		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, GiaiDoanXucTien.GIAI_DOAN_BA);
+	}
+	
+	public void validateDuLieuGiaiDoanBon(Execution execution) {
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBonHopLe", true);
+	}
+
+	public void luuDuLieuGiaiDoanBon(Execution execution) {
+		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_BON, false);
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, null, duAn, null);
+	}
+
+	public void validateDuLieuGiaiDoanBa(Execution execution) {
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBaHopLe", true);
+	}
+
+	public void luuDuLieuGiaiDoanBa(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_BA, false);
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, "thoiHanGiaiDoanBa", model, "thoiHanGiaiDoanBaOld");
+	}
+	
+	public void kiemTraDangOGiaiDoanBa(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		boolean kiemTraGiaiDoan = kiemTraGiaiDoan(execution, GiaiDoanXucTien.GIAI_DOAN_BA);
+		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(duAnId))
+				.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
+		GiaiDoanDuAn giaiDoanDuAn = q.fetchFirst();
+		if (kiemTraNgay(giaiDoanDuAn.getNgayDuKienNhanPhanHoi(), giaiDoanDuAn.getNgayThongBaoOld()) && kiemTraGiaiDoan) {
+			((ExecutionEntity) execution).setVariable("isDangOGiaiDoanBa", true);
+			return;
+		}
+		((ExecutionEntity) execution).setVariable("isDangOGiaiDoanBa", false);
+	}
+	
+	public void thongBaoTreHanGiaiDoanBa(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchFirst();
+		thongBaoTreCongViec(duAn);
+	}
+	
+	public void luuDuLieuKetThucDuAn(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
+			saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_BA, true);
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+			model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
+			saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_NAM, true);
+		}
+		model.saveNotShowNotification();
+		model.getGiaiDoanDuAn().setDuAn(model);
+		luuTaiLieuKhac(model.getGiaiDoanDuAn(), true);
+		model.getGiaiDoanDuAn().saveNotShowNotification();
+		luuLichSuVanBan(model);
+		showNotification("", "Cập nhật thành công", "success");
+		redirectList();
+	}
+	
+	public void validateDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchFirst();
+		boolean result = kiemTraCongViecHoanThanh(duAn);
+		if (result) {
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuTiepTucGiaiDoanNam", !result);
+	}
+	
+	public void luuDuLieuGIaiDoanBonVaTiepTucGiaiDoanNam(Execution execution) {
+		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_BON, true);
+		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_NAM, GiaiDoanXucTien.GIAI_DOAN_BON);
+	}
+	
+	private void luuLichSuVanBan(DuAn duAn) {
+		listTepTins.forEach(item -> {
+			LichSuVanBan lichSuVanBan = new LichSuVanBan();
+			lichSuVanBan.setDuAn(duAn);
+			lichSuVanBan.setGiaiDoanXucTien(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien());
+			lichSuVanBan.setVanBan(item);
+			lichSuVanBan.setNguoiNhap(item.getNguoiTao());
+			lichSuVanBan.saveNotShowNotification();
+		});
+	}
+	
+	public void validateDuLieuGiaiDoanNam(Execution execution) {
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanNamHopLe", true);
+	}
+	
+	public void validateDuLieuGiaiDoanNamVaKetThucDuAn(Execution execution) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchFirst();
+		boolean result = kiemTraCongViecHoanThanh(duAn);
+		if (result) {
+			showNotification("", "Công việc chưa được hoàn thành", "danger");
+		}
+		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", !result);
+	}
+	
+	public void luuDuLieuGiaiDoanNam(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_NAM, false);
+		model.saveNotShowNotification();
+		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_NAM, null, model, null);
+	}
+	
+	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan, DuAn duAn, String thoiHanOld) {
+		duAn.getTaiLieuNDT().saveNotShowNotification();
+		duAn.saveNotShowNotification();
+		duAn.getGiaiDoanDuAn().setDuAn(duAn);
+		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+			if (duAn.getGiaiDoanDuAn().isKiemTraThongBao()) {
+				duAn.getGiaiDoanDuAn().setKiemTraThongBao(false);
+			} else {
+				JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.id.eq(duAn.getGiaiDoanDuAn().getId()));
+				duAn.getGiaiDoanDuAn().setNgayThongBaoOld(q.fetchFirst().getNgayNhanPhanHoi());
+			}
+			if (duAn.getGiaiDoanDuAn().getNgayNhanPhanHoi() != null && thoiHan != null && !thoiHan.isEmpty()) {
+				 ((ExecutionEntity) execution).setVariable(thoiHan, duAn.getGiaiDoanDuAn().getNgayNhanPhanHoi());			
+			}
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+			if (duAn.getGiaiDoanDuAn().isKiemTraThongBao()) {
+				duAn.getGiaiDoanDuAn().setKiemTraThongBao(false);
+			} else {
+				JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.id.eq(duAn.getGiaiDoanDuAn().getId()));
+				duAn.getGiaiDoanDuAn().setNgayThongBaoOld(q.fetchFirst().getNgayDuKienNhanPhanHoi());
+			}
+			if (duAn.getGiaiDoanDuAn().getNgayDuKienNhanPhanHoi() != null && thoiHan != null && !thoiHan.isEmpty()) {
+				 ((ExecutionEntity) execution).setVariable(thoiHan, duAn.getGiaiDoanDuAn().getNgayDuKienNhanPhanHoi());			
+			}
+		}
+		luuTaiLieuKhac(duAn.getGiaiDoanDuAn(), false);
+		duAn.getGiaiDoanDuAn().saveNotShowNotification();
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+			luuDuLieuDonVi(duAn.getGiaiDoanDuAn(), false);
+		}
+		redirectGiaiDoanDuAnById(duAn.getId());
+		showNotification("", "Cập nhật thành công", "success");
+	}
+
+	public void luuTaiLieuKhac(GiaiDoanDuAn giaiDoan, boolean luuLichSu) {
+		giaiDoan.getTepTins().forEach(item -> {
+			if (item.getNgayTao() == null) {
+				item.setNgayTao(new Date());
+			}
+			item.saveNotShowNotification();
+			if (luuLichSu) {
+				listTepTins.add(item);
+			}
+		});
+	}
+	public void luuDuLieuTiepTucAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, GiaiDoanXucTien giaiDoan) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		model.setGiaiDoanXucTien(giaiDoanXucTien);
+		model.saveNotShowNotification();
+		model.getGiaiDoanDuAn().setDuAn(model);
+		model.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoan);
+		luuTaiLieuKhac(model.getGiaiDoanDuAn(), true);
+		model.getGiaiDoanDuAn().saveNotShowNotification();
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
+			luuDuLieuDonVi(model.getGiaiDoanDuAn(), true);
+		}
+		luuLichSuVanBan(model);
+		redirectGiaiDoanDuAnById(model.getId());
+		showNotification("", "Cập nhật thành công", "success");
+	}
+
+	public void redirectGiaiDoanDuAnById(Long id) {
+		Executions.sendRedirect("/cp/quanlyduan/" + id);
+	}
+
+	public void redirectList() {
+		Executions.sendRedirect("/cp/quanlyduan");
+	}
+
+	public void luuDuLieuDonVi(GiaiDoanDuAn giaiDoanDuAn, boolean luuLichSu) {
+		giaiDoanDuAn.getDonViDuAn().forEach(item -> {
+			item.setGiaiDoanDuAn(giaiDoanDuAn);
+			if (item.getCongVanTraLoi().getNameHash() == null) {
+				item.setCongVanTraLoi(null);
+			} else {
+				if (item.getCongVanTraLoi().getNgayTao() == null) {
+					item.getCongVanTraLoi().setNgayTao(new Date());
+					item.getCongVanTraLoi().setTenTaiLieu("Công văn trả lời đơn vị");
+				}
+				item.getCongVanTraLoi().saveNotShowNotification();
+				if (luuLichSu) {
+					listTepTins.add(item.getCongVanTraLoi());
+				}
+			}
+			item.saveNotShowNotification();
+		});
+	}
+
+	public boolean kiemTraGiaiDoan(Execution execution, GiaiDoanXucTien giaiDoan) {
+		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
+		DuAn duAn = q.fetchFirst();
+		if (duAn != null && giaiDoan != null && duAn.getGiaiDoanXucTien() != null) {
+			if (giaiDoan.equals(duAn.getGiaiDoanXucTien())) {
+				return true;
+			}
+		}
+		return false;
+		/*((ExecutionEntity) execution).setVariable(varriable, false);*/
+	}
+	
+	public void luuDuHoSoKhuDat(GiaiDoanDuAn giaiDoanDuAn, boolean luuLichSu) {
+		giaiDoanDuAn.getListXoaHoSoKhuDat().forEach(item ->{
+			item.setDaXoa(true);
+			item.setTaiLieu(null);
+			item.saveNotShowNotification();
+		});
+		giaiDoanDuAn.getHoSoKhuDats().forEach(item -> {
+			if (item.getTaiLieu().getNameHash() == null) {
+				item.setTaiLieu(null);
+			} else {
+				item.getTaiLieu().saveNotShowNotification();
+				if (luuLichSu) {
+					listTepTins.add(item.getTaiLieu());
+				}
+			}
+			item.setGiaiDoanDuAn(giaiDoanDuAn);
+			item.saveNotShowNotification();
+		});
+	}
+
 	public boolean kiemTraNgay(Date thoiHan, Date thoiHanOld) {
 		if (thoiHanOld == null) {
 			return true;
@@ -188,357 +512,242 @@ public class ProcessService extends BasicService<Object> {
 		thongBao.saveNotShowNotification();
 	}
 	
-	public void validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchFirst();
-		boolean result = kiemTraCongViecHoanThanh(duAn);
-		if (result) {
-			showNotification("", "Công việc chưa được hoàn thành", "danger");
+	public void saveTepTinNotNullAndSetTaiLieu(TepTin tepTin, String tenTaiLieu, boolean luuLichSu) {
+		if (tepTin.getNgayTao() == null) {
+			tepTin.setNgayTao(new Date());
 		}
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBaHopLe", !result);
-	}
-
-	public void validateDuLieuGiaiDoanBaVaKetThucDuAn(Execution execution) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchFirst();
-		boolean result = kiemTraCongViecHoanThanh(duAn);
-		if (result) {
-			showNotification("", "Công việc chưa được hoàn thành", "danger");
+		tepTin.setTenTaiLieu(tenTaiLieu);
+		tepTin.saveNotShowNotification();
+		if (luuLichSu) {
+			listTepTins.add(tepTin);
 		}
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBaVaKetThucDuAn", !result);
 	}
 	
-	public void validateDuLieuQuayLaiGiaiDoanMot(Execution execution) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchFirst();
-		boolean result = kiemTraCongViecHoanThanh(duAn);
-		if (result) {
-			showNotification("", "Công việc chưa được hoàn thành", "danger");
-		}
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuQuayLaiGIaiDoanMotHopLe", !result);
-	}
-	
-	public void luuDuLieuQuayLaiGiaiDoanMot(Execution execution) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn model = q.fetchFirst();
-		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
-		duAn.getGiaiDoanDuAn().saveNotShowNotification();
-		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(model.getGiaiDoanXucTien())) {
-			duAn.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
-			duAn.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
-		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(model.getGiaiDoanXucTien())) {
-			duAn.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
-			duAn.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
-		}
-		luuTaiLieuKhac(duAn.getGiaiDoanDuAn());
-		removeGiaiDoanDuAnList(duAn);
-		duAn.setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
-		duAn.saveNotShowNotification();
-		redirectGiaiDoanDuAnById(duAn.getId());
-		showNotification("", "Cập nhật thành công", "success");
-	}
-
-	public void removeGiaiDoanDuAnList(DuAn duAn) {
-		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.eq(duAn));
-		q.fetch().forEach(item -> item.doDelete(true));
-	}
-
-	public void luuDuLieuGIaiDoanHaiVaTiepTucGiaiDoanBa(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
-		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, GiaiDoanXucTien.GIAI_DOAN_HAI);
-	}
-
-	public void validateDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchFirst();
-		boolean result = kiemTraCongViecHoanThanh(duAn);
-		if (result) {
-			showNotification("", "Công việc chưa được hoàn thành", "danger");
-		}
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeTiepTucGiaiDoanBonHopLe", !result);
-	}
-
-	public void luuDuLieuGIaiDoanBaVaTiepTucGiaiDoanBon(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
-		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, GiaiDoanXucTien.GIAI_DOAN_BA);
-	}
-
-	public void luuDuLieuGiaiDoanHai(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		model.getGiaiDoanDuAn().getTaiLieuGD2().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getCongVanGD2().saveNotShowNotification();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_HAI, null, null, null);
-	}
-
-	public void validateDuLieuGiaiDoanBon(Execution execution) {
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBonHopLe", true);
-	}
-
-	public void luuDuLieuGiaiDoanBon(Execution execution) {
-		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
-			saveTaiLieuDauGia(duAn);
-		}
-		if (PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
-			saveTaiLieuDauThau(duAn);
-		}
-		if (PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
-			saveTaiLieuNhanChuyenNhuong(duAn);
-		}
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BON, null, null, null);
-	}
-
-	private void saveTaiLieuDauGia(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetPADG().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getPhuongAnDauGia().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhDauGiaQSDD().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetGiaKhoiDiem().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLQH().saveNotShowNotification();
-		luuDuHoSoKhuDat(duAn.getGiaiDoanDuAn());
-		if (!duAn.getGiaiDoanDuAn().isOption()) {
-			duAn.getGiaiDoanDuAn().getQuyetDinhBoSungDanhMuc().saveNotShowNotification();
-			duAn.getGiaiDoanDuAn().getVanBanDeNghiBoSung().saveNotShowNotification();
-		}
-	}
-
-	private void saveTaiLieuDauThau(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLQH().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoach2000().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyet2000().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getNghiQuyetPheDuyetCongTrinh().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getBaoCaoDoDacKhuDat().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getPheDuyetKeHoachSuDungDat().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhThuHoiDat().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetDanhMuc().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetBoSungKinhPhi().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getPhuongAnTaiDinhCu().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getHoSoMoiTuyen().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyeHoSoMoiTuyen().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetKetQuaTrungTuyen().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getKeHoachLuaChonNhaDauTu().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getHoSoMoiThau().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetMoiThau().saveNotShowNotification();
-	}
-	
-	private void saveTaiLieuNhanChuyenNhuong(DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getHoSoQuyHoachLQH().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getQuyetDinhPheDuyetLQH().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getVanBanChuyenMucDichSDD().saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().getVanBanDeNghiThuHoiDat().saveNotShowNotification();
-	}
-
-	public void validateDuLieuGiaiDoanBa(Execution execution) {
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanBaHopLe", true);
-	}
-
-	public void luuDuLieuGiaiDoanBa(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_BA, "thoiHanGiaiDoanBa", model.getGiaiDoanDuAn().getNgayDuKienNhanPhanHoi(), "thoiHanGiaiDoanBaOld");
-	}
-	
-	public void kiemTraDangOGiaiDoanBa(Execution execution) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		boolean kiemTraGiaiDoan = kiemTraGiaiDoan(execution, GiaiDoanXucTien.GIAI_DOAN_BA);
-		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(duAnId))
-				.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
-		GiaiDoanDuAn giaiDoanDuAn = q.fetchFirst();
-		if (kiemTraNgay(giaiDoanDuAn.getNgayDuKienNhanPhanHoi(), giaiDoanDuAn.getNgayThongBaoOld()) && kiemTraGiaiDoan) {
-			((ExecutionEntity) execution).setVariable("isDangOGiaiDoanBa", true);
+	public void saveNotShowNotificationTaiLieuGiaiDoan(GiaiDoanDuAn giaiDoanDuAn, GiaiDoanXucTien giaiDoanXucTien, boolean luuLichSu) {
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(giaiDoanXucTien)) {
+			if (giaiDoanDuAn.getTaiLieuGD1().getNameHash() == null) {
+				giaiDoanDuAn.setTaiLieuGD1(null);
+			} else {
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getTaiLieuGD1(), "Công văn đề nghị giới thiệu địa điểm", luuLichSu);
+			}
 			return;
 		}
-		((ExecutionEntity) execution).setVariable("isDangOGiaiDoanBa", false);
-	}
-	
-	public void thongBaoTreHanGiaiDoanBa(Execution execution) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchFirst();
-		thongBaoTreCongViec(duAn);
-	}
-	
-	public void luuDuLieuKetThucDuAn(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
-			model.getGiaiDoanDuAn().getTaiLieuGD3().saveNotShowNotification();
-			model.getGiaiDoanDuAn().getCongVanGD3().saveNotShowNotification();
-			model.setGiaiDoanXucTien(GiaiDoanXucTien.CHUA_HOAN_THANH);
-		}
-		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
-			model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
-			model.getGiaiDoanDuAn().getGiayChungNhanDauTu().saveNotShowNotification();
-			model.getGiaiDoanDuAn().getGiayChungNhanDangKyDoanhNghiep().saveNotShowNotification();
-			model.getGiaiDoanDuAn().getGiayChungNhanQuyenSuDungDat().saveNotShowNotification();
-		}
-		model.saveNotShowNotification();
-		model.getGiaiDoanDuAn().setDuAn(model);
-		luuTaiLieuKhac(model.getGiaiDoanDuAn());
-		model.getGiaiDoanDuAn().saveNotShowNotification();
-		showNotification("", "Cập nhật thành công", "success");
-		redirectList();
-	}
-	
-	public void validateDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam(Execution execution) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchFirst();
-		boolean result = kiemTraCongViecHoanThanh(duAn);
-		if (result) {
-			showNotification("", "Công việc chưa được hoàn thành", "danger");
-		}
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuTiepTucGiaiDoanNam", !result);
-	}
-	
-	public void luuDuLieuGIaiDoanBonVaTiepTucGiaiDoanNam(Execution execution) {
-		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
-			saveTaiLieuDauGia(duAn);
-		}
-		if (PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
-			saveTaiLieuDauThau(duAn);
-		}
-		if (PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
-			saveTaiLieuNhanChuyenNhuong(duAn);
-		}
-		luuDuLieuTiepTucAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_NAM, GiaiDoanXucTien.GIAI_DOAN_BON);
-	}
-	
-	public void validateDuLieuGiaiDoanNam(Execution execution) {
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuGiaiDoanNamHopLe", true);
-	}
-	
-	public void validateDuLieuGiaiDoanNamVaKetThucDuAn(Execution execution) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchFirst();
-		boolean result = kiemTraCongViecHoanThanh(duAn);
-		if (result) {
-			showNotification("", "Công việc chưa được hoàn thành", "danger");
-		}
-		((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", !result);
-	}
-	
-	public void luuDuLieuGiaiDoanNam(Execution execution) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		model.getGiaiDoanDuAn().getGiayChungNhanDauTu().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getGiayChungNhanDangKyDoanhNghiep().saveNotShowNotification();
-		model.getGiaiDoanDuAn().getGiayChungNhanQuyenSuDungDat().saveNotShowNotification();
-		model.saveNotShowNotification();
-		luuDuLieuAndRedirect(execution, GiaiDoanXucTien.GIAI_DOAN_NAM, null, null, null);
-	}
-	
-	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan, Date ngay, String thoiHanOld) {
-		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		duAn.getTaiLieuNDT().saveNotShowNotification();
-		duAn.saveNotShowNotification();
-		duAn.getGiaiDoanDuAn().setDuAn(duAn);
-		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
-		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
-			if (duAn.getGiaiDoanDuAn().isKiemTraThongBao()) {
-				duAn.getGiaiDoanDuAn().setKiemTraThongBao(false);
+		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(giaiDoanXucTien)) {
+			if (giaiDoanDuAn.getTaiLieuGD2().getNameHash() == null) {
+				giaiDoanDuAn.setTaiLieuGD2(null);
 			} else {
-				JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.id.eq(duAn.getGiaiDoanDuAn().getId()));
-				duAn.getGiaiDoanDuAn().setNgayThongBaoOld(q.fetchFirst().getNgayNhanPhanHoi());
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getTaiLieuGD2(), "Khảo sát thực tế", luuLichSu);
 			}
-		}
-		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
-			if (duAn.getGiaiDoanDuAn().isKiemTraThongBao()) {
-				duAn.getGiaiDoanDuAn().setKiemTraThongBao(false);
+			if (giaiDoanDuAn.getCongVanGD2().getNameHash() == null) {
+				giaiDoanDuAn.setCongVanGD2(null);
 			} else {
-				JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.id.eq(duAn.getGiaiDoanDuAn().getId()));
-				duAn.getGiaiDoanDuAn().setNgayThongBaoOld(q.fetchFirst().getNgayDuKienNhanPhanHoi());
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getCongVanGD2(), "Văn bản đồng ý địa điểm", luuLichSu);
+			}
+			return;
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(giaiDoanXucTien)) {
+			if (giaiDoanDuAn.getTaiLieuGD3().getNameHash() == null) {
+				giaiDoanDuAn.setTaiLieuGD3(null);
+			} else {
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getTaiLieuGD3(), "Công văn xin chủ trương", luuLichSu);
+			}
+			if (giaiDoanDuAn.getCongVanGD3().getNameHash() == null) {
+				giaiDoanDuAn.setCongVanGD3(null);
+			} else {
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getCongVanGD3(), "Ý kiến của UBND thành phố", luuLichSu);
+			}
+			return;
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(giaiDoanXucTien)) {
+			if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(giaiDoanDuAn.getPhuongThucLuaChonNDT())) {
+				luuDuHoSoKhuDat(giaiDoanDuAn, luuLichSu);
+				saveTaiLieuDauGia(giaiDoanDuAn, luuLichSu);
+				return;
+			}
+			if (PhuongThucLuaChonNDT.DAU_THAU_DU_AN_CO_SU_DUNG_DAT.equals(giaiDoanDuAn.getPhuongThucLuaChonNDT())) {
+				saveTaiLieuDauThau(giaiDoanDuAn, luuLichSu);
+				return;
+			}
+			if (PhuongThucLuaChonNDT.NHAN_CHUYEN_NHUONG.equals(giaiDoanDuAn.getPhuongThucLuaChonNDT())) {
+				saveTaiLieuNhanChuyenNhuong(giaiDoanDuAn, luuLichSu);
+				return;
 			}
 		}
-		luuTaiLieuKhac(duAn.getGiaiDoanDuAn());
-		duAn.getGiaiDoanDuAn().saveNotShowNotification();
-		if (ngay != null && thoiHan != null && !thoiHan.isEmpty()) {
-			 ((ExecutionEntity) execution).setVariable(thoiHan, ngay);			
-		}
-		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
-			luuDuLieuDonVi(duAn.getGiaiDoanDuAn());
-		}
-		
-		redirectGiaiDoanDuAnById(duAn.getId());
-		showNotification("", "Cập nhật thành công", "success");
-	}
-
-	public void luuTaiLieuKhac(GiaiDoanDuAn giaiDoan) {
-		giaiDoan.getTepTins().forEach(item -> {
-			item.saveNotShowNotification();
-		});
-	}
-	public void luuDuLieuTiepTucAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, GiaiDoanXucTien giaiDoan) {
-		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		model.setGiaiDoanXucTien(giaiDoanXucTien);
-		model.saveNotShowNotification();
-		model.getGiaiDoanDuAn().setDuAn(model);
-		model.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoan);
-		luuTaiLieuKhac(model.getGiaiDoanDuAn());
-		model.getGiaiDoanDuAn().saveNotShowNotification();
-		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
-			luuDuLieuDonVi(model.getGiaiDoanDuAn());
-		}
-		redirectGiaiDoanDuAnById(model.getId());
-		showNotification("", "Cập nhật thành công", "success");
-	}
-
-	public void redirectGiaiDoanDuAnById(Long id) {
-		Executions.sendRedirect("/cp/quanlyduan/" + id);
-	}
-
-	public void redirectList() {
-		Executions.sendRedirect("/cp/quanlyduan");
-	}
-
-	public void luuDuLieuDonVi(GiaiDoanDuAn giaiDoanDuAn) {
-		giaiDoanDuAn.getDonViDuAn().forEach(item -> {
-			item.setGiaiDoanDuAn(giaiDoanDuAn);
-			item.saveNotShowNotification();
-			item.getCongVanGiaiThich().saveNotShowNotification();
-			item.getCongVanTraLoi().saveNotShowNotification();
-		});
-	}
-
-	public boolean kiemTraGiaiDoan(Execution execution, GiaiDoanXucTien giaiDoan) {
-		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
-		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
-		DuAn duAn = q.fetchFirst();
-		if (duAn != null && giaiDoan != null && duAn.getGiaiDoanXucTien() != null) {
-			if (giaiDoan.equals(duAn.getGiaiDoanXucTien())) {
-				return true;
+		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(giaiDoanXucTien)) {
+			if (giaiDoanDuAn.getGiayChungNhanDauTu().getNameHash() == null) {
+				giaiDoanDuAn.setGiayChungNhanDauTu(null);
+			} else {
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getGiayChungNhanDauTu(), "Giấy chứng nhận đầu tư", luuLichSu);
+			}
+			if (giaiDoanDuAn.getGiayChungNhanDangKyDoanhNghiep().getNameHash() == null) {
+				giaiDoanDuAn.setGiayChungNhanDangKyDoanhNghiep(null);
+			} else {
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getGiayChungNhanDangKyDoanhNghiep(), "Giấy chứng nhận đăng ký doanh nghiệp", luuLichSu);
+			}
+			if (giaiDoanDuAn.getGiayChungNhanQuyenSuDungDat().getNameHash() == null) {
+				giaiDoanDuAn.setGiayChungNhanQuyenSuDungDat(null);
+			} else {
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getGiayChungNhanQuyenSuDungDat(), "Giấy chứng nhận quyền sử dụng đất", luuLichSu);
 			}
 		}
-		return false;
-		/*((ExecutionEntity) execution).setVariable(varriable, false);*/
 	}
 	
-	public void luuDuHoSoKhuDat(GiaiDoanDuAn giaiDoanDuAn) {
-		giaiDoanDuAn.getHoSoKhuDats().forEach(item -> {
-			item.getTaiLieu().saveNotShowNotification();
-			item.setGiaiDoanDuAn(giaiDoanDuAn);
-			item.saveNotShowNotification();
-		});
-		
-		giaiDoanDuAn.getListXoaHoSoKhuDat().forEach(item ->{
-			item.setDaXoa(true);
-			item.saveNotShowNotification();
-		});
+	public void saveTaiLieuNhanChuyenNhuong(GiaiDoanDuAn giaiDoanDuAn, boolean luuLichSu) {
+		if (giaiDoanDuAn.getHoSoQuyHoachLQH().getNameHash() == null) {
+			giaiDoanDuAn.setHoSoQuyHoachLQH(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoQuyHoachLQH(), "Hồ sơ quy hoạch", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhPheDuyetLQH().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyetLQH(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetLQH(), "Quyết định phê duyệt quy hoạch", luuLichSu);
+		}
+		if (giaiDoanDuAn.getVanBanChuyenMucDichSDD().getNameHash() == null) {
+			giaiDoanDuAn.setVanBanChuyenMucDichSDD(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getVanBanChuyenMucDichSDD(), "Văn bản cho phép chuyển mục đích sử dụng đất", luuLichSu);
+		}
+		if (giaiDoanDuAn.getVanBanDeNghiThuHoiDat().getNameHash() == null) {
+			giaiDoanDuAn.setVanBanDeNghiThuHoiDat(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getVanBanDeNghiThuHoiDat(), "Văn bản đề nghị thu hồi đất", luuLichSu);
+		}
 	}
-
+	
+	public void saveTaiLieuDauThau(GiaiDoanDuAn giaiDoanDuAn, boolean luuLichSu) {
+		if (giaiDoanDuAn.getQuyetDinhPheDuyetLQH().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyetLQH(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetLQH(), "Quyết định phê duyệt quy hoạch chi tiết 1/500", luuLichSu);
+		}
+		if (giaiDoanDuAn.getHoSoQuyHoachLQH().getNameHash() == null) {
+			giaiDoanDuAn.setHoSoQuyHoachLQH(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoQuyHoachLQH(), "Hồ sơ quy hoạch chi tiết 1/500", luuLichSu);
+		}
+		if (giaiDoanDuAn.getHoSoQuyHoach2000().getNameHash() == null) {
+			giaiDoanDuAn.setHoSoQuyHoach2000(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoQuyHoach2000(), "Hồ sơ quy hoạch chi tiết 1/2000", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhPheDuyet2000().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyet2000(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyet2000(), "Quyết định phê duyệt quy hoạch chi tiết 1/2000", luuLichSu);
+		}
+		if (giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh().getNameHash() == null) {
+			giaiDoanDuAn.setNghiQuyetPheDuyetCongTrinh(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh(), "Nghị quyết phê duyệt công trình, dự án cần thu hồi đất và danh mục dự án có sử dụng đất trồng lúa, đất rừng phòng hộ, đất rừng đặc dụng", luuLichSu);
+		}
+		if (giaiDoanDuAn.getBaoCaoDoDacKhuDat().getNameHash() == null) {
+			giaiDoanDuAn.setBaoCaoDoDacKhuDat(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getBaoCaoDoDacKhuDat(), "Báo cáo đo đạc khu đất, kiểm đếm và lâp dự toán kinh phí giải phóng mặt bằng dự án", luuLichSu);
+		}
+		if (giaiDoanDuAn.getPheDuyetKeHoachSuDungDat().getNameHash() == null) {
+			giaiDoanDuAn.setPheDuyetKeHoachSuDungDat(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getPheDuyetKeHoachSuDungDat(), "Phê duyệt kế hoạch sử dụng đất", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhThuHoiDat().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhThuHoiDat(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhThuHoiDat(), "Quyết định thu hồi đất", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyetDanhMuc(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc(), "Quyết định phê duyệt danh mục dự án đầu tư có sử dụng đất hằng năm", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyetBoSungKinhPhi(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi(), "Quyết định phê duyệt bổ sung kinh phí thực hiện đấu thầu", luuLichSu);
+		}
+		if (giaiDoanDuAn.getPhuongAnTaiDinhCu().getNameHash() == null) {
+			giaiDoanDuAn.setPhuongAnTaiDinhCu(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getPhuongAnTaiDinhCu(), "Phương án tái định cư", luuLichSu);
+		}
+		if (giaiDoanDuAn.getHoSoMoiTuyen().getNameHash() == null) {
+			giaiDoanDuAn.setHoSoMoiTuyen(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoMoiTuyen(), "Hồ sơ mời tuyển", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyeHoSoMoiTuyen(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen(), "Quyết định phê duyệt hồ sơ mời tuyển", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyetKetQuaTrungTuyen(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen(), "Quyết định phê duyệt kết quả trúng sơ tuyển", luuLichSu);
+		}
+		if (giaiDoanDuAn.getKeHoachLuaChonNhaDauTu().getNameHash() == null) {
+			giaiDoanDuAn.setKeHoachLuaChonNhaDauTu(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getKeHoachLuaChonNhaDauTu(), "Kế hoạch lựa chọn nhà thầu", luuLichSu);
+		}
+		if (giaiDoanDuAn.getHoSoMoiThau().getNameHash() == null) {
+			giaiDoanDuAn.setHoSoMoiThau(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoMoiThau(), "Hồ sơ mời thầu", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyetMoiThau(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau(), "Quyết định phê duyệt Kế hoạch và hồ sơ mời thầu lựa chọn nhà đầu tư", luuLichSu);
+		}
+	}
+	
+	public void saveTaiLieuDauGia(GiaiDoanDuAn giaiDoanDuAn, boolean luuLichSu) {
+		if (giaiDoanDuAn.getQuyetDinhPheDuyetPADG().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyetPADG(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetPADG(), "Quyết định phê duyệt phương án đấu giá", luuLichSu);
+		}
+		if (giaiDoanDuAn.getHoSoQuyHoachLQH().getNameHash() == null) {
+			giaiDoanDuAn.setHoSoQuyHoachLQH(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoQuyHoachLQH(), "Lập quy hoạch chi tiết 1/500", luuLichSu);
+		}
+		if (giaiDoanDuAn.getPhuongAnDauGia().getNameHash() == null) {
+			giaiDoanDuAn.setPhuongAnDauGia(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getPhuongAnDauGia(), "Phương án đấu giá quyền sử dụng đất", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhDauGiaQSDD().getNameHash() == null ) {
+			giaiDoanDuAn.setQuyetDinhDauGiaQSDD(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhDauGiaQSDD(), "Quyết định đấu giá quyền sử dụng đất", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem().getNameHash() == null ) {
+			giaiDoanDuAn.setQuyetDinhPheDuyetGiaKhoiDiem(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem(), "Quyết định phê duyệt giá đất khởi điểm đấu giá", luuLichSu);
+		}
+		if (giaiDoanDuAn.getQuyetDinhPheDuyetLQH().getNameHash() == null) {
+			giaiDoanDuAn.setQuyetDinhPheDuyetLQH(null);
+		} else {
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetLQH(), "Quyết định phê duyệt lập quy hoạch chi tiết 1/500", luuLichSu);
+		}
+		if (!giaiDoanDuAn.isOption()) {
+			if (giaiDoanDuAn.getQuyetDinhBoSungDanhMuc().getNameHash() == null ) {
+				giaiDoanDuAn.setQuyetDinhBoSungDanhMuc(null);
+			} else {
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhBoSungDanhMuc(), "Quyết định bổ sung danh mục quỹ đất đấu giá quyền sử dụng đất", luuLichSu);
+			}
+			if (giaiDoanDuAn.getVanBanDeNghiBoSung().getNameHash() == null) {
+				giaiDoanDuAn.setVanBanDeNghiBoSung(null);
+			} else {
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getVanBanDeNghiBoSung(), "Văn bản đề nghị bổ sung danh mục quỹ đất đấu giá quyền sử dụng đất", luuLichSu);
+			}
+		}
+	}
+	
 	public List<PvmTransition> getTransitions(Task task) {
 		List<PvmTransition> result = new ArrayList<>();
 		for (PvmTransition pvmTransition : ((RepositoryServiceImpl) core().getProcess().getRepositoryService())

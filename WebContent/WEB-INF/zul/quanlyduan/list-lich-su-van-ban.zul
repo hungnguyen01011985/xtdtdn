@@ -1,0 +1,100 @@
+<idspace>
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
+		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal reset-width" width="80%"
+		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.LichSuVanBanService')">
+		 <zscript>
+		 	<![CDATA[
+				vn.toancauxanh.model.DuAn duAn = arg.get("vm");
+				vm.arg.put("idGiaiDoanDuAn", duAn.getId());
+		 	]]>
+		 </zscript>
+		<div class="w-popup-content-medium">
+			<div class="panel-box">
+			<div zclass="mg-and-bg-and-line-fix" style="padding-left:30px;">
+				<div class="row">
+					<div zclass="col-md-10">
+						<div class="row">
+							<div zclass="col-md-4">
+								<div zclass="form-group">
+									<span>Tên file</span> 
+									<textbox class="form-control" onOK="@command('cmd', notify = vm, attr = 'targetQuery')" value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên file"></textbox>
+								</div>
+							</div>
+							<div zclass="col-md-4">
+								<div zclass="form-group">
+									<span>Giai đoạn</span> 
+									<combobox readonly="true" class="his" model="@load(vm.listGiaiDoanXucTienAndNull)" 
+										value="@load(vm.arg.giaiDoanXucTien eq null ? 'Tất cả' : vm.arg.giaiDoanXucTien.text)" selectedItem="@bind(vm.arg.giaiDoanXucTien)" placeholder="Chọn giai đoạn xúc tiến" width="100%">
+										<template name="model">
+											<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
+										</template>
+									</combobox>
+								</div>
+							</div>
+							<div zclass="col-md-4">
+								<div zclass="form-group">
+									<span>Người nhập</span> 
+									<combobox id="cbbNguoiNhap" readonly="true" class="his" model="@load(vm.listNguoiPhuTrachAndNull)" value="@load(vm.arg.nhanVien eq null ? 'Tất cả' : vm.arg.nhanVien.hoVaTen)"
+										selectedItem="@bind(vm.arg.nhanVien)" placeholder="Tất cả" width="100%">
+										<template name="model">
+											<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
+										</template>
+									</combobox>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div zclass="col-md-2" style="padding-top: 25px;">
+						<div zclass="form-group right">
+							<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=duAn, attr='targetQuery')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+								<span>Tìm kiếm</span>
+							</x:button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box">
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
+						emptyMessage="Không có dữ liệu nào trong danh sách">
+						<columns>
+							<column label="STT" width="42px"/>
+							<column label="Tên file"/>
+							<column label="Giai đoạn" width="180px"/>
+							<column label="Người nhập" width="200px"/>
+							<column label="Ngày nhập" width="120px"/>
+							<column label="File đính kèm"/>
+						</columns>
+						<template name="model">
+							<row>
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
+								<label value="@load(each.vanBan.tenTaiLieu)"></label>
+								<label value="@load(each.giaiDoanXucTien.text)"></label>
+								<label value="@load(each.nguoiNhap.hoVaTen)"></label>
+								<label value="@load(each.vanBan.ngaySua) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
+								<label viewModel="@id('tepTin') @init(each.vanBan)" value="@load(tepTin.tenFile)" onClick="@command('redirect', ob = tepTin)" style="color: #4274ED;cursor:pointer;"></label>
+							</row>
+						</template>
+					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+						<x:button class="btn bg-btn-dong btn-grey" zk:onClick="wdn.detach();">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+							<span>Đóng</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</window>
+</idspace>
