@@ -1041,6 +1041,10 @@ html, body {
 	font-weight: normal;
 }
 
+.pd-top-7 a {
+	padding-top: 7px !important;
+}
+
 /* dashboard */
 .dashboard .z-grid {
 	border: none;

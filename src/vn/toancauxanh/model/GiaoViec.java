@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -440,26 +438,6 @@ public class GiaoViec extends Model<GiaoViec> {
 				return result;
 			}
 		};
-	}
-	
-	@Transient
-	public List<GiaoViec> getListGiaoViecKhoiTao(){
-		List<GiaoViec> list = new ArrayList<GiaoViec>();
-		list.add(new GiaoViec(NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC, nguoiDuocGiao, null, null, null, false));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_NGUOI_DUOC_PHAN_CONG, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUYEN_VIEN, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN, nguoiDuocGiao, null, null, null, false));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_PHONG_HOP, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_HOA_QUA, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_THIET_BI, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_TAI_LIEU, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_KHAC, nguoiDuocGiao, null, null, null, false));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_XAY_DUNG_CHUONG_TRINH, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_XAC_NHAN_LAI_THONG_TIN, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		list.add(new GiaoViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, nguoiDuocGiao, hanThucHien, trangThaiGiaoViec, ghiChu, true));
-		return list;
 	}
 	
 	@Command

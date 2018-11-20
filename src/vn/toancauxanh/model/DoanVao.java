@@ -34,8 +34,10 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
+import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiEnum;
+import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
 @Entity
 @Table(name = "doanvao")
@@ -299,19 +301,19 @@ public class DoanVao extends Model<DoanVao> {
 			});
 		}
 
-		if (listCongViecLuuTam != null && !listCongViecLuuTam.isEmpty()) {
-			int index = 0;
-			for (GiaoViec congViec : listCongViecLuuTam) {
-				congViec.getTaiLieu().saveNotShowNotification();
-				index++;
-				congViec.setDoanVao(this);
-				congViec.setNguoiGiaoViec(core().getNhanVien());
-				congViec.setSoThuTu(index);
-				congViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
-				congViec.getNguoiDuocGiao().saveNotShowNotification();
-				congViec.saveNotShowNotification();
-			}
-		}
+//		if (listCongViecLuuTam != null && !listCongViecLuuTam.isEmpty()) {
+//			int index = 0;
+//			for (GiaoViec congViec : listCongViecLuuTam) {
+//				congViec.getTaiLieu().saveNotShowNotification();
+//				index++;
+//				congViec.setDoanVao(this);
+//				congViec.setNguoiGiaoViec(core().getNhanVien());
+//				congViec.setSoThuTu(index);
+//				congViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
+//				congViec.getNguoiDuocGiao().saveNotShowNotification();
+//				congViec.saveNotShowNotification();
+//			}
+//		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
 
@@ -519,33 +521,178 @@ public class DoanVao extends Model<DoanVao> {
 	}
 	
 	//======================================================================================
-	
-	private List<GiaoViec> listCongViecLuuTam = new ArrayList<GiaoViec>();
+
+	private GiaoViec titleNhanSuLamViec = new GiaoViec(NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC, new NhanVien(), null, null, null, false);
+	private GiaoViec congViecNguoiDuocPhanCong = new GiaoViec(NoiDungCongViec.CONG_VIEC_NGUOI_DUOC_PHAN_CONG, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec congViecChuyenVien = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUYEN_VIEN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec titleCongTacHauCan = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN, new NhanVien(), null, null, null, false);
+	private GiaoViec congViecChuanBiPhongHop = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_PHONG_HOP, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec congViecChuanBiHoaQua = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_HOA_QUA, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec congViecChuanBiThietBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_THIET_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec congViecChuanBiTaiLieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_TAI_LIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec titleCongTacKhac = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_KHAC, new NhanVien(), null, null, null, false);
+	private GiaoViec congViecXayDungChuongTrinh = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAY_DUNG_CHUONG_TRINH, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec congViecChuanBiBaiGioiThieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec congViecXacNhanLaiThongTin = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAC_NHAN_LAI_THONG_TIN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec congViecGhiBienBan = new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec congViecKiemTraLaiCongTacChuanBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
 	
 	@Transient
-	public List<GiaoViec> getListCongViecLuuTam() {
-		return listCongViecLuuTam;
+	public GiaoViec getTitleNhanSuLamViec() {
+		return titleNhanSuLamViec;
 	}
 
-	public void setListCongViecLuuTam(List<GiaoViec> listCongViecLuuTam) {
-		this.listCongViecLuuTam = listCongViecLuuTam;
+	@Transient
+	public GiaoViec getCongViecNguoiDuocPhanCong() {
+		return congViecNguoiDuocPhanCong;
 	}
 
+	@Transient
+	public GiaoViec getCongViecChuyenVien() {
+		return congViecChuyenVien;
+	}
+
+	@Transient
+	public GiaoViec getTitleCongTacHauCan() {
+		return titleCongTacHauCan;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiPhongHop() {
+		return congViecChuanBiPhongHop;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiHoaQua() {
+		return congViecChuanBiHoaQua;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiThietBi() {
+		return congViecChuanBiThietBi;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiTaiLieu() {
+		return congViecChuanBiTaiLieu;
+	}
+
+	@Transient
+	public GiaoViec getTitleCongTacKhac() {
+		return titleCongTacKhac;
+	}
+
+	@Transient
+	public GiaoViec getCongViecXayDungChuongTrinh() {
+		return congViecXayDungChuongTrinh;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiBaiGioiThieu() {
+		return congViecChuanBiBaiGioiThieu;
+	}
+
+	@Transient
+	public GiaoViec getCongViecXacNhanLaiThongTin() {
+		return congViecXacNhanLaiThongTin;
+	}
+
+	@Transient
+	public GiaoViec getCongViecGhiBienBan() {
+		return congViecGhiBienBan;
+	}
+
+	@Transient
+	public GiaoViec getCongViecKiemTraLaiCongTacChuanBi() {
+		return congViecKiemTraLaiCongTacChuanBi;
+	}
+
+
+	public void setTitleNhanSuLamViec(GiaoViec titleNhanSuLamViec) {
+		this.titleNhanSuLamViec = titleNhanSuLamViec;
+	}
+
+	public void setCongViecNguoiDuocPhanCong(GiaoViec congViecNguoiDuocPhanCong) {
+		this.congViecNguoiDuocPhanCong = congViecNguoiDuocPhanCong;
+	}
+
+	public void setCongViecChuyenVien(GiaoViec congViecChuyenVien) {
+		this.congViecChuyenVien = congViecChuyenVien;
+	}
+
+	public void setTitleCongTacHauCan(GiaoViec titleCongTacHauCan) {
+		this.titleCongTacHauCan = titleCongTacHauCan;
+	}
+
+	public void setCongViecChuanBiPhongHop(GiaoViec congViecChuanBiPhongHop) {
+		this.congViecChuanBiPhongHop = congViecChuanBiPhongHop;
+	}
+
+	public void setCongViecChuanBiHoaQua(GiaoViec congViecChuanBiHoaQua) {
+		this.congViecChuanBiHoaQua = congViecChuanBiHoaQua;
+	}
+
+	public void setCongViecChuanBiThietBi(GiaoViec congViecChuanBiThietBi) {
+		this.congViecChuanBiThietBi = congViecChuanBiThietBi;
+	}
+
+	public void setCongViecChuanBiTaiLieu(GiaoViec congViecChuanBiTaiLieu) {
+		this.congViecChuanBiTaiLieu = congViecChuanBiTaiLieu;
+	}
+
+	public void setTitleCongTacKhac(GiaoViec titleCongTacKhac) {
+		this.titleCongTacKhac = titleCongTacKhac;
+	}
+
+	public void setCongViecXayDungChuongTrinh(GiaoViec congViecXayDungChuongTrinh) {
+		this.congViecXayDungChuongTrinh = congViecXayDungChuongTrinh;
+	}
+
+
+	public void setCongViecChuanBiBaiGioiThieu(GiaoViec congViecChuanBiBaiGioiThieu) {
+		this.congViecChuanBiBaiGioiThieu = congViecChuanBiBaiGioiThieu;
+	}
+
+	public void setCongViecXacNhanLaiThongTin(GiaoViec congViecXacNhanLaiThongTin) {
+		this.congViecXacNhanLaiThongTin = congViecXacNhanLaiThongTin;
+	}
+
+	public void setCongViecGhiBienBan(GiaoViec congViecGhiBienBan) {
+		this.congViecGhiBienBan = congViecGhiBienBan;
+	}
+
+	public void setCongViecKiemTraLaiCongTacChuanBi(GiaoViec congViecKiemTraLaiCongTacChuanBi) {
+		this.congViecKiemTraLaiCongTacChuanBi = congViecKiemTraLaiCongTacChuanBi;
+	}
+	
+	private boolean check = true;
+	private boolean check1 = false;
+	
+	public void checkCongViec(final GiaoViec giaoViec) {
+		if (giaoViec.getHanThucHien() == null && giaoViec.getNguoiDuocGiao() == null) {
+			//p ass 
+		} else {
+			if (giaoViec.getHanThucHien() == null || giaoViec.getNguoiDuocGiao() == null) {
+				check = false;
+			} else {
+				check1 = true;
+				
+				//luu
+				//check 1 ok
+			}
+		}
+	}
+	
 	@Command
 	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao,
 			@BindingParam("wdn") final Window wdn) {
 		boolean checkDieuKien = false;
 		boolean checkSoLuong = false;
-		List<GiaoViec> list = new ArrayList<GiaoViec>();
-		list.addAll(doanVao.getListCongViecLuuTam());
-		for (GiaoViec item : list) {
-			if ((!"".equals(item.getNguoiDuocGiao().getHoVaTen()) && item.getHanThucHien() == null)
-					|| ("".equals(item.getNguoiDuocGiao().getHoVaTen()) && item.getHanThucHien() != null)) {
-				checkDieuKien = true;
-			} else if (!"".equals(item.getNguoiDuocGiao().getHoVaTen()) && item.getHanThucHien() != null) {
-				checkSoLuong = true;
-			}
-
+		if (!check && !check1) {
+			showNotification("", "ChtitleNhanSuLamViecua nhap ", "danger");
+		} else {
+			showNotification("Lưu thành công!", "", "success");
+			wdn.detach();
 		}
 		if (checkDieuKien || !checkSoLuong) {
 			showNotification("Công việc phải được nhập đủ người được giao và hạn thực hiện !", "", "danger");
