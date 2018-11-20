@@ -512,16 +512,23 @@ public class ProcessService extends BasicService<Object> {
 		thongBao.saveNotShowNotification();
 	}
 	
+	public void saveTepTinNotNullAndSetTaiLieu(TepTin tepTin, String tenTaiLieu, boolean luuLichSu) {
+		if (tepTin.getNgayTao() == null) {
+			tepTin.setNgayTao(new Date());
+		}
+		tepTin.setTenTaiLieu(tenTaiLieu);
+		tepTin.saveNotShowNotification();
+		if (luuLichSu) {
+			listTepTins.add(tepTin);
+		}
+	}
+	
 	public void saveNotShowNotificationTaiLieuGiaiDoan(GiaiDoanDuAn giaiDoanDuAn, GiaiDoanXucTien giaiDoanXucTien, boolean luuLichSu) {
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(giaiDoanXucTien)) {
 			if (giaiDoanDuAn.getTaiLieuGD1().getNameHash() == null) {
 				giaiDoanDuAn.setTaiLieuGD1(null);
 			} else {
-				giaiDoanDuAn.getTaiLieuGD1().setTenTaiLieu("Công văn đề nghị giới thiệu địa điểm");
-				giaiDoanDuAn.getTaiLieuGD1().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getTaiLieuGD1());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getTaiLieuGD1(), "Công văn đề nghị giới thiệu địa điểm", luuLichSu);
 			}
 			return;
 		}
@@ -529,20 +536,12 @@ public class ProcessService extends BasicService<Object> {
 			if (giaiDoanDuAn.getTaiLieuGD2().getNameHash() == null) {
 				giaiDoanDuAn.setTaiLieuGD2(null);
 			} else {
-				giaiDoanDuAn.getTaiLieuGD2().setTenTaiLieu("Khảo sát thực tế");
-				giaiDoanDuAn.getTaiLieuGD2().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getTaiLieuGD2());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getTaiLieuGD2(), "Khảo sát thực tế", luuLichSu);
 			}
 			if (giaiDoanDuAn.getCongVanGD2().getNameHash() == null) {
 				giaiDoanDuAn.setCongVanGD2(null);
 			} else {
-				giaiDoanDuAn.getCongVanGD2().setTenTaiLieu("Văn bản đồng ý địa điểm");
-				giaiDoanDuAn.getCongVanGD2().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getCongVanGD2());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getCongVanGD2(), "Văn bản đồng ý địa điểm", luuLichSu);
 			}
 			return;
 		}
@@ -550,20 +549,12 @@ public class ProcessService extends BasicService<Object> {
 			if (giaiDoanDuAn.getTaiLieuGD3().getNameHash() == null) {
 				giaiDoanDuAn.setTaiLieuGD3(null);
 			} else {
-				giaiDoanDuAn.getTaiLieuGD3().setTenTaiLieu("Công văn xin chủ trương");
-				giaiDoanDuAn.getTaiLieuGD3().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getTaiLieuGD3());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getTaiLieuGD3(), "Công văn xin chủ trương", luuLichSu);
 			}
 			if (giaiDoanDuAn.getCongVanGD3().getNameHash() == null) {
 				giaiDoanDuAn.setCongVanGD3(null);
 			} else {
-				giaiDoanDuAn.getCongVanGD3().setTenTaiLieu("Ý kiến của UBND thành phố");
-				giaiDoanDuAn.getCongVanGD3().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getCongVanGD3());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getCongVanGD3(), "Ý kiến của UBND thành phố", luuLichSu);
 			}
 			return;
 		}
@@ -586,38 +577,17 @@ public class ProcessService extends BasicService<Object> {
 			if (giaiDoanDuAn.getGiayChungNhanDauTu().getNameHash() == null) {
 				giaiDoanDuAn.setGiayChungNhanDauTu(null);
 			} else {
-				if (giaiDoanDuAn.getGiayChungNhanDauTu().getNgayTao() == null) {
-					giaiDoanDuAn.getGiayChungNhanDauTu().setNgayTao(new Date());
-					giaiDoanDuAn.getGiayChungNhanDauTu().setTenTaiLieu("Giấy chứng nhận đầu tư");
-				}
-				giaiDoanDuAn.getGiayChungNhanDauTu().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getGiayChungNhanDauTu());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getGiayChungNhanDauTu(), "Giấy chứng nhận đầu tư", luuLichSu);
 			}
 			if (giaiDoanDuAn.getGiayChungNhanDangKyDoanhNghiep().getNameHash() == null) {
 				giaiDoanDuAn.setGiayChungNhanDangKyDoanhNghiep(null);
 			} else {
-				if (giaiDoanDuAn.getGiayChungNhanDangKyDoanhNghiep().getNgayTao() == null) {
-					giaiDoanDuAn.getGiayChungNhanDangKyDoanhNghiep().setNgayTao(new Date());
-					giaiDoanDuAn.getGiayChungNhanDangKyDoanhNghiep().setTenTaiLieu("Giấy chứng nhận đăng ký doanh nghiệp");
-				}
-				giaiDoanDuAn.getGiayChungNhanDangKyDoanhNghiep().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getGiayChungNhanDangKyDoanhNghiep());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getGiayChungNhanDangKyDoanhNghiep(), "Giấy chứng nhận đăng ký doanh nghiệp", luuLichSu);
 			}
 			if (giaiDoanDuAn.getGiayChungNhanQuyenSuDungDat().getNameHash() == null) {
 				giaiDoanDuAn.setGiayChungNhanQuyenSuDungDat(null);
 			} else {
-				if (giaiDoanDuAn.getGiayChungNhanQuyenSuDungDat().getNgayTao() == null) {
-					giaiDoanDuAn.getGiayChungNhanQuyenSuDungDat().setNgayTao(new Date());
-					giaiDoanDuAn.getGiayChungNhanQuyenSuDungDat().setTenTaiLieu("Giấy chứng nhận quyền sử dụng đất");
-				}
-				giaiDoanDuAn.getGiayChungNhanQuyenSuDungDat().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getGiayChungNhanQuyenSuDungDat());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getGiayChungNhanQuyenSuDungDat(), "Giấy chứng nhận quyền sử dụng đất", luuLichSu);
 			}
 		}
 	}
@@ -626,50 +596,22 @@ public class ProcessService extends BasicService<Object> {
 		if (giaiDoanDuAn.getHoSoQuyHoachLQH().getNameHash() == null) {
 			giaiDoanDuAn.setHoSoQuyHoachLQH(null);
 		} else {
-			if (giaiDoanDuAn.getHoSoQuyHoachLQH().getNgayTao() == null) {
-				giaiDoanDuAn.getHoSoQuyHoachLQH().setNgayTao(new Date());
-				giaiDoanDuAn.getHoSoQuyHoachLQH().setTenTaiLieu("Hồ sơ quy hoạch");
-			}
-			giaiDoanDuAn.getHoSoQuyHoachLQH().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getHoSoQuyHoachLQH());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoQuyHoachLQH(), "Hồ sơ quy hoạch", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhPheDuyetLQH().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyetLQH(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyetLQH().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyetLQH().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyetLQH().setTenTaiLieu("Quyết định phê duyệt quy hoạch");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyetLQH().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyetLQH());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetLQH(), "Quyết định phê duyệt quy hoạch", luuLichSu);
 		}
 		if (giaiDoanDuAn.getVanBanChuyenMucDichSDD().getNameHash() == null) {
 			giaiDoanDuAn.setVanBanChuyenMucDichSDD(null);
 		} else {
-			if (giaiDoanDuAn.getVanBanChuyenMucDichSDD().getNgayTao() == null) {
-				giaiDoanDuAn.getVanBanChuyenMucDichSDD().setNgayTao(new Date());
-				giaiDoanDuAn.getVanBanChuyenMucDichSDD().setTenTaiLieu("Văn bản cho phép chuyển mục đích sử dụng đất");
-			}
-			giaiDoanDuAn.getVanBanChuyenMucDichSDD().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getVanBanChuyenMucDichSDD());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getVanBanChuyenMucDichSDD(), "Văn bản cho phép chuyển mục đích sử dụng đất", luuLichSu);
 		}
 		if (giaiDoanDuAn.getVanBanDeNghiThuHoiDat().getNameHash() == null) {
 			giaiDoanDuAn.setVanBanDeNghiThuHoiDat(null);
 		} else {
-			if (giaiDoanDuAn.getVanBanDeNghiThuHoiDat().getNgayTao() == null) {
-				giaiDoanDuAn.getVanBanDeNghiThuHoiDat().setNgayTao(new Date());
-				giaiDoanDuAn.getVanBanDeNghiThuHoiDat().setTenTaiLieu("Văn bản đề nghị thu hồi đất");
-			}
-			giaiDoanDuAn.getVanBanDeNghiThuHoiDat().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getVanBanDeNghiThuHoiDat());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getVanBanDeNghiThuHoiDat(), "Văn bản đề nghị thu hồi đất", luuLichSu);
 		}
 	}
 	
@@ -677,206 +619,87 @@ public class ProcessService extends BasicService<Object> {
 		if (giaiDoanDuAn.getQuyetDinhPheDuyetLQH().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyetLQH(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyetLQH().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyetLQH().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyetLQH().setTenTaiLieu("Quyết định phê duyệt quy hoạch chi tiết 1/500");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyetLQH().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyetLQH());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetLQH(), "Quyết định phê duyệt quy hoạch chi tiết 1/500", luuLichSu);
 		}
 		if (giaiDoanDuAn.getHoSoQuyHoachLQH().getNameHash() == null) {
 			giaiDoanDuAn.setHoSoQuyHoachLQH(null);
 		} else {
-			if (giaiDoanDuAn.getHoSoQuyHoachLQH().getNgayTao() == null) {
-				giaiDoanDuAn.getHoSoQuyHoachLQH().setNgayTao(new Date());
-				giaiDoanDuAn.getHoSoQuyHoachLQH().setTenTaiLieu("Hồ sơ quy hoạch chi tiết 1/500");
-			}
-			giaiDoanDuAn.getHoSoQuyHoachLQH().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getHoSoQuyHoachLQH());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoQuyHoachLQH(), "Hồ sơ quy hoạch chi tiết 1/500", luuLichSu);
 		}
 		if (giaiDoanDuAn.getHoSoQuyHoach2000().getNameHash() == null) {
 			giaiDoanDuAn.setHoSoQuyHoach2000(null);
 		} else {
-			if (giaiDoanDuAn.getHoSoQuyHoach2000().getNgayTao() == null) {
-				giaiDoanDuAn.getHoSoQuyHoach2000().setNgayTao(new Date());
-				giaiDoanDuAn.getHoSoQuyHoach2000().setTenTaiLieu("Hồ sơ quy hoạch chi tiết 1/2000");
-			}
-			giaiDoanDuAn.getHoSoQuyHoach2000().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getHoSoQuyHoach2000());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoQuyHoach2000(), "Hồ sơ quy hoạch chi tiết 1/2000", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhPheDuyet2000().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyet2000(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyet2000().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyet2000().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyet2000().setTenTaiLieu("Quyết định phê duyệt quy hoạch chi tiết 1/2000");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyet2000().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyet2000());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyet2000(), "Quyết định phê duyệt quy hoạch chi tiết 1/2000", luuLichSu);
 		}
 		if (giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh().getNameHash() == null) {
 			giaiDoanDuAn.setNghiQuyetPheDuyetCongTrinh(null);
 		} else {
-			if (giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh().getNgayTao() == null) {
-				giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh().setNgayTao(new Date());
-				giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh().setTenTaiLieu("Nghị quyết phê duyệt công trình, dự án cần thu hồi đất và danh mục dự án có sử dụng đất trồng lúa, đất rừng phòng hộ, đất rừng đặc dụng");
-			}
-			giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getNghiQuyetPheDuyetCongTrinh(), "Nghị quyết phê duyệt công trình, dự án cần thu hồi đất và danh mục dự án có sử dụng đất trồng lúa, đất rừng phòng hộ, đất rừng đặc dụng", luuLichSu);
 		}
 		if (giaiDoanDuAn.getBaoCaoDoDacKhuDat().getNameHash() == null) {
 			giaiDoanDuAn.setBaoCaoDoDacKhuDat(null);
 		} else {
-			if (giaiDoanDuAn.getBaoCaoDoDacKhuDat().getNgayTao() == null) {
-				giaiDoanDuAn.getBaoCaoDoDacKhuDat().setNgayTao(new Date());
-				giaiDoanDuAn.getBaoCaoDoDacKhuDat().setTenTaiLieu("Báo cáo đo đạc khu đất, kiểm đếm và lâp dự toán kinh phí giải phóng mặt bằng dự án");
-			}
-			giaiDoanDuAn.getBaoCaoDoDacKhuDat().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getBaoCaoDoDacKhuDat());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getBaoCaoDoDacKhuDat(), "Báo cáo đo đạc khu đất, kiểm đếm và lâp dự toán kinh phí giải phóng mặt bằng dự án", luuLichSu);
 		}
 		if (giaiDoanDuAn.getPheDuyetKeHoachSuDungDat().getNameHash() == null) {
 			giaiDoanDuAn.setPheDuyetKeHoachSuDungDat(null);
 		} else {
-			if (giaiDoanDuAn.getPheDuyetKeHoachSuDungDat().getNgayTao() == null) {
-				giaiDoanDuAn.getPheDuyetKeHoachSuDungDat().setNgayTao(new Date());
-				giaiDoanDuAn.getPheDuyetKeHoachSuDungDat().setTenTaiLieu("Phê duyệt kế hoạch sử dụng đất");
-			}
-			giaiDoanDuAn.getPheDuyetKeHoachSuDungDat().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getPheDuyetKeHoachSuDungDat());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getPheDuyetKeHoachSuDungDat(), "Phê duyệt kế hoạch sử dụng đất", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhThuHoiDat().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhThuHoiDat(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhThuHoiDat().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhThuHoiDat().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhThuHoiDat().setTenTaiLieu("Quyết định thu hồi đất");
-			}
-			giaiDoanDuAn.getQuyetDinhThuHoiDat().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhThuHoiDat());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhThuHoiDat(), "Quyết định thu hồi đất", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyetDanhMuc(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc().setTenTaiLieu("Quyết định phê duyệt danh mục dự án đầu tư có sử dụng đất hằng năm");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetDanhMuc(), "Quyết định phê duyệt danh mục dự án đầu tư có sử dụng đất hằng năm", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyetBoSungKinhPhi(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi().setTenTaiLieu("Quyết định phê duyệt bổ sung kinh phí thực hiện đấu thầu");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetBoSungKinhPhi(), "Quyết định phê duyệt bổ sung kinh phí thực hiện đấu thầu", luuLichSu);
 		}
 		if (giaiDoanDuAn.getPhuongAnTaiDinhCu().getNameHash() == null) {
 			giaiDoanDuAn.setPhuongAnTaiDinhCu(null);
 		} else {
-			if (giaiDoanDuAn.getPhuongAnTaiDinhCu().getNgayTao() == null) {
-				giaiDoanDuAn.getPhuongAnTaiDinhCu().setNgayTao(new Date());
-				giaiDoanDuAn.getPhuongAnTaiDinhCu().setTenTaiLieu("Phương án tái định cư");
-			}
-			giaiDoanDuAn.getPhuongAnTaiDinhCu().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getPhuongAnTaiDinhCu());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getPhuongAnTaiDinhCu(), "Phương án tái định cư", luuLichSu);
 		}
 		if (giaiDoanDuAn.getHoSoMoiTuyen().getNameHash() == null) {
 			giaiDoanDuAn.setHoSoMoiTuyen(null);
 		} else {
-			if (giaiDoanDuAn.getHoSoMoiTuyen().getNgayTao() == null) {
-				giaiDoanDuAn.getHoSoMoiTuyen().setNgayTao(new Date());
-				giaiDoanDuAn.getHoSoMoiTuyen().setTenTaiLieu("Hồ sơ mời tuyển");
-			}
-			giaiDoanDuAn.getHoSoMoiTuyen().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getHoSoMoiTuyen());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoMoiTuyen(), "Hồ sơ mời tuyển", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyeHoSoMoiTuyen(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen().setTenTaiLieu("Quyết định phê duyệt hồ sơ mời tuyển");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyeHoSoMoiTuyen(), "Quyết định phê duyệt hồ sơ mời tuyển", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyetKetQuaTrungTuyen(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen().setTenTaiLieu("Quyết định phê duyệt kết quả trúng sơ tuyển");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetKetQuaTrungTuyen(), "Quyết định phê duyệt kết quả trúng sơ tuyển", luuLichSu);
 		}
 		if (giaiDoanDuAn.getKeHoachLuaChonNhaDauTu().getNameHash() == null) {
 			giaiDoanDuAn.setKeHoachLuaChonNhaDauTu(null);
 		} else {
-			if (giaiDoanDuAn.getKeHoachLuaChonNhaDauTu().getNgayTao() == null) {
-				giaiDoanDuAn.getKeHoachLuaChonNhaDauTu().setNgayTao(new Date());
-				giaiDoanDuAn.getKeHoachLuaChonNhaDauTu().setTenTaiLieu("Kế hoạch lựa chọn nhà thầu");
-			}
-			giaiDoanDuAn.getKeHoachLuaChonNhaDauTu().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getKeHoachLuaChonNhaDauTu());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getKeHoachLuaChonNhaDauTu(), "Kế hoạch lựa chọn nhà thầu", luuLichSu);
 		}
 		if (giaiDoanDuAn.getHoSoMoiThau().getNameHash() == null) {
 			giaiDoanDuAn.setHoSoMoiThau(null);
 		} else {
-			if (giaiDoanDuAn.getHoSoMoiThau().getNgayTao() == null) {
-				giaiDoanDuAn.getHoSoMoiThau().setNgayTao(new Date());
-				giaiDoanDuAn.getHoSoMoiThau().setTenTaiLieu("Hồ sơ mời thầu");
-			}
-			giaiDoanDuAn.getHoSoMoiThau().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getHoSoMoiThau());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoMoiThau(), "Hồ sơ mời thầu", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyetMoiThau(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau().setTenTaiLieu("Quyết định phê duyệt Kế hoạch và hồ sơ mời thầu lựa chọn nhà đầu tư");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetMoiThau(), "Quyết định phê duyệt Kế hoạch và hồ sơ mời thầu lựa chọn nhà đầu tư", luuLichSu);
 		}
 	}
 	
@@ -884,99 +707,43 @@ public class ProcessService extends BasicService<Object> {
 		if (giaiDoanDuAn.getQuyetDinhPheDuyetPADG().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyetPADG(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyetPADG().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyetPADG().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyetPADG().setTenTaiLieu("Quyết định phê duyệt phương án đấu giá");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyetPADG().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyetPADG());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetPADG(), "Quyết định phê duyệt phương án đấu giá", luuLichSu);
 		}
 		if (giaiDoanDuAn.getHoSoQuyHoachLQH().getNameHash() == null) {
 			giaiDoanDuAn.setHoSoQuyHoachLQH(null);
 		} else {
-			if (giaiDoanDuAn.getHoSoQuyHoachLQH().getNgayTao() == null) {
-				giaiDoanDuAn.getHoSoQuyHoachLQH().setNgayTao(new Date());
-				giaiDoanDuAn.getHoSoQuyHoachLQH().setTenTaiLieu("Lập quy hoạch chi tiết 1/500");
-			}
-			giaiDoanDuAn.getHoSoQuyHoachLQH().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getHoSoQuyHoachLQH());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getHoSoQuyHoachLQH(), "Lập quy hoạch chi tiết 1/500", luuLichSu);
 		}
 		if (giaiDoanDuAn.getPhuongAnDauGia().getNameHash() == null) {
 			giaiDoanDuAn.setPhuongAnDauGia(null);
 		} else {
-			if (giaiDoanDuAn.getPhuongAnDauGia().getNgayTao() == null) {
-				giaiDoanDuAn.getPhuongAnDauGia().setNgayTao(new Date());
-				giaiDoanDuAn.getPhuongAnDauGia().setTenTaiLieu("Phương án đấu giá quyền sử dụng đất");
-			}
-			giaiDoanDuAn.getPhuongAnDauGia().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getPhuongAnDauGia());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getPhuongAnDauGia(), "Phương án đấu giá quyền sử dụng đất", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhDauGiaQSDD().getNameHash() == null ) {
 			giaiDoanDuAn.setQuyetDinhDauGiaQSDD(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhDauGiaQSDD().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhDauGiaQSDD().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhDauGiaQSDD().setTenTaiLieu("Quyết định đấu giá quyền sử dụng đất");
-			}
-			giaiDoanDuAn.getQuyetDinhDauGiaQSDD().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhDauGiaQSDD());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhDauGiaQSDD(), "Quyết định đấu giá quyền sử dụng đất", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem().getNameHash() == null ) {
 			giaiDoanDuAn.setQuyetDinhPheDuyetGiaKhoiDiem(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem().setTenTaiLieu("Quyết định phê duyệt giá đất khởi điểm đấu giá");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetGiaKhoiDiem(), "Quyết định phê duyệt giá đất khởi điểm đấu giá", luuLichSu);
 		}
 		if (giaiDoanDuAn.getQuyetDinhPheDuyetLQH().getNameHash() == null) {
 			giaiDoanDuAn.setQuyetDinhPheDuyetLQH(null);
 		} else {
-			if (giaiDoanDuAn.getQuyetDinhPheDuyetLQH().getNgayTao() == null) {
-				giaiDoanDuAn.getQuyetDinhPheDuyetLQH().setNgayTao(new Date());
-				giaiDoanDuAn.getQuyetDinhPheDuyetLQH().setTenTaiLieu("Quyết định phê duyệt lập quy hoạch chi tiết 1/500");
-			}
-			giaiDoanDuAn.getQuyetDinhPheDuyetLQH().saveNotShowNotification();
-			if (luuLichSu) {
-				listTepTins.add(giaiDoanDuAn.getQuyetDinhPheDuyetLQH());
-			}
+			saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhPheDuyetLQH(), "Quyết định phê duyệt lập quy hoạch chi tiết 1/500", luuLichSu);
 		}
 		if (!giaiDoanDuAn.isOption()) {
 			if (giaiDoanDuAn.getQuyetDinhBoSungDanhMuc().getNameHash() == null ) {
 				giaiDoanDuAn.setQuyetDinhBoSungDanhMuc(null);
 			} else {
-				if (giaiDoanDuAn.getQuyetDinhBoSungDanhMuc().getNgayTao() == null) {
-					giaiDoanDuAn.getQuyetDinhBoSungDanhMuc().setNgayTao(new Date());
-					giaiDoanDuAn.getQuyetDinhBoSungDanhMuc().setTenTaiLieu("Quyết định bổ sung danh mục quỹ đất đấu giá quyền sử dụng đất");
-				}
-				giaiDoanDuAn.getQuyetDinhBoSungDanhMuc().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getQuyetDinhBoSungDanhMuc());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getQuyetDinhBoSungDanhMuc(), "Quyết định bổ sung danh mục quỹ đất đấu giá quyền sử dụng đất", luuLichSu);
 			}
 			if (giaiDoanDuAn.getVanBanDeNghiBoSung().getNameHash() == null) {
 				giaiDoanDuAn.setVanBanDeNghiBoSung(null);
 			} else {
-				if (giaiDoanDuAn.getVanBanDeNghiBoSung().getNgayTao() == null) {
-					giaiDoanDuAn.getVanBanDeNghiBoSung().setNgayTao(new Date());
-					giaiDoanDuAn.getVanBanDeNghiBoSung().setTenTaiLieu("Văn bản đề nghị bổ sung danh mục quỹ đất đấu giá quyền sử dụng đất");
-				}
-				giaiDoanDuAn.getVanBanDeNghiBoSung().saveNotShowNotification();
-				if (luuLichSu) {
-					listTepTins.add(giaiDoanDuAn.getVanBanDeNghiBoSung());
-				}
+				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getVanBanDeNghiBoSung(), "Văn bản đề nghị bổ sung danh mục quỹ đất đấu giá quyền sử dụng đất", luuLichSu);
 			}
 		}
 	}
