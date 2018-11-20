@@ -26,7 +26,7 @@ public class LichSuVanBanService extends BasicService<LichSuVanBan>{
 			q.where(QLichSuVanBan.lichSuVanBan.vanBan.tenTaiLieu.like(tuKhoa));
 		}
 		if (giaiDoanXucTien != null && !giaiDoanXucTien.isEmpty()) {
-			q.where(QLichSuVanBan.lichSuVanBan.giaiDoanDuAn.giaiDoanXucTien.eq(GiaiDoanXucTien.valueOf(giaiDoanXucTien)));
+			q.where(QLichSuVanBan.lichSuVanBan.giaiDoanXucTien.eq(GiaiDoanXucTien.valueOf(giaiDoanXucTien)));
 		}
 		
 		q.orderBy(QLichSuVanBan.lichSuVanBan.vanBan.ngayTao.desc());

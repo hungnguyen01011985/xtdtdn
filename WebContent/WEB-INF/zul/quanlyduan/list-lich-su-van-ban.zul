@@ -72,7 +72,7 @@
 							<row>
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
 								<label value="@load(each.vanBan.tenTaiLieu)"></label>
-								<label value="@load(each.giaiDoanDuAn.giaiDoanXucTien.text)"></label>
+								<label value="@load(each.giaiDoanXucTien.text)"></label>
 								<label value="@load(each.nguoiNhap.hoVaTen)"></label>
 								<label value="@load(each.vanBan.ngaySua) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
 								<label viewModel="@id('tepTin') @init(each.vanBan)" value="@load(tepTin.tenFile)" onClick="@command('downLoadTepTin', ob = tepTin)" style="color: #4274ED;cursor:pointer;"></label>
