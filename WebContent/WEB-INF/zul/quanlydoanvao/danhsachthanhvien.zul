@@ -10,7 +10,7 @@
 	</zscript>
 	<n:script>
 		function getFocus(){
-			$("#focus").find("input").focus();
+			$(".focus").find("input").focus();
 		}
 	</n:script>
 	<div> 
@@ -55,7 +55,7 @@
 				<div class="mg-and-bg-and-line">
 					<div class="row">
 						<div zclass="col-md-4">
-							<div zclass="form-group">
+							<div zclass="form-group focus">
 								<div class="flex">
 									<x:span class="issue-search">Họ và tên<n:small class="required"> *</n:small></x:span>
 								</div>  

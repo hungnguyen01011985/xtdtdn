@@ -699,7 +699,7 @@ public class BaseObject<T> extends CoreObject<T> {
 	@Transient
 	public List<NhanVien> getListNguoiPhuTrachDoanVaoAndNull() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
-		list.add(null);
+		list.add(new NhanVien());
 		list.addAll(getListNguoiPhuTrach());
 		return list;
 	}

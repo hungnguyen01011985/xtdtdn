@@ -301,22 +301,27 @@ public class DoanVao extends Model<DoanVao> {
 			});
 		}
 
-//		if (listCongViecLuuTam != null && !listCongViecLuuTam.isEmpty()) {
-//			int index = 0;
-//			for (GiaoViec congViec : listCongViecLuuTam) {
-//				congViec.getTaiLieu().saveNotShowNotification();
-//				index++;
-//				congViec.setDoanVao(this);
-//				congViec.setNguoiGiaoViec(core().getNhanVien());
-//				congViec.setSoThuTu(index);
-//				congViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
-//				congViec.getNguoiDuocGiao().saveNotShowNotification();
-//				congViec.saveNotShowNotification();
-//			}
-//		}
+		if (listGiaoViec != null || !listGiaoViec.isEmpty()) {
+			for (GiaoViec congViec : listGiaoViec) {
+				checkCongViec(congViec);
+				if (checkNotAllNull && checkAllNull) {
+					saveGiaoViec(congViec);
+				}
+				resetCheck();
+			}
+		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
-
+	
+	public void saveGiaoViec(GiaoViec giaoViec) {
+		giaoViec.getTaiLieu().saveNotShowNotification();
+		giaoViec.setDoanVao(this);
+		giaoViec.setNguoiGiaoViec(core().getNhanVien());
+		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
+		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
+		giaoViec.saveNotShowNotification();
+	}
+	
 	@Command
 	public void redirectPageList(@BindingParam("url") String url, @BindingParam("vm") DoanVao vm) {
 		Executions.getCurrent().sendRedirect(url);
@@ -398,7 +403,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void setListXoaThanhVienDoan(List<ThanhVienDoan> listXoaThanhVienDoan) {
 		this.listXoaThanhVienDoan = listXoaThanhVienDoan;
 	}
-
+	
 	private boolean flag;
 
 	@Transient
@@ -665,40 +670,125 @@ public class DoanVao extends Model<DoanVao> {
 		this.congViecKiemTraLaiCongTacChuanBi = congViecKiemTraLaiCongTacChuanBi;
 	}
 	
-	private boolean check = true;
-	private boolean check1 = false;
+	private boolean checkNotAllNull = true;
+	private boolean checkAllNull = false;
 	
 	public void checkCongViec(final GiaoViec giaoViec) {
-		if (giaoViec.getHanThucHien() == null && giaoViec.getNguoiDuocGiao() == null) {
-			//p ass 
+		if (giaoViec.getNguoiDuocGiao() == null) {
+			giaoViec.setNguoiDuocGiao(new NhanVien());
+		}
+		if (giaoViec.getHanThucHien() == null && "".equals(giaoViec.getNguoiDuocGiao().getHoVaTen())) {
+			// pass
 		} else {
-			if (giaoViec.getHanThucHien() == null || giaoViec.getNguoiDuocGiao() == null) {
-				check = false;
+			if ((giaoViec.getHanThucHien() != null && "".equals(giaoViec.getNguoiDuocGiao().getHoVaTen()))
+					|| (giaoViec.getHanThucHien() == null && !"".equals(giaoViec.getNguoiDuocGiao().getHoVaTen()))) {
+				checkNotAllNull = false;
 			} else {
-				check1 = true;
-				
-				//luu
-				//check 1 ok
+				checkAllNull = true;
 			}
 		}
 	}
 	
+	public void resetCheck() {
+		checkNotAllNull = true;
+		checkAllNull = false;
+	}
+	
+	private List<GiaoViec> listGiaoViec = new ArrayList<GiaoViec>();
+
+	@Transient
+	public List<GiaoViec> getListGiaoViec() {
+		listGiaoViec.add(congViecNguoiDuocPhanCong);
+		listGiaoViec.add(congViecChuyenVien);
+		listGiaoViec.add(congViecChuanBiPhongHop);
+		listGiaoViec.add(congViecChuanBiHoaQua);
+		listGiaoViec.add(congViecChuanBiThietBi);
+		listGiaoViec.add(congViecChuanBiTaiLieu);
+		listGiaoViec.add(congViecGhiBienBan);
+		listGiaoViec.add(congViecXayDungChuongTrinh);
+		listGiaoViec.add(congViecChuanBiBaiGioiThieu);
+		listGiaoViec.add(congViecXacNhanLaiThongTin);
+		listGiaoViec.add(congViecGhiBienBan);
+		listGiaoViec.add(congViecKiemTraLaiCongTacChuanBi);
+		return listGiaoViec;
+	}
+	
+	
+	public void setListGiaoViec(List<GiaoViec> listGiaoViec) {
+		this.listGiaoViec = listGiaoViec;
+	}
+
 	@Command
 	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao,
 			@BindingParam("wdn") final Window wdn) {
-		boolean checkDieuKien = false;
-		boolean checkSoLuong = false;
-		if (!check && !check1) {
-			showNotification("", "ChtitleNhanSuLamViecua nhap ", "danger");
+		for (GiaoViec item : getListGiaoViec()) {
+			checkCongViec(item);
+		}
+		if (!checkNotAllNull || !checkAllNull) {
+			showNotification("", "Dữ liệu nhập vào chưa đúng. Vui lòng nhập lại", "danger");
+			resetCheck();
 		} else {
+			resetCheck();
 			showNotification("Lưu thành công!", "", "success");
 			wdn.detach();
 		}
-		if (checkDieuKien || !checkSoLuong) {
-			showNotification("Công việc phải được nhập đủ người được giao và hạn thực hiện !", "", "danger");
-		} else {
-			showNotification("Lưu thành công!", "", "success");
-			wdn.detach();
+	}
+	
+	private List<GiaoViec> listGiaoViecTheoDoan = new ArrayList<GiaoViec>();
+	
+	@Transient
+	public List<GiaoViec> getListGiaoViecTheoDoan() {
+		return listGiaoViecTheoDoan;
+	}
+
+	public void setListGiaoViecTheoDoan(List<GiaoViec> listGiaoViecTheoDoan) {
+		this.listGiaoViecTheoDoan = listGiaoViecTheoDoan;
+	}
+
+	@Transient
+	public void loadListGiaoViecTheoDoan() {
+		for (GiaoViec giaoViec : getListGiaoViec()) {
+			for (GiaoViec item : listGiaoViecTheoDoan) {
+				if (item.getNoiDungCongViec().equals(giaoViec.getNoiDungCongViec())) {
+					switch (item.getNoiDungCongViec()) {
+					case CONG_VIEC_NGUOI_DUOC_PHAN_CONG:
+						congViecNguoiDuocPhanCong = item;
+						break;
+					case CONG_VIEC_CHUYEN_VIEN:
+						congViecChuyenVien = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_PHONG_HOP:
+						congViecChuanBiPhongHop = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_HOA_QUA:
+						congViecChuanBiHoaQua = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_THIET_BI:
+						congViecChuanBiThietBi = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_TAI_LIEU:
+						congViecChuanBiTaiLieu = item;
+						break;
+					case CONG_VIEC_XAY_DUNG_CHUONG_TRINH:
+						congViecXayDungChuongTrinh = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU:
+						congViecChuanBiBaiGioiThieu = item;
+						break;
+					case CONG_VIEC_XAC_NHAN_LAI_THONG_TIN:
+						congViecXacNhanLaiThongTin = item;
+						break;
+					case CONG_VIEC_GHI_BIEN_BAN:
+						congViecGhiBienBan = item;
+						break;
+					case CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI:
+						congViecKiemTraLaiCongTacChuanBi = item;
+						break;
+					default:
+						break;
+					}
+				}
+			}
 		}
 	}
 }

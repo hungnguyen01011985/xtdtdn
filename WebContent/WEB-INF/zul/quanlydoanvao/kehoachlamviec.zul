@@ -4,6 +4,11 @@
 	<zscript>
 		<![CDATA[
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
+			list = new vn.toancauxanh.service.GiaoViecService().getListGiaoViecTheoDoanVao(doanVao.id);
+			if(list != null || !list.isEmpty()){
+				doanVao.setListGiaoViecTheoDoan(list);
+				doanVao.loadListGiaoViecTheoDoan();
+			}
 			vmArgs = arg.get("vmArgs");
 			readOnly = arg.get("readOnly");
 		]]>
