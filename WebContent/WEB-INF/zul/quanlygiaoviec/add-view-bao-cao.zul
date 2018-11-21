@@ -1,0 +1,211 @@
+<idspace>
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="800px"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
+		closable="true" title="${arg.title}" viewModel="@id('vm') @init(arg.model)"
+		validationMessages="@id('vmsgs')">
+			<zscript><![CDATA[
+				vmArgs = arg.get("vmArgs");
+				readOnly = arg.get("readOnly");
+				action = arg.get("action");
+				loaiCongViec = arg.get("loaiCongViec");
+				duAnCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DU_AN;
+				doanVaoCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DOAN_VAO;
+			]]></zscript> 
+		<div class="w-popup-content-medium" style="margin:0 15px;"  >
+			<div class="mg-and-bg-and-line mg-bottom-5">
+				<div class="row">
+					<div zclass="col-md-6" if="${duAnCV eq loaiCongViec}">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Tên dự án</x:span>
+							</div>
+							<textbox class="form-control" value="@load(vm.duAn.tenDuAn)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-6" if="${duAnCV eq loaiCongViec}">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Giai đoạn</x:span>
+							</div>
+							<textbox class="form-control" value="@bind(vm.duAn.giaiDoanXucTien.text)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-6" if="${doanVaoCV eq loaiCongViec}">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Tên đoàn vào</x:span>
+							</div>
+							<textbox class="form-control" value="@load(vm.doanVao.tenDoanVao)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Người giao</x:span>
+							</div>
+							<textbox class="form-control" value="@load(vm.nguoiGiaoViec.hoVaTen)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Người được giao</x:span>
+							</div>
+							<textbox class="form-control" value="@load(vm.duAn.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Tên công việc</x:span>
+							</div>
+							<textbox class="form-control" value="@bind(vm.tenCongViec)" disabled="${!(readOnly and !action)}"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Ngày giao</x:span>
+							</div>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="${!(readOnly and !action)}"
+								  width="100%" placeholder="Chọn ngày" value="@bind(vm.ngayGiao)"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Hạn thực hiện</x:span>
+							</div>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="${!(readOnly and !action)}"
+								  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien)"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Ý kiến chỉ đạo</x:span>
+							</div>
+							<textbox class="form-control" value="@bind(vm.yKienChiDao)" rows="3" disabled="${!(readOnly and !action)}"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="row" visible="@load(not empty vm.taiLieu.tenFile)">
+					<div class="col-md-12">
+						<div zclass="form-group">
+							<x:span class="issue-search">File đính kèm</x:span>
+							<div class="flex mg-btn-top" >
+								<label visible="@load(vm.taiLieu.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieu)" value="@bind(vm.taiLieu.tenFile)"/>
+								<a visible="@load(!vm.taiLieu.noId())" label="@bind(vm.taiLieu.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieu)"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mg-and-bg-and-line-fix" if="${action}">
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Ngày hoàn thành<n:small class="required"> *</n:small></x:span>
+							</div>
+							<datebox disabled="${!readOnly}" format="dd/MM/yyyy" class="hv-db mg-top-8" readonly="${!readOnly}" width="100%"
+								placeholder="Chọn ngày" value="@bind(vm.ngayHoanThanh) @save(vm.ngayHoanThanh, before={'saveBaoCao'}) @validator(vm.validatorNgay, dateStart = vm.ngayGiao, firstText = 'Ngày giao việc', secondText = 'Ngày hoàn thành', type = false)"/>
+							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Kết quả<n:small class="required"> *</n:small></x:span>
+							</div>
+							<textbox disabled="${!readOnly}" class="form-control" value="@bind(vm.ketQua) @save(vm.ketQua, before={'saveBaoCao'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" rows="3" placeholder="Nhập kết quả"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row" visible="${readOnly}">
+					<div class="col-md-12">
+						<div zclass="form-group">
+							<x:span class="issue-search">Đính kèm kết quả</x:span>
+							<button visible="@load(empty vm.taiLieuKetQua.tenFile)" label="Chọn tài liệu" 
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
+								onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm, name = 'taiLieuKetQua')"
+								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+							</button>
+							<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuKetQua.tenFile)">
+								<label visible="@load(vm.taiLieuKetQua.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuKetQua)" value="@bind(vm.taiLieuKetQua.tenFile)"/>
+								<a visible="@load(!vm.taiLieuKetQua.noId())" label="@bind(vm.taiLieuKetQua.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieuKetQua)"></a>
+								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = vm.taiLieuKetQua, vm = vm , name = 'taiLieuKetQua')">
+									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
+								</x:button>
+								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile',medias=event.getMedia(), vm = vm, name = 'taiLieuKetQua')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" visible="@load(not empty vm.taiLieuKetQua.tenFile and !readOnly)">
+					<div class="col-md-12">
+						<div zclass="form-group">
+							<x:span class="issue-search">Đính kèm kết quả</x:span>
+							<div class="flex mg-btn-top" >
+								<label visible="@load(vm.taiLieuKetQua.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuKetQua)" value="@bind(vm.taiLieuKetQua.tenFile)"/>
+								<a visible="@load(!vm.taiLieuKetQua.noId())" label="@bind(vm.taiLieuKetQua.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieuKetQua)"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mg-and-bg-and-line-fix">
+				<div class="row">
+					<div zclass="col-xs-6">
+						<div zclass="form-group">
+							<x:button  class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+								<span>Đóng</span>
+							</x:button>
+						</div>
+					</div>
+					<div zclass="col-xs-6" if="${readOnly and action}">
+						<div zclass="form-group right">
+							<x:button class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveBaoCao', wdn=wdn, vmArgs=vmArgs, attr = 'targetQuery')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
+								<span>Hoàn thành</span>
+							</x:button>
+						</div>
+					</div>
+					<div zclass="col-xs-6" if="${!action}">
+						<div zclass="form-group right">
+							<x:button  class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveNhanViec', wdn=wdn, item = vm, vm=vmArgs, attr = 'targetQuerry')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
+								<span>Xác nhận</span>
+							</x:button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</window>
+</idspace>

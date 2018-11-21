@@ -38,7 +38,9 @@ import vn.greenglobal.core.CoreObject;
 import vn.toancauxanh.cms.service.HomeService;
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
+import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.NhanVien;
@@ -275,7 +277,7 @@ public class BaseObject<T> extends CoreObject<T> {
 	
 	@Command
 	public void redirectPageActionGiaoViec(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
-			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom,
+			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom, @BindingParam("loaiCongViec") LoaiCongViec loaiCongViec,
 			@BindingParam("readOnly") boolean readOnly, @BindingParam("title") String title) {
 		Map<String, Object> args = new HashMap<>();
 		args.put("vmArgs", vmArgs);
@@ -283,6 +285,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		args.put("nhom", nhom);
 		args.put("readOnly", readOnly);
 		args.put("title", title);
+		args.put("loaiCongViec", loaiCongViec);
 		Executions.createComponents(zul, null, args);
 	}
 
@@ -769,5 +772,19 @@ public class BaseObject<T> extends CoreObject<T> {
 		list.add(GiaiDoanXucTien.CHUA_HOAN_THANH);
 		list.add(GiaiDoanXucTien.HOAN_THANH);
 		return list;
+	}
+	
+	public boolean checkQuyenBaoCao(TrangThaiGiaoViec trangThai, Long id) {
+		if (TrangThaiGiaoViec.DANG_LAM.equals(trangThai) && core().getNhanVien().getId() == id) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkQuyenNhanViec(TrangThaiGiaoViec trangThai, Long id) {
+		if (TrangThaiGiaoViec.CHUA_LAM.equals(trangThai) && core().getNhanVien().getId() == id) {
+			return true;
+		}
+		return false;
 	}
 }

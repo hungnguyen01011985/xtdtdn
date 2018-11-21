@@ -527,20 +527,20 @@ public class DoanVao extends Model<DoanVao> {
 	
 	//======================================================================================
 
-	private GiaoViec titleNhanSuLamViec = new GiaoViec(NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC, new NhanVien(), null, null, null, false);
-	private GiaoViec congViecNguoiDuocPhanCong = new GiaoViec(NoiDungCongViec.CONG_VIEC_NGUOI_DUOC_PHAN_CONG, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec congViecChuyenVien = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUYEN_VIEN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec titleCongTacHauCan = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN, new NhanVien(), null, null, null, false);
-	private GiaoViec congViecChuanBiPhongHop = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_PHONG_HOP, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec congViecChuanBiHoaQua = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_HOA_QUA, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec congViecChuanBiThietBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_THIET_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec congViecChuanBiTaiLieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_TAI_LIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec titleCongTacKhac = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_KHAC, new NhanVien(), null, null, null, false);
-	private GiaoViec congViecXayDungChuongTrinh = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAY_DUNG_CHUONG_TRINH, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec congViecChuanBiBaiGioiThieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec congViecXacNhanLaiThongTin = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAC_NHAN_LAI_THONG_TIN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec congViecGhiBienBan = new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
-	private GiaoViec congViecKiemTraLaiCongTacChuanBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null, true);
+	private GiaoViec titleNhanSuLamViec = new GiaoViec(NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC, new NhanVien(), null, null, null);
+	private GiaoViec congViecNguoiDuocPhanCong = new GiaoViec(NoiDungCongViec.CONG_VIEC_NGUOI_DUOC_PHAN_CONG, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuyenVien = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUYEN_VIEN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec titleCongTacHauCan = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN, new NhanVien(), null, null, null);
+	private GiaoViec congViecChuanBiPhongHop = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_PHONG_HOP, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiHoaQua = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_HOA_QUA, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiThietBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_THIET_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiTaiLieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_TAI_LIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec titleCongTacKhac = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_KHAC, new NhanVien(), null, null, null);
+	private GiaoViec congViecXayDungChuongTrinh = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAY_DUNG_CHUONG_TRINH, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiBaiGioiThieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecXacNhanLaiThongTin = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAC_NHAN_LAI_THONG_TIN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecGhiBienBan = new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecKiemTraLaiCongTacChuanBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
 	
 	@Transient
 	public GiaoViec getTitleNhanSuLamViec() {

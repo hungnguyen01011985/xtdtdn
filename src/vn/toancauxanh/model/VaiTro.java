@@ -176,7 +176,6 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().QUANLYDUANXOA);
 		quyens1.add(core().QUANLYDUANXEM);
 		quyens1.add(core().QUANLYDUANGIAOVIEC);
-		quyens1.add(core().QUANLYDUANNHACNHO);
 		quyens1.add(core().QUANLYDUANPHUTRACH);
 
 		quyens1.add(core().QUANLYDOANVAOLIST);
@@ -184,6 +183,7 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().QUANLYDOANVAOXEM);
 		quyens1.add(core().QUANLYDOANVAOTHEM);
 		quyens1.add(core().QUANLYDOANVAOXOA);
+		quyens1.add(core().QUANLYDOANVAONHACNHO);
 
 		quyens1.add(core().QUANLYGIAOVIECLIST);
 		quyens1.add(core().QUANLYGIAOVIECSUA);
@@ -292,7 +292,6 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYDUANXOA);
 				quyens1.add(core().QUANLYDUANXEM);
 				quyens1.add(core().QUANLYDUANGIAOVIEC);
-				quyens1.add(core().QUANLYDUANNHACNHO);
 				quyens1.add(core().QUANLYDUANPHUTRACH);
 
 				quyens1.add(core().QUANLYDOANVAOLIST);
@@ -300,6 +299,7 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYDOANVAOXEM);
 				quyens1.add(core().QUANLYDOANVAOTHEM);
 				quyens1.add(core().QUANLYDOANVAOXOA);
+				quyens1.add(core().QUANLYDOANVAONHACNHO);
 
 				quyens1.add(core().QUANLYGIAOVIECLIST);
 				quyens1.add(core().QUANLYGIAOVIECSUA);
@@ -339,7 +339,6 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYDUANXOA);
 				quyens1.add(core().QUANLYDUANXEM);
 				quyens1.add(core().QUANLYDUANGIAOVIEC);
-				quyens1.add(core().QUANLYDUANNHACNHO);
 				quyens1.add(core().QUANLYDUANPHUTRACH);
 
 				quyens1.add(core().QUANLYDOANVAOLIST);

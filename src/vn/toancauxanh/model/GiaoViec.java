@@ -42,8 +42,6 @@ public class GiaoViec extends Model<GiaoViec> {
 	private String yKienChiDao;
 	private String ketQua;
 	private String ghiChu;
-	private int soThuTu = 0;
-	private boolean loaiNoiDungCongViec;
 	private NhanVien nguoiGiaoViec = new NhanVien();
 	private NhanVien nguoiDuocGiao = new NhanVien();
 	private Date ngayGiao = new Date();
@@ -53,7 +51,6 @@ public class GiaoViec extends Model<GiaoViec> {
 	private GiaiDoanXucTien giaiDoanXucTien;
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
 	private TepTin taiLieu = new TepTin();
-	
 	private TepTin taiLieuKetQua;
 	private LoaiCongViec loaiCongViec;
 	
@@ -61,13 +58,12 @@ public class GiaoViec extends Model<GiaoViec> {
 	}
 
 	public GiaoViec(NoiDungCongViec noiDungCongViec, NhanVien nguoiDuocGiao, Date hanThucHien,
-			TrangThaiGiaoViec trangThaiGiaoViec, String ghiChu, boolean loaiNoiDungCongViec) {
+			TrangThaiGiaoViec trangThaiGiaoViec, String ghiChu) {
 		this.noiDungCongViec = noiDungCongViec;
 		this.nguoiDuocGiao = nguoiDuocGiao;
 		this.hanThucHien = hanThucHien;
 		this.trangThaiGiaoViec = trangThaiGiaoViec;
 		this.ghiChu = ghiChu;
-		this.loaiNoiDungCongViec = loaiNoiDungCongViec;
 	}
 	
 	public String getyKienChiDao() {
@@ -95,14 +91,6 @@ public class GiaoViec extends Model<GiaoViec> {
 		this.tenCongViec = tenCongViec;
 	}
 	
-	public boolean isLoaiNoiDungCongViec() {
-		return loaiNoiDungCongViec;
-	}
-
-	public void setLoaiNoiDungCongViec(boolean loaiNoiDungCongViec) {
-		this.loaiNoiDungCongViec = loaiNoiDungCongViec;
-	}
-
 	@ManyToOne
 	public NhanVien getNguoiGiaoViec() {
 		return nguoiGiaoViec;
@@ -213,14 +201,6 @@ public class GiaoViec extends Model<GiaoViec> {
 
 	public void setGhiChu(String ghiChu) {
 		this.ghiChu = ghiChu;
-	}
-
-	public int getSoThuTu() {
-		return soThuTu;
-	}
-
-	public void setSoThuTu(int soThuTu) {
-		this.soThuTu = soThuTu;
 	}
 
 	@Command
