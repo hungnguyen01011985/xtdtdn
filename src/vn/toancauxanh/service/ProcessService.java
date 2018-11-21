@@ -18,6 +18,7 @@ import org.zkoss.zk.ui.Executions;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
@@ -53,6 +54,7 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaoViec().setNguoiDuocGiao(model.getNguoiPhuTrach());
 		model.getGiaoViec().setGiaiDoanXucTien(GiaiDoanXucTien.GIAI_DOAN_MOT);
 		model.getGiaoViec().getTaiLieu().saveNotShowNotification();
+		model.getGiaoViec().setLoaiCongViec(LoaiCongViec.DU_AN);
 		model.getGiaoViec().saveNotShowNotification();
 		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao(), model.getGiaoViec().getNguoiGiaoViec(), model.getGiaoViec().getTenCongViec());
 		((ExecutionEntity) execution).setVariable("duAnId", model.getId());
@@ -120,6 +122,7 @@ public class ProcessService extends BasicService<Object> {
 		giaoViec.setGiaiDoanXucTien(duAn.getGiaiDoanXucTien());
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
 		giaoViec.getTaiLieu().saveNotShowNotification();
+		giaoViec.setLoaiCongViec(LoaiCongViec.DU_AN);
 		giaoViec.saveNotShowNotification();
 		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 		duAn.saveNotShowNotification();
