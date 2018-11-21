@@ -40,7 +40,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		}
 		if (param != null && !param.isEmpty()) {
 			String tuKhoa = "%" + param + "%";
-			q.where(QGiaoViec.giaoViec.tenCongViec.like(tuKhoa).orAllOf(QGiaoViec.giaoViec.duAn.tenDuAn.like(tuKhoa).or(QGiaoViec.giaoViec.doanVao.tenDoanVao.like(tuKhoa))));
+			q.where(QGiaoViec.giaoViec.tenCongViec.like(tuKhoa).orAllOf(QGiaoViec.giaoViec.duAn.tenDuAn.like(tuKhoa)));
 		}
 		if (loaiCongViec != null) {
 			q.where(QGiaoViec.giaoViec.loaiCongViec.eq(LoaiCongViec.valueOf(loaiCongViec)));
@@ -83,7 +83,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	public JPAQuery<GiaoViec> getTargetQueryByIdDuAnNotHoanThanh() {
 		Long idDuAn = MapUtils.getLongValue(argDeco(), "idDuAn", 0);
 		JPAQuery<GiaoViec> q = find(GiaoViec.class);
-		if (idDuAn != null && idDuAn != 0) {
+		if (idDuAn != null && idDuAn > 0) {
 			q.where(QGiaoViec.giaoViec.duAn.id.eq(idDuAn));
 		}
 		q.where(QGiaoViec.giaoViec.trangThaiGiaoViec.ne(TrangThaiGiaoViec.HOAN_THANH));
