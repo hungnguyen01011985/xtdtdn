@@ -56,6 +56,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 			q.where(QGiaoViec.giaoViec.ngayGiao.between(getFixTuNgay(), getFixDenNgay()));
 		}
 		q.orderBy(QGiaoViec.giaoViec.ngaySua.desc());
+		
 		return q;
 	}
 	
@@ -152,5 +153,5 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		list.add(TrangThaiGiaoViec.HOAN_THANH);
 		return list;
 	}
-
+	
 }
