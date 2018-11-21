@@ -344,6 +344,9 @@
 
 .title-small-page {
 	padding-bottom: 6px;
+	opacity: 0;
+	transform: translateX(-200px);
+	transition: all .5s;
 }
 
 .title-small-page>span span {

@@ -14,10 +14,14 @@ import org.zkoss.zul.Window;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
+import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
+import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.GiaoViec;
+import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QGiaoViec;
+import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.ThongBao;
 
 public class GiaoViecService extends BasicService<GiaoViec> implements Serializable{
@@ -27,6 +31,35 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	private static final long serialVersionUID = 2132978067148535799L;
 	
 	private Set<GiaoViec> selectItems = new HashSet<>();
+	
+	public JPAQuery<GiaoViec> getTargetQuery() {
+		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
+		String loaiCongViec = MapUtils.getString(argDeco(), "loaiCongViec");
+		String trangThaiCongViec = MapUtils.getString(argDeco(), "trangThaiCongViec");
+		JPAQuery<GiaoViec> q = find(GiaoViec.class);
+		if (LoaiVaiTro.VAI_TRO_CHUYEN_VIEN.equals(core().getNhanVien().getVaiTro().getLoaiVaiTro())) {
+			q.where(QGiaoViec.giaoViec.nguoiDuocGiao.id.eq(core().getNhanVien().getId()));
+		}
+		if (param != null && !param.isEmpty()) {
+			String tuKhoa = "%" + param + "%";
+			q.where(QGiaoViec.giaoViec.tenCongViec.like(tuKhoa).orAllOf(QGiaoViec.giaoViec.duAn.tenDuAn.like(tuKhoa).or(QGiaoViec.giaoViec.doanVao.tenDoanVao.like(tuKhoa))));
+		}
+		if (loaiCongViec != null) {
+			q.where(QGiaoViec.giaoViec.loaiCongViec.eq(LoaiCongViec.valueOf(loaiCongViec)));
+		}
+		if (trangThaiCongViec != null) {
+			q.where(QGiaoViec.giaoViec.trangThaiGiaoViec.eq(TrangThaiGiaoViec.valueOf(trangThaiCongViec)));
+		}
+		if (getFixTuNgay() != null && getFixDenNgay() == null) {
+			q.where(QGiaoViec.giaoViec.ngayGiao.after(getFixTuNgay()));
+		} else if (getFixTuNgay() == null && getFixDenNgay() != null) {
+			q.where(QGiaoViec.giaoViec.ngayGiao.before(getFixDenNgay()));
+		} else if (getFixTuNgay() != null && getFixDenNgay() != null) {
+			q.where(QGiaoViec.giaoViec.ngayGiao.between(getFixTuNgay(), getFixDenNgay()));
+		}
+		q.orderBy(QGiaoViec.giaoViec.ngaySua.desc());
+		return q;
+	}
 	
 	public JPAQuery<GiaoViec> getTargetQueryByIdDuAn() {
 		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
@@ -94,13 +127,30 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		list.add(TrangThaiGiaoViec.HOAN_THANH);
 		return list;
 	}
-
+	
 	public Set<GiaoViec> getSelectItems() {
 		return selectItems;
 	}
 
 	public void setSelectItems(Set<GiaoViec> selectItems) {
 		this.selectItems = selectItems;
+	}
+	
+	public List<LoaiCongViec> getListLoaiCongViec() {
+		List<LoaiCongViec> list = new ArrayList<LoaiCongViec>();
+		list.add(null);
+		list.add(LoaiCongViec.DOAN_VAO);
+		list.add(LoaiCongViec.DU_AN);
+		return list;
+	}
+	
+	public List<TrangThaiGiaoViec> getListTrangThaiCongViec() {
+		List<TrangThaiGiaoViec> list = new ArrayList<TrangThaiGiaoViec>();
+		list.add(null);
+		list.add(TrangThaiGiaoViec.CHUA_LAM);
+		list.add(TrangThaiGiaoViec.DANG_LAM);
+		list.add(TrangThaiGiaoViec.HOAN_THANH);
+		return list;
 	}
 
 }

@@ -125,6 +125,8 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDOANVAOSUA;
 	@Value("${url.quanlydoanvao}" + ":" + "${action.xoa}")
 	public String QUANLYDOANVAOXOA;
+	@Value("${url.quanlydoanvao}" + ":" + "${action.nhacnho}")
+	public String QUANLYDOANVAONHACNHO;
 
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.list}")
 	public String QUANLYGIAOVIECLIST;

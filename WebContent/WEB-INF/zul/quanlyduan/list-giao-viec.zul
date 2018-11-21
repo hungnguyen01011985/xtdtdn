@@ -7,6 +7,9 @@
 				vn.toancauxanh.model.DuAn duAn = arg.get("vm");
 				vmArgs = arg.get("vmArgs");
 				vm.arg.put("idDuAn", duAn.getId());
+				hoanThanh = vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec.HOAN_THANH;
+				chuaLam = vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec.CHUA_LAM;
+				dangLam = vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec.DANG_LAM
 		 	]]>
 		 </zscript>
 		<div class="w-popup-content-medium">
@@ -83,11 +86,11 @@
 								<label value="@load(item.hanThucHien) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
 								<label value="@load(item.trangThaiGiaoViec.text)" class="@load(item.trangThaiGiaoViec)"></label>
 								<div class="thaotac">
-									<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 2 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('redirectPageActionGiaoViec',zul='quanlyduan/add-bao-cao.zul', vm = item, vmArgs = vm, readOnly = true, title = 'Báo cáo')">
+									<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color" if="${vm.checkQuyenBaoCao(item.trangThaiGiaoViec, item.nguoiDuocGiao.id)}" onClick="@command('redirectPageActionGiaoViec',zul='quanlyduan/add-bao-cao.zul', vm = item, vmArgs = vm, readOnly = true, title = 'Báo cáo')">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Báo cáo</x:span>
 									</x:a>
-									<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color" if="${item.trangThaiGiaoViec.ordinal() == 1 and entry.nhanVien.id == item.nguoiDuocGiao.id}" onClick="@command('redirectPage',zul='quanlyduan/add-nhan-viec.zul', vm = item, vmArgs = vm)">
+									<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color" if="${vm.checkQuyenNhanViec(item.trangThaiGiaoViec, item.nguoiDuocGiao.id)}" onClick="@command('redirectPage',zul='quanlyduan/add-nhan-viec.zul', vm = item, vmArgs = vm)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Nhận việc</x:span>
 									</x:a>

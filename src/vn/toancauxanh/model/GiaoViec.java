@@ -47,7 +47,7 @@ public class GiaoViec extends Model<GiaoViec> {
 	private GiaiDoanXucTien giaiDoanXucTien;
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
 	private TepTin taiLieu = new TepTin();
-	
+	private DoanVao doanVao;
 	private TepTin taiLieuKetQua;
 	private LoaiCongViec loaiCongViec;
 	
@@ -169,6 +169,15 @@ public class GiaoViec extends Model<GiaoViec> {
 
 	public void setLoaiCongViec(LoaiCongViec loaiCongViec) {
 		this.loaiCongViec = loaiCongViec;
+	}
+
+	@ManyToOne
+	public DoanVao getDoanVao() {
+		return doanVao;
+	}
+
+	public void setDoanVao(DoanVao doanVao) {
+		this.doanVao = doanVao;
 	}
 
 	@Command
