@@ -2,6 +2,16 @@
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="700px"
 		id="wdn" border="normal" title="Nhắc nhở công việc" mode="modal" action="show: slideIn" class="tcx-modal reset-width"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
+		<zscript>
+		 	<![CDATA[
+				vmArgs = arg.get("vmArgs");
+				if (arg.get("vm") != null) {
+					vn.toancauxanh.model.DuAn duAn = arg.get("vm");
+					vm.arg.put("idDuAn", duAn.getId());
+				}
+				
+		 	]]>
+		 </zscript>
 		<div class="w-popup-content-medium">
 			<div class="panel-box">
 				<div zclass="row mg-and-bg-and-line">
@@ -9,7 +19,7 @@
 						<div class="mg-bt-15">
 							<span>Chọn công việc cần nhắc nhở bên dưới</span>
 						</div>
-						<listbox id="listbox" class="mg-bt-15" selectedItems="@bind(vm.selectItems)" multiple="true" checkmark="true" model="@load(vm.page(vm.targetQuery).fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
+						<listbox id="listbox" class="mg-bt-15" selectedItems="@bind(vm.selectItems)" multiple="true" checkmark="true" model="@load(vm.page(vm.targetQueryByIdDuAnNotHoanThanh).fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
 							<listhead>
 								<listheader label="" width="40px" align="center"></listheader>
 								<listheader label="STT" width="45px" align="center"></listheader>

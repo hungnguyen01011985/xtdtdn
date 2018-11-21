@@ -19,9 +19,7 @@ import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.GiaoViec;
-import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QGiaoViec;
-import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.ThongBao;
 
 public class GiaoViecService extends BasicService<GiaoViec> implements Serializable{
@@ -83,9 +81,11 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	}
 	
 	public JPAQuery<GiaoViec> getTargetQueryByIdDuAnNotHoanThanh() {
-		Long idDuAn = MapUtils.getLongValue(argDeco(), "idDuAn");
-		JPAQuery<GiaoViec> q = find(GiaoViec.class)
-				.where(QGiaoViec.giaoViec.duAn.id.eq(idDuAn));
+		Long idDuAn = MapUtils.getLongValue(argDeco(), "idDuAn", 0);
+		JPAQuery<GiaoViec> q = find(GiaoViec.class);
+		if (idDuAn != null && idDuAn != 0) {
+			q.where(QGiaoViec.giaoViec.duAn.id.eq(idDuAn));
+		}
 		q.where(QGiaoViec.giaoViec.trangThaiGiaoViec.ne(TrangThaiGiaoViec.HOAN_THANH));
 		q.orderBy(QGiaoViec.giaoViec.ngaySua.desc());
 		q.setHint("org.hibernate.cacheable", false);

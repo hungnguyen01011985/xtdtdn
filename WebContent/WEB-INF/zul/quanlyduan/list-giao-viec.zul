@@ -7,9 +7,6 @@
 				vn.toancauxanh.model.DuAn duAn = arg.get("vm");
 				vmArgs = arg.get("vmArgs");
 				vm.arg.put("idDuAn", duAn.getId());
-				hoanThanh = vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec.HOAN_THANH;
-				chuaLam = vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec.CHUA_LAM;
-				dangLam = vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec.DANG_LAM
 		 	]]>
 		 </zscript>
 		<div class="w-popup-content-medium">
@@ -129,8 +126,8 @@
 							<span>Giao việc</span>
 						</x:button>
 					</div>
-					<div if="${entry.quyen.quanlyduan_nhacnho}" zclass="form-group right-mg flex" style="margin:0;">
-						<x:button onClick="@command('redirectPage', zul='quanlyduan/list-nhac-nho.zul', vm = duAn)"
+					<div if="${entry.quyen.quanlygiaoviec_nhacnho}" zclass="form-group right-mg flex" style="margin:0;">
+						<x:button onClick="@command('redirectPage', zul='quanlygiaoviec/list-nhac-nho.zul', vm = duAn)"
 							class="btn btn-blue">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/nhac-nho-white.svg"/>
 							<span>Nhắc nhở</span>
