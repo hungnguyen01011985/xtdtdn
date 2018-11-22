@@ -25,6 +25,7 @@
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul");
 			}
+			
 		]]>
 	</zscript>
 </zk>

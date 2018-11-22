@@ -150,14 +150,6 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		return list;
 	}
 	
-	public List<LoaiCongViec> getListLoaiCongViec() {
-		List<LoaiCongViec> list = new ArrayList<LoaiCongViec>();
-		list.add(null);
-		list.add(LoaiCongViec.DOAN_VAO);
-		list.add(LoaiCongViec.DU_AN);
-		return list;
-	}
-	
 	public List<TrangThaiGiaoViec> getListTrangThaiCongViec() {
 		List<TrangThaiGiaoViec> list = new ArrayList<TrangThaiGiaoViec>();
 		list.add(null);

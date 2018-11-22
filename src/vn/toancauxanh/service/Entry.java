@@ -106,11 +106,11 @@ public class Entry extends BaseObject<Object> {
 	// Thêm các tùy chọn vai trò của chức năng tương ứng
 	
 	@Value("${url.baocaothongke}" + ":" + "${action.duan}")
-	public String BAOCAOTHONGKEDUAN;
+	public String THONGKEDUAN;
 	@Value("${url.baocaothongke}" + ":" + "${action.doanvao}")
-	public String BAOCAOTHONGKEDOANVAO;
+	public String THONGKEDOANVAO;
 	@Value("${url.baocaothongke}" + ":" + "${action.congviec}")
-	public String BAOCAOTHONGKECONGVIEC;
+	public String THONGKECONGVIEC;
 	
 	@Value("${url.quanlyduan}" + ":" + "${action.list}")
 	public String QUANLYDUANLIST;
@@ -269,13 +269,19 @@ public class Entry extends BaseObject<Object> {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
 				+ "/list.zul";
 	}
-
+	
+	@RequestMapping(value = "/cp/baocaothongke/{path:.+$}")
+	public String add2(@PathVariable String path) {
+		return "forward:/WEB-INF/zul/home.zul?resource=baocaothongke&action="+path+"&file=/WEB-INF/zul/baocaothongke/" + path
+				+ ".zul";
+	}
+	
 	@RequestMapping(value = "/cp/{rsc:.+$}/{path:.+$}")
 	public String add2(@PathVariable String rsc, @PathVariable String path) {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + rsc + "&action=lietke&file=/WEB-INF/zul/" + rsc + "/" + path
 				+ ".zul";
 	}
-
+	
 	@RequestMapping(value = "/cp/{path:.+$}/edit/{id:\\d+}")
 	public String edit2(@PathVariable String path, @PathVariable Long id) {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path

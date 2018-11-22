@@ -2578,14 +2578,15 @@ the spark styles
 	position: absolute;
 	left: 0;
 	top: 20px;
-	-webkit-animation: ring 4s .7s ease-in-out infinite;
-  -webkit-transform-origin: 50% 4px;
-  -moz-animation: ring 4s .7s ease-in-out infinite;
-  -moz-transform-origin: 50% 4px;
-  animation: ring 4s .7s ease-in-out infinite;
-  transform-origin: 50% 4px;
 }
-
+.img-notify:hover {
+	-webkit-animation: ring 4s .7s ease-in-out infinite;
+	-webkit-transform-origin: 50% 4px;
+	-moz-animation: ring 4s .7s ease-in-out infinite;
+	-moz-transform-origin: 50% 4px;
+	animation: ring 4s .7s ease-in-out infinite;
+	transform-origin: 50% 4px;
+}
 @-webkit-keyframes ring {
   0% { -webkit-transform: rotateZ(0); }
   1% { -webkit-transform: rotateZ(30deg); }

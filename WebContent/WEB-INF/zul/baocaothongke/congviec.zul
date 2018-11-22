@@ -1,9 +1,10 @@
 <?page title="Báo cáo thống kê" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.BaoCaoThongKeCongViecService')">
+	 class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.BaoCaoThongKeCongViecService')">
 	<zscript>
 		<![CDATA[
 			page.title = "Báo cáo thống kê";
+			doanVao = vn.toancauxanh.gg.model.enums.LoaiCongViec.DOAN_VAO;
 		]]>
 	</zscript>
 	<div> 
@@ -26,34 +27,66 @@
 			</div>
 			<div zclass="mg-and-bg-and-line-fix">
 				<div class="row">
-					<div zclass="col-md-10" style="padding-left: 15px;">
-						<div class="row">
-							<div zclass="col-md-4">
-								<div zclass="form-group">
-									<span>Ngày bắt đầu xúc tiến: Từ ngày</span>
-									<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
-								</div>
-							</div>
-							<div zclass="col-md-4">
-								<div zclass="form-group">
-									<span>Đến ngày</span> 
-									<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
-								</div>
-							</div>
-							<div zclass="col-md-4">
-								<div zclass="form-group">
-									<span>Tiến độ xúc tiến</span> 
-									<combobox readonly="true" class="his" model="@load(vm.listGiaiDoanXucTienAndNull)" 
-										value="@load(vm.arg.giaiDoanXucTien eq null ? 'Tất cả' : vm.arg.giaiDoanXucTien.text)" selectedItem="@bind(vm.arg.giaiDoanXucTien)" placeholder="Chọn giai đoạn xúc tiến" width="100%">
-										<template name="model">
-											<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
-										</template>
-									</combobox>
-								</div>
-							</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<span>Loại công việc</span>
+							<combobox readonly="true" class="his"
+								model="@load(vm.listLoaiCongViec)" value="@load(vm.arg.loaiCongViec eq null ? 'Tất cả' : vm.arg.loaiCongViec.text)"
+								selectedItem="@bind(vm.arg.loaiCongViec)" onSelect="@command('checkLoaiCongViec')" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
+								</template>
+							</combobox>
 						</div>
 					</div>
-					<div zclass="col-md-2" style="padding-top: 25px;">
+					<div class="col-md-4" visible="@load(vm.arg.loaiCongViec eq null ? false : true)">
+						<div class="form-group">
+							<span visible="@load(doanVao eq vm.arg.loaiCongViec)">Tên đoàn vào</span>
+							<span visible="@load(!(doanVao eq vm.arg.loaiCongViec))">Tên dự án</span>
+							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)"></textbox>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<span>Người giao việc</span>
+							<combobox readonly="true" class="his"
+								model="@load(vm.listNhanVienTruongPhongAndLanhDaoAndNull)" value="@load(vm.arg.nguoiGiaoViec eq null ? 'Tất cả' : vm.arg.nguoiGiaoViec.hoVaTen)"
+								selectedItem="@bind(vm.arg.nguoiGiaoViec)" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
+								</template>
+							</combobox>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<span>Người phụ trách</span>
+							<combobox readonly="true" class="his"
+								model="@load(vm.listNhanVienTruongPhongAndChuyenVienNull)" value="@load(vm.arg.nguoiDuocGiao eq null ? 'Tất cả' : vm.arg.nguoiDuocGiao.hoVaTen)"
+								selectedItem="@bind(vm.arg.nguoiDuocGiao)" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
+								</template>
+							</combobox>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Ngày bắt đầu xúc tiến: Từ ngày</span>
+							<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
+						</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<span>Đến ngày</span> 
+							<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
+						</div>
+					</div>
+					<div zclass="col-md-4" style="padding-top: 25px;">
 						<div zclass="form-group right">
 							<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=vm, attr='targetQuery')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
@@ -85,13 +118,16 @@
 								<label value="@load(item.tenCongViec)"></label>
 								<label value="@load(item.duAn.tenDuAn eq null ? item.doanVao.tenDoanVao : item.duAn.tenDuAn)"></label>
 								<label value="@load(item.nguoiGiaoViec.hoVaTen)"></label>
-								<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
-								<label value="@load(item.ngayGiao)"></label>
-								<label value="@load(item.hanThucHien)"></label>
+								<label value="@load(item.nguoiDuocGiao.hoVaTen)"></label>
+								<label value="@load(item.ngayGiao) @converter('formatedDate',format='dd/MM/yyyy')"></label>
+								<label value="@load(item.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')"></label>
 								<label value="@load(item.trangThaiGiaoViec.text)"></label>
 							</row>
 						</template>
 					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">

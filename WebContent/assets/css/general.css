@@ -909,14 +909,12 @@
 .children-nav {
 	display:flex;
 	flex-direction:column;
-	list-style-type: circle !important;
 }
 
-.children-nav li{
+.children-nav li {
 	padding: 0;
 	color:#333;
 	padding-left:58px;
-	list-style-type: circle !important;
 }
 .active-children-nav {
 	color: blue !important;  

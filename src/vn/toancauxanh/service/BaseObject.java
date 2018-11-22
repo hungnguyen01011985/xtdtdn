@@ -803,4 +803,30 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 	}
 	
+	public List<NhanVien> getListNhanVienTruongPhongAndLanhDaoAndNull() {
+		List<NhanVien> list = new ArrayList<NhanVien>();
+		list.add(null);
+		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)
+				.or(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_LANH_DAO)));
+		list.addAll(q.fetch());
+		return list;
+	}
+	
+	public List<NhanVien> getListNhanVienTruongPhongAndChuyenVienNull() {
+		List<NhanVien> list = new ArrayList<NhanVien>();
+		list.add(null);
+		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)
+				.or(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN)));
+		list.addAll(q.fetch());
+		return list;
+	}
+	
+	public List<LoaiCongViec> getListLoaiCongViec() {
+		List<LoaiCongViec> list = new ArrayList<LoaiCongViec>();
+		list.add(null);
+		list.add(LoaiCongViec.DU_AN);
+		list.add(LoaiCongViec.DOAN_VAO);
+		return list;
+	}
+	
 }
