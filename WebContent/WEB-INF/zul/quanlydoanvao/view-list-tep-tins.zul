@@ -1,5 +1,5 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
-	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style="overflow:visible;margin-bottom:15px;margin-top:15px;">
+	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style="overflow:visible; margin-bottom:15px; margin-top:15px;">
 		<div class="w-popup-content-medium">
 			<div children="@bind(vm.tepTins)" style="padding:0 7.5px; margin-top: 4px;">
 				<template name="children">

@@ -665,10 +665,6 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 		return MapUtils.getIntValue(getArg(), SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGE), 1) - 1;
 	}
 	
-	public int activePageDoanVao() {
-		return MapUtils.getIntValue(getArgDoanVao(), SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGE), 1) - 1;
-	}
-
 	public List<Number> enversions() {
 		return transactionero().execute(new TransactionCallback<List<Number>>() {
 			@Override
