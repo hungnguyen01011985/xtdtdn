@@ -260,6 +260,14 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void saveDoanVao() {
+		if (this.noId()) {
+			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
+		} else {
+			NhanVien nguoiPhuTrachCu = getNguoiPhuTrachCu(this);
+			System.out.println(nguoiPhuTrachCu.getHoVaTen());
+			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
+			thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
+		}
 		if ("".equals(this.getCongVanChiDaoUB().getTenFile())) {
 			this.setCongVanChiDaoUB(null);
 		} else {
@@ -292,7 +300,6 @@ public class DoanVao extends Model<DoanVao> {
 				checkCongViec(congViec);
 				if (checkNotAllNull && checkAllNull) {
 					saveGiaoViec(congViec);
-					System.out.println("số lầnnnnnnnn");
 				}
 				resetCheck();
 			}
@@ -320,27 +327,35 @@ public class DoanVao extends Model<DoanVao> {
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
 		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
-		thongBao(this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+		thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
 		giaoViec.saveNotShowNotification();
 	}
 	
-	public void thongBao(DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan, NhanVien nguoiGui, String tenCongViec) {
-		ThongBao thongBao = new ThongBao();
-		System.out.println("giaoViecID " + giaoViec.getId());
-		System.out.println("người cũ:" + this.nguoiThucHienCu);
-		System.out.println("người cũ:" + giaoViec.getNguoiDuocGiao());
-		if (giaoViec.noId()) {
-			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @" + doanVao.getTenDoanVao());
-			thongBao.setNguoiNhan(nguoiNhan);
-			if (nguoiGui != null) {
-				thongBao.setNguoiGui(nguoiGui);
+	public void thongBao(LoaiThongBao loaiThongBao, DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan,
+			NhanVien nguoiGui, String tenCongViec) {
+		if (LoaiThongBao.PHU_TRACH_DOAN_VAO.equals(loaiThongBao)) {
+			saveThongBaoMoi(LoaiThongBao.PHU_TRACH_DOAN_VAO, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+		}
+		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
+			saveThongBaoMoi(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+		}
+		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
+			if (giaoViec.noId()) {
+				saveThongBaoMoi(LoaiThongBao.CONG_VIEC_MOI, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+			} else if (!this.nguoiThucHienCu.equals(giaoViec.getNguoiDuocGiao())) {
+				saveThongBaoMoi(LoaiThongBao.CONG_VIEC_MOI, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+				saveThongBaoMoi(LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO, nguoiNhan, tenCongViec, doanVao, nguoiGui);
 			}
-			thongBao.setIdObject(doanVao.getId());
-			thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
-			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
-			thongBao.saveNotShowNotification();
-		} else if(!this.nguoiThucHienCu.equals(giaoViec.getNguoiDuocGiao())) {
-			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @" + doanVao.getTenDoanVao());
+		}
+	}
+	
+	public void saveThongBaoMoi(LoaiThongBao loaiThongBao, NhanVien nguoiNhan, String tenCongViec, DoanVao doanVao,
+			NhanVien nguoiGui) {
+		
+		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
+			ThongBao thongBao = new ThongBao();
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @"
+					+ doanVao.getTenDoanVao());
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
@@ -350,12 +365,61 @@ public class DoanVao extends Model<DoanVao> {
 			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 			thongBao.saveNotShowNotification();
 		}
+		if (LoaiThongBao.PHU_TRACH_DOAN_VAO.equals(loaiThongBao)) {
+			ThongBao thongBao = new ThongBao();
+			thongBao.setNoiDung("Bạn được phân công phụ trách Đoàn @" + doanVao.getTenDoanVao());
+			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO);
+			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+			thongBao.saveNotShowNotification();
+		}
+		System.out.println("zzz"+loaiThongBao);
+		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
+			System.out.println("vooo dayyyy");
+			ThongBao thongBao = new ThongBao();
+			thongBao.setNoiDung("Công việc phụ trách của đoàn @" + doanVao.getTenDoanVao()
+			+ "@ đã được chuyển cho người khác");
+			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH);
+			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+			thongBao.saveNotShowNotification();
+		}
+
+		if (LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO.equals(loaiThongBao)) {
+			ThongBao thongBao = new ThongBao();
+			thongBao.setNoiDung("Công việc @" + tenCongViec + "@ của đoàn @" + doanVao.getTenDoanVao()
+					+ "@ đã được chuyển cho người khác");
+			thongBao.setNguoiNhan(this.nguoiThucHienCu);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO);
+			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+			thongBao.saveNotShowNotification();
+		}
 	}
 	
 	public NhanVien getNguoiDuocGiaoCu(GiaoViec giaoViec){
 		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.eq(giaoViec));
 		if (q != null) {
 			return q.fetchFirst().getNguoiDuocGiao();
+		}
+		return new NhanVien();
+	}
+	
+	public NhanVien getNguoiPhuTrachCu(DoanVao doanVao){
+		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(doanVao));
+		if (q != null) {
+			return q.fetchFirst().getNguoiPhuTrach();
 		}
 		return new NhanVien();
 	}
