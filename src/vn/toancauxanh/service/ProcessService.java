@@ -22,6 +22,7 @@ import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
+import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaiDoanDuAn;
@@ -513,6 +514,7 @@ public class ProcessService extends BasicService<Object> {
 		}
 		thongBao.setIdObject(duAn.getId());
 		thongBao.setLoaiThongBao(loaiThongBao);
+		thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DU_AN);
 		thongBao.saveNotShowNotification();
 	}
 	

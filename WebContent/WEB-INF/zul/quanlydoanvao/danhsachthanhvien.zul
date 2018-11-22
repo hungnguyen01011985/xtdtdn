@@ -142,7 +142,7 @@
 			</div>
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<grid id="grid" model="@load(vm.listThanhVienDoan)"
+					<grid id="grid" model="@load(vm.pageListDoanVao(vm.listThanhVienDoan))" 
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:left" width="42px"/>
@@ -176,6 +176,9 @@
 							</row>
 						</template>
 					</grid>
+					<paging pageSize="@load(vm.argDoanVao.pagesize)" totalSize="@load(vm.soThanhVienDoan)" mold="os"
+						visible="@load(vm.soThanhVienDoan > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.argDoanVao.page)" onPaging="@command('notifyDoanVao', notify=vm, attr='listThanhVienDoan')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">

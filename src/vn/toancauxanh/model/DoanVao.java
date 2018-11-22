@@ -34,21 +34,24 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
+import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
-import vn.toancauxanh.gg.model.enums.TrangThaiEnum;
+import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
+import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 
 @Entity
 @Table(name = "doanvao")
 public class DoanVao extends Model<DoanVao> {
 	private String tenDoanVao;
 	private QuocGiaEnum quocGia;
-	private TrangThaiEnum trangThaiTiepDoan = TrangThaiEnum.CHUA_TIEP;
+	private TrangThaiTiepDoanEnum trangThaiTiepDoan = TrangThaiTiepDoanEnum.CHUA_TIEP;
 	private String tomTatNoiDungKQ = "";
 	private String deXuatCVPhuTrach = "";
 	private String yKienChiDao = "";
 	private String noiDoanDiTham;
+//	@Lob
 	private String link;
 	private int soNguoi;
 	private Date thoiGianDenLamViec = new Date();
@@ -57,7 +60,7 @@ public class DoanVao extends Model<DoanVao> {
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
 	private List<TepTin> tepTins = new ArrayList<TepTin>();
-	private TepTin congVanChiDao;
+	private TepTin congVanChiDaoUB = new TepTin();
 
 
 	public DoanVao() {
@@ -107,12 +110,12 @@ public class DoanVao extends Model<DoanVao> {
 	}
 	
 	@ManyToOne
-	public TepTin getCongVanChiDao() {
-		return congVanChiDao;
+	public TepTin getCongVanChiDaoUB() {
+		return congVanChiDaoUB;
 	}
 
-	public void setCongVanChiDao(TepTin congVanChiDao) {
-		this.congVanChiDao = congVanChiDao;
+	public void setCongVanChiDaoUB(TepTin congVanChiDaoUB) {
+		this.congVanChiDaoUB = congVanChiDaoUB;
 	}
 
 	public String getNoiDoanDiTham() {
@@ -136,11 +139,11 @@ public class DoanVao extends Model<DoanVao> {
 	}
 
 	@Enumerated(EnumType.STRING)
-	public TrangThaiEnum getTrangThaiTiepDoan() {
+	public TrangThaiTiepDoanEnum getTrangThaiTiepDoan() {
 		return trangThaiTiepDoan;
 	}
 
-	public void setTrangThaiTiepDoan(TrangThaiEnum trangThaiTiepDoan) {
+	public void setTrangThaiTiepDoan(TrangThaiTiepDoanEnum trangThaiTiepDoan) {
 		this.trangThaiTiepDoan = trangThaiTiepDoan;
 	}
 
@@ -252,40 +255,21 @@ public class DoanVao extends Model<DoanVao> {
 					}
 				});
 	}
-	
-	@Command
-	public void reUploadFile(@BindingParam("medias") final Object medias, @BindingParam("index") final int index) {
-		Media media = (Media) medias;
-		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
-				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
-				|| media.getName().toLowerCase().endsWith(".xlsx")) {
-			if (media.getByteData().length > 50000000) {
-				showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
-			} else {
-				String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
-						+ Calendar.getInstance().getTimeInMillis()
-						+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
-				TepTin tepTin = new TepTin();
-				tepTin.setNameHash(tenFile);
-				tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
-				tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
-				tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
-				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
-				tepTin.setMedia(media);
-				this.getTepTins().set(index, tepTin);
-				BindUtils.postNotifyChange(null, null, this, "tepTins");
-			}
-		} else {
-			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
-					"Có tệp không đúng định dạng", "danger");
-		}
-	}
 
 	@Command
 	public void saveDoanVao() {
+		if ("".equals(this.getCongVanChiDaoUB().getTenFile())) {
+			this.setCongVanChiDaoUB(null);
+		} else {
+			this.getCongVanChiDaoUB().saveNotShowNotification();
+		}
+		this.getCongVanChiDaoUB().saveNotShowNotification();
 		this.getTepTins().forEach(item -> {
 			item.saveNotShowNotification();
 		});
+		if (this.getTomTatNoiDungKQ() != null && !"".equals(this.getTomTatNoiDungKQ())) {
+			this.setTrangThaiTiepDoan(TrangThaiTiepDoanEnum.DA_TIEP);
+		}
 		save();
 		if (listThanhVienDoan != null && !listThanhVienDoan.isEmpty()) {
 			listThanhVienDoan.forEach(item -> {
@@ -309,6 +293,7 @@ public class DoanVao extends Model<DoanVao> {
 				}
 				resetCheck();
 			}
+			
 		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
@@ -320,8 +305,24 @@ public class DoanVao extends Model<DoanVao> {
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
 		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 		giaoViec.saveNotShowNotification();
+		thongBao(this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
 	}
 	
+	public void thongBao(DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan, NhanVien nguoiGui,
+			String tenCongViec) {
+		ThongBao thongBao = new ThongBao();
+		thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @"
+				+ doanVao.getTenDoanVao());
+		thongBao.setNguoiNhan(nguoiNhan);
+		if (nguoiGui != null) {
+			thongBao.setNguoiGui(nguoiGui);
+		}
+		thongBao.setIdObject(doanVao.getId());
+		thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
+		thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+		thongBao.saveNotShowNotification();
+	}
+
 	@Command
 	public void redirectPageList(@BindingParam("url") String url, @BindingParam("vm") DoanVao vm) {
 		Executions.getCurrent().sendRedirect(url);
@@ -361,8 +362,8 @@ public class DoanVao extends Model<DoanVao> {
 				} catch (NumberFormatException e) {
 					addInvalidMessage(ctx, "Bạn phải nhập số");
 				}
-				if (soNguoi < 1) {
-					addInvalidMessage(ctx, "Số người không được nhỏ hơn 1");
+				if (soNguoi < 0) {
+					addInvalidMessage(ctx, "Số người không được nhỏ hơn 0");
 				}
 			}
 		};
@@ -421,16 +422,25 @@ public class DoanVao extends Model<DoanVao> {
 	public List<ThanhVienDoan> getListThanhVienDoan() {
 		if (!bind) {
 			listThanhVienDoan.addAll(getListThanhVienTheoDoan());
+			soThanhVienDoan = listThanhVienDoan.size();
+			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 			bind = true;
 		} else {
 			listThanhVienDoan.addAll(getListTaoMoiThanhVienDoanLuuTam());
 			listTaoMoiThanhVienDoanLuuTam.removeAll(getListTaoMoiThanhVienDoanLuuTam());
+			soThanhVienDoan = listThanhVienDoan.size();
+			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 		}
 		return listThanhVienDoan;
 	}
 
 	public void setListThanhVienDoan(List<ThanhVienDoan> listThanhVienDoan) {
 		this.listThanhVienDoan = listThanhVienDoan;
+	}
+	
+	@Command
+	public void notifyDoanVao(@BindingParam("notify") final DoanVao doanVao, @BindingParam("attr") final String attr) {
+		BindUtils.postNotifyChange(null, null, doanVao, attr);
 	}
 
 	@Transient
@@ -455,6 +465,17 @@ public class DoanVao extends Model<DoanVao> {
 	public void redirectXemChiTietDoanVao(@BindingParam("id") Long id) {
 		String url = "/cp/quanlydoanvao/detail/";
 		Executions.sendRedirect(url.concat(id.toString()));
+	}
+	
+	private int soThanhVienDoan = 0;
+	
+	@Transient
+	public int getSoThanhVienDoan() {
+		return soThanhVienDoan;
+	}
+
+	public void setSoThanhVienDoan(int soThanhVienDoan) {
+		this.soThanhVienDoan = soThanhVienDoan;
 	}
 
 	@Command
