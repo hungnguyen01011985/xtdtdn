@@ -5,7 +5,7 @@
 		<![CDATA[
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
 			list = new vn.toancauxanh.service.GiaoViecService().getListGiaoViecTheoDoanVao(doanVao.id);
-			if(list != null || !list.isEmpty()){
+			if(list != null || !list.isEmpty()) {
 				doanVao.setListGiaoViecTheoDoan(list);
 				doanVao.loadListGiaoViecTheoDoan();
 			}
