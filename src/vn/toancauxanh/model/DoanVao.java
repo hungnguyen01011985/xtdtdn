@@ -33,6 +33,8 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
@@ -59,7 +61,7 @@ public class DoanVao extends Model<DoanVao> {
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
 	private List<TepTin> tepTins = new ArrayList<TepTin>();
-	private TepTin congVanChiDao;
+	private TepTin congVanChiDaoUB = new TepTin();
 
 
 	public DoanVao() {
@@ -109,12 +111,12 @@ public class DoanVao extends Model<DoanVao> {
 	}
 	
 	@ManyToOne
-	public TepTin getCongVanChiDao() {
-		return congVanChiDao;
+	public TepTin getCongVanChiDaoUB() {
+		return congVanChiDaoUB;
 	}
 
-	public void setCongVanChiDao(TepTin congVanChiDao) {
-		this.congVanChiDao = congVanChiDao;
+	public void setCongVanChiDaoUB(TepTin congVanChiDaoUB) {
+		this.congVanChiDaoUB = congVanChiDaoUB;
 	}
 
 	public String getNoiDoanDiTham() {
@@ -257,6 +259,12 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void saveDoanVao() {
+		if ("".equals(this.getCongVanChiDaoUB().getTenFile())) {
+			this.setCongVanChiDaoUB(null);
+		} else {
+			this.getCongVanChiDaoUB().saveNotShowNotification();
+		}
+		this.getCongVanChiDaoUB().saveNotShowNotification();
 		this.getTepTins().forEach(item -> {
 			item.saveNotShowNotification();
 		});
@@ -291,18 +299,33 @@ public class DoanVao extends Model<DoanVao> {
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
 	
+	private NhanVien nguoiThucHienCu = new NhanVien();
+	
+	@Transient
+	public NhanVien getNguoiThucHienCu() {
+		return nguoiThucHienCu;
+	}
+
+	public void setNguoiThucHienCu(NhanVien nguoiThucHienCu) {
+		this.nguoiThucHienCu = nguoiThucHienCu;
+	}
+
 	public void saveGiaoViec(GiaoViec giaoViec) {
+		if (!giaoViec.noId()) {
+			this.setNguoiThucHienCu(getNguoiDupocGiaoCu(giaoViec));
+		}
 		giaoViec.getTaiLieu().saveNotShowNotification();
 		giaoViec.setDoanVao(this);
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
-		thongBao(this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
 		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 		giaoViec.saveNotShowNotification();
+		thongBao(this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
 	}
 	
 	public void thongBao(DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan, NhanVien nguoiGui, String tenCongViec) {
 		ThongBao thongBao = new ThongBao();
+		
 		if (giaoViec.noId()) {
 			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @" + doanVao.getTenDoanVao());
 			thongBao.setNguoiNhan(nguoiNhan);
@@ -311,9 +334,29 @@ public class DoanVao extends Model<DoanVao> {
 			}
 			thongBao.setIdObject(doanVao.getId());
 			thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
+			thongBao.setType(true);
+			thongBao.saveNotShowNotification();
+		} else if(!this.nguoiThucHienCu.equals(giaoViec.getNguoiDuocGiao())) {
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @" + doanVao.getTenDoanVao());
+			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
+			thongBao.setType(true);
 			thongBao.saveNotShowNotification();
 		}
 	}
+	
+	public NhanVien getNguoiDupocGiaoCu(GiaoViec giaoViec){
+		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.eq(giaoViec));
+		if (q != null) {
+			return q.fetchFirst().getNguoiDuocGiao();
+		}
+		return new NhanVien();
+	}
+	
 	
 	@Command
 	public void redirectPageList(@BindingParam("url") String url, @BindingParam("vm") DoanVao vm) {

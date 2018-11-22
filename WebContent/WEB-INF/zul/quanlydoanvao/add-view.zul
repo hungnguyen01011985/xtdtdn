@@ -151,10 +151,6 @@
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ds-giao-viec.svg"/>
 									<span>Danh sách thành viên</span>
 								</x:a>
-								<!-- <x:a zk:visible="${!vm.noId() and visible}" class="btn bg-btn-tailieu dv-color mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul',vm = vm)">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cap-nhat-kq.svg"/>
-									<span>Cập nhật KQ</span>
-								</x:a> -->
 							</div>
 						</div>
 					</div>
@@ -206,23 +202,24 @@
 					
 					<div class="row">
 						<div class="col-md-12">
-							<div zclass="form-group">
+							<div zclass="form-group" viewModel="@id('congVanChiDaoUB') @init(vm.congVanChiDaoUB)">
 								<x:span class="label-txt-style">Công văn chỉ đạo của UB</x:span> 
-								<button if="${!action}" visible="@load(empty vm.congVanChiDao.tenFile)" label="Chọn tài liệu" 
+								<button if="${!action}" visible="@load(empty vm.congVanChiDaoUB.tenFile)" label="Chọn tài liệu" 
 									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
-									onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'congVanChiDao')"
+									onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'congVanChiDaoUB')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
-								<div class="flex mg-btn-top" visible="@load(not empty vm.congVanChiDao.tenFile)">
+								<div class="flex mg-btn-top" visible="@load(not empty vm.congVanChiDaoUB.tenFile)">
 									<div class="box-img-tai-lieu">
 										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 									</div>
-									<label class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.congVanChiDao)" value="@bind(vm.congVanChiDao.tenFile)"/>
-									<x:button if="${!action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.congVanChiDao, name = 'congVanChiDao')">
+									<label visible="@load(vm.congVanChiDaoUB.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.congVanChiDaoUB)" value="@bind(vm.congVanChiDaoUB.tenFile)"/>
+									<a visible="@load(!vm.congVanChiDaoUB.noId())" label="@bind(vm.congVanChiDaoUB.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.congVanChiDaoUB)"></a>
+									<x:button if="${!action}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.congVanChiDaoUB, name = 'congVanChiDaoUB')">
 										<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 									</x:button>
 									<button if="${!action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
-										onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'congVanChiDao')"
+										onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'congVanChiDaoUB')"
 										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 									</button>
 								</div>

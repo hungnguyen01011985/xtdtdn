@@ -43,12 +43,16 @@ public class ThongBaoService extends BasicService<ThongBao> {
 	}
 
 	@Command
-	public void viewNotify(@BindingParam("item") ThongBao thongBao, @BindingParam("href") String href) {
+	public void viewNotify(@BindingParam("item") ThongBao thongBao) {
 		if (!thongBao.isDaXem()) {
 			thongBao.setDaXem(true);
 			thongBao.saveNotShowNotification();
 		}
-		thongBao.redirect(href);
+		if (thongBao.isType()) {
+			thongBao.redirect("cp/quanlydoanvao/edit/");
+		} else {
+			thongBao.redirect("/cp/quanlyduan/");
+		}
 	}
 
 	public List<LoaiThongBao> getListThongBaoAndNull() {

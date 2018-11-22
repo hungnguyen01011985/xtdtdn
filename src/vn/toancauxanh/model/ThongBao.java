@@ -22,6 +22,7 @@ public class ThongBao extends Model<ThongBao> {
 	private NhanVien nguoiNhan;
 	private LoaiThongBao loaiThongBao;
 	private boolean daXem;
+	private boolean type;
 	private Long idObject;
 
 	public ThongBao() {
@@ -43,7 +44,15 @@ public class ThongBao extends Model<ThongBao> {
 	public void setDaXem(boolean daXem) {
 		this.daXem = daXem;
 	}
+	
+	public boolean isType() {
+		return type;
+	}
 
+	public void setType(boolean type) {
+		this.type = type;
+	}
+	
 	public String getNoiDung() {
 		return noiDung;
 	}

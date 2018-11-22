@@ -477,7 +477,7 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 	public int defaultPageSize() {
 		return Integer.parseInt(SystemPropertyUtils.resolvePlaceholders("${conf.defaultpagesize:10}"));
 	}
-
+	
 	public <C> JPAQuery<C> query() {
 		return new JPAQuery<C>(em()).setHint("org.hibernate.cacheable",
 				SystemPropertyUtils.resolvePlaceholders("${conf.defcacheable:true}"));

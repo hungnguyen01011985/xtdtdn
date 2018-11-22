@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.MapUtils;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.zk.ui.Executions;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import vn.toancauxanh.gg.model.enums.TrangThaiEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.model.QDoanVao;
