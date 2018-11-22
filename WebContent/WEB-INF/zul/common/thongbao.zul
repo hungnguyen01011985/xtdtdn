@@ -5,6 +5,7 @@
 			congViec = vn.toancauxanh.gg.model.enums.LoaiThongBao.CONG_VIEC_MOI;
 			treCongVan = vn.toancauxanh.gg.model.enums.LoaiThongBao.TRE_CONG_VIEC;
 			nhacNho = vn.toancauxanh.gg.model.enums.LoaiThongBao.NHAC_NHO_CONG_VIEC;
+			denHan = vn.toancauxanh.gg.model.enums.LoaiThongBao.DEN_HAN_CONG_VIEC;
 		</zscript>
 		<n:ul class="box-bell" style="list-style:none;">
 			<n:li class="box-relative dropdown">
@@ -70,6 +71,17 @@
 											</x:span>
 											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 5)}
+											</x:span>
+										</div>
+										<div if="${denHan == each.loaiThongBao}">
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 0)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 1)}
+											</x:span>
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 2)}
 											</x:span>
 										</div>
 									</div>

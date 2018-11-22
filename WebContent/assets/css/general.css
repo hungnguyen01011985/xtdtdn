@@ -112,6 +112,15 @@
 	font-size: 15px;
 	padding-bottom: 15px;
 }
+.color-txt-red {
+	color: #721c24 !important; 
+}
+.color-txt-orange {
+	color: #856404 !important;
+}
+.color-txt-blue {
+	color: #004085 !important;
+}
 .box-text-file {
 	margin-top:0;
 	margin-right:5px;
