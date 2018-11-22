@@ -18,7 +18,7 @@ import vn.toancauxanh.service.BasicService;
 
 @Configuration
 @EnableScheduling
-public class ThongBaoTuDongService extends BasicService<ThongBao>{
+public class ScheduledTask extends BasicService<ScheduledTask>{
 	@Scheduled(cron = "0 0 12 * * *")
 	public void kiemTraVaGuiThongBaoDenHanCongViec() {
 		JPAQuery<GiaoViec> q = find(GiaoViec.class)
