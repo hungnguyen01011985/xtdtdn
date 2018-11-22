@@ -1350,7 +1350,7 @@ ul.z-tabs-content {
 	padding-left: 0px;
 	padding: 20px 10px;
 	position: relative;
-	height: 58px;
+	/* height: 58px; */
 	overflow: hidden;
 }
 

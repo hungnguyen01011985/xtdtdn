@@ -25,7 +25,6 @@
 				</div>
 			</div>
 			<div zclass="row mg-and-bg-and-line">
-				<div class="pd-column-3">
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Tên dự án</span> 
@@ -58,8 +57,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-				</div>
-				<div class="pd-column-3">
 					<div zclass="col-md-4">
 						<div zclass="form-group">
 							<span>Người phụ trách</span> 
@@ -87,7 +84,6 @@
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">

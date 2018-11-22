@@ -858,6 +858,21 @@
 	visibility: hidden;
 }
 
+.children-nav {
+	display:flex;
+	flex-direction:column;
+	list-style-type: circle !important;
+}
+
+.children-nav li{
+	padding: 0;
+	color:#333;
+	padding-left:58px;
+	list-style-type: circle !important;
+}
+.active-children-nav {
+	color: blue !important;  
+}
 @media ( max-width : 991.98px) {
 	.col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7,
 		.col-md-8, .col-md-9, .col-md-10, .col-md-11 {

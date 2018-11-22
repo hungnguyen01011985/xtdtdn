@@ -38,13 +38,18 @@
 						<x:span class="text-menu">Quản lý dự án</x:span>
 					</n:a>
 				</n:li>
-				<!-- <n:li class="${resource eq 'baocaothongke' ? 'active-heder-li flex' : 'flex'}">
-					<n:a href="${execution.contextPath}/cp/quanlyduan">
-						<x:span class="img-menu bctk" zk:if="${resource ne 'ditich'}"></x:span>
-						<x:span class="img-menu bctk" zk:if="${resource eq 'ditich'}"></x:span>
+				<n:li class="${resource eq 'baocaothongke' ? 'active-heder-li flex' : 'flex'};flex-direction:column;">
+					<n:a href="${execution.contextPath}/cp/baocaothongke">
+						<x:span class="img-menu bctk" zk:if="${resource ne 'baocaothongke'}"></x:span>
+						<x:span class="img-menu bctk" zk:if="${resource eq 'baocaothongke'}"></x:span>
 						<x:span class="text-menu">Báo cáo thống kê</x:span>
 					</n:a>
-				</n:li> -->
+					<n:ul class="children-nav" style="list-style-type:circle !important;">
+						<n:li class="${path eq 'duan' ? 'active-children-nav' : '' }">Dự án</n:li>
+						<n:li class="${path eq 'congviec' ? 'active-children-nav' : '' }">Công việc</n:li>
+						<n:li class="${path eq 'doanvao' ? 'active-children-nav' : '' }">Đoàn vào</n:li>
+					</n:ul>
+				</n:li>
 				<n:li class="${resource eq 'phongban' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke}">
 					<n:a href="${execution.contextPath}/cp/${resource ne null ? 'phongban' : resource}">
 						<x:span class="img-menu qlht" zk:if="${resource ne 'phongban'}"></x:span>

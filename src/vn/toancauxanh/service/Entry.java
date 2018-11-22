@@ -72,7 +72,14 @@ public class Entry extends BaseObject<Object> {
 	public String NHACNHO = "";
 	@Value("${action.phutrach}") // duoc cap nhat nguoi phu trach
 	public String PHUTRACH = "";
-
+	
+	@Value("${action.duan}")
+	public String DUAN = "";
+	@Value("${action.doanvao}")
+	public String DOANVAO = "";
+	@Value("${action.congviec}")
+	public String CONGVIEC = "";
+	
 	@Value("${url.quanlyduan}")
 	public String QUANLYDUAN = "";
 	@Value("${url.quanlydoanvao}")
@@ -83,7 +90,8 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYLINHVUCDUAN = "";
 	@Value("${url.phongban}")
 	public String QUANLYPHONGBAN = "";
-
+	@Value("${url.baocaothongke}")
+	public String BAOCAOTHONGKE = "";
 	@Value("${url.nguoidung}")
 	public String NGUOIDUNG = "";
 	@Value("${url.phanquyen}")
@@ -97,7 +105,14 @@ public class Entry extends BaseObject<Object> {
 	public String CACH = CHAR_CACH + "";
 
 	// Thêm các tùy chọn vai trò của chức năng tương ứng
-
+	
+	@Value("${url.baocaothongke}" + ":" + "${action.duan}")
+	public String BAOCAOTHONGKEDUAN;
+	@Value("${url.baocaothongke}" + ":" + "${action.doanvao}")
+	public String BAOCAOTHONGKEDOANVAO;
+	@Value("${url.baocaothongke}" + ":" + "${action.congviec}")
+	public String BAOCAOTHONGKECONGVIEC;
+	
 	@Value("${url.quanlyduan}" + ":" + "${action.list}")
 	public String QUANLYDUANLIST;
 	@Value("${url.quanlyduan}" + ":" + "${action.xem}")
@@ -199,11 +214,11 @@ public class Entry extends BaseObject<Object> {
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
-				QUANLYLINHVUCDUAN }; //
+				QUANLYLINHVUCDUAN, BAOCAOTHONGKE }; //
 	}
 
 	public String[] getACTIONS() {
-		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO, PHUTRACH };
+		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO, PHUTRACH, DUAN, DOANVAO, CONGVIEC };
 	}
 
 	static {

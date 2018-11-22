@@ -392,6 +392,7 @@ public class ProcessService extends BasicService<Object> {
 	}
 	public void luuDuLieuTiepTucAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, GiaiDoanXucTien giaiDoan) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
+		removeGiaiDoanOld(model.getId());
 		model.setGiaiDoanXucTien(giaiDoanXucTien);
 		model.saveNotShowNotification();
 		model.getGiaiDoanDuAn().setDuAn(model);
@@ -749,6 +750,14 @@ public class ProcessService extends BasicService<Object> {
 				saveTepTinNotNullAndSetTaiLieu(giaiDoanDuAn.getVanBanDeNghiBoSung(), "Văn bản đề nghị bổ sung danh mục quỹ đất đấu giá quyền sử dụng đất", luuLichSu);
 			}
 		}
+	}
+	
+	public void removeGiaiDoanOld(Long idDuAn) {
+		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(idDuAn));
+		q.fetch().forEach(item -> {
+			item.setDaQuaGiaiDoan(false);
+			item.saveNotShowNotification();
+		});
 	}
 	
 	public List<PvmTransition> getTransitions(Task task) {

@@ -517,6 +517,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		list.add(GiaiDoanXucTien.GIAI_DOAN_HAI);
 		list.add(GiaiDoanXucTien.GIAI_DOAN_BA);
 		list.add(GiaiDoanXucTien.GIAI_DOAN_BON);
+		list.add(GiaiDoanXucTien.GIAI_DOAN_NAM);
 		list.add(GiaiDoanXucTien.CHUA_HOAN_THANH);
 		list.add(GiaiDoanXucTien.HOAN_THANH);
 		return list;
