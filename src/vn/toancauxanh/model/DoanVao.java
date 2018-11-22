@@ -33,6 +33,8 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
@@ -290,37 +292,72 @@ public class DoanVao extends Model<DoanVao> {
 				checkCongViec(congViec);
 				if (checkNotAllNull && checkAllNull) {
 					saveGiaoViec(congViec);
+					System.out.println("số lầnnnnnnnn");
 				}
 				resetCheck();
 			}
-			
 		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
 	
+	private NhanVien nguoiThucHienCu = new NhanVien();
+	
+	@Transient
+	public NhanVien getNguoiThucHienCu() {
+		return nguoiThucHienCu;
+	}
+
+	public void setNguoiThucHienCu(NhanVien nguoiThucHienCu) {
+		this.nguoiThucHienCu = nguoiThucHienCu;
+	}
+	
 	public void saveGiaoViec(GiaoViec giaoViec) {
+		if (!giaoViec.noId()) {
+			this.setNguoiThucHienCu(getNguoiDuocGiaoCu(giaoViec));
+		}
 		giaoViec.getTaiLieu().saveNotShowNotification();
 		giaoViec.setDoanVao(this);
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
 		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
-		giaoViec.saveNotShowNotification();
 		thongBao(this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+		giaoViec.saveNotShowNotification();
 	}
 	
-	public void thongBao(DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan, NhanVien nguoiGui,
-			String tenCongViec) {
+	public void thongBao(DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan, NhanVien nguoiGui, String tenCongViec) {
 		ThongBao thongBao = new ThongBao();
-		thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @"
-				+ doanVao.getTenDoanVao());
-		thongBao.setNguoiNhan(nguoiNhan);
-		if (nguoiGui != null) {
-			thongBao.setNguoiGui(nguoiGui);
+		System.out.println("giaoViecID " + giaoViec.getId());
+		System.out.println("người cũ:" + this.nguoiThucHienCu);
+		System.out.println("người cũ:" + giaoViec.getNguoiDuocGiao());
+		if (giaoViec.noId()) {
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @" + doanVao.getTenDoanVao());
+			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
+			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+			thongBao.saveNotShowNotification();
+		} else if(!this.nguoiThucHienCu.equals(giaoViec.getNguoiDuocGiao())) {
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @" + doanVao.getTenDoanVao());
+			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
+			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+			thongBao.saveNotShowNotification();
 		}
-		thongBao.setIdObject(doanVao.getId());
-		thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
-		thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
-		thongBao.saveNotShowNotification();
+	}
+	
+	public NhanVien getNguoiDuocGiaoCu(GiaoViec giaoViec){
+		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.eq(giaoViec));
+		if (q != null) {
+			return q.fetchFirst().getNguoiDuocGiao();
+		}
+		return new NhanVien();
 	}
 
 	@Command
