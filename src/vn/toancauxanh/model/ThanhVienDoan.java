@@ -1,14 +1,18 @@
 package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.ValidationContext;
+import org.zkoss.bind.validator.AbstractValidator;
 
-import vn.toancauxanh.gg.model.QuocGia;
+import com.querydsl.jpa.impl.JPAQuery;
+
+import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 
 @Entity
 @Table(name = "thanhviendoan")
@@ -16,11 +20,10 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 	private String hoVaTen = "";
 	private String donVi = "";
 	private String chucDanh = "";
-	private int quocGia;
+	private QuocGiaEnum quocGia;
 	private String email = "";
 	private String soDienThoai = "";
 	private DoanVao doanVao;
-	private QuocGia quocGiaTemp;
 
 	public ThanhVienDoan() {
 	}
@@ -49,20 +52,12 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 		this.chucDanh = chucDanh;
 	}
 
-	@Transient
-	public QuocGia getQuocGiaTemp() {
-		return quocGiaTemp;
-	}
-
-	public void setQuocGiaTemp(QuocGia quocGiaTemp) {
-		this.quocGiaTemp = quocGiaTemp;
-	}
-
-	public int getQuocGia() {
+	@Enumerated(EnumType.STRING)
+	public QuocGiaEnum getQuocGia() {
 		return quocGia;
 	}
 
-	public void setQuocGia(int quocGia) {
+	public void setQuocGia(QuocGiaEnum quocGia) {
 		this.quocGia = quocGia;
 	}
 
@@ -90,11 +85,41 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 	public void setDoanVao(DoanVao doanVao) {
 		this.doanVao = doanVao;
 	}
-
-	@Command
-	public void selectQuocGia(@BindingParam("quocgia") QuocGia ob) {
-		if (getQuocGiaTemp() != null) {
-			setQuocGia(getQuocGiaTemp().getId());
-		}
+	
+	@Transient
+	public AbstractValidator getValidatorEmail() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(final ValidationContext ctx) {
+				String param = (String) ctx.getProperty().getValue();
+				if (param == null || "".equals(param) || param.trim().matches(".+@.+\\.[a-z]+")) {
+					JPAQuery<ThanhVienDoan> q = find(ThanhVienDoan.class).where(QThanhVienDoan.thanhVienDoan.email
+							.eq(param).and(QThanhVienDoan.thanhVienDoan.email.isNotEmpty())
+							.and(QThanhVienDoan.thanhVienDoan.email.isNotNull()));
+					if (!ThanhVienDoan.this.noId()) {
+						q.where(QThanhVienDoan.thanhVienDoan.id.ne(getId()));
+					}
+					if (q.fetchCount() > 0) {
+						addInvalidMessage(ctx, "Email đã được sử dụng");
+					}
+				} else {
+					addInvalidMessage(ctx, "Email không đúng định dạng");
+				}
+			}
+		};
+	}
+	
+	@Transient
+	public AbstractValidator getValidateSoDienThoai() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(final ValidationContext ctx) {
+				String value = (String) ctx.getProperty().getValue();
+				if (!value.isEmpty() && !value.trim()
+						.matches("^\\+?\\d{1,3}?[- .]?\\(?(?:\\d{2,3})\\)?[- .]?\\d\\d\\d[- .]?\\d\\d\\d\\d$")) {
+					addInvalidMessage(ctx, "Số điện thoại không đúng định dạng.");
+				}
+			}
+		};
 	}
 }

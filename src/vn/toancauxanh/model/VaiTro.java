@@ -216,15 +216,10 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().NGUOIDUNGSUA);
 		quyens1.add(core().NGUOIDUNGXOA);
 		
-		quyens1.add(core().NGUOIDUNGLIST);
-		quyens1.add(core().NGUOIDUNGXEM);
-		quyens1.add(core().NGUOIDUNGTHEM);
-		quyens1.add(core().NGUOIDUNGSUA);
-		quyens1.add(core().NGUOIDUNGXOA);
-		
 		quyens1.add(core().BAOCAOTHONGKEDUAN);
 		quyens1.add(core().BAOCAOTHONGKEDOANVAO);
 		quyens1.add(core().BAOCAOTHONGKECONGVIEC);
+		
 		return quyens1;
 	}
 	
@@ -294,7 +289,6 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().NGUOIDUNGTHEM);
 				quyens1.add(core().NGUOIDUNGSUA);
 				quyens1.add(core().NGUOIDUNGXOA);
-
 			} else if (LANHDAO.equals(vaiTro)) {
 				// Thêm quyền vào danh sách vai trò các tittle
 				quyens1.add(core().QUANLYDUANLIST);

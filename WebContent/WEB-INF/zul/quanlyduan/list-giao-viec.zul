@@ -80,8 +80,13 @@
 								<label value="@load(item.nguoiGiaoViec.hoVaTen)"></label>
 								<label value="@load(item.nguoiDuocGiao.hoVaTen)"></label>
 								<label value="@load(item.ngayGiao) @converter('formatedDate',format='dd/MM/YYYY')"></label>
-								<label value="@load(item.hanThucHien) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
-								<label value="@load(item.trangThaiGiaoViec.text)" class="@load(item.trangThaiGiaoViec)"></label>
+								<div style="display:flex;flex-direction:column;padding:5px 0;">
+									<label value="@load(item.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')"></label>
+									<html>
+										${vm.thoiHanConLai(each.hanThucHien)}
+									</html>
+								</div>
+								<label value="@load(item.trangThaiGiaoViec.text)" class="TRANG_THAI @load(item.trangThaiGiaoViec)"></label>
 								<div class="thaotac">
 									<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color" if="${vm.checkQuyenBaoCao(item.trangThaiGiaoViec, item.nguoiDuocGiao.id)}" onClick="@command('redirectPageActionGiaoViec',zul='quanlyduan/add-bao-cao.zul', vm = item, vmArgs = vm, readOnly = true, title = 'Báo cáo')">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>

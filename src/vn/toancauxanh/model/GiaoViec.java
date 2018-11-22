@@ -30,26 +30,41 @@ import org.zkoss.zul.Window;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
+import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
 @Entity
 @Table(name = "giaoviec")
 public class GiaoViec extends Model<GiaoViec> {
 	private DuAn duAn;
+	private DoanVao doanVao;
 	private String tenCongViec;
 	private String yKienChiDao;
 	private String ketQua;
+	private String ghiChu;
 	private NhanVien nguoiGiaoViec = new NhanVien();
 	private NhanVien nguoiDuocGiao = new NhanVien();
 	private Date ngayGiao = new Date();
 	private Date hanThucHien;
 	private Date ngayHoanThanh;
+	private NoiDungCongViec noiDungCongViec;
 	private GiaiDoanXucTien giaiDoanXucTien;
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
 	private TepTin taiLieu = new TepTin();
-	private DoanVao doanVao;
 	private TepTin taiLieuKetQua;
 	private LoaiCongViec loaiCongViec;
+	
+	public GiaoViec() {
+	}
+
+	public GiaoViec(NoiDungCongViec noiDungCongViec, NhanVien nguoiDuocGiao, Date hanThucHien,
+			TrangThaiGiaoViec trangThaiGiaoViec, String ghiChu) {
+		this.noiDungCongViec = noiDungCongViec;
+		this.nguoiDuocGiao = nguoiDuocGiao;
+		this.hanThucHien = hanThucHien;
+		this.trangThaiGiaoViec = trangThaiGiaoViec;
+		this.ghiChu = ghiChu;
+	}
 	
 	public String getyKienChiDao() {
 		return yKienChiDao;
@@ -180,6 +195,14 @@ public class GiaoViec extends Model<GiaoViec> {
 		this.doanVao = doanVao;
 	}
 
+	public String getGhiChu() {
+		return ghiChu;
+	}
+
+	public void setGhiChu(String ghiChu) {
+		this.ghiChu = ghiChu;
+	}
+
 	@Command
 	public void saveGiaoViec(@BindingParam("vmArgs") final Object ob, @BindingParam("attr") final String attr,
 			@BindingParam("vm") final Object vm, @BindingParam("wdn") final Window wd) {
@@ -191,6 +214,15 @@ public class GiaoViec extends Model<GiaoViec> {
 		BindUtils.postNotifyChange(null, null, ob, attr);
 	}
 	
+	@Enumerated(EnumType.STRING)
+	public NoiDungCongViec getNoiDungCongViec() {
+		return noiDungCongViec;
+	}
+
+	public void setNoiDungCongViec(NoiDungCongViec noiDungCongViec) {
+		this.noiDungCongViec = noiDungCongViec;
+	}
+
 	@Command
 	public void saveNhanViec(@BindingParam("item") final GiaoViec ob,
 			@BindingParam("vm") final Object vm, @BindingParam("wdn") final Window wdn) {
@@ -414,4 +446,5 @@ public class GiaoViec extends Model<GiaoViec> {
 		}
 		Executions.getCurrent().sendRedirect(href, "_blank");
 	}
+
 }

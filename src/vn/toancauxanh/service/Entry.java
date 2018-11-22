@@ -30,7 +30,6 @@ import org.zkoss.zhtml.Object;
 import vn.toancauxanh.cms.service.HomeService;
 import vn.toancauxanh.cms.service.LanguageService;
 import vn.toancauxanh.cms.service.PhongBanService;
-import vn.toancauxanh.gg.model.QuocGia;
 import vn.toancauxanh.model.VaiTro;
 
 @SuppressWarnings({ "unused" })
@@ -210,7 +209,6 @@ public class Entry extends BaseObject<Object> {
 	public String VAITROSUA = "";
 	@Value("${url.vaitro}" + ":" + "${action.tim}")
 	public String VAITROTIMKIEM;
-
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
@@ -281,7 +279,13 @@ public class Entry extends BaseObject<Object> {
 	@RequestMapping(value = "/cp/{path:.+$}/edit/{id:\\d+}")
 	public String edit2(@PathVariable String path, @PathVariable Long id) {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
-				+ "/add-page.zul&id=" + id;
+				+ "/show-doan-vao.zul&id=" + id;
+	}
+	
+	@RequestMapping(value = "/cp/{path:.+$}/detail/{id:\\d+}")
+	public String detail(@PathVariable String path, @PathVariable Long id) {
+		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
+				+ "/show-chi-tiet-doan-vao.zul&id=" + id;
 	}
 
 	@RequestMapping(value = "/cp/quanlyduan/{id:\\d+}")
@@ -339,10 +343,6 @@ public class Entry extends BaseObject<Object> {
 
 	public final VaiTroService getVaiTros() {
 		return new VaiTroService();
-	}
-
-	public final QuocGia getQuocGias() {
-		return new QuocGia();
 	}
 
 	public final Quyen getQuyen() {

@@ -26,7 +26,6 @@ public class ThongBaoService extends BasicService<ThongBao> {
 			String tuKhoa = "%" + param + "%";
 			q.where(QThongBao.thongBao.noiDung.like(tuKhoa));
 		}
-
 		if (loaiThongBao != null && !loaiThongBao.isEmpty()) {
 			q.where(QThongBao.thongBao.loaiThongBao.eq(LoaiThongBao.valueOf(loaiThongBao)));
 		}
@@ -67,4 +66,5 @@ public class ThongBaoService extends BasicService<ThongBao> {
 		result.put("true", "Đã xem");
 		return result;
 	}
+	
 }
