@@ -215,7 +215,6 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().NGUOIDUNGTHEM);
 		quyens1.add(core().NGUOIDUNGSUA);
 		quyens1.add(core().NGUOIDUNGXOA);
-
 		return quyens1;
 	}
 	
@@ -285,7 +284,6 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().NGUOIDUNGTHEM);
 				quyens1.add(core().NGUOIDUNGSUA);
 				quyens1.add(core().NGUOIDUNGXOA);
-
 			} else if (LANHDAO.equals(vaiTro)) {
 				// Thêm quyền vào danh sách vai trò các tittle
 				quyens1.add(core().QUANLYDUANLIST);

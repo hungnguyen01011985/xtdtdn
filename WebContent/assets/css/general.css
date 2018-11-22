@@ -17,6 +17,11 @@
 	color: #404247;
 	line-height: 18px;
 }
+
+.pd-left-3 input {
+	padding-left: 5px !important;
+}
+
 .box-lich-su-van-ban {
 	float: right;
     padding-top: 15px;
@@ -236,19 +241,29 @@
 }
 
 .CHUA_LAM {
-	font-family: Roboto-Bold;
-	color: #AA8A3E !important;
+	color: #A17200 !important;
 }
 
 .DANG_LAM {
-	font-family: Roboto-Bold;
-	color: #628CF0 !important;
+	color: #4274ED !important;
 }
 
 .HOAN_THANH {
-	font-family: Roboto-Bold;
-	color: #39A94B !important;
+	color: #2FA442 !important;
 }
+
+.CHUA_LAM input {
+	color: #A17200 !important;
+}
+
+.DANG_LAM input {
+	color: #4274ED !important;
+}
+
+.HOAN_THANH input {
+	color: #2FA442 !important;
+}
+
 
 .underline-redirect {
 	text-decoration: underline;
@@ -267,6 +282,26 @@
     border-color: #cfcfcf;
     background: #FFF;
 }
+
+.TRANG_THAI {
+	font-family: Roboto-Medium;
+	font-size: 13px;
+	letter-spacing: 0;
+	line-height: 18px;
+}
+
+.CHUA_TIEP {
+	color: #A17200 !important;
+}
+
+.DANG_TIEP {
+	color: #4274ED !important;
+}
+
+.DA_TIEP {
+	color: #2FA442 !important;
+}
+
 .plan-number {
 	width: 40px;
 	height: 40px;
@@ -495,6 +530,10 @@
 	border-radius: 3px !important;
 }
 
+.dv-color span {
+	color: #ffffff !important;
+}
+
 .bg-btn-tailieu-green {
 	font-family: Roboto-Regular !important;
 	font-size: 13px;
@@ -509,12 +548,12 @@
 	border-radius: 3px !important;
 }
 
-.bg-btn-tailieu-green:hover{
+.bg-btn-tailieu-green:hover {
 	background:#30B350 !important;
 	border: 1px solid #30B350 !important;
 }
 
-.bg-btn-tailieu-green:focus{
+.bg-btn-tailieu-green:focus {
 	background: #30B350 !important;
 	border: 1px solid #30B350 !important;
 }
@@ -524,23 +563,23 @@
 	color:#FFF;
 	border: 1px solid #045AC2;
 }
-.btn-refesh-tai-lieu:hover{
+.btn-refesh-tai-lieu:hover {
 	background: #30B350 !important;
 }
-.btn-refesh-tai-lieu:focus{
+.btn-refesh-tai-lieu:focus {
 	background: #30B350 !important;
 }
-.z-button:focus{
+.z-button:focus {
 	background:#4274ED;
 	color:#FFF;
 	border: 1px solid #045AC2;
 }
-.style-txt-file{
+.style-txt-file {
 	height:36px;
 	align-items: center;
 	display: flex;
 }
-.txt-link-tai-lieu-fix{
+.txt-link-tai-lieu-fix {
 	font-family: Roboto-Medium;
     font-size: 13px;
     color: #4274ED;

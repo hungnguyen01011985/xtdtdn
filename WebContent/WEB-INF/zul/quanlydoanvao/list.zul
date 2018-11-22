@@ -1,4 +1,4 @@
-<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<?page title="Quản lý đoàn vào" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" viewModel="@id('vm') @init('vn.toancauxanh.service.DoanVaoService')"
 	apply="org.zkoss.bind.BindComposer" class="form-list">
 	<zscript>
@@ -47,10 +47,9 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<x:span class="issue-search">Quốc gia</x:span> 
-							<combobox readonly="true" class="his" selectedIndex="@bind(vm.arg.quocGia)"
-								model="@load(entry.quocGias.listQuocGiaAndNull)" placeholder="Tất cả" width="100%">
+							<combobox readonly="true" class="his" model="@load(vm.listQuocGiaAndNull)" selectedItem="@bind(vm.arg.quocGia)" placeholder="Tất cả" width="100%">
 								<template name="model">
-									<comboitem label="@load(each.tenQuocGia eq null ? 'Tất cả' : each.tenQuocGia)" />
+									<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
 								</template>
 							</combobox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -77,7 +76,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-tailieu primary btn-grey ">
+						<x:button class="btn bg-btn-dong btn-grey">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
 							<span>Tìm kiếm lại</span>
 						</x:button>
@@ -85,7 +84,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right">
-						<x:button class="btn primary btn-blue" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+						<x:button class="btn btn-base btn-gray" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
 						</x:button>
@@ -104,35 +103,35 @@
 			</div>
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())" sclass="table-qldv"
+					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
-							<column label="STT" width="45px"/>
-							<column label="Tên đoàn" width="180px"/>
-							<column label="Quốc gia" width="110px"/>
-							<column label="Số người" width="90px"/>
-							<column label="Tóm tắt nội dung" width="200px"/>
+							<column label="STT" width="42px"/>
+							<column label="Tên đoàn" />
+							<column label="Quốc gia"  />
+							<column label="Số người" />
+							<column label="Tóm tắt nội dung" />
 							<column label="Thời gian đến" width="110px"/>
 							<column label="Nơi đoàn đi thăm" width="200px"/>
 							<column label="Trạng thái" width="90px"/>
 							<column label="Thao tác" width="140px"/>
 						</columns>
 						<template name="model">
-							<row>
+							<row viewModel="@id('item') @init(each)">
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-								<label value="@load(each.tenDoanVao)"></label>
-								<label value="@load(entry.quocGias.getTenQuocGia(each.quocGia))"></label>
+								<label class="underline-redirect" value="@load(each.tenDoanVao)" onClick="@command('redirectXemChiTietDoanVao', id = item.id)"></label>
+								<label value="@load(each.quocGia.text)"></label>
 								<label value="@load(each.soNguoi)"></label>
 								<label value="@load(each.tomTatNoiDungKQ)"></label>
-								<label value="@load(each.thoiGianDenLamViec) @converter('formatedDate',format='dd/MM/YYYY')"></label>
+								<label value="@load(each.thoiGianDenLamViec) @converter('formatedDate', format='dd/MM/YYYY')"></label>
 								<label value="@load(each.noiDoanDiTham)"></label>
-								<label value="@load(each.trangThaiTiepDoan.text)"></label>
+								<label value="@load(each.trangThaiTiepDoan.text)" class="TRANG_THAI ${each.trangThaiTiepDoan}"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" href="${execution.contextPath}/cp/quanlydoanvao/capnhatketqua">
+									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlydoanvao/edit/${each.id}" zk:if="${vm.checkEditDoanVao(entry.nhanVien.id, each.nguoiTao, each.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Cập nhật</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note">
+									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${vm.checkDeleteDoanVao(each.nguoiTao) and entry.quyen.quanlydoanvao_xoa}" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -140,14 +139,17 @@
 							</row>
 						</template>
 					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<div zclass="form-group right">
-						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlydoanvao/add-view">
+					<div zclass="form-group right" if="${entry.quyen.quanlydoanvao_them}">
+						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlydoanvao/show-doan-vao">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
-							<span>Thêm mới đoàn vào</span>
+							<span>Thêm đoàn vào</span>
 						</x:a>
 					</div>
 				</div>

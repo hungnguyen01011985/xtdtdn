@@ -86,7 +86,7 @@
 										${vm.thoiHanConLai(each.hanThucHien)}
 									</html>
 								</div>
-								<label value="@load(item.trangThaiGiaoViec.text)" class="@load(item.trangThaiGiaoViec)"></label>
+								<label value="@load(item.trangThaiGiaoViec.text)" class="TRANG_THAI @load(item.trangThaiGiaoViec)"></label>
 								<div class="thaotac">
 									<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color" if="${vm.checkQuyenBaoCao(item.trangThaiGiaoViec, item.nguoiDuocGiao.id)}" onClick="@command('redirectPageActionGiaoViec',zul='quanlyduan/add-bao-cao.zul', vm = item, vmArgs = vm, readOnly = true, title = 'Báo cáo')">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>

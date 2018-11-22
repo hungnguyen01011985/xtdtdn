@@ -15,14 +15,10 @@ public class DoanVaoService extends BasicService<DoanVao> {
 
 	public JPAQuery<DoanVao> getTargetQuery() {
 		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
-		int quocGia = MapUtils.getIntValue(argDeco(), "quocgia", 0);
 		String trangThai = MapUtils.getString(argDeco(), "trangThai", "");
 		JPAQuery<DoanVao> q = find(DoanVao.class);
 		if (tuKhoa != null) {
 			q.where(QDoanVao.doanVao.tenDoanVao.like("%" + tuKhoa + "%"));
-		}
-		if (quocGia > 0) {
-			q.where(QDoanVao.doanVao.quocGia.eq(quocGia));
 		}
 		if (trangThai != null && !trangThai.isEmpty()) {
 			q.where(QDoanVao.doanVao.trangThaiTiepDoan.eq(TrangThaiEnum.valueOf(trangThai)));
@@ -52,7 +48,9 @@ public class DoanVaoService extends BasicService<DoanVao> {
 	public DoanVao getDoanVaoById(String id) {
 		if (id != null) {
 			JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.id.eq(Long.valueOf(id)));
-			return q.fetchFirst();
+			if (q != null) {
+				return q.fetchFirst();
+			}
 		}
 		return new DoanVao();
 	}

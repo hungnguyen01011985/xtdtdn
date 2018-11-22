@@ -1,13 +1,15 @@
-<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<?page title="Xem thông tin đoàn vào" contentType="text/html;charset=UTF-8"?>
 <window id="wdn" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" class="form-list">
+	apply="org.zkoss.bind.BindComposer" class="form-list doan-vao-tai-lieu">
 	<zscript>
-		page.title = "Thêm mới đoàn vào";
+		page.title = "Thông tin đoàn vào";
 	</zscript>
 	<zscript>
 		<![CDATA[
 				String id = execution.getParameter("id");
 		        vn.toancauxanh.model.DoanVao vm = new vn.toancauxanh.service.DoanVaoService().getDoanVaoById(id);
+		        action = arg.get("action");
+		        visible = arg.get("visible");
 		]]>
 	</zscript>
 	<div viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"
@@ -19,7 +21,7 @@
 						<span>Quản lý đoàn vào</span>
 						<x:img class="img-arrow-right" 
 						src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
-						<span>Thêm mới đoàn vào</span>
+						<span>${id ne null ? vm.tenDoanVao : 'Thêm mới đoàn vào'}</span>
 					</div>
 				</div>
 			</div>
@@ -28,7 +30,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<n:span class="page-header-title">
-						Thêm đoàn vào
+						${id ne null ? vm.tenDoanVao : 'Thêm đoàn vào'}
 					</n:span>
 				</div>
 			</div>
@@ -44,124 +46,160 @@
 					</div>
 				</div>
 				
-				<div class="row mg-and-bg-and-line mg-bottom-5">
-					<div zclass="col-md-9">
-						<div zclass="form-group">
-							<div class="flex">
-								<x:span class="issue-search">Tên đoàn<n:small class="required"> *</n:small></x:span>
+				<div class="mg-and-bg-and-line-fix mg-bottom-5">
+					<div class="row">
+						<div zclass="col-md-8">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Tên đoàn<n:small class="required"> *</n:small></x:span>
+								</div>
+								<textbox disabled="${action}" id="ten" class="form-control" placeholder="Nhập tên đoàn.." maxlength="255"
+								value="@bind(vm.tenDoanVao) @save(vm.tenDoanVao, before='saveDoanVao') @validator(vm.validatorTenDoan)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
-							<textbox id="ten" class="form-control" placeholder="Nhập tên đoàn.."
-							value="@bind(vm.tenDoanVao) @save(vm.tenDoanVao,before='saveDoanVao') @validator(vm.validatorTenDoan)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+						<div zclass="col-md-4">
+							<div zclass="form-group">
+								<x:span class="issue-search">Quốc gia</x:span>
+								<combobox buttonVisible="${!action}" disabled="${action}" id="cbbQuocGia" model="@load(vm.listQuocGiaAndNull)" placeholder="Chọn quốc gia"
+									readonly="true" class="his ${!action ? '' : 'input-no-button'}" width="100%" selectedItem="@bind(vm.quocGia)">
+									<template name="model">
+										<comboitem label="@load(each.text eq null ? 'Tất cả' : each.text)"/>
+									</template>
+								</combobox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
 					</div>
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<x:span class="issue-search">Quốc gia</x:span>
-							<combobox id="cbbQuocGia" model="@load(entry.quocGias.listQuocGiaAndNull)" placeholder="Tất cả"
-								readonly="true" class="his" width="100%" onCreate="@command('loadQuocGia')" selectedItem="@bind(vm.quocGiaTemp)" onSelect="@command('selectQuocGia')">
-								<template name="model">
-									<comboitem label="@load(each.tenQuocGia eq null ? 'Tất cả' : each.tenQuocGia)"/>
-								</template>
-							</combobox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					<div class="row">
+						<div zclass="col-md-4">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Số người<n:small class="required"> *</n:small></x:span>
+								</div>
+								<textbox disabled="${action}" class="form-control" placeholder="0" value="@bind(vm.soNguoi) @save(vm.soNguoi, before='saveDoanVao') @validator(vm.validatorSoNguoi)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+						
+						<div zclass="col-md-4">
+							<div zclass="form-group">
+								<x:span class="issue-search">Thời gian đến làm việc<n:small class="required"> *</n:small></x:span>
+								<datebox buttonVisible="${!action}" disabled="${action}" format="dd/MM/yyyy" class="hv-db ${!action ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(vm.thoiGianDenLamViec)" width="100%"/>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+						
+						<div zclass="col-md-4">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Người phụ trách<n:small class="required"> *</n:small></x:span>
+								</div>
+								<combobox buttonVisible="${!action}" model="@load(vm.listNguoiPhuTrach)" disabled="${action}"
+									readonly="true" class="his ${!action ? '' : 'input-no-button'}" width="100%" selectedItem="@bind(vm.nguoiPhuTrach) @save(vm.nguoiPhuTrach.hoVaTen, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="Chọn người"
+									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())">
+									<template name="model">
+										<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>
+									</template>
+								</combobox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div zclass="col-md-12">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Nơi đoàn đi thăm<n:small class="required"> *</n:small></x:span> 
+								</div>
+								<textbox disabled="${action}" class="form-control" maxlength="255" value="@bind(vm.noiDoanDiTham) @save(vm.noiDoanDiTham, before='saveDoanVao') @validator(vm.validatorNoiDoanDiTham)" placeholder="Nhập nơi đi thăm..." onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
 					</div>
 				</div>
 				
-				<div class="row mg-left-no-line">
-				
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<div class="flex">
-								<x:span class="issue-search">Số người<n:small class="required"> *</n:small></x:span>
+				<div class="mg-and-bg-and-line-fix mg-bottom-5">
+					<div class="row">
+						<div zclass="col-md-12">
+							<div class="title-form" style="padding:0;padding-bottom:15px;">
+								<span>Thông tin tham khảo</span>
 							</div>
-							<textbox class="form-control" placeholder="0" value="@bind(vm.soNguoi) @save(vm.soNguoi,before='saveDoanVao') @validator(vm.validatorSoNguoi)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div class="row">
+						<div zclass="col-md-4">
+							<div zclass="form-group">
+								<x:span class="issue-search">Link</x:span> 
+								<textbox disabled="${action}" class="form-control textbox-txt-style" value="@bind(vm.link)" placeholder="Nhập link tham khảo..."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<include src="quanlydoanvao/view-list-tep-tins.zul"></include>
+				<div class="mg-and-bg-and-line-fix mg-bottom-5">
+					<div class="row">
+						<div zclass="col-md-12">
+							<div zclass="form-group flex">
+								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width" zk:onClick="@command('redirectPageAction', zul='quanlydoanvao/kehoachlamviec.zul',vm = vm, readOnly = action)">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ke-hoach-lam-viec.svg"/>
+									<span>Tạo kế hoạch làm việc</span>
+								</x:a>
+								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPageAction', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul', vm = vm, readOnly = action)">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ds-giao-viec.svg"/>
+									<span>Danh sách thành viên</span>
+								</x:a>
+								<!-- <x:a zk:visible="${!vm.noId() and visible}" class="btn bg-btn-tailieu dv-color mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul',vm = vm)">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cap-nhat-kq.svg"/>
+									<span>Cập nhật KQ</span>
+								</x:a> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="mg-and-bg-and-line-fix mg-bottom-5" if="${action}">
+					<div class="row">
+						<div zclass="col-md-12">
+							<div class="title-form" style="padding:0;padding-bottom:15px;">
+								<span>Kết quả tiếp đoàn</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div zclass="col-md-12">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Tóm tắt nội dung - KQ tiếp đoàn</x:span> 
+								</div>
+								<textbox rows="4" disabled="${action}" class="form-control" maxlength="255" value="@bind(vm.tomTatNoiDungKQ)" placeholder="Nhập nội dung tóm tắt..."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
 					</div>
 					
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<x:span class="issue-search">Thời gian đến làm việc<n:small class="required"> *</n:small></x:span>
-							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.thoiGianDenLamViec)"
-								 onCreate="self.value = new Date()" width="100%"/>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+					<div class="row">
+						<div zclass="col-md-12">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Đề xuất của CV phụ trách</x:span> 
+								</div>
+								<textbox rows="4" disabled="${action}" class="form-control" maxlength="255" value="@bind(vm.deXuatCVPhuTrach)" placeholder="Nhập đề xuất..."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
 					</div>
 					
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<div class="flex">
-								<x:span class="issue-search">Người phụ trách<n:small class="required"> *</n:small></x:span>
-							</div>
-							<combobox model="@load(entry.nhanViens.tacGias)"
-								readonly="true" class="his" width="100%" selectedItem="@bind(vm.nguoiPhuTrach)" placeholder="Chọn người"
-								value="@bind(vm.nguoiPhuTrach.hoVaTen) @save(vm.nguoiPhuTrach.hoVaTen ,before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())">
-								<template name="model">
-									<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>
-								</template>
-							</combobox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-					</div>
-					
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<div class="flex">
-								<x:span class="issue-search">Nơi đoàn đi thăm<n:small class="required"> *</n:small></x:span> 
-							</div>
-							<textbox class="form-control" value="@bind(vm.noiDoanDiTham) @save(vm.noiDoanDiTham,before='saveDoanVao') @validator(vm.validatorNoiDoanDiTham)" placeholder="Nhập nơi đi thăm..." onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-					</div>
-				</div>
-				
-				<div class="row mg-left-no-line mg-bottom-5">
-					<div zclass="col-md-12">
-						<div zclass="form-group flex">
-							<x:a  class="btn bg-btn-tailieu mg-btn-top btn-width" href="${execution.contextPath}/cp/quanlydoanvao/kehoachlamviec">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tao-ke-hoach-lam-viec.svg"/>
-								<span>Tạo kế hoạch làm việc</span>
-							</x:a>
-							<x:a  class="btn bg-btn-tailieu mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul',vm = vm)">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/danh-sach-thanh-vien.svg"/>
-								<span>Danh sách thành viên</span>
-							</x:a>
-						</div>
-					</div>
-				</div>
-				
-				<div class="row mg-and-bg-and-line">
-					<div zclass="col-md-12">
-						<div class="title-form" style="padding:0;padding-bottom:15px;">
-							<span>Thông tin thêm mới</span>
-						</div>
-					</div>
-				</div>
-				
-				<div class="row mg-left-no-line">
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<x:span class="issue-search">Link</x:span> 
-							<textbox class="form-control txt-link-tailieu" value="@bind(vm.link)" placeholder="Nhập link tham khảo..."></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-					</div>
-					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<x:span class="issue-search">CV tiếp đoàn A</x:span>
-							<button visible="@load(!vm.checkTaiLieu)" label="Chọn tài liệu" 
-								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
-								onUpload="@command('uploadFile',medias=event.getMedia())"
-								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-							</button>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-							<div class="flex mg-btn-top" zk:visible="@load(vm.checkTaiLieu)">
-								<label class="txt-link-tailieu" value="@bind(vm.taiLieu.tenFile)"/>
-								<x:button class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm)">
-									<x:image src="${contexPath}/assets/icon-bxtdn/xoa-tai-lieu.svg" width="13px" height="13px"/>
-								</x:button>
+					<div class="row">
+						<div zclass="col-md-12">
+							<div zclass="form-group">
+								<div class="flex">
+									<x:span class="issue-search">Ý kiến chỉ đạo</x:span> 
+								</div>
+								<textbox rows="4" disabled="${action}" class="form-control" maxlength="255" value="@bind(vm.yKienChiDao)" placeholder="Nhập ý kiến chỉ đạo..."></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 					</div>
@@ -170,18 +208,24 @@
 				<div class="row mg-and-bg-and-line">
 					<div zclass="col-xs-6">
 						<div zclass="form-group">
-							<x:button class="btn bg-btn-tailieu btn-grey">
+							<x:button class="btn bg-btn-dong btn-grey" onClick="@command('redirectQuanLyDoanVao')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 								<span>Đóng</span>
 							</x:button>
 						</div>
 					</div>
 					<div zclass="col-xs-6">
-						<div zclass="form-group right">
+						<div zclass="form-group right" if="${!action}">
 							<x:button class="btn btn-blue mg-btn" onClick="@command('saveDoanVao')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 								<span>Lưu</span>
 							</x:button>
+						</div>
+						<div zclass="form-group right" if="${action}">
+							<x:a class="btn btn-blue mg-btn" href="${contexPath}/bxtdn/cp/quanlydoanvao/edit/${id}" zk:if="${vm.checkEditDoanVao(entry.nhanVien.id, vm.nguoiTao, vm.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
+								<span>Cập nhật</span>
+							</x:a>
 						</div>
 					</div>
 				</div>

@@ -23,11 +23,12 @@ import vn.toancauxanh.model.QGiaoViec;
 import vn.toancauxanh.model.ThongBao;
 
 public class GiaoViecService extends BasicService<GiaoViec> implements Serializable{
+	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2132978067148535799L;
-	
+	private static final long serialVersionUID = 6984673095113713236L;
 	private Set<GiaoViec> selectItems = new HashSet<>();
 	
 	public JPAQuery<GiaoViec> getTargetQuery() {
@@ -62,11 +63,10 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	
 	public JPAQuery<GiaoViec> getTargetQueryByIdDuAn() {
 		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
-		Long id = MapUtils.getLongValue(argDeco(), "nguoiPhuTrach" , 0);
+		Long id = MapUtils.getLongValue(argDeco(), "nguoiPhuTrach", 0);
 		String trangThai = MapUtils.getString(argDeco(), "trangThai", "");
 		Long idDuAn = MapUtils.getLongValue(argDeco(), "idDuAn");
-		JPAQuery<GiaoViec> q = find(GiaoViec.class)
-				.where(QGiaoViec.giaoViec.duAn.id.eq(idDuAn));
+		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.id.eq(idDuAn));
 		if (tuKhoa != null) {
 			q.where(QGiaoViec.giaoViec.tenCongViec.like("%" + tuKhoa + "%"));
 		}
@@ -100,8 +100,9 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		} else {
 			selectItems.forEach(item -> {
 				ThongBao thongBao = new ThongBao();
-				thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @" + item.getTenCongViec()
-								+ "@ của dự án @" + item.getDuAn().getTenDuAn() + "@. Hãy hoàn thành công việc.");
+				thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @"
+						+ item.getTenCongViec() + "@ của dự án @" + item.getDuAn().getTenDuAn()
+						+ "@. Hãy hoàn thành công việc.");
 				thongBao.setNguoiGui(core().getNhanVien());
 				thongBao.setNguoiNhan(item.getNguoiDuocGiao());
 				thongBao.setIdObject(item.getDuAn().getId());
@@ -111,7 +112,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 			showNotification("", "Nhắc nhở hoàn thành", "success");
 			wdn.detach();
 		}
-		
+
 	}
 	
 	@Command
@@ -137,6 +138,18 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		this.selectItems = selectItems;
 	}
 	
+	public List<GiaoViec> getListGiaoViecTheoDoanVao(Long idDoanVao) {
+		List<GiaoViec> list = new ArrayList<GiaoViec>();
+		if (idDoanVao != null && idDoanVao > 0) {
+			JPAQuery<GiaoViec> q = find(GiaoViec.class)
+					.where(QGiaoViec.giaoViec.doanVao.id.eq(Long.valueOf(idDoanVao)));
+			if (q != null && q.fetchCount() > 0) {
+				return q.fetch();
+			}
+		}
+		return list;
+	}
+	
 	public List<LoaiCongViec> getListLoaiCongViec() {
 		List<LoaiCongViec> list = new ArrayList<LoaiCongViec>();
 		list.add(null);
@@ -153,5 +166,4 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		list.add(TrangThaiGiaoViec.HOAN_THANH);
 		return list;
 	}
-	
 }

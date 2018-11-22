@@ -1,2 +1,0 @@
-<?component name="kehoachlamviec" inline="true" macroURI="kehoachlamviec.zul"?>
-<kehoachlamviec model="${entry.keHoachLamViec.type().newInstance()}"  vmArgs="${arg.vmArgs}" save="Kế hoạch làm việc" />

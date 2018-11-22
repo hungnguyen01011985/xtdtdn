@@ -1,6 +1,8 @@
 package vn.toancauxanh.model;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,12 +11,14 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
@@ -25,36 +29,36 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import vn.toancauxanh.gg.model.QuocGia;
+import vn.toancauxanh.gg.model.enums.LoaiCongViec;
+import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
+import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiEnum;
+import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 
 @Entity
 @Table(name = "doanvao")
 public class DoanVao extends Model<DoanVao> {
 	private String tenDoanVao;
-	private int quocGia;
+	private QuocGiaEnum quocGia;
 	private TrangThaiEnum trangThaiTiepDoan = TrangThaiEnum.CHUA_TIEP;
 	private String tomTatNoiDungKQ = "";
 	private String deXuatCVPhuTrach = "";
 	private String yKienChiDao = "";
 	private String noiDoanDiTham;
+	private String link;
 	private int soNguoi;
 	private Date thoiGianDenLamViec = new Date();
 	private NhanVien nguoiPhuTrach = new NhanVien();
 	private List<KeHoachLamViec> listKeHoachLamViec;
-	private String link;
-	private TepTin taiLieu;
-	private TepTin congVanChiDaoUB;
 	private boolean checkTaiLieu;
-	private QuocGia quocGiaTemp;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
+	private List<TepTin> tepTins = new ArrayList<TepTin>();
+	private TepTin congVanChiDao;
 
-	public void setQuocGiaTemp(QuocGia quocGiaTemp) {
-		this.quocGiaTemp = quocGiaTemp;
-	}
 
 	public DoanVao() {
 
@@ -68,11 +72,12 @@ public class DoanVao extends Model<DoanVao> {
 		this.tenDoanVao = tenDoanVao;
 	}
 
-	public int getQuocGia() {
+	@Enumerated(EnumType.STRING)
+	public QuocGiaEnum getQuocGia() {
 		return quocGia;
 	}
 
-	public void setQuocGia(int quocGia) {
+	public void setQuocGia(QuocGiaEnum quocGia) {
 		this.quocGia = quocGia;
 	}
 
@@ -100,6 +105,15 @@ public class DoanVao extends Model<DoanVao> {
 	public void setNguoiPhuTrach(NhanVien nguoiPhuTrach) {
 		this.nguoiPhuTrach = nguoiPhuTrach;
 	}
+	
+	@ManyToOne
+	public TepTin getCongVanChiDao() {
+		return congVanChiDao;
+	}
+
+	public void setCongVanChiDao(TepTin congVanChiDao) {
+		this.congVanChiDao = congVanChiDao;
+	}
 
 	public String getNoiDoanDiTham() {
 		return noiDoanDiTham;
@@ -119,24 +133,6 @@ public class DoanVao extends Model<DoanVao> {
 
 	public void setLink(String link) {
 		this.link = link;
-	}
-
-	@ManyToOne
-	public TepTin getTaiLieu() {
-		return taiLieu;
-	}
-
-	public void setTaiLieu(TepTin taiLieu) {
-		this.taiLieu = taiLieu;
-	}
-
-	public void setCongVanChiDaoUB(TepTin congVanChiDaoUB) {
-		this.congVanChiDaoUB = congVanChiDaoUB;
-	}
-
-	@ManyToOne
-	public TepTin getCongVanChiDaoUB() {
-		return congVanChiDaoUB;
 	}
 
 	@Enumerated(EnumType.STRING)
@@ -175,27 +171,90 @@ public class DoanVao extends Model<DoanVao> {
 	public void setCheckTaiLieu(boolean checkTaiLieu) {
 		this.checkTaiLieu = checkTaiLieu;
 	}
-
-	@Command
-	public void selectQuocGia() {
-		if (getQuocGiaTemp() != null) {
-			setQuocGia(getQuocGiaTemp().getId());
-		}
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name = "doanvao_teptin", joinColumns = {
+			@JoinColumn(name = "doanvao_id") }, inverseJoinColumns = { @JoinColumn(name = "teptin_id") })
+	public List<TepTin> getTepTins() {
+		return tepTins;
 	}
 
+	public void setTepTins(List<TepTin> tepTins) {
+		this.tepTins = tepTins;
+	}
+	
 	@Command
-	public void loadQuocGia() {
-		QuocGia qg = new QuocGia();
-		List<QuocGia> list = new ArrayList<QuocGia>();
-		list.addAll(qg.getBootstrap());
-		if (getQuocGia() != 0) {
-			setQuocGiaTemp(list.get(getQuocGia()));
-			BindUtils.postNotifyChange(null, null, this, "quocGiaTemp");
+	public void uploadFile(@BindingParam("medias") Object[] medias) {
+		for (Object item : medias) {
+			Media media = (Media) item;
+			if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
+					|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
+					|| media.getName().toLowerCase().endsWith(".xlsx")) {
+				if (media.getByteData().length > 50000000) {
+					showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
+				} else {
+					String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
+							+ Calendar.getInstance().getTimeInMillis()
+							+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
+					TepTin tepTin = new TepTin();
+					tepTin.setNameHash(tenFile);
+					tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
+					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
+					tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+					tepTin.setMedia(media);
+					this.getTepTins().add(tepTin);
+					this.getTepTins().forEach(obj -> {
+						try {
+							obj.saveFileTepTin();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					});
+					BindUtils.postNotifyChange(null, null, this, "tepTins");
+				}
+			} else {
+				showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
+						"Có tệp không đúng định dạng", "danger");
+			}
 		}
 	}
-
+	
 	@Command
-	public void uploadFile(@BindingParam("medias") final Object medias) {
+	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
+		if (!object.getPathFile().isEmpty()) {
+			final String path = folderStoreTaiLieu() + object.getNameHash();
+			if (new java.io.File(path).exists()) {
+				try {
+					Filedownload.save(new URL("file:///" + path)
+							.openStream(), null, object.getTenFile().concat(object.getTypeFile()));
+				} catch (IOException e) {
+					showNotification("Không tìm thấy file", "Thông báo", "danger");
+				}
+			} else {
+				showNotification("Không tìm thấy file", "Thông báo", "danger");
+			}
+		}
+	}
+	
+	@Command
+	public void deleteFile(@BindingParam("index") final int index) {
+		DoanVao doanVao = this;
+		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
+				Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) throws IOException {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							doanVao.getTepTins().remove(index);
+							BindUtils.postNotifyChange(null, null, this, "tepTins");
+							showNotification("Đã xóa", "", "success");
+						}
+					}
+				});
+	}
+	
+	@Command
+	public void reUploadFile(@BindingParam("medias") final Object medias, @BindingParam("index") final int index) {
 		Media media = (Media) medias;
 		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
 				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
@@ -210,12 +269,11 @@ public class DoanVao extends Model<DoanVao> {
 				tepTin.setNameHash(tenFile);
 				tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+				tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
 				tepTin.setMedia(media);
-				setTaiLieu(tepTin);
-				setCheckTaiLieu(true);
-				BindUtils.postNotifyChange(null, null, this, "taiLieu");
-				BindUtils.postNotifyChange(null, null, this, "checkTaiLieu");
+				this.getTepTins().set(index, tepTin);
+				BindUtils.postNotifyChange(null, null, this, "tepTins");
 			}
 		} else {
 			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
@@ -224,58 +282,49 @@ public class DoanVao extends Model<DoanVao> {
 	}
 
 	@Command
-	public void deleteFile(@BindingParam("vm") DoanVao ob) {
-		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-				Messagebox.QUESTION, new EventListener<Event>() {
-					@Override
-					public void onEvent(final Event event) throws IOException {
-						if (Messagebox.ON_OK.equals(event.getName())) {
-							setTaiLieu(null);
-							setCheckTaiLieu(false);
-							BindUtils.postNotifyChange(null, null, ob, "taiLieu");
-							BindUtils.postNotifyChange(null, null, ob, "checkTaiLieu");
-							showNotification("Đã xóa", "", "success");
-						}
-					}
-				});
-	}
-
-	@Command
 	public void saveDoanVao() {
-		DoanVao doanVao = this;
-		transactioner().execute(new TransactionCallbackWithoutResult() {
-			@Override
-			protected void doInTransactionWithoutResult(TransactionStatus status) {
-				if (!listThanhVienDoan.isEmpty() && listThanhVienDoan != null) {
-					for (ThanhVienDoan thanhVienDoan : listThanhVienDoan) {
-						thanhVienDoan.setDoanVao(doanVao);
-						thanhVienDoan.saveNotShowNotification();
-					}
-				}
-				if (!listXoaThanhVienDoan.isEmpty() && listXoaThanhVienDoan != null) {
-					for (ThanhVienDoan thanhVienDoan : listXoaThanhVienDoan) {
-						thanhVienDoan.setDoanVao(doanVao);
-						thanhVienDoan.setDaXoa(true);
-						thanhVienDoan.saveNotShowNotification();
-					}
-				}
-				if (getTaiLieu() != null) {
-					getTaiLieu().save();
-				}
-				save();
-				redirectPageList("/cp/quanlydoanvao", null);
-			}
+		this.getTepTins().forEach(item -> {
+			item.saveNotShowNotification();
 		});
-	}
+		save();
+		if (listThanhVienDoan != null && !listThanhVienDoan.isEmpty()) {
+			listThanhVienDoan.forEach(item -> {
+				item.setDoanVao(this);
+				item.saveNotShowNotification();
+			});
+		}
+		if (listXoaThanhVienDoan != null && !listXoaThanhVienDoan.isEmpty()) {
+			listXoaThanhVienDoan.forEach(item -> {
+				item.setDoanVao(this);
+				item.setDaXoa(true);
+				item.saveNotShowNotification();
+			});
+		}
 
+		if (listGiaoViec != null || !listGiaoViec.isEmpty()) {
+			for (GiaoViec congViec : listGiaoViec) {
+				checkCongViec(congViec);
+				if (checkNotAllNull && checkAllNull) {
+					saveGiaoViec(congViec);
+				}
+				resetCheck();
+			}
+		}
+		redirectPageList("/cp/quanlydoanvao", null);
+	}
+	
+	public void saveGiaoViec(GiaoViec giaoViec) {
+		giaoViec.getTaiLieu().saveNotShowNotification();
+		giaoViec.setDoanVao(this);
+		giaoViec.setNguoiGiaoViec(core().getNhanVien());
+		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
+		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
+		giaoViec.saveNotShowNotification();
+	}
+	
 	@Command
 	public void redirectPageList(@BindingParam("url") String url, @BindingParam("vm") DoanVao vm) {
 		Executions.getCurrent().sendRedirect(url);
-	}
-
-	@Transient
-	public QuocGia getQuocGiaTemp() {
-		return quocGiaTemp;
 	}
 
 	@Transient
@@ -340,7 +389,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void setThanhVienDoanTemp(ThanhVienDoan thanhVienDoanTemp) {
 		this.thanhVienDoanTemp = thanhVienDoanTemp;
 	}
-
+	
 	private List<ThanhVienDoan> listThanhVienDoan = new ArrayList<ThanhVienDoan>();
 	private List<ThanhVienDoan> listThanhVienTheoDoan = new ArrayList<ThanhVienDoan>();
 	private List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam = new ArrayList<ThanhVienDoan>();
@@ -354,7 +403,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void setListXoaThanhVienDoan(List<ThanhVienDoan> listXoaThanhVienDoan) {
 		this.listXoaThanhVienDoan = listXoaThanhVienDoan;
 	}
-
+	
 	private boolean flag;
 
 	@Transient
@@ -401,6 +450,12 @@ public class DoanVao extends Model<DoanVao> {
 	public void setListTaoMoiThanhVienDoanLuuTam(List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam) {
 		this.listTaoMoiThanhVienDoanLuuTam = listTaoMoiThanhVienDoanLuuTam;
 	}
+	
+	@Command
+	public void redirectXemChiTietDoanVao(@BindingParam("id") Long id) {
+		String url = "/cp/quanlydoanvao/detail/";
+		Executions.sendRedirect(url.concat(id.toString()));
+	}
 
 	@Command
 	public void saveThanhVienDoan() {
@@ -410,7 +465,7 @@ public class DoanVao extends Model<DoanVao> {
 			BindUtils.postNotifyChange(null, null, this, "flag");
 		} else {
 			List<ThanhVienDoan> listThanhVienDoan = getListTaoMoiThanhVienDoanLuuTam();
-			listThanhVienDoan.add(getThanhVienDoanTemp());
+			listThanhVienDoan.add(this.getThanhVienDoanTemp());
 			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
 		}
 		reset();
@@ -468,5 +523,272 @@ public class DoanVao extends Model<DoanVao> {
 	public void saveDanhSachThanhVienDoan(@BindingParam("wdn") final Window wdn) {
 		showNotification("Lưu thành công!", "", "success");
 		wdn.detach();
+	}
+	
+	//======================================================================================
+
+	private GiaoViec titleNhanSuLamViec = new GiaoViec(NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC, new NhanVien(), null, null, null);
+	private GiaoViec congViecNguoiDuocPhanCong = new GiaoViec(NoiDungCongViec.CONG_VIEC_NGUOI_DUOC_PHAN_CONG, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuyenVien = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUYEN_VIEN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec titleCongTacHauCan = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN, new NhanVien(), null, null, null);
+	private GiaoViec congViecChuanBiPhongHop = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_PHONG_HOP, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiHoaQua = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_HOA_QUA, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiThietBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_THIET_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiTaiLieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_TAI_LIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec titleCongTacKhac = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_KHAC, new NhanVien(), null, null, null);
+	private GiaoViec congViecXayDungChuongTrinh = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAY_DUNG_CHUONG_TRINH, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiBaiGioiThieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecXacNhanLaiThongTin = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAC_NHAN_LAI_THONG_TIN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecGhiBienBan = new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecKiemTraLaiCongTacChuanBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	
+	@Transient
+	public GiaoViec getTitleNhanSuLamViec() {
+		return titleNhanSuLamViec;
+	}
+
+	@Transient
+	public GiaoViec getCongViecNguoiDuocPhanCong() {
+		return congViecNguoiDuocPhanCong;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuyenVien() {
+		return congViecChuyenVien;
+	}
+
+	@Transient
+	public GiaoViec getTitleCongTacHauCan() {
+		return titleCongTacHauCan;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiPhongHop() {
+		return congViecChuanBiPhongHop;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiHoaQua() {
+		return congViecChuanBiHoaQua;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiThietBi() {
+		return congViecChuanBiThietBi;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiTaiLieu() {
+		return congViecChuanBiTaiLieu;
+	}
+
+	@Transient
+	public GiaoViec getTitleCongTacKhac() {
+		return titleCongTacKhac;
+	}
+
+	@Transient
+	public GiaoViec getCongViecXayDungChuongTrinh() {
+		return congViecXayDungChuongTrinh;
+	}
+
+	@Transient
+	public GiaoViec getCongViecChuanBiBaiGioiThieu() {
+		return congViecChuanBiBaiGioiThieu;
+	}
+
+	@Transient
+	public GiaoViec getCongViecXacNhanLaiThongTin() {
+		return congViecXacNhanLaiThongTin;
+	}
+
+	@Transient
+	public GiaoViec getCongViecGhiBienBan() {
+		return congViecGhiBienBan;
+	}
+
+	@Transient
+	public GiaoViec getCongViecKiemTraLaiCongTacChuanBi() {
+		return congViecKiemTraLaiCongTacChuanBi;
+	}
+
+
+	public void setTitleNhanSuLamViec(GiaoViec titleNhanSuLamViec) {
+		this.titleNhanSuLamViec = titleNhanSuLamViec;
+	}
+
+	public void setCongViecNguoiDuocPhanCong(GiaoViec congViecNguoiDuocPhanCong) {
+		this.congViecNguoiDuocPhanCong = congViecNguoiDuocPhanCong;
+	}
+
+	public void setCongViecChuyenVien(GiaoViec congViecChuyenVien) {
+		this.congViecChuyenVien = congViecChuyenVien;
+	}
+
+	public void setTitleCongTacHauCan(GiaoViec titleCongTacHauCan) {
+		this.titleCongTacHauCan = titleCongTacHauCan;
+	}
+
+	public void setCongViecChuanBiPhongHop(GiaoViec congViecChuanBiPhongHop) {
+		this.congViecChuanBiPhongHop = congViecChuanBiPhongHop;
+	}
+
+	public void setCongViecChuanBiHoaQua(GiaoViec congViecChuanBiHoaQua) {
+		this.congViecChuanBiHoaQua = congViecChuanBiHoaQua;
+	}
+
+	public void setCongViecChuanBiThietBi(GiaoViec congViecChuanBiThietBi) {
+		this.congViecChuanBiThietBi = congViecChuanBiThietBi;
+	}
+
+	public void setCongViecChuanBiTaiLieu(GiaoViec congViecChuanBiTaiLieu) {
+		this.congViecChuanBiTaiLieu = congViecChuanBiTaiLieu;
+	}
+
+	public void setTitleCongTacKhac(GiaoViec titleCongTacKhac) {
+		this.titleCongTacKhac = titleCongTacKhac;
+	}
+
+	public void setCongViecXayDungChuongTrinh(GiaoViec congViecXayDungChuongTrinh) {
+		this.congViecXayDungChuongTrinh = congViecXayDungChuongTrinh;
+	}
+
+
+	public void setCongViecChuanBiBaiGioiThieu(GiaoViec congViecChuanBiBaiGioiThieu) {
+		this.congViecChuanBiBaiGioiThieu = congViecChuanBiBaiGioiThieu;
+	}
+
+	public void setCongViecXacNhanLaiThongTin(GiaoViec congViecXacNhanLaiThongTin) {
+		this.congViecXacNhanLaiThongTin = congViecXacNhanLaiThongTin;
+	}
+
+	public void setCongViecGhiBienBan(GiaoViec congViecGhiBienBan) {
+		this.congViecGhiBienBan = congViecGhiBienBan;
+	}
+
+	public void setCongViecKiemTraLaiCongTacChuanBi(GiaoViec congViecKiemTraLaiCongTacChuanBi) {
+		this.congViecKiemTraLaiCongTacChuanBi = congViecKiemTraLaiCongTacChuanBi;
+	}
+	
+	private boolean checkNotAllNull = true;
+	private boolean checkAllNull = false;
+	
+	public void checkCongViec(final GiaoViec giaoViec) {
+		if (giaoViec.getNguoiDuocGiao() == null) {
+			giaoViec.setNguoiDuocGiao(new NhanVien());
+		}
+		if (giaoViec.getHanThucHien() == null && "".equals(giaoViec.getNguoiDuocGiao().getHoVaTen())) {
+			// pass
+		} else {
+			if ((giaoViec.getHanThucHien() != null && "".equals(giaoViec.getNguoiDuocGiao().getHoVaTen()))
+					|| (giaoViec.getHanThucHien() == null && !"".equals(giaoViec.getNguoiDuocGiao().getHoVaTen()))) {
+				checkNotAllNull = false;
+			} else {
+				checkAllNull = true;
+			}
+		}
+	}
+	
+	public void resetCheck() {
+		checkNotAllNull = true;
+		checkAllNull = false;
+	}
+	
+	private List<GiaoViec> listGiaoViec = new ArrayList<GiaoViec>();
+
+	@Transient
+	public List<GiaoViec> getListGiaoViec() {
+		listGiaoViec.add(congViecNguoiDuocPhanCong);
+		listGiaoViec.add(congViecChuyenVien);
+		listGiaoViec.add(congViecChuanBiPhongHop);
+		listGiaoViec.add(congViecChuanBiHoaQua);
+		listGiaoViec.add(congViecChuanBiThietBi);
+		listGiaoViec.add(congViecChuanBiTaiLieu);
+		listGiaoViec.add(congViecGhiBienBan);
+		listGiaoViec.add(congViecXayDungChuongTrinh);
+		listGiaoViec.add(congViecChuanBiBaiGioiThieu);
+		listGiaoViec.add(congViecXacNhanLaiThongTin);
+		listGiaoViec.add(congViecGhiBienBan);
+		listGiaoViec.add(congViecKiemTraLaiCongTacChuanBi);
+		return listGiaoViec;
+	}
+	
+	
+	public void setListGiaoViec(List<GiaoViec> listGiaoViec) {
+		this.listGiaoViec = listGiaoViec;
+	}
+
+	@Command
+	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao,
+			@BindingParam("wdn") final Window wdn) {
+		for (GiaoViec item : getListGiaoViec()) {
+			checkCongViec(item);
+		}
+		if (!checkNotAllNull || !checkAllNull) {
+			showNotification("", "Dữ liệu nhập vào chưa đúng. Vui lòng nhập lại", "danger");
+			resetCheck();
+		} else {
+			resetCheck();
+			showNotification("Lưu thành công!", "", "success");
+			wdn.detach();
+		}
+	}
+	
+	private List<GiaoViec> listGiaoViecTheoDoan = new ArrayList<GiaoViec>();
+	
+	@Transient
+	public List<GiaoViec> getListGiaoViecTheoDoan() {
+		return listGiaoViecTheoDoan;
+	}
+
+	public void setListGiaoViecTheoDoan(List<GiaoViec> listGiaoViecTheoDoan) {
+		this.listGiaoViecTheoDoan = listGiaoViecTheoDoan;
+	}
+
+	@Transient
+	public void loadListGiaoViecTheoDoan() {
+		for (GiaoViec giaoViec : getListGiaoViec()) {
+			for (GiaoViec item : listGiaoViecTheoDoan) {
+				if (item.getNoiDungCongViec().equals(giaoViec.getNoiDungCongViec())) {
+					switch (item.getNoiDungCongViec()) {
+					case CONG_VIEC_NGUOI_DUOC_PHAN_CONG:
+						congViecNguoiDuocPhanCong = item;
+						break;
+					case CONG_VIEC_CHUYEN_VIEN:
+						congViecChuyenVien = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_PHONG_HOP:
+						congViecChuanBiPhongHop = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_HOA_QUA:
+						congViecChuanBiHoaQua = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_THIET_BI:
+						congViecChuanBiThietBi = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_TAI_LIEU:
+						congViecChuanBiTaiLieu = item;
+						break;
+					case CONG_VIEC_XAY_DUNG_CHUONG_TRINH:
+						congViecXayDungChuongTrinh = item;
+						break;
+					case CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU:
+						congViecChuanBiBaiGioiThieu = item;
+						break;
+					case CONG_VIEC_XAC_NHAN_LAI_THONG_TIN:
+						congViecXacNhanLaiThongTin = item;
+						break;
+					case CONG_VIEC_GHI_BIEN_BAN:
+						congViecGhiBienBan = item;
+						break;
+					case CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI:
+						congViecKiemTraLaiCongTacChuanBi = item;
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		}
 	}
 }
