@@ -686,6 +686,17 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 		}
 		return l.subList(page * len, Math.min(page * len + len, l.size()));
 	}
+	
+	public <C> List<C> pageListDoanVao(List<C> l) {
+		String kPage = SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGE);
+		int page = MapUtils.getIntValue(getArg(), kPage, 0);
+		int len = MapUtils.getIntValue(getArg(), "pagesize", 5);
+		if (l.size() <= page * len) {
+			getArg().put(kPage, page = 0);
+			BindUtils.postNotifyChange(null, null, getArg(), kPage);
+		}
+		return l.subList(page * len, Math.min(page * len + len, l.size()));
+	}
 
 	public <C> List<C> pageListFrontEnd(List<C> l) {
 		if (l != null) {

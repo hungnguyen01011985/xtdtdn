@@ -36,11 +36,12 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.greenglobal.core.CoreObject;
 import vn.toancauxanh.cms.service.HomeService;
-import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
+import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
+import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.NhanVien;
@@ -743,7 +744,10 @@ public class BaseObject<T> extends CoreObject<T> {
 		return false;
 	}
 
-	public boolean checkDeleteDoanVao(NhanVien nguoiTao) {
+	public boolean checkDeleteDoanVao(NhanVien nguoiTao, TrangThaiTiepDoanEnum trangThaiTiepDoan) {
+		if (TrangThaiTiepDoanEnum.DA_TIEP.equals(trangThaiTiepDoan)) {
+			return false;
+		}
 		if (nguoiTao.equals(core().getNhanVien())) {
 			return true;
 		}

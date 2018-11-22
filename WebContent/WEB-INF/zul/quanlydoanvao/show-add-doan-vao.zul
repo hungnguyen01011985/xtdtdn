@@ -1,2 +1,2 @@
 <?component name="add-view" inline="true" macroURI="add-view.zul"?>
-<add-view action="false" visible="false" />
+<add-view action="false" visible="false" checkCapNhat="false" />
