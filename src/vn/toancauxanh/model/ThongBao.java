@@ -1,6 +1,8 @@
 package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -12,6 +14,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.zk.ui.Executions;
 
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
+import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 
 @Entity
 @Table(name = "thongbao")
@@ -22,7 +25,7 @@ public class ThongBao extends Model<ThongBao> {
 	private NhanVien nguoiNhan;
 	private LoaiThongBao loaiThongBao;
 	private boolean daXem;
-	private boolean type;
+	private ThongBaoEnum kieuThongBao;
 	private Long idObject;
 
 	public ThongBao() {
@@ -45,14 +48,15 @@ public class ThongBao extends Model<ThongBao> {
 		this.daXem = daXem;
 	}
 	
-	public boolean isType() {
-		return type;
+	@Enumerated(EnumType.STRING)
+	public ThongBaoEnum getKieuThongBao() {
+		return kieuThongBao;
 	}
 
-	public void setType(boolean type) {
-		this.type = type;
+	public void setKieuThongBao(ThongBaoEnum kieuThongBao) {
+		this.kieuThongBao = kieuThongBao;
 	}
-	
+
 	public String getNoiDung() {
 		return noiDung;
 	}

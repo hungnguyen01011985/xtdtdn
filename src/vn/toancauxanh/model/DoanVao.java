@@ -37,6 +37,7 @@ import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
+import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 
@@ -318,7 +319,7 @@ public class DoanVao extends Model<DoanVao> {
 		}
 		thongBao.setIdObject(doanVao.getId());
 		thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
-		thongBao.setType(true);
+		thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 		thongBao.saveNotShowNotification();
 	}
 
