@@ -1,6 +1,6 @@
 <?page title="Báo cáo thống kê" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.BaoCaoThongKeDuAnService')">
+	apply="org.zkoss.bind.BindComposer" class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.BaoCaoThongKeCongViecService')">
 	<zscript>
 		<![CDATA[
 			page.title = "Báo cáo thống kê";
@@ -11,7 +11,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<n:span class="page-header-title">
-						Thống kê dự án
+						Thống kê công việc
 					</n:span>
 				</div>
 			</div>
@@ -71,22 +71,24 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
+							<column label="Tên công việc" />
 							<column label="Tên dự án" />
-							<column label="Chủ đầu tư" />
-							<column label="Địa điểm, diện tích đất dự kiến" />
-							<column label="Tổng vốn đầu tư (USD)"/>
-							<column label="Mục tiêu dự án"/>
-							<column label="Tiến độ xúc tiến" width="150px"/>
+							<column label="Người giao việc" />
+							<column label="Người phụ trách"/>
+							<column label="Ngày giao việc"/>
+							<column label="Hạn thực hiện"/>
+							<column label="Trạng thái" width="150px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
 								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-								<label value="@load(each.duAn.tenDuAn)"></label>
-								<label value="@load(each.tenCongTy)"></label>
-								<label value="@load(each.duAn.diaDiem eq null ? 'Chưa xác định' : each.duAn.diaDiem)"></label>
-								<label value="@load(each.duAn.tongVonDauTu)"></label>
-								<label value="@load(each.duAn.mucTieuDuAn)"></label>
-								<label value="@load(each.giaiDoanXucTien.text)"></label>
+								<label value="@load(item.tenCongViec)"></label>
+								<label value="@load(item.duAn.tenDuAn eq null ? item.doanVao.tenDoanVao : item.duAn.tenDuAn)"></label>
+								<label value="@load(item.nguoiGiaoViec.hoVaTen)"></label>
+								<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
+								<label value="@load(item.ngayGiao)"></label>
+								<label value="@load(item.hanThucHien)"></label>
+								<label value="@load(item.trangThaiGiaoViec.text)"></label>
 							</row>
 						</template>
 					</grid>
