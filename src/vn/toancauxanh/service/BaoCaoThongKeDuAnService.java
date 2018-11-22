@@ -23,6 +23,7 @@ public class BaoCaoThongKeDuAnService extends BasicService<GiaiDoanDuAn>{
 		} else if (getFixTuNgay() != null && getFixDenNgay() != null) {
 			q.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.ngayBatDauXucTien.between(getFixTuNgay(), getFixDenNgay()));
 		}
+		q.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.ngaySua.desc());
 		return q;
 	}
 }
