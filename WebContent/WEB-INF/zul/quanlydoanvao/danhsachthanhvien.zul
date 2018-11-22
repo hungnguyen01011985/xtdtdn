@@ -9,7 +9,7 @@
 		]]>
 	</zscript>
 	<n:script>
-		function getFocus(){
+		function getFocus() {
 			$(".focus").find("input").focus();
 		}
 	</n:script>

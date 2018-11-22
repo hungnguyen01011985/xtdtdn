@@ -791,4 +791,19 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return false;
 	}
+	
+	public String thoiHanConLai(Date thoiHan) {
+		if (thoiHan.compareTo(resetHourMinuteSecondMilli(new Date())) > 0){
+			StringBuilder txt = new StringBuilder();
+			txt.append("<span class='color-txt-blue'>(Còn ");
+			txt.append(thoiHan.compareTo(resetHourMinuteSecondMilli(new Date())));
+			txt.append(" ngày)</span>");
+			return txt.toString();
+		} else if (thoiHan.compareTo(resetHourMinuteSecondMilli(new Date())) == 0) {
+			return "<span class='color-txt-orange'>(Đã đến hạn)</span>";
+		} else {
+			return "<span class='color-txt-red'>(Đã quá hạn)</span>";
+		}
+	}
+	
 }
