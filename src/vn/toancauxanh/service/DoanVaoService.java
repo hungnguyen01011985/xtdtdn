@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.MapUtils;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.zk.ui.Executions;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import vn.toancauxanh.gg.model.enums.TrangThaiEnum;
+import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.model.QDoanVao;
 
@@ -21,7 +23,7 @@ public class DoanVaoService extends BasicService<DoanVao> {
 			q.where(QDoanVao.doanVao.tenDoanVao.like("%" + tuKhoa + "%"));
 		}
 		if (trangThai != null && !trangThai.isEmpty()) {
-			q.where(QDoanVao.doanVao.trangThaiTiepDoan.eq(TrangThaiEnum.valueOf(trangThai)));
+			q.where(QDoanVao.doanVao.trangThaiTiepDoan.eq(TrangThaiTiepDoanEnum.valueOf(trangThai)));
 		}
 
 		if (getFixTuNgay() != null && getFixDenNgay() == null) {
@@ -36,12 +38,11 @@ public class DoanVaoService extends BasicService<DoanVao> {
 		return q;
 	}
 
-	public List<TrangThaiEnum> getListTrangThaiTiepDoan() {
-		List<TrangThaiEnum> list = new ArrayList<TrangThaiEnum>();
+	public List<TrangThaiTiepDoanEnum> getListTrangThaiTiepDoan() {
+		List<TrangThaiTiepDoanEnum> list = new ArrayList<TrangThaiTiepDoanEnum>();
 		list.add(null);
-		list.add(TrangThaiEnum.CHUA_TIEP);
-		list.add(TrangThaiEnum.DANG_TIEP);
-		list.add(TrangThaiEnum.DA_TIEP);
+		list.add(TrangThaiTiepDoanEnum.CHUA_TIEP);
+		list.add(TrangThaiTiepDoanEnum.DA_TIEP);
 		return list;
 	}
 
@@ -53,5 +54,10 @@ public class DoanVaoService extends BasicService<DoanVao> {
 			}
 		}
 		return new DoanVao();
+	}
+	
+	@Command
+	public void reset() {
+		Executions.sendRedirect("/cp/quanlydoanvao");
 	}
 }

@@ -12,6 +12,7 @@ import org.zkoss.bind.annotation.Command;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
+import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 import vn.toancauxanh.model.QThongBao;
 import vn.toancauxanh.model.ThongBao;
 
@@ -43,12 +44,16 @@ public class ThongBaoService extends BasicService<ThongBao> {
 	}
 
 	@Command
-	public void viewNotify(@BindingParam("item") ThongBao thongBao, @BindingParam("href") String href) {
+	public void viewNotify(@BindingParam("item") ThongBao thongBao) {
 		if (!thongBao.isDaXem()) {
 			thongBao.setDaXem(true);
 			thongBao.saveNotShowNotification();
 		}
-		thongBao.redirect(href);
+		if (ThongBaoEnum.THONG_BAO_DOAN_VAO.equals(thongBao.getKieuThongBao())) {
+			thongBao.redirect("cp/quanlydoanvao/edit/");
+		} else if (ThongBaoEnum.THONG_BAO_DU_AN.equals(thongBao.getKieuThongBao())) {
+			thongBao.redirect("/cp/quanlyduan/");
+		}
 	}
 
 	public List<LoaiThongBao> getListThongBaoAndNull() {

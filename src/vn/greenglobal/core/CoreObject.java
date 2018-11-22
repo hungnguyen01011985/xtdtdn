@@ -477,7 +477,7 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 	public int defaultPageSize() {
 		return Integer.parseInt(SystemPropertyUtils.resolvePlaceholders("${conf.defaultpagesize:10}"));
 	}
-
+	
 	public <C> JPAQuery<C> query() {
 		return new JPAQuery<C>(em()).setHint("org.hibernate.cacheable",
 				SystemPropertyUtils.resolvePlaceholders("${conf.defcacheable:true}"));
@@ -488,6 +488,20 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 		if (arg == Collections.emptyMap()) {
 			arg = new HashMap<Object, Object>();
 			arg.put(SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGESIZE), Integer.valueOf(defaultPageSize()));
+			if (Executions.getCurrent() != null) {
+				for (final Map.Entry<String, String[]> entry : Executions.getCurrent().getParameterMap().entrySet()) {
+					arg.put(entry.getKey(), entry.getValue().length > 0 ? entry.getValue()[0] : "");
+				}
+			}
+		}
+		return arg;
+	}
+	
+	@Transient
+	public Map<Object, Object> getArgDoanVao() {
+		if (arg == Collections.emptyMap()) {
+			arg = new HashMap<Object, Object>();
+			arg.put(SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGESIZE), 5);
 			if (Executions.getCurrent() != null) {
 				for (final Map.Entry<String, String[]> entry : Executions.getCurrent().getParameterMap().entrySet()) {
 					arg.put(entry.getKey(), entry.getValue().length > 0 ? entry.getValue()[0] : "");
@@ -650,7 +664,7 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 	public int activePage() {
 		return MapUtils.getIntValue(getArg(), SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGE), 1) - 1;
 	}
-
+	
 	public List<Number> enversions() {
 		return transactionero().execute(new TransactionCallback<List<Number>>() {
 			@Override
@@ -683,6 +697,17 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 		if (l.size() <= page * len) {
 			getArg().put(kPage, page = 0);
 			BindUtils.postNotifyChange(null, null, getArg(), kPage);
+		}
+		return l.subList(page * len, Math.min(page * len + len, l.size()));
+	}
+	
+	public <C> List<C> pageListDoanVao(List<C> l) {
+		String kPage = SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGE);
+		int page = MapUtils.getIntValue(getArgDoanVao(), kPage, 0);
+		int len = MapUtils.getIntValue(getArgDoanVao(), "pagesize", 5);
+		if (l.size() <= page * len) {
+			getArgDoanVao().put(kPage, page = 0);
+			BindUtils.postNotifyChange(null, null, getArgDoanVao(), kPage);
 		}
 		return l.subList(page * len, Math.min(page * len + len, l.size()));
 	}
