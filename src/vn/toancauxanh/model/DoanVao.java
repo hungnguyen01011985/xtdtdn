@@ -296,9 +296,23 @@ public class DoanVao extends Model<DoanVao> {
 		giaoViec.setDoanVao(this);
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
-		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 		thongBao(this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 		giaoViec.saveNotShowNotification();
+	}
+	
+	public void thongBao(DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan, NhanVien nguoiGui, String tenCongViec) {
+		ThongBao thongBao = new ThongBao();
+		if (giaoViec.noId()) {
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @" + doanVao.getTenDoanVao());
+			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
+			thongBao.saveNotShowNotification();
+		}
 	}
 	
 	@Command
@@ -401,14 +415,12 @@ public class DoanVao extends Model<DoanVao> {
 		if (!bind) {
 			listThanhVienDoan.addAll(getListThanhVienTheoDoan());
 			soThanhVienDoan = listThanhVienDoan.size();
-			System.out.println(soThanhVienDoan + " sadasdasd1");
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 			bind = true;
 		} else {
 			listThanhVienDoan.addAll(getListTaoMoiThanhVienDoanLuuTam());
 			listTaoMoiThanhVienDoanLuuTam.removeAll(getListTaoMoiThanhVienDoanLuuTam());
 			soThanhVienDoan = listThanhVienDoan.size();
-			System.out.println(soThanhVienDoan + " sadasdasd");
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 		}
 		return listThanhVienDoan;
@@ -790,28 +802,6 @@ public class DoanVao extends Model<DoanVao> {
 					}
 				}
 			}
-		}
-	}
-	
-	public void thongBao(DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan, NhanVien nguoiGui, String tenCongViec) {
-		ThongBao thongBao = new ThongBao();
-//		if (LoaiThongBao.TRE_CONG_VIEC.equals(loaiThongBao)) {
-//			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanXucTien())) {
-//				thongBao.setNoiDung("Công văn đề nghị giới thiệu địa điểm đã đến hạn nhận phản hồi của dự án @" + duAn.getTenDuAn());
-//			}
-//			if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(duAn.getGiaiDoanXucTien())) {
-//				thongBao.setNoiDung("Công văn xin chủ trương đã đến hạn nhận phản hồi của dự án @" + duAn.getTenDuAn());
-//			}
-//		}
-		if (giaoViec.noId()) {
-			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @" + doanVao.getTenDoanVao());
-			thongBao.setNguoiNhan(nguoiNhan);
-			if (nguoiGui != null) {
-				thongBao.setNguoiGui(nguoiGui);
-			}
-			thongBao.setIdObject(doanVao.getId());
-			thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
-			thongBao.saveNotShowNotification();
 		}
 	}
 }

@@ -496,6 +496,20 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 		}
 		return arg;
 	}
+	
+	@Transient
+	public Map<Object, Object> getArgDoanVao() {
+		if (arg == Collections.emptyMap()) {
+			arg = new HashMap<Object, Object>();
+			arg.put(SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGESIZE), 5);
+			if (Executions.getCurrent() != null) {
+				for (final Map.Entry<String, String[]> entry : Executions.getCurrent().getParameterMap().entrySet()) {
+					arg.put(entry.getKey(), entry.getValue().length > 0 ? entry.getValue()[0] : "");
+				}
+			}
+		}
+		return arg;
+	}
 
 	@Override
 	@Transient
@@ -650,6 +664,10 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 	public int activePage() {
 		return MapUtils.getIntValue(getArg(), SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGE), 1) - 1;
 	}
+	
+	public int activePageDoanVao() {
+		return MapUtils.getIntValue(getArgDoanVao(), SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGE), 1) - 1;
+	}
 
 	public List<Number> enversions() {
 		return transactionero().execute(new TransactionCallback<List<Number>>() {
@@ -689,11 +707,11 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 	
 	public <C> List<C> pageListDoanVao(List<C> l) {
 		String kPage = SystemPropertyUtils.resolvePlaceholders(PH_KEYPAGE);
-		int page = MapUtils.getIntValue(getArg(), kPage, 0);
-		int len = MapUtils.getIntValue(getArg(), "pagesize", 5);
+		int page = MapUtils.getIntValue(getArgDoanVao(), kPage, 0);
+		int len = MapUtils.getIntValue(getArgDoanVao(), "pagesize", 5);
 		if (l.size() <= page * len) {
-			getArg().put(kPage, page = 0);
-			BindUtils.postNotifyChange(null, null, getArg(), kPage);
+			getArgDoanVao().put(kPage, page = 0);
+			BindUtils.postNotifyChange(null, null, getArgDoanVao(), kPage);
 		}
 		return l.subList(page * len, Math.min(page * len + len, l.size()));
 	}

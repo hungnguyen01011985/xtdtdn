@@ -176,9 +176,9 @@
 							</row>
 						</template>
 					</grid>
-					<label value="@load(vm.soThanhVienDoan)"></label>
-					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.soThanhVienDoan)" mold="os"
-						activePage="@bind(vm.arg.page)" onPaging="@command('notifyDoanVao', notify=vm, attr='listThanhVienDoan')" />
+					<paging pageSize="@load(vm.argDoanVao.pagesize)" totalSize="@load(vm.soThanhVienDoan)" mold="os"
+						visible="@load(vm.soThanhVienDoan > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.argDoanVao.page)" onPaging="@command('notifyDoanVao', notify=vm, attr='listThanhVienDoan')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
