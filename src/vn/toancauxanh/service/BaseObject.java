@@ -756,6 +756,27 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return false;
 	}
+	
+	public boolean checkOnlyNguoiPhuTrach(NhanVien nguoiPhuTrach, Long idNV){
+		if (idNV == null) {
+			return false;
+		}
+		if (nguoiPhuTrach != null && nguoiPhuTrach.equals(core().getNhanVien())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkOnlyNguoiLienQuan(Long idNV, String id) {
+		if (idNV == null) {
+			return false;
+		}
+		if (id != null && !"".equals(id)) {
+			return subString(id).contains(idNV);
+		}
+		return false;
+	}
+	
 
 	public boolean checkDeleteDoanVao(NhanVien nguoiTao, TrangThaiTiepDoanEnum trangThaiTiepDoan) {
 		if (TrangThaiTiepDoanEnum.DA_TIEP.equals(trangThaiTiepDoan)) {
