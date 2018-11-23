@@ -94,7 +94,12 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					
+					<div zclass="form-group left">
+						<x:button class="btn btn-base btn-green" onClick="@command('xuatExcel', list = vm.targetQuery.fetch())">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+								<span>Xuất excel</span>
+						</x:button>
+					</div>
 				</div>
 			</div>
 		</div>

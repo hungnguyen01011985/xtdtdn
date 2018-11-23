@@ -32,14 +32,14 @@
 							<span>Loại công việc</span>
 							<combobox readonly="true" class="his"
 								model="@load(vm.listLoaiCongViec)" value="@load(vm.arg.loaiCongViec eq null ? 'Tất cả' : vm.arg.loaiCongViec.text)"
-								selectedItem="@bind(vm.arg.loaiCongViec)" onSelect="@command('checkLoaiCongViec')" placeholder="Tất cả" width="100%">
+								selectedItem="@bind(vm.arg.loaiCongViec)" placeholder="Tất cả" width="100%">
 								<template name="model">
 									<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
 								</template>
 							</combobox>
 						</div>
 					</div>
-					<div class="col-md-4" visible="@load(vm.arg.loaiCongViec eq null ? false : true)">
+					<div class="col-md-4" visible="@load(!(vm.arg.loaiCongViec eq null))">
 						<div class="form-group">
 							<span visible="@load(doanVao eq vm.arg.loaiCongViec)">Tên đoàn vào</span>
 							<span visible="@load(!(doanVao eq vm.arg.loaiCongViec))">Tên dự án</span>
@@ -132,7 +132,12 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					
+					<div zclass="form-group left">
+						<x:button class="btn btn-base btn-green" onClick="@command('xuatExcel', list = vm.targetQuery.fetch())">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+								<span>Xuất excel</span>
+						</x:button>
+					</div>
 				</div>
 			</div>
 		</div>

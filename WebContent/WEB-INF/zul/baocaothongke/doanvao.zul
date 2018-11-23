@@ -67,7 +67,7 @@
 							<column label="Tóm tắt nội dung - Kết quả làm việc"/>
 						</columns>
 						<template name="model">
-							<row viewModel="@id('item') @init(each)">
+							<row>
 								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
 								<label value="@load(each.tenDoanVao)"></label>
 								<label value="@load(each.soNguoi)"></label>
@@ -84,6 +84,12 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
+					<div zclass="form-group left">
+						<x:button class="btn btn-base btn-green" onClick="@command('xuatExcel', list = vm.targetQuery.fetch())">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+								<span>Xuất excel</span>
+						</x:button>
+					</div>
 				</div>
 			</div>
 		</div>

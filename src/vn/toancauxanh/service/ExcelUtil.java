@@ -141,7 +141,7 @@ public class ExcelUtil {
 		return cellStyle;
 	}
 
-	public static void exportThongKe(String title, String fileName, String sheetname, List<Object[]> list)
+	public static void exportThongKeDoanVao(String title, String fileName, String sheetname, List<Object[]> list)
 			throws IOException {
 		// New Workbook
 		Workbook wb = new XSSFWorkbook();
@@ -166,33 +166,35 @@ public class ExcelUtil {
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
 			c = row.createCell(4);
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
-			sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
+			sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
 			// set column width
-			sheet1.setColumnWidth(0, 30 * 256);
-			sheet1.setColumnWidth(1, 16 * 256);
+			sheet1.setColumnWidth(0, 16 * 256);
+			sheet1.setColumnWidth(1, 30 * 256);
 			sheet1.setColumnWidth(2, 16 * 256);
-			sheet1.setColumnWidth(3, 16 * 256);
+			sheet1.setColumnWidth(3, 30 * 256);
 			sheet1.setColumnWidth(4, 16 * 256);
-			sheet1.setColumnWidth(5, 16 * 256);
+			sheet1.setColumnWidth(5, 36 * 256);
 			// Generate rows header of grid
 			idx++;
 			row = sheet1.createRow(idx);
 			c = row.createCell(0);
-			c.setCellValue("Tên đơn vị");
+			c.setCellValue("STT");
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
 			c = row.createCell(1);
-			c.setCellValue("Việc đã giao");
+			c.setCellValue("Tên đoàn");
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
 			c = row.createCell(2);
-			c.setCellValue("Chưa xử lý");
+			c.setCellValue("Thành phần Đoàn(người)");
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
 			c = row.createCell(3);
-			c.setCellValue("Đã xử lý");
+			c.setCellValue("Nơi đoàn đi thăm họp tại");
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
 			c = row.createCell(4);
-			c.setCellValue("Trễ hạn");
+			c.setCellValue("Thời gian");
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
-
+			c = row.createCell(5);
+			c.setCellValue("Tóm tắt nội dung - Kết quả làm việc");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
 			idx++;
 			int i = 1;
 			CellStyle cellStyleLeft = setBorderAndFont(wb, 1, i == list.size(), 11, "", "LEFT");
@@ -200,19 +202,218 @@ public class ExcelUtil {
 			for (Object[] ob : list) {
 				row = sheet1.createRow(idx);
 				c = row.createCell(0);
-				c.setCellValue(ob[0] + "");
-				c.setCellStyle(cellStyleLeft);
+				c.setCellValue(i + "");
+				c.setCellStyle(cellStyleCenter);
 				c = row.createCell(1);
-				c.setCellValue(ob[1] + "");
+				c.setCellValue(ob[0] + "");
 				c.setCellStyle(cellStyleCenter);
 				c = row.createCell(2);
-				c.setCellValue(ob[2] + "");
+				c.setCellValue(ob[1] + "");
 				c.setCellStyle(cellStyleCenter);
 				c = row.createCell(3);
-				c.setCellValue(ob[3] + "");
+				c.setCellValue(ob[2] + "");
 				c.setCellStyle(cellStyleCenter);
 				c = row.createCell(4);
+				c.setCellValue(ob[3] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(5);
 				c.setCellValue(ob[4] + "");
+				c.setCellStyle(cellStyleCenter);
+				i++;
+				idx++;
+			}
+
+			ByteArrayOutputStream fileOut = new ByteArrayOutputStream();
+			wb.write(fileOut);
+			Filedownload.save(new ByteArrayInputStream(fileOut.toByteArray()), "application/octet-stream",
+					fileName + ".xlsx");
+		} finally {
+			wb.close();
+		}
+	}
+	
+	public static void exportThongKeDuAn(String title, String fileName, String sheetname, List<Object[]> list)
+			throws IOException {
+		// New Workbook
+		Workbook wb = new XSSFWorkbook();
+		try {
+			Cell c = null;
+			// New Sheet
+			Sheet sheet1 = null;
+			sheet1 = wb.createSheet(sheetname);
+			// Row and column indexes
+			int idx = 0;
+			// Generate column headings
+			Row row;
+			row = sheet1.createRow(idx);
+			c = row.createCell(0);
+			c.setCellValue(title);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			c = row.createCell(1);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			c = row.createCell(2);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			c = row.createCell(3);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			c = row.createCell(4);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+			// set column width
+			sheet1.setColumnWidth(0, 16 * 256);
+			sheet1.setColumnWidth(1, 30 * 256);
+			sheet1.setColumnWidth(2, 16 * 256);
+			sheet1.setColumnWidth(3, 30 * 256);
+			sheet1.setColumnWidth(4, 16 * 256);
+			sheet1.setColumnWidth(5, 36 * 256);
+			sheet1.setColumnWidth(6, 20 * 256);
+			// Generate rows header of grid
+			idx++;
+			row = sheet1.createRow(idx);
+			c = row.createCell(0);
+			c.setCellValue("STT");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(1);
+			c.setCellValue("Tên dự án");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(2);
+			c.setCellValue("Chủ đầu tư");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(3);
+			c.setCellValue("Địa điểm, diện tích đất dự kiến");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(4);
+			c.setCellValue("Tổng vốn đầu tư (USD)");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(5);
+			c.setCellValue("Mục tiêu dự án");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(6);
+			c.setCellValue("Tiến độ xúc tiến");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			idx++;
+			int i = 1;
+			CellStyle cellStyleLeft = setBorderAndFont(wb, 1, i == list.size(), 11, "", "LEFT");
+			CellStyle cellStyleCenter = setBorderAndFont(wb, 1, i == list.size(), 11, "", "CENTER");
+			for (Object[] ob : list) {
+				row = sheet1.createRow(idx);
+				c = row.createCell(0);
+				c.setCellValue(i + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(1);
+				c.setCellValue(ob[0] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(2);
+				c.setCellValue(ob[1] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(3);
+				c.setCellValue(ob[2] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(4);
+				c.setCellValue(ob[3] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(5);
+				c.setCellValue(ob[4] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(6);
+				c.setCellValue(ob[5] + "");
+				c.setCellStyle(cellStyleCenter);
+				i++;
+				idx++;
+			}
+
+			ByteArrayOutputStream fileOut = new ByteArrayOutputStream();
+			wb.write(fileOut);
+			Filedownload.save(new ByteArrayInputStream(fileOut.toByteArray()), "application/octet-stream",
+					fileName + ".xlsx");
+		} finally {
+			wb.close();
+		}
+	}
+	
+	public static void exportThongKeCongViec(String title, String fileName, String sheetname, List<Object[]> list)
+			throws IOException {
+		// New Workbook
+		Workbook wb = new XSSFWorkbook();
+		try {
+			Cell c = null;
+			// New Sheet
+			Sheet sheet1 = null;
+			sheet1 = wb.createSheet(sheetname);
+			// Row and column indexes
+			int idx = 0;
+			// Generate column headings
+			Row row;
+			row = sheet1.createRow(idx);
+			c = row.createCell(0);
+			c.setCellValue(title);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			c = row.createCell(1);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			c = row.createCell(2);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			c = row.createCell(3);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			c = row.createCell(4);
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
+			sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+			// set column width
+			sheet1.setColumnWidth(0, 16 * 256);
+			sheet1.setColumnWidth(1, 30 * 256);
+			sheet1.setColumnWidth(2, 16 * 256);
+			sheet1.setColumnWidth(3, 30 * 256);
+			sheet1.setColumnWidth(4, 16 * 256);
+			sheet1.setColumnWidth(5, 36 * 256);
+			sheet1.setColumnWidth(6, 20 * 256);
+			// Generate rows header of grid
+			idx++;
+			row = sheet1.createRow(idx);
+			c = row.createCell(0);
+			c.setCellValue("STT");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(1);
+			c.setCellValue("Tên công việc");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(2);
+			c.setCellValue("Tên dự án");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(3);
+			c.setCellValue("Người được giao");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(4);
+			c.setCellValue("Người phụ trách");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(5);
+			c.setCellValue("Ngày giao việc");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			c = row.createCell(6);
+			c.setCellValue("Hạn thực hiện");
+			c.setCellStyle(setBorderAndFont(wb, 1, true, 11, "", "CENTER"));
+			idx++;
+			int i = 1;
+			CellStyle cellStyleLeft = setBorderAndFont(wb, 1, i == list.size(), 11, "", "LEFT");
+			CellStyle cellStyleCenter = setBorderAndFont(wb, 1, i == list.size(), 11, "", "CENTER");
+			for (Object[] ob : list) {
+				row = sheet1.createRow(idx);
+				c = row.createCell(0);
+				c.setCellValue(i + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(1);
+				c.setCellValue(ob[0] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(2);
+				c.setCellValue(ob[1] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(3);
+				c.setCellValue(ob[2] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(4);
+				c.setCellValue(ob[3] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(5);
+				c.setCellValue(ob[4] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(6);
+				c.setCellValue(ob[5] + "");
 				c.setCellStyle(cellStyleCenter);
 				i++;
 				idx++;
