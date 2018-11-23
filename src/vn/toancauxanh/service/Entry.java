@@ -257,19 +257,19 @@ public class Entry extends BaseObject<Object> {
 
 	@RequestMapping(value = "/cp/{rsc:.+$}/{path:.+$}")
 	public String add2(@PathVariable String rsc, @PathVariable String path) {
-		return "forward:/WEB-INF/zul/home.zul?resource=" + rsc + "&action=lietke&file=/WEB-INF/zul/" + rsc + "/" + path
+		return "forward:/WEB-INF/zul/home.zul?resource=" + rsc + "&action=them&file=/WEB-INF/zul/" + rsc + "/" + path
 				+ ".zul";
 	}
 
 	@RequestMapping(value = "/cp/{path:.+$}/edit/{id:\\d+}")
 	public String edit2(@PathVariable String path, @PathVariable Long id) {
-		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
+		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=sua&file=/WEB-INF/zul/" + path
 				+ "/show-doan-vao.zul&id=" + id;
 	}
 	
 	@RequestMapping(value = "/cp/{path:.+$}/detail/{id:\\d+}")
 	public String detail(@PathVariable String path, @PathVariable Long id) {
-		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
+		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=xem&file=/WEB-INF/zul/" + path
 				+ "/show-chi-tiet-doan-vao.zul&id=" + id;
 	}
 

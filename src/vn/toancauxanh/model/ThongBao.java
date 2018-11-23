@@ -114,9 +114,9 @@ public class ThongBao extends Model<ThongBao> {
 			BindUtils.postNotifyChange(null, null, vm, attr);
 		}
 		if (ThongBaoEnum.THONG_BAO_DOAN_VAO.equals(this.getKieuThongBao())) {
-			this.redirect("quanlydoanvao/edit/");
+			this.redirect("/cp/quanlydoanvao/edit/");
 		} else if (ThongBaoEnum.THONG_BAO_DU_AN.equals(this.getKieuThongBao())) {
-			this.redirect("quanlyduan/");
+			this.redirect("/cp/quanlyduan/");
 		}
 	}
 

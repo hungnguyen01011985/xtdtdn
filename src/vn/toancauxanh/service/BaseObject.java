@@ -734,11 +734,24 @@ public class BaseObject<T> extends CoreObject<T> {
 		return subString(id).contains(idNV);
 	}
 	
-	public boolean checkEditDoanVao(Long idNV, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
+	public boolean checkNguoiLienQuan(Long idNV, String id, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
 		if (idNV == null) {
 			return false;
 		}
 		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
+			return true;
+		}
+		if (id != null && !"".equals(id)) {
+			return subString(id).contains(idNV);
+		}
+		return false;
+	}
+	
+	public boolean checkNguoiPhuTrach(NhanVien nguoiTao, NhanVien nguoiPhuTrach, Long idNV){
+		if (idNV == null) {
+			return false;
+		}
+		if ((nguoiTao != null && nguoiTao.equals(core().getNhanVien())) || (nguoiPhuTrach != null && nguoiPhuTrach.equals(core().getNhanVien()))) {
 			return true;
 		}
 		return false;
