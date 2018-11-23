@@ -257,7 +257,7 @@ public class ExcelUtil {
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
 			c = row.createCell(4);
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
-			sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+			sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 6));
 			// set column width
 			sheet1.setColumnWidth(0, 16 * 256);
 			sheet1.setColumnWidth(1, 30 * 256);
@@ -355,7 +355,7 @@ public class ExcelUtil {
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
 			c = row.createCell(4);
 			c.setCellStyle(setBorderAndFont(wb, 1, true, 14, "BLUE", "CENTER"));
-			sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+			sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 6));
 			// set column width
 			sheet1.setColumnWidth(0, 16 * 256);
 			sheet1.setColumnWidth(1, 30 * 256);
@@ -414,6 +414,9 @@ public class ExcelUtil {
 				c.setCellStyle(cellStyleCenter);
 				c = row.createCell(6);
 				c.setCellValue(ob[5] + "");
+				c.setCellStyle(cellStyleCenter);
+				c = row.createCell(7);
+				c.setCellValue(ob[6] + "");
 				c.setCellStyle(cellStyleCenter);
 				i++;
 				idx++;

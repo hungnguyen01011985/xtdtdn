@@ -49,7 +49,7 @@ public class BaoCaoThongKeCongViecService extends BasicService<GiaoViec>{
 	public void xuatExcel(@BindingParam("list") List<GiaoViec> listGiaoViec) throws IOException {
 		List<Object[]> list = new ArrayList<Object[]>();
 		listGiaoViec.forEach(item -> {
-			Object[] ob = new Object[6];
+			Object[] ob = new Object[7];
 			ob[0] = item.getTenCongViec();
 			ob[1] = item.getDuAn().getTenDuAn();
 			ob[2] = item.getNguoiGiaoViec().getHoVaTen();
@@ -59,7 +59,7 @@ public class BaoCaoThongKeCongViecService extends BasicService<GiaoViec>{
 			ob[6] = item.getTrangThaiGiaoViec().getText();
 			list.add(ob);
 		});
-		ExcelUtil.exportThongKeDuAn("Thống kê công việc", "thongkebaocaocongviec", "Thống kê công việc", list);
+		ExcelUtil.exportThongKeCongViec("Thống kê công việc", "thongkebaocaocongviec", "Thống kê công việc", list);
 	}
 		
 }

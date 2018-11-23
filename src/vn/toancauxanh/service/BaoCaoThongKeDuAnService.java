@@ -43,7 +43,7 @@ public class BaoCaoThongKeDuAnService extends BasicService<GiaiDoanDuAn>{
 			ob[2] = item.getDuAn().getDiaDiem();
 			ob[3] = item.getDuAn().getTongVonDauTu();
 			ob[4] = item.getDuAn().getMucTieuDuAn();
-			ob[5] = item.getGiaiDoanXucTien();
+			ob[5] = item.getGiaiDoanXucTien().getText();
 			list.add(ob);
 		});
 		ExcelUtil.exportThongKeDuAn("Thống kê dự án", "thongkebaocaoduan", "Thống kê dự án", list);

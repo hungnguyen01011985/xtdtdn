@@ -1,6 +1,6 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
-		id="wdn" border="normal" title="Danh sách giao việc" mode="modal" action="show: slideIn" class="tcx-modal reset-width" width="80%"
+		id="wdn" border="normal" title="Danh sách lịch sử văn bản" mode="modal" action="show: slideIn" class="tcx-modal reset-width" width="80%"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.LichSuVanBanService')">
 		 <zscript>
 		 	<![CDATA[

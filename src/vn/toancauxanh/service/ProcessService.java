@@ -186,6 +186,7 @@ public class ProcessService extends BasicService<Object> {
 		DuAn model = q.fetchFirst();
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
+		duAn.getGiaiDoanDuAn().setDuAn(model);
 		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(model.getGiaiDoanXucTien())) {
 			saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_HAI, true);
@@ -202,7 +203,7 @@ public class ProcessService extends BasicService<Object> {
 	}
 	
 	public void removeGiaiDoanDuAnList(DuAn duAn) {
-		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.eq(duAn));
+		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(duAn.getId()));
 		q.fetch().forEach(item -> item.doDelete(true));
 	}
 

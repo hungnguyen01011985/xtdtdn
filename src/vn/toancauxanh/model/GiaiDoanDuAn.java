@@ -95,7 +95,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin vanBanChuyenMucDichSDD;
 	private TepTin vanBanDeNghiThuHoiDat;
 	// Giai đoạn 5
-	private String tenCongTy;
+	private String tenCongTy = "";
 	private String nguoiDaiDienPhapLy;
 	private String diaChi;
 	private String soDienThoai;
