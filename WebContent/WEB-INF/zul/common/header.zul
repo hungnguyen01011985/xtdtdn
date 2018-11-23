@@ -75,7 +75,7 @@
 							<n:li class="divider"></n:li>
 							<n:li>
 								<x:a href="javascript:void(0);" class="info-user" viewModel="@id('vm2') @init(entry.nhanViens)" onClick="@command('logout')">
-									<n:i class="fas fa-sign-out-alt"></n:i>
+									<n:i class="fa fa-sign-out fa-fw"></n:i>
 									&#160;&#160;&#160;Đăng xuất
 								</x:a>
 							</n:li>

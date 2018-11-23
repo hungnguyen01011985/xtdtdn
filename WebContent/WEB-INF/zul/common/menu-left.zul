@@ -1,6 +1,6 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
 <zk xmlns:n="native" xmlns:zk="zk" xmlns:x="xhtml" xmlns:u="zul">
-	<n:link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet"></n:link>
+	<n:link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></n:link>
 	<style>
 		.active-icon {color: #f4f5f7; position: absolute; font-size: 25px; right: 0px;} 
 		.ac-icon1 {top: 8px;}
@@ -43,13 +43,13 @@
 					</n:a>
 					<n:ul class="children-nav">
 						<n:a href="${execution.contextPath}/cp/baocaothongke/duan" zk:if="${entry.quyen.baocaothongke_duan}">
-							<n:li class="${path eq 'duan' ? 'active-children-nav' : '' }"><n:i class="far fa-circle" style="font-size:0.5em; padding: 0 37px 0 31px;"></n:i> Dự án</n:li>
+							<n:li class="${path eq 'duan' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Dự án</n:li>
 						</n:a>
 						<n:a href="${execution.contextPath}/cp/baocaothongke/congviec" zk:if="${entry.quyen.baocaothongke_congviec}">
-							<n:li class="${path eq 'congviec' ? 'active-children-nav' : '' }"><n:i class="far fa-circle" style="font-size:0.5em; padding: 0 37px 0 31px;"></n:i> Công việc</n:li>
+							<n:li class="${path eq 'congviec' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Công việc</n:li>
 						</n:a>
 						<n:a href="${execution.contextPath}/cp/baocaothongke/doanvao" zk:if="${entry.quyen.baocaothongke_doanvao}">
-							<n:li class="${path eq 'doanvao' ? 'active-children-nav' : '' }"><n:i class="far fa-circle" style="font-size:0.5em; padding: 0 37px 0 31px;"></n:i> Đoàn vào</n:li>
+							<n:li class="${path eq 'doanvao' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Đoàn vào</n:li>
 						</n:a>
 					</n:ul>
 				</n:li>
