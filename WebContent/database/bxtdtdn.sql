@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `doanvao` (
   `deXuatCVPhuTrach` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   `noiDoanDiTham` varchar(255) DEFAULT NULL,
-  `quocGia` int(11) NOT NULL,
+  `quocGia` varchar(50) NOT NULL,
   `soNguoi` int(11) NOT NULL,
   `tenDoanVao` varchar(255) DEFAULT NULL,
   `thoiGianDenLamViec` datetime DEFAULT NULL,
@@ -108,6 +108,20 @@ CREATE TABLE IF NOT EXISTS `doanvao` (
 DELETE FROM `doanvao`;
 /*!40000 ALTER TABLE `doanvao` DISABLE KEYS */;
 /*!40000 ALTER TABLE `doanvao` ENABLE KEYS */;
+
+-- Dumping structure for table bxtdtdn.doanvao_teptin
+DROP TABLE IF EXISTS `doanvao_teptin`;
+CREATE TABLE IF NOT EXISTS `doanvao_teptin` (
+  `doanvao_id` bigint(20) NOT NULL,
+  `teptin_id` bigint(20) NOT NULL,
+  KEY `FKtcrf48we33l0bthn6yr1ote10` (`teptin_id`),
+  KEY `FKoimvqhxwmbcspj321866br96o` (`doanvao_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table bxtdtdn.doanvao_teptin: ~0 rows (approximately)
+DELETE FROM `doanvao_teptin`;
+/*!40000 ALTER TABLE `doanvao_teptin` DISABLE KEYS */;
+/*!40000 ALTER TABLE `doanvao_teptin` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.donvi
 DROP TABLE IF EXISTS `donvi`;
@@ -495,6 +509,9 @@ CREATE TABLE IF NOT EXISTS `giaoviec` (
   `nguoiGiaoViec_id` bigint(20) DEFAULT NULL,
   `taiLieu_id` bigint(20) DEFAULT NULL,
   `taiLieuKetQua_id` bigint(20) DEFAULT NULL,
+  `ghiChu` varchar(255) DEFAULT NULL,
+  `noiDungCongViec` varchar(255) DEFAULT NULL,
+  `doanVao_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK1jkhxiuynhv7kg8lpysxgxa36` (`nguoiSua_id`),
   KEY `FKrtob3779e4wj2cn2uo88tjlku` (`nguoiTao_id`),
@@ -503,11 +520,13 @@ CREATE TABLE IF NOT EXISTS `giaoviec` (
   KEY `FK7koe49gx4fwfrtqjt5c1mnpju` (`nguoiGiaoViec_id`),
   KEY `FK8wvh4hnwxwkr081alfgiaatsp` (`taiLieu_id`),
   KEY `FKl7t2w9u86m83h4j1e0g1u0qnw` (`taiLieuKetQua_id`),
+  KEY `FKkh11optenfh7r9eu6jlylbd88` (`doanVao_id`),
   CONSTRAINT `FK1jkhxiuynhv7kg8lpysxgxa36` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
   CONSTRAINT `FK7koe49gx4fwfrtqjt5c1mnpju` FOREIGN KEY (`nguoiGiaoViec_id`) REFERENCES `nhanvien` (`id`),
   CONSTRAINT `FK8wvh4hnwxwkr081alfgiaatsp` FOREIGN KEY (`taiLieu_id`) REFERENCES `teptin` (`id`),
   CONSTRAINT `FKc03v84oo8ne7yrq07j0xbk3nx` FOREIGN KEY (`duAn_id`) REFERENCES `duan` (`id`),
   CONSTRAINT `FKjpb7j625yctta0ar1as62ea79` FOREIGN KEY (`nguoiDuocGiao_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKkh11optenfh7r9eu6jlylbd88` FOREIGN KEY (`doanVao_id`) REFERENCES `doanvao` (`id`),
   CONSTRAINT `FKl7t2w9u86m83h4j1e0g1u0qnw` FOREIGN KEY (`taiLieuKetQua_id`) REFERENCES `teptin` (`id`),
   CONSTRAINT `FKrtob3779e4wj2cn2uo88tjlku` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -661,6 +680,33 @@ CREATE TABLE IF NOT EXISTS `language` (
 DELETE FROM `language`;
 /*!40000 ALTER TABLE `language` DISABLE KEYS */;
 /*!40000 ALTER TABLE `language` ENABLE KEYS */;
+
+-- Dumping structure for table bxtdtdn.lichsuvanban
+DROP TABLE IF EXISTS `lichsuvanban`;
+CREATE TABLE IF NOT EXISTS `lichsuvanban` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `daXoa` bit(1) NOT NULL,
+  `ngaySua` datetime DEFAULT NULL,
+  `ngayTao` datetime DEFAULT NULL,
+  `trangThai` varchar(255) DEFAULT NULL,
+  `giaiDoanXucTien` varchar(255) DEFAULT NULL,
+  `nguoiSua_id` bigint(20) DEFAULT NULL,
+  `nguoiTao_id` bigint(20) DEFAULT NULL,
+  `duAn_id` bigint(20) DEFAULT NULL,
+  `nguoiNhap_id` bigint(20) DEFAULT NULL,
+  `vanBan_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK1e1yn4rcyy4if0sc4484goxh2` (`nguoiSua_id`),
+  KEY `FKg710sph8j2y6fofq5he5ymc9c` (`nguoiTao_id`),
+  KEY `FKs330pjru9puqc94ptqkr5tc63` (`duAn_id`),
+  KEY `FKqdg6wgfj36m0cmokmy04r51in` (`nguoiNhap_id`),
+  KEY `FKehdld3es5cy3jq8fg7buq568p` (`vanBan_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table bxtdtdn.lichsuvanban: ~0 rows (approximately)
+DELETE FROM `lichsuvanban`;
+/*!40000 ALTER TABLE `lichsuvanban` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lichsuvanban` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.linhvucduan
 DROP TABLE IF EXISTS `linhvucduan`;
@@ -832,7 +878,7 @@ CREATE TABLE IF NOT EXISTS `nhanvien_quyens` (
   CONSTRAINT `FKnlof2gbqm97pmg0mpfr2ytmui` FOREIGN KEY (`nhanVien_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.nhanvien_quyens: ~0 rows (approximately)
+-- Dumping data for table bxtdtdn.nhanvien_quyens: ~1 rows (approximately)
 DELETE FROM `nhanvien_quyens`;
 /*!40000 ALTER TABLE `nhanvien_quyens` DISABLE KEYS */;
 INSERT INTO `nhanvien_quyens` (`nhanVien_id`, `quyens`) VALUES
@@ -1070,7 +1116,7 @@ CREATE TABLE IF NOT EXISTS `thanhviendoan` (
   `donVi` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `hoVaTen` varchar(255) DEFAULT NULL,
-  `quocGia` int(11) NOT NULL,
+  `quocGia` varchar(50) NOT NULL,
   `soDienThoai` varchar(255) DEFAULT NULL,
   `nguoiSua_id` bigint(20) DEFAULT NULL,
   `nguoiTao_id` bigint(20) DEFAULT NULL,
@@ -1105,6 +1151,7 @@ CREATE TABLE IF NOT EXISTS `thongbao` (
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   `nguoiGui_id` bigint(20) DEFAULT NULL,
   `nguoiNhan_id` bigint(20) DEFAULT NULL,
+  `kieuThongBao` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKpieyg7mkasgkf1jl4gxj3qsvw` (`nguoiSua_id`),
   KEY `FK83hv7q7ahv7mbktsy8tn4mwb7` (`nguoiTao_id`),
@@ -1173,10 +1220,10 @@ CREATE TABLE IF NOT EXISTS `vaitro` (
 DELETE FROM `vaitro`;
 /*!40000 ALTER TABLE `vaitro` DISABLE KEYS */;
 INSERT INTO `vaitro` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `alias`, `checkKichHoat`, `loaiVaiTro`, `soThuTu`, `tenVaiTro`, `nguoiSua_id`, `nguoiTao_id`) VALUES
-	(1, b'0', '2018-11-19 14:48:00', '2018-11-05 15:34:37', 'ap_dung', 'quantrihethong', b'0', 'VAI_TRO_LANH_DAO', 0, 'Quản trị hệ thống', 1, 1),
-	(2, b'0', '2018-11-19 14:50:09', '2018-11-05 15:34:37', 'ap_dung', 'chuyenvien', b'0', 'VAI_TRO_CHUYEN_VIEN', 0, 'Chuyên viên', 1, 1),
-	(3, b'0', '2018-11-19 14:48:04', '2018-11-05 15:34:37', 'ap_dung', 'lanhdao', b'0', 'VAI_TRO_LANH_DAO', 0, 'Lãnh đạo', 1, 1),
-	(4, b'0', '2018-11-19 14:48:42', '2018-11-05 15:34:37', 'ap_dung', 'truongphong', b'0', 'VAI_TRO_TRUONG_PHONG', 0, 'Trưởng phòng', 1, 1);
+	(1, b'0', '2018-11-23 14:11:24', '2018-11-05 15:34:37', 'ap_dung', 'quantrihethong', b'0', 'VAI_TRO_LANH_DAO', 0, 'Quản trị hệ thống', 1, 1),
+	(2, b'0', '2018-11-23 14:16:08', '2018-11-05 15:34:37', 'ap_dung', 'chuyenvien', b'0', 'VAI_TRO_CHUYEN_VIEN', 0, 'Chuyên viên', 1, 1),
+	(3, b'0', '2018-11-23 14:11:49', '2018-11-05 15:34:37', 'ap_dung', 'lanhdao', b'0', 'VAI_TRO_LANH_DAO', 0, 'Lãnh đạo', 1, 1),
+	(4, b'0', '2018-11-23 14:12:04', '2018-11-05 15:34:37', 'ap_dung', 'truongphong', b'0', 'VAI_TRO_TRUONG_PHONG', 0, 'Trưởng phòng', 1, 1);
 /*!40000 ALTER TABLE `vaitro` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.vaitro_quyens
@@ -1188,7 +1235,7 @@ CREATE TABLE IF NOT EXISTS `vaitro_quyens` (
   CONSTRAINT `FKqldf0fggg0f8sc37im018c5ti` FOREIGN KEY (`vaitro_id`) REFERENCES `vaitro` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.vaitro_quyens: ~106 rows (approximately)
+-- Dumping data for table bxtdtdn.vaitro_quyens: ~119 rows (approximately)
 DELETE FROM `vaitro_quyens`;
 /*!40000 ALTER TABLE `vaitro_quyens` DISABLE KEYS */;
 INSERT INTO `vaitro_quyens` (`vaitro_id`, `quyens`) VALUES
@@ -1289,15 +1336,28 @@ INSERT INTO `vaitro_quyens` (`vaitro_id`, `quyens`) VALUES
 	(4, 'quanlydoanvao:them'),
 	(4, 'quanlygiaoviec:sua'),
 	(2, 'quanlygiaoviec:lietke'),
-	(2, 'quanlygiaoviec'),
-	(2, 'quanlygiaoviec:them'),
 	(2, 'quanlydoanvao:xoa'),
 	(2, 'quanlygiaoviec:xoa'),
 	(2, 'quanlydoanvao:xem'),
 	(2, 'quanlydoanvao:lietke'),
 	(2, 'quanlydoanvao:sua'),
 	(2, 'quanlygiaoviec:xem'),
-	(2, 'quanlygiaoviec:sua');
+	(2, 'quanlygiaoviec:sua'),
+	(1, 'quanlydoanvao:nhacnho'),
+	(3, 'quanlygiaoviec:them'),
+	(3, 'quanlydoanvao:xoa'),
+	(3, 'quanlydoanvao:lietke'),
+	(3, 'quanlydoanvao:sua'),
+	(3, 'quanlygiaoviec:xem'),
+	(3, 'quanlydoanvao'),
+	(3, 'quanlydoanvao:nhacnho'),
+	(3, 'quanlygiaoviec:lietke'),
+	(3, 'quanlygiaoviec'),
+	(3, 'quanlygiaoviec:xoa'),
+	(3, 'quanlydoanvao:xem'),
+	(3, 'quanlydoanvao:them'),
+	(3, 'quanlygiaoviec:sua'),
+	(4, 'quanlydoanvao:nhacnho');
 /*!40000 ALTER TABLE `vaitro_quyens` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.video
