@@ -409,7 +409,6 @@ public class DuAn extends Model<DuAn> {
 			Clients.evalJavaScript("removeTitleCss("+index+")");
 		}
 		BindUtils.postNotifyChange(null, null, this, "srcGiaiDoanDuAn");
-		Clients.evalJavaScript("animationCss()");
 	}
 	
 	public boolean checkDangOGiaiDoan(GiaiDoanXucTien giaiDoan) {

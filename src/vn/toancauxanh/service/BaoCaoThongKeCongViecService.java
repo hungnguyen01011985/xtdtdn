@@ -56,7 +56,7 @@ public class BaoCaoThongKeCongViecService extends BasicService<GiaoViec>{
 			ob[3] = item.getNguoiDuocGiao().getHoVaTen();
 			ob[4] = item.getNgayGiao();
 			ob[5] = item.getHanThucHien();
-			ob[6] = item.getTrangThaiGiaoViec();
+			ob[6] = item.getTrangThaiGiaoViec().getText();
 			list.add(ob);
 		});
 		ExcelUtil.exportThongKeDuAn("Thống kê công việc", "thongkebaocaocongviec", "Thống kê công việc", list);

@@ -252,11 +252,6 @@
 					$(obj).addClass("plan-title-active");
 				}
 			}
-			function animationCss(){
-				$(".title-small-page").css("opacity", "1");
-				$(".title-small-page").css("transform", "translateX(0)");
-			}
-			
 		</n:script>
 	</div>
 </window>
