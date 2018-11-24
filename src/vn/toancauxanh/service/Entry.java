@@ -71,8 +71,12 @@ public class Entry extends BaseObject<Object> {
 	public String NHACNHO = "";
 	@Value("${action.phutrach}") // duoc cap nhat nguoi phu trach
 	public String PHUTRACH = "";
-	@Value("${action.thongke}")
-	public String THONGKE = "";
+	@Value("${action.duan}")
+	public String DUAN = "";
+	@Value("${action.doanvao}")
+	public String DOANVAO = "";
+	@Value("${action.congviec}")
+	public String CONGVIEC = "";
 	
 	@Value("${url.quanlyduan}")
 	public String QUANLYDUAN = "";
@@ -88,6 +92,8 @@ public class Entry extends BaseObject<Object> {
 	public String NGUOIDUNG = "";
 	@Value("${url.phanquyen}")
 	public String PHANQUYEN = "";
+	@Value("${url.baocaothongke}")
+	public String BAOCAOTHONGKE = "";
 
 	@Value("${url.vaitro}")
 	public String VAITRO = "";
@@ -112,8 +118,6 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDUANGIAOVIEC;
 	@Value("${url.quanlyduan}" + ":" + "${action.phutrach}")
 	public String QUANLYDUANPHUTRACH;
-	@Value("${url.quanlyduan}" + ":" + "${action.thongke}")
-	public String QUANLYDUANTHONGKE;
 
 	@Value("${url.quanlydoanvao}" + ":" + "${action.list}")
 	public String QUANLYDOANVAOLIST;
@@ -127,8 +131,6 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDOANVAOXOA;
 	@Value("${url.quanlydoanvao}" + ":" + "${action.nhacnho}")
 	public String QUANLYDOANVAONHACNHO;
-	@Value("${url.quanlydoanvao}" + ":" + "${action.thongke}")
-	public String QUANLYDOANVAOTHONGKE;
 
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.list}")
 	public String QUANLYGIAOVIECLIST;
@@ -140,8 +142,6 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYGIAOVIECXOA;
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.them}")
 	public String QUANLYGIAOVIECTHEM;
-	@Value("${url.quanlygiaoviec}" + ":" + "${action.thongke}")
-	public String QUANLYGIAOVIECTHONGKE;
 	
 
 	@Value("${url.phongban}" + ":" + "${action.list}")
@@ -202,14 +202,21 @@ public class Entry extends BaseObject<Object> {
 	public String VAITROSUA = "";
 	@Value("${url.vaitro}" + ":" + "${action.tim}")
 	public String VAITROTIMKIEM;
+	
+	@Value("${url.baocaothongke}" + ":" + "${action.duan}")
+	public String BAOCAOTHONGKEDUAN = "";
+	@Value("${url.baocaothongke}" + ":" + "${action.doanvao}")
+	public String BAOCAOTHONGKEDOANVAO = "";
+	@Value("${url.baocaothongke}" + ":" + "${action.congviec}")
+	public String BAOCAOTHONGKECONGVIEC = "";
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
-				QUANLYLINHVUCDUAN }; //
+				QUANLYLINHVUCDUAN, BAOCAOTHONGKE}; //
 	}
 
 	public String[] getACTIONS() {
-		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO, PHUTRACH, THONGKE };
+		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO, PHUTRACH, DUAN, DOANVAO, CONGVIEC };
 	}
 
 	static {
