@@ -32,7 +32,7 @@ public class BaoCaoThongKeDuAnService extends BasicService<GiaiDoanDuAn>{
 		q.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.ngaySua.desc());
 		return q;
 	}
-	
+
 	@Command
 	public void xuatExcel(@BindingParam("list") List<GiaiDoanDuAn> listGiaiDoanDuAn) throws IOException {
 		List<Object[]> list = new ArrayList<Object[]>();

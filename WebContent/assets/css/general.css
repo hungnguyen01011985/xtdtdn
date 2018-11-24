@@ -27,6 +27,14 @@
     padding-top: 15px;
     cursor: pointer;
 }
+
+.box-lich-su-van-ban span span {
+	color: #4274ED;
+	font-family: Roboto-Medium;
+}
+.mg-bt-nav-children {
+	padding-bottom:0;
+}
 .page-header-title {
 	font-family: Roboto-Medium;
 	font-size: 24px;

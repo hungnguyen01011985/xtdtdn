@@ -35,20 +35,20 @@
 						<x:span class="text-menu">Quản lý dự án</x:span>
 					</n:a>
 				</n:li>
-				<n:li class="${resource eq 'baocaothongke' ? 'active-heder-li-children flex' : 'flex'};flex-direction:column;" zk:if="${entry.quyen.baocaothongke_duan || entry.quyen.baocaothongke_congviec || entry.quyen.baocaothongke_doanvao}">
-					<n:a style="padding-bottom:0;">
+				<n:li class="${resource eq 'baocaothongke' ? 'active-heder-li-children flex' : 'flex'};flex-direction:column;" zk:if="${entry.quyen.quanlyduan_thongke || entry.quyen.quanlydoanvao_thongke || entry.quyen.quanlygiaoviec_thongke}">
+					<n:a>
 						<x:span class="img-menu bctk" zk:if="${resource ne 'baocaothongke'}"></x:span>
 						<x:span class="img-menu bctk" zk:if="${resource eq 'baocaothongke'}"></x:span>
 						<x:span class="text-menu">Báo cáo thống kê</x:span>
 					</n:a>
 					<n:ul class="children-nav">
-						<n:a href="${execution.contextPath}/cp/baocaothongke/duan" zk:if="${entry.quyen.baocaothongke_duan}">
+						<n:a href="${execution.contextPath}/cp/baocaothongke/duan" zk:if="${entry.quyen.quanlyduan_thongke}">
 							<n:li class="${path eq 'duan' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Dự án</n:li>
 						</n:a>
-						<n:a href="${execution.contextPath}/cp/baocaothongke/congviec" zk:if="${entry.quyen.baocaothongke_congviec}">
+						<n:a href="${execution.contextPath}/cp/baocaothongke/congviec" zk:if="${entry.quyen.quanlydoanvao_thongke}">
 							<n:li class="${path eq 'congviec' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Công việc</n:li>
 						</n:a>
-						<n:a href="${execution.contextPath}/cp/baocaothongke/doanvao" zk:if="${entry.quyen.baocaothongke_doanvao}">
+						<n:a href="${execution.contextPath}/cp/baocaothongke/doanvao" zk:if="${entry.quyen.quanlygiaoviec_thongke}">
 							<n:li class="${path eq 'doanvao' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Đoàn vào</n:li>
 						</n:a>
 					</n:ul>

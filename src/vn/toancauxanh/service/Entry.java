@@ -71,13 +71,8 @@ public class Entry extends BaseObject<Object> {
 	public String NHACNHO = "";
 	@Value("${action.phutrach}") // duoc cap nhat nguoi phu trach
 	public String PHUTRACH = "";
-	
-	@Value("${action.duan}")
-	public String DUAN = "";
-	@Value("${action.doanvao}")
-	public String DOANVAO = "";
-	@Value("${action.congviec}")
-	public String CONGVIEC = "";
+	@Value("${action.thongke}")
+	public String THONGKE = "";
 	
 	@Value("${url.quanlyduan}")
 	public String QUANLYDUAN = "";
@@ -89,8 +84,6 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYLINHVUCDUAN = "";
 	@Value("${url.phongban}")
 	public String QUANLYPHONGBAN = "";
-	@Value("${url.baocaothongke}")
-	public String BAOCAOTHONGKE = "";
 	@Value("${url.nguoidung}")
 	public String NGUOIDUNG = "";
 	@Value("${url.phanquyen}")
@@ -104,13 +97,6 @@ public class Entry extends BaseObject<Object> {
 	public String CACH = CHAR_CACH + "";
 
 	// Thêm các tùy chọn vai trò của chức năng tương ứng
-	
-	@Value("${url.baocaothongke}" + ":" + "${action.duan}")
-	public String THONGKEDUAN;
-	@Value("${url.baocaothongke}" + ":" + "${action.doanvao}")
-	public String THONGKEDOANVAO;
-	@Value("${url.baocaothongke}" + ":" + "${action.congviec}")
-	public String THONGKECONGVIEC;
 	
 	@Value("${url.quanlyduan}" + ":" + "${action.list}")
 	public String QUANLYDUANLIST;
@@ -126,6 +112,8 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDUANGIAOVIEC;
 	@Value("${url.quanlyduan}" + ":" + "${action.phutrach}")
 	public String QUANLYDUANPHUTRACH;
+	@Value("${url.quanlyduan}" + ":" + "${action.thongke}")
+	public String QUANLYDUANTHONGKE;
 
 	@Value("${url.quanlydoanvao}" + ":" + "${action.list}")
 	public String QUANLYDOANVAOLIST;
@@ -139,6 +127,8 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDOANVAOXOA;
 	@Value("${url.quanlydoanvao}" + ":" + "${action.nhacnho}")
 	public String QUANLYDOANVAONHACNHO;
+	@Value("${url.quanlydoanvao}" + ":" + "${action.thongke}")
+	public String QUANLYDOANVAOTHONGKE;
 
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.list}")
 	public String QUANLYGIAOVIECLIST;
@@ -150,6 +140,9 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYGIAOVIECXOA;
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.them}")
 	public String QUANLYGIAOVIECTHEM;
+	@Value("${url.quanlygiaoviec}" + ":" + "${action.thongke}")
+	public String QUANLYGIAOVIECTHONGKE;
+	
 
 	@Value("${url.phongban}" + ":" + "${action.list}")
 	public String QUANLYPHONGBANLIST;
@@ -212,11 +205,11 @@ public class Entry extends BaseObject<Object> {
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
-				QUANLYLINHVUCDUAN, BAOCAOTHONGKE }; //
+				QUANLYLINHVUCDUAN }; //
 	}
 
 	public String[] getACTIONS() {
-		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO, PHUTRACH, DUAN, DOANVAO, CONGVIEC };
+		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO, PHUTRACH, THONGKE };
 	}
 
 	static {

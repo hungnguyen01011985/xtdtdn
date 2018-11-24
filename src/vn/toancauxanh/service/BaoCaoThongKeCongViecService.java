@@ -17,8 +17,6 @@ import vn.toancauxanh.model.QGiaoViec;
 public class BaoCaoThongKeCongViecService extends BasicService<GiaoViec>{
 	
 	public JPAQuery<GiaoViec> getTargetQuery() {
-		/*Long nguoiGiaoViec = (Long) argDeco().get("nguoiGiaoViec");
-		Long nguoiPhuTrach = (Long) argDeco().get("nguoiDuocGiao");*/
 		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		String loaiCongViec = MapUtils.getString(argDeco(), "loaiCongViec");
 		JPAQuery<GiaoViec> q = find(GiaoViec.class);
@@ -29,12 +27,6 @@ public class BaoCaoThongKeCongViecService extends BasicService<GiaoViec>{
 		} else if (getFixTuNgay() != null && getFixDenNgay() != null) {
 			q.where(QGiaoViec.giaoViec.ngayGiao.between(getFixTuNgay(), getFixDenNgay()));
 		}
-		/*if (nguoiPhuTrach != null && nguoiPhuTrach > 0) {
-			q.where(QGiaoViec.giaoViec.nguoiDuocGiao.id.eq(nguoiPhuTrach));
-		}
-		if (nguoiGiaoViec != null && nguoiGiaoViec > 0) {
-			q.where(QGiaoViec.giaoViec.nguoiGiaoViec.id.eq(nguoiGiaoViec));
-		}*/
 		if (loaiCongViec != null) {
 			q.where(QGiaoViec.giaoViec.loaiCongViec.eq(LoaiCongViec.valueOf(loaiCongViec)));
 			if (tuKhoa != null && !tuKhoa.isEmpty() && LoaiCongViec.DU_AN.equals(LoaiCongViec.valueOf(loaiCongViec))) {

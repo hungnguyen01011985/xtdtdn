@@ -1,4 +1,4 @@
-<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<?page title="Xúc tiến dự án" contentType="text/html;charset=UTF-8"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
 	apply="org.zkoss.bind.BindComposer" class="form-list">
@@ -57,148 +57,147 @@
 					</div>
 				</div>
 			</div>
-				<div zclass="mg-and-bg-and-line" style="padding: 15px 22px 0 22px;">
-					<div class="row">
-						<div zclass="col-md-12">
-							<div zclass="form-group">
-								<x:span class="label-txt-style">Tên dự án</x:span>
-								<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.tenDuAn)" 
+			<div zclass="mg-and-bg-and-line" style="padding: 15px 22px 0 22px;">
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Tên dự án</x:span>
+							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.tenDuAn)" 
 								placeholder="Nhập tên dự án"/>
-							</div>
 						</div>
 					</div>
 				</div>
-					<div class="content-tab-panel1">
-						<div class="row">
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Người phụ trách</x:span> 
-									<textbox class="form-control textbox-txt-style" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)"/>
-								</div>
-							</div>
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Ngày bắt đầu xúc tiến</x:span>
-									<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
-								</div>
-							</div>
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Lĩnh vực</x:span>
-									<combobox buttonVisible="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
-										readonly="true" model="@load(entry.linhVucs.targetQuery.fetch())" selectedItem="@bind(vm.linhVuc)" placeholder="Chọn loại lĩnh vực"
-										class="his ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" width="100%">
-										<template name="model">
-											<comboitem label="@load(each.ten)" />
-										</template>
-									</combobox>
-								</div>
-							</div>
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Địa điểm</x:span>
-									<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.diaDiem)" 
-										placeholder="Nhập địa điểm"></textbox>
-								</div>
-							</div>
+			</div>
+			<div class="content-tab-panel1">
+				<div class="row">
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Người phụ trách</x:span> 
+							<textbox class="form-control textbox-txt-style" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)"/>
 						</div>
-						<div class="row">
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Quy mô dự án</x:span>
-									<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.quyMoDuAn)" 
-										placeholder="Nhập quy mô dự án"></textbox>
-								</div>
-							</div>
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Tổng vốn đầu tư(USD)</x:span>
-									<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8"
-										width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goTask', 'goNext'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư')" />
-									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-								</div>
-							</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Ngày bắt đầu xúc tiến</x:span>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
 						</div>
-						<div class="row">
-							<div zclass="col-md-12">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Mục tiêu dự án</x:span>
-									<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" rows="3" placeholder="Nhập mục tiêu dự án" 
-										value="@bind(vm.mucTieuDuAn)"></textbox>
-								</div>
-							</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Lĩnh vực</x:span>
+							<combobox buttonVisible="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
+								readonly="true" model="@load(entry.linhVucs.targetQuery.fetch())" selectedItem="@bind(vm.linhVuc)" placeholder="Chọn loại lĩnh vực"
+								class="his ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" width="100%">
+								<template name="model">
+									<comboitem label="@load(each.ten)" />
+								</template>
+							</combobox>
 						</div>
-						<div class="row">
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Diện tích sử dụng đất(ha)</x:span>
-									<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8" 
-										width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goTask','goNext'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất')" />
-									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-								</div>
-							</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Địa điểm</x:span>
+							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.diaDiem)" 
+								placeholder="Nhập địa điểm"></textbox>
 						</div>
-						<div class="row">
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Mức độ ưu tiên</x:span>
-									<combobox buttonVisible="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" readonly="true" 
-										model="@load(vm.listMucDoUuTien)" selectedItem="@bind(vm.mucDoUuTien)"
-										class="his ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" placeholder="Chọn mức độ ưu tiên" width="100%">
-										<template name="model">
-											<comboitem label="@load(each.text)"></comboitem>
-										</template>
-									</combobox>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Quy mô dự án</x:span>
+							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.quyMoDuAn)" 
+								placeholder="Nhập quy mô dự án"></textbox>
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Tổng vốn đầu tư(USD)</x:span>
+							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8"
+								width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goTask', 'goNext'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư')" />
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Mục tiêu dự án</x:span>
+							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" rows="3" placeholder="Nhập mục tiêu dự án" 
+								value="@bind(vm.mucTieuDuAn)"></textbox>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Diện tích sử dụng đất(ha)</x:span>
+							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8" 
+								width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goTask','goNext'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất')" />
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Mức độ ưu tiên</x:span>
+							<combobox buttonVisible="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" readonly="true" 
+								model="@load(vm.listMucDoUuTien)" selectedItem="@bind(vm.mucDoUuTien)"
+								class="his ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" placeholder="Chọn mức độ ưu tiên" width="100%">
+								<template name="model">
+									<comboitem label="@load(each.text)"></comboitem>
+								</template>
+							</combobox>
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Khả năng đầu tư</x:span>
+							<combobox buttonVisible="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
+								readonly="true" model="@load(vm.listKhaNangDauTu)" selectedItem="@bind(vm.khaNangDauTu)"
+								class="his ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button' }" placeholder="Chọn khả năng đầu tư" width="100%">
+								<template name="model">
+									<comboitem label="@load(each.text)"></comboitem>
+								</template>
+							</combobox>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div zclass="form-group" viewModel="@id('taiLieuNDT')@init(vm.taiLieuNDT)">
+							<x:span class="label-txt-style">Văn bản đề nghị của NĐT</x:span>
+							<button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
+								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
+								onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'taiLieuNDT')"
+								upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+							</button>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuNDT.tenFile)">
+								<div class="box-img-tai-lieu">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 								</div>
-							</div>
-							<div zclass="col-md-3">
-								<div zclass="form-group">
-									<x:span class="label-txt-style">Khả năng đầu tư</x:span>
-									<combobox buttonVisible="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
-										readonly="true" model="@load(vm.listKhaNangDauTu)" selectedItem="@bind(vm.khaNangDauTu)"
-										class="his ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button' }" placeholder="Chọn khả năng đầu tư" width="100%">
-										<template name="model">
-											<comboitem label="@load(each.text)"></comboitem>
-										</template>
-									</combobox>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div zclass="form-group" viewModel="@id('taiLieuNDT')@init(vm.taiLieuNDT)">
-									<x:span class="label-txt-style">Văn bản đề nghị của NĐT</x:span>
-									<button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
-										class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
-										onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'taiLieuNDT')"
-										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-									</button>
-									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-									<div class="flex mg-btn-top" visible="@load(not empty vm.taiLieuNDT.tenFile)">
-										<div class="box-img-tai-lieu">
-											<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
-										</div>
-										<label visible="@load(vm.taiLieuNDT.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuNDT)" value="@bind(vm.taiLieuNDT.tenFile)"/>
-										<a visible="@load(!vm.taiLieuNDT.noId())" label="@bind(vm.taiLieuNDT.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieuNDT)"></a>
-										<x:button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.taiLieuNDT, name = 'taiLieuNDT')">
-											<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
-										</x:button>
-										<button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
-											onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'taiLieuNDT')"
-											upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-										</button>
-									</div>
-								</div>
-							</div>
-							<div zclass="col-md-3">
-								<div zclass="form-group" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action}">
-									<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('saveThongTinDuAn')">
-										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-										<span>Lưu thông tin dự án</span>
-									</x:a>
-								</div>
+								<label visible="@load(vm.taiLieuNDT.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = vm.taiLieuNDT)" value="@bind(vm.taiLieuNDT.tenFile)"/>
+								<a visible="@load(!vm.taiLieuNDT.noId())" label="@bind(vm.taiLieuNDT.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = vm.taiLieuNDT)"></a>
+								<x:button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', vm = vm, ob = vm.taiLieuNDT, name = 'taiLieuNDT')">
+									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
+								</x:button>
+								<button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+									onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'taiLieuNDT')"
+									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+								</button>
 							</div>
 						</div>
 					</div>
-				
+					<div zclass="col-md-3">
+						<div zclass="form-group" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action}">
+							<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('saveThongTinDuAn')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+								<span>Lưu thông tin dự án</span>
+							</x:a>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="mg-and-bg-and-line bg-color-tab" zk:onClick="@command('swap')">
 				<x:image zk:visible="@load(!vm.checkTab)" class="swap-arrow" src="${contexPath}/assets/icon-bxtdn/arrow-select.svg"/>
 				<x:image zk:visible="@load(vm.checkTab)" class="swap-arrow" src="${contexPath}/assets/icon-bxtdn/arrow-up.svg"/>
