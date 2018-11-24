@@ -9,9 +9,7 @@
 				String id = execution.getParameter("id");
 		        vn.toancauxanh.model.DoanVao vm = new vn.toancauxanh.service.DoanVaoService().getDoanVaoById(id);
 		        action = arg.get("action");
-		        visible = arg.get("visible");
 		        checkCapNhat = arg.get("checkCapNhat");
-		        truongPhong = vn.toancauxanh.gg.model.enums.LoaiVaiTro.VAI_TRO_TRUONG_PHONG;
 		]]>
 	</zscript>
 	<label if="${!entry.quyen.quanlydoanvao_them and !(entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach)) and !(entry.quyen.quanlydoanvao_xem and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach))}">Bạn không có quyền truy cập chức năng này!</label>
@@ -51,7 +49,7 @@
 				
 				<div class="mg-and-bg-and-line-fix mg-bottom-5">
 					<div class="row">
-						<div zclass="col-md-8">
+						<div zclass="col-md-9">
 							<div zclass="form-group">
 								<div class="flex">
 									<x:span class="issue-search">Tên đoàn<n:small class="required"> *</n:small></x:span>
@@ -61,7 +59,7 @@
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
-						<div zclass="col-md-4">
+						<div zclass="col-md-3">
 							<div zclass="form-group">
 								<div class="flex">
 									<x:span class="issue-search">Quốc gia<n:small class="required"> *</n:small></x:span>
@@ -246,7 +244,7 @@
 								<span>Lưu</span>
 							</x:button>
 						</div>
-						<div zclass="form-group right" if="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and action}">
+						<div zclass="form-group right" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and action}">
 							<x:a class="btn btn-blue mg-btn" href="${contexPath}/bxtdn/cp/quanlydoanvao/edit/${id}" zk:if="${vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
 								<span>Cập nhật</span>
@@ -257,4 +255,31 @@
 			</div>
 		</div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div>
+		
+	</div>
 </window>

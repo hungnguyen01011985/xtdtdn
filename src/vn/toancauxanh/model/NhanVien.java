@@ -503,18 +503,20 @@ public class NhanVien extends Model<NhanVien> {
 	protected void saveImage() throws IOException {
 		Image imageContent = getAvatarImage();
 		if (imageContent != null) {
-			final File baseDir = new File(this.folderStoreImage().concat(getPathAvatar()));
+			String path = this.folderStoreImage();
+			final File baseDir = new File(path.concat(getPathAvatar()));
 			Files.copy(baseDir, imageContent.getStreamData());
 			setAvatarImage(null);
 		}
 	}
 
 	private void loadImageIsView() throws FileNotFoundException, IOException {
-		if (getPathAvatar() != null) {
+		if (getPathAvatar() != null && !"".equals(getPathAvatar())) {
 			String s1 = ctx().getEnvironment().getProperty("filestore.root");
-			String s2 = s1 + ctx().getEnvironment().getProperty("filestore.files");
-			String s3 = s2 + getClass().getSimpleName().toLowerCase();
-			String path = s3 + "/" + getPathAvatar();
+			String s2 =s1 + ctx().getEnvironment().getProperty("filestore.folder");
+			String s3 = s2 + ctx().getEnvironment().getProperty("filestore.files");
+			String s4 = s3 + ctx().getEnvironment().getProperty("filestore.folderimage");
+			String path = s4 + getPathAvatar();
 			if (new File(path).exists()) {
 				String pathCompare = path.substring(0, path.lastIndexOf(File.separator) + 1)
 						+ path.substring(path.lastIndexOf(File.separator) + 1);
@@ -524,7 +526,7 @@ public class NhanVien extends Model<NhanVien> {
 				}
 			}
 		}
-
+		
 	}
 
 	@Command
