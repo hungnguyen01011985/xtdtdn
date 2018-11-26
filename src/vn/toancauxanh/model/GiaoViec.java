@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -39,8 +40,11 @@ public class GiaoViec extends Model<GiaoViec> {
 	private DuAn duAn;
 	private DoanVao doanVao;
 	private String tenCongViec;
+	@Lob
 	private String yKienChiDao;
+	@Lob
 	private String ketQua;
+	@Lob
 	private String ghiChu;
 	private NhanVien nguoiGiaoViec = new NhanVien();
 	private NhanVien nguoiDuocGiao = new NhanVien();

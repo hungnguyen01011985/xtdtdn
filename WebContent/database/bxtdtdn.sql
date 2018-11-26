@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `doanvao` (
   `ngayTao` datetime DEFAULT NULL,
   `trangThai` varchar(255) DEFAULT NULL,
   `deXuatCVPhuTrach` varchar(255) DEFAULT NULL,
-  `link` varchar(255) DEFAULT NULL,
+  `link` longtext,
   `noiDoanDiTham` varchar(255) DEFAULT NULL,
   `quocGia` varchar(50) NOT NULL,
   `soNguoi` int(11) NOT NULL,
@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `doanvao` (
   `congVanChiDaoUB_id` bigint(20) DEFAULT NULL,
   `nguoiPhuTrach_id` bigint(20) DEFAULT NULL,
   `taiLieu_id` bigint(20) DEFAULT NULL,
+  `idNguoiLienQuan` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK7yboq69ojpgbter6d99b5ebt2` (`nguoiSua_id`),
   KEY `FKp3mnmxf3nr816yi313x8mchy` (`nguoiTao_id`),
@@ -115,7 +116,9 @@ CREATE TABLE IF NOT EXISTS `doanvao_teptin` (
   `doanvao_id` bigint(20) NOT NULL,
   `teptin_id` bigint(20) NOT NULL,
   KEY `FKtcrf48we33l0bthn6yr1ote10` (`teptin_id`),
-  KEY `FKoimvqhxwmbcspj321866br96o` (`doanvao_id`)
+  KEY `FKoimvqhxwmbcspj321866br96o` (`doanvao_id`),
+  CONSTRAINT `FKoimvqhxwmbcspj321866br96o` FOREIGN KEY (`doanvao_id`) REFERENCES `doanvao` (`id`),
+  CONSTRAINT `FKtcrf48we33l0bthn6yr1ote10` FOREIGN KEY (`teptin_id`) REFERENCES `teptin` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.doanvao_teptin: ~0 rows (approximately)
@@ -365,6 +368,7 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   `vanBanChuyenMucDichSDD_id` bigint(20) DEFAULT NULL,
   `vanBanDeNghiBoSung_id` bigint(20) DEFAULT NULL,
   `vanBanDeNghiThuHoiDat_id` bigint(20) DEFAULT NULL,
+  `daQuaGiaiDoan` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FKc0tg50cys89jo0ppipmx65vc6` (`nguoiSua_id`),
   KEY `FKiovtr2bkv8rtnq9fu7w3u69m4` (`nguoiTao_id`),
@@ -495,13 +499,11 @@ CREATE TABLE IF NOT EXISTS `giaoviec` (
   `trangThai` varchar(255) DEFAULT NULL,
   `giaiDoanXucTien` varchar(255) DEFAULT NULL,
   `hanThucHien` datetime DEFAULT NULL,
-  `ketQua` varchar(255) DEFAULT NULL,
   `loaiCongViec` varchar(255) DEFAULT NULL,
   `ngayGiao` datetime DEFAULT NULL,
   `ngayHoanThanh` datetime DEFAULT NULL,
   `tenCongViec` varchar(255) DEFAULT NULL,
   `trangThaiGiaoViec` varchar(255) DEFAULT NULL,
-  `yKienChiDao` longtext,
   `nguoiSua_id` bigint(20) DEFAULT NULL,
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   `duAn_id` bigint(20) DEFAULT NULL,
@@ -509,9 +511,11 @@ CREATE TABLE IF NOT EXISTS `giaoviec` (
   `nguoiGiaoViec_id` bigint(20) DEFAULT NULL,
   `taiLieu_id` bigint(20) DEFAULT NULL,
   `taiLieuKetQua_id` bigint(20) DEFAULT NULL,
-  `ghiChu` varchar(255) DEFAULT NULL,
   `noiDungCongViec` varchar(255) DEFAULT NULL,
   `doanVao_id` bigint(20) DEFAULT NULL,
+  `ghiChu` longtext,
+  `ketQua` longtext,
+  `yKienChiDao` longtext,
   PRIMARY KEY (`id`),
   KEY `FK1jkhxiuynhv7kg8lpysxgxa36` (`nguoiSua_id`),
   KEY `FKrtob3779e4wj2cn2uo88tjlku` (`nguoiTao_id`),
@@ -700,7 +704,12 @@ CREATE TABLE IF NOT EXISTS `lichsuvanban` (
   KEY `FKg710sph8j2y6fofq5he5ymc9c` (`nguoiTao_id`),
   KEY `FKs330pjru9puqc94ptqkr5tc63` (`duAn_id`),
   KEY `FKqdg6wgfj36m0cmokmy04r51in` (`nguoiNhap_id`),
-  KEY `FKehdld3es5cy3jq8fg7buq568p` (`vanBan_id`)
+  KEY `FKehdld3es5cy3jq8fg7buq568p` (`vanBan_id`),
+  CONSTRAINT `FK1e1yn4rcyy4if0sc4484goxh2` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKehdld3es5cy3jq8fg7buq568p` FOREIGN KEY (`vanBan_id`) REFERENCES `teptin` (`id`),
+  CONSTRAINT `FKg710sph8j2y6fofq5he5ymc9c` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKqdg6wgfj36m0cmokmy04r51in` FOREIGN KEY (`nguoiNhap_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKs330pjru9puqc94ptqkr5tc63` FOREIGN KEY (`duAn_id`) REFERENCES `duan` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.lichsuvanban: ~0 rows (approximately)
@@ -878,7 +887,7 @@ CREATE TABLE IF NOT EXISTS `nhanvien_quyens` (
   CONSTRAINT `FKnlof2gbqm97pmg0mpfr2ytmui` FOREIGN KEY (`nhanVien_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.nhanvien_quyens: ~1 rows (approximately)
+-- Dumping data for table bxtdtdn.nhanvien_quyens: ~0 rows (approximately)
 DELETE FROM `nhanvien_quyens`;
 /*!40000 ALTER TABLE `nhanvien_quyens` DISABLE KEYS */;
 INSERT INTO `nhanvien_quyens` (`nhanVien_id`, `quyens`) VALUES
@@ -1145,7 +1154,7 @@ CREATE TABLE IF NOT EXISTS `thongbao` (
   `trangThai` varchar(255) DEFAULT NULL,
   `daXem` bit(1) NOT NULL,
   `idObject` bigint(20) DEFAULT NULL,
-  `loaiThongBao` int(11) DEFAULT NULL,
+  `loaiThongBao` varchar(50) DEFAULT NULL,
   `noiDung` longtext,
   `nguoiSua_id` bigint(20) DEFAULT NULL,
   `nguoiTao_id` bigint(20) DEFAULT NULL,
