@@ -64,7 +64,7 @@ public class DoanVao extends Model<DoanVao> {
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
 	private List<TepTin> tepTins = new ArrayList<TepTin>();
-	private TepTin congVanChiDaoUB = new TepTin();
+	private TepTin congVanChiDaoUB;
 
 
 	public DoanVao() {
@@ -281,12 +281,11 @@ public class DoanVao extends Model<DoanVao> {
 						null);
 			}
 		}
-		if ("".equals(this.getCongVanChiDaoUB().getTenFile())) {
+		if (this.getCongVanChiDaoUB().getTenFile() == null) {
 			this.setCongVanChiDaoUB(null);
 		} else {
 			this.getCongVanChiDaoUB().saveNotShowNotification();
 		}
-		this.getCongVanChiDaoUB().saveNotShowNotification();
 		this.getTepTins().forEach(item -> {
 			item.saveNotShowNotification();
 		});

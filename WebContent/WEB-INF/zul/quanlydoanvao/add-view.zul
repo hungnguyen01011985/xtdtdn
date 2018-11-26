@@ -10,6 +10,9 @@
 		        vn.toancauxanh.model.DoanVao vm = new vn.toancauxanh.service.DoanVaoService().getDoanVaoById(id);
 		        action = arg.get("action");
 		        checkCapNhat = arg.get("checkCapNhat");
+		        if (vm.getCongVanChiDaoUB() == null){
+					vm.setCongVanChiDaoUB(new vn.toancauxanh.model.TepTin());
+				}
 		]]>
 	</zscript>
 	<label if="${!entry.quyen.quanlydoanvao_them and !(entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach)) and !(entry.quyen.quanlydoanvao_xem and action)}">Bạn không có quyền truy cập chức năng này!</label>

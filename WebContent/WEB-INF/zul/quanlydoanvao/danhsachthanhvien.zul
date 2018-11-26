@@ -191,7 +191,7 @@
 					</div>
 				</div>
 				<div zclass="col-xs-6">
-					<div zclass="form-group right" if="${!readOnly and vm.checkNguoiPhuTrach(vm.nguoiTao, vm.nguoiPhuTrach, entry.nhanVien.id)}">
+					<div zclass="form-group right" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
 						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveDanhSachThanhVienDoan', wdn = wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>

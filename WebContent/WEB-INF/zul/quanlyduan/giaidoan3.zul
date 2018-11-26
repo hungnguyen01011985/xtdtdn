@@ -42,7 +42,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Ngày gửi<n:small class="required"> *</n:small></x:span>
 							</div>
-							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBa) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy" readonly="true" 
+							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBa) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy"
 								class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBa) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? 'datebox-txt-style' : 'input-no-button' }" 
 								value="@bind(vm.giaiDoanDuAn.ngayGuiUBND) @save(vm.giaiDoanDuAn.ngayGuiUBND, before={'goTask','goNext'}) @validator(vm.validatorNgay, endDate = vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi, firstText = 'Ngày gửi', secondText = 'Ngày dự kiến nhận phản hồi', type = true)"
 								width="100%" placeholder="Chọn ngày"/>
@@ -55,7 +55,7 @@
 								<x:span class="label-txt-style">Ngày dự kiến nhận phản hồi<n:small class="required"> *</n:small></x:span>
 							</div>
 							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBa) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="@load(vm.giaiDoanDuAn.ngayGuiUBND eq null)" 
-								format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBa) and vm.nguoiPhuTrach.id == entry.nhanVien.id? 'datebox-txt-style' : 'input-no-button' }" 
+								format="dd/MM/yyyy" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBa) and vm.nguoiPhuTrach.id == entry.nhanVien.id? 'datebox-txt-style' : 'input-no-button' }" 
 								value="@bind(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi) @save(vm.giaiDoanDuAn.ngayDuKienNhanPhanHoi, before={'goTask','goNext'}) @validator(vm.validatorNgay, dateStart = vm.giaiDoanDuAn.ngayGuiUBND, firstText = 'Ngày gửi', secondText = 'Ngày dự kiến nhận phản hồi', type = false)"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
@@ -108,7 +108,7 @@
 								<x:span class="label-txt-style">Ngày phát hành CV<n:small class="required"> *</n:small></x:span>
 							</div>
 							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBa) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBa) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
-							format="dd/MM/yyyy" readonly="true" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBa) and vm.nguoiPhuTrach.id == entry.nhanVien.id? 'datebox-txt-style' : 'input-no-button' }" 
+							format="dd/MM/yyyy" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBa) and vm.nguoiPhuTrach.id == entry.nhanVien.id? 'datebox-txt-style' : 'input-no-button' }" 
 						 	value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCV3) @save(vm.giaiDoanDuAn.ngayPhatHanhCV3, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
