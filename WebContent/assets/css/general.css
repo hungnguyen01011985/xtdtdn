@@ -280,6 +280,23 @@
 	color: #2FA442 !important;
 }
 
+.CHUA_LAM {
+	color: #A17200 !important;
+	font-size:13px;
+	font-family:Roboto-Medium;
+}
+
+.HOAN_THANH {
+	color: #39A84B !important;
+	font-size:13px;
+	font-family:Roboto-Medium;
+}
+
+.DANG_LAM {
+	color: #5380EF !important;
+	font-size:13px;
+	font-family:Roboto-Medium;
+}
 
 .underline-redirect {
 	text-decoration: underline;

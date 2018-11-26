@@ -34,15 +34,15 @@
 						</div>
 					</div>
 					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<span>Người được giao</span> 
-							<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
-								<comboitem label="Testcase 1" />
-								<comboitem label="Testcase 2" />
-								<comboitem label="Testcase 3" />
-								<comboitem label="Testcase 4" />
+						<div class="form-group">
+							<span>Người được giao</span>
+							<combobox readonly="true" class="his"
+								model="@load(vm.listNhanVienTruongPhongAndChuyenVienNull)" value="@load(vm.arg.nguoiDuocGiao eq null ? 'Tất cả' : vm.arg.nguoiDuocGiao.hoVaTen)"
+								selectedItem="@bind(vm.arg.nguoiDuocGiao)" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
+								</template>
 							</combobox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 				</div>
@@ -135,7 +135,7 @@
 								<label value="@load(duAnCV eq each.loaiCongViec ? each.duAn.tenDuAn : each.doanVao.tenDoanVao)"></label>
 								<label value="@load(each.nguoiDuocGiao.hoVaTen)"></label>
 								<label value="@load(each.loaiCongViec.text)"></label>
-								<label value="@load(each.trangThaiGiaoViec.text)"></label>
+								<label value="@load(each.trangThaiGiaoViec.text)" class="@load(each.trangThaiGiaoViec)"></label>
 								<label value="@load(each.ngayGiao) @converter('formatedDate',format='dd/MM/yyyy')"></label>
 								<div style="display:flex;flex-direction:column;padding:5px 0;">
 									<label value="@load(each.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')"></label>
