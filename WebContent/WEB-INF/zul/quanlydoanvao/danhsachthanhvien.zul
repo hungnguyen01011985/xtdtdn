@@ -59,7 +59,7 @@
 								<div class="flex">
 									<x:span class="issue-search">Họ và tên<n:small class="required"> *</n:small></x:span>
 								</div>  
-								<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@bind(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập họ tên.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" maxlength="255" class="form-control" value="@bind(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập họ tên.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -67,13 +67,13 @@
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="issue-search">Chức danh</x:span>  
-								<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@bind(vm.thanhVienDoanTemp.chucDanh)" placeholder="Nhập chức danh.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" maxlength="255" class="form-control" value="@bind(vm.thanhVienDoanTemp.chucDanh)" placeholder="Nhập chức danh.."></textbox>
 							</div>
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="issue-search">Đơn vị</x:span> 
-								<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@bind(vm.thanhVienDoanTemp.donVi)" placeholder="Nhập đơn vị.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" maxlength="255" class="form-control" value="@bind(vm.thanhVienDoanTemp.donVi)" placeholder="Nhập đơn vị.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -84,8 +84,8 @@
 								<div class="flex">
 									<x:span class="issue-search">Quốc gia<n:small class="required"> *</n:small></x:span>
 								</div> 
-								<combobox buttonVisible="${!readOnly}" disabled="${readOnly}" model="@load(vm.listQuocGia)" placeholder="Chọn quốc gia"
-									readonly="true" class="his ${!readOnly ? '' : 'input-no-button'}" width="100%" selectedItem="@bind(vm.thanhVienDoanTemp.quocGia) @save(vm.thanhVienDoanTemp.quocGia, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')">
+								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" model="@load(vm.listQuocGia)" placeholder="Chọn quốc gia"
+									readonly="true" class="his ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" width="100%" selectedItem="@bind(vm.thanhVienDoanTemp.quocGia) @save(vm.thanhVienDoanTemp.quocGia, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')">
 									<template name="model">
 										<comboitem label="@load(each.text)"/>
 									</template>
@@ -96,7 +96,7 @@
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="issue-search">Email</x:span>  
-								<textbox disabled="${readOnly}" class="form-control" value="@bind(vm.thanhVienDoanTemp.email) @save(vm.thanhVienDoanTemp.email, before='saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validatorEmail)" placeholder="Nhập email.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control" value="@bind(vm.thanhVienDoanTemp.email) @save(vm.thanhVienDoanTemp.email, before='saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validatorEmail)" placeholder="Nhập email.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -104,15 +104,15 @@
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="issue-search">Số điện thoại</x:span>  
-								<textbox disabled="${readOnly}" class="form-control" value="@bind(vm.thanhVienDoanTemp.soDienThoai) @save(vm.thanhVienDoanTemp.soDienThoai, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validateSoDienThoai)" placeholder="Nhập email.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control" value="@bind(vm.thanhVienDoanTemp.soDienThoai) @save(vm.thanhVienDoanTemp.soDienThoai, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validateSoDienThoai)" placeholder="Nhập email.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row mg-and-bg-and-line">
+				<div class="row mg-and-bg-and-line" if="${!readOnly and vm.checkNguoiPhuTrach(vm.nguoiTao, vm.nguoiPhuTrach, entry.nhanVien.id)}">
 					<div zclass="col-xs-6">
-						<div zclass="form-group" if="${!readOnly}">
+						<div zclass="form-group">
 							<x:button class="btn bg-btn-dong btn-grey" zk:onClick="@command('reset', vm = vm)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
 								<span>Nhập lại</span>
@@ -120,7 +120,7 @@
 						</div>
 					</div>
 					<div zclass="col-xs-6">
-						<div zclass="form-group right" if="${!readOnly}">
+						<div zclass="form-group right">
 							<x:button class="btn btn-blue" zk:onClick="@command('saveThanhVienDoan', item = vm)">
 								<x:image zk:visible="@load(vm.flag)" class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
 								<x:image zk:visible="@load(!vm.flag)" class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
@@ -164,11 +164,11 @@
 								<label value="@load(each.email)" style="text-align:left; display: block;"></label>
 								<label value="@load(each.soDienThoai)" style="text-align:left; display: block;"></label>
 								<div class="thaotac" style="text-align:left">
-									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('editThanhVienDoan', item = each)" if="${!readOnly}">
+									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('editThanhVienDoan', item = each)" if="${!readOnly and vm.checkNguoiPhuTrach(vm.nguoiTao, vm.nguoiPhuTrach, entry.nhanVien.id)}">
 										<x:image width="20px" class="img-edit" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('deleteThanhVienDoan',vm = vm, item = each)" if="${!readOnly}">
+									<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('deleteThanhVienDoan',vm = vm, item = each)" if="${!readOnly and vm.checkNguoiPhuTrach(vm.nguoiTao, vm.nguoiPhuTrach, entry.nhanVien.id)}">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -191,7 +191,7 @@
 					</div>
 				</div>
 				<div zclass="col-xs-6">
-					<div zclass="form-group right" if="${!readOnly}">
+					<div zclass="form-group right" if="${!readOnly and vm.checkNguoiPhuTrach(vm.nguoiTao, vm.nguoiPhuTrach, entry.nhanVien.id)}">
 						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveDanhSachThanhVienDoan', wdn = wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>

@@ -14,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -33,6 +34,8 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
@@ -51,7 +54,8 @@ public class DoanVao extends Model<DoanVao> {
 	private String deXuatCVPhuTrach = "";
 	private String yKienChiDao = "";
 	private String noiDoanDiTham;
-//	@Lob
+	private String idNguoiLienQuan = "";
+	@Lob
 	private String link;
 	private int soNguoi;
 	private Date thoiGianDenLamViec = new Date();
@@ -136,6 +140,15 @@ public class DoanVao extends Model<DoanVao> {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+	
+	
+	public String getIdNguoiLienQuan() {
+		return idNguoiLienQuan;
+	}
+
+	public void setIdNguoiLienQuan(String idNguoiLienQuan) {
+		this.idNguoiLienQuan = idNguoiLienQuan;
 	}
 
 	@Enumerated(EnumType.STRING)
@@ -258,6 +271,16 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void saveDoanVao() {
+		if (this.noId()) {
+			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
+		} else {
+			NhanVien nguoiPhuTrachCu = getNguoiPhuTrachCu(this);
+			if (!nguoiPhuTrachCu.equals(this.getNguoiPhuTrach())) {
+				thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
+				thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(),
+						null);
+			}
+		}
 		if ("".equals(this.getCongVanChiDaoUB().getTenFile())) {
 			this.setCongVanChiDaoUB(null);
 		} else {
@@ -267,7 +290,9 @@ public class DoanVao extends Model<DoanVao> {
 		this.getTepTins().forEach(item -> {
 			item.saveNotShowNotification();
 		});
-		if (this.getTomTatNoiDungKQ() != null && !"".equals(this.getTomTatNoiDungKQ())) {
+		String param = this.getTomTatNoiDungKQ().trim().replaceAll("\\s+", " ");
+		this.setTomTatNoiDungKQ(param);
+		if (param != null && !"".equals(param)) {
 			this.setTrangThaiTiepDoan(TrangThaiTiepDoanEnum.DA_TIEP);
 		}
 		save();
@@ -285,42 +310,160 @@ public class DoanVao extends Model<DoanVao> {
 			});
 		}
 
-		if (listGiaoViec != null || !listGiaoViec.isEmpty()) {
+		if (listGiaoViec != null && !listGiaoViec.isEmpty()) {
 			for (GiaoViec congViec : listGiaoViec) {
 				checkCongViec(congViec);
 				if (checkNotAllNull && checkAllNull) {
-					saveGiaoViec(congViec);
+					checkGiaoViec(congViec);
 				}
 				resetCheck();
 			}
-			
 		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
 	
-	public void saveGiaoViec(GiaoViec giaoViec) {
-		giaoViec.getTaiLieu().saveNotShowNotification();
-		giaoViec.setDoanVao(this);
-		giaoViec.setNguoiGiaoViec(core().getNhanVien());
-		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
-		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
-		giaoViec.saveNotShowNotification();
-		thongBao(this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+	private NhanVien nguoiThucHienCu = new NhanVien();
+	
+	@Transient
+	public NhanVien getNguoiThucHienCu() {
+		return nguoiThucHienCu;
+	}
+
+	public void setNguoiThucHienCu(NhanVien nguoiThucHienCu) {
+		this.nguoiThucHienCu = nguoiThucHienCu;
 	}
 	
-	public void thongBao(DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan, NhanVien nguoiGui,
-			String tenCongViec) {
-		ThongBao thongBao = new ThongBao();
-		thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của đoàn vào @"
-				+ doanVao.getTenDoanVao());
-		thongBao.setNguoiNhan(nguoiNhan);
-		if (nguoiGui != null) {
-			thongBao.setNguoiGui(nguoiGui);
+	public void checkGiaoViec(GiaoViec giaoViec) {
+		if (giaoViec.noId()) {
+			giaoViec.getTaiLieu().saveNotShowNotification();
+			giaoViec.setTenCongViec(giaoViec.getNoiDungCongViec().getText());
+			giaoViec.setDoanVao(this);
+			giaoViec.setNguoiGiaoViec(core().getNhanVien());
+			giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
+			giaoViec.getNguoiDuocGiao().saveNotShowNotification();
+			thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+			giaoViec.saveNotShowNotification();
+			this.setIdNguoiLienQuan(this.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
+			this.saveNotShowNotification();
+		} else {
+			this.setNguoiThucHienCu(getNguoiDuocGiaoCu(giaoViec));
+			if (!this.getNguoiThucHienCu().equals(giaoViec.getNguoiDuocGiao())) {
+				String resetId = removeIdInListDoanVao(giaoViec, this.getNguoiThucHienCu());
+				giaoViec.getTaiLieu().saveNotShowNotification();
+				giaoViec.setTenCongViec(giaoViec.getNoiDungCongViec().getText());
+				giaoViec.setDoanVao(this);
+				giaoViec.setNguoiGiaoViec(core().getNhanVien());
+				giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
+				giaoViec.getNguoiDuocGiao().saveNotShowNotification();
+				thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+				giaoViec.saveNotShowNotification();
+				this.setIdNguoiLienQuan(resetId + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
+				this.saveNotShowNotification();
+			} 
 		}
-		thongBao.setIdObject(doanVao.getId());
-		thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
-		thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
-		thongBao.saveNotShowNotification();
+	}
+	
+	public void thongBao(LoaiThongBao loaiThongBao, DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan,
+			NhanVien nguoiGui, String tenCongViec) {
+		if (LoaiThongBao.PHU_TRACH_DOAN_VAO.equals(loaiThongBao)) {
+			saveThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+		}
+		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
+			saveThongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+		}
+		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
+			if (giaoViec.noId()) {
+				saveThongBao(LoaiThongBao.CONG_VIEC_MOI, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+			} else if (!this.nguoiThucHienCu.equals(giaoViec.getNguoiDuocGiao())) {
+				saveThongBao(LoaiThongBao.CONG_VIEC_MOI, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+				saveThongBao(LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+			}
+		}
+	}
+	
+	public void saveThongBao(LoaiThongBao loaiThongBao, NhanVien nguoiNhan, String tenCongViec, DoanVao doanVao,
+			NhanVien nguoiGui) {
+		
+		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
+			ThongBao thongBao = new ThongBao();
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của @"
+					+ doanVao.getTenDoanVao());
+			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.CONG_VIEC_MOI);
+			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+			thongBao.saveNotShowNotification();
+		}
+		if (LoaiThongBao.PHU_TRACH_DOAN_VAO.equals(loaiThongBao)) {
+			ThongBao thongBao = new ThongBao();
+			thongBao.setNoiDung("Bạn được phân công phụ trách Đoàn @" + doanVao.getTenDoanVao());
+			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			if (getDoanVaoMoiNhat().fetchFirst() != null) {
+				thongBao.setIdObject(getDoanVaoMoiNhat().fetchFirst() + 1);
+			} else {
+				thongBao.setIdObject(1l);
+			}
+			
+			thongBao.setLoaiThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO);
+			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+			thongBao.saveNotShowNotification();
+		}
+		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
+			ThongBao thongBao = new ThongBao();
+			thongBao.setNoiDung("Công việc phụ trách của đoàn @" + doanVao.getTenDoanVao()
+			+ "@ đã được chuyển cho người khác");
+			thongBao.setNguoiNhan(nguoiNhan);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH);
+			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+			thongBao.saveNotShowNotification();
+		}
+
+		if (LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO.equals(loaiThongBao)) {
+			ThongBao thongBao = new ThongBao();
+			thongBao.setNoiDung("Công việc @" + tenCongViec + "@ của đoàn @" + doanVao.getTenDoanVao()
+					+ "@ đã được chuyển cho người khác");
+			thongBao.setNguoiNhan(this.nguoiThucHienCu);
+			if (nguoiGui != null) {
+				thongBao.setNguoiGui(nguoiGui);
+			}
+			thongBao.setIdObject(doanVao.getId());
+			thongBao.setLoaiThongBao(LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO);
+			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
+			thongBao.saveNotShowNotification();
+		}
+	}
+	
+	@Transient
+	public JPAQuery<Long> getDoanVaoMoiNhat(){
+		return find(DoanVao.class).select(QDoanVao.doanVao.id.max()); 
+	}
+	
+	@Transient
+	public NhanVien getNguoiDuocGiaoCu(GiaoViec giaoViec){
+		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.eq(giaoViec));
+		if (q != null) {
+			return q.fetchFirst().getNguoiDuocGiao();
+		}
+		return new NhanVien();
+	}
+	
+	@Transient
+	public NhanVien getNguoiPhuTrachCu(DoanVao doanVao){
+		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(doanVao));
+		if (q != null) {
+			return q.fetchFirst().getNguoiPhuTrach();
+		}
+		return new NhanVien();
 	}
 
 	@Command
@@ -768,46 +911,45 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Transient
 	public void loadListGiaoViecTheoDoan() {
-		for (GiaoViec giaoViec : getListGiaoViec()) {
+		listGiaoViec.clear();
+		if (listGiaoViecTheoDoan != null && !listGiaoViecTheoDoan.isEmpty()) {
 			for (GiaoViec item : listGiaoViecTheoDoan) {
-				if (item.getNoiDungCongViec().equals(giaoViec.getNoiDungCongViec())) {
-					switch (item.getNoiDungCongViec()) {
-					case CONG_VIEC_NGUOI_DUOC_PHAN_CONG:
-						congViecNguoiDuocPhanCong = item;
-						break;
-					case CONG_VIEC_CHUYEN_VIEN:
-						congViecChuyenVien = item;
-						break;
-					case CONG_VIEC_CHUAN_BI_PHONG_HOP:
-						congViecChuanBiPhongHop = item;
-						break;
-					case CONG_VIEC_CHUAN_BI_HOA_QUA:
-						congViecChuanBiHoaQua = item;
-						break;
-					case CONG_VIEC_CHUAN_BI_THIET_BI:
-						congViecChuanBiThietBi = item;
-						break;
-					case CONG_VIEC_CHUAN_BI_TAI_LIEU:
-						congViecChuanBiTaiLieu = item;
-						break;
-					case CONG_VIEC_XAY_DUNG_CHUONG_TRINH:
-						congViecXayDungChuongTrinh = item;
-						break;
-					case CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU:
-						congViecChuanBiBaiGioiThieu = item;
-						break;
-					case CONG_VIEC_XAC_NHAN_LAI_THONG_TIN:
-						congViecXacNhanLaiThongTin = item;
-						break;
-					case CONG_VIEC_GHI_BIEN_BAN:
-						congViecGhiBienBan = item;
-						break;
-					case CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI:
-						congViecKiemTraLaiCongTacChuanBi = item;
-						break;
-					default:
-						break;
-					}
+				switch (item.getNoiDungCongViec()) {
+				case CONG_VIEC_NGUOI_DUOC_PHAN_CONG:
+					congViecNguoiDuocPhanCong = item;
+					break;
+				case CONG_VIEC_CHUYEN_VIEN:
+					congViecChuyenVien = item;
+					break;
+				case CONG_VIEC_CHUAN_BI_PHONG_HOP:
+					congViecChuanBiPhongHop = item;
+					break;
+				case CONG_VIEC_CHUAN_BI_HOA_QUA:
+					congViecChuanBiHoaQua = item;
+					break;
+				case CONG_VIEC_CHUAN_BI_THIET_BI:
+					congViecChuanBiThietBi = item;
+					break;
+				case CONG_VIEC_CHUAN_BI_TAI_LIEU:
+					congViecChuanBiTaiLieu = item;
+					break;
+				case CONG_VIEC_XAY_DUNG_CHUONG_TRINH:
+					congViecXayDungChuongTrinh = item;
+					break;
+				case CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU:
+					congViecChuanBiBaiGioiThieu = item;
+					break;
+				case CONG_VIEC_XAC_NHAN_LAI_THONG_TIN:
+					congViecXacNhanLaiThongTin = item;
+					break;
+				case CONG_VIEC_GHI_BIEN_BAN:
+					congViecGhiBienBan = item;
+					break;
+				case CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI:
+					congViecKiemTraLaiCongTacChuanBi = item;
+					break;
+				default:
+					break;
 				}
 			}
 		}

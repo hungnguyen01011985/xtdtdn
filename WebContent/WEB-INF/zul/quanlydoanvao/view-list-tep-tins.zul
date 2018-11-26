@@ -25,11 +25,11 @@
 							</div>
 						</div>
 						<div class="col-md-4 ${forEachStatus.first ? 'margin-top-17' : ''}">
-							<div class="flex mg-btn-top" if="${!action}">
+							<div class="flex mg-btn-top" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}">
 								<x:button class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFileDoanVao', index = forEachStatus.index, vm = vm)">
 									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 								</x:button>
-								<button class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+								<button if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
 									onUpload="@command('reUploadFile', medias=event.media, index = forEachStatus.index, vm = vm)"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
@@ -40,7 +40,7 @@
 			</div>
 			<div style="padding:0 7.5px">
 				<div class="row">
-					<div class="col-md-12" if="${!action}">
+					<div class="col-md-12" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}">
 						<button label="Thêm tài liệu" class="btn bg-btn-tailieu-green mg-btn-top" image="/assets/icon-bxtdn/them-moi.svg"
 							onUpload="@command('uploadFile', medias=event.medias)"
 							upload="true,multiple=true,accept=.pdf|.xls|.xlsx|.doc|.docx">

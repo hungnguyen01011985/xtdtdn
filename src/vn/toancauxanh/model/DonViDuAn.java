@@ -17,7 +17,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 @Table(name="donviduan")
 public class DonViDuAn extends Model<DonViDuAn>{
 	private CapDonVi capDonVi;
-	private DonViXucTien donVi;
+	private DonViXucTien donVi = new DonViXucTien();
 	private Date ngayNhanTraLoi;
 	private TepTin congVanTraLoi;
 	private GiaiDoanDuAn giaiDoanDuAn;
@@ -29,7 +29,9 @@ public class DonViDuAn extends Model<DonViDuAn>{
 
 	public void setCapDonVi(CapDonVi capDonVi) {
 		this.capDonVi = capDonVi;
+		donVi = new DonViXucTien();
 		BindUtils.postNotifyChange(null, null, this, "listDonViXucTien");
+		BindUtils.postNotifyChange(null, null, this, "donVi");
 	}
 
 	@ManyToOne
