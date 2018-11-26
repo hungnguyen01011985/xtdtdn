@@ -42,9 +42,11 @@ import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
+import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.NhanVien;
+import vn.toancauxanh.model.QDoanVao;
 import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.Setting;
@@ -374,6 +376,16 @@ public class BaseObject<T> extends CoreObject<T> {
 		duAn.setIdNguoiLienQuan(
 				duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId() + KY_TU, ""));
 		duAn.saveNotShowNotification();
+	}
+	
+	public String removeIdInListDoanVao(GiaoViec giaoViec, NhanVien nguoiCu) {
+		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(giaoViec.getDoanVao()));
+		if (q != null) {
+			DoanVao doanVao = q.fetchFirst();
+			doanVao.setIdNguoiLienQuan(doanVao.getIdNguoiLienQuan().replaceFirst(nguoiCu.getId() + KY_TU, ""));
+			return doanVao.getIdNguoiLienQuan();
+		}
+		return "";
 	}
 
 	public static final String KY_TU = "@";
@@ -734,15 +746,49 @@ public class BaseObject<T> extends CoreObject<T> {
 		return subString(id).contains(idNV);
 	}
 	
-	public boolean checkEditDoanVao(Long idNV, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
+	public boolean checkNguoiLienQuan(Long idNV, String id, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
 		if (idNV == null) {
 			return false;
 		}
 		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
 			return true;
 		}
+		if (id != null && !"".equals(id)) {
+			return subString(id).contains(idNV);
+		}
 		return false;
 	}
+	
+	public boolean checkNguoiPhuTrach(NhanVien nguoiTao, NhanVien nguoiPhuTrach, Long idNV){
+		if (idNV == null) {
+			return false;
+		}
+		if ((nguoiTao != null && nguoiTao.equals(core().getNhanVien())) || (nguoiPhuTrach != null && nguoiPhuTrach.equals(core().getNhanVien()))) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkOnlyNguoiPhuTrach(NhanVien nguoiPhuTrach, Long idNV){
+		if (idNV == null) {
+			return false;
+		}
+		if (nguoiPhuTrach != null && nguoiPhuTrach.equals(core().getNhanVien())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkOnlyNguoiLienQuan(Long idNV, String id) {
+		if (idNV == null) {
+			return false;
+		}
+		if (id != null && !"".equals(id)) {
+			return subString(id).contains(idNV);
+		}
+		return false;
+	}
+	
 
 	public boolean checkDeleteDoanVao(NhanVien nguoiTao, TrangThaiTiepDoanEnum trangThaiTiepDoan) {
 		if (TrangThaiTiepDoanEnum.DA_TIEP.equals(trangThaiTiepDoan)) {
