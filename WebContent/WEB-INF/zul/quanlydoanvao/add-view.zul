@@ -10,7 +10,7 @@
 		        vn.toancauxanh.model.DoanVao vm = new vn.toancauxanh.service.DoanVaoService().getDoanVaoById(id);
 		        action = arg.get("action");
 		        checkCapNhat = arg.get("checkCapNhat");
-		        if (vm.getCongVanChiDaoUB() == null){
+		        if (vm.getCongVanChiDaoUB() == null) {
 					vm.setCongVanChiDaoUB(new vn.toancauxanh.model.TepTin());
 				}
 		]]>
