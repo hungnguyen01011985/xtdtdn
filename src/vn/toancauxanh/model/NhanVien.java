@@ -69,6 +69,7 @@ public class NhanVien extends Model<NhanVien> {
 	private String email = "";
 	private String hoVaTen = "";
 	private String matKhau = "";
+	private String matKhauCu = "";
 	private String salkey = "";
 	private String soDienThoai = "";
 	private String pathAvatar = "";
@@ -99,6 +100,15 @@ public class NhanVien extends Model<NhanVien> {
 
 	public void setMatKhauUpdate(String matKhauUpdate) {
 		this.matKhauUpdate = matKhauUpdate;
+	}
+
+	@Transient
+	public String getMatKhauCu() {
+		return matKhauCu;
+	}
+
+	public void setMatKhauCu(String matKhauCu) {
+		this.matKhauCu = matKhauCu;
 	}
 
 	public String getPathAvatar() {
@@ -512,11 +522,11 @@ public class NhanVien extends Model<NhanVien> {
 
 	private void loadImageIsView() throws FileNotFoundException, IOException {
 		if (getPathAvatar() != null && !"".equals(getPathAvatar())) {
-			String s1 = ctx().getEnvironment().getProperty("filestore.root");
-			String s2 =s1 + ctx().getEnvironment().getProperty("filestore.folder");
-			String s3 = s2 + ctx().getEnvironment().getProperty("filestore.files");
-			String s4 = s3 + ctx().getEnvironment().getProperty("filestore.folderimage");
-			String path = s4 + getPathAvatar();
+			String root = ctx().getEnvironment().getProperty("filestore.root");
+			String folder = root + ctx().getEnvironment().getProperty("filestore.folder");
+			String filesFolder = folder + ctx().getEnvironment().getProperty("filestore.files");
+			String imageFolder = filesFolder + ctx().getEnvironment().getProperty("filestore.folderimage");
+			String path = imageFolder + getPathAvatar();
 			if (new File(path).exists()) {
 				String pathCompare = path.substring(0, path.lastIndexOf(File.separator) + 1)
 						+ path.substring(path.lastIndexOf(File.separator) + 1);
@@ -526,7 +536,6 @@ public class NhanVien extends Model<NhanVien> {
 				}
 			}
 		}
-		
 	}
 
 	@Command
@@ -691,6 +700,22 @@ public class NhanVien extends Model<NhanVien> {
 				if (!value.isEmpty() && !value.trim()
 						.matches("^\\+?\\d{1,3}?[- .]?\\(?(?:\\d{2,3})\\)?[- .]?\\d\\d\\d[- .]?\\d\\d\\d\\d$")) {
 					addInvalidMessage(ctx, "error", "Số điện thoại không đúng định dạng.");
+				}
+			}
+		};
+	}
+	
+	@Transient
+	public AbstractValidator getValidateMatKhauCu() {
+		NhanVien nhanVien = this;
+		return new AbstractValidator() {
+			@Override
+			public void validate(final ValidationContext ctx) {
+				String value = (String) ctx.getProperty().getValue();
+				BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
+				String passNoHash = value + nhanVien.getSalkey();
+				if (!encryptor.checkPassword(passNoHash, nhanVien.getMatKhau())) {
+					addInvalidMessage(ctx, "error", "Mật khẩu cũ không chính xác");
 				}
 			}
 		};

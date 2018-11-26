@@ -141,25 +141,36 @@
 					</div>
 					<div class="row">
 						<div if="${!vm.noId()}">
-							<div zclass="col-md-6" visible="@load(vm.changePass)">
+							<div zclass="col-md-4" if="${!(entry.nhanVien.quyens eq '[*]')}" visible="@load(vm.changePass)">
+								<div zclass="form-group">
+									<div class="flex">
+										<x:span class="issue-search">Mật khẩu cũ<n:small class="required"> *</n:small></x:span>
+									</div>
+									<textbox class="form-control" readonly="${readOnly}"
+										width="100%" type="password" value="@bind(vm.matKhauCu) @save(vm.matKhauCu, before='updateNhanVien') @validator(vm.validateMatKhauCu)"
+											onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập mật khẩu cũ" />
+									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								</div>
+							</div>
+							<div zclass="col-md-4" visible="@load(vm.changePass)">
 								<div zclass="form-group">
 									<div class="flex">
 										<x:span class="issue-search">Mật khẩu mới<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox class="form-control" readonly="${readOnly }"
 										width="100%" type="password" value="@bind(vm.matKhauUpdate) @save(vm.matKhauUpdate, before='updateNhanVien') @validator(vm.validateMatKhauMoiEdit)"
-											onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"/>
+											onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập mật khẩu mới" />
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 								</div>
 							</div>
-							<div zclass="col-md-6" visible="@load(vm.changePass)">
+							<div zclass="col-md-4" visible="@load(vm.changePass)">
 								<div zclass="form-group">
 									<div class="flex">
 										<x:span class="issue-search">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox class="form-control" readonly="${readOnly }"
 										width="100%" type="password" value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='updateNhanVien') @validator(vm.validateMatKhauMoi, pass = vm.matKhauUpdate)"
-										onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" />
+										onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập lại mật khẩu" />
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 								</div>
 							</div>
