@@ -22,7 +22,7 @@
 						<span>Quản lý đoàn vào</span>
 						<x:img class="img-arrow-right" 
 						src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
-						<span>${id ne null ? vm.tenDoanVao : 'Thêm mới đoàn vào'}</span>
+						<span>${id ne null ? vm.tenDoanVao : 'Thêm đoàn vào'}</span>
 					</div>
 				</div>
 			</div>

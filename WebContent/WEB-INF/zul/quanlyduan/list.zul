@@ -6,6 +6,11 @@
 			page.title = "Quản lí dự án";
 		]]>
 	</zscript>
+	<n:script>
+		function getFocus() {
+			$(".focus").find("input").focus();
+		}
+	</n:script>
 	<div> 
 		<div class="panel-box">
 			<div zclass="row">
@@ -26,7 +31,7 @@
 			</div>
 			<div zclass="row mg-and-bg-and-line">
 					<div zclass="col-md-4">
-						<div zclass="form-group">
+						<div zclass="form-group focus">
 							<span>Tên dự án</span> 
 							<textbox id="txtNhaDauTu" class="form-control textbox-txt-style" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')" placeholder="Nhập tên dự án"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
