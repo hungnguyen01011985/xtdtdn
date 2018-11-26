@@ -121,7 +121,7 @@
 								<label value="@load(item.nguoiDuocGiao.hoVaTen)"></label>
 								<label value="@load(item.ngayGiao) @converter('formatedDate',format='dd/MM/yyyy')"></label>
 								<label value="@load(item.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')"></label>
-								<label value="@load(item.trangThaiGiaoViec.text)"></label>
+								<label value="@load(item.trangThaiGiaoViec.text)" class="@load(item.trangThaiGiaoViec)"></label>
 							</row>
 						</template>
 					</grid>

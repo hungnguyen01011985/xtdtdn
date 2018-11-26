@@ -1,7 +1,6 @@
 package vn.toancauxanh.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.MapUtils;
@@ -42,19 +41,7 @@ public class BaoCaoThongKeCongViecService extends BasicService<GiaoViec>{
 	
 	@Command
 	public void xuatExcel(@BindingParam("list") List<GiaoViec> listGiaoViec) throws IOException {
-		List<Object[]> list = new ArrayList<Object[]>();
-		listGiaoViec.forEach(item -> {
-			Object[] ob = new Object[7];
-			ob[0] = item.getTenCongViec();
-			ob[1] = item.getDuAn().getTenDuAn();
-			ob[2] = item.getNguoiGiaoViec().getHoVaTen();
-			ob[3] = item.getNguoiDuocGiao().getHoVaTen();
-			ob[4] = item.getNgayGiao();
-			ob[5] = item.getHanThucHien();
-			ob[6] = item.getTrangThaiGiaoViec().getText();
-			list.add(ob);
-		});
-		ExcelUtil.exportThongKeCongViec("Thống kê công việc", "thongkebaocaocongviec", "Thống kê công việc", list);
+		ExcelUtil.exportThongKeCongViec("thongkebaocaocongviec", "Thống kê công việc", listGiaoViec, "Thống kê công việc");
 	}
 		
 }
