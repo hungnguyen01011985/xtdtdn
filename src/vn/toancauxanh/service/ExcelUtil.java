@@ -947,10 +947,10 @@ public class ExcelUtil {
 
 			sheet1.setColumnWidth(0, 10 * 256);
 			sheet1.setColumnWidth(1, 40 * 256);
-			sheet1.setColumnWidth(2, 40 * 256);
+			sheet1.setColumnWidth(2, 20 * 256);
 			sheet1.setColumnWidth(3, 40 * 256);
-			sheet1.setColumnWidth(4, 40 * 256);
-			sheet1.setColumnWidth(5, 20 * 256);
+			sheet1.setColumnWidth(4, 20 * 256);
+			sheet1.setColumnWidth(5, 40 * 256);
 			sheet1.setColumnWidth(6, 40 * 256);
 
 			// Generate rows header of grid

@@ -34,15 +34,15 @@
 						</div>
 					</div>
 					<div zclass="col-md-3">
-						<div zclass="form-group">
-							<span>Người được giao</span> 
-							<combobox readonly="true" class="his" placeholder="Loại lễ hội" width="100%">
-								<comboitem label="Testcase 1" />
-								<comboitem label="Testcase 2" />
-								<comboitem label="Testcase 3" />
-								<comboitem label="Testcase 4" />
+						<div class="form-group">
+							<span>Người được giao</span>
+							<combobox readonly="true" class="his"
+								model="@load(vm.listNhanVienTruongPhongAndChuyenVienNull)" value="@load(vm.arg.nguoiDuocGiao eq null ? 'Tất cả' : vm.arg.nguoiDuocGiao.hoVaTen)"
+								selectedItem="@bind(vm.arg.nguoiDuocGiao)" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
+								</template>
 							</combobox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 				</div>
