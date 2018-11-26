@@ -10,6 +10,7 @@ import org.apache.commons.collections.MapUtils;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Window;
 
 import com.querydsl.jpa.impl.JPAQuery;
@@ -158,4 +159,10 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		list.add(TrangThaiGiaoViec.HOAN_THANH);
 		return list;
 	}
+	
+	@Command
+	public void reset() {
+		Executions.sendRedirect("/cp/quanlygiaoviec");
+	}
+	
 }

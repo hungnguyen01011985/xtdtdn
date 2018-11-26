@@ -797,7 +797,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		if (thoiHan.compareTo(resetHourMinuteSecondMilli(new Date())) > 0){
 			StringBuilder txt = new StringBuilder();
 			txt.append("<span class='color-txt-blue'>(Còn ");
-			txt.append(thoiHan.compareTo(resetHourMinuteSecondMilli(new Date())));
+			txt.append((thoiHan.getTime() - resetHourMinuteSecondMilli(new Date()).getTime()) / (24 * 60 * 60 * 1000));
 			txt.append(" ngày)</span>");
 			return txt.toString();
 		} else if (thoiHan.compareTo(resetHourMinuteSecondMilli(new Date())) == 0) {
