@@ -43,11 +43,11 @@ import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 @Table(name = "duan")
 public class DuAn extends Model<DuAn> {
 	private String tenDuAn;
-	private String diaDiem = "";
+	private String diaDiem;
 	private String quyMoDuAn;
 	private String idNguoiLienQuan = "";
 	@Lob
-	private String mucTieuDuAn = "";
+	private String mucTieuDuAn;
 	private Double tongVonDauTu = 0.0;
 	private Double dienTichSuDungDat = 0.0;
 	private LinhVucDuAn linhVuc;

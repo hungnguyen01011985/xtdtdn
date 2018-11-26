@@ -72,7 +72,7 @@
 										<div class="flex">
 											<x:span class="label-txt-style">Ngày phát hành công văn<n:small class="required"> *</n:small></x:span>
 										</div>
-										<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy" readonly="true" class="hv-db ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? 'datebox-txt-style' : 'input-no-button' }"
+										<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy" class="hv-db ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? 'datebox-txt-style' : 'input-no-button' }"
 											value="@bind(each.ngayNhanTraLoi) @save(each.ngayNhanTraLoi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"/>
 										<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 									</div>

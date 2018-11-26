@@ -18,11 +18,12 @@ import vn.toancauxanh.model.QDoanVao;
 public class DoanVaoService extends BasicService<DoanVao> {
 
 	public JPAQuery<DoanVao> getTargetQuery() {
-		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
+		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		String trangThai = MapUtils.getString(argDeco(), "trangThai", "");
 		JPAQuery<DoanVao> q = find(DoanVao.class);
-		if (tuKhoa != null) {
-			q.where(QDoanVao.doanVao.tenDoanVao.like("%" + tuKhoa + "%"));
+		if (param != null && !param.isEmpty()) {
+			String tuKhoa = "%" + param + "%";
+			q.where(QDoanVao.doanVao.tenDoanVao.like(tuKhoa));
 		}
 		if (trangThai != null && !trangThai.isEmpty()) {
 			q.where(QDoanVao.doanVao.trangThaiTiepDoan.eq(TrangThaiTiepDoanEnum.valueOf(trangThai)));
