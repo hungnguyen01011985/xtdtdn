@@ -26,6 +26,7 @@
 				</div>
 				<div zclass="col-lg-6">
 					<div class="box-lich-su-van-ban" onClick="@command('redirectPage', zul='quanlyduan/list-lich-su-van-ban.zul', vm = vm)">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/lich-su-van-ban.svg"/>
 						<span>Lịch sử văn bản</span>
 					</div>
 				</div>

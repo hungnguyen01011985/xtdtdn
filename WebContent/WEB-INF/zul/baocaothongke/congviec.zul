@@ -89,7 +89,7 @@
 					<div zclass="col-md-3" style="padding-top: 25px;">
 						<div zclass="form-group left">
 							<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=vm, attr='targetQuery')">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xem-thong-ke.svg"/>
 								<span>Xem thống kê</span>
 							</x:button>
 						</div>
