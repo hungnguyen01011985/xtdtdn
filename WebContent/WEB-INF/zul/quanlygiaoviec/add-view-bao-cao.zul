@@ -3,15 +3,15 @@
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
 		closable="true" title="${arg.title}" viewModel="@id('vm') @init(arg.model)"
 		validationMessages="@id('vmsgs')">
-			<zscript><![CDATA[
-				vmArgs = arg.get("vmArgs");
-				readOnly = arg.get("readOnly");
-				action = arg.get("action");
-				loaiCongViec = arg.get("loaiCongViec");
-				duAnCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DU_AN;
-				doanVaoCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DOAN_VAO;
-			]]></zscript> 
-		<div class="w-popup-content-medium" style="margin:0 15px;"  >
+		<zscript><![CDATA[
+			vmArgs = arg.get("vmArgs");
+			readOnly = arg.get("readOnly");
+			action = arg.get("action");
+			loaiCongViec = arg.get("loaiCongViec");
+			duAnCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DU_AN;
+			doanVaoCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DOAN_VAO;
+		]]></zscript> 
+		<div class="w-popup-content-medium" style="margin:0 15px;">
 			<div class="mg-and-bg-and-line mg-bottom-5">
 				<div class="row">
 					<div zclass="col-md-6" if="${duAnCV eq loaiCongViec}">
@@ -106,7 +106,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="row" visible="@load(not empty vm.taiLieu.tenFile)">
 					<div class="col-md-12">
 						<div zclass="form-group">

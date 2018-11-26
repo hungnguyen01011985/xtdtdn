@@ -181,7 +181,14 @@ html, body {
 	line-height: 25px;
 	background: rgba(121, 149, 216, 0.1);
 }
-
+.active-heder-li-children .text-menu {
+	font-family: Roboto-Bold;
+}
+.active-heder-li-children {
+	text-decoration: none;
+	line-height: 25px;
+	background: rgba(121, 149, 216, 0.1);
+}
 .wd-header .username {
 	color: #fff;
 	padding: 0px 3px;
@@ -1365,12 +1372,14 @@ ul.z-tabs-content {
 
 .nav-side-menu li {
 	padding-left: 0px;
-	padding: 20px 10px;
+	/* padding: 20px 10px; */
 	position: relative;
-	height: 58px;
+	/* height: 58px; */
 	overflow: hidden;
 }
-
+.nav-side-menu li > a {
+	padding: 20px 10px;
+}
 .text-menu {
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -1383,6 +1392,8 @@ ul.z-tabs-content {
 	color: #404247;
 	line-height: 25px;
 	font-family: Roboto-Regular;
+	display: block;
+    width: 100%;
 }
 
 .nav-side-menu li a i {
@@ -2578,14 +2589,15 @@ the spark styles
 	position: absolute;
 	left: 0;
 	top: 20px;
-	-webkit-animation: ring 4s .7s ease-in-out infinite;
-  -webkit-transform-origin: 50% 4px;
-  -moz-animation: ring 4s .7s ease-in-out infinite;
-  -moz-transform-origin: 50% 4px;
-  animation: ring 4s .7s ease-in-out infinite;
-  transform-origin: 50% 4px;
 }
-
+.img-notify-animation {
+	-webkit-animation: ring 4s .7s ease-in-out;
+	-webkit-transform-origin: 50% 4px;
+	-moz-animation: ring 4s .7s ease-in-out;
+	-moz-transform-origin: 50% 4px;
+	animation: ring 4s .7s ease-in-out;
+	transform-origin: 50% 4px;
+}
 @-webkit-keyframes ring {
   0% { -webkit-transform: rotateZ(0); }
   1% { -webkit-transform: rotateZ(30deg); }

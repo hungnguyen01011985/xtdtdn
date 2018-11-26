@@ -94,12 +94,14 @@
 			if ($( window ).width()> 768) {
 				if ($(".nav-side-menu").css("width") == "243px") {
 					$(".text-menu").css("display","none");
+					$(".children-nav").css("display", "none");
 					$(".nav-side-menu").css("width","50px");
 					$(".img-menu").css("margin","0");
 				} else {
 					$(".nav-side-menu").css("width","243px");
 					$(".img-menu").css("margin","0 20px 0 10px");
 					$(".text-menu").css("display","inline");
+					$(".children-nav").css("display", "inline");
 				}
 			} else {
 				if ($(".nav-side-menu").css("height") == "0px") {

@@ -71,7 +71,13 @@ public class Entry extends BaseObject<Object> {
 	public String NHACNHO = "";
 	@Value("${action.phutrach}") // duoc cap nhat nguoi phu trach
 	public String PHUTRACH = "";
-
+	@Value("${action.duan}")
+	public String DUAN = "";
+	@Value("${action.doanvao}")
+	public String DOANVAO = "";
+	@Value("${action.congviec}")
+	public String CONGVIEC = "";
+	
 	@Value("${url.quanlyduan}")
 	public String QUANLYDUAN = "";
 	@Value("${url.quanlydoanvao}")
@@ -82,11 +88,12 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYLINHVUCDUAN = "";
 	@Value("${url.phongban}")
 	public String QUANLYPHONGBAN = "";
-
 	@Value("${url.nguoidung}")
 	public String NGUOIDUNG = "";
 	@Value("${url.phanquyen}")
 	public String PHANQUYEN = "";
+	@Value("${url.baocaothongke}")
+	public String BAOCAOTHONGKE = "";
 
 	@Value("${url.vaitro}")
 	public String VAITRO = "";
@@ -96,7 +103,7 @@ public class Entry extends BaseObject<Object> {
 	public String CACH = CHAR_CACH + "";
 
 	// Thêm các tùy chọn vai trò của chức năng tương ứng
-
+	
 	@Value("${url.quanlyduan}" + ":" + "${action.list}")
 	public String QUANLYDUANLIST;
 	@Value("${url.quanlyduan}" + ":" + "${action.xem}")
@@ -135,6 +142,7 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYGIAOVIECXOA;
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.them}")
 	public String QUANLYGIAOVIECTHEM;
+	
 
 	@Value("${url.phongban}" + ":" + "${action.list}")
 	public String QUANLYPHONGBANLIST;
@@ -194,14 +202,21 @@ public class Entry extends BaseObject<Object> {
 	public String VAITROSUA = "";
 	@Value("${url.vaitro}" + ":" + "${action.tim}")
 	public String VAITROTIMKIEM;
+	
+	@Value("${url.baocaothongke}" + ":" + "${action.duan}")
+	public String BAOCAOTHONGKEDUAN = "";
+	@Value("${url.baocaothongke}" + ":" + "${action.doanvao}")
+	public String BAOCAOTHONGKEDOANVAO = "";
+	@Value("${url.baocaothongke}" + ":" + "${action.congviec}")
+	public String BAOCAOTHONGKECONGVIEC = "";
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
-				QUANLYLINHVUCDUAN }; //
+				QUANLYLINHVUCDUAN, BAOCAOTHONGKE}; //
 	}
 
 	public String[] getACTIONS() {
-		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO, PHUTRACH };
+		return new String[] { LIST, XEM, THEM, SUA, XOA, GIAOVIEC, NHACNHO, PHUTRACH, DUAN, DOANVAO, CONGVIEC };
 	}
 
 	static {
@@ -254,22 +269,28 @@ public class Entry extends BaseObject<Object> {
 		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
 				+ "/list.zul";
 	}
-
-	@RequestMapping(value = "/cp/{rsc:.+$}/{path:.+$}")
-	public String add2(@PathVariable String rsc, @PathVariable String path) {
-		return "forward:/WEB-INF/zul/home.zul?resource=" + rsc + "&action=lietke&file=/WEB-INF/zul/" + rsc + "/" + path
+	
+	@RequestMapping(value = "/cp/baocaothongke/{path:.+$}")
+	public String add2(@PathVariable String path) {
+		return "forward:/WEB-INF/zul/home.zul?resource=baocaothongke&action="+path+"&file=/WEB-INF/zul/baocaothongke/" + path
 				+ ".zul";
 	}
-
+	
+	@RequestMapping(value = "/cp/{rsc:.+$}/{path:.+$}")
+	public String add2(@PathVariable String rsc, @PathVariable String path) {
+		return "forward:/WEB-INF/zul/home.zul?resource=" + rsc + "&action=them&file=/WEB-INF/zul/" + rsc + "/" + path
+				+ ".zul";
+	}
+	
 	@RequestMapping(value = "/cp/{path:.+$}/edit/{id:\\d+}")
 	public String edit2(@PathVariable String path, @PathVariable Long id) {
-		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
+		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=sua&file=/WEB-INF/zul/" + path
 				+ "/show-doan-vao.zul&id=" + id;
 	}
 	
 	@RequestMapping(value = "/cp/{path:.+$}/detail/{id:\\d+}")
 	public String detail(@PathVariable String path, @PathVariable Long id) {
-		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=lietke&file=/WEB-INF/zul/" + path
+		return "forward:/WEB-INF/zul/home.zul?resource=" + path + "&action=xem&file=/WEB-INF/zul/" + path
 				+ "/show-chi-tiet-doan-vao.zul&id=" + id;
 	}
 

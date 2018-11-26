@@ -2,9 +2,6 @@
 	<zscript deferred="true">
 		Clients.evalJavaScript("setTitleCss()");
 	</zscript>
-	<zscript>
-		Clients.evalJavaScript("animationCss()");
-	</zscript>
 				<div zclass="col-lg-12">
 					<div class="box-plan">
 						<div class="plan-line">
