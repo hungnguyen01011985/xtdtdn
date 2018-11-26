@@ -773,6 +773,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		list.add(GiaiDoanXucTien.GIAI_DOAN_HAI);
 		list.add(GiaiDoanXucTien.GIAI_DOAN_BA);
 		list.add(GiaiDoanXucTien.GIAI_DOAN_BON);
+		list.add(GiaiDoanXucTien.GIAI_DOAN_NAM);
 		list.add(GiaiDoanXucTien.CHUA_HOAN_THANH);
 		list.add(GiaiDoanXucTien.HOAN_THANH);
 		return list;
@@ -804,6 +805,32 @@ public class BaseObject<T> extends CoreObject<T> {
 		} else {
 			return "<span class='color-txt-red'>(Đã quá hạn)</span>";
 		}
+	}
+	
+	public List<NhanVien> getListNhanVienTruongPhongAndLanhDaoAndNull() {
+		List<NhanVien> list = new ArrayList<NhanVien>();
+		list.add(null);
+		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)
+				.or(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_LANH_DAO)));
+		list.addAll(q.fetch());
+		return list;
+	}
+	
+	public List<NhanVien> getListNhanVienTruongPhongAndChuyenVienNull() {
+		List<NhanVien> list = new ArrayList<NhanVien>();
+		list.add(null);
+		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)
+				.or(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN)));
+		list.addAll(q.fetch());
+		return list;
+	}
+	
+	public List<LoaiCongViec> getListLoaiCongViec() {
+		List<LoaiCongViec> list = new ArrayList<LoaiCongViec>();
+		list.add(null);
+		list.add(LoaiCongViec.DU_AN);
+		list.add(LoaiCongViec.DOAN_VAO);
+		return list;
 	}
 	
 }

@@ -1,0 +1,145 @@
+<?page title="Báo cáo thống kê" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
+	 class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.BaoCaoThongKeCongViecService')">
+	<zscript>
+		<![CDATA[
+			page.title = "Báo cáo thống kê";
+			doanVao = vn.toancauxanh.gg.model.enums.LoaiCongViec.DOAN_VAO;
+		]]>
+	</zscript>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Thống kê công việc
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Tùy chọn thống kê</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="mg-and-bg-and-line-fix">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<span>Loại công việc</span>
+							<combobox readonly="true" class="his"
+								model="@load(vm.listLoaiCongViec)" value="@load(vm.arg.loaiCongViec eq null ? 'Tất cả' : vm.arg.loaiCongViec.text)"
+								selectedItem="@bind(vm.arg.loaiCongViec)" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
+								</template>
+							</combobox>
+						</div>
+					</div>
+					<div class="col-md-3" visible="@load(!(vm.arg.loaiCongViec eq null))">
+						<div class="form-group">
+							<span visible="@load(doanVao eq vm.arg.loaiCongViec)">Tên đoàn vào</span>
+							<span visible="@load(!(doanVao eq vm.arg.loaiCongViec))">Tên dự án</span>
+							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)"></textbox>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<span>Người giao việc</span>
+							<combobox readonly="true" class="his"
+								model="@load(vm.listNhanVienTruongPhongAndLanhDaoAndNull)" value="@load(vm.arg.nguoiGiaoViec eq null ? 'Tất cả' : vm.arg.nguoiGiaoViec.hoVaTen)"
+								selectedItem="@bind(vm.arg.nguoiGiaoViec)" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
+								</template>
+							</combobox>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<span>Người phụ trách</span>
+							<combobox readonly="true" class="his"
+								model="@load(vm.listNhanVienTruongPhongAndChuyenVienNull)" value="@load(vm.arg.nguoiDuocGiao eq null ? 'Tất cả' : vm.arg.nguoiDuocGiao.hoVaTen)"
+								selectedItem="@bind(vm.arg.nguoiDuocGiao)" placeholder="Tất cả" width="100%">
+								<template name="model">
+									<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
+								</template>
+							</combobox>
+						</div>
+					</div>
+				</div> -->
+				<div class="row">
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<span>Ngày bắt đầu xúc tiến: Từ ngày</span>
+							<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
+						</div>
+					</div>
+					<div zclass="col-md-3">
+						<div zclass="form-group">
+							<span>Đến ngày</span> 
+							<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
+						</div>
+					</div>
+					<div zclass="col-md-3" style="padding-top: 25px;">
+						<div zclass="form-group left">
+							<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=vm, attr='targetQuery')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+								<span>Xem thống kê</span>
+							</x:button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box mg-bottom-15">
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
+						emptyMessage="Không có dữ liệu nào trong danh sách">
+						<columns>
+							<column label="STT" style="text-align:center" width="42px"/>
+							<column label="Tên công việc" />
+							<column label="Tên dự án" />
+							<column label="Người giao việc" />
+							<column label="Người phụ trách"/>
+							<column label="Ngày giao việc"/>
+							<column label="Hạn thực hiện"/>
+							<column label="Trạng thái" width="150px"/>
+						</columns>
+						<template name="model">
+							<row viewModel="@id('item') @init(each)">
+								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
+								<label value="@load(item.tenCongViec)"></label>
+								<label value="@load(item.duAn.tenDuAn eq null ? item.doanVao.tenDoanVao : item.duAn.tenDuAn)"></label>
+								<label value="@load(item.nguoiGiaoViec.hoVaTen)"></label>
+								<label value="@load(item.nguoiDuocGiao.hoVaTen)"></label>
+								<label value="@load(item.ngayGiao) @converter('formatedDate',format='dd/MM/yyyy')"></label>
+								<label value="@load(item.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')"></label>
+								<label value="@load(item.trangThaiGiaoViec.text)"></label>
+							</row>
+						</template>
+					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<div zclass="form-group left">
+						<x:button class="btn btn-blue" onClick="@command('xuatExcel', list = vm.targetQuery.fetch())">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+								<span>Xuất excel</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</window>

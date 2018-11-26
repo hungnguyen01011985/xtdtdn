@@ -215,6 +215,11 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().NGUOIDUNGTHEM);
 		quyens1.add(core().NGUOIDUNGSUA);
 		quyens1.add(core().NGUOIDUNGXOA);
+		
+		quyens1.add(core().BAOCAOTHONGKEDUAN);
+		quyens1.add(core().BAOCAOTHONGKEDOANVAO);
+		quyens1.add(core().BAOCAOTHONGKECONGVIEC);
+		
 		return quyens1;
 	}
 	

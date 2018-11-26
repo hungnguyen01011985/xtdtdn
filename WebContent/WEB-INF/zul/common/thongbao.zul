@@ -10,7 +10,7 @@
 		<n:ul class="box-bell" style="list-style:none;">
 			<n:li class="box-relative dropdown">
 				<n:div onclick="toggleBell()">
-					<x:image class="img-notify" width="18px" height="20px" src="${contexPath}/assets/icon-bxtdn/notification.svg"/>
+					<x:image class="img-notify ${vm.sizeNewNotify > 0 ? 'img-notify-animation' : ''}" width="18px" height="20px" src="${contexPath}/assets/icon-bxtdn/notification.svg"/>
 					<div class="number-box" if="${vm.sizeNewNotify != 0}">
 						<x:span>${vm.sizeNewNotify}</x:span>
 					</div>

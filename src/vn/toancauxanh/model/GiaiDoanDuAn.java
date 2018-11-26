@@ -95,7 +95,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin vanBanChuyenMucDichSDD;
 	private TepTin vanBanDeNghiThuHoiDat;
 	// Giai đoạn 5
-	private String tenCongTy;
+	private String tenCongTy = "";
 	private String nguoiDaiDienPhapLy;
 	private String diaChi;
 	private String soDienThoai;
@@ -105,6 +105,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private TepTin giayChungNhanQuyenSuDungDat;
 	private Date ngayThongBaoOld;
 	private boolean kiemTraThongBao = true;
+	private boolean daQuaGiaiDoan = true;
 	private List<TepTin> tepTins = new ArrayList<TepTin>();
 	@ManyToOne
 	public TepTin getGiayChungNhanDauTu() {
@@ -292,6 +293,14 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 
 	public void setNgayPhatHanhCVGD2(Date ngayPhatHanhCVGD2) {
 		this.ngayPhatHanhCVGD2 = ngayPhatHanhCVGD2;
+	}
+	
+	public boolean isDaQuaGiaiDoan() {
+		return daQuaGiaiDoan;
+	}
+
+	public void setDaQuaGiaiDoan(boolean daQuaGiaiDoan) {
+		this.daQuaGiaiDoan = daQuaGiaiDoan;
 	}
 
 	@ManyToOne
