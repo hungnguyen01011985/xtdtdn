@@ -24,8 +24,6 @@ xmlns:w="http://www.zkoss.org/2005/zk/client">
     String resource = execution.getParameter("resource");
     String action = execution.getParameter("action");
     boolean coquyen = entry.quyen.get(resource + "_" + action);
-    System.out.println(resource + " - " + action);
-    System.out.println(coquyen);
     if ("thongbao".equals(resource)) {
     	coquyen = true;
     }

@@ -6,11 +6,6 @@
 			page.title = "Quản lí dự án";
 		]]>
 	</zscript>
-	<n:script>
-		function getFocus() {
-			$(".focus").find("input").focus();
-		}
-	</n:script>
 	<div> 
 		<div class="panel-box">
 			<div zclass="row">

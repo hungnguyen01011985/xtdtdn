@@ -8,11 +8,6 @@
 			readOnly = arg.get("readOnly");
 		]]>
 	</zscript>
-	<n:script>
-		function getFocus() {
-			$(".focus").find("input").focus();
-		}
-	</n:script>
 	<div> 
 		
 		<div class="panel-box border-box mg-bottom-15">
