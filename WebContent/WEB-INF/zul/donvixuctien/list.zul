@@ -1,10 +1,10 @@
-<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<?page title="Quản lý đơn vị xúc tiến" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('vn.toancauxanh.service.CapDonViService')"
+	viewModel="@id('vm') @init('vn.toancauxanh.service.DonViXucTienService')"
 	 class="form-list">
 	<zscript>
 		<![CDATA[
-			page.title = "Quản trị hệ thống";
+			page.title = "Quản lý đơn vị xúc tiến";
 		]]>
 	</zscript>
 	<div> 
@@ -14,9 +14,9 @@
 			<div zclass="row mg-top-no-line">	
 				<div zclass="col-md-10">
 					<div zclass="form-group">
-						<x:span class="issue-search">Nhập tên cấp đơn vị</x:span> 
+						<x:span class="issue-search">Nhập tên đơn vị</x:span> 
 						<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
-							 placeholder="Nhập tên cấp đơn vị.."></textbox>
+							 placeholder="Nhập tên đơn vị.."></textbox>
 					</div>
 				</div>
 				<div zclass="col-md-2">
@@ -34,7 +34,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<div class="title-form">
-						<span>Danh sách cấp đơn vị</span>
+						<span>Danh sách đơn vị</span>
 					</div>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
-							<column label="Tên cấp đơn vị" style="text-align:center" />
+							<column label="Tên đơn vị" style="text-align:center" />
 							<column label="Mô tả" style="text-align:center" width="600px" />
 							<column label="Thao tác" style="text-align:center" width="140px"/>
 						</columns>
@@ -54,7 +54,7 @@
 								<label value="@load(item.ten)"></label>
 								<label value="@load(item.moTa)"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('redirectPage', zul='capdonvi/show-edit-cap-don-vi.zul', vmArgs=vm, vm=item)">
+									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('redirectPage', zul='donvixuctien/show-edit-don-vi.zul', vmArgs=vm, vm=item)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
@@ -74,7 +74,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
 					<div zclass="form-group right">
-						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='capdonvi/show-add-cap-don-vi.zul', vmArgs=vm, vm=null)">
+						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='donvixuctien/show-add-don-vi.zul', vmArgs=vm, vm=null)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm mới</span>
 						</x:button>
