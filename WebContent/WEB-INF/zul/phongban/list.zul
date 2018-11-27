@@ -7,9 +7,16 @@
 			page.title = "Quản trị hệ thống";
 		]]>
 	</zscript>
-	<div> 
-		<include src="/WEB-INF/zul/common/panel.zul"></include>
-		
+	<div>
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Quản lý phòng ban
+					</n:span>
+				</div>
+			</div>
+		</div>
 		<div class="panel-box border-box">
 			<div zclass="row mg-top-no-line">	
 				<div zclass="col-md-10">

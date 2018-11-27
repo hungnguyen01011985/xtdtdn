@@ -1,0 +1,87 @@
+<idspace>
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
+		closable="true" title="${arg.save}" width="1000px"
+		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
+		whatever="@load(false,after='saveDonVi') @converter('vn.toancauxanh.service.DetachConverter')"
+		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
+		<zscript><![CDATA[
+			vmArgs = arg.get("vmArgs");
+			strSave = arg.get("save");
+		]]></zscript> 
+		<div class="panel-box">
+			<div class="mg-and-bg-and-line-fix mg-bottom-5">
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Tên nhà đầu tư<n:small class="required"> *</n:small></x:span>
+							</div>
+							<textbox  maxlength="255" class="form-control" value="@bind(vm.tenNhaDauTu)"
+								 placeholder="Nhập tên nhà đầu tư..."></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<x:span class="issue-search">Người đại diện pháp lý</x:span>
+							<textbox  maxlength="255" class="form-control" value="@bind(vm.nguoiDaiDienPhapLy)"
+								 placeholder="Nhập tên nhà đầu tư..."></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Địa chỉ<n:small class="required"> *</n:small></x:span>
+							</div>
+							<textbox maxlength="255" class="form-control" value="@bind(vm.diaChi)"
+								placeholder="Nhập địa chỉ..."></textbox>
+							<label zclass="error" value="@bind(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<x:span class="issue-search">Số điện thoại</x:span>
+							<textbox maxlength="255" class="form-control" value="@bind(vm.soDienThoai)"
+								placeholder="Nhập địa chỉ..."></textbox>
+							<label zclass="error" value="@bind(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group">
+							<div class="flex">
+								<x:span class="issue-search">Email<n:small class="required"> *</n:small></x:span>
+							</div>
+							<textbox maxlength="255" class="form-control" value="@bind(vm.email)"
+								placeholder="Nhập email..."></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-xs-6">
+					<div zclass="form-group">
+						<x:button class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+							<span>Đóng</span>
+						</x:button>
+					</div>
+				</div>
+				<div zclass="col-xs-6">
+					<div zclass="form-group right">
+						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveNhaDauTu', list=vmArgs, attr='targetQuery', wdn=wdn)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Lưu</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</window>
+</idspace>

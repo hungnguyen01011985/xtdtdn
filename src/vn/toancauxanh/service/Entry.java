@@ -341,6 +341,10 @@ public class Entry extends BaseObject<Object> {
 	public final ThanhVienDoanService getThanhVienDoans() {
 		return new ThanhVienDoanService();
 	}
+	
+	public final NhaDauTuService getNhaDauTus() {
+		return new NhaDauTuService();
+	}
 	// end
 
 	public final NhanVienService getNhanViens() {
