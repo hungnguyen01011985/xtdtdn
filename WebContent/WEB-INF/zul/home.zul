@@ -101,6 +101,12 @@ xmlns:w="http://www.zkoss.org/2005/zk/client">
 	}
 ]]></script>
 
+<n:script>
+	function getFocus() {
+		$(".focus").find("input").focus();
+	}
+</n:script>
+
 <script defer="true">
     var saveArray = new Array();
     saveArray[0] = false;

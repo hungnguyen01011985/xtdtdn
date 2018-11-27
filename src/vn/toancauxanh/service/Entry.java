@@ -165,6 +165,9 @@ public class Entry extends BaseObject<Object> {
 	public String NGUOIDUNGXOA;
 	@Value("${url.nguoidung}" + ":" + "${action.xem}")
 	public String NGUOIDUNGXEM;
+	
+	@Value("${url.donViXucTien}" + ":" + "${action.list}")
+	public String DONVIXUCTIENLIST;
 
 	@Value("${url.linhVucDuAn}" + ":" + "${action.list}")
 	public String LINHVUCDUANLIST;
@@ -328,6 +331,10 @@ public class Entry extends BaseObject<Object> {
 	
 	public final CapDonViService getCapDonVis(){
 		return new CapDonViService();
+	}
+	
+	public final DonViXucTienService getDonViXucTiens(){
+		return new DonViXucTienService();
 	}
 
 	public final DoanVaoService getDoanVaos() {

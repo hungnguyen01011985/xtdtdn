@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.MapUtils;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.util.Clients;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -69,7 +70,16 @@ public class DuAnService extends BasicService<DuAn> {
 
 	@Command
 	public void reset(@BindingParam("vm") final DuAnService vm) {
-		Executions.sendRedirect("/cp/quanlyduan");
+		getArg().put("tuKhoa", null);
+		getArg().put("giaiDoanXucTien", null);
+		getArg().put("linhVuc", null);
+		getArg().put("nhanVien", null);
+		setTuNgay(null);
+		setDenNgay(null);
+		BindUtils.postNotifyChange(null, null, vm, "arg");
+		BindUtils.postNotifyChange(null, null, vm, "tuNgay");
+		BindUtils.postNotifyChange(null, null, vm, "denNgay");
+		Clients.evalJavaScript("getFocus()");
 	}
 
 	public List<NhanVien> getListNguoiPhuTrach() {
