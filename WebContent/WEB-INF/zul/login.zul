@@ -20,12 +20,8 @@
 		    margin: 0px;
 		    box-shadow: none;
 		}
-		.font-text-lg{
+		.font-text-lg {
 			font-family:Arial;
-		}
-		.z-modal-mask{
-			background-image: url('../bxtdn/assets/icon-bxtdn/caurong2.jpg');
-			background-size: cover;
 		}
 	</style>
 	<zscript><![CDATA[
