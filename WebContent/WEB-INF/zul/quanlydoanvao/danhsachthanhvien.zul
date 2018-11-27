@@ -105,7 +105,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row mg-and-bg-and-line" if="${!readOnly and vm.checkNguoiPhuTrach(vm.nguoiTao, vm.nguoiPhuTrach, entry.nhanVien.id)}">
+				<div class="row mg-and-bg-and-line" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
 					<div zclass="col-xs-6">
 						<div zclass="form-group">
 							<x:button class="btn bg-btn-dong btn-grey" zk:onClick="@command('reset', vm = vm)">

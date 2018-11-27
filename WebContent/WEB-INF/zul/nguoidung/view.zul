@@ -31,7 +31,7 @@
 								<div class="flex">
 									<x:span class="issue-search">Vai trò người dùng<n:small class="required"> *</n:small></x:span>
 								</div>
-								<combobox width="100%" class="hv-textbox" readonly="true" disabled="${readOnly}"
+								<combobox buttonVisible="${!readOnly}" width="100%" class="hv-textbox ${!readOnly ? '' : 'input-no-button'}" readonly="true" disabled="${readOnly}"
 									model="@load(entry.vaiTros.vaiTroQuery.fetch())" placeholder="-Chọn-"
 									selectedItem="@bind(vm.vaiTro) @save(vm.vaiTro, before='saveNhanVien') @validator(vm.validateVaiTro)">
 									<template name="model">
@@ -48,8 +48,8 @@
 								<div class="flex">
 									<x:span class="issue-search">Phòng ban</x:span>
 								</div>
-								<combobox readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
-									selectedItem="@bind(vm.phongBan)" class="his" placeholder="Chọn phòng ban" width="100%">
+								<combobox buttonVisible="${!readOnly}" readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
+									selectedItem="@bind(vm.phongBan)" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
 									<template name="model">
 										<comboitem label="@load(each.ten)" />
 									</template>
