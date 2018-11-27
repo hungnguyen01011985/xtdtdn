@@ -28,6 +28,7 @@ import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.GiaiDoanDuAn;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.LichSuVanBan;
+import vn.toancauxanh.model.NhaDauTu;
 import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
@@ -284,6 +285,13 @@ public class ProcessService extends BasicService<Object> {
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 			model.setGiaiDoanXucTien(GiaiDoanXucTien.HOAN_THANH);
+			NhaDauTu nhaDauTu = new NhaDauTu();
+			nhaDauTu.setTenNhaDauTu(model.getGiaiDoanDuAn().getTenCongTy());
+			nhaDauTu.setNguoiDaiDienPhapLy(model.getGiaiDoanDuAn().getNguoiDaiDienPhapLy());
+			nhaDauTu.setDiaChi(model.getGiaiDoanDuAn().getDiaChi());
+			nhaDauTu.setEmail(model.getGiaiDoanDuAn().getEmail());
+			nhaDauTu.setSoDienThoai(model.getGiaiDoanDuAn().getSoDienThoai());
+			nhaDauTu.saveNotShowNotification();
 			saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_NAM, true);
 		}
 		model.saveNotShowNotification();
