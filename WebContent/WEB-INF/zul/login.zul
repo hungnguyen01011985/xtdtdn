@@ -9,7 +9,7 @@
 <?script type="text/javascript" src="/assets/js/bootstrap.min.js"?>
 <?script type="text/javascript" src="/assets/js/sb-admin-2.js"?>
 <?script type="text/javascript" src="/assets/toastr/build/toastr.min.js" ?>
-<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" id="wdn" xmlns:z="zul"  mode="modal" width="400px"
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" id="wdn" mode="modal" xmlns:z="zul" width="400px"
 	viewModel="@id('vm') @init('vn.toancauxanh.service.NhanVienService')">
 	<style>
 		.formac-cauhinh {
@@ -20,16 +20,13 @@
 		    margin: 0px;
 		    box-shadow: none;
 		}
-		.font-text-lg{
+		.font-text-lg {
 			font-family:Arial;
 		}
 	</style>
 	<zscript><![CDATA[
 	       String type = execution.getParameter("type");
 	]]></zscript>      
-	<a href="javascript:void(0);" class="close-btn" onClick="@command('cancelHome',wdn=wdn)" >
-			<x:image class="img-title" src="${contexPath}/assets/img/front/close.svg"/>
-	</a>
 	<div class="line-panel">
 	</div>
 	<div zclass="panel-list ho-tro panel-list-fit">

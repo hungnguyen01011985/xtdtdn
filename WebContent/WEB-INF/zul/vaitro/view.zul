@@ -9,6 +9,7 @@
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
 			strSave = arg.get("save");
+			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
 		]]></zscript> 
 			
 		<div class="border-box" style="margin-bottom:0;">
@@ -18,7 +19,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Tên vai trò<n:small class="required"> *</n:small></x:span>
 						</div>
-						<textbox maxlength="255" class="form-control" value="@load(vm.tenVaiTro) @save(vm.tenVaiTro, before='saveVaiTro') @validator(vm.validateTenVaiTro)"
+						<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@load(vm.tenVaiTro) @save(vm.tenVaiTro, before='saveVaiTro') @validator(vm.validateTenVaiTro)"
 							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveVaiTro',list=vmArgs, attr='vaiTroQuery', wdn=wdn)" placeholder="Nhập tên vai trò..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
@@ -30,7 +31,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Loại vai trò<n:small class="required"> *</n:small></x:span>
 						</div>
-						<combobox width="100%" class="hv-textbox" readonly="true" disabled="${readOnly}"
+						<combobox buttonVisible="${!readOnly}" width="100%" class="hv-textbox ${!readOnly ? '' : 'input-no-button'}" readonly="true" disabled="${readOnly}"
 							model="@load(vm.listLoaiVaiTro)" placeholder="-Chọn loại vai trò-"
 							selectedItem="@bind(vm.loaiVaiTro) @save(vm.loaiVaiTro, before='saveVaiTro') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
 							<template name="model">
@@ -69,7 +70,7 @@
 						</x:button>
 					</div>
 				</div>
-				<div zclass="col-md-6">
+				<div zclass="col-md-6" if="${!readOnly}">
 					<div zclass="form-group right">
 						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveVaiTro',list=vmArgs, attr='vaiTroQuery', wdn=wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>

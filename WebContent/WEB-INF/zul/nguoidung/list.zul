@@ -40,7 +40,7 @@
 				</div>
 				<div zclass="col-md-2">
 					<div zclass="form-group">
-						<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+						<x:a class="btn btn-base btn-green mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
 						</x:a>
@@ -71,9 +71,9 @@
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
-								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex; justify-content:center;"></label>
 								<a label="@load(each.hoVaTen)" zk:if="${entry.quyen.nguoidung_xem}"
-									onClick="@command('redirectPageAction', zul='nguoidung/show-edit-nguoi-dung.zul',vmArgs=vm,vm=item,readOnly=true)" class="link-title"/>
+									onClick="@command('redirectPageAction', zul='nguoidung/show-edit-nguoi-dung.zul', vmArgs=vm, vm=item, readOnly=true)" class="link-title"/>
 								<label value="@load(item.email)"></label>
 								<label value="@load(item.phongBan.ten)"></label>
 								<label value="@load(item.vaiTroText)"></label>
