@@ -99,7 +99,7 @@
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="issue-search">Số điện thoại</x:span>  
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control" value="@bind(vm.thanhVienDoanTemp.soDienThoai) @save(vm.thanhVienDoanTemp.soDienThoai, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validateSoDienThoai)" placeholder="Nhập email.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control" value="@bind(vm.thanhVienDoanTemp.soDienThoai) @save(vm.thanhVienDoanTemp.soDienThoai, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validateSoDienThoai)" placeholder="Nhập số điện thoại.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>

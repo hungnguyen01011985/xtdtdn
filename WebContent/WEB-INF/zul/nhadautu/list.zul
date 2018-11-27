@@ -1,6 +1,6 @@
-<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<?page title="Quản trị hệ thống" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
-	viewModel="@id('vm') @init('vn.toancauxanh.service.DonViService')"
+	viewModel="@id('vm') @init('vn.toancauxanh.service.NhaDauTuService')"
 	 class="form-list">
 	<zscript>
 		<![CDATA[
@@ -12,7 +12,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<n:span class="page-header-title">
-						Quản lý đơn vị
+						Quản lý nhà đầu tư
 					</n:span>
 				</div>
 			</div>
@@ -21,9 +21,9 @@
 			<div zclass="row mg-top-no-line">	
 				<div zclass="col-md-10">
 					<div zclass="form-group">
-						<x:span class="issue-search">Nhập tên đơn vị</x:span> 
+						<x:span class="issue-search">Nhập tên nhà đầu tư</x:span> 
 						<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
-							 placeholder="Nhập tên đơn vị.."></textbox>
+							 placeholder="Nhập tên nhà đầu tư..."></textbox>
 					</div>
 				</div>
 				<div zclass="col-md-2">
@@ -36,12 +36,11 @@
 				</div>
 			</div>
 		</div>
-		
 		<div class="panel-box border-box">
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<div class="title-form">
-						<span>Danh sách đơn vị</span>
+						<span>Danh sách nhà đầu tư</span>
 					</div>
 				</div>
 			</div>
@@ -51,24 +50,28 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
-							<column label="Tên đơn vị" style="text-align:center" />
-							<column label="Mô tả" style="text-align:center" width="400px" />
-							<column label="Loại đơn vị" style="text-align:center" width="150px" />
-							<column label="Thao tác" style="text-align:center" width="140px"/>
+							<column label="Tên nhà đầu tư" style="text-align:center" />
+							<column label="Người đại diện pháp lý" style="text-align:center" width="150px" />
+							<column label="Địa chỉ" style="text-align:center" width="350px" />
+							<column label="Số điện thoại" style="text-align:center"/>
+							<column label="Email" style="text-align:center"/>
+							<column label="Thao tác" style="text-align:center" width="110px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
-								<a label="@load(item.ten)" zk:if="${entry.quyen.donvi_xem}"
-									onClick="@command('redirectPageAction', zul='donvi/show-edit-don-vi.zul', vmArgs=vm, vm=item, readOnly=true)" class="link-title"/>
-								<label value="@load(item.moTa)"></label>
-								<label value="@load(item.loaiDonVi.text)"></label>
+								<a label="@load(item.tenNhaDauTu)" zk:if="${entry.quyen.nhadautu_xem}"
+									onClick="@command('redirectPageAction', zul='nhadautu/show-edit.zul', vmArgs=vm, vm=item, readOnly=true)" class="link-title"/>
+								<label value="@load(item.nguoiDaiDienPhapLy)"></label>
+								<label value="@load(item.diaChi)"></label>
+								<label value="@load(item.soDienThoai)"></label>
+								<label value="@load(item.email)"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" if="${entry.quyen.donvi_sua}" zk:onClick="@command('redirectPage', zul='donvi/show-edit-don-vi.zul', vmArgs=vm, vm=item)">
+									<x:a label="Sửa" if="${entry.quyen.nhadautu_sua}" class="btn-thaotac left" zk:onClick="@command('redirectPage', zul='nhadautu/show-edit.zul', vmArgs=vm, vm=item)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" if="${entry.quyen.donvi_xoa}" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery')">
+									<x:a label="Xóa" if="${entry.quyen.nhadautu_xoa}" class="btn-thaotac up-note" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -83,8 +86,8 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<div zclass="form-group right" if="${entry.quyen.donvi_them}">
-						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='donvi/show-add-don-vi.zul', vmArgs=vm, vm=null)">
+					<div zclass="form-group right" if="${entry.quyen.nhadautu_them}">
+						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='nhadautu/show-add.zul', vmArgs=vm, vm=null)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm mới</span>
 						</x:button>

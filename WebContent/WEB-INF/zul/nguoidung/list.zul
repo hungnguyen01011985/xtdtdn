@@ -7,25 +7,16 @@
 			page.title = "Quản trị hệ thống";
 		]]>
 	</zscript>
-	<style>
-		.pd-column-3s .col-md-7{
-			width:calc(58.33333333% - 10px);
-			padding:0;
-		}
-		.pd-column-3s .col-md-3{
-			width:calc(25% - 10px);
-			padding:0;
-			margin-left:15px;
-			margin-right:15px;
-		}
-		.pd-column-3s .col-md-2{
-			width:calc(16.66666667% - 10px);
-			padding:0;
-		}
-	</style>
-	<div> 
-		<include src="/WEB-INF/zul/common/panel.zul"></include>
-		
+	<div>
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Quản lý người dùng
+					</n:span>
+				</div>
+			</div>
+		</div>
 		<div class="panel-box border-box">
 			<div zclass="row mg-top-no-line">
 				<div zclass="col-md-7">
@@ -49,7 +40,7 @@
 				</div>
 				<div zclass="col-md-2">
 					<div zclass="form-group">
-						<x:a class="btn btn-base btn-gray mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+						<x:a class="btn btn-base btn-green mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
 						</x:a>
@@ -76,7 +67,7 @@
 							<column label="Email" style="text-align:center" width="20%"/>
 							<column label="Phòng ban" style="text-align:center" width="30%"/>
 							<column label="Vị trí" style="text-align:center" hflex="min" />
-							<column label="Thao tác" style="text-align:center" width="140px"/>
+							<column label="Thao tác" style="text-align:center" width="110px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">

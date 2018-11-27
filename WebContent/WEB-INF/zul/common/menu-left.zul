@@ -11,6 +11,14 @@
 		i {font-style: normal;}
 		.collapse {display:block;}
 	</style>
+	<zscript>
+		<![CDATA[
+		         boolean checkActiveHeThong = false;
+		         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource) || "nhadautu".equals(resource)) {
+		        	 checkActiveHeThong = true;
+		         }
+		]]>
+	</zscript>
 	<div class="nav-side-menu">
         <div class="menu-list">
 			<n:ul class="menu-content collapse out" role="menu">
@@ -35,8 +43,8 @@
 						<x:span class="text-menu">Quản lý dự án</x:span>
 					</n:a>
 				</n:li>
-				<n:li class="${resource eq 'baocaothongke' ? 'active-heder-li-children flex' : 'flex'};flex-direction:column;" zk:if="${entry.quyen.baocaothongke_duan || entry.quyen.baocaothongke_doanvao || entry.quyen.baocaothongke_congviec}">
-					<n:a>
+				<n:li class="header-children ${resource eq 'baocaothongke' ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.baocaothongke_duan || entry.quyen.baocaothongke_doanvao || entry.quyen.baocaothongke_congviec}">
+					<n:a onClick="toggleDropdownMenu(this)">
 						<x:span class="img-menu bctk" zk:if="${resource ne 'baocaothongke'}"></x:span>
 						<x:span class="img-menu bctk" zk:if="${resource eq 'baocaothongke'}"></x:span>
 						<x:span class="text-menu">Báo cáo thống kê</x:span>
@@ -53,14 +61,45 @@
 						</n:a>
 					</n:ul>
 				</n:li>
-				<n:li class="${resource eq 'phongban' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke}">
-					<n:a href="${execution.contextPath}/cp/${resource ne null ? 'phongban' : resource}">
+				<n:li class="header-children ${checkActiveHeThong ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke || entry.quyen.nhadautu_lietke || entry.quyen.donvi_lietke}">
+					<n:a onClick="toggleDropdownMenu(this)">
 						<x:span class="img-menu qlht" zk:if="${resource ne 'phongban'}"></x:span>
 						<x:span class="img-menu qlht" zk:if="${resource eq 'phongban'}"></x:span>
 						<x:span class="text-menu">Quản trị hệ thống</x:span>
 					</n:a>
+					<n:ul class="children-nav">
+						<n:a href="${execution.contextPath}/cp/phongban" zk:if="${entry.quyen.phongban_lietke}">
+							<n:li class="${resource eq 'phongban' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý phòng ban</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/nguoidung" zk:if="${entry.quyen.nguoidung_lietke}">
+							<n:li class="${resource eq 'nguoidung' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý người dùng</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/vaitro" zk:if="${entry.quyen.vaitro_lietke}">
+							<n:li class="${resource eq 'vaitro' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý vai trò</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/linhvucduan" zk:if="${entry.quyen.linhvucduan_lietke}">
+							<n:li class="${resource eq 'linhvucduan' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý lĩnh vực dự án</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/donvi" zk:if="${entry.quyen.donvi_lietke}">
+							<n:li class="${resource eq 'donvi' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý đơn vị</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/nhadautu" zk:if="${entry.quyen.nhadautu_lietke}">
+							<n:li class="${resource eq 'nhadautu' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý nhà đầu tư</n:li>
+						</n:a>
+					</n:ul>
 				</n:li>
 			</n:ul>
 		</div>
 	</div>
+	<n:script>
+		function toggleDropdownMenu(obj) {
+			var obCha = $(obj).parent();
+			var obCon = $(obCha).find(".children-nav");
+			if ($(obCon).css("max-height") == "0px") {
+				$(obCon).css("max-height", "600px");
+			} else {
+				$(obCon).css("max-height", "0px");
+			}
+		}
+	</n:script>
 </zk>

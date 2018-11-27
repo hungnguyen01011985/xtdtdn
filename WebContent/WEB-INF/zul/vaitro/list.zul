@@ -6,9 +6,16 @@
 			page.title = "Quản trị hệ thống";
 		]]>
 	</zscript>
-	<div> 
-		<include src="/WEB-INF/zul/common/panel.zul"></include>
-		
+	<div>
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Quản lý vai trò
+					</n:span>
+				</div>
+			</div>
+		</div>
 		<div class="panel-box border-box">
 			<div zclass="row mg-top-no-line">	
 					<div zclass="col-md-10">
@@ -20,7 +27,7 @@
 					</div>
 					<div zclass="col-md-2">
 						<div zclass="form-group">
-							<x:a class="btn btn-base btn-gray mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='vaiTroQuery')">
+							<x:a class="btn btn-base btn-green mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='vaiTroQuery')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 								<span>Tìm kiếm</span>
 							</x:a>
@@ -45,7 +52,7 @@
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên vai trò" />
 							<column label="Ngày cập nhật" width="140px" />
-							<column label="Thao tác" style="text-align:center" width="140px" />
+							<column label="Thao tác" style="text-align:center" width="110px" />
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">

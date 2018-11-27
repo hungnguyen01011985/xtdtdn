@@ -292,7 +292,13 @@ public class DoanVao extends Model<DoanVao> {
 		String param = this.getTomTatNoiDungKQ().trim().replaceAll("\\s+", " ");
 		this.setTomTatNoiDungKQ(param);
 		if (param != null && !"".equals(param)) {
-			this.setTrangThaiTiepDoan(TrangThaiTiepDoanEnum.DA_TIEP);
+			boolean result = kiemTraCongViecHoanThanh(this);
+			if (result) {
+				showNotification("", "Công việc chưa được hoàn thành", "danger");
+				return;
+			} else {
+				this.setTrangThaiTiepDoan(TrangThaiTiepDoanEnum.DA_TIEP);
+			}
 		}
 		save();
 		if (listThanhVienDoan != null && !listThanhVienDoan.isEmpty()) {
@@ -334,11 +340,7 @@ public class DoanVao extends Model<DoanVao> {
 	
 	public void checkGiaoViec(GiaoViec giaoViec) {
 		if (giaoViec.noId()) {
-			giaoViec.getTaiLieu().saveNotShowNotification();
-			giaoViec.setTenCongViec(giaoViec.getNoiDungCongViec().getText());
-			giaoViec.setDoanVao(this);
-			giaoViec.setNguoiGiaoViec(core().getNhanVien());
-			giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
+			saveCongViec(giaoViec);
 			giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 			thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
 			giaoViec.saveNotShowNotification();
@@ -348,18 +350,24 @@ public class DoanVao extends Model<DoanVao> {
 			this.setNguoiThucHienCu(getNguoiDuocGiaoCu(giaoViec));
 			if (!this.getNguoiThucHienCu().equals(giaoViec.getNguoiDuocGiao())) {
 				String resetId = removeIdInListDoanVao(giaoViec, this.getNguoiThucHienCu());
-				giaoViec.getTaiLieu().saveNotShowNotification();
-				giaoViec.setTenCongViec(giaoViec.getNoiDungCongViec().getText());
-				giaoViec.setDoanVao(this);
-				giaoViec.setNguoiGiaoViec(core().getNhanVien());
-				giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
-				giaoViec.getNguoiDuocGiao().saveNotShowNotification();
+				saveCongViec(giaoViec);
 				thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
 				giaoViec.saveNotShowNotification();
 				this.setIdNguoiLienQuan(resetId + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 				this.saveNotShowNotification();
-			} 
+			} else {
+				giaoViec.saveNotShowNotification();
+			}
 		}
+	}
+	
+	public void saveCongViec(GiaoViec giaoViec){
+		giaoViec.getTaiLieu().saveNotShowNotification();
+		giaoViec.setTenCongViec(giaoViec.getNoiDungCongViec().getText());
+		giaoViec.setDoanVao(this);
+		giaoViec.setNguoiGiaoViec(core().getNhanVien());
+		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
+		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 	}
 	
 	public void thongBao(LoaiThongBao loaiThongBao, DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan,
@@ -440,6 +448,14 @@ public class DoanVao extends Model<DoanVao> {
 			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 			thongBao.saveNotShowNotification();
 		}
+	}
+	
+	@Transient
+	public boolean kiemTraCongViecHoanThanh(DoanVao doanVao) {
+		boolean result = true;
+		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.doanVao.eq(doanVao));
+		result = q.fetch().stream().anyMatch(item -> !TrangThaiGiaoViec.HOAN_THANH.equals(item.getTrangThaiGiaoViec()));
+		return result;
 	}
 	
 	@Transient

@@ -22,6 +22,16 @@
 	padding-left: 5px !important;
 }
 
+.btn-ad-image:hover {
+	background-image: url(../../assets/img/front/camera.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    height: 36px;
+    width: 36px;
+	
+}
+
 .box-lich-su-van-ban {
 	float: right;
     padding-top: 15px;
@@ -588,10 +598,23 @@
 	border: 1px solid #30B350 !important;
 }
 
-.z-button:hover {
+/* .z-button:hover {
 	background:#4274ED;
 	color:#FFF;
 	border: 1px solid #045AC2;
+} */
+
+.box-menu-he-thong {
+	display:flex;
+	overflow-x: hidden;
+	padding-bottom:15px;
+	padding-right:30px;
+}
+.btn-next-he-thong{
+	position:absolute;
+	right:30px;
+	height:44px;
+	
 }
 .btn-refesh-tai-lieu:hover {
 	background: #30B350 !important;
@@ -644,7 +667,10 @@
 .bg-color-box {
 	background: #F9FAFB;
 }
-
+.header-children {
+	display:flex;
+	flex-direction:column;
+}
 .mg-and-bg {
 	padding-bottom: 6px;
 	background: white;
@@ -936,9 +962,15 @@
 	visibility: hidden;
 }
 
+.active-children .children-nav {
+	max-height:600px;
+}
+
 .children-nav {
 	display:flex;
 	flex-direction:column;
+	max-height:0px;
+	transition:max-height .5s ease;
 }
 
 .children-nav li {
