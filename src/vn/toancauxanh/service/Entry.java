@@ -94,7 +94,10 @@ public class Entry extends BaseObject<Object> {
 	public String PHANQUYEN = "";
 	@Value("${url.baocaothongke}")
 	public String BAOCAOTHONGKE = "";
-
+	@Value("${url.donvi}")
+	public String QUANLYDONVI = "";
+	@Value("${url.nhadautu}")
+	public String QUANLYNHADAUTU = "";
 	@Value("${url.vaitro}")
 	public String VAITRO = "";
 
@@ -212,10 +215,36 @@ public class Entry extends BaseObject<Object> {
 	public String BAOCAOTHONGKEDOANVAO = "";
 	@Value("${url.baocaothongke}" + ":" + "${action.congviec}")
 	public String BAOCAOTHONGKECONGVIEC = "";
+	
+	@Value("${url.donvi}" + ":" + "${action.xem}")
+	public String DONVIXEM = "";
+	@Value("${url.donvi}" + ":" + "${action.them}")
+	public String DONVITHEM = "";
+	@Value("${url.donvi}" + ":" + "${action.list}")
+	public String DONVILIST = "";
+	@Value("${url.donvi}" + ":" + "${action.xoa}")
+	public String DONVIXOA = "";
+	@Value("${url.donvi}" + ":" + "${action.sua}")
+	public String DONVISUA = "";
+	@Value("${url.donvi}" + ":" + "${action.tim}")
+	public String DONVITIMKIEM;
+	
+	@Value("${url.nhadautu}" + ":" + "${action.xem}")
+	public String NHADAUTUXEM = "";
+	@Value("${url.nhadautu}" + ":" + "${action.them}")
+	public String NHADAUTUTHEM = "";
+	@Value("${url.nhadautu}" + ":" + "${action.list}")
+	public String NHADAUTULIST = "";
+	@Value("${url.nhadautu}" + ":" + "${action.xoa}")
+	public String NHADAUTUXOA = "";
+	@Value("${url.nhadautu}" + ":" + "${action.sua}")
+	public String NHADAUTUSUA = "";
+	@Value("${url.nhadautu}" + ":" + "${action.tim}")
+	public String NHADAUTUTIMKIEM;
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
-				QUANLYLINHVUCDUAN, BAOCAOTHONGKE}; //
+				QUANLYLINHVUCDUAN, BAOCAOTHONGKE, QUANLYNHADAUTU, QUANLYDONVI}; //
 	}
 
 	public String[] getACTIONS() {

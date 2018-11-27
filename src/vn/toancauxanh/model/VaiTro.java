@@ -220,6 +220,20 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().BAOCAOTHONGKEDOANVAO);
 		quyens1.add(core().BAOCAOTHONGKECONGVIEC);
 		
+		quyens1.add(core().DONVILIST);
+		quyens1.add(core().DONVIXEM);
+		quyens1.add(core().DONVITHEM);
+		quyens1.add(core().DONVISUA);
+		quyens1.add(core().DONVIXOA);
+		quyens1.add(core().DONVITIMKIEM);
+		
+		quyens1.add(core().NHADAUTULIST);
+		quyens1.add(core().NHADAUTUXEM);
+		quyens1.add(core().NHADAUTUTHEM);
+		quyens1.add(core().NHADAUTUSUA);
+		quyens1.add(core().NHADAUTUXOA);
+		quyens1.add(core().NHADAUTUTIMKIEM);
+		
 		return quyens1;
 	}
 	

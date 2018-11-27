@@ -52,7 +52,7 @@
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên lĩnh vực dự án" style="text-align:center" />
 							<column label="Mô tả" style="text-align:center" width="800px" />
-							<column label="Thao tác" style="text-align:center" width="140px" />
+							<column label="Thao tác" style="text-align:center" width="110px" />
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
@@ -60,11 +60,11 @@
 								<label value="@load(item.ten)"></label>
 								<label value="@load(item.moTa)"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('redirectPage', zul='linhvucduan/show-edit-linh-vuc.zul', vmArgs=vm, vm=item)">
+									<x:a label="Sửa" class="btn-thaotac left" if="${entry.quyen.linhvucduan_sua}" zk:onClick="@command('redirectPage', zul='linhvucduan/show-edit-linh-vuc.zul', vmArgs=vm, vm=item)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
+									<x:a label="Xóa" class="btn-thaotac up-note" if="${entry.quyen.linhvucduan_xoa}" zk:onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -79,8 +79,8 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 					<div zclass="col-md-12">
-						<div zclass="form-group right">
-							<x:button  class="btn btn-blue" zk:onClick="@command('redirectPage', zul='linhvucduan/show-add-linh-vuc.zul', vmArgs=vm, vm=null)">
+						<div zclass="form-group right" if="${entry.quyen.linhvucduan_them}">
+							<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='linhvucduan/show-add-linh-vuc.zul', vmArgs=vm, vm=null)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 								<span>Thêm mới</span>
 							</x:button>

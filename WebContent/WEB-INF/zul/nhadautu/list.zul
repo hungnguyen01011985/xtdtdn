@@ -55,7 +55,7 @@
 							<column label="Địa chỉ" style="text-align:center" />
 							<column label="Số điện thoại" style="text-align:center"/>
 							<column label="Email" style="text-align:center"/>
-							<column label="Thao tác" style="text-align:center"/>
+							<column label="Thao tác" style="text-align:center" width="110px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
@@ -66,11 +66,11 @@
 								<label value="@load(item.soDienThoai)"></label>
 								<label value="@load(item.email)"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('redirectPage', zul='nhadautu/show-edit.zul', vmArgs=vm, vm=item)">
+									<x:a label="Sửa" if="${entry.quyen.nhadautu_sua}" class="btn-thaotac left" zk:onClick="@command('redirectPage', zul='nhadautu/show-edit.zul', vmArgs=vm, vm=item)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery')">
+									<x:a label="Xóa" if="${entry.quyen.nhadautu_xoa}" class="btn-thaotac up-note" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -85,7 +85,7 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<div zclass="form-group right">
+					<div zclass="form-group right" if="${entry.quyen.nhadautu_them}">
 						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='nhadautu/show-add.zul', vmArgs=vm, vm=null)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm mới</span>

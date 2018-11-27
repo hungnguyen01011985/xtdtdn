@@ -52,7 +52,7 @@
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên vai trò" />
 							<column label="Ngày cập nhật" width="140px" />
-							<column label="Thao tác" style="text-align:center" width="140px" />
+							<column label="Thao tác" style="text-align:center" width="110px" />
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">

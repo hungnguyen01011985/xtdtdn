@@ -962,6 +962,10 @@
 	visibility: hidden;
 }
 
+.active-children .children-nav {
+	max-height:600px;
+}
+
 .children-nav {
 	display:flex;
 	flex-direction:column;
