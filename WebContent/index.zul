@@ -3,12 +3,24 @@
 		<![CDATA[
 			entry = new vn.toancauxanh.service.BaseObject().core();
 			vn.toancauxanh.model.NhanVien nhanVien = entry.getNhanVien();
-			if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYDUANLIST)) {
+			if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYGIAOVIECLIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
-				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul");
+				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlygiaoviec&action=lietke&file=/WEB-INF/zul/quanlygiaoviec/list.zul");
 			} else if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYDOANVAOLIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlydoanvao&action=lietke&file=/WEB-INF/zul/quanlydoanvao/list.zul");
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYDUANLIST)) {
+				desktop.setCurrentDirectory("/WEB-INF/zul");
+				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul");
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().BAOCAOTHONGKEDUAN)) {
+				desktop.setCurrentDirectory("/WEB-INF/zul");
+				Executions.forward("/WEB-INF/zul/home.zul?resource=baocaothongke&action=duan&path=duan&file=/WEB-INF/zul/baocaothongke/duan.zul");
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().BAOCAOTHONGKECONGVIEC)) {
+				desktop.setCurrentDirectory("/WEB-INF/zul");
+				Executions.forward("/WEB-INF/zul/home.zul?resource=baocaothongke&action=congviec&path=congviec&file=/WEB-INF/zul/baocaothongke/congviec.zul");
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().BAOCAOTHONGKEDOANVAO)) {
+				desktop.setCurrentDirectory("/WEB-INF/zul");
+				Executions.forward("/WEB-INF/zul/home.zul?resource=baocaothongke&action=doanvao&path=doanvao&file=/WEB-INF/zul/baocaothongke/doanvao.zul");
 			} else if (nhanVien.getTatCaQuyens().contains(entry.core().QUANLYPHONGBANLIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=phongban&action=lietke&file=/WEB-INF/zul/phongban/list.zul");
@@ -21,9 +33,15 @@
 			} else if (nhanVien.getTatCaQuyens().contains(entry.core().LINHVUCDUANLIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=linhvucduan&action=lietke&file=/WEB-INF/zul/linhvucduan/list.zul");
-			}else{
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().DONVILIST)){
 				desktop.setCurrentDirectory("/WEB-INF/zul");
-				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul");
+				Executions.forward("/WEB-INF/zul/home.zul?resource=linhvucduan&action=lietke&file=/WEB-INF/zul/donvi/list.zul");
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().NHADAUTULIST)){
+				desktop.setCurrentDirectory("/WEB-INF/zul");
+				Executions.forward("/WEB-INF/zul/home.zul?resource=nhadautu&action=lietke&file=/WEB-INF/zul/nhadautu/list.zul");
+			} else {
+				desktop.setCurrentDirectory("/WEB-INF/zul");
+				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlygiaoviec&action=lietke&file=/WEB-INF/zul/quanlygiaoviec/list.zul");
 			}
 			
 		]]>

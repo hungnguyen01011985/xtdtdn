@@ -293,7 +293,7 @@ public class Entry extends BaseObject<Object> {
 
 	@RequestMapping(value = "/cp")
 	public String cp() {
-		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul";
+		return "forward:/WEB-INF/zul/home.zul?resource=quanlygiaoviec&action=lietke&file=/WEB-INF/zul/quanlygiaoviec/list.zul";
 	}
 
 	@RequestMapping(value = "/cp/{path:.+$}")

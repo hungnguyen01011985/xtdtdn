@@ -22,7 +22,7 @@
 	<div class="nav-side-menu">
         <div class="menu-list">
 			<n:ul class="menu-content collapse out" role="menu">
-				<n:li class="${resource eq 'quanlygiaoviec' ? 'active-heder-li flex' : 'flex'}">
+				<n:li class="${resource eq 'quanlygiaoviec' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlygiaoviec_lietke}">
 					<n:a href="${execution.contextPath}/cp/quanlygiaoviec">
 						<x:span class="img-menu qlgv" zk:if="${resource ne 'quanlygiaoviec'}"></x:span>
 						<x:span class="img-menu qlgv"  zk:if="${resource eq 'quanlygiaoviec'}"></x:span>
