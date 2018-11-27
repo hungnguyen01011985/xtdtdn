@@ -234,6 +234,20 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().NHADAUTUXOA);
 		quyens1.add(core().NHADAUTUTIMKIEM);
 		
+		quyens1.add(core().CAPDONVILIST);
+		quyens1.add(core().CAPDONVIXEM);
+		quyens1.add(core().CAPDONVITHEM);
+		quyens1.add(core().CAPDONVISUA);
+		quyens1.add(core().CAPDONVIXOA);
+		quyens1.add(core().CAPDONVITIMKIEM);
+		
+		quyens1.add(core().DONVIXUCTIENLIST);
+		quyens1.add(core().DONVIXUCTIENXEM);
+		quyens1.add(core().DONVIXUCTIENTHEM);
+		quyens1.add(core().DONVIXUCTIENSUA);
+		quyens1.add(core().DONVIXUCTIENXOA);
+		quyens1.add(core().DONVIXUCTIENTIMKIEM);
+		
 		return quyens1;
 	}
 	

@@ -14,7 +14,8 @@
 	<zscript>
 		<![CDATA[
 		         boolean checkActiveHeThong = false;
-		         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource) || "nhadautu".equals(resource)) {
+		         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource)
+		        		 || "nhadautu".equals(resource) || "capdonvi".equals(resource) || "donvixuctien".equals(resource))  {
 		        	 checkActiveHeThong = true;
 		         }
 		]]>
@@ -85,6 +86,12 @@
 						</n:a>
 						<n:a href="${execution.contextPath}/cp/nhadautu" zk:if="${entry.quyen.nhadautu_lietke}">
 							<n:li class="${resource eq 'nhadautu' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý nhà đầu tư</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/capdonvi" zk:if="${entry.quyen.capdonvi_lietke}">
+							<n:li class="${resource eq 'capdonvi' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý cấp đơn vị</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/donvixuctien" zk:if="${entry.quyen.donvixuctien_lietke}">
+							<n:li class="${resource eq 'donvixuctien' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý đơn vị xúc tiến</n:li>
 						</n:a>
 					</n:ul>
 				</n:li>

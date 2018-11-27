@@ -100,7 +100,10 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYNHADAUTU = "";
 	@Value("${url.vaitro}")
 	public String VAITRO = "";
-
+	@Value("${url.capdonvi}")
+	public String QUANLYCAPDONVI = "";
+	@Value("${url.donvixuctien}")
+	public String QUANLYDONVIXUCTIEN = "";
 	// uend
 	public char CHAR_CACH = ':';
 	public String CACH = CHAR_CACH + "";
@@ -169,9 +172,6 @@ public class Entry extends BaseObject<Object> {
 	@Value("${url.nguoidung}" + ":" + "${action.xem}")
 	public String NGUOIDUNGXEM;
 	
-	@Value("${url.donViXucTien}" + ":" + "${action.list}")
-	public String DONVIXUCTIENLIST;
-
 	@Value("${url.linhVucDuAn}" + ":" + "${action.list}")
 	public String LINHVUCDUANLIST;
 	@Value("${url.linhVucDuAn}" + ":" + "${action.them}")
@@ -241,10 +241,36 @@ public class Entry extends BaseObject<Object> {
 	public String NHADAUTUSUA = "";
 	@Value("${url.nhadautu}" + ":" + "${action.tim}")
 	public String NHADAUTUTIMKIEM;
+	
+	@Value("${url.capdonvi}" + ":" + "${action.xem}")
+	public String CAPDONVIXEM = "";
+	@Value("${url.capdonvi}" + ":" + "${action.them}")
+	public String CAPDONVITHEM = "";
+	@Value("${url.capdonvi}" + ":" + "${action.list}")
+	public String CAPDONVILIST = "";
+	@Value("${url.capdonvi}" + ":" + "${action.xoa}")
+	public String CAPDONVIXOA = "";
+	@Value("${url.capdonvi}" + ":" + "${action.sua}")
+	public String CAPDONVISUA = "";
+	@Value("${url.capdonvi}" + ":" + "${action.tim}")
+	public String CAPDONVITIMKIEM;
+	
+	@Value("${url.donvixuctien}" + ":" + "${action.xem}")
+	public String DONVIXUCTIENXEM = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.them}")
+	public String DONVIXUCTIENTHEM = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.list}")
+	public String DONVIXUCTIENLIST = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.xoa}")
+	public String DONVIXUCTIENXOA = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.sua}")
+	public String DONVIXUCTIENSUA = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.tim}")
+	public String DONVIXUCTIENTIMKIEM;
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
-				QUANLYLINHVUCDUAN, BAOCAOTHONGKE, QUANLYNHADAUTU, QUANLYDONVI}; //
+				QUANLYLINHVUCDUAN, BAOCAOTHONGKE, QUANLYNHADAUTU, QUANLYDONVI, QUANLYCAPDONVI, QUANLYDONVIXUCTIEN}; //
 	}
 
 	public String[] getACTIONS() {
