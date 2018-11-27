@@ -7,6 +7,7 @@
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
 			strSave = arg.get("save");
+			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
 		]]></zscript> 
 		<div class="w-popup-content">
 			<div class="row mg-and-bg-and-line mg-bottom-5">
@@ -15,7 +16,7 @@
 						<div class="flex">
 							<x:span class="issue-search">Tên đơn vị<n:small class="required"> *</n:small></x:span>
 						</div>
-						<textbox maxlength="255" class="form-control" value="@load(vm.ten) @save(vm.ten, before='saveDonViXucTien') @validator(vm.validateTenDonViXucTien)"
+						<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@load(vm.ten) @save(vm.ten, before='saveDonViXucTien') @validator(vm.validateTenDonViXucTien)"
 						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveDonViXucTien', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên đơn vị..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
@@ -23,7 +24,7 @@
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<x:span class="issue-search">Mô tả</x:span> 
-						<textbox rows="3" class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveDonViXucTien', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
+						<textbox disabled="${readOnly}" rows="3" class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveDonViXucTien', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
 			</div>
@@ -37,7 +38,7 @@
 					</div>
 				</div>
 				<div zclass="col-xs-6">
-					<div zclass="form-group right">
+					<div zclass="form-group right" if="${!readOnly}">
 						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveDonViXucTien', list=vmArgs, attr='targetQuery', wdn=wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>

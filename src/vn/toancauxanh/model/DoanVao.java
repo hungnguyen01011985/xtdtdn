@@ -292,13 +292,7 @@ public class DoanVao extends Model<DoanVao> {
 		String param = this.getTomTatNoiDungKQ().trim().replaceAll("\\s+", " ");
 		this.setTomTatNoiDungKQ(param);
 		if (param != null && !"".equals(param)) {
-			boolean result = kiemTraCongViecHoanThanh(this);
-			if (result) {
-				showNotification("", "Công việc chưa được hoàn thành", "danger");
-				return;
-			} else {
-				this.setTrangThaiTiepDoan(TrangThaiTiepDoanEnum.DA_TIEP);
-			}
+			this.setTrangThaiTiepDoan(TrangThaiTiepDoanEnum.DA_TIEP);
 		}
 		save();
 		if (listThanhVienDoan != null && !listThanhVienDoan.isEmpty()) {
