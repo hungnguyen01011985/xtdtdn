@@ -1,0 +1,2 @@
+<?component name="view" inline="true" macroURI="view.zul"?>
+<view model="${arg.vm}" vmArgs="${arg.vmArgs}" save="Thông tin nhà đầu tư" />

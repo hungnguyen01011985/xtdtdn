@@ -72,7 +72,7 @@
 								<x:span class="label-txt-style">Số điện thoại<n:small class="required"> *</n:small></x:span>
 							</div>
 							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
-								value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator(vm.giaiDoanDuAn.validateSoDienThoai)" placeholder="Nhập số điện thoại"></textbox>
+								value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.soDienThoai, before={'goNext','doActionWithKey'}) @validator(vm.giaiDoanDuAn.validateSoDienThoai)" placeholder="Nhập số điện thoại"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -81,7 +81,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Email<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator(vm.giaiDoanDuAn.validatorEmail)" placeholder="Nhập email"></textbox>
+							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.email, before={'goNext','doActionWithKey'}) @validator(vm.giaiDoanDuAn.validatorEmail)" placeholder="Nhập email"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
