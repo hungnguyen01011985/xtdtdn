@@ -11,19 +11,26 @@ import org.zkoss.zk.ui.util.Clients;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
+import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
+import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.model.QDoanVao;
+import vn.toancauxanh.model.QDuAn;
 
 public class DoanVaoService extends BasicService<DoanVao> {
 
 	public JPAQuery<DoanVao> getTargetQuery() {
 		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		String trangThai = MapUtils.getString(argDeco(), "trangThai", "");
+		String quocGia = MapUtils.getString(argDeco(), "quocGia", "");
 		JPAQuery<DoanVao> q = find(DoanVao.class);
 		if (param != null && !param.isEmpty()) {
 			String tuKhoa = "%" + param + "%";
 			q.where(QDoanVao.doanVao.tenDoanVao.like(tuKhoa));
+		}
+		if (quocGia != null && !quocGia.isEmpty()) {
+			q.where(QDoanVao.doanVao.quocGia.eq(QuocGiaEnum.valueOf(quocGia)));
 		}
 		if (trangThai != null && !trangThai.isEmpty()) {
 			q.where(QDoanVao.doanVao.trangThaiTiepDoan.eq(TrangThaiTiepDoanEnum.valueOf(trangThai)));

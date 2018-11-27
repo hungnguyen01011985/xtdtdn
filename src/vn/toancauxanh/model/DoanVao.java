@@ -384,7 +384,7 @@ public class DoanVao extends Model<DoanVao> {
 	
 	public void saveThongBao(LoaiThongBao loaiThongBao, NhanVien nguoiNhan, String tenCongViec, DoanVao doanVao,
 			NhanVien nguoiGui) {
-		
+
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
 			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của @"
@@ -404,21 +404,25 @@ public class DoanVao extends Model<DoanVao> {
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
-			}
-			if (getDoanVaoMoiNhat().fetchFirst() != null) {
-				thongBao.setIdObject(getDoanVaoMoiNhat().fetchFirst() + 1);
 			} else {
-				thongBao.setIdObject(1l);
+				thongBao.setNguoiGui(core().getNhanVien());
 			}
-			
+			if (getDoanVaoMoiNhat().fetchFirst() == null && doanVao.noId()) {
+				thongBao.setIdObject(1l);
+			} else if (getDoanVaoMoiNhat().fetchFirst() == doanVao.getId()) {
+				thongBao.setIdObject(doanVao.getId());
+			} else {
+				thongBao.setIdObject(getDoanVaoMoiNhat().fetchFirst() + 1);
+			}
+
 			thongBao.setLoaiThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO);
 			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 			thongBao.saveNotShowNotification();
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung("Công việc phụ trách của đoàn @" + doanVao.getTenDoanVao()
-			+ "@ đã được chuyển cho người khác");
+			thongBao.setNoiDung(
+					"Công việc phụ trách của đoàn @" + doanVao.getTenDoanVao() + "@ đã được chuyển cho người khác");
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
