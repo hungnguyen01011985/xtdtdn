@@ -59,7 +59,7 @@ public class DoanVao extends Model<DoanVao> {
 	private String link;
 	private int soNguoi;
 	private Date thoiGianDenLamViec = new Date();
-	private NhanVien nguoiPhuTrach = new NhanVien();
+	private NhanVien nguoiPhuTrach;
 	private List<KeHoachLamViec> listKeHoachLamViec;
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
@@ -268,24 +268,20 @@ public class DoanVao extends Model<DoanVao> {
 					}
 				});
 	}
-
+	
+	private NhanVien nguoiPhuTrachCu;
+	
 	@Command
 	public void saveDoanVao() {
-		if (this.noId()) {
-			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
-		} else {
-			NhanVien nguoiPhuTrachCu = getNguoiPhuTrachCu(this);
-			if (!nguoiPhuTrachCu.equals(this.getNguoiPhuTrach())) {
-				thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
-				thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(),
-						null);
-			}
+		if (!this.noId()) {
+			nguoiPhuTrachCu = getNguoiPhuTrachCu(this);
 		}
 		if (this.getCongVanChiDaoUB().getTenFile() == null) {
 			this.setCongVanChiDaoUB(null);
 		} else {
 			this.getCongVanChiDaoUB().saveNotShowNotification();
 		}
+
 		this.getTepTins().forEach(item -> {
 			item.saveNotShowNotification();
 		});
@@ -295,6 +291,7 @@ public class DoanVao extends Model<DoanVao> {
 			this.setTrangThaiTiepDoan(TrangThaiTiepDoanEnum.DA_TIEP);
 		}
 		save();
+
 		if (listThanhVienDoan != null && !listThanhVienDoan.isEmpty()) {
 			listThanhVienDoan.forEach(item -> {
 				item.setDoanVao(this);
@@ -317,6 +314,12 @@ public class DoanVao extends Model<DoanVao> {
 				}
 				resetCheck();
 			}
+		}
+		if (nguoiPhuTrachCu != null && nguoiPhuTrachCu.getId() != this.getNguoiPhuTrach().getId()) {
+			thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
+			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
+		} else if (nguoiPhuTrachCu == null) {
+			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
 		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
@@ -384,7 +387,7 @@ public class DoanVao extends Model<DoanVao> {
 	
 	public void saveThongBao(LoaiThongBao loaiThongBao, NhanVien nguoiNhan, String tenCongViec, DoanVao doanVao,
 			NhanVien nguoiGui) {
-		
+
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
 			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của @"
@@ -404,21 +407,19 @@ public class DoanVao extends Model<DoanVao> {
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
-			}
-			if (getDoanVaoMoiNhat().fetchFirst() != null) {
-				thongBao.setIdObject(getDoanVaoMoiNhat().fetchFirst() + 1);
 			} else {
-				thongBao.setIdObject(1l);
+				thongBao.setNguoiGui(core().getNhanVien());
 			}
-			
+			thongBao.setIdObject(doanVao.getId());
+
 			thongBao.setLoaiThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO);
 			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 			thongBao.saveNotShowNotification();
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung("Công việc phụ trách của đoàn @" + doanVao.getTenDoanVao()
-			+ "@ đã được chuyển cho người khác");
+			thongBao.setNoiDung(
+					"Công việc phụ trách của đoàn @" + doanVao.getTenDoanVao() + "@ đã được chuyển cho người khác");
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
@@ -469,7 +470,7 @@ public class DoanVao extends Model<DoanVao> {
 	@Transient
 	public NhanVien getNguoiPhuTrachCu(DoanVao doanVao){
 		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(doanVao));
-		if (q != null) {
+		if (q.fetchCount() > 0) {
 			return q.fetchFirst().getNguoiPhuTrach();
 		}
 		return new NhanVien();
