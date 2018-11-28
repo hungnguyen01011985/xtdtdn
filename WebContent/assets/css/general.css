@@ -607,11 +607,11 @@
 	border: 1px solid #30B350 !important;
 }
 
-/* .z-button:hover {
+.z-button:hover {
 	background:#4274ED;
 	color:#FFF;
 	border: 1px solid #045AC2;
-} */
+}
 
 .box-menu-he-thong {
 	display:flex;
