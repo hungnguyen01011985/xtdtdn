@@ -15,7 +15,12 @@
 				}
 		]]>
 	</zscript>
-	<label if="${!entry.quyen.quanlydoanvao_them and !(entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach)) and !(entry.quyen.quanlydoanvao_xem and action)}" value="${vm eq null ? 'Đoàn vào không còn tồn tại' : 'Bạn không có quyền truy cập chức năng này!'}"></label>
+	<div if="${vm eq null or (!entry.quyen.quanlydoanvao_them and !(entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach)) and !(entry.quyen.quanlydoanvao_xem and action))}" style="height: calc(100vh - 90px);">
+		<div class="alert alert-danger" style="width:80%;margin:0 auto;margin-top:30px;">
+			<x:image class="img-title" width="15px" height="15px" src="${contexPath}/assets/icon-bxtdn/danger-color.svg"/>
+			${vm eq null ? 'Đoàn vào không còn tồn tại' : 'Bạn không có quyền truy cập chức năng này!'}
+		</div>
+	</div>
 	<div if="${vm ne null and (entry.quyen.quanlydoanvao_them or (entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach)) or (entry.quyen.quanlydoanvao_xem and action))}" viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"
 		form="@id('fx') @load(vm) @save(vm, before={'saveDoanVao'})"> 
 		<div class="panel-box">
@@ -23,8 +28,7 @@
 				<div zclass="col-lg-12">
 					<div class="page-here">
 						<span>Quản lý đoàn vào</span>
-						<x:img class="img-arrow-right" 
-						src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
+						<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
 						<span>${id ne null ? vm.tenDoanVao : 'Thêm đoàn vào'}</span>
 					</div>
 				</div>
