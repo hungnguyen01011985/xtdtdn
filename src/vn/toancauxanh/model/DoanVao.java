@@ -271,15 +271,6 @@ public class DoanVao extends Model<DoanVao> {
 	
 	private NhanVien nguoiPhuTrachCu;
 	
-	@Transient
-	public NhanVien getNguoiPhuTrachCu() {
-		return nguoiPhuTrachCu;
-	}
-
-	public void setNguoiPhuTrachCu(NhanVien nguoiPhuTrachCu) {
-		this.nguoiPhuTrachCu = nguoiPhuTrachCu;
-	}
-
 	@Command
 	public void saveDoanVao() {
 		if (!this.noId()) {
@@ -327,7 +318,7 @@ public class DoanVao extends Model<DoanVao> {
 		if (nguoiPhuTrachCu != null && nguoiPhuTrachCu.getId() != this.getNguoiPhuTrach().getId()) {
 			thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
 			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
-		} else if(nguoiPhuTrachCu == null){
+		} else if (nguoiPhuTrachCu == null) {
 			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
 		}
 		redirectPageList("/cp/quanlydoanvao", null);
