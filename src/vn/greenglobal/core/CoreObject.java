@@ -402,8 +402,7 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 	}
 
 	public String folderStoreFiles() {
-		final String result = ctx().getEnvironment().getProperty("filestore.root")
-				+ ctx().getEnvironment().getProperty("filestore.folder") + ctx().getEnvironment().getProperty("filestore.files");
+		final String result = ctx().getEnvironment().getProperty("filestore.root") + ctx().getEnvironment().getProperty("filestore.files");
 		return result.replace('/', File.separatorChar);
 	}
 
@@ -437,41 +436,13 @@ public class CoreObject<T> implements ApplicationContextAware, ModelIntf {
 		return result.replace('/', File.separatorChar);
 	}
 
-	public String folderUrl() {
-		return "/" + ctx().getEnvironment().getProperty("filestore.folder") + "/"
-				+ getClass().getSimpleName().toLowerCase() + "/";
-	}
-
-	public String folderUrl2() {
-		return "/" + ctx().getEnvironment().getProperty("filestore.folder2") + "/"
-				+ getClass().getSimpleName().toLowerCase() + "/";
-	}
-
-	public String folderUrlFile(String file) {
-		return "/" + ctx().getEnvironment().getProperty("filestore.folder") + "/" + file + "/";
-	}
-
-	public String folderStoreFilesTepTin() {
-		final String result = ctx().getEnvironment().getProperty("filestore.folderteptin");
-		return result.replace('/', File.separatorChar);
-	}
-
 	public String folderStoreFilesImage() {
 		final String result = ctx().getEnvironment().getProperty("filestore.folderimage");
 		return result.replace('/', File.separatorChar);
 	}
 
-	public String folderStoreFilesVideo() {
-		final String result = ctx().getEnvironment().getProperty("filestore.foldervideo");
-		return result.replace('/', File.separatorChar);
-	}
-
 	public String folderRoot() {
 		return ctx().getEnvironment().getProperty("filestore.root");
-	}
-
-	public String folderRoot2() {
-		return ctx().getEnvironment().getProperty("filestore.root2");
 	}
 
 	public int defaultPageSize() {

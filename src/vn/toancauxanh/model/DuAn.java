@@ -639,7 +639,7 @@ public class DuAn extends Model<DuAn> {
 					tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
-					tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+					tepTin.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
 					tepTin.setMedia(media);
 					this.giaiDoanDuAn.getTepTins().add(tepTin);
 					this.giaiDoanDuAn.getTepTins().forEach(obj -> {
@@ -707,7 +707,7 @@ public class DuAn extends Model<DuAn> {
 				tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
-				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+				tepTin.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
 				tepTin.setMedia(media);
 				giaiDoanDuAn.getTepTins().set(index, tepTin);
 				this.giaiDoanDuAn.getTepTins().forEach(obj -> {
