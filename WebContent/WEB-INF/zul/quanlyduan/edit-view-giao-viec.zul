@@ -77,7 +77,7 @@
 								<x:span class="label-txt-style">Hạn thực hiện</x:span>
 							</div>
 							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8 datebox-txt-style" readonly="true"
-								  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien)  @save(vm.hanThucHien, before={'saveGiaoViec'}) @validator(vm.validatorNgay, dateStart = vm.ngayGiao, firstText = 'Ngày giao việc', secondText = 'Hạn thực hiện', type = false)"/>
+								  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien) @save(vm.hanThucHien, before={'saveGiaoViec'}) @validator(vm.validatorNgay, dateStart = vm.ngayGiao, firstText = 'Ngày giao việc', secondText = 'Hạn thực hiện', type = false)"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

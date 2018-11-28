@@ -24,11 +24,9 @@ public class DuAnService extends BasicService<DuAn> {
 			JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(Long.parseLong(id)));
 			if (q.fetchCount() > 0) {
 				return q.fetchFirst();
-			} else {
-				return null;
 			}
 		}
-		return new DuAn();
+		return null;
 	}
 
 	public JPAQuery<DuAn> getTargetQuery() {
