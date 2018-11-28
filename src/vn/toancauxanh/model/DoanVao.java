@@ -470,7 +470,7 @@ public class DoanVao extends Model<DoanVao> {
 	@Transient
 	public NhanVien getNguoiPhuTrachCu(DoanVao doanVao){
 		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(doanVao));
-		if (q != null) {
+		if (q.fetchCount() > 0) {
 			return q.fetchFirst().getNguoiPhuTrach();
 		}
 		return new NhanVien();
