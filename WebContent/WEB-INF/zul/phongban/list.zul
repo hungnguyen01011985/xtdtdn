@@ -28,7 +28,7 @@
 				</div>
 				<div zclass="col-md-2">
 					<div zclass="form-group">
-						<x:a class="btn btn-blue mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+						<x:a class="btn btn-base btn-green mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
 							<span>Tìm kiếm</span>
 						</x:a>
@@ -57,15 +57,16 @@
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
-								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
-								<label value="@load(item.ten)"></label>
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex; justify-content:center;"></label>
+								<a label="@load(item.ten)" zk:if="${entry.quyen.phongban_xem}"
+									onClick="@command('redirectPageAction', zul='phongban/show-edit-phong-ban.zul', vmArgs=vm, vm=item, readOnly=true)" class="link-title"/>
 								<label value="@load(item.moTa)"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" if="${entry.quyen.phongban_sua}" zk:onClick="@command('redirectPage', zul='phongban/show-edit-phong-ban.zul', vmArgs=vm, vm=item)">
+									<x:a label="Sửa" class="btn-thaotac left" zk:if="${entry.quyen.phongban_sua}" zk:onClick="@command('redirectPage', zul='phongban/show-edit-phong-ban.zul', vmArgs=vm, vm=item)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" if="${entry.quyen.phongban_xoa}" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery', type='phongban')">
+									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${entry.quyen.phongban_xoa}" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery', type='phongban')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -78,7 +79,7 @@
 						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
 				</div>
 			</div>
-			<div class="row mg-and-bg-and-line">
+			<div class="row mg-and-bg-and-line" if="${entry.quyen.phongban_them}">
 				<div zclass="col-md-12">
 					<div zclass="form-group right" if="${entry.quyen.phongban_them}">
 						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='phongban/show-add-phong-ban.zul', vmArgs=vm, vm=null)">

@@ -10,7 +10,7 @@ import org.apache.commons.collections.MapUtils;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Window;
 
 import com.querydsl.jpa.impl.JPAQuery;
@@ -165,8 +165,17 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 	}
 	
 	@Command
-	public void reset() {
-		Executions.sendRedirect("/cp/quanlygiaoviec");
+	public void reset(@BindingParam("vm") GiaoViecService vm) {
+		getArg().put("tuKhoa", null);
+		getArg().put("nguoiDuocGiao", null);
+		getArg().put("loaiCongViec", null);
+		getArg().put("trangThaiCongViec", null);
+		setTuNgay(null);
+		setDenNgay(null);
+		BindUtils.postNotifyChange(null, null, vm, "arg");
+		BindUtils.postNotifyChange(null, null, vm, "tuNgay");
+		BindUtils.postNotifyChange(null, null, vm, "denNgay");
+		Clients.evalJavaScript("getFocus()");
 	}
 	
 }

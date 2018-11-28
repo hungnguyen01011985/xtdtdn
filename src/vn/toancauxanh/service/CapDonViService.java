@@ -15,7 +15,7 @@ public class CapDonViService extends BasicService<CapDonVi> {
 			String tuKhoa = "%" + param + "%";
 			q.where(QCapDonVi.capDonVi.ten.like(tuKhoa));
 		}
-		q.orderBy(QCapDonVi.capDonVi.ten.desc()).orderBy(QCapDonVi.capDonVi.ngayTao.desc());
+		q.orderBy(QCapDonVi.capDonVi.ten.asc()).orderBy(QCapDonVi.capDonVi.ngayTao.desc());
 		return q;
 	}
 }

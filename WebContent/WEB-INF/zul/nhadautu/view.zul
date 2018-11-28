@@ -8,6 +8,7 @@
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
 			strSave = arg.get("save");
+			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
 		]]></zscript> 
 		<div class="panel-box">
 			<div class="mg-and-bg-and-line-fix mg-bottom-5">
@@ -17,7 +18,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Tên nhà đầu tư<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox  maxlength="255" class="form-control" value="@bind(vm.tenNhaDauTu) @save(vm.tenNhaDauTu, before={'saveNhaDauTu'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
+							<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@bind(vm.tenNhaDauTu) @save(vm.tenNhaDauTu, before={'saveNhaDauTu'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 								 placeholder="Nhập tên nhà đầu tư..."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -25,7 +26,7 @@
 					<div zclass="col-md-6">
 						<div zclass="form-group">
 							<x:span class="issue-search">Người đại diện pháp lý</x:span>
-							<textbox  maxlength="255" class="form-control" value="@bind(vm.nguoiDaiDienPhapLy) @save(vm.nguoiDaiDienPhapLy, before={'saveNhaDauTu'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
+							<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@bind(vm.nguoiDaiDienPhapLy) @save(vm.nguoiDaiDienPhapLy, before={'saveNhaDauTu'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 								 placeholder="Nhập tên nhà đầu tư..."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -37,7 +38,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Địa chỉ<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox maxlength="255" class="form-control" value="@bind(vm.diaChi) @save(vm.diaChi, before={'saveNhaDauTu'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
+							<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@bind(vm.diaChi) @save(vm.diaChi, before={'saveNhaDauTu'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 								placeholder="Nhập địa chỉ..."></textbox>
 							<label zclass="error" value="@bind(vmsgs[self.previousSibling])" />
 						</div>
@@ -45,7 +46,7 @@
 					<div zclass="col-md-6">
 						<div zclass="form-group">
 							<x:span class="issue-search">Số điện thoại</x:span>
-							<textbox maxlength="255" class="form-control" value="@bind(vm.soDienThoai) @save(vm.soDienThoai, before={'saveNhaDauTu'}) @validator(vm.validateSoDienThoai)"
+							<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@bind(vm.soDienThoai) @save(vm.soDienThoai, before={'saveNhaDauTu'}) @validator(vm.validateSoDienThoai)"
 								placeholder="Nhập địa chỉ..."></textbox>
 							<label zclass="error" value="@bind(vmsgs[self.previousSibling])" />
 						</div>
@@ -57,7 +58,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Email<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox maxlength="255" class="form-control" value="@bind(vm.email) @save(vm.email, before={'saveNhaDauTu'}) @validator(vm.validatorEmail)"
+							<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@bind(vm.email) @save(vm.email, before={'saveNhaDauTu'}) @validator(vm.validatorEmail)"
 								placeholder="Nhập email..."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -73,9 +74,9 @@
 						</x:button>
 					</div>
 				</div>
-				<div zclass="col-xs-6">
+				<div zclass="col-xs-6" if="${!readOnly}">
 					<div zclass="form-group right">
-						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveNhaDauTu', list=vmArgs, attr='targetQuery', wdn=wdn)">
+						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveNhaDauTu', list=vmArgs, attr='targetQuery', wdn=wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>

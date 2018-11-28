@@ -16,7 +16,7 @@ public class DonViXucTienService extends BasicService<DonViXucTien> {
 			String tuKhoa = "%" + param + "%";
 			q.where(QDonViXucTien.donViXucTien.ten.like(tuKhoa));
 		}
-		q.orderBy(QDonViXucTien.donViXucTien.ten.desc()).orderBy(QDonViXucTien.donViXucTien.ngayTao.desc());
+		q.orderBy(QDonViXucTien.donViXucTien.ten.asc()).orderBy(QDonViXucTien.donViXucTien.ngayTao.desc());
 		return q;
 	}
 }
