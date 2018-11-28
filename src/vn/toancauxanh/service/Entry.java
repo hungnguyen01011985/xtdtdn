@@ -48,8 +48,6 @@ public class Entry extends BaseObject<Object> {
 	public String FOLDER_ROOT = "";
 	@Value("${filestore.files}")
 	public String FOLDER_FILES = "";
-	@Value("${filestore.folder}")
-	public String FOLDER_FILEFOLDER = "";
 
 	// No image url
 	public String URL_M_NOIMAGE = "/assetsfe/images/lg_noimage.png";

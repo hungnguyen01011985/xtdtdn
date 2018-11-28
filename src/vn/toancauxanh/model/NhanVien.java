@@ -523,8 +523,7 @@ public class NhanVien extends Model<NhanVien> {
 	private void loadImageIsView() throws FileNotFoundException, IOException {
 		if (getPathAvatar() != null && !"".equals(getPathAvatar())) {
 			String root = ctx().getEnvironment().getProperty("filestore.root");
-			String folder = root + ctx().getEnvironment().getProperty("filestore.folder");
-			String filesFolder = folder + ctx().getEnvironment().getProperty("filestore.files");
+			String filesFolder = root + ctx().getEnvironment().getProperty("filestore.files");
 			String imageFolder = filesFolder + ctx().getEnvironment().getProperty("filestore.folderimage");
 			String path = imageFolder + getPathAvatar();
 			if (new File(path).exists()) {
