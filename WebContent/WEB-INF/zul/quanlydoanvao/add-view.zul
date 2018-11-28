@@ -98,7 +98,7 @@
 									<x:span class="issue-search">Người phụ trách<n:small class="required"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!(action or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id) or vm.checkOnlyNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan))}" model="@load(vm.listNguoiPhuTrach)" disabled="${action or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id) or vm.checkOnlyNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan)}"
-									readonly="true" class="his ${!(action or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id) or vm.checkOnlyNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan)) ? '' : 'input-no-button'}" width="100%" selectedItem="@bind(vm.nguoiPhuTrach) @save(vm.nguoiPhuTrach.hoVaTen, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="Chọn người"
+									readonly="true" class="his ${!(action or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id) or vm.checkOnlyNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan)) ? '' : 'input-no-button'}" width="100%" selectedItem="@bind(vm.nguoiPhuTrach) @save(vm.nguoiPhuTrach, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="Chọn người"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())">
 									<template name="model">
 										<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>
