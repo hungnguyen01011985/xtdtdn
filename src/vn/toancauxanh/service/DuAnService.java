@@ -21,7 +21,12 @@ import vn.toancauxanh.model.QNhanVien;
 public class DuAnService extends BasicService<DuAn> {
 	public DuAn getDuAnById(String id) {
 		if (id != null) {
-			return find(DuAn.class).where(QDuAn.duAn.id.eq(Long.parseLong(id))).fetchOne();
+			JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(Long.parseLong(id)));
+			if (q.fetchCount() > 0) {
+				return q.fetchFirst();
+			} else {
+				return null;
+			}
 		}
 		return new DuAn();
 	}

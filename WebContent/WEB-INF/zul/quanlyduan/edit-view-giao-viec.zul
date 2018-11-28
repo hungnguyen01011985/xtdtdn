@@ -67,7 +67,7 @@
 								<x:span class="label-txt-style">Ngày giao</x:span>
 							</div>
 							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8 datebox-txt-style" readonly="true"
-								  width="100%" placeholder="Chọn ngày" value="@bind(vm.ngayGiao) @save(vm.ngayGiao, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+								  width="100%" placeholder="Chọn ngày" value="@bind(vm.ngayGiao) @save(vm.ngayGiao, before={'saveGiaoViec'}) @validator(vm.validatorNgay, endDate = vm.hanThucHien, firstText = 'Ngày giao việc', secondText = 'Hạn thực hiện', type = true)"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -77,7 +77,7 @@
 								<x:span class="label-txt-style">Hạn thực hiện</x:span>
 							</div>
 							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8 datebox-txt-style" readonly="true"
-								  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien) @save(vm.hanThucHien, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"/>
+								  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien)  @save(vm.hanThucHien, before={'saveGiaoViec'}) @validator(vm.validatorNgay, dateStart = vm.ngayGiao, firstText = 'Ngày giao việc', secondText = 'Hạn thực hiện', type = false)"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 							<div zclass="form-group">
 								<span class="label-txt-style">Quyết định phê duyệt</span>
 								<button visible="@load(empty vm.taiLieu.tenFile)" label="Chọn tài liệu" 
-									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/chon-tai-lieu.svg"
+									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 									onUpload="@command('uploadFileTaiLieu',medias=event.getMedia(), vm = vm, name = 'taiLieu')"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>

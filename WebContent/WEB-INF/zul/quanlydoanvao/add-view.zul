@@ -10,13 +10,13 @@
 		        vn.toancauxanh.model.DoanVao vm = new vn.toancauxanh.service.DoanVaoService().getDoanVaoById(id);
 		        action = arg.get("action");
 		        checkCapNhat = arg.get("checkCapNhat");
-		        if (vm.getCongVanChiDaoUB() == null) {
+		        if (vm != null && vm.getCongVanChiDaoUB() == null) {
 					vm.setCongVanChiDaoUB(new vn.toancauxanh.model.TepTin());
 				}
 		]]>
 	</zscript>
-	<label if="${!entry.quyen.quanlydoanvao_them and !(entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach)) and !(entry.quyen.quanlydoanvao_xem and action)}">Bạn không có quyền truy cập chức năng này!</label>
-	<div if="${entry.quyen.quanlydoanvao_them or (entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach)) or (entry.quyen.quanlydoanvao_xem and action)}" viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"
+	<label if="${!entry.quyen.quanlydoanvao_them and !(entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach)) and !(entry.quyen.quanlydoanvao_xem and action)}" value="${vm eq null ? 'Đoàn vào không còn tồn tại' : 'Bạn không có quyền truy cập chức năng này!'}"></label>
+	<div if="${vm ne null and (entry.quyen.quanlydoanvao_them or (entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach)) or (entry.quyen.quanlydoanvao_xem and action))}" viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"
 		form="@id('fx') @load(vm) @save(vm, before={'saveDoanVao'})"> 
 		<div class="panel-box">
 			<div zclass="row">
@@ -41,7 +41,6 @@
 		</div>
 		<div class="panel-box border-box mg-bottom-15">
 			<div class="row mgn-lr-10">
-			
 				<div class="row">
 					<div zclass="col-lg-12">
 						<div class="title-form">
@@ -49,7 +48,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="mg-and-bg-and-line-fix mg-bottom-5">
 					<div class="row">
 						<div zclass="col-md-9">
@@ -87,7 +85,6 @@
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
-						
 						<div zclass="col-md-3">
 							<div zclass="form-group">
 								<x:span class="issue-search">Thời gian đến làm việc<n:small class="required"> *</n:small></x:span>
@@ -95,7 +92,6 @@
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
-						
 						<div zclass="col-md-3">
 							<div zclass="form-group">
 								<div class="flex">
@@ -122,7 +118,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="mg-and-bg-and-line-fix mg-bottom-5">
 					<div class="row">
 						<div zclass="col-md-12">
@@ -133,9 +128,9 @@
 					</div>
 					<div class="row">
 						<div zclass="col-md-4">
-							<div zclass="form-group">
+							<div zclass="form-group txt-link-style">
 								<x:span class="issue-search">Link</x:span> 
-								<textbox maxlength="255" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" value="@bind(vm.link)" placeholder="Nhập link tham khảo..."></textbox>
+								<textbox maxlength="255" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style txt-link-inline" value="@bind(vm.link)" placeholder="Nhập link tham khảo..."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -158,7 +153,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="mg-and-bg-and-line-fix mg-bottom-5" if="${checkCapNhat}">
 					<div class="row">
 						<div zclass="col-md-12">
@@ -178,7 +172,6 @@
 							</div>
 						</div>
 					</div>
-					
 					<div class="row">
 						<div zclass="col-md-12">
 							<div zclass="form-group">
@@ -190,7 +183,6 @@
 							</div>
 						</div>
 					</div>
-					
 					<div class="row">
 						<div zclass="col-md-12">
 							<div zclass="form-group">
@@ -202,7 +194,6 @@
 							</div>
 						</div>
 					</div>
-					
 					<div class="row">
 						<div class="col-md-12">
 							<div zclass="form-group" viewModel="@id('congVanChiDaoUB') @init(vm.congVanChiDaoUB)">
@@ -230,7 +221,6 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="row mg-and-bg-and-line">
 					<div zclass="col-xs-6">
 						<div zclass="form-group">
@@ -257,5 +247,5 @@
 				</div>
 			</div>
 		</div>
-</div>
+	</div>
 </window>
