@@ -59,6 +59,8 @@ public class DoanVaoService extends BasicService<DoanVao> {
 			JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.id.eq(Long.valueOf(id)));
 			if (q.fetchCount() > 0) {
 				return q.fetchFirst();
+			} else {
+				return null;
 			}
 		}
 		return new DoanVao();

@@ -12,10 +12,9 @@
 				vm.getGiaiDoanDuAn().setTaiLieuGD1(new vn.toancauxanh.model.TepTin());
 			}
 			vm.getGiaiDoanDuAn().setGiaiDoanXucTien(vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT);
-			
 		]]>
 	</zscript>
-	<div> 
+	<div>
 		<div class="panel-box border-box mg-bottom-15">
 			<div zclass="row">
 				<div zclass="col-lg-6">
@@ -45,7 +44,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Ngày gửi<n:small class="required"> *</n:small></x:span>
 							</div>
-							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy"
+							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!(action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id)}" format="dd/MM/yyyy"
 								class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? 'datebox-txt-style' : 'input-no-button' }" 
 								value="@bind(vm.giaiDoanDuAn.ngayGui) @save(vm.giaiDoanDuAn.ngayGui, before={'goTask','goNext'}) @validator(vm.validatorNgay, endDate = vm.giaiDoanDuAn.ngayNhanPhanHoi, type = true, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
@@ -58,7 +57,7 @@
 								<x:span class="label-txt-style">Ngày dự kiến nhận phản hồi<n:small class="required"> *</n:small></x:span>
 							</div>
 							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy" 
-								disabled="@load(vm.giaiDoanDuAn.ngayGui eq null)" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id? 'datebox-txt-style' : 'input-no-button' }" 
+								disabled="@load(empty vm.giaiDoanDuAn.ngayGui or !(action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id))" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id? 'datebox-txt-style' : 'input-no-button' }" 
 								value="@bind(vm.giaiDoanDuAn.ngayNhanPhanHoi) @save(vm.giaiDoanDuAn.ngayNhanPhanHoi, before={'goTask','goNext'}) @validator(vm.validatorNgay, dateStart = vm.giaiDoanDuAn.ngayGui, type = false, firstText = 'Ngày gửi', secondText = 'Ngày nhận')"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />

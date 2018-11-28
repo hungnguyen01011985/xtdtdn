@@ -113,7 +113,7 @@
 							<div class="flex">
 								<x:span class="issue-search">Ngày hoàn thành<n:small class="required"> *</n:small></x:span>
 							</div>
-							<datebox disabled="${!readOnly}" format="dd/MM/yyyy" class="hv-db mg-top-8" readonly="true" width="100%"
+							<datebox disabled="${!readOnly}" format="dd/MM/yyyy" class="hv-db mg-top-8" width="100%"
 								placeholder="Chọn ngày" value="@bind(vm.ngayHoanThanh) @save(vm.ngayHoanThanh, before={'saveBaoCao'}) @validator(vm.validatorNgay, dateStart = vm.ngayGiao, firstText = 'Ngày giao việc', secondText = 'Ngày hoàn thành', type = false)"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>
@@ -178,7 +178,7 @@
 					</div>
 					<div zclass="col-xs-6" visible="${readOnly}">
 						<div zclass="form-group right">
-							<x:button class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveBaoCao',wdn=wdn, vmArgs=vmArgs, attr = 'targetQuery')">
+							<x:button class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveBaoCao', wdn=wdn, vmArgs=vmArgs, attr = 'targetQuery')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
 								<span>Hoàn thành</span>
 							</x:button>

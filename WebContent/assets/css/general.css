@@ -22,6 +22,15 @@
 	padding-left: 5px !important;
 }
 
+.txt-link-inline {
+	color:#4274ED !important;
+}
+.txt-link-style .z-textbox[disabled] {
+	color:#4274ED !important;
+}
+.z-textbox[disabled] { 
+	font-family:Roboto-Bold;
+}
 .btn-ad-image:hover {
 	background-image: url(../../assets/img/front/camera.svg);
     background-repeat: no-repeat;
@@ -598,11 +607,11 @@
 	border: 1px solid #30B350 !important;
 }
 
-/* .z-button:hover {
+.z-button:hover {
 	background:#4274ED;
 	color:#FFF;
 	border: 1px solid #045AC2;
-} */
+}
 
 .box-menu-he-thong {
 	display:flex;

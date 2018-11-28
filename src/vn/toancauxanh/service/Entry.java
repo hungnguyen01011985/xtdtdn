@@ -419,22 +419,6 @@ public class Entry extends BaseObject<Object> {
 		return getNhanVien().getTatCaQuyen();
 	}
 
-	public final ThucTrangDitichService getThucTrangDitichs() {
-		return new ThucTrangDitichService();
-	}
-
-	public final LoaiDiTichService getLoaiDiTichs() {
-		return new LoaiDiTichService();
-	}
-
-	public final LoaiLeHoiService getLoaiLeHois() {
-		return new LoaiLeHoiService();
-	}
-
-	public final LoaiDiSanService getLoaiDiSans() {
-		return new LoaiDiSanService();
-	}
-
 	public final HomeService getHomes() {
 		return new HomeService();
 	}
