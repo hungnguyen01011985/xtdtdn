@@ -59,7 +59,7 @@ public class DoanVao extends Model<DoanVao> {
 	private String link;
 	private int soNguoi;
 	private Date thoiGianDenLamViec = new Date();
-	private NhanVien nguoiPhuTrach = new NhanVien();
+	private NhanVien nguoiPhuTrach;
 	private List<KeHoachLamViec> listKeHoachLamViec;
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
@@ -268,24 +268,29 @@ public class DoanVao extends Model<DoanVao> {
 					}
 				});
 	}
+	
+	private NhanVien nguoiPhuTrachCu;
+	
+	@Transient
+	public NhanVien getNguoiPhuTrachCu() {
+		return nguoiPhuTrachCu;
+	}
+
+	public void setNguoiPhuTrachCu(NhanVien nguoiPhuTrachCu) {
+		this.nguoiPhuTrachCu = nguoiPhuTrachCu;
+	}
 
 	@Command
 	public void saveDoanVao() {
-		if (this.noId()) {
-			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
-		} else {
-			NhanVien nguoiPhuTrachCu = getNguoiPhuTrachCu(this);
-			if (!nguoiPhuTrachCu.equals(this.getNguoiPhuTrach())) {
-				thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
-				thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(),
-						null);
-			}
+		if (!this.noId()) {
+			nguoiPhuTrachCu = getNguoiPhuTrachCu(this);
 		}
 		if (this.getCongVanChiDaoUB().getTenFile() == null) {
 			this.setCongVanChiDaoUB(null);
 		} else {
 			this.getCongVanChiDaoUB().saveNotShowNotification();
 		}
+
 		this.getTepTins().forEach(item -> {
 			item.saveNotShowNotification();
 		});
@@ -295,6 +300,7 @@ public class DoanVao extends Model<DoanVao> {
 			this.setTrangThaiTiepDoan(TrangThaiTiepDoanEnum.DA_TIEP);
 		}
 		save();
+
 		if (listThanhVienDoan != null && !listThanhVienDoan.isEmpty()) {
 			listThanhVienDoan.forEach(item -> {
 				item.setDoanVao(this);
@@ -317,6 +323,12 @@ public class DoanVao extends Model<DoanVao> {
 				}
 				resetCheck();
 			}
+		}
+		if (nguoiPhuTrachCu != null && nguoiPhuTrachCu.getId() != this.getNguoiPhuTrach().getId()) {
+			thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
+			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
+		} else if(nguoiPhuTrachCu == null){
+			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
 		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
@@ -407,13 +419,7 @@ public class DoanVao extends Model<DoanVao> {
 			} else {
 				thongBao.setNguoiGui(core().getNhanVien());
 			}
-			if (getDoanVaoMoiNhat().fetchFirst() == null && doanVao.noId()) {
-				thongBao.setIdObject(1l);
-			} else if (getDoanVaoMoiNhat().fetchFirst() == doanVao.getId()) {
-				thongBao.setIdObject(doanVao.getId());
-			} else {
-				thongBao.setIdObject(getDoanVaoMoiNhat().fetchFirst() + 1);
-			}
+			thongBao.setIdObject(doanVao.getId());
 
 			thongBao.setLoaiThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO);
 			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
