@@ -17,15 +17,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.ListModelList;
 
-import com.querydsl.jpa.impl.JPAQuery;
-
 import vn.toancauxanh.gg.model.enums.HomeEnum;
-import vn.toancauxanh.model.LoaiDiSan;
-import vn.toancauxanh.model.LoaiDiTich;
-import vn.toancauxanh.model.LoaiLeHoi;
-import vn.toancauxanh.model.QLoaiDiSan;
-import vn.toancauxanh.model.QLoaiDiTich;
-import vn.toancauxanh.model.QLoaiLeHoi;
 import vn.toancauxanh.service.BasicService;
 
 public class HomeService extends BasicService<Object> {
@@ -255,27 +247,6 @@ public class HomeService extends BasicService<Object> {
 		// Clients.evalJavaScript("addingMarker()");
 		// Clients.evalJavaScript("resetInputId()");
 		// Clients.evalJavaScript("setHeightSearch()");
-	}
-
-	public JPAQuery<LoaiDiTich> getTargetQueryLoaiDiTich() {
-		JPAQuery<LoaiDiTich> q = find(LoaiDiTich.class).where(QLoaiDiTich.loaiDiTich.daXoa.isFalse())
-				.where(QLoaiDiTich.loaiDiTich.trangThai.ne(core().TT_DA_XOA));
-
-		return q.orderBy(QLoaiDiTich.loaiDiTich.soThuTu.asc()).orderBy(QLoaiDiTich.loaiDiTich.ngaySua.desc());
-	}
-
-	public JPAQuery<LoaiLeHoi> getTargetQueryLoaiLeHoi() {
-		JPAQuery<LoaiLeHoi> q = find(LoaiLeHoi.class).where(QLoaiLeHoi.loaiLeHoi.daXoa.isFalse())
-				.where(QLoaiLeHoi.loaiLeHoi.trangThai.ne(core().TT_DA_XOA));
-
-		return q.orderBy(QLoaiLeHoi.loaiLeHoi.soThuTu.asc()).orderBy(QLoaiLeHoi.loaiLeHoi.ngaySua.desc());
-	}
-
-	public JPAQuery<LoaiDiSan> getTargetQueryLoaiDiSan() {
-		JPAQuery<LoaiDiSan> q = find(LoaiDiSan.class).where(QLoaiDiSan.loaiDiSan.daXoa.isFalse())
-				.where(QLoaiDiSan.loaiDiSan.trangThai.ne(core().TT_DA_XOA));
-
-		return q.orderBy(QLoaiDiSan.loaiDiSan.soThuTu.asc()).orderBy(QLoaiDiSan.loaiDiSan.ngaySua.desc());
 	}
 
 	private boolean hiddenSearch;

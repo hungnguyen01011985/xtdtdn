@@ -10,10 +10,12 @@
 		    action = arg.get("action");
 			String id = execution.getParameter("id");
 			vn.toancauxanh.model.DuAn vm = new vn.toancauxanh.service.DuAnService().getDuAnById(id);
-			vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), vm.getGiaiDoanXucTien());
-			vm.setGiaiDoanDuAn(item);
-			if (vm.getTaiLieuNDT() == null){
-				vm.setTaiLieuNDT(new vn.toancauxanh.model.TepTin());
+			if (vm != null) {
+				vn.toancauxanh.model.GiaiDoanDuAn item = new vn.toancauxanh.service.GiaiDoanService().getGiaiDoanById(vm.getId(), vm.getGiaiDoanXucTien());
+				vm.setGiaiDoanDuAn(item);
+				if (vm.getTaiLieuNDT() == null) {
+					vm.setTaiLieuNDT(new vn.toancauxanh.model.TepTin());
+				}
 			}
 			giaiDoanMot = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_MOT;
 			giaiDoanHai = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_HAI;
@@ -22,12 +24,11 @@
 			giaiDoanNam = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_NAM;
 		]]>
 	</zscript>
-	<label if="${!(action and entry.quyen.quanlyduan_sua and vm.checkEdit(entry.nhanVien.id, vm.idNguoiLienQuan, vm.giaiDoanXucTien, vm.nguoiTao, vm.nguoiPhuTrach) 
-		or !action and entry.quyen.quanlyduan_xem)}">
-		Bạn không có quyền truy cập chức năng này!
+	<label if="${vm eq null or !(action and entry.quyen.quanlyduan_sua and vm.checkEdit(entry.nhanVien.id, vm.idNguoiLienQuan, vm.giaiDoanXucTien, vm.nguoiTao, vm.nguoiPhuTrach) 
+		or !action and entry.quyen.quanlyduan_xem)}" value="${vm eq null ? 'Dự án không còn tồn tại' : 'Bạn không có quyền truy cập chức năng này!'}">
 	</label>
-	<div if="${action and entry.quyen.quanlyduan_sua and vm.checkEdit(entry.nhanVien.id, vm.idNguoiLienQuan, vm.giaiDoanXucTien, vm.nguoiTao, vm.nguoiPhuTrach) 
-		or !action and entry.quyen.quanlyduan_xem}" 
+	<div if="${vm ne null and (action and entry.quyen.quanlyduan_sua and vm.checkEdit(entry.nhanVien.id, vm.idNguoiLienQuan, vm.giaiDoanXucTien, vm.nguoiTao, vm.nguoiPhuTrach) 
+		or !action and entry.quyen.quanlyduan_xem)}" 
 		viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"> 
 		<div class="panel-box">
 			<div zclass="row">
