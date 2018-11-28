@@ -309,6 +309,7 @@ public class ProcessService extends BasicService<Object> {
 			nhaDauTu.saveNotShowNotification();
 			saveNotShowNotificationTaiLieuGiaiDoan(model.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_NAM, true);
 		}
+		luuTaiLieuDuAnAndCheck(model);
 		model.saveNotShowNotification();
 		model.getGiaiDoanDuAn().setDuAn(model);
 		luuTaiLieuKhac(model.getGiaiDoanDuAn(), true);
