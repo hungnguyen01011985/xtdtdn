@@ -270,7 +270,7 @@ public class GiaoViec extends Model<GiaoViec> {
 				taiLieuKetQua.setNameHash(tenFile);
 				taiLieuKetQua.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				taiLieuKetQua.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
-				taiLieuKetQua.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+				taiLieuKetQua.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
 				taiLieuKetQua.setMedia(media);
 				taiLieuKetQua.saveFileTepTin();
 				BindUtils.postNotifyChange(null, null, object, name);
@@ -300,7 +300,7 @@ public class GiaoViec extends Model<GiaoViec> {
 				getTaiLieu().setNameHash(tenFile);
 				getTaiLieu().setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				getTaiLieu().setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
-				getTaiLieu().setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+				getTaiLieu().setPathFile(folderStoreFilesLink() + folderStoreTepTin());
 				getTaiLieu().setMedia(media);
 				getTaiLieu().saveFileTepTin();
 				BindUtils.postNotifyChange(null, null, this, "taiLieu");

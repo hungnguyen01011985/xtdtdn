@@ -133,7 +133,7 @@ public class TepTin extends Model<TepTin> {
 				tepTin.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
 				tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 				tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
-				tepTin.setPathFile(folderStoreFilesLink() + folderStoreFilesTepTin());
+				tepTin.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
 				tepTin.setMedia(media);
 				doanVao.getTepTins().set(index, tepTin);
 				doanVao.getTepTins().forEach(obj -> {
