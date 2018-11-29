@@ -9,7 +9,6 @@
 					vn.toancauxanh.model.DuAn duAn = arg.get("vm");
 					vm.arg.put("idDuAn", duAn.getId());
 				}
-				
 		 	]]>
 		 </zscript>
 		<div class="w-popup-content-medium">

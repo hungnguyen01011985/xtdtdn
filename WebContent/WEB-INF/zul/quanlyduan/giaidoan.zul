@@ -24,9 +24,13 @@
 			giaiDoanNam = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_NAM;
 		]]>
 	</zscript>
-	<label if="${vm eq null or !(action and entry.quyen.quanlyduan_sua and vm.checkEdit(entry.nhanVien.id, vm.idNguoiLienQuan, vm.giaiDoanXucTien, vm.nguoiTao, vm.nguoiPhuTrach) 
-		or !action and entry.quyen.quanlyduan_xem)}" value="${vm eq null ? 'Dự án không còn tồn tại' : 'Bạn không có quyền truy cập chức năng này!'}">
-	</label>
+	<div if="${vm eq null or !(action and entry.quyen.quanlyduan_sua and vm.checkEdit(entry.nhanVien.id, vm.idNguoiLienQuan, vm.giaiDoanXucTien, vm.nguoiTao, vm.nguoiPhuTrach) 
+		or !action and entry.quyen.quanlyduan_xem)}">
+		<div class="alert alert-danger" style="width:80%;margin:0 auto;margin-top:30px;">
+			<x:image class="img-title" width="15px" height="15px" src="${contexPath}/assets/icon-bxtdn/danger-color.svg"/>
+			${vm eq null ? 'Dự án không còn tồn tại' : 'Bạn không có quyền truy cập chức năng này!'}
+		</div>
+	</div>
 	<div if="${vm ne null and (action and entry.quyen.quanlyduan_sua and vm.checkEdit(entry.nhanVien.id, vm.idNguoiLienQuan, vm.giaiDoanXucTien, vm.nguoiTao, vm.nguoiPhuTrach) 
 		or !action and entry.quyen.quanlyduan_xem)}" 
 		viewModel="@id('vm') @init(vm)" validationMessages="@id('vmsgs')"> 

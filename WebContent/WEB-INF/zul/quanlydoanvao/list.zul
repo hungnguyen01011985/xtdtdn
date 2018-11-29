@@ -27,14 +27,14 @@
 			<div zclass="row mg-and-bg-and-line">	
 					<div zclass="col-md-6">
 						<div zclass="form-group focus">
-							<x:span class="issue-search">Tên đoàn</x:span> 
+							<x:span class="label-txt-style">Tên đoàn</x:span> 
 							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên đoàn.." onOK="@command('cmd', notify=vm, attr='targetQuery')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<x:span class="issue-search">Trạng thái</x:span> 
+							<x:span class="label-txt-style">Trạng thái</x:span> 
 							<combobox readonly="true" class="his" placeholder="Tất cả" width="100%" 
 							selectedItem="@bind(vm.arg.trangThai)" model="@load(vm.listTrangThaiTiepDoan)">
 								<template name="model">
@@ -46,7 +46,7 @@
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<x:span class="issue-search">Quốc gia</x:span> 
+							<x:span class="label-txt-style">Quốc gia</x:span> 
 							<combobox readonly="true" class="his" model="@load(vm.listQuocGiaAndNull)" selectedItem="@bind(vm.arg.quocGia)" placeholder="Tất cả" width="100%">
 								<template name="model">
 									<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
@@ -57,7 +57,7 @@
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<x:span class="issue-search">Thời gian đến: từ ngày</x:span> 
+							<x:span class="label-txt-style">Thời gian đến: từ ngày</x:span> 
 							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.tuNgay)"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -65,7 +65,7 @@
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<x:span class="issue-search">Đến ngày</x:span> 
+							<x:span class="label-txt-style">Đến ngày</x:span> 
 							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.denNgay)"
 								width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
