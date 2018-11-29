@@ -66,7 +66,10 @@ xmlns:w="http://www.zkoss.org/2005/zk/client">
 			<include src="/WEB-INF/zul/common/menu-left.zul" />
 			<div zclass="body-include box-col-full">
 				<include if="${coquyen}" instant="true" src="${file}" class="box-col-7"></include>
-				<label if="${!coquyen}">Bạn không có quyền truy cập chức năng này!</label>
+				<div if="${!coquyen}" class="alert alert-danger" style="width:80%;margin:0 auto;margin-top:30px;">
+					<x:image class="img-title" width="15px" height="15px" src="${contexPath}/assets/icon-bxtdn/danger-color.svg"/>
+					Bạn không có quyền truy cập chức năng này.
+				</div>
 			</div>
 		</n:div>
 	</n:div>

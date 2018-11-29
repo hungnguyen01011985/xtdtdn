@@ -1,2 +1,2 @@
 <?component name="add-view" inline="true" macroURI="add-view.zul"?>
-<add-view model="${arg.vm}" vmArgs="${arg.vmArgs}" save="Thêm mới dự án" />
+<add-view model="${entry.duAns.type().newInstance()}" vmArgs="${arg.vmArgs}" save="Thêm mới dự án" />
