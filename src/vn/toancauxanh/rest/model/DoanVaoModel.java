@@ -19,6 +19,7 @@ public class DoanVaoModel {
 	private int soNguoi;
 	private Date thoiGianDenLamViec;
 	private List<ThanhVienDoanModel> thanhVienDoans = new ArrayList<ThanhVienDoanModel>();
+	private List<CongViecModel> congViecs = new ArrayList<CongViecModel>();
 
 	public String getTenDoanVao() {
 		return tenDoanVao;
@@ -132,4 +133,11 @@ public class DoanVaoModel {
 		this.thanhVienDoans = thanhVienDoans;
 	}
 
+	public List<CongViecModel> getCongViecs() {
+		return congViecs;
+	}
+
+	public void setCongViecs(List<CongViecModel> congViecs) {
+		this.congViecs = congViecs;
+	}
 }

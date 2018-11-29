@@ -45,6 +45,7 @@ import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 import vn.toancauxanh.rest.model.DoanVaoModel;
+import vn.toancauxanh.service.GiaoViecService;
 
 @Entity
 @Table(name = "doanvao")
@@ -981,6 +982,8 @@ public class DoanVao extends Model<DoanVao> {
 	
 	@Transient
 	public DoanVaoModel toDoanVaoModel() {
+		GiaoViecService sv = new GiaoViecService();
+		listGiaoViecTheoDoan.addAll(sv.getListGiaoViecTheoDoanVao(getId()));
 		DoanVaoModel rs = new DoanVaoModel();
 		rs.setTenDoanVao(getTenDoanVao() != null ? getTenDoanVao() : "");
 		rs.setQuocGia(getQuocGia() != null ? getQuocGia().getText() : "");
@@ -996,6 +999,7 @@ public class DoanVao extends Model<DoanVao> {
 		rs.setSoNguoi(getSoNguoi());
 		rs.setThoiGianDenLamViec(getThoiGianDenLamViec() != null ? getThoiGianDenLamViec() : null);
 		rs.setThanhVienDoans(getListThanhVienTheoDoan() != null ? getListThanhVienTheoDoan().stream().map(ThanhVienDoan::toThanhVienDoanModel).collect(Collectors.toList()) : null);
+		rs.setCongViecs(listGiaoViecTheoDoan != null ? listGiaoViecTheoDoan.stream().map(GiaoViec::toGiaoViecModel).collect(Collectors.toList()) : null);
 		return rs;
 	}
 	
