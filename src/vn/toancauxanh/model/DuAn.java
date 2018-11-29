@@ -278,6 +278,16 @@ public class DuAn extends Model<DuAn> {
 		}
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 	}
+	
+	@Command
+	public void goKetThuc(@BindingParam("task") final String task) {
+		Map<String, Object> variables = new HashMap<>();
+		variables.put("model", this);
+		if (task != null) {
+			variables.put("goTask", task);
+		}
+		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+	}
 
 	private String srcGiaiDoanDuAn;
 	

@@ -40,7 +40,7 @@
 								<x:span class="label-txt-style">Tên công ty<n:small class="required"> *</n:small></x:span>
 							</div>
 							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
-								value="@bind(vm.giaiDoanDuAn.tenCongTy) @save(vm.giaiDoanDuAn.tenCongTy, before={'goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên công ty"></textbox>
+								value="@bind(vm.giaiDoanDuAn.tenCongTy) @save(vm.giaiDoanDuAn.tenCongTy, before={'goNext', 'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên công ty"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -50,7 +50,7 @@
 								<x:span class="label-txt-style">Người đại diện pháp lý<n:small class="required"> *</n:small></x:span>
 							</div>
 							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
-								value="@bind(vm.giaiDoanDuAn.nguoiDaiDienPhapLy) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập người đại diện pháp lý"></textbox>
+								value="@bind(vm.giaiDoanDuAn.nguoiDaiDienPhapLy) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập người đại diện pháp lý"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 								<x:span class="label-txt-style">Địa chỉ<n:small class="required"> *</n:small></x:span>
 							</div>
 							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
-								value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập địa chỉ"></textbox>
+								value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập địa chỉ"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 								<x:span class="label-txt-style">Số điện thoại<n:small class="required"> *</n:small></x:span>
 							</div>
 							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
-								value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.soDienThoai, before={'goNext','doActionWithKey'}) @validator(vm.giaiDoanDuAn.validateSoDienThoai)" placeholder="Nhập số điện thoại"></textbox>
+								value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.soDienThoai, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator(vm.giaiDoanDuAn.validateSoDienThoai)" placeholder="Nhập số điện thoại"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -81,7 +81,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Email<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.email, before={'goNext','doActionWithKey'}) @validator(vm.giaiDoanDuAn.validatorEmail)" placeholder="Nhập email"></textbox>
+							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.email, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator(vm.giaiDoanDuAn.validatorEmail)" placeholder="Nhập email"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -173,7 +173,7 @@
 					</x:button>
 				</div>
 				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanNam) and entry.quyen.quanlyduan_sua}">
-					<x:button onClick="@command('goNext', task = 'task_ketThucDuAn')"
+					<x:button onClick="@command('goKetThuc', task = 'task_ketThucDuAn')"
 						class="btn btn-base btn-green">
 						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ket-thuc-du-an.svg"/>
 						<span>Kết thúc</span>
