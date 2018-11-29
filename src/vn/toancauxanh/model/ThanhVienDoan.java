@@ -13,6 +13,7 @@ import org.zkoss.bind.validator.AbstractValidator;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
+import vn.toancauxanh.rest.model.ThanhVienDoanModel;
 
 @Entity
 @Table(name = "thanhviendoan")
@@ -121,5 +122,17 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 				}
 			}
 		};
+	}
+	
+	@Transient
+	public ThanhVienDoanModel toThanhVienDoanModel() {
+		ThanhVienDoanModel thanhVienDoanModel = new ThanhVienDoanModel();
+		thanhVienDoanModel.setHoVaTen(getHoVaTen() != null ? getHoVaTen() : "");
+		thanhVienDoanModel.setDonVi(getDonVi() != null ? getDonVi() : "");
+		thanhVienDoanModel.setChucDanh(getChucDanh() != null ? getChucDanh() : "");
+		thanhVienDoanModel.setEmail(getEmail() != null ? getEmail() : "");
+		thanhVienDoanModel.setSoDienThoai(getSoDienThoai() != null ? getSoDienThoai() : "");
+		thanhVienDoanModel.setQuocGia(getQuocGia() != null ? getQuocGia().getText() : "");
+		return thanhVienDoanModel;
 	}
 }
