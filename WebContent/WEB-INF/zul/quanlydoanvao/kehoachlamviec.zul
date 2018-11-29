@@ -5,7 +5,7 @@
 		<![CDATA[
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
 			list = new vn.toancauxanh.service.GiaoViecService().getListGiaoViecTheoDoanVao(doanVao.id);
-			if(list != null || !list.isEmpty()) {
+			if (list != null || !list.isEmpty()) {
 				doanVao.setListGiaoViecTheoDoan(list);
 				doanVao.loadListGiaoViecTheoDoan();
 			}
@@ -13,226 +13,247 @@
 			readOnly = arg.get("readOnly");
 		]]>
 	</zscript>
-	<div viewModel="@id('vm') @init(doanVao)"> 
-		<div class="panel-box border-box mg-bottom-15">
-			<!-- start -->
-			<div class="row mgn-lr-10">
+	<div viewModel="@id('vm') @init(doanVao)" class="w-popup-content-medium"> 
+		<div class="panel-box">
+			<div class="mg-and-bg-and-line-fix" style="padding-top:0;">
 				<div class="row">
-					<div zclass="col-lg-12">
+					<div zclass="col-md-12">
 						<div class="title-form">
 							<span>Thông tin đoàn vào</span>
 						</div>
 					</div>
 				</div>
-				<div class="row mg-and-bg-and-line">
-					<div class="pd-column-2">
-						<div zclass="col-md-8">
-							<div zclass="form-group">
-								<span>Tên đoàn</span> 
-								<textbox class="form-control" disabled="true" value="@bind(vm.tenDoanVao)" placeholder="Nhập tên đoàn.."></textbox>
-							</div>
+				<div class="row">
+					<div zclass="col-md-8">
+						<div zclass="form-group txt-textbox-disable">
+							<x:span class="label-txt-style">Tên đoàn</x:span> 
+							<textbox class="form-control" disabled="true" value="@bind(vm.tenDoanVao)" placeholder="Nhập tên đoàn.."></textbox>
 						</div>
-						<div zclass="col-md-4">
-							<div zclass="form-group">
-								<x:span class="issue-search">Thời gian đến làm việc</x:span> 
-								<datebox buttonVisible="false" disabled="true" format="dd/MM/yyyy" class="hv-db input-no-button" value="@bind(vm.thoiGianDenLamViec)" width="100%" placeholder="Chọn ngày"/>
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-							</div>
+					</div>
+					<div zclass="col-md-4">
+						<div zclass="form-group">
+							<x:span class="label-txt-style">Thời gian đến làm việc</x:span> 
+							<datebox buttonVisible="false" disabled="true" format="dd/MM/yyyy" class="hv-db input-no-button txt-textbox-disable" value="@bind(vm.thoiGianDenLamViec)" width="100%" placeholder="Chọn ngày"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 				</div>
-				
+			</div>
+			<div class="mg-and-bg-and-line-fix" style="padding-top:0;">
 				<div zclass="row">
-					<div zclass="col-lg-12">
+					<div zclass="col-md-12">
 						<div class="title-form">
 							<span>Danh sách kế hoạch làm việc</span>
 						</div>
 					</div>
 				</div>
-				
-				<grid id="grid">
-					<columns>
-						<column label="STT" style="text-align:center" width="42px"/>
-						<column label="Nội dung công việc" style="text-align:center" />
-						<column label="Người thực hiện" width="200px" style="text-align:center" />
-						<column label="Thời gian" width="200px" style="text-align:center" />
-						<column label="Trạng thái" width="200px" style="text-align:center" />
-						<column label="Ghi chú" style="text-align:center" />
-					</columns>
-						<rows>
-							<row>
-								<label value="1"></label>
-								<label value="@load(doanVao.titleNhanSuLamViec.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<label value=""></label>
-								<label value=""></label>
-								<label value=""></label>
-								<label value=""></label>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecNguoiDuocPhanCong.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecNguoiDuocPhanCong.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecNguoiDuocPhanCong.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecNguoiDuocPhanCong.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecNguoiDuocPhanCong.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecNguoiDuocPhanCong.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecNguoiDuocPhanCong.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecNguoiDuocPhanCong.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecChuyenVien.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuyenVien.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecChuyenVien.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuyenVien.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuyenVien.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecChuyenVien.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuyenVien.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuyenVien.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuyenVien.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuyenVien.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="2"></label>
-								<label value="@load(doanVao.titleCongTacHauCan.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<label value=""></label>
-								<label value=""></label>
-								<label value=""></label>
-								<label value=""></label>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecChuanBiPhongHop.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiPhongHop.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecChuanBiPhongHop.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiPhongHop.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiPhongHop.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiPhongHop.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiPhongHop.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiPhongHop.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecChuanBiHoaQua.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiHoaQua.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecChuanBiHoaQua.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiHoaQua.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiHoaQua.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiHoaQua.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiHoaQua.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiHoaQua.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecChuanBiThietBi.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiThietBi.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecChuanBiThietBi.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiThietBi.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiThietBi.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecChuanBiThietBi.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiThietBi.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiThietBi.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiThietBi.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiThietBi.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecChuanBiTaiLieu.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiTaiLieu.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecChuanBiTaiLieu.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiTaiLieu.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiTaiLieu.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiTaiLieu.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiTaiLieu.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiTaiLieu.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="3"></label>
-								<label value="@load(doanVao.titleCongTacKhac.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<label value=""></label>
-								<label value=""></label>
-								<label value=""></label>
-								<label value=""></label>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecXayDungChuongTrinh.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecXayDungChuongTrinh.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecXayDungChuongTrinh.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecXayDungChuongTrinh.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecXayDungChuongTrinh.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecXayDungChuongTrinh.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecXayDungChuongTrinh.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecXayDungChuongTrinh.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecChuanBiBaiGioiThieu.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiBaiGioiThieu.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecChuanBiBaiGioiThieu.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiBaiGioiThieu.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiBaiGioiThieu.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiBaiGioiThieu.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiBaiGioiThieu.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiBaiGioiThieu.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecXacNhanLaiThongTin.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecXacNhanLaiThongTin.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecXacNhanLaiThongTin.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecXacNhanLaiThongTin.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecXacNhanLaiThongTin.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecXacNhanLaiThongTin.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecXacNhanLaiThongTin.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecXacNhanLaiThongTin.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecGhiBienBan.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecGhiBienBan.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecGhiBienBan.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecGhiBienBan.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecGhiBienBan.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecGhiBienBan.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecGhiBienBan.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecGhiBienBan.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecGhiBienBan.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecGhiBienBan.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-							<row>
-								<label value="-"></label>
-								<label value="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.noiDungCongViec.text)" style="font-weight:bold"></label>
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecKiemTraLaiCongTacChuanBi.nguoiDuocGiao)" class="his reset-mg-pd ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-									<template name="model">
-										<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-									</template>
-								</combobox>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecKiemTraLaiCongTacChuanBi.hanThucHien)"
-								 	width="100%" placeholder="Chọn ngày"/>
-								<label value="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec}"></label>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecKiemTraLaiCongTacChuanBi.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-							</row>
-						</rows>
-						
-				</grid>
-				
-				<div class="row mg-and-bg-and-line">
-					<div zclass="col-xs-6 flex-box">
+				<div class="row">
+					<div class="col-md-12">
+						<grid id="grid">
+							<columns>
+								<column label="STT" style="text-align:center" width="42px"/>
+								<column label="Nội dung công việc" style="text-align:center" />
+								<column label="Người thực hiện" width="200px" style="text-align:center" />
+								<column label="Thời gian" width="200px" style="text-align:center" />
+								<column label="Trạng thái" width="200px" style="text-align:center" />
+								<column label="Ghi chú" style="text-align:center" />
+							</columns>
+								<rows>
+									<row>
+										<label value="1"></label>
+										<label value="@load(doanVao.titleNhanSuLamViec.noiDungCongViec.text)" style="font-weight:bold"></label>
+										<label value=""></label>
+										<label value=""></label>
+										<label value=""></label>
+										<label value=""></label>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecNguoiDuocPhanCong.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecNguoiDuocPhanCong.nguoiDuocGiao)" class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecNguoiDuocPhanCong.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecNguoiDuocPhanCong.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecNguoiDuocPhanCong.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecNguoiDuocPhanCong.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecNguoiDuocPhanCong.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecNguoiDuocPhanCong.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecChuyenVien.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuyenVien.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuyenVien.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuyenVien.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuyenVien.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecChuyenVien.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuyenVien.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuyenVien.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuyenVien.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuyenVien.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="2"></label>
+										<label value="@load(doanVao.titleCongTacHauCan.noiDungCongViec.text)" style="font-weight:bold"></label>
+										<label value=""></label>
+										<label value=""></label>
+										<label value=""></label>
+										<label value=""></label>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecChuanBiPhongHop.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiPhongHop.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiPhongHop.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiPhongHop.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiPhongHop.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiPhongHop.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiPhongHop.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiPhongHop.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecChuanBiHoaQua.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiHoaQua.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiHoaQua.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiHoaQua.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiHoaQua.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiHoaQua.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiHoaQua.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiHoaQua.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecChuanBiThietBi.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiThietBi.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiThietBi.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiThietBi.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiThietBi.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecChuanBiThietBi.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiThietBi.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiThietBi.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiThietBi.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiThietBi.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecChuanBiTaiLieu.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiTaiLieu.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiTaiLieu.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiTaiLieu.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiTaiLieu.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiTaiLieu.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiTaiLieu.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiTaiLieu.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="3"></label>
+										<label value="@load(doanVao.titleCongTacKhac.noiDungCongViec.text)" style="font-weight:bold"></label>
+										<label value=""></label>
+										<label value=""></label>
+										<label value=""></label>
+										<label value=""></label>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecXayDungChuongTrinh.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecXayDungChuongTrinh.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecXayDungChuongTrinh.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecXayDungChuongTrinh.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecXayDungChuongTrinh.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecXayDungChuongTrinh.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecXayDungChuongTrinh.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecXayDungChuongTrinh.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecChuanBiBaiGioiThieu.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiBaiGioiThieu.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiBaiGioiThieu.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiBaiGioiThieu.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiBaiGioiThieu.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiBaiGioiThieu.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiBaiGioiThieu.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiBaiGioiThieu.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecXacNhanLaiThongTin.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecXacNhanLaiThongTin.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecXacNhanLaiThongTin.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecXacNhanLaiThongTin.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecXacNhanLaiThongTin.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecXacNhanLaiThongTin.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecXacNhanLaiThongTin.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecXacNhanLaiThongTin.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecGhiBienBan.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecGhiBienBan.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecGhiBienBan.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecGhiBienBan.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecGhiBienBan.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecGhiBienBan.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecGhiBienBan.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecGhiBienBan.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecGhiBienBan.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecGhiBienBan.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+									<row>
+										<label value="-"></label>
+										<label value="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.noiDungCongViec.text)"></label>
+										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecKiemTraLaiCongTacChuanBi.nguoiDuocGiao)" 
+											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
+											<template name="model">
+												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
+											</template>
+										</combobox>
+										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
+											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecKiemTraLaiCongTacChuanBi.hanThucHien)"
+										 	width="100%" placeholder="Chọn ngày"/>
+										<label value="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec.text)" class="TRANG_THAI ${doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec}"></label>
+										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecKiemTraLaiCongTacChuanBi.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
+									</row>
+								</rows>
+						</grid>
+					</div>
+				</div>
+			</div>
+			<div class="mg-and-bg-and-line-fix">
+				<div class="row">
+					<div zclass="col-md-6 flex-box">
 						<div zclass="form-group">
 							<x:button class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='*')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
@@ -240,7 +261,7 @@
 							</x:button>
 						</div>
 					</div>
-					<div zclass="col-xs-6">
+					<div zclass="col-md-6">
 						<div zclass="form-group right" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
 							<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveKeHoachLamViec', doanVao = doanVao, wdn = wdn)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
