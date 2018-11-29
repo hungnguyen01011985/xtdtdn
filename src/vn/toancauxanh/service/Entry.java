@@ -48,8 +48,6 @@ public class Entry extends BaseObject<Object> {
 	public String FOLDER_ROOT = "";
 	@Value("${filestore.files}")
 	public String FOLDER_FILES = "";
-	@Value("${filestore.folder}")
-	public String FOLDER_FILEFOLDER = "";
 
 	// No image url
 	public String URL_M_NOIMAGE = "/assetsfe/images/lg_noimage.png";
@@ -94,10 +92,16 @@ public class Entry extends BaseObject<Object> {
 	public String PHANQUYEN = "";
 	@Value("${url.baocaothongke}")
 	public String BAOCAOTHONGKE = "";
-
+	@Value("${url.donvi}")
+	public String QUANLYDONVI = "";
+	@Value("${url.nhadautu}")
+	public String QUANLYNHADAUTU = "";
 	@Value("${url.vaitro}")
 	public String VAITRO = "";
-
+	@Value("${url.capdonvi}")
+	public String QUANLYCAPDONVI = "";
+	@Value("${url.donvixuctien}")
+	public String QUANLYDONVIXUCTIEN = "";
 	// uend
 	public char CHAR_CACH = ':';
 	public String CACH = CHAR_CACH + "";
@@ -165,7 +169,7 @@ public class Entry extends BaseObject<Object> {
 	public String NGUOIDUNGXOA;
 	@Value("${url.nguoidung}" + ":" + "${action.xem}")
 	public String NGUOIDUNGXEM;
-
+	
 	@Value("${url.linhVucDuAn}" + ":" + "${action.list}")
 	public String LINHVUCDUANLIST;
 	@Value("${url.linhVucDuAn}" + ":" + "${action.them}")
@@ -209,10 +213,62 @@ public class Entry extends BaseObject<Object> {
 	public String BAOCAOTHONGKEDOANVAO = "";
 	@Value("${url.baocaothongke}" + ":" + "${action.congviec}")
 	public String BAOCAOTHONGKECONGVIEC = "";
+	
+	@Value("${url.donvi}" + ":" + "${action.xem}")
+	public String DONVIXEM = "";
+	@Value("${url.donvi}" + ":" + "${action.them}")
+	public String DONVITHEM = "";
+	@Value("${url.donvi}" + ":" + "${action.list}")
+	public String DONVILIST = "";
+	@Value("${url.donvi}" + ":" + "${action.xoa}")
+	public String DONVIXOA = "";
+	@Value("${url.donvi}" + ":" + "${action.sua}")
+	public String DONVISUA = "";
+	@Value("${url.donvi}" + ":" + "${action.tim}")
+	public String DONVITIMKIEM;
+	
+	@Value("${url.nhadautu}" + ":" + "${action.xem}")
+	public String NHADAUTUXEM = "";
+	@Value("${url.nhadautu}" + ":" + "${action.them}")
+	public String NHADAUTUTHEM = "";
+	@Value("${url.nhadautu}" + ":" + "${action.list}")
+	public String NHADAUTULIST = "";
+	@Value("${url.nhadautu}" + ":" + "${action.xoa}")
+	public String NHADAUTUXOA = "";
+	@Value("${url.nhadautu}" + ":" + "${action.sua}")
+	public String NHADAUTUSUA = "";
+	@Value("${url.nhadautu}" + ":" + "${action.tim}")
+	public String NHADAUTUTIMKIEM;
+	
+	@Value("${url.capdonvi}" + ":" + "${action.xem}")
+	public String CAPDONVIXEM = "";
+	@Value("${url.capdonvi}" + ":" + "${action.them}")
+	public String CAPDONVITHEM = "";
+	@Value("${url.capdonvi}" + ":" + "${action.list}")
+	public String CAPDONVILIST = "";
+	@Value("${url.capdonvi}" + ":" + "${action.xoa}")
+	public String CAPDONVIXOA = "";
+	@Value("${url.capdonvi}" + ":" + "${action.sua}")
+	public String CAPDONVISUA = "";
+	@Value("${url.capdonvi}" + ":" + "${action.tim}")
+	public String CAPDONVITIMKIEM;
+	
+	@Value("${url.donvixuctien}" + ":" + "${action.xem}")
+	public String DONVIXUCTIENXEM = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.them}")
+	public String DONVIXUCTIENTHEM = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.list}")
+	public String DONVIXUCTIENLIST = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.xoa}")
+	public String DONVIXUCTIENXOA = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.sua}")
+	public String DONVIXUCTIENSUA = "";
+	@Value("${url.donvixuctien}" + ":" + "${action.tim}")
+	public String DONVIXUCTIENTIMKIEM;
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
-				QUANLYLINHVUCDUAN, BAOCAOTHONGKE}; //
+				QUANLYLINHVUCDUAN, BAOCAOTHONGKE, QUANLYNHADAUTU, QUANLYDONVI, QUANLYCAPDONVI, QUANLYDONVIXUCTIEN}; //
 	}
 
 	public String[] getACTIONS() {
@@ -261,7 +317,7 @@ public class Entry extends BaseObject<Object> {
 
 	@RequestMapping(value = "/cp")
 	public String cp() {
-		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/list.zul";
+		return "forward:/WEB-INF/zul/home.zul?resource=quanlygiaoviec&action=lietke&file=/WEB-INF/zul/quanlygiaoviec/list.zul";
 	}
 
 	@RequestMapping(value = "/cp/{path:.+$}")
@@ -329,6 +385,10 @@ public class Entry extends BaseObject<Object> {
 	public final CapDonViService getCapDonVis(){
 		return new CapDonViService();
 	}
+	
+	public final DonViXucTienService getDonViXucTiens(){
+		return new DonViXucTienService();
+	}
 
 	public final DoanVaoService getDoanVaos() {
 		return new DoanVaoService();
@@ -340,6 +400,10 @@ public class Entry extends BaseObject<Object> {
 
 	public final ThanhVienDoanService getThanhVienDoans() {
 		return new ThanhVienDoanService();
+	}
+	
+	public final NhaDauTuService getNhaDauTus() {
+		return new NhaDauTuService();
 	}
 	// end
 
@@ -353,22 +417,6 @@ public class Entry extends BaseObject<Object> {
 
 	public final Quyen getQuyen() {
 		return getNhanVien().getTatCaQuyen();
-	}
-
-	public final ThucTrangDitichService getThucTrangDitichs() {
-		return new ThucTrangDitichService();
-	}
-
-	public final LoaiDiTichService getLoaiDiTichs() {
-		return new LoaiDiTichService();
-	}
-
-	public final LoaiLeHoiService getLoaiLeHois() {
-		return new LoaiLeHoiService();
-	}
-
-	public final LoaiDiSanService getLoaiDiSans() {
-		return new LoaiDiSanService();
 	}
 
 	public final HomeService getHomes() {

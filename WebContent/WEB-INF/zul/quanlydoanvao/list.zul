@@ -26,9 +26,9 @@
 			</div>
 			<div zclass="row mg-and-bg-and-line">	
 					<div zclass="col-md-6">
-						<div zclass="form-group">
+						<div zclass="form-group focus">
 							<x:span class="issue-search">Tên đoàn</x:span> 
-							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên đoàn.."></textbox>
+							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên đoàn.." onOK="@command('cmd', notify=vm, attr='targetQuery')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -76,7 +76,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
 					<div zclass="form-group">
-						<x:button class="btn bg-btn-dong btn-grey" zk:onClick="@command('reset')">
+						<x:button class="btn bg-btn-dong btn-grey" zk:onClick="@command('reset', vm = vm)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
 							<span>Tìm kiếm lại</span>
 						</x:button>

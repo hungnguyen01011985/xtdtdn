@@ -28,7 +28,7 @@
 			<div zclass="mg-and-bg-and-line-fix">
 				<div class="row">
 					<div zclass="col-md-9">
-						<div zclass="form-group">
+						<div zclass="form-group focus">
 							<span>Tên công việc/nhiệm vụ</span> 
 							<textbox class="form-control textbox-txt-style" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')" placeholder="Nhập tên công việc/nhiệm vụ..."></textbox>
 						</div>

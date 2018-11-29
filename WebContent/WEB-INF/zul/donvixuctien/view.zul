@@ -2,7 +2,7 @@
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
 		closable="true" title="${arg.save}" onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
-		whatever="@load(false,after='saveCapDonVi') @converter('vn.toancauxanh.service.DetachConverter')"
+		whatever="@load(false,after='saveDonViXucTien') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
@@ -14,17 +14,17 @@
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<div class="flex">
-							<x:span class="issue-search">Tên cấp đơn vị<n:small class="required"> *</n:small></x:span>
+							<x:span class="issue-search">Tên đơn vị<n:small class="required"> *</n:small></x:span>
 						</div>
-						<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@load(vm.ten) @save(vm.ten, before='saveCapDonVi') @validator(vm.validateTenCapDonVi)"
-						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên cấp đơn vị..."></textbox>
+						<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@load(vm.ten) @save(vm.ten, before='saveDonViXucTien') @validator(vm.validateTenDonViXucTien)"
+						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveDonViXucTien', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên đơn vị..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				<div zclass="col-md-12">
 					<div zclass="form-group">
 						<x:span class="issue-search">Mô tả</x:span> 
-						<textbox disabled="${readOnly}" rows="3" class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
+						<textbox disabled="${readOnly}" rows="3" class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveDonViXucTien', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 				</div>
 				<div zclass="col-xs-6">
 					<div zclass="form-group right" if="${!readOnly}">
-						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)">
+						<x:button  class="btn btn-blue mg-btn" zk:onClick="@command('saveDonViXucTien', list=vmArgs, attr='targetQuery', wdn=wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>
