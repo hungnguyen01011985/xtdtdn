@@ -454,11 +454,6 @@ public class DoanVao extends Model<DoanVao> {
 	}
 	
 	@Transient
-	public JPAQuery<Long> getDoanVaoMoiNhat(){
-		return find(DoanVao.class).select(QDoanVao.doanVao.id.max()); 
-	}
-	
-	@Transient
 	public NhanVien getNguoiDuocGiaoCu(GiaoViec giaoViec){
 		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.eq(giaoViec));
 		if (q != null) {
@@ -677,11 +672,22 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void reset(@BindingParam("vm") final DoanVao doanVao) {
-		thanhVienDoanTemp = new ThanhVienDoan();
-		flag = false;
-		BindUtils.postNotifyChange(null, null, doanVao, "flag");
-		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
-		Clients.evalJavaScript("getFocus()");
+		if (!"".equals(thanhVienDoanTemp.getHoVaTen())) {
+			thanhVienDoanTemp.setHoVaTen(null);
+			thanhVienDoanTemp.setChucDanh(null);
+			thanhVienDoanTemp.setDonVi(null);
+			thanhVienDoanTemp.setQuocGia(null);
+			thanhVienDoanTemp.setEmail(null);
+			thanhVienDoanTemp.setSoDienThoai(null);
+			BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+			Clients.evalJavaScript("getFocus()");
+		} else {
+			thanhVienDoanTemp = new ThanhVienDoan();
+			flag = false;
+			BindUtils.postNotifyChange(null, null, doanVao, "flag");
+			BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+			Clients.evalJavaScript("getFocus()");
+		}
 	}
 
 	@Command
