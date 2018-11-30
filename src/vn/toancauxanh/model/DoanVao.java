@@ -317,9 +317,9 @@ public class DoanVao extends Model<DoanVao> {
 		}
 		if (nguoiPhuTrachCu != null && nguoiPhuTrachCu.getId() != this.getNguoiPhuTrach().getId()) {
 			thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
-			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
+			thongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
 		} else if (nguoiPhuTrachCu == null) {
-			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
+			thongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
 		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
@@ -369,8 +369,8 @@ public class DoanVao extends Model<DoanVao> {
 	
 	public void thongBao(LoaiThongBao loaiThongBao, DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan,
 			NhanVien nguoiGui, String tenCongViec) {
-		if (LoaiThongBao.PHU_TRACH_DOAN_VAO.equals(loaiThongBao)) {
-			saveThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+		if (LoaiThongBao.PHU_TRACH_CONG_VIEC.equals(loaiThongBao)) {
+			saveThongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC, nguoiNhan, tenCongViec, doanVao, nguoiGui);
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
 			saveThongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, nguoiNhan, tenCongViec, doanVao, nguoiGui);
@@ -401,7 +401,7 @@ public class DoanVao extends Model<DoanVao> {
 			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 			thongBao.saveNotShowNotification();
 		}
-		if (LoaiThongBao.PHU_TRACH_DOAN_VAO.equals(loaiThongBao)) {
+		if (LoaiThongBao.PHU_TRACH_CONG_VIEC.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
 			thongBao.setNoiDung("Bạn được phân công phụ trách Đoàn @" + doanVao.getTenDoanVao());
 			thongBao.setNguoiNhan(nguoiNhan);
@@ -412,7 +412,7 @@ public class DoanVao extends Model<DoanVao> {
 			}
 			thongBao.setIdObject(doanVao.getId());
 
-			thongBao.setLoaiThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO);
+			thongBao.setLoaiThongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC);
 			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 			thongBao.saveNotShowNotification();
 		}

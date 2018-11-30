@@ -6,7 +6,7 @@
 			treCongVan = vn.toancauxanh.gg.model.enums.LoaiThongBao.TRE_CONG_VIEC;
 			nhacNho = vn.toancauxanh.gg.model.enums.LoaiThongBao.NHAC_NHO_CONG_VIEC;
 			denHan = vn.toancauxanh.gg.model.enums.LoaiThongBao.DEN_HAN_CONG_VIEC;
-			phuTrachDoanVao = vn.toancauxanh.gg.model.enums.LoaiThongBao.PHU_TRACH_DOAN_VAO;
+			phuTrachCongViec = vn.toancauxanh.gg.model.enums.LoaiThongBao.PHU_TRACH_CONG_VIEC;
 			chuyenCongViec = vn.toancauxanh.gg.model.enums.LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO;
 			chuyenNguoiPhuTrach = vn.toancauxanh.gg.model.enums.LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH;
 		</zscript>
@@ -39,7 +39,7 @@
 												${vm.subStringThongBao(each.noiDung, 1)}
 											</x:span>
 										</div>
-										<div if="${phuTrachDoanVao == each.loaiThongBao}">
+										<div if="${phuTrachCongViec == each.loaiThongBao}">
 											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 0)}
 											</x:span>

@@ -117,7 +117,11 @@ public class ProcessService extends BasicService<Object> {
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
 		DuAn duAn = q.fetchFirst();
-		duAn.setNguoiPhuTrach(model.getNguoiPhuTrach());
+		if (duAn.getNguoiPhuTrach().getId() != model.getNguoiPhuTrach().getId()) {
+			thongBao(model, LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, duAn.getNguoiPhuTrach(), null, null);
+			duAn.setNguoiPhuTrach(model.getNguoiPhuTrach());
+			thongBao(model, LoaiThongBao.PHU_TRACH_CONG_VIEC, model.getNguoiPhuTrach(), null, null);
+		}
 		duAn.save();
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
@@ -534,6 +538,12 @@ public class ProcessService extends BasicService<Object> {
 		}
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
 			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của dự án @" + duAn.getTenDuAn());
+		}
+		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
+			thongBao.setNoiDung("Công việc phụ trách của dự án @" + duAn.getTenDuAn() + "@ đã được chuyển cho người khác.");
+		}
+		if (LoaiThongBao.PHU_TRACH_CONG_VIEC.equals(loaiThongBao)) {
+			thongBao.setNoiDung("Bạn được phân công phụ trách dự án @" + duAn.getTenDuAn());
 		}
 		thongBao.setNguoiNhan(nguoiNhan);
 		if (nguoiGui != null) {
