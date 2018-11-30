@@ -54,7 +54,7 @@
 				</div>
 				<div class="row">
 					<div zclass="col-md-12">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Ghi chú</x:span>
 							</div>

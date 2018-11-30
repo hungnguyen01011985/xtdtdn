@@ -1,6 +1,6 @@
 <?page title="Kế hoạch làm việc" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
-	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="Kế hoạch làm việc" validationMessages="@id('vmsgs')" class="content-popup pop-up-width1">
+	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" validationMessages="@id('vmsgs')" class="content-popup pop-up-width1">
 	<zscript>
 		<![CDATA[
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
@@ -15,10 +15,19 @@
 	</zscript>
 	<div viewModel="@id('vm') @init(doanVao)" class="w-popup-content-medium"> 
 		<div class="panel-box">
+			<div class="box-title-and-close">
+				<div style="display:flex">
+					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
+					<span class="style-title-popup">Kế hoạch làm việc</span>
+				</div>
+				<a onClick="wdn.detach()">
+					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
+				</a>
+			</div>
 			<div class="mg-and-bg-and-line-fix" style="padding-top:0;">
 				<div class="row">
 					<div zclass="col-md-12">
-						<div class="title-form">
+						<div class="title-form-medium">
 							<span>Thông tin đoàn vào</span>
 						</div>
 					</div>
@@ -42,7 +51,7 @@
 			<div class="mg-and-bg-and-line-fix" style="padding-top:0;">
 				<div zclass="row">
 					<div zclass="col-md-12">
-						<div class="title-form">
+						<div class="title-form-medium">
 							<span>Danh sách kế hoạch làm việc</span>
 						</div>
 					</div>
