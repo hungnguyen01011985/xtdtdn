@@ -150,7 +150,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 		String tenNhiemVu = "";
 		if (obj instanceof DoanVao) {
 			tenNhiemVu = "đoàn vào" + ((DoanVao) obj).getTenDoanVao();
-		} else if (obj instanceof DuAn) {
+		} else {
 			tenNhiemVu = "dự án " + ((DuAn) obj).getTenDuAn();
 		}
 		tenNhiemVu.concat(" không ?");

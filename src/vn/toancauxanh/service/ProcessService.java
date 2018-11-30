@@ -118,7 +118,7 @@ public class ProcessService extends BasicService<Object> {
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
 		DuAn duAn = q.fetchFirst();
 		if (duAn.getNguoiPhuTrach().getId() != model.getNguoiPhuTrach().getId()) {
-			thongBao(model, LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, duAn.getNguoiPhuTrach(), model.getNguoiPhuTrach(), null);
+			thongBao(model, LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, duAn.getNguoiPhuTrach(), null, model.getNguoiPhuTrach().getHoVaTen());
 			duAn.setNguoiPhuTrach(model.getNguoiPhuTrach());
 			thongBao(model, LoaiThongBao.PHU_TRACH_CONG_VIEC, model.getNguoiPhuTrach(), null, null);
 		}
@@ -147,7 +147,8 @@ public class ProcessService extends BasicService<Object> {
 		giaoViec.saveNotShowNotification();
 		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 		duAn.saveNotShowNotification();
-		thongBao(duAn, LoaiThongBao.CONG_VIEC_MOI, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getTenCongViec());
+		duAn.setGiaoViec(giaoViec);
+		thongBao(duAn, LoaiThongBao.CONG_VIEC_MOI, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), null);
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
 		}
@@ -526,7 +527,7 @@ public class ProcessService extends BasicService<Object> {
 		thongBao(duAn, LoaiThongBao.TRE_CONG_VIEC, duAn.getNguoiPhuTrach(), null, null);
 	}
 
-	public void thongBao(DuAn duAn, LoaiThongBao loaiThongBao, NhanVien nguoiNhan, NhanVien nguoiGui, String tenCongViec) {
+	public void thongBao(DuAn duAn, LoaiThongBao loaiThongBao, NhanVien nguoiNhan, NhanVien nguoiGui, String tenNguoiCu) {
 		ThongBao thongBao = new ThongBao();
 		if (LoaiThongBao.TRE_CONG_VIEC.equals(loaiThongBao)) {
 			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanXucTien())) {
@@ -537,10 +538,10 @@ public class ProcessService extends BasicService<Object> {
 			}
 		}
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
-			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của dự án @" + duAn.getTenDuAn());
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + duAn.getGiaoViec().getTenCongViec() + "@ của dự án @" + duAn.getTenDuAn());
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
-			thongBao.setNoiDung("Dự án @" + duAn.getTenDuAn() + "@ mà bạn đang phụ trách được chuyển cho " + nguoiGui.getHoVaTen() + "@ phụ trách.");
+			thongBao.setNoiDung("Dự án @" + duAn.getTenDuAn() + "@ mà bạn đang phụ trách được chuyển cho @" + tenNguoiCu + "@ phụ trách.");
 		}
 		if (LoaiThongBao.PHU_TRACH_CONG_VIEC.equals(loaiThongBao)) {
 			thongBao.setNoiDung("Bạn vừa mới được giao phụ trách dự án @" + duAn.getTenDuAn());
