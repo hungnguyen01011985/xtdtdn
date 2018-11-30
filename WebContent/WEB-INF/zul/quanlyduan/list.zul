@@ -142,7 +142,7 @@
 										<x:image class="img-edit" width="20px" title="Xử lý" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Xử lý</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" if="${vm.checkDelete(item.giaiDoanXucTien, item.nguoiTao)}" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
+									<x:a label="Xóa" class="btn-thaotac up-note" if="${vm.checkDelete(item.giaiDoanXucTien, item.nguoiTao)}" onClick="@command('deleteObjectAndNotify', notify=vm, attr='targetQuery')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>

@@ -131,7 +131,7 @@
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Cập nhật</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${vm.checkDeleteDoanVao(item.nguoiTao, item.trangThaiTiepDoan) and entry.quyen.quanlydoanvao_xoa}" onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')">
+									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${vm.checkDeleteDoanVao(item.nguoiTao, item.trangThaiTiepDoan) and entry.quyen.quanlydoanvao_xoa}" onClick="@command('deleteObjectAndNotify', notify=vm, attr='targetQuery')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>

@@ -38,6 +38,7 @@ import org.zkoss.zul.Window;
 import com.google.common.base.Strings;
 import com.querydsl.core.annotations.QueryInit;
 
+import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.service.BaseObject;
 
 @MappedSuperclass
@@ -127,6 +128,36 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 							if (Messagebox.ON_OK.equals(event.getName())) {
 								doDelete(true);
 								showNotification("Xóa thành công!", "", "success");
+								if (beanObject != null) {
+									BindUtils.postNotifyChange(null, null, beanObject, attr);
+									if (beanObject != Model.this) {
+										BindUtils.postNotifyChange(null, null, Model.this, "*");
+									}
+								}
+							}
+						}
+					});
+		}
+
+	}
+	
+	@Command
+	public void deleteObjectAndNotify(final @BindingParam("notify") Object beanObject,
+			final @BindingParam("attr") @Default(value = "*") String attr) {
+		Object obj = this;
+		if (!checkInUse()) {
+			Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+					new EventListener<Event>() {
+						@Override
+						public void onEvent(final Event event) {
+							if (Messagebox.ON_OK.equals(event.getName())) {
+								doDelete(true);
+								showNotification("Xóa thành công!", "", "success");
+								if (obj instanceof DoanVao) {
+									xoaCongViecLienQuan(((DoanVao) obj).getId(), LoaiCongViec.DOAN_VAO);
+								} if (obj instanceof DuAn) {
+									xoaCongViecLienQuan(((DuAn) obj).getId(), LoaiCongViec.DU_AN);
+								}
 								if (beanObject != null) {
 									BindUtils.postNotifyChange(null, null, beanObject, attr);
 									if (beanObject != Model.this) {
