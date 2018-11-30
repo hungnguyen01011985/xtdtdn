@@ -195,17 +195,7 @@ public class BaseObject<T> extends CoreObject<T> {
 			url.append(":").append(req.getServerPort()); // app name
 		}
 		try {
-			res.sendRedirect(url + req.getContextPath() + "/login"); // Phan
-																		// redirect
-																		// url
-																		// neu k
-																		// co
-																		// user
-																		// dang
-																		// nhap
-																		// va
-																		// dang
-			// xuat
+			res.sendRedirect(url + req.getContextPath() + "/login");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
