@@ -1,6 +1,6 @@
 <?page title="Danh sách thành viên đoàn" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" xmlns:w="client" apply="org.zkoss.bind.BindComposer"
-	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="${arg.save}"
+	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true"
 	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')" class="tcx-modal reset-width pop-up-width1">
 	<zscript>
 		<![CDATA[
@@ -10,10 +10,19 @@
 	</zscript>
 	<div class="w-popup-content-medium"> 
 		<div class="panel-box">
+			<div class="box-title-and-close">
+				<div style="display:flex">
+					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/danh-sach-popup.svg"/>
+					<span class="style-title-popup">${arg.save}</span>
+				</div>
+				<a onClick="wdn.detach()">
+					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
+				</a>
+			</div>
 			<div class="mg-and-bg-and-line-fix" style="padding-top:0;">
 				<div class="row">
 					<div zclass="col-md-12">
-						<div class="title-form">
+						<div class="title-form-medium">
 							<span>Thông tin đoàn vào</span>
 						</div>
 					</div>
@@ -38,7 +47,7 @@
 				<div class="row mgn-lr-10">
 					<div class="row">
 						<div zclass="col-md-12">
-							<div class="title-form">
+							<div class="title-form-medium">
 								<span>Thông tin thêm mới</span>
 							</div>
 						</div>
@@ -49,20 +58,20 @@
 								<div class="flex">
 									<x:span class="label-txt-style">Họ và tên<n:small class="required"> *</n:small></x:span>
 								</div>  
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" maxlength="255" class="form-control" value="@bind(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập họ tên.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập họ tên.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="label-txt-style">Chức danh</x:span>  
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" maxlength="255" class="form-control" value="@bind(vm.thanhVienDoanTemp.chucDanh)" placeholder="Nhập chức danh.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.chucDanh)" placeholder="Nhập chức danh.."></textbox>
 							</div>
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="label-txt-style">Đơn vị</x:span> 
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" maxlength="255" class="form-control" value="@bind(vm.thanhVienDoanTemp.donVi)" placeholder="Nhập đơn vị.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.donVi)" placeholder="Nhập đơn vị.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -85,14 +94,14 @@
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="label-txt-style">Email</x:span>  
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control" value="@bind(vm.thanhVienDoanTemp.email) @save(vm.thanhVienDoanTemp.email, before='saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validatorEmail)" placeholder="Nhập email.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.email) @save(vm.thanhVienDoanTemp.email, before='saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validatorEmail)" placeholder="Nhập email.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="label-txt-style">Điện thoại</x:span>  
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control" value="@bind(vm.thanhVienDoanTemp.soDienThoai) @save(vm.thanhVienDoanTemp.soDienThoai, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validateSoDienThoai)" placeholder="Nhập số điện thoại.."></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.soDienThoai) @save(vm.thanhVienDoanTemp.soDienThoai, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validateSoDienThoai)" placeholder="Nhập số điện thoại.."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -121,7 +130,7 @@
 			<div class="mg-and-bg-and-line-fix mg-bottom-15" style="padding-top:0;">
 				<div zclass="row">
 					<div zclass="col-md-12">
-						<div class="title-form">
+						<div class="title-form-medium">
 							<span>Danh sách thành viên đoàn</span>
 						</div>
 					</div>

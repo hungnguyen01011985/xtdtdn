@@ -1,6 +1,6 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="700px"
-		id="wdn" border="normal" title="Nhắc nhở công việc" mode="modal" action="show: slideIn" class="tcx-modal reset-width"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal reset-width"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
 		<zscript>
 		 	<![CDATA[
@@ -13,6 +13,15 @@
 		 </zscript>
 		<div class="w-popup-content-medium">
 			<div class="panel-box">
+				<div class="box-title-and-close">
+					<div style="display:flex">
+						<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
+						<span class="style-title-popup">Nhắc nhở công việc</span>
+					</div>
+					<a onClick="wdn.detach()">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
+					</a>
+				</div>
 				<div zclass="row mg-and-bg-and-line">
 					<div zclass="col-md-12">
 						<div class="mg-bt-15">

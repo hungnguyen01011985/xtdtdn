@@ -18,24 +18,23 @@
 		</div>
 		<div class="panel-box border-box">
 			<div zclass="row mg-top-no-line">	
-					<div zclass="col-md-10">
-						<div zclass="form-group">
-							<x:span class="issue-search">Nhập tên vai trò người dùng</x:span> 
-							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='vaiTroQuery')"
-								 placeholder="Nhập tên vai trò.."></textbox>
-						</div>
+				<div zclass="col-md-10">
+					<div zclass="form-group">
+						<x:span class="issue-search">Nhập tên vai trò người dùng</x:span> 
+						<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='vaiTroQuery')"
+							 placeholder="Nhập tên vai trò.."></textbox>
 					</div>
-					<div zclass="col-md-2">
-						<div zclass="form-group">
-							<x:a class="btn btn-base btn-green mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='vaiTroQuery')">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
-								<span>Tìm kiếm</span>
-							</x:a>
-						</div>
+				</div>
+				<div zclass="col-md-2">
+					<div zclass="form-group">
+						<x:a class="btn btn-base btn-green mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='vaiTroQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+							<span>Tìm kiếm</span>
+						</x:a>
 					</div>
+				</div>
 			</div>
 		</div>
-		
 		<div class="panel-box border-box">
 			<div zclass="row">
 				<div zclass="col-lg-12">
@@ -57,8 +56,8 @@
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.pageSize + vm.arg.page)" style="display:flex; justify-content:center;"></label>
-								<a label="@load(item.tenVaiTro)" zk:if="${entry.quyen.vaitro_xem}"
-									onClick="@command('redirectPageAction', zul='vaitro/show-edit-vai-tro.zul', vmArgs=vm, vm=item, readOnly=true)" class="link-title"/>
+								<label value="@load(item.tenVaiTro)" zk:if="${entry.quyen.vaitro_xem}"
+									onClick="@command('redirectPageAction', zul='vaitro/show-edit-vai-tro.zul', vmArgs=vm, vm=item, readOnly=true)" sclass="txt-link-table"/>
 								<label value="@load(item.ngaySua) @converter('formatedDate',format='dd/MM/YYYY')"></label>
 								<div class="thaotac" style="text-align:center">
 									<x:a label="Sửa" class="btn-thaotac left" zk:if="${entry.nhanVien.quyens eq '[*]'}" onClick="@command('redirectPage', zul='vaitro/show-edit-vai-tro.zul',vmArgs=vm,vm=item)">

@@ -1,6 +1,6 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" class="content-popup"
-		id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" title="${arg.save}"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true"
 		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" width="1000px"
 		whatever="@load(false,after='savePhongBan') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
@@ -11,17 +11,25 @@
 			import java.awt.image.*;
 			BufferedImage imageNull = new BufferedImage(400, 300, BufferedImage.TYPE_INT_ARGB);
 		]]></zscript> 
-			
 		<div class="w-popup-user">
+			<div class="box-title-and-close" style="padding:15px;">
+				<div style="display:flex">
+					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
+					<span class="style-title-popup">${arg.save}</span>
+				</div>
+				<a onClick="wdn.detach()">
+					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
+				</a>
+			</div>
 			<div class="mg-and-bg-and-line flex" style="padding:15px;">
 				<div class="col-md-8">
 					<div class="row">
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="issue-search">Họ và tên<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Họ và tên<n:small class="required"> *</n:small></x:span>
 								</div>
-								<textbox maxlength="255" class="form-control" readonly="${readOnly}" value="@bind(vm.hoVaTen)@save(vm.hoVaTen, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
+								<textbox maxlength="255" class="form-control textbox-txt-style" readonly="${readOnly}" value="@bind(vm.hoVaTen)@save(vm.hoVaTen, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập tên người dùng..."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
@@ -29,7 +37,7 @@
 						<div zclass="col-md-6" >
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="issue-search">Vai trò người dùng<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Vai trò người dùng<n:small class="required"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" width="100%" class="hv-textbox ${!readOnly ? '' : 'input-no-button'}" readonly="true" disabled="${readOnly}"
 									model="@load(entry.vaiTros.vaiTroQuery.fetch())" placeholder="-Chọn-"
@@ -46,7 +54,7 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="issue-search">Phòng ban</x:span>
+									<x:span class="label-txt-style">Phòng ban</x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
 									selectedItem="@bind(vm.phongBan)" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
@@ -59,9 +67,9 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="issue-search">Địa chỉ email<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Địa chỉ email<n:small class="required"> *</n:small></x:span>
 								</div>
-								<textbox class="form-control" readonly="${readOnly}" width="100%" maxlength="255"
+								<textbox class="form-control textbox-txt-style" readonly="${readOnly}" width="100%" maxlength="255"
 									value="@bind(vm.email) @save(vm.email, before={'saveNhanVien'}) @validator(vm.validatorEmail)"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"/>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -71,8 +79,8 @@
 					<div class="row">
 						<div zclass="col-md-12">
 							<div zclass="form-group">
-								<x:span class="issue-search">Số điện thoại</x:span>
-								<textbox class="form-control" readonly="${readOnly}" width="100%" maxlength="11"
+								<x:span class="label-txt-style">Số điện thoại</x:span>
+								<textbox class="form-control textbox-txt-style" readonly="${readOnly}" width="100%" maxlength="11"
 									value="@bind(vm.soDienThoai) @save(vm.soDienThoai, before={'saveNhanVien'}) @validator(vm.validateSoDienThoai)" 
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" >
 								</textbox>
@@ -92,7 +100,7 @@
 							<div zclass="col-md-6">
 								<div zclass="form-group">
 									<div class="flex">
-										<x:span class="issue-search">Mật khẩu<n:small class="required"> *</n:small></x:span>
+										<x:span class="label-txt-style">Mật khẩu<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }" width="100%" type="password" 
 										value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" />
@@ -102,7 +110,7 @@
 							<div zclass="col-md-6">
 								<div zclass="form-group">
 									<div class="flex">
-										<x:span class="issue-search">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
+										<x:span class="label-txt-style">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }" width="100%" type="password"
 										value="@bind(vm.matKhau2) @save(vm.matKhau2, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty', password=vm.matKhauEdit)" />
@@ -117,7 +125,7 @@
 							<div zclass="col-md-6" visible="@load(vm.changePass)">
 								<div zclass="form-group">
 									<div class="flex">
-										<x:span class="issue-search">Mật khẩu mới<n:small class="required"> *</n:small></x:span>
+										<x:span class="label-txt-style">Mật khẩu mới<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }"
 										width="100%" type="password" value="@bind(vm.matKhauUpdate) @save(vm.matKhauUpdate, before='updateNhanVien') @validator(vm.validateMatKhauMoiEdit)"
@@ -128,7 +136,7 @@
 							<div zclass="col-md-6" visible="@load(vm.changePass)">
 								<div zclass="form-group">
 									<div class="flex">
-										<x:span class="issue-search">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
+										<x:span class="label-txt-style">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }"
 										width="100%" type="password" value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='updateNhanVien') @validator(vm.validateMatKhauMoi, pass = vm.matKhauUpdate)"
@@ -141,7 +149,7 @@
 				</div>
 				<div class="col-md-4">
 					<div style="text-align:center;">
-						<x:span class="issue-search">Ảnh đại diện</x:span>
+						<x:span class="label-txt-style">Ảnh đại diện</x:span>
 				    	<div class="form-group" style="margin-top: 5px;">
 				    		<div class="div-image custom-avatar">
 				    			<image id="imageCmp" style="width: 200px; height: 180px;object-fit:cover;border-radius: 50%;"

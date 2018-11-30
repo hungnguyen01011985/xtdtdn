@@ -839,7 +839,10 @@ public class BaseObject<T> extends CoreObject<T> {
 		return false;
 	}
 	
-	public String thoiHanConLai(Date thoiHan) {
+	public String thoiHanConLai(Date thoiHan, TrangThaiGiaoViec trangThai) {
+		if (TrangThaiGiaoViec.HOAN_THANH.equals(trangThai)) {
+			return null;
+		}
 		if (thoiHan.compareTo(resetHourMinuteSecondMilli(new Date())) > 0){
 			StringBuilder txt = new StringBuilder();
 			txt.append("<span class='color-txt-blue'>(Còn ");
