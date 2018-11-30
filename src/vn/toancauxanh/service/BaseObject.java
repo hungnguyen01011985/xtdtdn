@@ -48,8 +48,11 @@ import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QDoanVao;
 import vn.toancauxanh.model.QDuAn;
+import vn.toancauxanh.model.QGiaoViec;
 import vn.toancauxanh.model.QNhanVien;
+import vn.toancauxanh.model.QThanhVienDoan;
 import vn.toancauxanh.model.Setting;
+import vn.toancauxanh.model.ThanhVienDoan;
 
 public class BaseObject<T> extends CoreObject<T> {
 
@@ -192,9 +195,7 @@ public class BaseObject<T> extends CoreObject<T> {
 			url.append(":").append(req.getServerPort()); // app name
 		}
 		try {
-			res.sendRedirect(url + req.getContextPath() + "/login"); // Phan redirect url neu k co user dang nhap va
-																		// dang
-			// xuat
+			res.sendRedirect(url + req.getContextPath() + "/login");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -240,7 +241,7 @@ public class BaseObject<T> extends CoreObject<T> {
 	public void redirectQuanLyDuAn() {
 		Executions.sendRedirect("/cp/quanlyduan");
 	}
-	
+
 	@Command
 	public void redirectQuanLyDoanVao() {
 		Executions.sendRedirect("/cp/quanlydoanvao");
@@ -277,11 +278,12 @@ public class BaseObject<T> extends CoreObject<T> {
 		args.put("readOnly", readOnly);
 		Executions.createComponents(zul, null, args);
 	}
-	
+
 	@Command
 	public void redirectPageActionGiaoViec(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
-			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom, @BindingParam("loaiCongViec") LoaiCongViec loaiCongViec,
-			@BindingParam("readOnly") boolean readOnly, @BindingParam("title") String title) {
+			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom,
+			@BindingParam("loaiCongViec") LoaiCongViec loaiCongViec, @BindingParam("readOnly") boolean readOnly,
+			@BindingParam("title") String title) {
 		Map<String, Object> args = new HashMap<>();
 		args.put("vmArgs", vmArgs);
 		args.put("vm", vm);
@@ -340,14 +342,14 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return list;
 	}
-	
+
 	public Date resetHourMinuteSecondMilli(Date date) {
-		Calendar calendar=Calendar.getInstance();
+		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE,0);
-		calendar.set(Calendar.SECOND,0);
-		calendar.set(Calendar.MILLISECOND,0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
 		return calendar.getTime();
 	}
 
@@ -361,7 +363,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return null;
 	}
-	
+
 	public String subStringThongBaoNoIndex(String text) {
 		StringBuilder builder = new StringBuilder();
 		for (String txt : text.split("@", 0)) {
@@ -369,7 +371,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return builder.toString();
 	}
-	
+
 	public void removeIdInList(GiaoViec giaoViec) {
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.eq(giaoViec.getDuAn()));
 		DuAn duAn = q.fetchFirst();
@@ -377,7 +379,7 @@ public class BaseObject<T> extends CoreObject<T> {
 				duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId() + KY_TU, ""));
 		duAn.saveNotShowNotification();
 	}
-	
+
 	public String removeIdInListDoanVao(GiaoViec giaoViec, NhanVien nguoiCu) {
 		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(giaoViec.getDoanVao()));
 		if (q != null) {
@@ -503,7 +505,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		args.put("content", content);
 		Executions.createComponents("/frontend/common/notification-error.zul", null, args);
 	}
-	
+
 	@Transient
 	public List<QuocGiaEnum> getListQuocGia() {
 		List<QuocGiaEnum> list = new ArrayList<QuocGiaEnum>();
@@ -711,7 +713,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		list.addAll(getListQuocGia());
 		return list;
 	}
-	
+
 	@Transient
 	public List<NhanVien> getListNguoiPhuTrachDoanVaoAndNull() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
@@ -719,7 +721,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		list.addAll(getListNguoiPhuTrach());
 		return list;
 	}
-	
+
 	@Transient
 	public List<NhanVien> getListNguoiPhuTrach() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
@@ -732,12 +734,14 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return list;
 	}
-	
-	public boolean checkEdit(Long idNV, String id, GiaiDoanXucTien giaiDoanXucTien, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
+
+	public boolean checkEdit(Long idNV, String id, GiaiDoanXucTien giaiDoanXucTien, NhanVien nguoiTao,
+			NhanVien nguoiPhuTrach) {
 		if (id == null || idNV == null || id.trim().isEmpty()) {
 			return false;
 		}
-		if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(giaiDoanXucTien) || GiaiDoanXucTien.HOAN_THANH.equals(giaiDoanXucTien)) {
+		if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(giaiDoanXucTien)
+				|| GiaiDoanXucTien.HOAN_THANH.equals(giaiDoanXucTien)) {
 			return false;
 		}
 		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
@@ -745,7 +749,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return subString(id).contains(idNV);
 	}
-	
+
 	public boolean checkNguoiLienQuan(Long idNV, String id, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
 		if (idNV == null) {
 			return false;
@@ -758,18 +762,19 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return false;
 	}
-	
-	public boolean checkNguoiPhuTrach(NhanVien nguoiTao, NhanVien nguoiPhuTrach, Long idNV){
+
+	public boolean checkNguoiPhuTrach(NhanVien nguoiTao, NhanVien nguoiPhuTrach, Long idNV) {
 		if (idNV == null) {
 			return false;
 		}
-		if ((nguoiTao != null && nguoiTao.equals(core().getNhanVien())) || (nguoiPhuTrach != null && nguoiPhuTrach.equals(core().getNhanVien()))) {
+		if ((nguoiTao != null && nguoiTao.equals(core().getNhanVien()))
+				|| (nguoiPhuTrach != null && nguoiPhuTrach.equals(core().getNhanVien()))) {
 			return true;
 		}
 		return false;
 	}
-	
-	public boolean checkOnlyNguoiPhuTrach(NhanVien nguoiPhuTrach, Long idNV){
+
+	public boolean checkOnlyNguoiPhuTrach(NhanVien nguoiPhuTrach, Long idNV) {
 		if (idNV == null) {
 			return false;
 		}
@@ -778,7 +783,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return false;
 	}
-	
+
 	public boolean checkOnlyNguoiLienQuan(Long idNV, String id) {
 		if (idNV == null) {
 			return false;
@@ -788,7 +793,6 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return false;
 	}
-	
 
 	public boolean checkDeleteDoanVao(NhanVien nguoiTao, TrangThaiTiepDoanEnum trangThaiTiepDoan) {
 		if (TrangThaiTiepDoanEnum.DA_TIEP.equals(trangThaiTiepDoan)) {
@@ -799,7 +803,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return false;
 	}
-	
+
 	public List<NhanVien> getListNguoiPhuTrachAndNull() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
 		list.add(null);
@@ -811,7 +815,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return list;
 	}
-	
+
 	public List<GiaiDoanXucTien> getListGiaiDoanXucTienAndNull() {
 		List<GiaiDoanXucTien> list = new ArrayList<>();
 		list.add(null);
@@ -824,14 +828,14 @@ public class BaseObject<T> extends CoreObject<T> {
 		list.add(GiaiDoanXucTien.HOAN_THANH);
 		return list;
 	}
-	
+
 	public boolean checkQuyenBaoCao(TrangThaiGiaoViec trangThai, Long id) {
 		if (TrangThaiGiaoViec.DANG_LAM.equals(trangThai) && core().getNhanVien().getId() == id) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean checkQuyenNhanViec(TrangThaiGiaoViec trangThai, Long id) {
 		if (TrangThaiGiaoViec.CHUA_LAM.equals(trangThai) && core().getNhanVien().getId() == id) {
 			return true;
@@ -855,25 +859,27 @@ public class BaseObject<T> extends CoreObject<T> {
 			return "<span class='color-txt-red'>(Đã quá hạn)</span>";
 		}
 	}
-	
+
 	public List<NhanVien> getListNhanVienTruongPhongAndLanhDaoAndNull() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
 		list.add(null);
-		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)
-				.or(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_LANH_DAO)));
+		JPAQuery<NhanVien> q = find(NhanVien.class)
+				.where(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)
+						.or(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_LANH_DAO)));
 		list.addAll(q.fetch());
 		return list;
 	}
-	
+
 	public List<NhanVien> getListNhanVienTruongPhongAndChuyenVienNull() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
 		list.add(null);
-		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)
-				.or(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN)));
+		JPAQuery<NhanVien> q = find(NhanVien.class)
+				.where(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)
+						.or(QNhanVien.nhanVien.vaiTro.loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN)));
 		list.addAll(q.fetch());
 		return list;
 	}
-	
+
 	public List<LoaiCongViec> getListLoaiCongViec() {
 		List<LoaiCongViec> list = new ArrayList<LoaiCongViec>();
 		list.add(null);
@@ -881,5 +887,17 @@ public class BaseObject<T> extends CoreObject<T> {
 		list.add(LoaiCongViec.DOAN_VAO);
 		return list;
 	}
-	
+
+	@Transient
+	public void xoaCongViecLienQuan(Long id, LoaiCongViec loaiCongViec) {
+		JPAQuery<GiaoViec> q = find(GiaoViec.class);
+		if (LoaiCongViec.DOAN_VAO.equals(loaiCongViec)) {
+			q.where(QGiaoViec.giaoViec.doanVao.id.eq(Long.valueOf(id)));
+			JPAQuery<ThanhVienDoan> query = find(ThanhVienDoan.class).where(QThanhVienDoan.thanhVienDoan.doanVao.id.eq(Long.valueOf(id)));
+			query.fetch().forEach(item -> item.doDelete(true));
+		} else if (LoaiCongViec.DU_AN.equals(loaiCongViec)) {
+			q = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.id.eq(Long.valueOf(id)));
+		}
+		q.fetch().forEach(item -> item.doDelete(true));
+	}
 }

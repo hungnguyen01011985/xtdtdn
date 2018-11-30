@@ -159,11 +159,11 @@
 									<label value="@load(each.email)" style="text-align:left; display: block;"></label>
 									<label value="@load(each.soDienThoai)" style="text-align:left; display: block;"></label>
 									<div class="thaotac" style="text-align:left">
-										<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('editThanhVienDoan', item = each)" if="${!readOnly and vm.checkNguoiPhuTrach(vm.nguoiTao, vm.nguoiPhuTrach, entry.nhanVien.id)}">
+										<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('editThanhVienDoan', item = each)" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
 											<x:image width="20px" class="img-edit" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 											<x:span>Sửa</x:span>
 										</x:a>
-										<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('deleteThanhVienDoan',vm = vm, item = each)" if="${!readOnly and vm.checkNguoiPhuTrach(vm.nguoiTao, vm.nguoiPhuTrach, entry.nhanVien.id)}">
+										<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('deleteThanhVienDoan',vm = vm, item = each)" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
 											<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 											<x:span>Xóa</x:span>
 										</x:a>

@@ -37,7 +37,10 @@ import org.zkoss.zul.Window;
 
 import com.google.common.base.Strings;
 import com.querydsl.core.annotations.QueryInit;
+import com.querydsl.jpa.impl.JPAQuery;
 
+import vn.toancauxanh.gg.model.enums.LoaiCongViec;
+import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.service.BaseObject;
 
 @MappedSuperclass
@@ -139,7 +142,57 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 		}
 
 	}
+	
+	@Command
+	public void deleteObjectAndNotify(final @BindingParam("notify") Object beanObject,
+			final @BindingParam("attr") @Default(value = "*") String attr) {
+		Object obj = this;
+		String tenNhiemVu = "";
+		if (obj instanceof DoanVao) {
+			tenNhiemVu = "đoàn vào" + ((DoanVao) obj).getTenDoanVao();
+		} else if (obj instanceof DuAn) {
+			tenNhiemVu = "dự án " + ((DuAn) obj).getTenDuAn();
+		}
+		tenNhiemVu.concat(" không ?");
+		if (!checkInUse()) {
+			Messagebox.show("Bạn có chắc muốn xóa " + tenNhiemVu, "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+					new EventListener<Event>() {
+						@Override
+						public void onEvent(final Event event) {
+							if (Messagebox.ON_OK.equals(event.getName())) {
+								doDelete(true);
+								showNotification("Xóa thành công!", "", "success");
+								if (obj instanceof DoanVao) {
+									xoaCongViecLienQuan(((DoanVao) obj).getId(), LoaiCongViec.DOAN_VAO);
+									notifyNguoiLienQuan(((DoanVao) obj).getIdNguoiLienQuan(), ((DoanVao) obj).getTenDoanVao());
+								} else if (obj instanceof DuAn) {
+									xoaCongViecLienQuan(((DuAn) obj).getId(), LoaiCongViec.DU_AN);
+									notifyNguoiLienQuan(((DuAn) obj).getIdNguoiLienQuan(), ((DuAn) obj).getTenDuAn());
+								}
+								if (beanObject != null) {
+									BindUtils.postNotifyChange(null, null, beanObject, attr);
+									if (beanObject != Model.this) {
+										BindUtils.postNotifyChange(null, null, Model.this, "*");
+									}
+								}
+							}
+						}
+					});
+		}
 
+	}
+	
+	public void notifyNguoiLienQuan(String idNguoiLienQuan, String tenNhiemVu) {
+		subString(idNguoiLienQuan).stream().distinct().forEach(item -> {
+			JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.id.eq(item));
+			ThongBao thongBao = new ThongBao();
+			thongBao.setNguoiNhan(q.fetchFirst());
+			thongBao.setLoaiThongBao(LoaiThongBao.HUY_CONG_VIEC);
+			thongBao.setNoiDung(tenNhiemVu + "@ đã được huỷ. Bạn không cần thực hiện các công việc liên quan đến @" + tenNhiemVu + "@ nãy nữa.");
+			thongBao.saveNotShowNotification();
+		});
+	}
+	
 	@Command
 	public void deleteTrangThaiConfirmAndNotifyAndCheck(final @BindingParam("notify") Object beanObject,
 			final @BindingParam("attr") @Default(value = "*") String attr, @BindingParam("type") final String type) {

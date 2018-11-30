@@ -118,7 +118,7 @@ public class ProcessService extends BasicService<Object> {
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
 		DuAn duAn = q.fetchFirst();
 		if (duAn.getNguoiPhuTrach().getId() != model.getNguoiPhuTrach().getId()) {
-			thongBao(model, LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, duAn.getNguoiPhuTrach(), null, null);
+			thongBao(model, LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, duAn.getNguoiPhuTrach(), model.getNguoiPhuTrach(), null);
 			duAn.setNguoiPhuTrach(model.getNguoiPhuTrach());
 			thongBao(model, LoaiThongBao.PHU_TRACH_CONG_VIEC, model.getNguoiPhuTrach(), null, null);
 		}
@@ -540,10 +540,10 @@ public class ProcessService extends BasicService<Object> {
 			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của dự án @" + duAn.getTenDuAn());
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
-			thongBao.setNoiDung("Công việc phụ trách của dự án @" + duAn.getTenDuAn() + "@ đã được chuyển cho người khác.");
+			thongBao.setNoiDung("Dự án @" + duAn.getTenDuAn() + "@ mà bạn đang phụ trách được chuyển cho " + nguoiGui.getHoVaTen() + "@ phụ trách.");
 		}
 		if (LoaiThongBao.PHU_TRACH_CONG_VIEC.equals(loaiThongBao)) {
-			thongBao.setNoiDung("Bạn được phân công phụ trách dự án @" + duAn.getTenDuAn());
+			thongBao.setNoiDung("Bạn vừa mới được giao phụ trách dự án @" + duAn.getTenDuAn());
 		}
 		thongBao.setNguoiNhan(nguoiNhan);
 		if (nguoiGui != null) {
