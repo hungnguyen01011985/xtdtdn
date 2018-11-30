@@ -19,7 +19,7 @@
 			</zscript>
 			<div class="row">
 				<div zclass="col-md-4" style="margin-top: 8px;">
-					<div zclass="form-group">
+					<div zclass="form-group txt-textbox-disable">
 						<div class="flex">
 							<x:span class="label-txt-style">Tên hồ sơ số ${forEachStatus.index + 1}</x:span>
 						</div>

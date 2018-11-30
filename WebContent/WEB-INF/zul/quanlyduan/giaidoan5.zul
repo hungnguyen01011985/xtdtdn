@@ -35,7 +35,7 @@
 			<div class="mg-top-no-line">
 				<div class="row">
 					<div zclass="col-md-4">
-						<div zclass="form-group mg-top-8">
+						<div zclass="form-group mg-top-8 txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Tên công ty<n:small class="required"> *</n:small></x:span>
 							</div>
@@ -45,7 +45,7 @@
 						</div>
 					</div>
 					<div zclass="col-md-4">
-						<div zclass="form-group mg-top-8">
+						<div zclass="form-group mg-top-8 txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Người đại diện pháp lý<n:small class="required"> *</n:small></x:span>
 							</div>
@@ -55,7 +55,7 @@
 						</div>
 					</div>
 					<div zclass="col-md-4">
-						<div zclass="form-group mg-top-8">
+						<div zclass="form-group mg-top-8 txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Địa chỉ<n:small class="required"> *</n:small></x:span>
 							</div>
@@ -67,7 +67,7 @@
 				</div>
 				<div class="row">
 					<div zclass="col-md-4">
-						<div zclass="form-group mg-top-8">
+						<div zclass="form-group mg-top-8 txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Số điện thoại<n:small class="required"> *</n:small></x:span>
 							</div>
@@ -77,7 +77,7 @@
 						</div>
 					</div>
 					<div zclass="col-md-4">
-						<div zclass="form-group mg-top-8">
+						<div zclass="form-group mg-top-8 txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Email<n:small class="required"> *</n:small></x:span>
 							</div>

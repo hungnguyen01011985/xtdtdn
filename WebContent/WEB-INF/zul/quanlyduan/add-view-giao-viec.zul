@@ -1,17 +1,26 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="800px"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
-		closable="true" title="${arg.title}">
+		closable="true">
 		<zscript><![CDATA[
 			    vn.toancauxanh.model.DuAn duAnGiaoViec = arg.get("model");
 			    duAnGiaoViec.setGiaoViec(new vn.toancauxanh.model.GiaoViec());
 				vmArgs = arg.get("vmArgs");
 		]]></zscript> 
 		<div class="w-popup-content-medium" style="margin:0 15px;" viewModel="@id('vm') @init(duAnGiaoViec)" validationMessages="@id('vmsgs')">
-			<div class="mg-and-bg-and-line mg-bottom-5">
+			<div class="box-title-and-close">
+				<div style="display:flex">
+					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
+					<span class="style-title-popup">${arg.title}</span>
+				</div>
+				<a onClick="wdn.detach()">
+					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
+				</a>
+			</div>
+			<div class="mg-and-bg-and-line-fix mg-bottom-5">
 				<div class="row">
 					<div zclass="col-md-6">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Tên dự án</x:span>
 							</div>
@@ -20,7 +29,7 @@
 						</div>
 					</div>
 					<div zclass="col-md-6">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Giai đoạn</x:span>
 							</div>
@@ -31,7 +40,7 @@
 				</div>
 				<div class="row">
 					<div zclass="col-md-6">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Người giao</x:span>
 							</div>

@@ -65,7 +65,7 @@
 			<div zclass="mg-and-bg-and-line" style="padding: 15px 22px 0 22px;">
 				<div class="row">
 					<div zclass="col-md-12">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Tên dự án</x:span>
 							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.tenDuAn) @save(vm.tenDuAn, before={'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" 
 								placeholder="Nhập tên dự án"/>
@@ -77,7 +77,7 @@
 			<div class="content-tab-panel1" style="${giaiDoanNam eq vm.giaiDoanXucTien ? 'max-height:600px;' : ''}">
 				<div class="row">
 					<div zclass="col-md-3">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Người phụ trách</x:span> 
 							<textbox class="form-control textbox-txt-style" disabled="true" value="@bind(vm.nguoiPhuTrach.hoVaTen)"/>
 						</div>
@@ -85,7 +85,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<x:span class="label-txt-style">Ngày bắt đầu xúc tiến</x:span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
+							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8 txt-textbox-disable" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
 						</div>
 					</div>
 					<div zclass="col-md-3">
@@ -102,7 +102,7 @@
 						</div>
 					</div>
 					<div zclass="col-md-3">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Địa điểm</x:span>
 							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.diaDiem) @save(vm.diaDiem, before={'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" 
 								placeholder="Nhập địa điểm"></textbox>
@@ -112,7 +112,7 @@
 				</div>
 				<div class="row">
 					<div zclass="col-md-3">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Quy mô dự án</x:span>
 							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.quyMoDuAn) @save(vm.quyMoDuAn, before={'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" 
 								placeholder="Nhập quy mô dự án"></textbox>
@@ -120,7 +120,7 @@
 						</div>
 					</div>
 					<div zclass="col-md-3">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Tổng vốn đầu tư(USD)</x:span>
 							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8"
 								width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goKetThuc'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư', type = true)" />
@@ -130,7 +130,7 @@
 				</div>
 				<div class="row">
 					<div zclass="col-md-12">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Mục tiêu dự án</x:span>
 							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" rows="3" placeholder="Nhập mục tiêu dự án" 
 								value="@bind(vm.mucTieuDuAn) @save(vm.mucTieuDuAn, before={'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
@@ -140,7 +140,7 @@
 				</div>
 				<div class="row">
 					<div zclass="col-md-3">
-						<div zclass="form-group">
+						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Diện tích sử dụng đất(ha)</x:span>
 							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8" 
 								width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goKetThuc'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất', type = true)" />

@@ -55,11 +55,11 @@
 				<div class="mg-and-bg-and-line-fix mg-bottom-5">
 					<div class="row">
 						<div zclass="col-md-9">
-							<div zclass="form-group">
+							<div zclass="form-group txt-textbox-disable">
 								<div class="flex">
 									<x:span class="label-txt-style">Tên đoàn<n:small class="required"> *</n:small></x:span>
 								</div>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" id="ten" class="form-control" placeholder="Nhập tên đoàn.." maxlength="255"
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" id="ten" class="form-control textbox-txt-style" placeholder="Nhập tên đoàn.." maxlength="255"
 								value="@bind(vm.tenDoanVao) @save(vm.tenDoanVao, before='saveDoanVao') @validator(vm.validatorTenDoan)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
@@ -81,18 +81,18 @@
 					</div>
 					<div class="row">
 						<div zclass="col-md-3">
-							<div zclass="form-group">
+							<div zclass="form-group txt-textbox-disable">
 								<div class="flex">
 									<x:span class="label-txt-style">Số người</x:span>
 								</div>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control" placeholder="0" value="@bind(vm.soNguoi) @save(vm.soNguoi, before='saveDoanVao') @validator(vm.validatorSoNguoi)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" placeholder="0" value="@bind(vm.soNguoi) @save(vm.soNguoi, before='saveDoanVao') @validator(vm.validatorSoNguoi)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-3">
 							<div zclass="form-group">
 								<x:span class="label-txt-style">Thời gian đến làm việc<n:small class="required"> *</n:small></x:span>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" format="dd/MM/yyyy" class="hv-db ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(vm.thoiGianDenLamViec)" width="100%"/>
+								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" format="dd/MM/yyyy" class="txt-textbox-disable hv-db ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(vm.thoiGianDenLamViec)" width="100%"/>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -112,11 +112,11 @@
 							</div>
 						</div>
 						<div zclass="col-md-3">
-							<div zclass="form-group">
+							<div zclass="form-group txt-textbox-disable">
 								<div class="flex">
 									<x:span class="label-txt-style">Nơi đoàn đi thăm<n:small class="required"> *</n:small></x:span> 
 								</div>
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control" maxlength="255" value="@bind(vm.noiDoanDiTham) @save(vm.noiDoanDiTham, before='saveDoanVao') @validator(vm.validatorNoiDoanDiTham)" placeholder="Nhập nơi đi thăm..." onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.noiDoanDiTham) @save(vm.noiDoanDiTham, before='saveDoanVao') @validator(vm.validatorNoiDoanDiTham)" placeholder="Nhập nơi đi thăm..." onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -167,33 +167,33 @@
 					</div>
 					<div class="row">
 						<div zclass="col-md-12">
-							<div zclass="form-group">
+							<div zclass="form-group txt-textbox-disable">
 								<div class="flex">
 									<x:span class="label-txt-style">Tóm tắt nội dung - KQ tiếp đoàn</x:span> 
 								</div>
-								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control" maxlength="255" value="@bind(vm.tomTatNoiDungKQ)" placeholder="Nhập nội dung tóm tắt..."></textbox>
+								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.tomTatNoiDungKQ)" placeholder="Nhập nội dung tóm tắt..."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div zclass="col-md-12">
-							<div zclass="form-group">
+							<div zclass="form-group txt-textbox-disable">
 								<div class="flex">
 									<x:span class="label-txt-style">Đề xuất của CV phụ trách</x:span> 
 								</div>
-								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control" maxlength="255" value="@bind(vm.deXuatCVPhuTrach)" placeholder="Nhập đề xuất..."></textbox>
+								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.deXuatCVPhuTrach)" placeholder="Nhập đề xuất..."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div zclass="col-md-12">
-							<div zclass="form-group">
+							<div zclass="form-group txt-textbox-disable">
 								<div class="flex">
 									<x:span class="label-txt-style">Ý kiến chỉ đạo</x:span> 
 								</div>
-								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control" maxlength="255" value="@bind(vm.yKienChiDao)" placeholder="Nhập ý kiến chỉ đạo..."></textbox>
+								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.yKienChiDao)" placeholder="Nhập ý kiến chỉ đạo..."></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>

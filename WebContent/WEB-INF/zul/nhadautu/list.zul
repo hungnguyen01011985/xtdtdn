@@ -60,8 +60,8 @@
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
-								<a label="@load(item.tenNhaDauTu)" zk:if="${entry.quyen.nhadautu_xem}"
-									onClick="@command('redirectPageAction', zul='nhadautu/show-edit.zul', vmArgs=vm, vm=item, readOnly=true)" class="link-title"/>
+								<label value="@load(item.tenNhaDauTu)" zk:if="${entry.quyen.nhadautu_xem}"
+									onClick="@command('redirectPageAction', zul='nhadautu/show-edit.zul', vmArgs=vm, vm=item, readOnly=true)" sclass="txt-link-table"/>
 								<label value="@load(item.nguoiDaiDienPhapLy)"></label>
 								<label value="@load(item.diaChi)"></label>
 								<label value="@load(item.soDienThoai)"></label>

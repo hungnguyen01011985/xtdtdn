@@ -25,10 +25,6 @@ import vn.toancauxanh.model.ThongBao;
 
 public class GiaoViecService extends BasicService<GiaoViec> implements Serializable{
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6984673095113713236L;
 	private Set<GiaoViec> selectItems = new HashSet<>();
 	
