@@ -967,15 +967,12 @@
 	max-height: 263px;
 }
 .content-tab-panel1{
-	transition: height .5s ease;
-	height: 0px;
+	transition: max-height .5s ease;
+	max-height: 0px;
     overflow: hidden;
     padding:0 22px;
 }
-.content-tab-panel1 .col-md-3{
-	
-	
-}
+
 .title-form-duan{
 	padding: 15px 15px;
 }
