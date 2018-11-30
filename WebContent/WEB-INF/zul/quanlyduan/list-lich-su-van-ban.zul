@@ -12,7 +12,7 @@
 			<div class="panel-box">
 				<div class="box-title-and-close">
 					<div style="display:flex">
-						<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/danh-sach-popup.svg"/>
+						<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/lich-su-popup.svg"/>
 						<span class="style-title-popup">Lịch sử văn bản</span>
 					</div>
 					<a onClick="wdn.detach()">

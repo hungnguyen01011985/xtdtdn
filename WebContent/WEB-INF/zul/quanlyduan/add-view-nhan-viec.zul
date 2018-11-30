@@ -10,7 +10,7 @@
 		<div class="w-popup-content-medium" style="margin:0 15px;">
 			<div class="box-title-and-close">
 				<div style="display:flex">
-					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
+					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/nhan-viec-popup.svg"/>
 					<span class="style-title-popup">${arg.title}</span>
 				</div>
 				<a onClick="wdn.detach()">

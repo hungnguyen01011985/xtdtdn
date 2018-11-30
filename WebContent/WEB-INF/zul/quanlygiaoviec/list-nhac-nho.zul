@@ -15,7 +15,7 @@
 			<div class="panel-box">
 				<div class="box-title-and-close">
 					<div style="display:flex">
-						<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
+						<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/chi-tiet-popup.svg"/>
 						<span class="style-title-popup">Nhắc nhở công việc</span>
 					</div>
 					<a onClick="wdn.detach()">

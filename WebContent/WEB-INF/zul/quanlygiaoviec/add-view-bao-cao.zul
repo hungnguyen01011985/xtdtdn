@@ -7,6 +7,7 @@
 			vmArgs = arg.get("vmArgs");
 			readOnly = arg.get("readOnly");
 			action = arg.get("action");
+			view = arg.get("view");
 			loaiCongViec = arg.get("loaiCongViec");
 			duAnCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DU_AN;
 			doanVaoCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DOAN_VAO;
@@ -14,7 +15,9 @@
 		<div class="w-popup-content-medium" style="margin:0 15px;">
 			<div class="box-title-and-close">
 				<div style="display:flex">
-					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
+					<x:image if="${!readOnly and view}" class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/chi-tiet-popup.svg"/>
+					<x:image if="${readOnly and action}" class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
+					<x:image if="${!readOnly and !action and !view}" class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/nhan-viec-popup.svg"/>
 					<span class="style-title-popup">${arg.title}</span>
 				</div>
 				<a onClick="wdn.detach()">
@@ -62,11 +65,18 @@
 						</div>
 					</div>
 					<div zclass="col-md-6">
-						<div zclass="form-group txt-textbox-disable">
+						<div zclass="form-group txt-textbox-disable" if="${duAnCV eq loaiCongViec}">
 							<div class="flex">
 								<x:span class="label-txt-style">Người được giao</x:span>
 							</div>
 							<textbox class="form-control" value="@load(vm.duAn.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+						<div zclass="form-group txt-textbox-disable" if="${duAnCV ne loaiCongViec}">
+							<div class="flex">
+								<x:span class="label-txt-style">Người được giao</x:span>
+							</div>
+							<textbox class="form-control" value="@load(vm.doanVao.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
