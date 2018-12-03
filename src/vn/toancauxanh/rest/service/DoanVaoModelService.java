@@ -1,6 +1,5 @@
 package vn.toancauxanh.rest.service;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +42,7 @@ public class DoanVaoModelService {
 		return rs;
 	}
 
-	public Optional<DoanVao> getById(Long id) {
-		System.out.println(doanVaoRepository.getById(id).toString());
+	public DoanVao getById(Long id) {
 		return doanVaoRepository.getById(id);
 	}
 
