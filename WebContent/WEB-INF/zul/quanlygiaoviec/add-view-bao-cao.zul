@@ -141,7 +141,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="mg-and-bg-and-line-fix" if="${action}">
+			<div class="mg-and-bg-and-line-fix" if="${action ne false}">
 				<div class="row">
 					<div zclass="col-md-6">
 						<div zclass="form-group">
@@ -224,7 +224,7 @@
 							</x:button>
 						</div>
 					</div>
-					<div zclass="col-xs-6" if="${!action}">
+					<div zclass="col-xs-6" if="${action eq false}">
 						<div zclass="form-group right">
 							<x:button  class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveNhanViec', wdn=wdn, item = vm, vm=vmArgs, attr = 'targetQuerry')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
