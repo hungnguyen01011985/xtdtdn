@@ -42,7 +42,9 @@ public class GiaoViec extends Model<GiaoViec> {
 	private String tenCongViec;
 	@Lob
 	private String yKienChiDao;
+	@Lob
 	private String ketQua;
+	@Lob
 	private String ghiChu;
 	private NhanVien nguoiGiaoViec = new NhanVien();
 	private NhanVien nguoiDuocGiao = new NhanVien();
