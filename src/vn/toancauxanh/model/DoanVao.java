@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -218,6 +219,7 @@ public class DoanVao extends Model<DoanVao> {
 					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
+					System.out.println("File lưu vào database: " + tepTin.getPathFile());
 					tepTin.setMedia(media);
 					this.getTepTins().add(tepTin);
 					this.getTepTins().forEach(obj -> {
@@ -301,7 +303,7 @@ public class DoanVao extends Model<DoanVao> {
 		if (listXoaThanhVienDoan != null && !listXoaThanhVienDoan.isEmpty()) {
 			listXoaThanhVienDoan.forEach(item -> {
 				item.setDoanVao(this);
-				item.setDaXoa(true);
+				item.doDelete(true);
 				item.saveNotShowNotification();
 			});
 		}
@@ -569,13 +571,16 @@ public class DoanVao extends Model<DoanVao> {
 	@Transient
 	public List<ThanhVienDoan> getListThanhVienDoan() {
 		if (!bind) {
+			System.out.println("thêm mới");
 			listThanhVienDoan.addAll(getListThanhVienTheoDoan());
 			soThanhVienDoan = listThanhVienDoan.size();
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 			bind = true;
 		} else {
+			System.out.println("chỉnh sửa nefff");
 			listThanhVienDoan.addAll(getListTaoMoiThanhVienDoanLuuTam());
 			listTaoMoiThanhVienDoanLuuTam.removeAll(getListTaoMoiThanhVienDoanLuuTam());
+			Collections.reverse(listThanhVienDoan);
 			soThanhVienDoan = listThanhVienDoan.size();
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 		}
