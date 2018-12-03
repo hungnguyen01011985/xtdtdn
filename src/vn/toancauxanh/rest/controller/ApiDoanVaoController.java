@@ -21,7 +21,7 @@ public class ApiDoanVaoController {
 
 	@Autowired
 	private DoanVaoModelService doanVaoModelService;
-
+	
 	@GetMapping
 	public ResponseEntity<PagingObject<DoanVaoModel>> doanVaos(Pageable pageable,
 			@RequestParam(required = false, defaultValue = "") String keyWord) {
@@ -31,10 +31,10 @@ public class ApiDoanVaoController {
 	@GetMapping("/{id}")
 	public ResponseEntity<DoanVaoModel> show(@PathVariable("id") Long id) {
 		if (id == null) {
-			System.out.println("zô đâyy");
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 		DoanVaoModel doanVao = doanVaoModelService.getById(id).toDoanVaoModel();
 		return new ResponseEntity<>(doanVao, HttpStatus.OK);
 	}
+	
 }

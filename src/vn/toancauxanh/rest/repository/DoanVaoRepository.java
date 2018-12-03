@@ -9,4 +9,5 @@ import vn.toancauxanh.model.DoanVao;
 public interface DoanVaoRepository extends JpaRepository<DoanVao, Long>, QueryDslPredicateExecutor<DoanVao> {
 	@Query("select dv from DoanVao dv where dv.daXoa = false and dv.id = ?1")
 	DoanVao getById(Long id);
+	
 }

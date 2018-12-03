@@ -45,5 +45,5 @@ public class DoanVaoModelService {
 	public DoanVao getById(Long id) {
 		return doanVaoRepository.getById(id);
 	}
-
+	
 }
