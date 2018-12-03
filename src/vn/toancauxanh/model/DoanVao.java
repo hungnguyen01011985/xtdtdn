@@ -5,7 +5,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -571,16 +570,13 @@ public class DoanVao extends Model<DoanVao> {
 	@Transient
 	public List<ThanhVienDoan> getListThanhVienDoan() {
 		if (!bind) {
-			System.out.println("thêm mới");
 			listThanhVienDoan.addAll(getListThanhVienTheoDoan());
 			soThanhVienDoan = listThanhVienDoan.size();
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 			bind = true;
 		} else {
-			System.out.println("chỉnh sửa nefff");
-			listThanhVienDoan.addAll(getListTaoMoiThanhVienDoanLuuTam());
+			listTaoMoiThanhVienDoanLuuTam.forEach(item -> listThanhVienDoan.add(0, item));
 			listTaoMoiThanhVienDoanLuuTam.removeAll(getListTaoMoiThanhVienDoanLuuTam());
-			Collections.reverse(listThanhVienDoan);
 			soThanhVienDoan = listThanhVienDoan.size();
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 		}
@@ -634,12 +630,12 @@ public class DoanVao extends Model<DoanVao> {
 	@Command
 	public void saveThanhVienDoan() {
 		if (flag) {
+			listThanhVienDoan.set(index, thanhVienDoanTemp);
 			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
 			flag = false;
 			BindUtils.postNotifyChange(null, null, this, "flag");
 		} else {
-			List<ThanhVienDoan> listThanhVienDoan = getListTaoMoiThanhVienDoanLuuTam();
-			listThanhVienDoan.add(this.getThanhVienDoanTemp());
+			listTaoMoiThanhVienDoanLuuTam.add(this.getThanhVienDoanTemp());
 			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
 		}
 		reset();
@@ -694,10 +690,18 @@ public class DoanVao extends Model<DoanVao> {
 			Clients.evalJavaScript("getFocus()");
 		}
 	}
+	
+	private int index = 0;
 
 	@Command
-	public void editThanhVienDoan(@BindingParam("item") ThanhVienDoan thanhVienDoan) {
-		thanhVienDoanTemp = thanhVienDoan;
+	public void editThanhVienDoan(@BindingParam("item") ThanhVienDoan thanhVienDoan, @BindingParam("index") int index) {
+		this.index = index;
+		thanhVienDoanTemp.setHoVaTen(thanhVienDoan.getHoVaTen());
+		thanhVienDoanTemp.setChucDanh(thanhVienDoan.getChucDanh());
+		thanhVienDoanTemp.setDonVi(thanhVienDoan.getDonVi());
+		thanhVienDoanTemp.setQuocGia(thanhVienDoan.getQuocGia());
+		thanhVienDoanTemp.setEmail(thanhVienDoan.getEmail());
+		thanhVienDoanTemp.setSoDienThoai(thanhVienDoan.getSoDienThoai());
 		flag = true;
 		BindUtils.postNotifyChange(null, null, this, "flag");
 		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
