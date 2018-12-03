@@ -37,8 +37,10 @@ import org.zkoss.zul.Window;
 
 import com.google.common.base.Strings;
 import com.querydsl.core.annotations.QueryInit;
+import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
+import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.service.BaseObject;
 
 @MappedSuperclass
@@ -145,8 +147,15 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 	public void deleteObjectAndNotify(final @BindingParam("notify") Object beanObject,
 			final @BindingParam("attr") @Default(value = "*") String attr) {
 		Object obj = this;
+		String tenNhiemVu = "";
+		if (obj instanceof DoanVao) {
+			tenNhiemVu = "đoàn vào" + ((DoanVao) obj).getTenDoanVao();
+		} else {
+			tenNhiemVu = "dự án " + ((DuAn) obj).getTenDuAn();
+		}
+		tenNhiemVu.concat(" không ?");
 		if (!checkInUse()) {
-			Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+			Messagebox.show("Bạn có chắc muốn xóa " + tenNhiemVu, "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
 					new EventListener<Event>() {
 						@Override
 						public void onEvent(final Event event) {
@@ -155,8 +164,10 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 								showNotification("Xóa thành công!", "", "success");
 								if (obj instanceof DoanVao) {
 									xoaCongViecLienQuan(((DoanVao) obj).getId(), LoaiCongViec.DOAN_VAO);
-								} if (obj instanceof DuAn) {
+									notifyNguoiLienQuan(((DoanVao) obj).getIdNguoiLienQuan(), ((DoanVao) obj).getTenDoanVao());
+								} else if (obj instanceof DuAn) {
 									xoaCongViecLienQuan(((DuAn) obj).getId(), LoaiCongViec.DU_AN);
+									notifyNguoiLienQuan(((DuAn) obj).getIdNguoiLienQuan(), ((DuAn) obj).getTenDuAn());
 								}
 								if (beanObject != null) {
 									BindUtils.postNotifyChange(null, null, beanObject, attr);
@@ -170,7 +181,19 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 		}
 
 	}
-
+	
+	public void notifyNguoiLienQuan(String idNguoiLienQuan, String tenNhiemVu) {
+		subString(idNguoiLienQuan).stream().distinct().forEach(item -> {
+			ThongBao thongBao = new ThongBao();
+			NhanVien nV = new NhanVien();
+			nV.setId(item);
+			thongBao.setNguoiNhan(nV);
+			thongBao.setLoaiThongBao(LoaiThongBao.HUY_CONG_VIEC);
+			thongBao.setNoiDung(tenNhiemVu + "@ đã được huỷ. Bạn không cần thực hiện các công việc liên quan đến @" + tenNhiemVu + "@ nãy nữa.");
+			thongBao.saveNotShowNotification();
+		});
+	}
+	
 	@Command
 	public void deleteTrangThaiConfirmAndNotifyAndCheck(final @BindingParam("notify") Object beanObject,
 			final @BindingParam("attr") @Default(value = "*") String attr, @BindingParam("type") final String type) {

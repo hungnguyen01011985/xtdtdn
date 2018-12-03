@@ -34,6 +34,8 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.KhaNangDauTu;
 import vn.toancauxanh.gg.model.enums.MucDoUuTien;
@@ -627,6 +629,14 @@ public class DuAn extends Model<DuAn> {
 	@Command
 	public void saveThongTinDuAn(){
 		this.getTaiLieuNDT().saveNotShowNotification();
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(this.getId()));
+		if (!q.fetchFirst().getTenDuAn().equals(this.getTenDuAn())) {
+			JPAQuery<GiaoViec> q1 = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.id.eq(this.getId()));
+			q1.fetch().forEach(item -> {
+				item.setTenNhiemVu(this.getTenDuAn());
+				item.saveNotShowNotification();
+			});
+		}
 		this.save();
 		BindUtils.postNotifyChange(null, null, this, "taiLieuNDT");
 	}
@@ -789,5 +799,5 @@ public class DuAn extends Model<DuAn> {
 		}
 		Executions.getCurrent().sendRedirect(href, "_blank");
 	}
-
+	
 }

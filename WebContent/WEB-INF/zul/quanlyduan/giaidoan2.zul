@@ -147,7 +147,7 @@
 			</div>
 		</div>
 		<include src="quanlyduan/view-list-tep-tins.zul"></include>
-		<div class="mg-and-bg-and-line">
+		<div class="mg-and-bg-and-line-fix">
 			<div class="row">
 				<div zclass="form-group left-mg flex">
 					<x:button  class="btn bg-btn-dong btn-grey" onClick="@command('redirectQuanLyDuAn')">
