@@ -184,9 +184,10 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 	
 	public void notifyNguoiLienQuan(String idNguoiLienQuan, String tenNhiemVu) {
 		subString(idNguoiLienQuan).stream().distinct().forEach(item -> {
-			JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.id.eq(item));
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNguoiNhan(q.fetchFirst());
+			NhanVien nV = new NhanVien();
+			nV.setId(item);
+			thongBao.setNguoiNhan(nV);
 			thongBao.setLoaiThongBao(LoaiThongBao.HUY_CONG_VIEC);
 			thongBao.setNoiDung(tenNhiemVu + "@ đã được huỷ. Bạn không cần thực hiện các công việc liên quan đến @" + tenNhiemVu + "@ nãy nữa.");
 			thongBao.saveNotShowNotification();

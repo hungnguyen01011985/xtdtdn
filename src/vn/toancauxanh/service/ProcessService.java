@@ -61,6 +61,7 @@ public class ProcessService extends BasicService<Object> {
 			model.getGiaoViec().getTaiLieu().saveNotShowNotification();
 		}
 		model.getGiaoViec().setLoaiCongViec(LoaiCongViec.DU_AN);
+		model.getGiaoViec().setTenNhiemVu(model.getTenDuAn());
 		model.getGiaoViec().saveNotShowNotification();
 		thongBao(model, LoaiThongBao.CONG_VIEC_MOI, model.getGiaoViec().getNguoiDuocGiao(), model.getGiaoViec().getNguoiGiaoViec(), model.getGiaoViec().getTenCongViec());
 		((ExecutionEntity) execution).setVariable("duAnId", model.getId());
@@ -138,6 +139,7 @@ public class ProcessService extends BasicService<Object> {
 		giaoViec.setDuAn(duAn);
 		giaoViec.setGiaiDoanXucTien(duAn.getGiaiDoanXucTien());
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
+		giaoViec.setTenNhiemVu(duAn.getTenDuAn());
 		if (giaoViec.getTaiLieu().getNameHash() == null) {
 			giaoViec.setTaiLieu(null);
 		} else {
@@ -376,6 +378,7 @@ public class ProcessService extends BasicService<Object> {
 	
 	public void luuDuLieuAndRedirect(Execution execution, GiaiDoanXucTien giaiDoanXucTien, String thoiHan, DuAn duAn, String thoiHanOld) {
 		luuTaiLieuDuAnAndCheck(duAn);
+		editTenNhiemVuCongViec(duAn);
 		duAn.saveNotShowNotification();
 		duAn.getGiaiDoanDuAn().setDuAn(duAn);
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoanXucTien);
@@ -409,6 +412,17 @@ public class ProcessService extends BasicService<Object> {
 		redirectGiaiDoanDuAnById(duAn.getId());
 		showNotification("", "Cập nhật thành công", "success");
 	}
+	
+	public void editTenNhiemVuCongViec(DuAn model) {
+		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(model.getId()));
+		if (!q.fetchFirst().getTenDuAn().equals(model.getTenDuAn())) {
+			JPAQuery<GiaoViec> q1 = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.id.eq(model.getId()));
+			q1.fetch().forEach(item -> {
+				item.setTenNhiemVu(model.getTenDuAn());
+				item.saveNotShowNotification();
+			});
+		}
+	}
 
 	public void luuTaiLieuKhac(GiaiDoanDuAn giaiDoan, boolean luuLichSu) {
 		giaiDoan.getTepTins().forEach(item -> {
@@ -426,6 +440,7 @@ public class ProcessService extends BasicService<Object> {
 		luuTaiLieuDuAnAndCheck(model);
 		removeGiaiDoanOld(model.getId());
 		model.setGiaiDoanXucTien(giaiDoanXucTien);
+		editTenNhiemVuCongViec(model);
 		model.saveNotShowNotification();
 		model.getGiaiDoanDuAn().setDuAn(model);
 		model.getGiaiDoanDuAn().setGiaiDoanXucTien(giaiDoan);
