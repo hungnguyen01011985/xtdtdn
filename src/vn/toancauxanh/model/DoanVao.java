@@ -304,10 +304,10 @@ public class DoanVao extends Model<DoanVao> {
 				item.saveNotShowNotification();
 			});
 		}
-
+		
 		if (listGiaoViec != null && !listGiaoViec.isEmpty()) {
 			for (GiaoViec congViec : listGiaoViec) {
-				/*congViec.setTenNhiemVu(this.getTenDoanVao());*/
+				congViec.setTenNhiemVu(this.getTenDoanVao());
 				checkCongViec(congViec);
 				if (checkNotAllNull && checkAllNull) {
 					checkGiaoViec(congViec);
