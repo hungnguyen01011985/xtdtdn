@@ -25,10 +25,6 @@ import vn.toancauxanh.model.ThongBao;
 
 public class GiaoViecService extends BasicService<GiaoViec> implements Serializable{
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6984673095113713236L;
 	private Set<GiaoViec> selectItems = new HashSet<>();
 	
@@ -43,7 +39,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		}
 		if (param != null && !param.isEmpty()) {
 			String tuKhoa = "%" + param + "%";
-			q.where(QGiaoViec.giaoViec.tenCongViec.like(tuKhoa).orAllOf(QGiaoViec.giaoViec.duAn.tenDuAn.like(tuKhoa)));
+			q.where(QGiaoViec.giaoViec.tenCongViec.like(tuKhoa).orAllOf(QGiaoViec.giaoViec.tenNhiemVu.like(tuKhoa)));
 		}
 		if (loaiCongViec != null) {
 			q.where(QGiaoViec.giaoViec.loaiCongViec.eq(LoaiCongViec.valueOf(loaiCongViec)));
@@ -82,7 +78,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 			q.where(QGiaoViec.giaoViec.trangThaiGiaoViec.eq(TrangThaiGiaoViec.valueOf(trangThai)));
 		}
 		q.orderBy(QGiaoViec.giaoViec.ngaySua.desc());
-		q.setHint("org.hibernate.cacheable", false);
+		/*q.setHint("org.hibernate.cacheable", false);*/
 		return q;
 	}
 	
@@ -104,13 +100,22 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 			showNotification("", "Bạn chưa chọn công việc nào", "danger");
 		} else {
 			selectItems.forEach(item -> {
+				String tenNhiemVu;
+				Long id;
+				if (item.getDoanVao() != null) {
+					tenNhiemVu = item.getDoanVao().getTenDoanVao();
+					id = item.getDoanVao().getId();
+				} else {
+					tenNhiemVu = item.getDuAn().getTenDuAn();
+					id = item.getDuAn().getId();
+				}
 				ThongBao thongBao = new ThongBao();
 				thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @"
-						+ item.getTenCongViec() + "@ của dự án @" + item.getDuAn().getTenDuAn()
+						+ item.getTenCongViec() + "@ của dự án @" + tenNhiemVu
 						+ "@. Hãy hoàn thành công việc.");
 				thongBao.setNguoiGui(core().getNhanVien());
 				thongBao.setNguoiNhan(item.getNguoiDuocGiao());
-				thongBao.setIdObject(item.getDuAn().getId());
+				thongBao.setIdObject(id);
 				thongBao.setLoaiThongBao(LoaiThongBao.NHAC_NHO_CONG_VIEC);
 				thongBao.saveNotShowNotification();
 			});
