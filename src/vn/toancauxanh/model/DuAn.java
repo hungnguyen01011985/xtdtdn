@@ -789,5 +789,5 @@ public class DuAn extends Model<DuAn> {
 		}
 		Executions.getCurrent().sendRedirect(href, "_blank");
 	}
-
+	
 }
