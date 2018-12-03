@@ -4,9 +4,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.annotation.Nullable;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.zkoss.util.resource.Labels;
+
+import vn.toancauxanh.model.NhanVien;
 
 public class BasicService<T> extends BaseObject<T> {
 
@@ -61,5 +69,51 @@ public class BasicService<T> extends BaseObject<T> {
 			fixDenNgay = cal.getTime();
 		}
 		return fixDenNgay;
+	}
+	
+	public NhanVien getNhanVien(boolean isSave, boolean toLoginIfNull, HttpServletRequest req, HttpServletResponse res) {
+		NhanVien nhanVien = null;
+		String key = getClass() + "." + NhanVien.class;
+		nhanVien = (NhanVien) req.getAttribute(key);
+		if (nhanVien == null || nhanVien.noId()) {
+			Object token = null;
+			Cookie[] cookies = req.getCookies();
+			if (cookies != null) {
+				for (Cookie c : cookies) {
+					if ("email".equals(c.getName())) {
+						token = c.getValue();
+						break;
+					}
+				}
+			}
+			if (token == null) {
+				HttpSession ses = req.getSession();
+				token = ses.getAttribute("email");
+			}
+			if (token != null) {
+				String[] parts = new String(Base64.decodeBase64(token.toString())).split(":");
+				NhanVien nhanVienLogin = em().find(NhanVien.class, NumberUtils.toLong(parts[0], 0));
+				if (parts.length == 3 && nhanVienLogin != null) {
+					long expire = NumberUtils.toLong(parts[1], 0);
+					if (expire > System.currentTimeMillis() && token.equals(nhanVienLogin.getCookieToken(expire))) {
+						nhanVien = nhanVienLogin;
+					}
+				}
+			}
+			if (!isSave && (nhanVien == null)) {
+				if (nhanVien == null) {
+					bootstrapNhanVien();
+				}
+				nhanVien = new NhanVien();
+				if (token != null) {
+					req.getSession().removeAttribute("email");
+				}
+				if(toLoginIfNull) {
+					redirectLogin(req, res);
+				}
+			}
+			req.setAttribute(key, nhanVien);
+		}
+		return isSave && nhanVien != null && nhanVien.noId() ? null : nhanVien;
 	}
 }

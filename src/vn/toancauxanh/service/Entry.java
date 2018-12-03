@@ -2,7 +2,10 @@
 package vn.toancauxanh.service;
 
 import java.io.File;
+import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.camunda.bpm.engine.ProcessEngine;
@@ -15,6 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -360,6 +365,28 @@ public class Entry extends BaseObject<Object> {
 	public String xemChiTiet(@PathVariable Long id) {
 		return "forward:/WEB-INF/zul/home.zul?resource=quanlyduan&action=lietke&file=/WEB-INF/zul/quanlyduan/view-giai-doan.zul&id="
 				+ id;
+	}
+	
+	//SSO
+	@RequestMapping(value = "/sso-error")
+	public String sso() {
+		return "forward:/WEB-INF/zul/error-sso.zul";
+	}
+	
+	@RequestMapping(value = "/dang-nhap-sso")
+	public String loginSSO(HttpServletRequest request, HttpServletResponse response) {
+		return "forward:/WEB-INF/zul/dang-nhap-sso.zul";
+	}
+	
+	@RequestMapping(value = "/auth/logout")
+	public void dangXuatBackend(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth == null) {
+			System.out.println("zoo logut auth");
+			response.sendRedirect(request.getContextPath()+"/cas/login");
+		} else {
+			new NhanVienService().logoutNotRedirect(request, response);
+		}	
 	}
 
 	public final ProcessEngine getProcess() {

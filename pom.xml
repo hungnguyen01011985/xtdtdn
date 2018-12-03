@@ -21,6 +21,8 @@
 		<jackson.version>2.9.0</jackson.version>
 		<camundaSpringBoot.version>2.3.0</camundaSpringBoot.version>
 		<camunda.version>7.8.0</camunda.version>
+		<pac4j.version>3.3.0</pac4j.version>
+		<spring-webmvc-pac4j.version>3.2.0</spring-webmvc-pac4j.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -253,7 +255,41 @@
 			<artifactId>google-api-client</artifactId>
 			<version>1.24.1</version>
 		</dependency>
-
+		<!--  SSO -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.pac4j</groupId>
+			<artifactId>pac4j-http</artifactId>
+			<version>${pac4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.pac4j</groupId>
+			<artifactId>pac4j-jwt</artifactId>
+			<version>${pac4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.pac4j</groupId>
+			<artifactId>pac4j-cas</artifactId>
+			<version>${pac4j.version}</version>
+		</dependency>
+			<dependency>
+            <groupId>org.pac4j</groupId>
+            <artifactId>spring-webmvc-pac4j</artifactId>
+            <version>${spring-webmvc-pac4j.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.pac4j</groupId>
+			<artifactId>pac4j-core</artifactId>
+			<version>${pac4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.pac4j</groupId>
+			<artifactId>spring-security-pac4j</artifactId>
+			<version>4.1.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-youtube -->
 		<dependency>
 			<groupId>com.google.apis</groupId>

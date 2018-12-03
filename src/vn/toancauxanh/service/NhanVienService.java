@@ -1,5 +1,6 @@
 package vn.toancauxanh.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -7,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.MapUtils;
 import org.jasypt.util.password.BasicPasswordEncryptor;
@@ -148,5 +150,40 @@ public final class NhanVienService extends BasicService<NhanVien> {
 					.fetch());
 		}
 		BindUtils.postNotifyChange(null, null, this, "tacGiasTimKiem");
+	}
+	
+	@Command
+	public void logoutNotRedirect(HttpServletRequest req, HttpServletResponse res) {
+		NhanVien nhanVienLogin = getNhanVien(false, false, req, res);
+		if (nhanVienLogin != null && !nhanVienLogin.noId()) {
+			
+			HttpSession zkSession=req.getSession();
+ 			//Session zkSession = Sessions.getCurrent();
+ 			zkSession.removeAttribute("email");
+ 			Cookie cookie = new Cookie("email", null);
+ 			cookie.setPath("/");
+ 			cookie.setMaxAge(0);
+ 			res.addCookie(cookie);
+ 			/*Date thoiGian = new Date();
+ 			LichSuNguoiDung lichSuNguoiDung = new LichSuNguoiDung();
+ 			lichSuNguoiDung.setNhanVien(nhanVienLogin);
+ 			lichSuNguoiDung.setNgayGio(thoiGian);
+ 			lichSuNguoiDung.setLoaiHanhDong(LoaiHanhDongEnum.LOGOUT);
+ 			lichSuNguoiDung.saveNotShowNotification();*/
+			
+			try {
+//				res.sendRedirect(Utils.getLogoutCasUrl());
+				res.sendRedirect(req.getContextPath()+"/login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				res.sendRedirect(req.getContextPath()+ "/cas/login");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
