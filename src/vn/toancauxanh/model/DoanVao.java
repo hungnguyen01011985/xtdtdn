@@ -217,6 +217,7 @@ public class DoanVao extends Model<DoanVao> {
 					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
+					System.out.println("File lưu vào database: " + tepTin.getPathFile());
 					tepTin.setMedia(media);
 					this.getTepTins().add(tepTin);
 					this.getTepTins().forEach(obj -> {
@@ -300,7 +301,7 @@ public class DoanVao extends Model<DoanVao> {
 		if (listXoaThanhVienDoan != null && !listXoaThanhVienDoan.isEmpty()) {
 			listXoaThanhVienDoan.forEach(item -> {
 				item.setDoanVao(this);
-				item.setDaXoa(true);
+				item.doDelete(true);
 				item.saveNotShowNotification();
 			});
 		}
@@ -455,11 +456,6 @@ public class DoanVao extends Model<DoanVao> {
 	}
 	
 	@Transient
-	public JPAQuery<Long> getDoanVaoMoiNhat(){
-		return find(DoanVao.class).select(QDoanVao.doanVao.id.max()); 
-	}
-	
-	@Transient
 	public NhanVien getNguoiDuocGiaoCu(GiaoViec giaoViec){
 		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.eq(giaoViec));
 		if (q != null) {
@@ -580,7 +576,7 @@ public class DoanVao extends Model<DoanVao> {
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 			bind = true;
 		} else {
-			listThanhVienDoan.addAll(getListTaoMoiThanhVienDoanLuuTam());
+			listTaoMoiThanhVienDoanLuuTam.forEach(item -> listThanhVienDoan.add(0, item));
 			listTaoMoiThanhVienDoanLuuTam.removeAll(getListTaoMoiThanhVienDoanLuuTam());
 			soThanhVienDoan = listThanhVienDoan.size();
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
@@ -635,12 +631,12 @@ public class DoanVao extends Model<DoanVao> {
 	@Command
 	public void saveThanhVienDoan() {
 		if (flag) {
+			listThanhVienDoan.set(index, thanhVienDoanTemp);
 			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
 			flag = false;
 			BindUtils.postNotifyChange(null, null, this, "flag");
 		} else {
-			List<ThanhVienDoan> listThanhVienDoan = getListTaoMoiThanhVienDoanLuuTam();
-			listThanhVienDoan.add(this.getThanhVienDoanTemp());
+			listTaoMoiThanhVienDoanLuuTam.add(this.getThanhVienDoanTemp());
 			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
 		}
 		reset();
@@ -678,16 +674,35 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void reset(@BindingParam("vm") final DoanVao doanVao) {
-		thanhVienDoanTemp = new ThanhVienDoan();
-		flag = false;
-		BindUtils.postNotifyChange(null, null, doanVao, "flag");
-		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
-		Clients.evalJavaScript("getFocus()");
+		if (!"".equals(thanhVienDoanTemp.getHoVaTen())) {
+			thanhVienDoanTemp.setHoVaTen(null);
+			thanhVienDoanTemp.setChucDanh(null);
+			thanhVienDoanTemp.setDonVi(null);
+			thanhVienDoanTemp.setQuocGia(null);
+			thanhVienDoanTemp.setEmail(null);
+			thanhVienDoanTemp.setSoDienThoai(null);
+			BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+			Clients.evalJavaScript("getFocus()");
+		} else {
+			thanhVienDoanTemp = new ThanhVienDoan();
+			flag = false;
+			BindUtils.postNotifyChange(null, null, doanVao, "flag");
+			BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+			Clients.evalJavaScript("getFocus()");
+		}
 	}
+	
+	private int index = 0;
 
 	@Command
-	public void editThanhVienDoan(@BindingParam("item") ThanhVienDoan thanhVienDoan) {
-		thanhVienDoanTemp = thanhVienDoan;
+	public void editThanhVienDoan(@BindingParam("item") ThanhVienDoan thanhVienDoan, @BindingParam("index") int index) {
+		this.index = index;
+		thanhVienDoanTemp.setHoVaTen(thanhVienDoan.getHoVaTen());
+		thanhVienDoanTemp.setChucDanh(thanhVienDoan.getChucDanh());
+		thanhVienDoanTemp.setDonVi(thanhVienDoan.getDonVi());
+		thanhVienDoanTemp.setQuocGia(thanhVienDoan.getQuocGia());
+		thanhVienDoanTemp.setEmail(thanhVienDoan.getEmail());
+		thanhVienDoanTemp.setSoDienThoai(thanhVienDoan.getSoDienThoai());
 		flag = true;
 		BindUtils.postNotifyChange(null, null, this, "flag");
 		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
