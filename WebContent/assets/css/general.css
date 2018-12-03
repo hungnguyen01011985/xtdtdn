@@ -105,6 +105,9 @@
 	font-family: Roboto-Bold;
     color: #628CF0 !important;
 }
+.z-listitem-selected td {
+	background:none !important;
+}
 .z-listitem .z-listcell {
 	border-left: 1px solid #cfcfcf !important;
 }

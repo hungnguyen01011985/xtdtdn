@@ -307,6 +307,7 @@ public class DoanVao extends Model<DoanVao> {
 
 		if (listGiaoViec != null && !listGiaoViec.isEmpty()) {
 			for (GiaoViec congViec : listGiaoViec) {
+				/*congViec.setTenNhiemVu(this.getTenDoanVao());*/
 				checkCongViec(congViec);
 				if (checkNotAllNull && checkAllNull) {
 					checkGiaoViec(congViec);
@@ -363,6 +364,7 @@ public class DoanVao extends Model<DoanVao> {
 		giaoViec.setDoanVao(this);
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
+		giaoViec.setTenNhiemVu(this.getTenDoanVao());
 		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 	}
 	

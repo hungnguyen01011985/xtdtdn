@@ -55,6 +55,7 @@ public class GiaoViec extends Model<GiaoViec> {
 	private TepTin taiLieu = new TepTin();
 	private TepTin taiLieuKetQua;
 	private LoaiCongViec loaiCongViec;
+	private String tenNhiemVu;
 	
 	public GiaoViec() {
 	}
@@ -68,6 +69,14 @@ public class GiaoViec extends Model<GiaoViec> {
 		this.ghiChu = ghiChu;
 	}
 	
+	public String getTenNhiemVu() {
+		return tenNhiemVu;
+	}
+
+	public void setTenNhiemVu(String tenNhiemVu) {
+		this.tenNhiemVu = tenNhiemVu;
+	}
+
 	public String getyKienChiDao() {
 		return yKienChiDao;
 	}
