@@ -31,7 +31,6 @@ public class CasController extends BasicService<NhanVien>{
 		if (auth != null) {
 			Pac4jAuthenticationToken pac4j = (Pac4jAuthenticationToken) auth;
 			String username = pac4j.getName();
-			System.out.println("username" + username);
 			NhanVien nhanVien = new JPAQuery<NhanVien>(em()).from(QNhanVien.nhanVien)
 					.where(QNhanVien.nhanVien.daXoa.isFalse()).where(QNhanVien.nhanVien.trangThai.ne(core().TT_DA_XOA))
 					.where(QNhanVien.nhanVien.email.eq(username.trim())).fetchFirst();
@@ -49,7 +48,6 @@ public class CasController extends BasicService<NhanVien>{
 				lichSuNguoiDung.setNgayGio(thoiGian);
 				lichSuNguoiDung.setLoaiHanhDong(LoaiHanhDongEnum.LOGIN);
 				lichSuNguoiDung.saveNotShowNotification();*/
-				
 				if (cookies != null) {
 					for (Cookie cookie1 : cookies) {
 						cookie1.setMaxAge(0);
@@ -58,11 +56,9 @@ public class CasController extends BasicService<NhanVien>{
 						response.addCookie(cookie1);
 					}
 				}
-				
 				return "redirect:" + "/";
 			} 
 		}
-		
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				cookie.setMaxAge(0);

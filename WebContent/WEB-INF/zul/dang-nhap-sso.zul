@@ -44,14 +44,8 @@
 
 		<n:div id="wrapper">
 			<div class="login-head flex-login" style="padding-top: 45%;">
-				<span class="login-icon">
-				</span>
 				<div class="login-title">	
-					<n:p>SỞ VHTT ĐÀ NẴNG</n:p>			
-					<n:p> 
-						PHẦN QUẢN LÝ NHÀ NƯỚC CHUYÊN NGÀNH VĂN HÓA VÀ THỂ THAO
-					</n:p>
-					
+					<n:p>BAN XÚC TIẾN VÀ HỖ TRỢ ĐẦU TƯ ĐÀ NẴNG</n:p>			
 				</div>
 			</div>
 			<div class="flex-box">

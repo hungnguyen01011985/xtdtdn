@@ -41,19 +41,15 @@
 
 		<n:div id="wrapper">
 			<div class="login-head" style="padding-top: 45%">
-				<span class="sso-error-icon">
-				</span>
 				<div class="login-title">	
-					<n:p>SỞ VHTT ĐÀ NẴNG</n:p>			
-					<n:p> 
-						PHẦN QUẢN LÝ NHÀ NƯỚC CHUYÊN NGÀNH VĂN HÓA VÀ THỂ THAO
-					</n:p>
-					
+					<div class="login-title">	
+						<n:p>BAN XÚC TIẾN VÀ HỖ TRỢ ĐẦU TƯ ĐÀ NẴNG</n:p>			
+					</div>
 				</div>
 			</div>
 			<div>
-				 <span>Tài khoản của bạn hiện không tồn tại trong phần mềm quản lý chuyên ngành văn hóa và thể thao. 
-				 Vui lòng liên hệ với administrator để được cung cấp tài khoản truy cập vào phần mềm quản lý chuyên ngành văn hóa và thể thao</span>			
+				 <span>Tài khoản của bạn hiện không tồn tại trong phần mềm quản lý. 
+				 Vui lòng liên hệ với administrator để được cung cấp tài khoản truy cập vào phần mềm quản lý.</span>			
 			</div>
 			<div style="margin-left: 158px">
 				<button href="/dang-nhap-sso" >Quay về</button>
