@@ -18,6 +18,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
+import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.model.GiaoViec;
 import vn.toancauxanh.model.QGiaoViec;
@@ -100,16 +101,19 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 			showNotification("", "Bạn chưa chọn công việc nào", "danger");
 		} else {
 			selectItems.forEach(item -> {
+				ThongBao thongBao = new ThongBao();
 				String tenNhiemVu;
 				Long id;
 				if (item.getDoanVao() != null) {
 					tenNhiemVu = item.getDoanVao().getTenDoanVao();
 					id = item.getDoanVao().getId();
+					thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 				} else {
 					tenNhiemVu = item.getDuAn().getTenDuAn();
 					id = item.getDuAn().getId();
+					thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DU_AN);
 				}
-				ThongBao thongBao = new ThongBao();
+				
 				thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @"
 						+ item.getTenCongViec() + "@ của dự án @" + tenNhiemVu
 						+ "@. Hãy hoàn thành công việc.");
