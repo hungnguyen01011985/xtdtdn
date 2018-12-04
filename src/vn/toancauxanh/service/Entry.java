@@ -133,8 +133,6 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYDOANVAOSUA;
 	@Value("${url.quanlydoanvao}" + ":" + "${action.xoa}")
 	public String QUANLYDOANVAOXOA;
-	@Value("${url.quanlydoanvao}" + ":" + "${action.nhacnho}")
-	public String QUANLYDOANVAONHACNHO;
 
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.list}")
 	public String QUANLYGIAOVIECLIST;
@@ -146,6 +144,8 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYGIAOVIECXOA;
 	@Value("${url.quanlygiaoviec}" + ":" + "${action.them}")
 	public String QUANLYGIAOVIECTHEM;
+	@Value("${url.quanlygiaoviec}" + ":" + "${action.nhacnho}")
+	public String QUANLYGIAOVIECNHACNHO;
 	
 
 	@Value("${url.phongban}" + ":" + "${action.list}")
@@ -267,7 +267,7 @@ public class Entry extends BaseObject<Object> {
 	public String DONVIXUCTIENTIMKIEM;
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
-		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN,
+		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN, VAITRO, 
 				QUANLYLINHVUCDUAN, BAOCAOTHONGKE, QUANLYNHADAUTU, QUANLYDONVI, QUANLYCAPDONVI, QUANLYDONVIXUCTIEN}; //
 	}
 

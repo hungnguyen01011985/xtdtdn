@@ -21,7 +21,9 @@
 .pd-left-3 input {
 	padding-left: 5px !important;
 }
-
+.box-title-and-close a:focus {
+	outline: 0 !important;
+}
 .txt-link-inline {
 	color:#4274ED !important;
 }
@@ -30,6 +32,22 @@
 }
 .z-textbox[disabled] { 
 	font-family:Roboto-Bold;
+}
+.box-title-and-close {
+	padding:15px 0;
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.box-title-and-close .style-title-popup span {
+	font-family: Roboto-Bold;
+	font-size: 16px;
+	color: #292A2D;
+	line-height: 25px;
+}
+.img-popup-title {
+	width:16px;
+	margin-right:10px;
 }
 .btn-ad-image:hover {
 	background-image: url(../../assets/img/front/camera.svg);
@@ -46,20 +64,23 @@
 .form-txt-style > .z-datebox-input {
 	font-family: Roboto-Regular !important;
 }
-.txt-textbox-disable > .z-datebox-input {
-	color:#000 !important;
-	font-family: Roboto-Bold !important;
+.txt-textbox-disable > .z-textbox[disabled], .z-decimalbox[disabled], .z-datebox-input {
+	color:#292A2D !important;
+	font-family: Roboto-Medium !important;
 }
-.txt-textbox-disable > .z-textbox[disabled] {
-	color:#000 !important;
-	font-family: Roboto-Bold !important;
+.txt-link-table {
+	color: #4274ED !important;
+	cursor: pointer;
+	font-family:Roboto-Medium;
 }
 .box-lich-su-van-ban {
 	float: right;
     padding-top: 15px;
     cursor: pointer;
 }
-
+.z-combobox-disabled * {
+	color: #292A2D !important;
+}
 .box-lich-su-van-ban span span {
 	color: #4274ED;
 	font-family: Roboto-Medium;
@@ -85,6 +106,9 @@
 .DANG_LAM .z-listcell-content {
 	font-family: Roboto-Bold;
     color: #628CF0 !important;
+}
+.z-listitem-selected td {
+	background:none !important;
 }
 .z-listitem .z-listcell {
 	border-left: 1px solid #cfcfcf !important;
@@ -123,6 +147,15 @@
 .title-form span {
 	font-family: Roboto-Bold;
 	font-size: 16px;
+	color: #292A2D;
+	line-height: 25px;
+}
+.title-form-medium {
+	padding:15px 0 10px 0;
+}
+.title-form-medium span {
+	font-family: Roboto-Bold;
+	font-size: 14px;
 	color: #292A2D;
 	line-height: 25px;
 }
@@ -967,15 +1000,12 @@
 	max-height: 263px;
 }
 .content-tab-panel1{
-	transition: height .5s ease;
-	height: 0px;
+	transition: max-height .5s ease;
+	max-height: 0px;
     overflow: hidden;
     padding:0 22px;
 }
-.content-tab-panel1 .col-md-3{
-	
-	
-}
+
 .title-form-duan{
 	padding: 15px 15px;
 }

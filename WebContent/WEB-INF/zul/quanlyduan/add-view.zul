@@ -55,7 +55,7 @@
 					</div>
 					<div class="row">
 						<div zclass="col-md-3">
-							<div zclass="form-group">
+							<div zclass="form-group txt-textbox-disable">
 								<x:span class="label-txt-style">Người giao việc</x:span> 
 								<textbox class="form-control textbox-txt-style" value="@load(entry.nhanVien.hoVaTen)" disabled="true"></textbox>
 							</div>
@@ -84,7 +84,7 @@
 							</div>
 						</div>
 						<div zclass="col-md-3">
-							<div zclass="form-group">
+							<div zclass="form-group txt-textbox-disable">
 								<x:span class="label-txt-style">Giai đoạn xúc tiến</x:span>  
 								<textbox class="form-control textbox-txt-style" value="@bind(vm.giaiDoanXucTien.text)" placeholder="${giaiDoanXucTien}" disabled="true"></textbox>
 							</div>

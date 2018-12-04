@@ -66,7 +66,7 @@ public class DoanVao extends Model<DoanVao> {
 	private List<KeHoachLamViec> listKeHoachLamViec;
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
-	private List<TepTin> tepTins = new ArrayList<TepTin>();
+	private List<TepTin> tepTins = new ArrayList<>();
 	private TepTin congVanChiDaoUB;
 
 	public DoanVao() {
@@ -219,6 +219,7 @@ public class DoanVao extends Model<DoanVao> {
 					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
+					System.out.println("File lưu vào database: " + tepTin.getPathFile());
 					tepTin.setMedia(media);
 					this.getTepTins().add(tepTin);
 					this.getTepTins().forEach(obj -> {
@@ -302,13 +303,14 @@ public class DoanVao extends Model<DoanVao> {
 		if (listXoaThanhVienDoan != null && !listXoaThanhVienDoan.isEmpty()) {
 			listXoaThanhVienDoan.forEach(item -> {
 				item.setDoanVao(this);
-				item.setDaXoa(true);
+				item.doDelete(true);
 				item.saveNotShowNotification();
 			});
 		}
-
+		
 		if (listGiaoViec != null && !listGiaoViec.isEmpty()) {
 			for (GiaoViec congViec : listGiaoViec) {
+				congViec.setTenNhiemVu(this.getTenDoanVao());
 				checkCongViec(congViec);
 				if (checkNotAllNull && checkAllNull) {
 					checkGiaoViec(congViec);
@@ -318,9 +320,9 @@ public class DoanVao extends Model<DoanVao> {
 		}
 		if (nguoiPhuTrachCu != null && nguoiPhuTrachCu.getId() != this.getNguoiPhuTrach().getId()) {
 			thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
-			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
+			thongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
 		} else if (nguoiPhuTrachCu == null) {
-			thongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
+			thongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
 		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
@@ -367,13 +369,14 @@ public class DoanVao extends Model<DoanVao> {
 		giaoViec.setDoanVao(this);
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
+		giaoViec.setTenNhiemVu(this.getTenDoanVao());
 		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 	}
 
 	public void thongBao(LoaiThongBao loaiThongBao, DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan,
 			NhanVien nguoiGui, String tenCongViec) {
-		if (LoaiThongBao.PHU_TRACH_DOAN_VAO.equals(loaiThongBao)) {
-			saveThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO, nguoiNhan, tenCongViec, doanVao, nguoiGui);
+		if (LoaiThongBao.PHU_TRACH_CONG_VIEC.equals(loaiThongBao)) {
+			saveThongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC, nguoiNhan, tenCongViec, doanVao, nguoiGui);
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
 			saveThongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, nguoiNhan, tenCongViec, doanVao, nguoiGui);
@@ -404,7 +407,7 @@ public class DoanVao extends Model<DoanVao> {
 			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 			thongBao.saveNotShowNotification();
 		}
-		if (LoaiThongBao.PHU_TRACH_DOAN_VAO.equals(loaiThongBao)) {
+		if (LoaiThongBao.PHU_TRACH_CONG_VIEC.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
 			thongBao.setNoiDung("Bạn được phân công phụ trách Đoàn @" + doanVao.getTenDoanVao());
 			thongBao.setNguoiNhan(nguoiNhan);
@@ -415,14 +418,14 @@ public class DoanVao extends Model<DoanVao> {
 			}
 			thongBao.setIdObject(doanVao.getId());
 
-			thongBao.setLoaiThongBao(LoaiThongBao.PHU_TRACH_DOAN_VAO);
+			thongBao.setLoaiThongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC);
 			thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
 			thongBao.saveNotShowNotification();
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
 			thongBao.setNoiDung(
-					"Công việc phụ trách của đoàn @" + doanVao.getTenDoanVao() + "@ đã được chuyển cho người khác");
+					"Đoàn vào @" + doanVao.getTenDoanVao() + "@ mà bạn đang phụ trách được chuyển cho @" + nguoiPhuTrachCu.getHoVaTen() + "@ phụ trách.");
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
@@ -457,12 +460,7 @@ public class DoanVao extends Model<DoanVao> {
 	}
 
 	@Transient
-	public JPAQuery<Long> getDoanVaoMoiNhat() {
-		return find(DoanVao.class).select(QDoanVao.doanVao.id.max());
-	}
-
-	@Transient
-	public NhanVien getNguoiDuocGiaoCu(GiaoViec giaoViec) {
+	public NhanVien getNguoiDuocGiaoCu(GiaoViec giaoViec){
 		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.eq(giaoViec));
 		if (q != null) {
 			return q.fetchFirst().getNguoiDuocGiao();
@@ -547,10 +545,10 @@ public class DoanVao extends Model<DoanVao> {
 		this.thanhVienDoanTemp = thanhVienDoanTemp;
 	}
 
-	private List<ThanhVienDoan> listThanhVienDoan = new ArrayList<ThanhVienDoan>();
-	private List<ThanhVienDoan> listThanhVienTheoDoan = new ArrayList<ThanhVienDoan>();
-	private List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam = new ArrayList<ThanhVienDoan>();
-	private List<ThanhVienDoan> listXoaThanhVienDoan = new ArrayList<ThanhVienDoan>();
+	private List<ThanhVienDoan> listThanhVienDoan = new ArrayList<>();
+	private List<ThanhVienDoan> listThanhVienTheoDoan = new ArrayList<>();
+	private List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam = new ArrayList<>();
+	private List<ThanhVienDoan> listXoaThanhVienDoan = new ArrayList<>();
 
 	@Transient
 	public List<ThanhVienDoan> getListXoaThanhVienDoan() {
@@ -582,7 +580,7 @@ public class DoanVao extends Model<DoanVao> {
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
 			bind = true;
 		} else {
-			listThanhVienDoan.addAll(getListTaoMoiThanhVienDoanLuuTam());
+			listTaoMoiThanhVienDoanLuuTam.forEach(item -> listThanhVienDoan.add(0, item));
 			listTaoMoiThanhVienDoanLuuTam.removeAll(getListTaoMoiThanhVienDoanLuuTam());
 			soThanhVienDoan = listThanhVienDoan.size();
 			BindUtils.postNotifyChange(null, null, this, "soThanhVienDoan");
@@ -637,12 +635,12 @@ public class DoanVao extends Model<DoanVao> {
 	@Command
 	public void saveThanhVienDoan() {
 		if (flag) {
+			listThanhVienDoan.set(index, thanhVienDoanTemp);
 			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
 			flag = false;
 			BindUtils.postNotifyChange(null, null, this, "flag");
 		} else {
-			List<ThanhVienDoan> listThanhVienDoan = getListTaoMoiThanhVienDoanLuuTam();
-			listThanhVienDoan.add(this.getThanhVienDoanTemp());
+			listTaoMoiThanhVienDoanLuuTam.add(this.getThanhVienDoanTemp());
 			BindUtils.postNotifyChange(null, null, this, "listThanhVienDoan");
 		}
 		reset();
@@ -680,16 +678,35 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void reset(@BindingParam("vm") final DoanVao doanVao) {
-		thanhVienDoanTemp = new ThanhVienDoan();
-		flag = false;
-		BindUtils.postNotifyChange(null, null, doanVao, "flag");
-		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
-		Clients.evalJavaScript("getFocus()");
+		if (!"".equals(thanhVienDoanTemp.getHoVaTen())) {
+			thanhVienDoanTemp.setHoVaTen(null);
+			thanhVienDoanTemp.setChucDanh(null);
+			thanhVienDoanTemp.setDonVi(null);
+			thanhVienDoanTemp.setQuocGia(null);
+			thanhVienDoanTemp.setEmail(null);
+			thanhVienDoanTemp.setSoDienThoai(null);
+			BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+			Clients.evalJavaScript("getFocus()");
+		} else {
+			thanhVienDoanTemp = new ThanhVienDoan();
+			flag = false;
+			BindUtils.postNotifyChange(null, null, doanVao, "flag");
+			BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+			Clients.evalJavaScript("getFocus()");
+		}
 	}
+	
+	private int index = 0;
 
 	@Command
-	public void editThanhVienDoan(@BindingParam("item") ThanhVienDoan thanhVienDoan) {
-		thanhVienDoanTemp = thanhVienDoan;
+	public void editThanhVienDoan(@BindingParam("item") ThanhVienDoan thanhVienDoan, @BindingParam("index") int index) {
+		this.index = index;
+		thanhVienDoanTemp.setHoVaTen(thanhVienDoan.getHoVaTen());
+		thanhVienDoanTemp.setChucDanh(thanhVienDoan.getChucDanh());
+		thanhVienDoanTemp.setDonVi(thanhVienDoan.getDonVi());
+		thanhVienDoanTemp.setQuocGia(thanhVienDoan.getQuocGia());
+		thanhVienDoanTemp.setEmail(thanhVienDoan.getEmail());
+		thanhVienDoanTemp.setSoDienThoai(thanhVienDoan.getSoDienThoai());
 		flag = true;
 		BindUtils.postNotifyChange(null, null, this, "flag");
 		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");

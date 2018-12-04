@@ -119,7 +119,7 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
-							<column label="Tên công việc" />
+							<column label="Tên công việc"/>
 							<column label="Tên nhiệm vụ" />
 							<column label="Người phụ trách" />
 							<column label="Loại công việc" width="120px"/>
@@ -131,7 +131,7 @@
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
 								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-								<label value="@load(each.tenCongViec)" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = item, vmArgs = vm, readOnly = false, loaiCongViec = item.loaiCongViec, title = 'Chi tiết công việc')"></label>
+								<label value="@load(each.tenCongViec)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = item, vmArgs = vm, readOnly = false, loaiCongViec = item.loaiCongViec, title = 'Chi tiết công việc')"></label>
 								<label value="@load(duAnCV eq each.loaiCongViec ? each.duAn.tenDuAn : each.doanVao.tenDoanVao)"></label>
 								<label value="@load(each.nguoiDuocGiao.hoVaTen)"></label>
 								<label value="@load(each.loaiCongViec.text)"></label>
@@ -140,7 +140,7 @@
 								<div style="display:flex;flex-direction:column;padding:5px 0;">
 									<label value="@load(each.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')"></label>
 									<html>
-										${vm.thoiHanConLai(each.hanThucHien)}
+										${vm.thoiHanConLai(each.hanThucHien, each.trangThaiGiaoViec)}
 									</html>
 								</div>
 								<div class="thaotac">
@@ -156,11 +156,14 @@
 							</row>
 						</template>
 					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
 				</div>
 			</div>
-			<div class="row mg-and-bg-and-line">
+			<div class="row mg-and-bg-and-line" if="${entry.quyen.quanlygiaoviec_nhacnho}">
 				<div zclass="col-md-12">
-					<div  zclass="form-group right-mg flex" style="margin-right:0;">
+					<div zclass="form-group right-mg flex" style="margin-right:0;">
 						<x:button onClick="@command('redirectPage', zul='quanlygiaoviec/list-nhac-nho.zul')"
 							class="btn btn-blue">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/nhac-nho-white.svg"/>

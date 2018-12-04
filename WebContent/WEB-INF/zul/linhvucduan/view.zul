@@ -1,33 +1,39 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
-		closable="true" title="${arg.save}"
-		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
+		closable="true" onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
 		whatever="@load(false,after='saveLinhVucDuAn') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
-		
-			<zscript><![CDATA[
-				vmArgs = arg.get("vmArgs");
-				strSave = arg.get("save");
-				readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
-			]]></zscript> 
-			
+		<zscript><![CDATA[
+			vmArgs = arg.get("vmArgs");
+			strSave = arg.get("save");
+			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
+		]]></zscript> 
 		<div class="w-popup-content">
+			<div class="box-title-and-close">
+				<div style="display:flex">
+					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
+					<span class="style-title-popup">${arg.save}</span>
+				</div>
+				<a onClick="wdn.detach()">
+					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
+				</a>
+			</div>
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div zclass="col-md-12">
-					<div zclass="form-group">
+					<div zclass="form-group txt-textbox-disable">
 						<div class="flex">
-							<x:span class="issue-search">Tên lĩnh vực dự án<n:small class="required"> *</n:small></x:span>
+							<x:span class="label-txt-style">Tên lĩnh vực dự án<n:small class="required"> *</n:small></x:span>
 						</div>
-						<textbox disabled="${readOnly}" maxlength="255" class="form-control" value="@load(vm.ten)@save(vm.ten, before='saveLinhVucDuAn') @validator(vm.validateTenLinhVucDuAn)"
+						<textbox disabled="${readOnly}" maxlength="255" class="form-control textbox-txt-style" value="@load(vm.ten)@save(vm.ten, before='saveLinhVucDuAn') @validator(vm.validateTenLinhVucDuAn)"
 						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveLinhVucDuAn', list=vmArgs, attr='targetQuery', wdn=wdn)"	placeholder="Nhập tên lĩnh vực..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 				<div zclass="col-md-12">
-					<div zclass="form-group">
-						<x:span class="issue-search">Mô tả</x:span>
-						<textbox disabled="${readOnly}" rows="3" class="form-control" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveLinhVucDuAn', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
+					<div zclass="form-group txt-textbox-disable">
+						<x:span class="label-txt-style">Mô tả</x:span>
+						<textbox disabled="${readOnly}" rows="3" class="form-control textbox-txt-style" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveLinhVucDuAn', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
 			</div>

@@ -6,9 +6,10 @@
 			treCongVan = vn.toancauxanh.gg.model.enums.LoaiThongBao.TRE_CONG_VIEC;
 			nhacNho = vn.toancauxanh.gg.model.enums.LoaiThongBao.NHAC_NHO_CONG_VIEC;
 			denHan = vn.toancauxanh.gg.model.enums.LoaiThongBao.DEN_HAN_CONG_VIEC;
-			phuTrachDoanVao = vn.toancauxanh.gg.model.enums.LoaiThongBao.PHU_TRACH_DOAN_VAO;
+			phuTrachCongViec = vn.toancauxanh.gg.model.enums.LoaiThongBao.PHU_TRACH_CONG_VIEC;
 			chuyenCongViec = vn.toancauxanh.gg.model.enums.LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO;
 			chuyenNguoiPhuTrach = vn.toancauxanh.gg.model.enums.LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH;
+			huyNhiemVu = vn.toancauxanh.gg.model.enums.LoaiThongBao.HUY_CONG_VIEC;
 		</zscript>
 		<n:ul class="box-bell" style="list-style:none;">
 			<n:li class="box-relative dropdown">
@@ -39,7 +40,7 @@
 												${vm.subStringThongBao(each.noiDung, 1)}
 											</x:span>
 										</div>
-										<div if="${phuTrachDoanVao == each.loaiThongBao}">
+										<div if="${phuTrachCongViec == each.loaiThongBao}">
 											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 0)}
 											</x:span>
@@ -56,6 +57,12 @@
 											</x:span>
 											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 2)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 3)}
+											</x:span>
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 4)}
 											</x:span>
 										</div>
 										<div if="${chuyenCongViec == each.loaiThongBao}">
@@ -121,6 +128,20 @@
 											</x:span>
 											<x:span class="text-regular-notify">
 												${vm.subStringThongBao(each.noiDung, 2)}
+											</x:span>
+										</div>
+										<div if="${huyNhiemVu == each.loaiThongBao}">
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 0)}
+											</x:span>
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 1)}
+											</x:span>
+											<x:span class="text-bold-notify">
+												${vm.subStringThongBao(each.noiDung, 2)}
+											</x:span>
+											<x:span class="text-regular-notify">
+												${vm.subStringThongBao(each.noiDung, 3)}
 											</x:span>
 										</div>
 									</div>
