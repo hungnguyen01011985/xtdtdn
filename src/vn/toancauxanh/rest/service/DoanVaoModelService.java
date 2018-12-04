@@ -32,7 +32,7 @@ public class DoanVaoModelService {
 		if (StringUtils.hasText(tenDoanVao)) {
 			doanVaoPage = doanVaoRepository.findAll(QDoanVao.doanVao.tenDoanVao.like("%" + tenDoanVao + "%").and(QDoanVao.doanVao.daXoa.isFalse()), pageable);
 		} else {
-			doanVaoPage = doanVaoRepository.findAll(pageable);
+			doanVaoPage = doanVaoRepository.findAll(QDoanVao.doanVao.daXoa.isFalse(), pageable);
 		}
 		
 		rs.setTotal(doanVaoPage.getTotalElements());

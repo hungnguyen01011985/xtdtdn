@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.rest.model.DoanVaoModel;
 import vn.toancauxanh.rest.model.PagingObject;
 import vn.toancauxanh.rest.service.DoanVaoModelService;
@@ -23,18 +24,17 @@ public class ApiDoanVaoController {
 	private DoanVaoModelService doanVaoModelService;
 	
 	@GetMapping
-	public ResponseEntity<PagingObject<DoanVaoModel>> doanVaos(Pageable pageable,
-			@RequestParam(required = false, defaultValue = "") String keyWord) {
-		return new ResponseEntity<>(this.doanVaoModelService.doanVaos(pageable, keyWord), HttpStatus.OK);
-	}
+    public PagingObject<DoanVaoModel> findAll(Pageable pageable, @RequestParam(required = false, defaultValue = "") String keyWord) {
+        return doanVaoModelService.doanVaos(pageable, keyWord);
+    }
 
 	@GetMapping("/{id}")
 	public ResponseEntity<DoanVaoModel> show(@PathVariable("id") Long id) {
-		if (id == null) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		DoanVao doanVao = doanVaoModelService.getById(id);
+		if (doanVao != null) {
+			return new ResponseEntity<>(doanVao.toDoanVaoModel(), HttpStatus.OK);
 		}
-		DoanVaoModel doanVao = doanVaoModelService.getById(id).toDoanVaoModel();
-		return new ResponseEntity<>(doanVao, HttpStatus.OK);
+		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
 	
 }
