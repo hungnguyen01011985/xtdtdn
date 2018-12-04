@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -43,6 +44,8 @@ import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
+import vn.toancauxanh.rest.model.DoanVaoModel;
+import vn.toancauxanh.service.GiaoViecService;
 
 @Entity
 @Table(name = "doanvao")
@@ -63,7 +66,7 @@ public class DoanVao extends Model<DoanVao> {
 	private List<KeHoachLamViec> listKeHoachLamViec;
 	private boolean checkTaiLieu;
 	private ThanhVienDoan thanhVienDoanTemp = new ThanhVienDoan();
-	private List<TepTin> tepTins = new ArrayList<TepTin>();
+	private List<TepTin> tepTins = new ArrayList<>();
 	private TepTin congVanChiDaoUB;
 
 	public DoanVao() {
@@ -111,7 +114,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void setNguoiPhuTrach(NhanVien nguoiPhuTrach) {
 		this.nguoiPhuTrach = nguoiPhuTrach;
 	}
-	
+
 	@ManyToOne
 	public TepTin getCongVanChiDaoUB() {
 		return congVanChiDaoUB;
@@ -140,8 +143,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	
-	
+
 	public String getIdNguoiLienQuan() {
 		return idNguoiLienQuan;
 	}
@@ -186,10 +188,10 @@ public class DoanVao extends Model<DoanVao> {
 	public void setCheckTaiLieu(boolean checkTaiLieu) {
 		this.checkTaiLieu = checkTaiLieu;
 	}
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name = "doanvao_teptin", joinColumns = {
-			@JoinColumn(name = "doanvao_id") }, inverseJoinColumns = { @JoinColumn(name = "teptin_id") })
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "doanvao_teptin", joinColumns = { @JoinColumn(name = "doanvao_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "teptin_id") })
 	public List<TepTin> getTepTins() {
 		return tepTins;
 	}
@@ -197,7 +199,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void setTepTins(List<TepTin> tepTins) {
 		this.tepTins = tepTins;
 	}
-	
+
 	@Command
 	public void uploadFile(@BindingParam("medias") Object[] medias) {
 		for (Object item : medias) {
@@ -235,15 +237,15 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		}
 	}
-	
+
 	@Command
 	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
 		if (!object.getPathFile().isEmpty()) {
 			final String path = folderStoreTaiLieu() + object.getNameHash();
 			if (new java.io.File(path).exists()) {
 				try {
-					Filedownload.save(new URL("file:///" + path)
-							.openStream(), null, object.getTenFile().concat(object.getTypeFile()));
+					Filedownload.save(new URL("file:///" + path).openStream(), null,
+							object.getTenFile().concat(object.getTypeFile()));
 				} catch (IOException e) {
 					showNotification("Không tìm thấy file", "Thông báo", "danger");
 				}
@@ -252,7 +254,7 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		}
 	}
-	
+
 	@Command
 	public void deleteFile(@BindingParam("index") final int index) {
 		DoanVao doanVao = this;
@@ -268,9 +270,9 @@ public class DoanVao extends Model<DoanVao> {
 					}
 				});
 	}
-	
+
 	private NhanVien nguoiPhuTrachCu;
-	
+
 	@Command
 	public void saveDoanVao() {
 		if (!this.noId()) {
@@ -324,9 +326,9 @@ public class DoanVao extends Model<DoanVao> {
 		}
 		redirectPageList("/cp/quanlydoanvao", null);
 	}
-	
+
 	private NhanVien nguoiThucHienCu = new NhanVien();
-	
+
 	@Transient
 	public NhanVien getNguoiThucHienCu() {
 		return nguoiThucHienCu;
@@ -335,7 +337,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void setNguoiThucHienCu(NhanVien nguoiThucHienCu) {
 		this.nguoiThucHienCu = nguoiThucHienCu;
 	}
-	
+
 	public void checkGiaoViec(GiaoViec giaoViec) {
 		if (giaoViec.noId()) {
 			saveCongViec(giaoViec);
@@ -358,8 +360,8 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		}
 	}
-	
-	public void saveCongViec(GiaoViec giaoViec){
+
+	public void saveCongViec(GiaoViec giaoViec) {
 		giaoViec.getTaiLieu().saveNotShowNotification();
 		giaoViec.setTenCongViec(giaoViec.getNoiDungCongViec().getText());
 		giaoViec.setDoanVao(this);
@@ -368,7 +370,7 @@ public class DoanVao extends Model<DoanVao> {
 		giaoViec.setTenNhiemVu(this.getTenDoanVao());
 		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 	}
-	
+
 	public void thongBao(LoaiThongBao loaiThongBao, DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan,
 			NhanVien nguoiGui, String tenCongViec) {
 		if (LoaiThongBao.PHU_TRACH_CONG_VIEC.equals(loaiThongBao)) {
@@ -386,14 +388,13 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		}
 	}
-	
+
 	public void saveThongBao(LoaiThongBao loaiThongBao, NhanVien nguoiNhan, String tenCongViec, DoanVao doanVao,
 			NhanVien nguoiGui) {
 
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của @"
-					+ doanVao.getTenDoanVao());
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của @" + doanVao.getTenDoanVao());
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
@@ -420,8 +421,7 @@ public class DoanVao extends Model<DoanVao> {
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung(
-					"Đoàn vào @" + doanVao.getTenDoanVao() + "@ mà bạn đang phụ trách được chuyển cho @" + nguoiPhuTrachCu.getHoVaTen() + "@ phụ trách.");
+			thongBao.setNoiDung("Đoàn vào @" + doanVao.getTenDoanVao() + "@ mà bạn đang phụ trách được chuyển cho @" + nguoiPhuTrachCu.getHoVaTen() + "@ phụ trách.");
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
@@ -434,8 +434,7 @@ public class DoanVao extends Model<DoanVao> {
 
 		if (LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung("Công việc @" + tenCongViec + "@ của đoàn @" + doanVao.getTenDoanVao()
-					+ "@ đã được chuyển cho người khác");
+			thongBao.setNoiDung("Công việc @" + tenCongViec + "@ của đoàn @" + doanVao.getTenDoanVao() + "@ đã được chuyển cho người khác");
 			thongBao.setNguoiNhan(this.nguoiThucHienCu);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
@@ -446,7 +445,7 @@ public class DoanVao extends Model<DoanVao> {
 			thongBao.saveNotShowNotification();
 		}
 	}
-	
+
 	@Transient
 	public boolean kiemTraCongViecHoanThanh(DoanVao doanVao) {
 		boolean result = true;
@@ -454,7 +453,7 @@ public class DoanVao extends Model<DoanVao> {
 		result = q.fetch().stream().anyMatch(item -> !TrangThaiGiaoViec.HOAN_THANH.equals(item.getTrangThaiGiaoViec()));
 		return result;
 	}
-	
+
 	@Transient
 	public NhanVien getNguoiDuocGiaoCu(GiaoViec giaoViec){
 		JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.eq(giaoViec));
@@ -463,9 +462,9 @@ public class DoanVao extends Model<DoanVao> {
 		}
 		return new NhanVien();
 	}
-	
+
 	@Transient
-	public NhanVien getNguoiPhuTrachCu(DoanVao doanVao){
+	public NhanVien getNguoiPhuTrachCu(DoanVao doanVao) {
 		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(doanVao));
 		if (q.fetchCount() > 0) {
 			return q.fetchFirst().getNguoiPhuTrach();
@@ -540,11 +539,11 @@ public class DoanVao extends Model<DoanVao> {
 	public void setThanhVienDoanTemp(ThanhVienDoan thanhVienDoanTemp) {
 		this.thanhVienDoanTemp = thanhVienDoanTemp;
 	}
-	
-	private List<ThanhVienDoan> listThanhVienDoan = new ArrayList<ThanhVienDoan>();
-	private List<ThanhVienDoan> listThanhVienTheoDoan = new ArrayList<ThanhVienDoan>();
-	private List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam = new ArrayList<ThanhVienDoan>();
-	private List<ThanhVienDoan> listXoaThanhVienDoan = new ArrayList<ThanhVienDoan>();
+
+	private List<ThanhVienDoan> listThanhVienDoan = new ArrayList<>();
+	private List<ThanhVienDoan> listThanhVienTheoDoan = new ArrayList<>();
+	private List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam = new ArrayList<>();
+	private List<ThanhVienDoan> listXoaThanhVienDoan = new ArrayList<>();
 
 	@Transient
 	public List<ThanhVienDoan> getListXoaThanhVienDoan() {
@@ -554,7 +553,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void setListXoaThanhVienDoan(List<ThanhVienDoan> listXoaThanhVienDoan) {
 		this.listXoaThanhVienDoan = listXoaThanhVienDoan;
 	}
-	
+
 	private boolean flag;
 
 	@Transient
@@ -587,7 +586,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void setListThanhVienDoan(List<ThanhVienDoan> listThanhVienDoan) {
 		this.listThanhVienDoan = listThanhVienDoan;
 	}
-	
+
 	@Command
 	public void notifyDoanVao(@BindingParam("notify") final DoanVao doanVao, @BindingParam("attr") final String attr) {
 		BindUtils.postNotifyChange(null, null, doanVao, attr);
@@ -610,15 +609,15 @@ public class DoanVao extends Model<DoanVao> {
 	public void setListTaoMoiThanhVienDoanLuuTam(List<ThanhVienDoan> listTaoMoiThanhVienDoanLuuTam) {
 		this.listTaoMoiThanhVienDoanLuuTam = listTaoMoiThanhVienDoanLuuTam;
 	}
-	
+
 	@Command
 	public void redirectXemChiTietDoanVao(@BindingParam("id") Long id) {
 		String url = "/cp/quanlydoanvao/detail/";
 		Executions.sendRedirect(url.concat(id.toString()));
 	}
-	
+
 	private int soThanhVienDoan = 0;
-	
+
 	@Transient
 	public int getSoThanhVienDoan() {
 		return soThanhVienDoan;
@@ -665,8 +664,8 @@ public class DoanVao extends Model<DoanVao> {
 					});
 		}
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		thanhVienDoanTemp = new ThanhVienDoan();
 		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
 		Clients.evalJavaScript("getFocus()");
@@ -714,8 +713,8 @@ public class DoanVao extends Model<DoanVao> {
 		showNotification("Lưu thành công!", "", "success");
 		wdn.detach();
 	}
-	
-	//======================================================================================
+
+	// ======================================================================================
 
 	private GiaoViec titleNhanSuLamViec = new GiaoViec(NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC, new NhanVien(), null, null, null);
 	private GiaoViec congViecNguoiDuocPhanCong = new GiaoViec(NoiDungCongViec.CONG_VIEC_NGUOI_DUOC_PHAN_CONG, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
@@ -731,7 +730,7 @@ public class DoanVao extends Model<DoanVao> {
 	private GiaoViec congViecXacNhanLaiThongTin = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAC_NHAN_LAI_THONG_TIN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
 	private GiaoViec congViecGhiBienBan = new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
 	private GiaoViec congViecKiemTraLaiCongTacChuanBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
-	
+
 	@Transient
 	public GiaoViec getTitleNhanSuLamViec() {
 		return titleNhanSuLamViec;
@@ -802,7 +801,6 @@ public class DoanVao extends Model<DoanVao> {
 		return congViecKiemTraLaiCongTacChuanBi;
 	}
 
-
 	public void setTitleNhanSuLamViec(GiaoViec titleNhanSuLamViec) {
 		this.titleNhanSuLamViec = titleNhanSuLamViec;
 	}
@@ -843,7 +841,6 @@ public class DoanVao extends Model<DoanVao> {
 		this.congViecXayDungChuongTrinh = congViecXayDungChuongTrinh;
 	}
 
-
 	public void setCongViecChuanBiBaiGioiThieu(GiaoViec congViecChuanBiBaiGioiThieu) {
 		this.congViecChuanBiBaiGioiThieu = congViecChuanBiBaiGioiThieu;
 	}
@@ -859,10 +856,10 @@ public class DoanVao extends Model<DoanVao> {
 	public void setCongViecKiemTraLaiCongTacChuanBi(GiaoViec congViecKiemTraLaiCongTacChuanBi) {
 		this.congViecKiemTraLaiCongTacChuanBi = congViecKiemTraLaiCongTacChuanBi;
 	}
-	
+
 	private boolean checkNotAllNull = true;
 	private boolean checkAllNull = false;
-	
+
 	public void checkCongViec(final GiaoViec giaoViec) {
 		if (giaoViec.getNguoiDuocGiao() == null) {
 			giaoViec.setNguoiDuocGiao(new NhanVien());
@@ -878,13 +875,13 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		}
 	}
-	
+
 	public void resetCheck() {
 		checkNotAllNull = true;
 		checkAllNull = false;
 	}
-	
-	private List<GiaoViec> listGiaoViec = new ArrayList<GiaoViec>();
+
+	private List<GiaoViec> listGiaoViec = new ArrayList<>();
 
 	@Transient
 	public List<GiaoViec> getListGiaoViec() {
@@ -902,8 +899,7 @@ public class DoanVao extends Model<DoanVao> {
 		listGiaoViec.add(congViecKiemTraLaiCongTacChuanBi);
 		return listGiaoViec;
 	}
-	
-	
+
 	public void setListGiaoViec(List<GiaoViec> listGiaoViec) {
 		this.listGiaoViec = listGiaoViec;
 	}
@@ -923,9 +919,9 @@ public class DoanVao extends Model<DoanVao> {
 			wdn.detach();
 		}
 	}
-	
-	private List<GiaoViec> listGiaoViecTheoDoan = new ArrayList<GiaoViec>();
-	
+
+	private List<GiaoViec> listGiaoViecTheoDoan = new ArrayList<>();
+
 	@Transient
 	public List<GiaoViec> getListGiaoViecTheoDoan() {
 		return listGiaoViecTheoDoan;
@@ -980,4 +976,29 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		}
 	}
+	
+	@Transient
+	public DoanVaoModel toDoanVaoModel() {
+		GiaoViecService sv = new GiaoViecService();
+		listGiaoViecTheoDoan.addAll(sv.getListGiaoViecTheoDoanVao(getId()));
+		DoanVaoModel rs = new DoanVaoModel();
+		rs.setId(getId() != null ? getId() : null);
+		rs.setTenDoanVao(getTenDoanVao() != null ? getTenDoanVao() : "");
+		rs.setQuocGia(getQuocGia() != null ? getQuocGia().getText() : "");
+		rs.setTrangThaiTiepDoan(getTrangThaiTiepDoan() != null ? getTrangThaiTiepDoan().getText() : "");
+		rs.setTomTatNoiDungKq(getTomTatNoiDungKQ() != null ? getTomTatNoiDungKQ() : "");
+		rs.setDeXuatCVPhuTrach(getDeXuatCVPhuTrach() != null ? getDeXuatCVPhuTrach() : "");
+		rs.setyKienChiDao(getyKienChiDao() != null ? getyKienChiDao() : "");
+		rs.setNoiDoanDiTham(getNoiDoanDiTham() != null ? getNoiDoanDiTham() : "");
+		rs.setLink(getLink() != null ? getLink() : "");
+		rs.setNguoiPhuTrach(getNguoiPhuTrach() != null ? getNguoiPhuTrach().getHoVaTen() : "");
+		rs.setCongVanChiDaoUB(getCongVanChiDaoUB() != null ? getCongVanChiDaoUB().getTenFile() : "");
+		rs.setIdNguoiPhuTrach(getNguoiPhuTrach() != null ? getNguoiPhuTrach().getId() : null);
+		rs.setSoNguoi(getSoNguoi());
+		rs.setThoiGianDenLamViec(getThoiGianDenLamViec() != null ? getThoiGianDenLamViec() : null);
+		rs.setThanhVienDoans(getListThanhVienTheoDoan() != null ? getListThanhVienTheoDoan().stream().map(ThanhVienDoan::toThanhVienDoanModel).collect(Collectors.toList()) : null);
+		rs.setCongViecs(listGiaoViecTheoDoan != null ? listGiaoViecTheoDoan.stream().map(GiaoViec::toGiaoViecModel).collect(Collectors.toList()) : null);
+		return rs;
+	}
+	
 }
