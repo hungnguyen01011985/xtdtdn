@@ -41,13 +41,6 @@
 	</repositories>
 	<dependencyManagement>
 		<dependencies>
-			<!-- <dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-framework-bom</artifactId>
-				<version>${spring.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency> -->
 			<dependency>
 				<groupId>com.fasterxml.jackson</groupId>
 				<artifactId>jackson-bom</artifactId>
@@ -155,7 +148,6 @@
 		<dependency>
 			<groupId>org.camunda.bpm.springboot</groupId>
 			<artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
-			<!-- <artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId> -->
 			<version>${camundaSpringBoot.version}</version>
 		</dependency>
 		<dependency>
@@ -163,10 +155,6 @@
 			<artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
 			<version>${camundaSpringBoot.version}</version>
 		</dependency>
-		<!--dependency> <groupId>com.querydsl</groupId> <artifactId>querydsl-jpa</artifactId> 
-			<version>${querydsl.version}</version> <classifier>apt</classifier> <scope>provided</scope> 
-			</dependency> <dependency> <groupId>com.querydsl</groupId> <artifactId>querydsl-apt</artifactId> 
-			<scope>provided</scope> </dependency -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-orm</artifactId>
@@ -238,18 +226,11 @@
 			<artifactId>javax.json</artifactId>
 			<version>1.0.4</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.wso2</groupId> -->
-<!-- 		    <artifactId>org.wso2.client.Cmon_DonViHanhChinh</artifactId> -->
-<!-- 		    <version>1.0.0</version> -->
-<!-- 		    <scope>compile</scope> -->
-<!-- 		</dependency> -->
 		  <dependency>
 		    <groupId>org.mp4parser</groupId>
 		    <artifactId>isoparser</artifactId>
 		    <version>1.9.27</version>
 		  </dependency>
-		<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
 		<dependency>
 			<groupId>com.google.api-client</groupId>
 			<artifactId>google-api-client</artifactId>
@@ -290,17 +271,11 @@
 			<artifactId>spring-security-pac4j</artifactId>
 			<version>4.1.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-youtube -->
 		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-youtube</artifactId>
 			<version>v3-rev205-1.24.1</version>
 		</dependency>
-
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jta-narayana</artifactId>
-		</dependency> -->
 	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>

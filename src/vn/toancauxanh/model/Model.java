@@ -37,7 +37,6 @@ import org.zkoss.zul.Window;
 
 import com.google.common.base.Strings;
 import com.querydsl.core.annotations.QueryInit;
-import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;

@@ -21,7 +21,9 @@
 .pd-left-3 input {
 	padding-left: 5px !important;
 }
-
+.box-title-and-close a:focus {
+	outline: 0 !important;
+}
 .txt-link-inline {
 	color:#4274ED !important;
 }

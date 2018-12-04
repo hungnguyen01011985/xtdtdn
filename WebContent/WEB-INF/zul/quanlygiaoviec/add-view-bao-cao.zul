@@ -116,12 +116,18 @@
 				</div>
 				<div class="row">
 					<div zclass="col-md-12">
-						<div zclass="form-group txt-textbox-disable">
+						<div if="${duAnCV eq loaiCongViec}" zclass="form-group txt-textbox-disable">
 							<div class="flex">
-								<x:span class="label-txt-style" if="${duAnCV eq loaiCongViec}">Ý kiến chỉ đạo</x:span>
-								<x:span class="label-txt-style" if="${duAnCV ne loaiCongViec}">Ghi chú</x:span>
+								<x:span class="label-txt-style">Ý kiến chỉ đạo</x:span>
 							</div>
 							<textbox class="form-control" value="@bind(vm.yKienChiDao)" rows="3" disabled="${!(readOnly and !action)}"></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+						<div if="${duAnCV ne loaiCongViec}" zclass="form-group txt-textbox-disable">
+							<div class="flex">
+								<x:span class="label-txt-style">Ghi chú</x:span>
+							</div>
+							<textbox class="form-control" value="@bind(vm.ghiChu)" rows="3" disabled="${!(readOnly and !action)}"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -141,7 +147,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="mg-and-bg-and-line-fix" if="${action}">
+			<div class="mg-and-bg-and-line-fix" if="${action ne false}">
 				<div class="row">
 					<div zclass="col-md-6">
 						<div zclass="form-group">
@@ -224,7 +230,7 @@
 							</x:button>
 						</div>
 					</div>
-					<div zclass="col-xs-6" if="${!action}">
+					<div zclass="col-xs-6" if="${action eq false}">
 						<div zclass="form-group right">
 							<x:button  class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveNhanViec', wdn=wdn, item = vm, vm=vmArgs, attr = 'targetQuerry')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
