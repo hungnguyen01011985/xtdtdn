@@ -409,6 +409,9 @@ public class ProcessService extends BasicService<Object> {
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 			luuDuLieuDonVi(duAn.getGiaiDoanDuAn(), false);
 		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(duAn.getGiaiDoanDuAn().getGiaiDoanXucTien()) && PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(duAn.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
+			luuDuHoSoKhuDat(duAn.getGiaiDoanDuAn(), false);
+		}
 		redirectGiaiDoanDuAnById(duAn.getId());
 		showNotification("", "Cập nhật thành công", "success");
 	}
@@ -448,6 +451,9 @@ public class ProcessService extends BasicService<Object> {
 		model.getGiaiDoanDuAn().saveNotShowNotification();
 		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 			luuDuLieuDonVi(model.getGiaiDoanDuAn(), true);
+		}
+		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(model.getGiaiDoanDuAn().getGiaiDoanXucTien()) && PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(model.getGiaiDoanDuAn().getPhuongThucLuaChonNDT())) {
+			luuDuHoSoKhuDat(model.getGiaiDoanDuAn(), true);
 		}
 		luuLichSuVanBan(model);
 		redirectGiaiDoanDuAnById(model.getId());
@@ -619,7 +625,6 @@ public class ProcessService extends BasicService<Object> {
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(giaiDoanXucTien)) {
 			if (PhuongThucLuaChonNDT.DAU_GIA_QUYEN_SU_DUNG_DAT.equals(giaiDoanDuAn.getPhuongThucLuaChonNDT())) {
-				luuDuHoSoKhuDat(giaiDoanDuAn, luuLichSu);
 				saveTaiLieuDauGia(giaiDoanDuAn, luuLichSu);
 				return;
 			}
