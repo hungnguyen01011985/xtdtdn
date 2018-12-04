@@ -11,12 +11,11 @@
 <?script type="text/javascript" src="/assets/js/sb-admin-2.js"?>
 <?script type="text/javascript" src="/assets/toastr/build/toastr.min.js" ?>
 <?script type="text/javascript" src="/backend/assets/js/bootbox.min.js" ?>
-
 <zk xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk"
 xmlns:w="http://www.zkoss.org/2005/zk/client">
 <n:script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></n:script>
 <n:script src="//code.jquery.com/jquery-1.11.1.min.js"></n:script>
-
+<?link rel="icon" href="/assets/icon-bxtdn/logo.png" type="image/x-icon" ?>
 <zscript><![CDATA[
     entry = new vn.toancauxanh.service.BaseObject().core();
     String file = execution.getParameter("file");
