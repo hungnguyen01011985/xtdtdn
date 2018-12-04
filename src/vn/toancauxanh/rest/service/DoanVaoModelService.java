@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.model.QDoanVao;
@@ -29,7 +28,7 @@ public class DoanVaoModelService {
 		PagingObject<DoanVaoModel> rs = new PagingObject<>();
 		Page<DoanVao> doanVaoPage;
 		
-		if (StringUtils.hasText(tenDoanVao.trim())) {
+		if (tenDoanVao != null && !tenDoanVao.trim().isEmpty()) {
 			doanVaoPage = doanVaoRepository.findAll(QDoanVao.doanVao.tenDoanVao.like("%" + tenDoanVao + "%").and(QDoanVao.doanVao.daXoa.isFalse()), pageable);
 		} else {
 			doanVaoPage = doanVaoRepository.findAll(QDoanVao.doanVao.daXoa.isFalse(), pageable);
