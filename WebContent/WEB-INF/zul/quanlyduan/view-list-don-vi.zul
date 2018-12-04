@@ -12,7 +12,7 @@
 			<zscript>
 				<![CDATA[
 					if (each.congVanTraLoi == null) {
-							each.setCongVanTraLoi(new vn.toancauxanh.model.TepTin());
+						each.setCongVanTraLoi(new vn.toancauxanh.model.TepTin());
 					}
 				]]>
 			</zscript>

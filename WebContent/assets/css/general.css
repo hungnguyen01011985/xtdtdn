@@ -612,7 +612,7 @@
 	margin-bottom:2px !important;
 }
 .bg-btn-tailieu {
-	font-family: Roboto-Regular !important;
+	font-family: Roboto-Bold !important;
 	font-size: 13px;
 	color: #5C6376;
 	display: flex;
@@ -623,6 +623,7 @@
 	border: 1px solid #045AC2;
 	color:#FFF;
 	border-radius: 3px !important;
+	text-shadow:none;
 }
 
 .dv-color span {
@@ -1164,10 +1165,6 @@
 }
 .none-display {
 	display: none;
-}
-
-.link-thong-bao:hover {
-	text-decoration: underline;
 }
 
 .margin-top-17 {

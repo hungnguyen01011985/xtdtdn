@@ -64,6 +64,13 @@ public class ThongBaoService extends BasicService<ThongBao> {
 		list.add(null);
 		list.add(LoaiThongBao.CONG_VIEC_MOI);
 		list.add(LoaiThongBao.TRE_CONG_VIEC);
+		list.add(LoaiThongBao.DEN_HAN_CONG_VIEC);
+		list.add(LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO);
+		list.add(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH);
+		list.add(LoaiThongBao.HUY_CONG_VIEC);
+		list.add(LoaiThongBao.NHAC_NHO_CONG_VIEC);
+		list.add(LoaiThongBao.PHU_TRACH_CONG_VIEC);
+		list.add(LoaiThongBao.TRE_CONG_VIEC);
 		return list;
 	}
 
