@@ -342,8 +342,7 @@ public class DoanVao extends Model<DoanVao> {
 		if (giaoViec.noId()) {
 			saveCongViec(giaoViec);
 			giaoViec.getNguoiDuocGiao().saveNotShowNotification();
-			thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(),
-					giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+			thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
 			giaoViec.saveNotShowNotification();
 			this.setIdNguoiLienQuan(this.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 			this.saveNotShowNotification();
@@ -352,8 +351,7 @@ public class DoanVao extends Model<DoanVao> {
 			if (!this.getNguoiThucHienCu().equals(giaoViec.getNguoiDuocGiao())) {
 				String resetId = removeIdInListDoanVao(giaoViec, this.getNguoiThucHienCu());
 				saveCongViec(giaoViec);
-				thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(),
-						giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+				thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
 				giaoViec.saveNotShowNotification();
 				this.setIdNguoiLienQuan(resetId + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 				this.saveNotShowNotification();
@@ -396,8 +394,7 @@ public class DoanVao extends Model<DoanVao> {
 
 		if (LoaiThongBao.CONG_VIEC_MOI.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của @"
-					+ doanVao.getTenDoanVao());
+			thongBao.setNoiDung(nguoiNhan.getHoVaTen() + "@ có công việc mới @" + tenCongViec + "@ của @" + doanVao.getTenDoanVao());
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
@@ -424,8 +421,7 @@ public class DoanVao extends Model<DoanVao> {
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung(
-					"Đoàn vào @" + doanVao.getTenDoanVao() + "@ mà bạn đang phụ trách được chuyển cho @" + nguoiPhuTrachCu.getHoVaTen() + "@ phụ trách.");
+			thongBao.setNoiDung("Đoàn vào @" + doanVao.getTenDoanVao() + "@ mà bạn đang phụ trách được chuyển cho @" + nguoiPhuTrachCu.getHoVaTen() + "@ phụ trách.");
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
@@ -438,8 +434,7 @@ public class DoanVao extends Model<DoanVao> {
 
 		if (LoaiThongBao.CHUYEN_CONG_VIEC_DOAN_VAO.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung("Công việc @" + tenCongViec + "@ của đoàn @" + doanVao.getTenDoanVao()
-					+ "@ đã được chuyển cho người khác");
+			thongBao.setNoiDung("Công việc @" + tenCongViec + "@ của đoàn @" + doanVao.getTenDoanVao() + "@ đã được chuyển cho người khác");
 			thongBao.setNguoiNhan(this.nguoiThucHienCu);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
@@ -721,35 +716,20 @@ public class DoanVao extends Model<DoanVao> {
 
 	// ======================================================================================
 
-	private GiaoViec titleNhanSuLamViec = new GiaoViec(NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC, new NhanVien(), null,
-			null, null);
-	private GiaoViec congViecNguoiDuocPhanCong = new GiaoViec(NoiDungCongViec.CONG_VIEC_NGUOI_DUOC_PHAN_CONG,
-			new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec congViecChuyenVien = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUYEN_VIEN, new NhanVien(), null,
-			TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec titleCongTacHauCan = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN, new NhanVien(), null,
-			null, null);
-	private GiaoViec congViecChuanBiPhongHop = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_PHONG_HOP,
-			new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec congViecChuanBiHoaQua = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_HOA_QUA, new NhanVien(),
-			null, TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec congViecChuanBiThietBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_THIET_BI, new NhanVien(),
-			null, TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec congViecChuanBiTaiLieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_TAI_LIEU, new NhanVien(),
-			null, TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec titleCongTacKhac = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_KHAC, new NhanVien(), null, null,
-			null);
-	private GiaoViec congViecXayDungChuongTrinh = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAY_DUNG_CHUONG_TRINH,
-			new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec congViecChuanBiBaiGioiThieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU,
-			new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec congViecXacNhanLaiThongTin = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAC_NHAN_LAI_THONG_TIN,
-			new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec congViecGhiBienBan = new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, new NhanVien(), null,
-			TrangThaiGiaoViec.CHUA_LAM, null);
-	private GiaoViec congViecKiemTraLaiCongTacChuanBi = new GiaoViec(
-			NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM,
-			null);
+	private GiaoViec titleNhanSuLamViec = new GiaoViec(NoiDungCongViec.TITLE_NHAN_SU_LAM_VIEC, new NhanVien(), null, null, null);
+	private GiaoViec congViecNguoiDuocPhanCong = new GiaoViec(NoiDungCongViec.CONG_VIEC_NGUOI_DUOC_PHAN_CONG, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuyenVien = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUYEN_VIEN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec titleCongTacHauCan = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_HAU_CAN, new NhanVien(), null, null, null);
+	private GiaoViec congViecChuanBiPhongHop = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_PHONG_HOP, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiHoaQua = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_HOA_QUA, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiThietBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_THIET_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiTaiLieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_TAI_LIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec titleCongTacKhac = new GiaoViec(NoiDungCongViec.TITLE_CONG_TAC_KHAC, new NhanVien(), null, null, null);
+	private GiaoViec congViecXayDungChuongTrinh = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAY_DUNG_CHUONG_TRINH, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecChuanBiBaiGioiThieu = new GiaoViec(NoiDungCongViec.CONG_VIEC_CHUAN_BI_BAI_GIOI_THIEU, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecXacNhanLaiThongTin = new GiaoViec(NoiDungCongViec.CONG_VIEC_XAC_NHAN_LAI_THONG_TIN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecGhiBienBan = new GiaoViec(NoiDungCongViec.CONG_VIEC_GHI_BIEN_BAN, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
+	private GiaoViec congViecKiemTraLaiCongTacChuanBi = new GiaoViec(NoiDungCongViec.CONG_VIEC_KIEM_TRA_LAI_CONG_TAC_CHUAN_BI, new NhanVien(), null, TrangThaiGiaoViec.CHUA_LAM, null);
 
 	@Transient
 	public GiaoViec getTitleNhanSuLamViec() {
