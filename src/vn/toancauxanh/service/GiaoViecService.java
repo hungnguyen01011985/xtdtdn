@@ -35,7 +35,7 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		String trangThaiCongViec = MapUtils.getString(argDeco(), "trangThaiCongViec");
 		Long nguoiPhuTrach = (Long) argDeco().get("nguoiDuocGiao");
 		JPAQuery<GiaoViec> q = find(GiaoViec.class);
-		if (LoaiVaiTro.VAI_TRO_CHUYEN_VIEN.equals(core().getNhanVien().getVaiTro().getLoaiVaiTro())) {
+		if (core().getNhanVien().getVaiTro() != null && LoaiVaiTro.VAI_TRO_CHUYEN_VIEN.equals(core().getNhanVien().getVaiTro().getLoaiVaiTro())) {
 			q.where(QGiaoViec.giaoViec.nguoiDuocGiao.id.eq(core().getNhanVien().getId()));
 		}
 		if (param != null && !param.isEmpty()) {
