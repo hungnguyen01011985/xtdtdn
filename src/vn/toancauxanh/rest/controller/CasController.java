@@ -42,12 +42,6 @@ public class CasController extends BasicService<NhanVien>{
 				cookie.setPath("/");
 				cookie.setMaxAge(1000000000);
 				response.addCookie(cookie);;
-				/*Date thoiGian = new Date();
-				LichSuNguoiDung lichSuNguoiDung = new LichSuNguoiDung();
-				lichSuNguoiDung.setNhanVien(nhanVien);
-				lichSuNguoiDung.setNgayGio(thoiGian);
-				lichSuNguoiDung.setLoaiHanhDong(LoaiHanhDongEnum.LOGIN);
-				lichSuNguoiDung.saveNotShowNotification();*/
 				if (cookies != null) {
 					for (Cookie cookie1 : cookies) {
 						cookie1.setMaxAge(0);
@@ -63,7 +57,7 @@ public class CasController extends BasicService<NhanVien>{
 			for (Cookie cookie : cookies) {
 				cookie.setMaxAge(0);
 				cookie.setValue(null);
-	            cookie.setPath("/");
+				cookie.setPath("/");
 				response.addCookie(cookie);
 			}
 		}

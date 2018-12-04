@@ -21,7 +21,6 @@ public class BasicService<T> extends BaseObject<T> {
 	private @Nullable Date tuNgay;
 	private @Nullable Date denNgay;
 	
-
 	public final Quyen getQuyen() {
 		return new Quyen(core().getQuyen().getRealm(),
 				MapUtils.getString(argDeco(), Labels.getLabel("param.resource"), ""));
@@ -108,7 +107,7 @@ public class BasicService<T> extends BaseObject<T> {
 				if (token != null) {
 					req.getSession().removeAttribute("email");
 				}
-				if(toLoginIfNull) {
+				if (toLoginIfNull) {
 					redirectLogin(req, res);
 				}
 			}
