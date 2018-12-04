@@ -3,6 +3,7 @@ package vn.toancauxanh.rest.model;
 import java.util.Date;
 
 public class CongViecModel {
+	private Long id;
 	private String tenCongViec = "";
 	private String yKienChiDao = "";
 	private String ketQua = "";
@@ -15,6 +16,14 @@ public class CongViecModel {
 	private Date ngayGiao;
 	private Date hanThucHien;
 	private Date ngayHoanThanh;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTenCongViec() {
 		return tenCongViec;

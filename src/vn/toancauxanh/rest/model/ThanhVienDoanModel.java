@@ -1,12 +1,21 @@
 package vn.toancauxanh.rest.model;
 
 public class ThanhVienDoanModel {
+	private Long id;
 	private String hoVaTen = "";
 	private String donVi = "";
 	private String chucDanh = "";
 	private String email = "";
 	private String soDienThoai = "";
 	private String quocGia = "";
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getHoVaTen() {
 		return hoVaTen;

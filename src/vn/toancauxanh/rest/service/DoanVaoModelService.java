@@ -29,7 +29,7 @@ public class DoanVaoModelService {
 		PagingObject<DoanVaoModel> rs = new PagingObject<>();
 		Page<DoanVao> doanVaoPage;
 		
-		if (StringUtils.hasText(tenDoanVao)) {
+		if (StringUtils.hasText(tenDoanVao.trim())) {
 			doanVaoPage = doanVaoRepository.findAll(QDoanVao.doanVao.tenDoanVao.like("%" + tenDoanVao + "%").and(QDoanVao.doanVao.daXoa.isFalse()), pageable);
 		} else {
 			doanVaoPage = doanVaoRepository.findAll(QDoanVao.doanVao.daXoa.isFalse(), pageable);

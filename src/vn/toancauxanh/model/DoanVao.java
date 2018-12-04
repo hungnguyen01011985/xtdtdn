@@ -881,7 +881,7 @@ public class DoanVao extends Model<DoanVao> {
 		checkAllNull = false;
 	}
 
-	private List<GiaoViec> listGiaoViec = new ArrayList<GiaoViec>();
+	private List<GiaoViec> listGiaoViec = new ArrayList<>();
 
 	@Transient
 	public List<GiaoViec> getListGiaoViec() {
@@ -920,7 +920,7 @@ public class DoanVao extends Model<DoanVao> {
 		}
 	}
 
-	private List<GiaoViec> listGiaoViecTheoDoan = new ArrayList<GiaoViec>();
+	private List<GiaoViec> listGiaoViecTheoDoan = new ArrayList<>();
 
 	@Transient
 	public List<GiaoViec> getListGiaoViecTheoDoan() {
@@ -982,6 +982,7 @@ public class DoanVao extends Model<DoanVao> {
 		GiaoViecService sv = new GiaoViecService();
 		listGiaoViecTheoDoan.addAll(sv.getListGiaoViecTheoDoanVao(getId()));
 		DoanVaoModel rs = new DoanVaoModel();
+		rs.setId(getId() != null ? getId() : null);
 		rs.setTenDoanVao(getTenDoanVao() != null ? getTenDoanVao() : "");
 		rs.setQuocGia(getQuocGia() != null ? getQuocGia().getText() : "");
 		rs.setTrangThaiTiepDoan(getTrangThaiTiepDoan() != null ? getTrangThaiTiepDoan().getText() : "");
@@ -992,7 +993,7 @@ public class DoanVao extends Model<DoanVao> {
 		rs.setLink(getLink() != null ? getLink() : "");
 		rs.setNguoiPhuTrach(getNguoiPhuTrach() != null ? getNguoiPhuTrach().getHoVaTen() : "");
 		rs.setCongVanChiDaoUB(getCongVanChiDaoUB() != null ? getCongVanChiDaoUB().getTenFile() : "");
-		rs.setIdNguoiPhuTrach(getNguoiPhuTrach() != null ? getNguoiPhuTrach().getId() : 0l);
+		rs.setIdNguoiPhuTrach(getNguoiPhuTrach() != null ? getNguoiPhuTrach().getId() : null);
 		rs.setSoNguoi(getSoNguoi());
 		rs.setThoiGianDenLamViec(getThoiGianDenLamViec() != null ? getThoiGianDenLamViec() : null);
 		rs.setThanhVienDoans(getListThanhVienTheoDoan() != null ? getListThanhVienTheoDoan().stream().map(ThanhVienDoan::toThanhVienDoanModel).collect(Collectors.toList()) : null);

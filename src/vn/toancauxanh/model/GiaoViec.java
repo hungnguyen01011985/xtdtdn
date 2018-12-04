@@ -463,6 +463,7 @@ public class GiaoViec extends Model<GiaoViec> {
 
 	public CongViecModel toGiaoViecModel(){
 		CongViecModel rs = new CongViecModel();
+		rs.setId(getId() != null ? getId() : null);
 		rs.setTenCongViec(getTenCongViec() != null ? getTenCongViec() : "");
 		rs.setyKienChiDao(getyKienChiDao() != null ? getyKienChiDao() : "");
 		rs.setKetQua(getKetQua() != null ? getKetQua() : "");

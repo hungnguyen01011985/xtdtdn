@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class DoanVaoModel {
+	private Long id;
 	private String tenDoanVao = "";
 	private String quocGia = "";
 	private String trangThaiTiepDoan = "";
@@ -18,8 +19,16 @@ public class DoanVaoModel {
 	private Long idNguoiPhuTrach;
 	private int soNguoi;
 	private Date thoiGianDenLamViec;
-	private List<ThanhVienDoanModel> thanhVienDoans = new ArrayList<ThanhVienDoanModel>();
-	private List<CongViecModel> congViecs = new ArrayList<CongViecModel>();
+	private List<ThanhVienDoanModel> thanhVienDoans = new ArrayList<>();
+	private List<CongViecModel> congViecs = new ArrayList<>();
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTenDoanVao() {
 		return tenDoanVao;

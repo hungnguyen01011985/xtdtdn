@@ -126,13 +126,14 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 	
 	@Transient
 	public ThanhVienDoanModel toThanhVienDoanModel() {
-		ThanhVienDoanModel thanhVienDoanModel = new ThanhVienDoanModel();
-		thanhVienDoanModel.setHoVaTen(getHoVaTen() != null ? getHoVaTen() : "");
-		thanhVienDoanModel.setDonVi(getDonVi() != null ? getDonVi() : "");
-		thanhVienDoanModel.setChucDanh(getChucDanh() != null ? getChucDanh() : "");
-		thanhVienDoanModel.setEmail(getEmail() != null ? getEmail() : "");
-		thanhVienDoanModel.setSoDienThoai(getSoDienThoai() != null ? getSoDienThoai() : "");
-		thanhVienDoanModel.setQuocGia(getQuocGia() != null ? getQuocGia().getText() : "");
-		return thanhVienDoanModel;
+		ThanhVienDoanModel rs = new ThanhVienDoanModel();
+		rs.setId(getId() != null ? getId() : null);
+		rs.setHoVaTen(getHoVaTen() != null ? getHoVaTen() : "");
+		rs.setDonVi(getDonVi() != null ? getDonVi() : "");
+		rs.setChucDanh(getChucDanh() != null ? getChucDanh() : "");
+		rs.setEmail(getEmail() != null ? getEmail() : "");
+		rs.setSoDienThoai(getSoDienThoai() != null ? getSoDienThoai() : "");
+		rs.setQuocGia(getQuocGia() != null ? getQuocGia().getText() : "");
+		return rs;
 	}
 }
