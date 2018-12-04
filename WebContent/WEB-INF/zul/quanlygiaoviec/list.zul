@@ -161,9 +161,9 @@
 						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
 				</div>
 			</div>
-			<div class="row mg-and-bg-and-line">
+			<div class="row mg-and-bg-and-line" if="${entry.quyen.quanlygiaoviec_nhacnho}">
 				<div zclass="col-md-12">
-					<div  zclass="form-group right-mg flex" style="margin-right:0;">
+					<div zclass="form-group right-mg flex" style="margin-right:0;">
 						<x:button onClick="@command('redirectPage', zul='quanlygiaoviec/list-nhac-nho.zul')"
 							class="btn btn-blue">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/nhac-nho-white.svg"/>

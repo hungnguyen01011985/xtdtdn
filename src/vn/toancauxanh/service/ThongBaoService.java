@@ -49,11 +49,14 @@ public class ThongBaoService extends BasicService<ThongBao> {
 			thongBao.setDaXem(true);
 			thongBao.saveNotShowNotification();
 		}
-		if (ThongBaoEnum.THONG_BAO_DOAN_VAO.equals(thongBao.getKieuThongBao())) {
-			thongBao.redirect("/cp/quanlydoanvao/edit/");
-		} else if (ThongBaoEnum.THONG_BAO_DU_AN.equals(thongBao.getKieuThongBao())) {
-			thongBao.redirect("/cp/quanlyduan/");
+		if (!LoaiThongBao.HUY_CONG_VIEC.equals(thongBao.getLoaiThongBao()) && !LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(thongBao.getLoaiThongBao())) {
+			if (ThongBaoEnum.THONG_BAO_DOAN_VAO.equals(thongBao.getKieuThongBao())) {
+				thongBao.redirect("/cp/quanlydoanvao/edit/");
+			} else if (ThongBaoEnum.THONG_BAO_DU_AN.equals(thongBao.getKieuThongBao())) {
+				thongBao.redirect("/cp/quanlyduan/");
+			}
 		}
+		
 	}
 
 	public List<LoaiThongBao> getListThongBaoAndNull() {
