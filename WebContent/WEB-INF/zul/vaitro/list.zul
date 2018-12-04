@@ -64,7 +64,7 @@
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${!each.macDinh and (entry.nhanVien.quyens eq '[*]')}"
+									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${entry.nhanVien.quyens eq '[*]'}"
 										onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='vaiTroQuery', type='vaitro')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
