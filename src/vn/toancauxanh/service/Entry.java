@@ -382,7 +382,6 @@ public class Entry extends BaseObject<Object> {
 	public void dangXuatBackend(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth == null) {
-			System.out.println("zoo logut auth");
 			response.sendRedirect(request.getContextPath()+"/cas/login");
 		} else {
 			new NhanVienService().logoutNotRedirect(request, response);

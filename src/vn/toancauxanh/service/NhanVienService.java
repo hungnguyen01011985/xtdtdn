@@ -27,10 +27,15 @@ import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.QVaiTro;
 import vn.toancauxanh.model.VaiTro;
+import vn.toancauxanh.sso.Utils;
 
 public final class NhanVienService extends BasicService<NhanVien> {
 
 	private boolean remember;
+
+	public void setTacGiasTimKiem(List<NhanVien> tacGiasTimKiem) {
+		this.tacGiasTimKiem = tacGiasTimKiem;
+	}
 
 	public boolean isRemember() {
 		return remember;
@@ -170,10 +175,12 @@ public final class NhanVienService extends BasicService<NhanVien> {
  			lichSuNguoiDung.setNgayGio(thoiGian);
  			lichSuNguoiDung.setLoaiHanhDong(LoaiHanhDongEnum.LOGOUT);
  			lichSuNguoiDung.saveNotShowNotification();*/
-			
 			try {
-//				res.sendRedirect(Utils.getLogoutCasUrl());
-				res.sendRedirect(req.getContextPath()+"/login");
+				if (live) {
+					res.sendRedirect(req.getContextPath()+"/login");
+				} else {
+					res.sendRedirect(Utils.getLogoutCasUrl());
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
