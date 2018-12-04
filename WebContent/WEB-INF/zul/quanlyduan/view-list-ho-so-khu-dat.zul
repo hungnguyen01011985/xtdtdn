@@ -31,7 +31,7 @@
 				<div zclass="col-md-8" style="display:flex;justify-content: space-between;">
 					<div zclass="form-group mg-top-8" viewModel="@id('taiLieu') @init(each.taiLieu)">
 						<x:span class="label-txt-style">Tài liệu đính kèm</x:span>
-						<button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty each.taiLieu.tenFile)" label="Chọn tài liệu" 
+						<button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien)}" visible="@load(empty each.taiLieu.tenFile)" label="Chọn tài liệu" 
 							class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 							onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'taiLieu')"
 							upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
