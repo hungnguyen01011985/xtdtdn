@@ -27,7 +27,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<div class="page-here">
-						<span>Quản lý đoàn vào</span>
+						<n:a href="${ctxPath}/cp/quanlydoanvao"><span>Quản lý đoàn vào</span></n:a>
 						<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
 						<span>${id ne null ? vm.tenDoanVao : 'Thêm đoàn vào'}</span>
 					</div>

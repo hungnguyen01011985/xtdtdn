@@ -38,7 +38,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<div class="page-here">
-						<n:a href="${ctxPath}/cp"><span>Quản lý dự án</span></n:a>
+						<n:a href="${ctxPath}/cp/quanlyduan"><span>Quản lý dự án</span></n:a>
 						<x:image style="padding-left:5px;" src="${contexPath}/assets/icon-bxtdn/arrow-breadcrumb.svg"/>
 						<span>${vm.tenDuAn}</span>
 					</div>
