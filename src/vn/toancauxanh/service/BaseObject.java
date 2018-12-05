@@ -53,9 +53,20 @@ import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.QThanhVienDoan;
 import vn.toancauxanh.model.Setting;
 import vn.toancauxanh.model.ThanhVienDoan;
+import vn.toancauxanh.sso.Utils;
 
 public class BaseObject<T> extends CoreObject<T> {
+	
+	public boolean live = true;
+	
+	public boolean isLive() {
+		return live;
+	}
 
+	public void setLive(boolean live) {
+		this.live = live;
+	}
+	
 	@Override
 	public Map<Object, Object> getArg() {
 		Map<Object, Object> arg = super.getArg();
@@ -195,7 +206,11 @@ public class BaseObject<T> extends CoreObject<T> {
 			url.append(":").append(req.getServerPort()); // app name
 		}
 		try {
-			res.sendRedirect(url + req.getContextPath() + "/login");
+			if (live) {
+				res.sendRedirect(url + req.getContextPath() + "/login");
+			} else {
+				res.sendRedirect(Utils.getLogoutCasUrl());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

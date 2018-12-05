@@ -47,8 +47,8 @@
 								<div class="flex">
 									<x:span class="label-txt-style">Tên dự án<n:small class="required"> *</n:small></x:span>
 								</div>
-								<textbox maxlength="255" class="form-control textbox-txt-style" placeholder="Nhập tên dự án" value="@bind(vm.tenDuAn) @save(vm.tenDuAn, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
-									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								<textbox class="form-control textbox-txt-style" placeholder="Nhập tên dự án" value="@bind(vm.tenDuAn) @save(vm.tenDuAn, before={'doAction','doActionWithKey'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
+									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" maxlength="255"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
