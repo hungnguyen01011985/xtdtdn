@@ -1,5 +1,6 @@
 package vn.toancauxanh.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -7,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.MapUtils;
 import org.jasypt.util.password.BasicPasswordEncryptor;
@@ -25,10 +27,15 @@ import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.QNhanVien;
 import vn.toancauxanh.model.QVaiTro;
 import vn.toancauxanh.model.VaiTro;
+import vn.toancauxanh.sso.Utils;
 
 public final class NhanVienService extends BasicService<NhanVien> {
 
 	private boolean remember;
+
+	public void setTacGiasTimKiem(List<NhanVien> tacGiasTimKiem) {
+		this.tacGiasTimKiem = tacGiasTimKiem;
+	}
 
 	public boolean isRemember() {
 		return remember;
@@ -138,7 +145,6 @@ public final class NhanVienService extends BasicService<NhanVien> {
 	@Command
 	public void timKiems(@BindingParam("hoTenTacGia") @Default(value = "") final String name,
 			@BindingParam("baiViet") final Object bv) {
-
 		if (name.isEmpty()) {
 			tacGiasTimKiem = getTacGiasAndNull();
 		} else {
@@ -148,5 +154,33 @@ public final class NhanVienService extends BasicService<NhanVien> {
 					.fetch());
 		}
 		BindUtils.postNotifyChange(null, null, this, "tacGiasTimKiem");
+	}
+	
+	@Command
+	public void logoutNotRedirect(HttpServletRequest req, HttpServletResponse res) {
+		NhanVien nhanVienLogin = getNhanVien(false, false, req, res);
+		if (nhanVienLogin != null && !nhanVienLogin.noId()) {
+			HttpSession zkSession=req.getSession();
+ 			zkSession.removeAttribute("email");
+ 			Cookie cookie = new Cookie("email", null);
+ 			cookie.setPath("/");
+ 			cookie.setMaxAge(0);
+ 			res.addCookie(cookie);
+			try {
+				if (live) {
+					res.sendRedirect(req.getContextPath()+"/login");
+				} else {
+					res.sendRedirect(Utils.getLogoutCasUrl());
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				res.sendRedirect(req.getContextPath()+ "/cas/login");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
