@@ -51,7 +51,7 @@ public class DuAn extends Model<DuAn> {
 	@Lob
 	private String mucTieuDuAn;
 	private Double tongVonDauTu = 0.0;
-	private Double dienTichSuDungDat = 0.0;
+	private Double dienTichSuDungDat;
 	private LinhVucDuAn linhVuc;
 	private MucDoUuTien mucDoUuTien;
 	private KhaNangDauTu khaNangDauTu;
@@ -628,6 +628,7 @@ public class DuAn extends Model<DuAn> {
 	
 	@Command
 	public void saveThongTinDuAn(){
+		System.out.println("dien tich" + dienTichSuDungDat);
 		this.getTaiLieuNDT().saveNotShowNotification();
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(this.getId()));
 		if (!q.fetchFirst().getTenDuAn().equals(this.getTenDuAn())) {

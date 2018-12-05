@@ -123,7 +123,7 @@
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Tổng vốn đầu tư(USD)</x:span>
 							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8"
-								width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goKetThuc'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư', type = true)" />
+								width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goKetThuc', 'saveThongTinDuAn'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư')" />
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -143,7 +143,7 @@
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Diện tích sử dụng đất(ha)</x:span>
 							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8" 
-								width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goKetThuc'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất', type = true)" />
+								width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goKetThuc', 'saveThongTinDuAn'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất')" />
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

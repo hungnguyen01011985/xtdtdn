@@ -84,7 +84,7 @@
 								<label value="@load(each.duAn.tenDuAn)"></label>
 								<label value="@load(each.tenCongTy)"></label>
 								<label value="@load(each.duAn.diaDiem eq null ? 'Chưa xác định' : each.duAn.diaDiem)"></label>
-								<label value="@load(each.duAn.tongVonDauTu)"></label>
+								<label value="@load(each.duAn.tongVonDauTu) @converter('formatedNumber', format='$ ###,###.##')"></label>
 								<label value="@load(each.duAn.mucTieuDuAn)"></label>
 								<label value="@load(each.giaiDoanXucTien.text)"></label>
 							</row>
