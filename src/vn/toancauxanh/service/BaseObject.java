@@ -283,7 +283,7 @@ public class BaseObject<T> extends CoreObject<T> {
 	public void redirectPageActionGiaoViec(@BindingParam("zul") String zul, @BindingParam("vmArgs") Object vmArgs,
 			@BindingParam("vm") Object vm, @BindingParam("nhom") Object nhom,
 			@BindingParam("loaiCongViec") LoaiCongViec loaiCongViec, @BindingParam("readOnly") boolean readOnly,
-			@BindingParam("title") String title) {
+			@BindingParam("title") String title, @BindingParam("attr") String attr) {
 		Map<String, Object> args = new HashMap<>();
 		args.put("vmArgs", vmArgs);
 		args.put("vm", vm);
@@ -291,6 +291,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		args.put("readOnly", readOnly);
 		args.put("title", title);
 		args.put("loaiCongViec", loaiCongViec);
+		args.put("attr", attr);
 		Executions.createComponents(zul, null, args);
 	}
 

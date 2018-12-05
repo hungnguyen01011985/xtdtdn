@@ -144,11 +144,11 @@
 									</html>
 								</div>
 								<div class="thaotac">
-									<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color" if="${vm.checkQuyenBaoCao(item.trangThaiGiaoViec, item.nguoiDuocGiao.id)}" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = item, vmArgs = vm, readOnly = true, loaiCongViec = item.loaiCongViec, title = 'Báo cáo')">
+									<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color" if="${vm.checkQuyenBaoCao(item.trangThaiGiaoViec, item.nguoiDuocGiao.id)}" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = item, vmArgs = vm, readOnly = true, loaiCongViec = item.loaiCongViec, title = 'Báo cáo', attr = 'targetQuerry')">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Báo cáo</x:span>
 									</x:a>
-									<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color" if="${vm.checkQuyenNhanViec(item.trangThaiGiaoViec, item.nguoiDuocGiao.id)}" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = item, vmArgs = vm, readOnly = false, loaiCongViec = item.loaiCongViec, title = 'Nhận việc')">
+									<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color" if="${vm.checkQuyenNhanViec(item.trangThaiGiaoViec, item.nguoiDuocGiao.id)}" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = item, vmArgs = vm, readOnly = false, loaiCongViec = item.loaiCongViec, title = 'Nhận việc', attr = 'targetQuerry')">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Nhận việc</x:span>
 									</x:a>
