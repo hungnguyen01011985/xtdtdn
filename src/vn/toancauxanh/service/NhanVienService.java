@@ -145,7 +145,6 @@ public final class NhanVienService extends BasicService<NhanVien> {
 	@Command
 	public void timKiems(@BindingParam("hoTenTacGia") @Default(value = "") final String name,
 			@BindingParam("baiViet") final Object bv) {
-
 		if (name.isEmpty()) {
 			tacGiasTimKiem = getTacGiasAndNull();
 		} else {
@@ -161,20 +160,12 @@ public final class NhanVienService extends BasicService<NhanVien> {
 	public void logoutNotRedirect(HttpServletRequest req, HttpServletResponse res) {
 		NhanVien nhanVienLogin = getNhanVien(false, false, req, res);
 		if (nhanVienLogin != null && !nhanVienLogin.noId()) {
-			
 			HttpSession zkSession=req.getSession();
- 			//Session zkSession = Sessions.getCurrent();
  			zkSession.removeAttribute("email");
  			Cookie cookie = new Cookie("email", null);
  			cookie.setPath("/");
  			cookie.setMaxAge(0);
  			res.addCookie(cookie);
- 			/*Date thoiGian = new Date();
- 			LichSuNguoiDung lichSuNguoiDung = new LichSuNguoiDung();
- 			lichSuNguoiDung.setNhanVien(nhanVienLogin);
- 			lichSuNguoiDung.setNgayGio(thoiGian);
- 			lichSuNguoiDung.setLoaiHanhDong(LoaiHanhDongEnum.LOGOUT);
- 			lichSuNguoiDung.saveNotShowNotification();*/
 			try {
 				if (live) {
 					res.sendRedirect(req.getContextPath()+"/login");
@@ -188,7 +179,6 @@ public final class NhanVienService extends BasicService<NhanVien> {
 			try {
 				res.sendRedirect(req.getContextPath()+ "/cas/login");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
