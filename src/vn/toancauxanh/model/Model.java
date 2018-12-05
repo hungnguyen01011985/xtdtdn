@@ -38,6 +38,7 @@ import org.zkoss.zul.Window;
 import com.google.common.base.Strings;
 import com.querydsl.core.annotations.QueryInit;
 
+import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.service.BaseObject;
@@ -556,7 +557,6 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 					.startProcessInstanceByKey(processDefinitionKey, businessKey());
 			task = core().getProcess().getTaskService().createTaskQuery().processInstanceId(processInstance.getId())
 					.singleResult();
-			System.out.println("Add task" + task.getId());
 		} else {
 			task = getCurrentTask();
 		}

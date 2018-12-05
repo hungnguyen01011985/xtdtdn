@@ -74,7 +74,7 @@
 							<column label="Tên dự án" />
 							<column label="Chủ đầu tư" />
 							<column label="Địa điểm, diện tích đất dự kiến" />
-							<column label="Tổng vốn đầu tư (USD)"/>
+							<column label="Tổng vốn đầu tư (USD)" />
 							<column label="Mục tiêu dự án"/>
 							<column label="Tiến độ xúc tiến" width="150px"/>
 						</columns>
@@ -86,7 +86,7 @@
 								<label value="@load(each.duAn.diaDiem eq null ? 'Chưa xác định' : each.duAn.diaDiem)"></label>
 								<label value="@load(each.duAn.tongVonDauTu) @converter('formatedNumber', format='$ ###,###.##')"></label>
 								<label value="@load(each.duAn.mucTieuDuAn)"></label>
-								<label value="@load(each.giaiDoanXucTien.text)"></label>
+								<label value="@load(each.duAn.giaiDoanXucTien.text)"></label>
 							</row>
 						</template>
 					</grid>

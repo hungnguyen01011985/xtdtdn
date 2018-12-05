@@ -65,18 +65,11 @@
 						</div>
 					</div>
 					<div zclass="col-md-6">
-						<div zclass="form-group txt-textbox-disable" if="${duAnCV eq loaiCongViec}">
+						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Người được giao</x:span>
 							</div>
-							<textbox class="form-control" value="@load(vm.duAn.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-						<div zclass="form-group txt-textbox-disable" if="${duAnCV ne loaiCongViec}">
-							<div class="flex">
-								<x:span class="label-txt-style">Người được giao</x:span>
-							</div>
-							<textbox class="form-control" value="@load(vm.doanVao.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
+							<textbox class="form-control" value="@load(vm.nguoiDuocGiao.hoVaTen)" disabled="true"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

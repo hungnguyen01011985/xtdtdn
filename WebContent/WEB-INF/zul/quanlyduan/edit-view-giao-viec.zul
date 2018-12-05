@@ -97,8 +97,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Ý kiến chỉ đạo</x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" value="@bind(vm.yKienChiDao) @save(vm.yKienChiDao, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" rows="3"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							<textbox class="form-control textbox-txt-style" value="@bind(vm.yKienChiDao)" rows="3"></textbox>
 						</div>
 					</div>
 				</div>

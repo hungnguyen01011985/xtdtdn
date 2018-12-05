@@ -14,6 +14,7 @@ import vn.toancauxanh.model.GiaiDoanDuAn;
 import vn.toancauxanh.model.QGiaiDoanDuAn;
 
 public class BaoCaoThongKeDuAnService extends BasicService<GiaiDoanDuAn>{
+	
 	public JPAQuery<GiaiDoanDuAn> getTargetQuery() {
 		String tienDoXucTien = MapUtils.getString(argDeco(), "giaiDoanXucTien");
 		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
