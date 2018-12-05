@@ -9,6 +9,7 @@
 			action = arg.get("action");
 			view = arg.get("view");
 			loaiCongViec = arg.get("loaiCongViec");
+			attr = arg.get("attr");
 			duAnCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DU_AN;
 			doanVaoCV = vn.toancauxanh.gg.model.enums.LoaiCongViec.DOAN_VAO;
 		]]></zscript> 
@@ -216,7 +217,7 @@
 				<div class="row">
 					<div zclass="col-xs-6">
 						<div zclass="form-group">
-							<x:button  class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
+							<x:button  class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify = vmArgs, detach = wdn, attr = 'targetQuery')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
 								<span>Đóng</span>
 							</x:button>
@@ -224,7 +225,7 @@
 					</div>
 					<div zclass="col-xs-6" if="${readOnly and action}">
 						<div zclass="form-group right">
-							<x:button class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveBaoCao', wdn=wdn, vmArgs=vmArgs, attr = 'targetQuery')">
+							<x:button class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveBaoCao', wdn=wdn, vmArgs=vmArgs, attr = attr)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
 								<span>Hoàn thành</span>
 							</x:button>
@@ -232,7 +233,7 @@
 					</div>
 					<div zclass="col-xs-6" if="${action eq false}">
 						<div zclass="form-group right">
-							<x:button  class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveNhanViec', wdn=wdn, item = vm, vm=vmArgs, attr = 'targetQuerry')">
+							<x:button  class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveNhanViec', wdn=wdn, item = vm, vm=vmArgs, attr = attr)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>
 								<span>Xác nhận</span>
 							</x:button>

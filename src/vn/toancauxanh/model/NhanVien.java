@@ -569,7 +569,7 @@ public class NhanVien extends Model<NhanVien> {
 		if (salkey == null || salkey.equals("")) {
 			salkey = encryptor.encryptPassword((new Date()).toString());
 		}
-
+		
 		String passNoHash = pass + salkey;
 		String passHash = encryptor.encryptPassword(passNoHash);
 		setSalkey(salkey);

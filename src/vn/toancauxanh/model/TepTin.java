@@ -90,7 +90,6 @@ public class TepTin extends Model<TepTin> {
 	public void saveFileTepTin() throws IOException {
 		if (media != null) {
 			final File baseDir = new File(folderStoreTaiLieu() + getNameHash());
-			System.out.println("Ghi dữ liệu xuống ổ cứng: " + folderStoreTaiLieu() + getNameHash());
 			Files.copy(baseDir, media.getStreamData());
 			setMedia(null);
 			BindUtils.postNotifyChange(null, null, this, "media");
@@ -170,7 +169,6 @@ public class TepTin extends Model<TepTin> {
 	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
 		if (!object.getPathFile().isEmpty()) {
 			final String path = folderStoreTaiLieu() + object.getNameHash();
-			System.out.println("Path download file: " + folderStoreTaiLieu() + object.getNameHash());
 			if (new java.io.File(path).exists()) {
 				try {
 					Filedownload.save(new URL("file:///" + path)
@@ -204,7 +202,6 @@ public class TepTin extends Model<TepTin> {
 				this.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
 				this.setMedia(media);
 				this.setNgayTao(null);
-				System.out.println("PathFile lưu vào database: " + this.getPathFile());
 				if (error != null) {
 					error.setValue("");
 				}
@@ -244,14 +241,9 @@ public class TepTin extends Model<TepTin> {
 	public void redirect(@BindingParam("ob") TepTin ob) {
 		String serverName = "";
 		String href = "";
-		String ipBrowser = "";
 		int serverPort = 0;
 		serverName = Executions.getCurrent().getServerName();
 		serverPort = Executions.getCurrent().getServerPort();
-		ipBrowser = Executions.getCurrent().getContextPath();
-		System.out.println("serverName: " + serverName);
-		System.out.println("serverPort: " + serverPort);
-		System.out.println("ipBrowser: " + ipBrowser);
 		if (serverName != null) {
 			String url = "";
 			if (serverName.contains("192.168.1.247") || serverName.contains("projects.greenglobal.vn")) {
