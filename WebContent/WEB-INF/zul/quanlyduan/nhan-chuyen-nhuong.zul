@@ -43,7 +43,7 @@
 					</div>
 					<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
 						disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
-						class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" 
+						class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }" 
 						readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())" selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan) @save(vm.giaiDoanDuAn.donViTuVan, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">
 							<comboitem label="@load(each.ten)"></comboitem>

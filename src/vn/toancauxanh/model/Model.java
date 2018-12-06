@@ -38,7 +38,6 @@ import org.zkoss.zul.Window;
 import com.google.common.base.Strings;
 import com.querydsl.core.annotations.QueryInit;
 
-import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.service.BaseObject;
@@ -168,6 +167,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 								} else if (obj instanceof DuAn) {
 									xoaCongViecLienQuan(((DuAn) obj).getId(), LoaiCongViec.DU_AN);
 									notifyNguoiLienQuan(((DuAn) obj).getIdNguoiLienQuan(), ((DuAn) obj).getTenDuAn());
+									find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(((DuAn) obj).getId())).fetch().forEach(item -> item.doDelete(true));
 								}
 								if (beanObject != null) {
 									BindUtils.postNotifyChange(null, null, beanObject, attr);

@@ -79,7 +79,7 @@
 								<column label="Người được giao"/>
 								<column label="Ngày giao việc" width="120px"/>
 								<column label="Hạn thực hiện" width="120px"/>
-								<column label="Trạng thái" width="100px"/>
+								<column label="Trạng thái" width="120px"/>
 								<column label="Thao tác" width="210px" />
 							</columns>
 							<template name="model">
