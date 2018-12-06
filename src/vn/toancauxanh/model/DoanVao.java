@@ -884,6 +884,7 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Transient
 	public List<GiaoViec> getListGiaoViec() {
+		System.out.println("congViecNguoiDuocPhanCong: " + congViecNguoiDuocPhanCong.getNguoiDuocGiao());
 		listGiaoViec.add(congViecNguoiDuocPhanCong);
 		listGiaoViec.add(congViecChuyenVien);
 		listGiaoViec.add(congViecChuanBiPhongHop);
@@ -905,16 +906,23 @@ public class DoanVao extends Model<DoanVao> {
 
 	@Command
 	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao,
-			@BindingParam("wdn") final Window wdn) {
-		for (GiaoViec item : getListGiaoViec()) {
-			checkCongViec(item);
-		}
-		if (!checkNotAllNull || !checkAllNull) {
-			showNotification("", "Dữ liệu nhập vào chưa đúng. Vui lòng nhập lại", "danger");
-			resetCheck();
+			@BindingParam("wdn") final Window wdn,
+			@BindingParam("isClose") final boolean isClose) {
+		if (!isClose) {
+			System.out.println("getListGiaoViec 1: " + getListGiaoViec().size());
+			for (GiaoViec item : getListGiaoViec()) {
+				checkCongViec(item);
+			}
+			if (!checkNotAllNull || !checkAllNull) {
+				showNotification("", "Dữ liệu nhập vào chưa đúng. Vui lòng nhập lại", "danger");
+				resetCheck();
+			} else {
+				resetCheck();
+				showNotification("Lưu thành công!", "", "success");
+				wdn.detach();
+			}
 		} else {
-			resetCheck();
-			showNotification("Lưu thành công!", "", "success");
+			System.out.println("getListGiaoViec 2: " + getListGiaoViec().size());
 			wdn.detach();
 		}
 	}
