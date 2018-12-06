@@ -219,7 +219,6 @@ public class DoanVao extends Model<DoanVao> {
 					tepTin.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setTenTaiLieu(media.getName().substring(0, media.getName().lastIndexOf(".")));
 					tepTin.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
-					System.out.println("File lưu vào database: " + tepTin.getPathFile());
 					tepTin.setMedia(media);
 					this.getTepTins().add(tepTin);
 					this.getTepTins().forEach(obj -> {

@@ -790,14 +790,9 @@ public class DuAn extends Model<DuAn> {
 	public void redirect(@BindingParam("ob") TepTin ob) {
 		String serverName = "";
 		String href = "";
-		String ipBrowser = "";
 		int serverPort = 0;
 		serverName = Executions.getCurrent().getServerName();
 		serverPort = Executions.getCurrent().getServerPort();
-		ipBrowser = Executions.getCurrent().getContextPath();
-		System.out.println("serverName: " + serverName);
-		System.out.println("serverPort: " + serverPort);
-		System.out.println("ipBrowser: " + ipBrowser);
 		if (serverName != null) {
 			String url = "";
 			if (serverName.contains("192.168.1.247") || serverName.contains("projects.greenglobal.vn")) {
