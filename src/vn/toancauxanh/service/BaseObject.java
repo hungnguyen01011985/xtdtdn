@@ -846,21 +846,21 @@ public class BaseObject<T> extends CoreObject<T> {
 	}
 
 	public boolean checkQuyenBaoCao(TrangThaiGiaoViec trangThai, Long id) {
-		if (TrangThaiGiaoViec.DANG_LAM.equals(trangThai) && core().getNhanVien().getId() == id) {
+		if (TrangThaiGiaoViec.DANG_LAM.equals(trangThai) && core().getNhanVien().getId().equals(id)) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean checkQuyenNhanViec(TrangThaiGiaoViec trangThai, Long id) {
-		if (TrangThaiGiaoViec.CHUA_LAM.equals(trangThai) && core().getNhanVien().getId() == id) {
+		if (TrangThaiGiaoViec.CHUA_LAM.equals(trangThai) && core().getNhanVien().getId().equals(id)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean checkQuyenSuaXoa(TrangThaiGiaoViec trangThai, Long id) {
-		if (!TrangThaiGiaoViec.HOAN_THANH.equals(trangThai) && core().getNhanVien().getId() == id) {
+		if (!TrangThaiGiaoViec.HOAN_THANH.equals(trangThai) && core().getNhanVien().getId().equals(id)) {
 			return true;
 		}
 		return false;

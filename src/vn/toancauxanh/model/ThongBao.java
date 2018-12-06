@@ -27,7 +27,8 @@ public class ThongBao extends Model<ThongBao> {
 	private boolean daXem;
 	private ThongBaoEnum kieuThongBao;
 	private Long idObject;
-
+	private boolean xemChiTiet;
+	
 	public ThongBao() {
 
 	}
@@ -90,6 +91,14 @@ public class ThongBao extends Model<ThongBao> {
 	public void setLoaiThongBao(LoaiThongBao loaiThongBao) {
 		this.loaiThongBao = loaiThongBao;
 	}
+	
+	public boolean isXemChiTiet() {
+		return xemChiTiet;
+	}
+
+	public void setXemChiTiet(boolean xemChiTiet) {
+		this.xemChiTiet = xemChiTiet;
+	}
 
 	@Transient
 	public String getClassColor() {
@@ -101,7 +110,11 @@ public class ThongBao extends Model<ThongBao> {
 
 	public void redirect(String href) {
 		String urlView = "";
-		urlView = urlView.concat(href + this.idObject);
+		if (this.isXemChiTiet()) {
+			urlView = urlView.concat(href +"chitiet/"+ this.idObject);
+		} else {
+			urlView = urlView.concat(href + this.idObject);
+		}
 		Executions.getCurrent().sendRedirect(urlView, "_blank");
 	}
 
