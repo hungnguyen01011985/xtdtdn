@@ -22,9 +22,6 @@
 			giaiDoanBa = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BA;
 			giaiDoanBon = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_BON;
 			giaiDoanNam = vn.toancauxanh.gg.model.enums.GiaiDoanXucTien.GIAI_DOAN_NAM;
-			if (giaiDoanNam.equals(vm.getGiaiDoanXucTien())) {
-				vm.setCheckTab(true);
-			}
 		]]>
 	</zscript>
 	<div if="${vm eq null or !(action and entry.quyen.quanlyduan_sua and vm.checkEdit(entry.nhanVien.id, vm.idNguoiLienQuan, vm.giaiDoanXucTien, vm.nguoiTao, vm.nguoiPhuTrach) 
