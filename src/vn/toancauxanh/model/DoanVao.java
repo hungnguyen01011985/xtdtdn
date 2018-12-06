@@ -307,7 +307,7 @@ public class DoanVao extends Model<DoanVao> {
 			});
 		}
 		
-		if (listGiaoViec != null && !listGiaoViec.isEmpty()) {
+		if (getListGiaoViec() != null && !getListGiaoViec().isEmpty()) {
 			for (GiaoViec congViec : listGiaoViec) {
 				congViec.setTenNhiemVu(this.getTenDoanVao());
 				checkCongViec(congViec);
@@ -917,6 +917,11 @@ public class DoanVao extends Model<DoanVao> {
 			showNotification("Lưu thành công!", "", "success");
 			wdn.detach();
 		}
+	}
+	
+	@Command
+	public void dongKeHoachLamViec(@BindingParam("wdn") final Window wdn){
+		wdn.detach();
 	}
 
 	private List<GiaoViec> listGiaoViecTheoDoan = new ArrayList<>();
