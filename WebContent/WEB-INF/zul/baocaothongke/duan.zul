@@ -85,7 +85,7 @@
 								<label value="@load(each.tenCongTy)"></label>
 								<label value="@load(each.duAn.diaDiemAndDienTich)"></label>
 								<label class="txt-align-right" value="@load(each.duAn.tongVonDauTu) @converter('formatedNumber', format='$ ###,###.##')"></label>
-								<label value="@load(each.duAn.subString(each.duAn.mucTieuDuAn , 80))"></label>
+								<label value="@load(each.duAn.subString(each.duAn.mucTieuDuAn , 60))"></label>
 								<label value="@load(each.duAn.giaiDoanXucTien.text)"></label>
 							</row>
 						</template>
