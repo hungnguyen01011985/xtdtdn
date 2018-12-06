@@ -729,9 +729,9 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 				if (LoaiCongViec.DU_AN.equals(giaoViec.getLoaiCongViec())) {
-					c.setCellValue(giaoViec.getDuAn().getTenDuAn().toString());
+					c.setCellValue(giaoViec.getDuAn().getTenDuAn());
 				} else {
-					c.setCellValue(giaoViec.getDoanVao().getTenDoanVao().toString());
+					c.setCellValue(giaoViec.getDoanVao().getTenDoanVao());
 				}
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
@@ -872,16 +872,16 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 
-				c.setCellValue(giaiDoanDuAn.getDuAn().getTenDuAn().toString());
+				c.setCellValue(giaiDoanDuAn.getDuAn().getTenDuAn());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
-				c.setCellValue(giaiDoanDuAn.getTenCongTy().toString());
+				c.setCellValue(giaiDoanDuAn.getTenCongTy());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(giaiDoanDuAn.getDuAn().getDiaDiem().toString());
+				c.setCellValue(giaiDoanDuAn.getDuAn().getDiaDiem());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
@@ -891,7 +891,7 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(giaiDoanDuAn.getDuAn().getMucTieuDuAn().toString());
+				c.setCellValue(giaiDoanDuAn.getDuAn().getMucTieuDuAn());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				
@@ -1008,7 +1008,7 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 
-				c.setCellValue(doanVao.getTenDoanVao().toString());
+				c.setCellValue(doanVao.getTenDoanVao());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
@@ -1017,7 +1017,7 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(doanVao.getNoiDoanDiTham().toString());
+				c.setCellValue(doanVao.getNoiDoanDiTham());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
@@ -1027,7 +1027,7 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(doanVao.getTomTatNoiDungKQ().toString());
+				c.setCellValue(doanVao.getTomTatNoiDungKQ());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				

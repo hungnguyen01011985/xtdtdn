@@ -30,6 +30,12 @@
 .txt-link-style .z-textbox[disabled] {
 	color:#4274ED !important;
 }
+.no-place-holder::-webkit-input-placeholder{
+	opacity: 0 !important;
+}
+.no-place-holder input::-webkit-input-placeholder{
+	opacity: 0 !important;
+}
 .z-textbox[disabled] { 
 	font-family:Roboto-Bold;
 }
@@ -56,6 +62,9 @@
     border-radius: 50%;
     height: 36px;
     width: 36px;
+	
+}
+.txt-align-right {
 	
 }
 .form-txt-style > .z-combobox-input{

@@ -39,7 +39,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Tên công ty<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
+							<textbox class="form-control textbox-txt-style ${action and vm.checkDangOGiaiDoan(giaiDoanNam) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
 								value="@bind(vm.giaiDoanDuAn.tenCongTy) @save(vm.giaiDoanDuAn.tenCongTy, before={'goNext', 'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập tên công ty"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -49,7 +49,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Người đại diện pháp lý<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
+							<textbox class="form-control textbox-txt-style ${action and vm.checkDangOGiaiDoan(giaiDoanNam) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
 								value="@bind(vm.giaiDoanDuAn.nguoiDaiDienPhapLy) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập người đại diện pháp lý"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -59,7 +59,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Địa chỉ<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
+							<textbox class="form-control textbox-txt-style ${action and vm.checkDangOGiaiDoan(giaiDoanNam) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
 								value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập địa chỉ"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -71,7 +71,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Số điện thoại<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
+							<textbox class="form-control textbox-txt-style  ${action and vm.checkDangOGiaiDoan(giaiDoanNam) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
 								value="@bind(vm.giaiDoanDuAn.soDienThoai) @save(vm.giaiDoanDuAn.soDienThoai, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator(vm.giaiDoanDuAn.validateSoDienThoai)" placeholder="Nhập số điện thoại"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -81,7 +81,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Email<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.email, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator(vm.giaiDoanDuAn.validatorEmail)" placeholder="Nhập email"></textbox>
+							<textbox class="form-control textbox-txt-style ${action and vm.checkDangOGiaiDoan(giaiDoanNam) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.giaiDoanDuAn.email) @save(vm.giaiDoanDuAn.email, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator(vm.giaiDoanDuAn.validatorEmail)" placeholder="Nhập email"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

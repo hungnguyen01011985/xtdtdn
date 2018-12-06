@@ -23,6 +23,7 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.DependsOn;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.media.Media;
@@ -195,7 +196,19 @@ public class DuAn extends Model<DuAn> {
 	public void setGiaoViec(GiaoViec giaoViec) {
 		this.giaoViec = giaoViec;
 	}
-
+	
+	@DependsOn({"diaDiem", "dienTichSuDungDat"})
+	@Transient
+	public String getDiaDiemAndDienTich() {
+		if (diaDiem != null && dienTichSuDungDat != 0) {
+			return diaDiem + ", " + dienTichSuDungDat;
+		}
+		if (diaDiem == null && dienTichSuDungDat == 0) {
+			return "Chưa xác định";
+		}
+		return (diaDiem == null ? dienTichSuDungDat + "" : diaDiem );
+	}
+	
 	@Transient
 	public List<MucDoUuTien> getListMucDoUuTien() {
 		List<MucDoUuTien> list = new ArrayList<MucDoUuTien>();

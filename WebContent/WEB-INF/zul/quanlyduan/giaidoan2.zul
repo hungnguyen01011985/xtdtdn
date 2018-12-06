@@ -45,7 +45,7 @@
 							</div>
 							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
 								disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
-								format="dd/MM/yyyy" class="hv-db datebox-txt-style mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button' }" 
+								format="dd/MM/yyyy" class="hv-db datebox-txt-style mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button no-place-holder' }" 
 								value="@bind(vm.giaiDoanDuAn.ngayKhaoSat) @save(vm.giaiDoanDuAn.ngayKhaoSat, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 								 width="100%" placeholder="Chọn ngày"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
@@ -58,7 +58,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Ghi chú</x:span>
 							</div>
-							<textbox class="form-control" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" rows="4" placeholder="Nhập ghi chú" value="@bind(vm.giaiDoanDuAn.ghiChu)"></textbox>
+							<textbox class="form-control ${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'no-place-holder'}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" rows="4" placeholder="Nhập ghi chú" value="@bind(vm.giaiDoanDuAn.ghiChu)"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -107,7 +107,7 @@
 						</div> 
 						<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
 							disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanHai) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" format="dd/MM/yyyy" 
-							class="hv-db datebox-txt-style mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button' }" 
+							class="hv-db datebox-txt-style mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanHai) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button no-place-holder' }" 
 							value="@bind(vm.giaiDoanDuAn.ngayPhatHanhCVGD2) @save(vm.giaiDoanDuAn.ngayPhatHanhCVGD2, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
 							width="100%" placeholder="Chọn ngày"/>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />

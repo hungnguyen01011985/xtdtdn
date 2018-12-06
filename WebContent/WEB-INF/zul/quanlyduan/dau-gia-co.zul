@@ -69,7 +69,7 @@
 					</div>
 					<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
 						disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
-						class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" 
+						class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }" 
 						readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViTuVan())"  placeholder="--Chọn--"
 						selectedItem="@bind(vm.giaiDoanDuAn.donViTuVan)@save(vm.giaiDoanDuAn.donViTuVan, before='goNext')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
 						<template name="model">
@@ -305,7 +305,7 @@
 						<x:span class="label-txt-style">Đơn vị thực hiện<n:small class="required"> *</n:small></x:span>
 					</div>
 					<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
-						disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button' }" 
+						disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button no-place-holder' }" 
 						readonly="true" width="100%" model="@load(vm.giaiDoanDuAn.getListDonViThucHien())" 
 						selectedItem="@bind(vm.giaiDoanDuAn.donViThucHien)@save(vm.giaiDoanDuAn.donViThucHien, before='goNext')@validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" placeholder="--Chọn--">
 						<template name="model">

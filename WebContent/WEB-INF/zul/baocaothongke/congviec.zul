@@ -47,32 +47,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div class="row">
-					<div class="col-md-4">
-						<div class="form-group">
-							<span>Người giao việc</span>
-							<combobox readonly="true" class="his"
-								model="@load(vm.listNhanVienTruongPhongAndLanhDaoAndNull)" value="@load(vm.arg.nguoiGiaoViec eq null ? 'Tất cả' : vm.arg.nguoiGiaoViec.hoVaTen)"
-								selectedItem="@bind(vm.arg.nguoiGiaoViec)" placeholder="Tất cả" width="100%">
-								<template name="model">
-									<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
-								</template>
-							</combobox>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<span>Người phụ trách</span>
-							<combobox readonly="true" class="his"
-								model="@load(vm.listNhanVienTruongPhongAndChuyenVienNull)" value="@load(vm.arg.nguoiDuocGiao eq null ? 'Tất cả' : vm.arg.nguoiDuocGiao.hoVaTen)"
-								selectedItem="@bind(vm.arg.nguoiDuocGiao)" placeholder="Tất cả" width="100%">
-								<template name="model">
-									<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
-								</template>
-							</combobox>
-						</div>
-					</div>
-				</div> -->
 				<div class="row">
 					<div zclass="col-md-3">
 						<div zclass="form-group">

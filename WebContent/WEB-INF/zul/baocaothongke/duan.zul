@@ -72,9 +72,9 @@
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên dự án" />
-							<column label="Chủ đầu tư" />
-							<column label="Địa điểm, diện tích đất dự kiến" />
-							<column label="Tổng vốn đầu tư (USD)"/>
+							<column label="Chủ đầu tư" width="220px"/>
+							<column label="Địa điểm, diện tích đất dự kiến" width="220px"/>
+							<column label="Tổng vốn đầu tư (USD)" width="180px"/>
 							<column label="Mục tiêu dự án"/>
 							<column label="Tiến độ xúc tiến" width="150px"/>
 						</columns>
@@ -83,13 +83,16 @@
 								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
 								<label value="@load(each.duAn.tenDuAn)"></label>
 								<label value="@load(each.tenCongTy)"></label>
-								<label value="@load(each.duAn.diaDiem eq null ? 'Chưa xác định' : each.duAn.diaDiem)"></label>
-								<label value="@load(each.duAn.tongVonDauTu)"></label>
+								<label value="@load(each.duAn.diaDiemAndDienTich)"></label>
+								<label class="txt-align-right" value="@load(each.duAn.tongVonDauTu) @converter('formatedNumber', format='$ ###,###.##')"></label>
 								<label value="@load(each.duAn.mucTieuDuAn)"></label>
-								<label value="@load(each.giaiDoanXucTien.text)"></label>
+								<label value="@load(each.duAn.giaiDoanXucTien.text)"></label>
 							</row>
 						</template>
 					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">

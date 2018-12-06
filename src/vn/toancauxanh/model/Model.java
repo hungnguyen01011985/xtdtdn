@@ -167,6 +167,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 								} else if (obj instanceof DuAn) {
 									xoaCongViecLienQuan(((DuAn) obj).getId(), LoaiCongViec.DU_AN);
 									notifyNguoiLienQuan(((DuAn) obj).getIdNguoiLienQuan(), ((DuAn) obj).getTenDuAn());
+									find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(((DuAn) obj).getId())).fetch().forEach(item -> item.doDelete(true));
 								}
 								if (beanObject != null) {
 									BindUtils.postNotifyChange(null, null, beanObject, attr);
@@ -556,7 +557,6 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 					.startProcessInstanceByKey(processDefinitionKey, businessKey());
 			task = core().getProcess().getTaskService().createTaskQuery().processInstanceId(processInstance.getId())
 					.singleResult();
-			System.out.println("Add task" + task.getId());
 		} else {
 			task = getCurrentTask();
 		}

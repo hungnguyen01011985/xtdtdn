@@ -240,6 +240,9 @@ public class GiaoViec extends Model<GiaoViec> {
 	@Command
 	public void saveNhanViec(@BindingParam("item") final GiaoViec ob,
 			@BindingParam("vm") final Object vm, @BindingParam("wdn") final Window wdn) {
+		if (this.getNguoiDuocGiao().getId() != core().getNhanVien().getId() || !TrangThaiGiaoViec.CHUA_LAM.equals(this.getTrangThaiGiaoViec())) {
+			return;
+		}
 		if (wdn != null) {
 			wdn.detach();
 		}
@@ -253,8 +256,11 @@ public class GiaoViec extends Model<GiaoViec> {
 	public void saveBaoCao(@BindingParam("vmArgs") final Object ob,
 			@BindingParam("wdn") final Window wd) {
 		wd.detach();
+		if (this.getNguoiDuocGiao().getId() != core().getNhanVien().getId() || !TrangThaiGiaoViec.DANG_LAM.equals(this.getTrangThaiGiaoViec())) {
+			return;
+		}
 		this.setTrangThaiGiaoViec(TrangThaiGiaoViec.HOAN_THANH);
-		if (getTaiLieuKetQua() !=null) {
+		if (getTaiLieuKetQua() != null && getTaiLieuKetQua().getNameHash() != null) {
 			this.getTaiLieuKetQua().saveNotShowNotification();
 		}
 		this.save();

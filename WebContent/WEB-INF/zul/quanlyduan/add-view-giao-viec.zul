@@ -104,7 +104,6 @@
 								<x:span class="label-txt-style">Ý kiến chỉ đạo</x:span>
 							</div>
 							<textbox class="form-control textbox-txt-style" value="@bind(vm.giaoViec.yKienChiDao)" rows="3" placeholder="Nhập ý kiến chỉ đạo"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 				</div>

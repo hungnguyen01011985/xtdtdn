@@ -31,7 +31,7 @@
 										<x:span class="issue-search">Cấp đơn vị<n:small class="required"> *</n:small></x:span>
 									</div>
 									<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanMot) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" readonly="true" model="@load(each.listCapDonVi)" selectedItem="@bind(each.capDonVi) @save(each.capDonVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
-										value="@load(each.capDonVi.ten)" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }" placeholder="Chọn cấp đơn vị" width="100%">
+										value="@load(each.capDonVi.ten)" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }" placeholder="Chọn cấp đơn vị" width="100%">
 										<template name="model">
 											<comboitem label="@load(each.ten)"></comboitem>
 										</template>
@@ -49,7 +49,7 @@
 									</div>
 									<idspace>
 									<combobox id="cbbDonVi" buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanMot) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" readonly="true" model="@load(each.listDonViXucTien)" value="@load(each.donVi eq null ? '' : each.donVi.ten)" selectedItem="@bind(each.donVi) @save(each.donVi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" 
-										placeholder="Chọn đơn vị xúc tiến" width="100%" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button' }">
+										placeholder="Chọn đơn vị xúc tiến" width="100%" class="his ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }">
 										<template name="model">
 											<comboitem label="@load(each.ten)"></comboitem>
 										</template>
@@ -74,7 +74,7 @@
 									<div class="flex">
 										<x:span class="label-txt-style">Ngày phát hành công văn<n:small class="required"> *</n:small></x:span>
 									</div>
-									<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy" class="hv-db ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? 'datebox-txt-style' : 'input-no-button' }"
+									<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy" class="hv-db ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? 'datebox-txt-style' : 'input-no-button no-place-holder' }"
 										value="@bind(each.ngayNhanTraLoi) @save(each.ngayNhanTraLoi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"
 										disabled="${!(action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id)}"/>
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
