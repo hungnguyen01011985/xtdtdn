@@ -17,7 +17,9 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<div class="page-here">
-						<span>Quản lý dự án</span><x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img><span>Thêm mới dự án</span>
+						<n:a href="${ctxPath}/cp/quanlyduan"><span>Quản lý dự án</span></n:a>
+						<x:img class="img-arrow-right" src="${contexPath}/assets/icon-bxtdn/chevron-right-solid.svg" width="7px"></x:img>
+						<span>Thêm mới dự án</span>
 					</div>
 				</div>
 			</div>
