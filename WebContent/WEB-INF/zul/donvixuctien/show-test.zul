@@ -1,2 +1,0 @@
-<?component name="view" inline="true" macroURI="test.zul"?>
-<view model="${entry.donViXucTiens.type().newInstance()}"  vmArgs="${arg.vmArgs}" save="Tạo mới đơn vị" />
