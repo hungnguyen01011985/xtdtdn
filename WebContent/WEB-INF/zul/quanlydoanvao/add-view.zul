@@ -134,9 +134,10 @@
 					</div>
 					<div class="row">
 						<div zclass="col-md-4">
-							<div zclass="form-group txt-link-style">
+							<div zclass="form-group txt-link-style" style="${action ? 'display:flex; flex-direction:column' : ''}">
 								<x:span class="label-txt-style">Link</x:span> 
-								<textbox maxlength="255" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style txt-link-inline" value="@bind(vm.link)" placeholder="Nhập link tham khảo..."></textbox>
+								<textbox maxlength="255" if="${!action}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style txt-link-inline" value="@bind(vm.link)" placeholder="Nhập link tham khảo..."></textbox>
+								<a if="${action}" href="http://${vm.link}" style="color:#4274ED !important;font-family:Roboto-Bold;margin-top:5px;">http://${vm.link}</a>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>

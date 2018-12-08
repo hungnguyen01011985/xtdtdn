@@ -1179,3 +1179,20 @@
 .margin-top-17 {
 	margin-top: 17px;
 }
+
+.popup-w-reponsive-1300 {
+	width:1300px;
+}
+.popup-w-reponsive-1200 {
+	width:1200px;
+}
+@media ( max-width : 1300px) {
+	.popup-w-reponsive-1300 {
+		width:90%;
+	}
+}
+@media ( max-width : 1200px) {
+	.popup-w-reponsive-1200 {
+		width:90%;
+	}
+}

@@ -61,9 +61,9 @@
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên đoàn" />
-							<column label="Thành phần đoàn(người)" />
+							<column label="Thành phần đoàn(người)" width="180px"/>
 							<column label="Nơi đoàn đi thăm họp tại" />
-							<column label="Thời gian"/>
+							<column label="Thời gian" width="120px"/>
 							<column label="Tóm tắt nội dung - Kết quả làm việc"/>
 						</columns>
 						<template name="model">
