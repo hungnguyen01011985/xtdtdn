@@ -27,7 +27,7 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Họ và tên<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Họ và tên<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<textbox maxlength="255" class="form-control textbox-txt-style" readonly="${readOnly}" value="@bind(vm.hoVaTen)@save(vm.hoVaTen, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập tên người dùng..."></textbox>
@@ -37,7 +37,7 @@
 						<div zclass="col-md-6" >
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Vai trò người dùng<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Vai trò người dùng<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" width="100%" class="hv-textbox ${!readOnly ? '' : 'input-no-button'}" readonly="true" disabled="${readOnly}"
 									model="@load(entry.vaiTros.vaiTroQuery.fetch())" placeholder="-Chọn-"
@@ -54,7 +54,7 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Phòng ban<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Phòng ban<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
 									selectedItem="@bind(vm.phongBan)" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
@@ -79,7 +79,7 @@
 						<div zclass="col-md-12">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Địa chỉ email<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Địa chỉ email<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<textbox class="form-control textbox-txt-style" readonly="${readOnly}" width="100%" maxlength="255"
 									value="@bind(vm.email) @save(vm.email, before={'saveNhanVien'}) @validator(vm.validatorEmail)"
