@@ -412,6 +412,10 @@ public class Entry extends BaseObject<Object> {
 		return new CapDonViService();
 	}
 	
+	public final CongViecKeHoachService getCongViecKeHoachs(){
+		return new CongViecKeHoachService();
+	}
+	
 	public final DonViXucTienService getDonViXucTiens(){
 		return new DonViXucTienService();
 	}
