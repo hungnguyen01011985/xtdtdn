@@ -2,12 +2,15 @@ package vn.toancauxanh.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
@@ -17,8 +20,6 @@ import javax.persistence.Transient;
 
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.validator.AbstractValidator;
-
-import javax.persistence.JoinColumn;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -35,7 +36,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private Date ngayGui;
 	private Date ngayNhanPhanHoi;
 	private TepTin taiLieuGD1;
-	private List<DonViDuAn> donViDuAn = new ArrayList<DonViDuAn>();
+	private Set<DonViDuAn> donViDuAn = new HashSet<DonViDuAn>();
 	// Thông tin giai đoạn 2
 	private Date ngayKhaoSat;
 	@Lob
@@ -175,17 +176,17 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	}
 
 	@Transient
-	public List<DonViDuAn> getDonViDuAn() {
-		return donViDuAn;
-	}
-
-	public void setDonViDuAn(List<DonViDuAn> donViDuAn) {
-		this.donViDuAn = donViDuAn;
+	public List<HoSoKhuDat> getHoSoKhuDats() {
+		return hoSoKhuDats;
 	}
 	
 	@Transient
-	public List<HoSoKhuDat> getHoSoKhuDats() {
-		return hoSoKhuDats;
+	public Set<DonViDuAn> getDonViDuAn() {
+		return donViDuAn;
+	}
+
+	public void setDonViDuAn(Set<DonViDuAn> donViDuAn) {
+		this.donViDuAn = donViDuAn;
 	}
 
 	public void setHoSoKhuDats(List<HoSoKhuDat> hoSoKhuDats) {
@@ -725,4 +726,14 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 			}
 		};
 	}
+	
+	@Transient
+	public List<Long> getListIdDonViXucTien() {
+		List<Long> list = new ArrayList<Long>();
+		this.donViDuAn.forEach(item -> {
+			list.add(item.getDonVi().getId());
+		});
+		return list;
+	}
+	
 }

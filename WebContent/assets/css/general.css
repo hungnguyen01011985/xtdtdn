@@ -104,6 +104,29 @@
 	line-height: 38px;
 	margin: 0;
 }
+.box-btn-donvi {
+	display: flex;
+    justify-content: flex-end;
+    height: 55px;
+    align-items: center;
+}
+.z-row-content .error {
+	color: red !important;
+}
+.list-box-no-paging .z-listbox-body{
+	height:365px;
+}
+
+.list-box-no-paging .z-listbox-body::-webkit-scrollbar {
+	width: 10px;
+}
+.list-box-no-paging .z-listbox-body::-webkit-scrollbar-thumb {
+	background: #D3D9E2;
+	border-radius: 10px;
+}
+.list-box-no-paging .z-listbox-body::-webkit-scrollbar-track {
+	background: #F7F7F7;
+}
 
 .title-form {
 	padding: 15px 0;
@@ -934,7 +957,7 @@
 .txt-link-tailieu {
 	font-family: Roboto-Medium;
 	font-size: 13px;
-	color: #4274ED;
+	color: #4274ED !important;
 	text-align: left;
 	line-height: 18px;
 	max-width: calc(100% - 55px);
