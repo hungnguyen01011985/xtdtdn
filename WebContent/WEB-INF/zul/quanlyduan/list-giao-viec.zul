@@ -1,6 +1,6 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
-		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width1 reset-width"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal reset-width popup-w-reponsive-1300"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
 		 <zscript>
 		 	<![CDATA[
@@ -22,41 +22,43 @@
 				</div>
 				<div zclass="mg-and-bg-and-line-fix" style="padding-left:30px;">
 					<div class="row">
-						<div zclass="col-md-10">
-							<div class="row">
-								<div zclass="col-md-4">
-									<div zclass="form-group">
-										<span>Tên công việc</span> 
-										<textbox class="form-control textbox-txt-style" onOK="@command('cmd', notify=duAn, attr='targetQueryByIdDuAn')" value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên công việc..."></textbox>
-										<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						<div style="width: calc(100% - 122px); padding-right:15px;">
+							<div zclass="col-md-12">
+								<div class="row">
+									<div zclass="col-md-4">
+										<div zclass="form-group">
+											<span>Tên công việc</span> 
+											<textbox class="form-control textbox-txt-style" onOK="@command('cmd', notify=duAn, attr='targetQueryByIdDuAn')" value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên công việc..."></textbox>
+											<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+										</div>
 									</div>
-								</div>
-								<div zclass="col-md-4">
-									<div zclass="form-group">
-										<span>Người được giao</span> 
-										<combobox model="@load(entry.duAns.listNguoiPhuTrachAndNull)"
-											readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.arg.nguoiPhuTrach)" placeholder="Chọn người">
-											<template name="model">
-												<comboitem label="@load(each.hoVaTen eq null ? 'Chọn người' : each.hoVaTen)"/>
-											</template>
-										</combobox>
-										<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+									<div zclass="col-md-4">
+										<div zclass="form-group">
+											<span>Người được giao</span> 
+											<combobox model="@load(entry.duAns.listNguoiPhuTrachAndNull)"
+												readonly="true" class="his mg-top-8" width="100%" selectedItem="@bind(vm.arg.nguoiPhuTrach)" placeholder="Tất cả">
+												<template name="model">
+													<comboitem label="@load(each.hoVaTen eq null ? 'Tất cả' : each.hoVaTen)"/>
+												</template>
+											</combobox>
+											<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+										</div>
 									</div>
-								</div>
-								<div zclass="col-md-4">
-									<div zclass="form-group">
-										<span>Trạng thái</span> 
-										<combobox readonly="true" model="@load(vm.listTrangThaiGiaoViec)" selectedItem="@bind(vm.arg.trangThai)" class="his" placeholder="Tất cả" width="100%">
-											<template name="model">
-												<comboitem label="@load(each eq null ? 'Tất cả' : each.text)"></comboitem>
-											</template>
-										</combobox>
-										<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+									<div zclass="col-md-4">
+										<div zclass="form-group">
+											<span>Trạng thái</span> 
+											<combobox readonly="true" model="@load(vm.listTrangThaiGiaoViec)" selectedItem="@bind(vm.arg.trangThai)" class="his" placeholder="Tất cả" width="100%">
+												<template name="model">
+													<comboitem label="@load(each eq null ? 'Tất cả' : each.text)"></comboitem>
+												</template>
+											</combobox>
+											<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div zclass="col-md-2" style="padding-top: 25px;">
+						<div style="padding-top: 25px;padding-right:7.5px">
 							<div zclass="form-group right">
 								<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=duAn, attr='targetQueryByIdDuAn')">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
@@ -75,8 +77,8 @@
 							<columns>
 								<column label="STT" width="42px"/>
 								<column label="Tên công việc"/>
-								<column label="Người giao việc"/>
-								<column label="Người được giao"/>
+								<column label="Người giao việc" width="140px"/>
+								<column label="Người được giao" width="140px"/>
 								<column label="Ngày giao việc" width="120px"/>
 								<column label="Hạn thực hiện" width="120px"/>
 								<column label="Trạng thái" width="120px"/>
@@ -122,7 +124,6 @@
 						visible="@load(vm.targetQueryByIdDuAn.fetchCount() > vm.arg.pagesize ? true : false)"
 						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQueryByIdDuAn')" />
 					</div>
-					
 				</div>
 				<div class="row mg-and-bg-and-line">
 					<div zclass="col-xs-6">
