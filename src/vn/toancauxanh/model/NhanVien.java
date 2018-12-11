@@ -711,10 +711,12 @@ public class NhanVien extends Model<NhanVien> {
 			@Override
 			public void validate(final ValidationContext ctx) {
 				String value = (String) ctx.getProperty().getValue();
-				BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
-				String passNoHash = value + nhanVien.getSalkey();
-				if (!encryptor.checkPassword(passNoHash, nhanVien.getMatKhau())) {
-					addInvalidMessage(ctx, "error", "Mật khẩu cũ không chính xác");
+				if (isChangePass() == true) {
+					BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
+					String passNoHash = value + nhanVien.getSalkey();
+					if (!encryptor.checkPassword(passNoHash, nhanVien.getMatKhau())) {
+						addInvalidMessage(ctx, "error", "Mật khẩu cũ không chính xác");
+					}
 				}
 			}
 		};
@@ -761,6 +763,9 @@ public class NhanVien extends Model<NhanVien> {
 					if (value.isEmpty() || "".equals(value) || value == null) {
 						addInvalidMessage(ctx, "Mật khẩu mới không để trống");
 					}
+					if (value.length() < 6) {
+						addInvalidMessage(ctx, "Mật khẩu phải có tối thiểu 6 kí tự");
+					}
 				}
 			}
 		};
@@ -782,6 +787,9 @@ public class NhanVien extends Model<NhanVien> {
 							addInvalidMessage(ctx, "Xác nhận mật khẩu không trùng khớp");
 						}
 					}
+				}
+				if (value.length() < 6) {
+					addInvalidMessage(ctx, "Mật khẩu phải có tối thiểu 6 kí tự");
 				}
 			}
 		};

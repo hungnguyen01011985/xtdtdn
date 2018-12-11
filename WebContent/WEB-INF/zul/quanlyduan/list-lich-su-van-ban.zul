@@ -1,6 +1,6 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
-		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal reset-width" width="80%"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal reset-width popup-w-reponsive-1200"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.LichSuVanBanService')">
 		<zscript>
 		<![CDATA[
@@ -21,46 +21,48 @@
 				</div>
 				<div zclass="mg-and-bg-and-line-fix" style="padding-left:30px;">
 					<div class="row">
-						<div zclass="col-md-10">
-							<div class="row">
-								<div zclass="col-md-4">
-									<div zclass="form-group">
-										<span>Tên file</span> 
-										<textbox class="form-control" onOK="@command('cmd', notify = vm, attr = 'targetQuery')" value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên file"></textbox>
+						<div style="width: calc(100% - 122px); padding-right:15px;">
+							<div zclass="col-md-12">
+								<div class="row">
+									<div zclass="col-md-4">
+										<div zclass="form-group">
+											<span>Tên file</span> 
+											<textbox class="form-control" onOK="@command('cmd', notify = vm, attr = 'targetQuery')" value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên file"></textbox>
+										</div>
 									</div>
-								</div>
-								<div zclass="col-md-4">
-									<div zclass="form-group">
-										<span>Giai đoạn</span> 
-										<combobox readonly="true" class="his" model="@load(vm.listGiaiDoanXucTienAndNull)" 
-											value="@load(vm.arg.giaiDoanXucTien eq null ? 'Tất cả' : vm.arg.giaiDoanXucTien.text)" selectedItem="@bind(vm.arg.giaiDoanXucTien)" placeholder="Chọn giai đoạn xúc tiến" width="100%">
-											<template name="model">
-												<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
-											</template>
-										</combobox>
+									<div zclass="col-md-4">
+										<div zclass="form-group">
+											<span>Giai đoạn</span> 
+											<combobox readonly="true" class="his" model="@load(vm.listGiaiDoanXucTienAndNull)" 
+												value="@load(vm.arg.giaiDoanXucTien eq null ? 'Tất cả' : vm.arg.giaiDoanXucTien.text)" selectedItem="@bind(vm.arg.giaiDoanXucTien)" placeholder="Chọn giai đoạn xúc tiến" width="100%">
+												<template name="model">
+													<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
+												</template>
+											</combobox>
+										</div>
 									</div>
-								</div>
-								<div zclass="col-md-4">
-									<div zclass="form-group">
-										<span>Người nhập</span> 
-										<combobox id="cbbNguoiNhap" readonly="true" class="his" model="@load(vm.listNguoiPhuTrachAndNull)" value="@load(vm.arg.nhanVien eq null ? 'Tất cả' : vm.arg.nhanVien.hoVaTen)"
-											selectedItem="@bind(vm.arg.nhanVien)" placeholder="Tất cả" width="100%">
-											<template name="model">
-												<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
-											</template>
-										</combobox>
+									<div zclass="col-md-4">
+										<div zclass="form-group">
+											<span>Người nhập</span> 
+											<combobox id="cbbNguoiNhap" readonly="true" class="his" model="@load(vm.listNguoiPhuTrachAndNull)" value="@load(vm.arg.nhanVien eq null ? 'Tất cả' : vm.arg.nhanVien.hoVaTen)"
+												selectedItem="@bind(vm.arg.nhanVien)" placeholder="Tất cả" width="100%">
+												<template name="model">
+													<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
+												</template>
+											</combobox>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div zclass="col-md-2" style="padding-top: 25px;">
-							<div zclass="form-group right">
-								<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=duAn, attr='targetQuery')">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
-									<span>Tìm kiếm</span>
-								</x:button>
+							<div style="padding-top: 25px; padding-right:7.5px">
+								<div zclass="form-group right">
+									<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=duAn, attr='targetQuery')">
+										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+										<span>Tìm kiếm</span>
+									</x:button>
+								</div>
 							</div>
-						</div>
 					</div>
 				</div>
 			<div zclass="row mg-and-bg-and-line">
