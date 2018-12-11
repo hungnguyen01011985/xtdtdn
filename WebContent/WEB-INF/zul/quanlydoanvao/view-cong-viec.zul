@@ -27,42 +27,22 @@
 								<x:span class="label-txt-style">Tên công việc<n:small class="required"> *</n:small></x:span>
 							</div>
 							<textbox maxlength="255" disabled="${readOnly}" class="form-control textbox-txt-style" value="@bind(vm.tenCongViec)"
-							 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('savePhongBan', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên công việc..."></textbox>
+							 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCongViec', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên công việc..."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 					<div zclass="col-md-6">
 						<div zclass="form-group txt-textbox-disable">
-							<x:span class="label-txt-style">Loại công việc</x:span> 
-							<combobox buttonVisible="true" model="@load(entry.loaiCongViecKeHoachs.targetQuery)" placeholder="Chọn loại công việc"
-								readonly="true" class="his" width="100%" selectedItem="@bind(vm.loaiCongViec) @save(vm.quocGia, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
+							<div class="flex">
+								<x:span class="label-txt-style">Loại công việc<n:small class="required"> *</n:small></x:span>
+							</div>
+							<combobox disabled="false" buttonVisible="true" width="100%" class="hv-textbox" readonly="true" model="@load(entry.loaiCongViecKeHoachs.targetQuery.fetch())" placeholder="-Chọn loại công việc-"
+								selectedItem="@bind(vm.loaiCongViec) @save(vm.loaiCongViec, before='saveCongViec') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
 								<template name="model">
-									<comboitem label="@load(each.ten)"/>
+									<comboitem label="@load(each.ten)" />
 								</template>
 							</combobox>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div zclass="col-md-6">
-						<div zclass="form-group txt-textbox-disable">
-							<x:span class="label-txt-style">Thực hiện</x:span> 
-							<combobox buttonVisible="true" model="@load(entry.loaiCongViecKeHoachs.targetQuery)" placeholder="Chọn phòng ban"
-								readonly="true" class="his" width="100%" selectedItem="@bind(vm.loaiCongViec) @save(vm.quocGia, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
-								<template name="model">
-									<comboitem label="@load(each.ten)"/>
-								</template>
-							</combobox>
-						</div>
-					</div>
-					<div zclass="col-md-6">
-						<div zclass="form-group txt-textbox-disable">
-							<combobox buttonVisible="true" model="@load(entry.getLoaiCongViecKeHoachs.targetQuery)" placeholder="Chọn phòng ban"
-								readonly="true" class="his" width="100%" selectedItem="@bind(vm.loaiCongViec) @save(vm.quocGia, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
-								<template name="model">
-									<comboitem label="@load(each.ten)"/>
-								</template>
-							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 				</div>
@@ -78,7 +58,7 @@
 				</div>
 				<div zclass="col-xs-6" if="${!readOnly}">
 					<div zclass="form-group right">
-						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveCongViec', list=vmArgs, attr='targetQuery', wdn=wdn)">
+						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveCongViec', list=vmArgs, attr='listCongViecTheoDoanVao', wdn=wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>

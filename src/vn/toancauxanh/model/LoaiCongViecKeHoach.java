@@ -11,14 +11,23 @@ import org.zkoss.zul.Window;
 @Entity
 @Table(name = "loaicongviec")
 public class LoaiCongViecKeHoach extends Model<LoaiCongViecKeHoach> {
-	private String name = "";
+	private String ten = "";
+	private String moTa = "";
 
-	public String getName() {
-		return name;
+	public String getTen() {
+		return ten;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTen(String ten) {
+		this.ten = ten;
+	}
+
+	public String getMoTa() {
+		return moTa;
+	}
+
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
 	}
 
 	@Command

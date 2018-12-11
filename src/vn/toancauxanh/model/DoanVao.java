@@ -300,6 +300,17 @@ public class DoanVao extends Model<DoanVao> {
 			});
 		}
 		
+		if (listCongViecTheoDoanVao != null && !listCongViecTheoDoanVao.isEmpty()) {
+			listCongViecTheoDoanVao.forEach(item -> {
+				item.setTenNhiemVu(this.getTenDoanVao());
+				checkCongViec(item);
+				if (checkNotAllNull && checkAllNull) {
+					checkGiaoViec(item);
+				}
+				resetCheck();
+			});
+		}
+		
 		if (nguoiPhuTrachCu != null && nguoiPhuTrachCu.getId() != this.getNguoiPhuTrach().getId()) {
 			thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
 			thongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
@@ -732,6 +743,7 @@ public class DoanVao extends Model<DoanVao> {
 	@Command
 	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao,
 			@BindingParam("wdn") final Window wdn) {
+		listCongViecTheoDoanVao.forEach(item -> checkCongViec(item));
 		if (!checkNotAllNull || !checkAllNull) {
 			showNotification("", "Dữ liệu nhập vào chưa đúng. Vui lòng nhập lại", "danger");
 			resetCheck();

@@ -7,7 +7,7 @@
 			list = new vn.toancauxanh.service.CongViecKeHoachService().getListGiaoViecTheoDoanVao(doanVao.id);
 			if (list != null && !list.isEmpty()) {
 				doanVao.setListCongViecTheoDoanVao(list);
-			} else {
+			} else if(doanVao.getListCongViecTheoDoanVao().isEmpty()) {
 				listKhoiTao = new vn.toancauxanh.service.CongViecKeHoachService().getListCongViecKhoiTao();
 				if (!listKhoiTao.isEmpty()) {
 					doanVao.setListCongViecTheoDoanVao(listKhoiTao);

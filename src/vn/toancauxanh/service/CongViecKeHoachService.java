@@ -11,19 +11,19 @@ import vn.toancauxanh.model.QGiaoViec;
 
 public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 
-	public JPAQuery<CongViecKeHoach> getTargetQuery(){
+	public JPAQuery<CongViecKeHoach> getTargetQuery() {
 		JPAQuery<CongViecKeHoach> q = find(CongViecKeHoach.class);
 		return q;
 	}
-	
-	public List<CongViecKeHoach> getListCongViecKeHoach(){
+
+	public List<CongViecKeHoach> getListCongViecKeHoach() {
 		JPAQuery<CongViecKeHoach> q = find(CongViecKeHoach.class);
 		if (q.fetchCount() > 0) {
 			return q.fetch();
 		}
 		return new ArrayList<>();
 	}
-	
+
 	public List<GiaoViec> getListCongViecKhoiTao() {
 		List<GiaoViec> list = new ArrayList<>();
 		List<CongViecKeHoach> listCongViecKeHoach = new ArrayList<>();
@@ -34,17 +34,17 @@ public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 				obj.setTenCongViec(item.getTen());
 				obj.setNguoiTao(core().fetchNhanVien(true));
 				obj.setTrangThaiGiaoViec(null);
+				obj.setIdCongViecMacDinh(item.getId().intValue());
 				list.add(obj);
 			});
 		}
 		return list;
 	}
-	
+
 	public List<GiaoViec> getListGiaoViecTheoDoanVao(Long idDoanVao) {
 		List<GiaoViec> list = new ArrayList<>();
 		if (idDoanVao != null && idDoanVao > 0) {
-			JPAQuery<GiaoViec> q = find(GiaoViec.class)
-					.where(QGiaoViec.giaoViec.doanVao.id.eq(idDoanVao));
+			JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.doanVao.id.eq(idDoanVao));
 			if (q != null && q.fetchCount() > 0) {
 				return q.fetch();
 			}

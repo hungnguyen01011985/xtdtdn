@@ -13,6 +13,7 @@ import org.zkoss.zul.Window;
 public class CongViecKeHoach extends Model<CongViecKeHoach> {
 
 	private String ten = "";
+	private String moTa = "";
 
 	public String getTen() {
 		return ten;
@@ -21,10 +22,18 @@ public class CongViecKeHoach extends Model<CongViecKeHoach> {
 	public void setTen(String ten) {
 		this.ten = ten;
 	}
-	
+
+	public String getMoTa() {
+		return moTa;
+	}
+
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
+
 	@Command
-	public void saveCongViecKeHoach(@BindingParam("list") final Object listObject, @BindingParam("attr") final String attr,
-			@BindingParam("wdn") final Window wdn){
+	public void saveCongViecKeHoach(@BindingParam("list") final Object listObject,
+			@BindingParam("attr") final String attr, @BindingParam("wdn") final Window wdn) {
 		setTen(getTen().trim().replaceAll("\\s+", " "));
 		save();
 		wdn.detach();
