@@ -32,9 +32,7 @@ public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 			listCongViecKeHoach.forEach(item -> {
 				GiaoViec obj = new GiaoViec();
 				obj.setTenCongViec(item.getTen());
-				obj.setNguoiTao(core().fetchNhanVien(true));
 				obj.setTrangThaiGiaoViec(null);
-				obj.setIdCongViecMacDinh(item.getId().intValue());
 				list.add(obj);
 			});
 		}
