@@ -440,6 +440,14 @@ public class Entry extends BaseObject<Object> {
 	public final NhanVienService getNhanViens() {
 		return new NhanVienService();
 	}
+	
+	public final GiaoViecService getGiaoViecs(){
+		return new GiaoViecService();
+	}
+	
+	public final LoaiCongViecKeHoachService getLoaiCongViecKeHoachs(){
+		return new LoaiCongViecKeHoachService();
+	}
 
 	public final VaiTroService getVaiTros() {
 		return new VaiTroService();
