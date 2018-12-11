@@ -1,0 +1,3 @@
+<?component name="view-cong-viec" inline="true" macroURI="view-cong-viec.zul"?>
+<view-cong-viec model="${entry.giaoViecs.type().newInstance()}"  vmArgs="${arg.vmArgs}" save="Tạo mới công việc" />
+

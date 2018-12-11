@@ -400,19 +400,23 @@ public class Entry extends BaseObject<Object> {
 		return new PhongBanService();
 	}
 	
-	public final DuAnService getDuAns(){
+	public final DuAnService getDuAns() {
 		return new DuAnService();
 	}
-	
-	public final DonViService getDonVis(){
+
+	public final DonViService getDonVis() {
 		return new DonViService();
 	}
-	
-	public final CapDonViService getCapDonVis(){
+
+	public final CapDonViService getCapDonVis() {
 		return new CapDonViService();
 	}
-	
-	public final DonViXucTienService getDonViXucTiens(){
+
+	public final CongViecKeHoachService getCongViecKeHoachs() {
+		return new CongViecKeHoachService();
+	}
+
+	public final DonViXucTienService getDonViXucTiens() {
 		return new DonViXucTienService();
 	}
 
@@ -435,6 +439,14 @@ public class Entry extends BaseObject<Object> {
 
 	public final NhanVienService getNhanViens() {
 		return new NhanVienService();
+	}
+	
+	public final GiaoViecService getGiaoViecs() {
+		return new GiaoViecService();
+	}
+
+	public final LoaiCongViecKeHoachService getLoaiCongViecKeHoachs() {
+		return new LoaiCongViecKeHoachService();
 	}
 
 	public final VaiTroService getVaiTros() {
