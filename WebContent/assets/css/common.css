@@ -59,6 +59,15 @@ html, body {
 .gg-disp-none {
 	display: none !important
 }
+.z-messagebox-window.z-window-highlighted .z-window-content > table:last-child > tbody > tr > td > table > tbody > tr > td:first-child button {
+	background-color : #d9534f !important;
+	color:white !important;
+}
+.z-messagebox-button {
+	background-color: #fff !important;
+    color: #000 !important;
+}
+
 /* Header */
 .wd-header {
 	/*background-color: #212121 !important;*/
@@ -82,6 +91,10 @@ html, body {
 	padding-top: 2px;
 	height: 60px;
 	font-family: Montserrat-bold;
+}
+
+.div-image-btn btn:hover{
+	
 }
 
 .wd-header .navbar-top-links {

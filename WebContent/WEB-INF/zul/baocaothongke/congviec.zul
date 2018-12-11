@@ -43,7 +43,7 @@
 						<div class="form-group">
 							<span visible="@load(doanVao eq vm.arg.loaiCongViec)">Tên đoàn vào</span>
 							<span visible="@load(!(doanVao eq vm.arg.loaiCongViec))">Tên dự án</span>
-							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)"></textbox>
+							<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"></textbox>
 						</div>
 					</div>
 				</div>
@@ -79,12 +79,12 @@
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên công việc" />
-							<column label="Tên dự án" />
-							<column label="Người giao việc" />
-							<column label="Người phụ trách"/>
-							<column label="Ngày giao việc"/>
-							<column label="Hạn thực hiện"/>
-							<column label="Trạng thái" width="150px"/>
+							<column label="Tên dự án/ Tên đoàn vào" />
+							<column label="Người giao việc" width="180px"/>
+							<column label="Người phụ trách" width="180px"/>
+							<column label="Ngày giao việc" width="120px"/>
+							<column label="Hạn thực hiện" width="120px"/>
+							<column label="Trạng thái" width="140px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">

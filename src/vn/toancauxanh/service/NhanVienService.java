@@ -58,7 +58,6 @@ public final class NhanVienService extends BasicService<NhanVien> {
 		String tuKhoa = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		Long paramVaiTro = (Long) argDeco().get(Labels.getLabel("param.vaitro"));
 		Long paramPhongBan = (Long) argDeco().get("phongBan");
-
 		JPAQuery<NhanVien> q = find(NhanVien.class);
 		q.where(QNhanVien.nhanVien.email.ne("admin@greenglobal.vn"));
 

@@ -24,7 +24,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Tên dự án</x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" value="@bind(vm.duAn.tenDuAn)" disabled="true"></textbox>
+							<textbox class="form-control textbox-txt-style" value="@bind(vm.duAn.tenDuAn)" maxlength="255" disabled="true"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Tên công việc</x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" value="@bind(vm.tenCongViec) @save(vm.tenCongViec, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+							<textbox class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.tenCongViec) @save(vm.tenCongViec, before={'saveGiaoViec'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

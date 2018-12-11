@@ -39,7 +39,7 @@
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8">
 					<div class="flex">
-						<x:span class="label-txt-style">Đơn vị tư vấn<n:small class="required"> *</n:small></x:span>
+						<x:span class="label-txt-style">Đơn vị tư vấn<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
 					</div>
 					<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
 						disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 

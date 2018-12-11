@@ -59,6 +59,7 @@ public class GiaoViec extends Model<GiaoViec> {
 	private TepTin taiLieuKetQua;
 	private LoaiCongViec loaiCongViec;
 	private String tenNhiemVu;
+	private int idCongViecMacDinh;
 	
 	public GiaoViec() {
 	}
@@ -72,6 +73,14 @@ public class GiaoViec extends Model<GiaoViec> {
 		this.ghiChu = ghiChu;
 	}
 	
+	public int getIdCongViecMacDinh() {
+		return idCongViecMacDinh;
+	}
+
+	public void setIdCongViecMacDinh(int idCongViecMacDinh) {
+		this.idCongViecMacDinh = idCongViecMacDinh;
+	}
+
 	public String getTenNhiemVu() {
 		return tenNhiemVu;
 	}
@@ -266,6 +275,15 @@ public class GiaoViec extends Model<GiaoViec> {
 		this.save();
 		BindUtils.postNotifyChange(null, null, this, "*");
 		BindUtils.postNotifyChange(null, null, ob, "*");
+	}
+	
+	@Command
+	public void saveCongViec(@BindingParam("list") DoanVao doanVao, @BindingParam("attr") String attr, @BindingParam("wdn") Window wdn){
+		this.setNguoiTao(core().fetchNhanVien(true));
+		this.setTrangThaiGiaoViec(null);
+		doanVao.getListCongViecTheoDoanVao().add(0, this);
+		BindUtils.postNotifyChange(null, null, doanVao, attr);
+		wdn.detach();
 	}
 	
 	@Command
