@@ -10,8 +10,8 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 
 import com.querydsl.jpa.impl.JPAQuery;
-import com.sun.mail.imap.protocol.Item;
 
+import vn.toancauxanh.gg.model.enums.LoaiVaiTro;
 import vn.toancauxanh.model.NhanVien;
 import vn.toancauxanh.model.PhongBan;
 import vn.toancauxanh.model.QNhanVien;
@@ -63,7 +63,8 @@ public class PhongBanService extends BasicService<PhongBan> {
 		List<NhanVien> list = new ArrayList<>();
 		if (phongBanSelected != null && phongBanSelected.getId() > 0) {
 			JPAQuery<NhanVien> q = find(NhanVien.class)
-					.where(QNhanVien.nhanVien.phongBan.id.eq(phongBanSelected.getId()));
+					.where(QNhanVien.nhanVien.phongBan.id.eq(phongBanSelected.getId()))
+					.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN).or(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)));
 			if (q.fetchCount() > 0) {
 				list.addAll(q.fetch());
 				return list;
