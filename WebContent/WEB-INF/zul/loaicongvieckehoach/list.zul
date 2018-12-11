@@ -1,0 +1,93 @@
+<?page title="Quản lý đơn vị" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('vn.toancauxanh.service.LoaiCongViecKeHoachService')"
+	 class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Quản trị hệ thống";
+		]]>
+	</zscript>
+	<div>
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Quản lý loại kế hoạch công việc
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row mg-top-no-line">	
+				<div zclass="col-md-10">
+					<div zclass="form-group">
+						<x:span class="issue-search">Nhập loại kế hoạch công việc</x:span> 
+						<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
+							 placeholder="Nhập tên loại kế hoạch công việc.."></textbox>
+					</div>
+				</div>
+				<div zclass="col-md-2">
+					<div zclass="form-group">
+						<x:a class="btn btn-base btn-green mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+							<span>Tìm kiếm</span>
+						</x:a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Danh sách loại kế hoạch công việc</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
+						emptyMessage="Không có dữ liệu nào trong danh sách">
+						<columns>
+							<column label="STT" style="text-align:center" width="42px"/>
+							<column label="Tên loại kế hoạch công việc" style="text-align:center" />
+							<column label="Mô tả" style="text-align:center" width="500px" />
+							<column label="Thao tác" style="text-align:center" width="140px"/>
+						</columns>
+						<template name="model">
+							<row viewModel="@id('item') @init(each)">
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
+								<label value="@load(item.ten)" zk:if="${entry.quyen.loaicongvieckehoach_xem}"
+									onClick="@command('redirectPageAction', zul='loaicongvieckehoach/show-add-loai-cong-viec-ke-hoach.zul', vmArgs=vm, vm=item, readOnly=true)" sclass="txt-link-table"/>
+								<label value="@load(item.moTa)"></label>
+								<div class="thaotac" style="text-align:center">
+									<x:a label="Sửa" class="btn-thaotac left" if="${entry.quyen.loaicongvieckehoach_sua}" zk:onClick="@command('redirectPage', zul='loaicongvieckehoach/show-edit-loai-cong-viec-ke-hoach.zul', vmArgs=vm, vm=item)">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note" if="${entry.quyen.loaicongvieckehoach_xoa}" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery')">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+						</template>
+					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<div zclass="form-group right" if="${entry.quyen.loaicongvieckehoach_them}">
+						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='loaicongvieckehoach/show-add-loai-cong-viec-ke-hoach.zul', vmArgs=vm, vm=null)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm mới</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</window>
