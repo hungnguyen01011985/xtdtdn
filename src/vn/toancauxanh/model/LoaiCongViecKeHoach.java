@@ -20,9 +20,10 @@ public class LoaiCongViecKeHoach extends Model<LoaiCongViecKeHoach> {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Command
-	public void saveLoaiCongViec(@BindingParam("wdn") Window wdn, @BindingParam("list") DoanVao doanVao, @BindingParam("attr") String attr){
+	public void saveLoaiCongViec(@BindingParam("wdn") Window wdn, @BindingParam("list") DoanVao doanVao,
+			@BindingParam("attr") String attr) {
 		this.save();
 		wdn.detach();
 		BindUtils.postNotifyChange(null, null, doanVao, attr);
