@@ -128,7 +128,7 @@
 										<x:span class="label-txt-style">Mật khẩu mới<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }"
-										width="100%" type="password" value="@bind(vm.matKhauUpdate) @save(vm.matKhauUpdate, before='updateNhanVien') @validator(vm.validateMatKhauMoiEdit)"
+										width="100%" type="password" value="@bind(vm.matKhauUpdate) @save(vm.matKhauUpdate, before='saveNhanVien') @validator(vm.validateMatKhauMoiEdit)"
 											onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"/>
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 								</div>
@@ -139,7 +139,7 @@
 										<x:span class="label-txt-style">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }"
-										width="100%" type="password" value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='updateNhanVien') @validator(vm.validateMatKhauMoi, pass = vm.matKhauUpdate)"
+										width="100%" type="password" value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='saveNhanVien') @validator(vm.validateMatKhauMoi, pass = vm.matKhauUpdate)"
 										onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" />
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 								</div>
