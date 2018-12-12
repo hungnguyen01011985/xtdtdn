@@ -335,7 +335,7 @@ public class DoanVao extends Model<DoanVao> {
 		if (giaoViec.noId()) {
 			saveCongViec(giaoViec);
 			giaoViec.getNguoiDuocGiao().saveNotShowNotification();
-			thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+			thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getTenCongViec());
 			giaoViec.saveNotShowNotification();
 			this.setIdNguoiLienQuan(this.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 			this.saveNotShowNotification();
@@ -344,7 +344,7 @@ public class DoanVao extends Model<DoanVao> {
 			if (!this.getNguoiThucHienCu().equals(giaoViec.getNguoiDuocGiao())) {
 				String resetId = removeIdInListDoanVao(giaoViec, this.getNguoiThucHienCu());
 				saveCongViec(giaoViec);
-				thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getNoiDungCongViec().getText());
+				thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getTenCongViec());
 				giaoViec.saveNotShowNotification();
 				this.setIdNguoiLienQuan(resetId + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 				this.saveNotShowNotification();
@@ -356,7 +356,9 @@ public class DoanVao extends Model<DoanVao> {
 
 	public void saveCongViec(GiaoViec giaoViec) {
 		giaoViec.getTaiLieu().saveNotShowNotification();
-		giaoViec.setTenCongViec(giaoViec.getNoiDungCongViec().getText());
+		if (giaoViec.getTrangThaiGiaoViec() == null) {
+			giaoViec.setTrangThaiGiaoViec(TrangThaiGiaoViec.CHUA_LAM);
+		}
 		giaoViec.setDoanVao(this);
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
