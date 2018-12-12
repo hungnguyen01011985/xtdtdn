@@ -1,6 +1,7 @@
 package vn.toancauxanh.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,6 +83,9 @@ public class DonViXucTienService extends BasicService<DonViXucTien> {
 			donViDuAn.setDonVi(item);
 			giaiDoanDuAn.getDonViDuAn().add(donViDuAn);
 		});
+		//Sắp xếp lại
+		Collections.reverse(giaiDoanDuAn.getDonViDuAn());
+		giaiDoanDuAn.getDonViDuAn().forEach(item -> System.out.println(item.getDonVi().getTen()));
 		BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "*");
 	}
 	

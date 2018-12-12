@@ -2,9 +2,7 @@ package vn.toancauxanh.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -36,7 +34,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private Date ngayGui;
 	private Date ngayNhanPhanHoi;
 	private TepTin taiLieuGD1;
-	private Set<DonViDuAn> donViDuAn = new HashSet<DonViDuAn>();
+	private List<DonViDuAn> donViDuAn = new ArrayList<DonViDuAn>();
 	// Thông tin giai đoạn 2
 	private Date ngayKhaoSat;
 	@Lob
@@ -181,11 +179,11 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	}
 	
 	@Transient
-	public Set<DonViDuAn> getDonViDuAn() {
+	public List<DonViDuAn> getDonViDuAn() {
 		return donViDuAn;
 	}
 
-	public void setDonViDuAn(Set<DonViDuAn> donViDuAn) {
+	public void setDonViDuAn(List<DonViDuAn> donViDuAn) {
 		this.donViDuAn = donViDuAn;
 	}
 
