@@ -1605,6 +1605,9 @@ ul.z-tabs-content {
 	.text-menu {
 		display:none;
 	}
+	.box-header-imgbar {
+		display:none;
+	}
 }
 
 .form-group .z-datebox-button {
@@ -1863,7 +1866,7 @@ body {
 
 .z-auxheader-content, .z-listheader-content, .z-column-content {
 	font-family: Roboto-Bold;
-	word-wrap: break-word;
+	/* word-wrap: break-word; */
 	white-space: normal;
 	font-size: 13px;
 	line-height: 18px;

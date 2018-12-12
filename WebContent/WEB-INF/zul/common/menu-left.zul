@@ -13,36 +13,51 @@
 	</style>
 	<zscript>
 		<![CDATA[
-		         boolean checkActiveHeThong = false;
-		         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource)
-		        		 || "nhadautu".equals(resource) || "capdonvi".equals(resource) || "donvixuctien".equals(resource))  {
-		        	 checkActiveHeThong = true;
-		         }
+	         boolean checkActiveHeThong = false;
+	         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource)
+	        		 || "nhadautu".equals(resource) || "capdonvi".equals(resource) || "donvixuctien".equals(resource))  {
+	        	 checkActiveHeThong = true;
+	         }
 		]]>
 	</zscript>
 	<div class="nav-side-menu">
         <div class="menu-list">
 			<n:ul class="menu-content collapse out" role="menu">
-				<n:li class="${resource eq 'quanlygiaoviec' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlygiaoviec_lietke}">
+				<n:li class="header-parent ${resource eq 'quanlygiaoviec' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlygiaoviec_lietke}">
 					<n:a href="${execution.contextPath}/cp/quanlygiaoviec">
 						<x:span class="img-menu qlgv" zk:if="${resource ne 'quanlygiaoviec'}"></x:span>
 						<x:span class="img-menu qlgv"  zk:if="${resource eq 'quanlygiaoviec'}"></x:span>
 						<x:span class="text-menu">Quản lý giao việc</x:span>
 					</n:a>
+					<n:div class="box-title-parent">
+						<n:div class="title-menu-parent" style="height:55px;">
+							<span class="txt-menu-parent">Quản lý giao việc</span>
+						</n:div>
+					</n:div>
 				</n:li>
-				<n:li class="${resource eq 'quanlydoanvao' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlydoanvao_lietke}">
+				<n:li class="header-parent ${resource eq 'quanlydoanvao' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlydoanvao_lietke}">
 					<n:a href="${execution.contextPath}/cp/quanlydoanvao">
 						<x:span class="img-menu qldv" zk:if="${resource ne 'quanlydoanvao'}"></x:span>
 						<x:span class="img-menu qldv" zk:if="${resource eq 'quanlydoanvao'}"></x:span>
 						<x:span class="text-menu">Quản lý đoàn vào</x:span>
 					</n:a>
+					<n:div class="box-title-parent">
+						<n:div class="title-menu-parent" style="height:55px;">
+							<span class="txt-menu-parent">Quản lý đoàn vào</span>
+						</n:div>
+					</n:div>
 				</n:li>
-				<n:li class="${resource eq 'quanlyduan' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlyduan_lietke}">
+				<n:li class="header-parent ${resource eq 'quanlyduan' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlyduan_lietke}">
 					<n:a href="${execution.contextPath}/cp/quanlyduan">
 						<x:span class="img-menu qlda" zk:if="${resource ne 'quanlyduan'}"></x:span>
 						<x:span class="img-menu qlda" zk:if="${resource eq 'quanlyduan'}"></x:span>
 						<x:span class="text-menu">Quản lý dự án</x:span>
 					</n:a>
+					<n:div class="box-title-parent">
+						<n:div class="title-menu-parent" style="height:55px;">
+							<span class="txt-menu-parent">Quản lý dự án</span>
+						</n:div>
+					</n:div>
 				</n:li>
 				<n:li class="header-children ${resource eq 'baocaothongke' ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.baocaothongke_duan || entry.quyen.baocaothongke_doanvao || entry.quyen.baocaothongke_congviec}">
 					<n:a onClick="toggleDropdownMenu(this)" style="padding-bottom:10px;">

@@ -104,6 +104,18 @@
 				$(".text-menu").css("display", "inline");
 			}
 		}
+		
+		$(".header-parent").hover(
+		  function() {
+		  	if ($(".header-parent").css("width") == "50px") {
+		  		var obj = $(this).children(".box-title-parent");
+		  		$(obj).children(".title-menu-parent").css("display", "flex");
+		  	}
+		  }, function() {
+		  	var obj = $(this).children(".box-title-parent");
+		  	$(obj).children(".title-menu-parent").css("display", "none");
+		  }
+		);
 		$(".header-children").hover(
 		  function() {
 		  	if ($(".nav-side-menu").css("width") == "50px") {
