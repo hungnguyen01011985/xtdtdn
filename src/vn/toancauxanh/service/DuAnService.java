@@ -84,6 +84,7 @@ public class DuAnService extends BasicService<DuAn> {
 		BindUtils.postNotifyChange(null, null, vm, "arg");
 		BindUtils.postNotifyChange(null, null, vm, "tuNgay");
 		BindUtils.postNotifyChange(null, null, vm, "denNgay");
+		Clients.evalJavaScript("getFocus()");
 	}
 
 	public List<NhanVien> getListNguoiPhuTrach() {

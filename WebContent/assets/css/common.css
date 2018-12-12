@@ -1612,13 +1612,13 @@ ul.z-tabs-content {
 }
 
 
-@media ( max-width : 1299px) {
-	/*  .btn-custom, .z-grid-header, .z-listheader, .z-column,
+/* @media ( max-width : 1299px) {
+	 .btn-custom, .z-grid-header, .z-listheader, .z-column,
 	 .z-auxheader-content, .z-listheader-content, .z-column-content, .z-label, .z-radio-content, .z-checkbox-content, .z-loading, 
 	 .z-a, .z-row-content, .z-group-content, .z-groupfoot-content, .z-footer-content
 	 ,.z-paging-button.z-paging-selected {
 		font-size: 12px !important;
-	} */
+	}
 	.box-col-full {
 		max-height: calc(100vh - 210px);
 		overflow: auto;
@@ -1641,7 +1641,7 @@ ul.z-tabs-content {
 		width: 800px;
 	}
 }
-
+ */
 body {
 	margin: 0px;
 	padding: 0px;
