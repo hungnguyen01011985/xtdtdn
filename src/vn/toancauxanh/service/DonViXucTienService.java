@@ -81,11 +81,8 @@ public class DonViXucTienService extends BasicService<DonViXucTien> {
 		selectedItems.forEach(item -> {
 			DonViDuAn donViDuAn = new DonViDuAn();
 			donViDuAn.setDonVi(item);
-			giaiDoanDuAn.getDonViDuAn().add(donViDuAn);
+			giaiDoanDuAn.getDonViDuAn().add(0, donViDuAn);
 		});
-		//Sắp xếp lại
-		Collections.reverse(giaiDoanDuAn.getDonViDuAn());
-		giaiDoanDuAn.getDonViDuAn().forEach(item -> System.out.println(item.getDonVi().getTen()));
 		BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "*");
 	}
 	
