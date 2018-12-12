@@ -866,6 +866,13 @@ public class BaseObject<T> extends CoreObject<T> {
 		return false;
 	}
 	
+	public boolean checkQuyenSuaXoaKeCongViec(Long id){
+		if (core().getNhanVien().getId().equals(id)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public String thoiHanConLai(Date thoiHan, TrangThaiGiaoViec trangThai) {
 		if (TrangThaiGiaoViec.HOAN_THANH.equals(trangThai)) {
 			return null;

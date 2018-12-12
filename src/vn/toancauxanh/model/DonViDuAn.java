@@ -71,7 +71,7 @@ public class DonViDuAn extends Model<DonViDuAn>{
 	
 	@Transient
 	public List<CapDonVi> getListCapDonVi() {
-		List<CapDonVi> list = new ArrayList<CapDonVi>();
+		List<CapDonVi> list = new ArrayList<>();
 		JPAQuery<CapDonVi> q = find(CapDonVi.class);
 		q.orderBy(QCapDonVi.capDonVi.ten.desc());
 		list.addAll(q.fetch());
@@ -80,7 +80,7 @@ public class DonViDuAn extends Model<DonViDuAn>{
 	
 	@Transient
 	public List<DonViXucTien> getListDonViXucTien() {
-		List<DonViXucTien> list = new ArrayList<DonViXucTien>();
+		List<DonViXucTien> list = new ArrayList<>();
 		JPAQuery<DonViXucTien> q = find(DonViXucTien.class);
 		if (capDonVi != null) {
 			q.where(QDonViXucTien.donViXucTien.capDonVi.eq(capDonVi));

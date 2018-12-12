@@ -70,37 +70,43 @@
 							<columns>
 								<column label="STT" style="text-align:center" width="42px"/>
 								<column label="Nội dung công việc" style="text-align:center" />
-								<column label="Người thực hiện" width="200px" style="text-align:center" />
-								<column label="Thời gian" width="200px" style="text-align:center" />
-								<column label="Trạng thái" width="200px" style="text-align:center" />
+								<column label="Loại công việc" width="150px" style="text-align:center" />
+								<column label="Người thực hiện" width="150px" style="text-align:center" />
+								<column label="Thời gian" width="150px" style="text-align:center" />
+								<column label="Trạng thái" width="150px" style="text-align:center" />
 								<column label="Ghi chú" style="text-align:center" />
 								<column label="Thao tác" width="220px" style="text-align:center" />
 							</columns>
 								<template name="model">
 									<row>
 										<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-										<label value="@load(each.tenCongViec)" style="font-weight:bold"></label>
+										<div>
+											<label visible="@load(!each.noId())" value="@load(each.tenCongViec)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Chi tiết công việc')"/>
+											<label visible="@load(each.noId())" value="@load(each.tenCongViec)"></label>
+										</div>
+										<label value="@load(each.cha.ten)"></label>
 										<label value="@load(each.nguoiDuocGiao.hoVaTen)"></label>
-										<label value="@load(each.hanThucHien)"></label>
-										<label value="@load(each.trangThaiGiaoViec.text)"></label>
+										<label value="@load(each.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')" ></label>
+										<label value="@load(each.trangThaiGiaoViec.text)" class="@load(each.trangThaiGiaoViec)"></label>
 										<label value="@load(each.ghiChu)"></label>
 										<div class="thaotac">
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(each.trangThaiGiaoViec, each.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecNguoiDuocPhanCong, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecNguoiDuocPhanCong.loaiCongViec, title = 'Báo cáo', attr = 'congViecNguoiDuocPhanCong')">
+											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(each.trangThaiGiaoViec, each.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = each, vmArgs = vm, readOnly = true, loaiCongViec = each.loaiCongViec, title = 'Báo cáo')">
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 												<x:span>Báo cáo</x:span>
 											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(each.trangThaiGiaoViec, each.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecNguoiDuocPhanCong, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecNguoiDuocPhanCong.loaiCongViec, title = 'Nhận việc', attr = 'congViecNguoiDuocPhanCong')">
+											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(each.trangThaiGiaoViec, each.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Nhận việc')">
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 												<x:span>Nhận việc</x:span>
 											</x:a>
-											<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
+											<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" if="${((vm.checkQuyenSuaXoaKeCongViec(vm.nguoiPhuTrach.id) and hoanThanh ne each.trangThaiGiaoViec) || (entry.quyen.quanlydoanvao_them and hoanThanh ne each.trangThaiGiaoViec)) and !readOnly}" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
 												<x:image class="img-edit" width="20px" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 												<x:span>Xóa</x:span>
 											</x:a>
-											<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color"
-												onClick="@command('redirectPage',zul='quanlyduan/edit-giao-viec.zul', vm = item, vmArgs = vm)">
+											<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${((vm.checkQuyenSuaXoaKeCongViec(vm.nguoiPhuTrach.id) and hoanThanh ne each.trangThaiGiaoViec) || (entry.quyen.quanlydoanvao_them and hoanThanh ne each.trangThaiGiaoViec)) and !readOnly}"
+												onClick="@command('redirectPage',zul='quanlydoanvao/show-edit-cong-viec.zul', vm = each, vmArgs = vm)">
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Sửa</x:span>
+												<x:span zk:visible="@load(each.checkQuyenSua(each.nguoiDuocGiao, each.hanThucHien))">Sửa</x:span>
+												<x:span zk:visible="@load(!each.checkQuyenSua(each.nguoiDuocGiao, each.hanThucHien))">Tạo</x:span>
 											</x:a>
 										</div>
 									</row>
@@ -118,7 +124,7 @@
 						</x:button>
 					</div>
 					<div zclass="form-group right-mg flex" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
-						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveKeHoachLamViec', doanVao = doanVao, wdn = wdn)">
+						<x:button class="btn btn-blue" zk:onClick="@command('saveKeHoachLamViec', doanVao = doanVao, wdn = wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>
@@ -129,7 +135,6 @@
 							<span>Thêm mới công việc</span>
 						</x:button>
 					</div>
-					
 				</div>
 			</div>
 		</div>
