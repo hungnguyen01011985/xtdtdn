@@ -42,7 +42,8 @@ public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 	public List<GiaoViec> getListGiaoViecTheoDoanVao(Long idDoanVao) {
 		List<GiaoViec> list = new ArrayList<>();
 		if (idDoanVao != null && idDoanVao > 0) {
-			JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.doanVao.id.eq(idDoanVao));
+			JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.doanVao.id.eq(idDoanVao))
+					.orderBy(QGiaoViec.giaoViec.cha.ten.asc()).orderBy(QGiaoViec.giaoViec.ngayTao.desc());
 			if (q != null && q.fetchCount() > 0) {
 				return q.fetch();
 			}

@@ -356,7 +356,9 @@ public class DoanVao extends Model<DoanVao> {
 
 	public void saveCongViec(GiaoViec giaoViec) {
 		giaoViec.getTaiLieu().saveNotShowNotification();
-		giaoViec.setTenCongViec(giaoViec.getTenCongViec());
+		if (giaoViec.getTrangThaiGiaoViec() == null) {
+			giaoViec.setTrangThaiGiaoViec(TrangThaiGiaoViec.CHUA_LAM);
+		}
 		giaoViec.setDoanVao(this);
 		giaoViec.setNguoiGiaoViec(core().getNhanVien());
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);

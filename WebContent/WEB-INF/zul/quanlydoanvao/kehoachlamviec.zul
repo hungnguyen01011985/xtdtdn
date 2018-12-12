@@ -80,7 +80,10 @@
 								<template name="model">
 									<row>
 										<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-										<label value="@load(each.tenCongViec)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Chi tiết công việc')"/>
+										<div>
+											<label visible="@load(!each.noId())" value="@load(each.tenCongViec)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Chi tiết công việc')"/>
+											<label visible="@load(each.noId())" value="@load(each.tenCongViec)"></label>
+										</div>
 										<label value="@load(each.cha.ten)"></label>
 										<label value="@load(each.nguoiDuocGiao.hoVaTen)"></label>
 										<label value="@load(each.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')" ></label>
@@ -95,11 +98,11 @@
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 												<x:span>Nhận việc</x:span>
 											</x:a>
-											<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" if="${vm.checkQuyenSuaXoaKeCongViec(each, vm.nguoiPhuTrach.id)}" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
+											<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" if="${((vm.checkQuyenSuaXoaKeCongViec(vm.nguoiPhuTrach.id) and hoanThanh ne each.trangThaiGiaoViec) || (entry.quyen.quanlydoanvao_them and hoanThanh ne each.trangThaiGiaoViec)) and !readOnly}" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
 												<x:image class="img-edit" width="20px" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 												<x:span>Xóa</x:span>
 											</x:a>
-											<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${vm.checkQuyenSuaXoaKeCongViec(each, vm.nguoiPhuTrach.id)}"
+											<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${((vm.checkQuyenSuaXoaKeCongViec(vm.nguoiPhuTrach.id) and hoanThanh ne each.trangThaiGiaoViec) || (entry.quyen.quanlydoanvao_them and hoanThanh ne each.trangThaiGiaoViec)) and !readOnly}"
 												onClick="@command('redirectPage',zul='quanlydoanvao/show-edit-cong-viec.zul', vm = each, vmArgs = vm)">
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 												<x:span>Sửa</x:span>

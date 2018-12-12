@@ -866,8 +866,8 @@ public class BaseObject<T> extends CoreObject<T> {
 		return false;
 	}
 	
-	public boolean checkQuyenSuaXoaKeCongViec(GiaoViec giaoViec, Long id){
-		if (giaoViec.noId() || core().getNhanVien().getId().equals(id)) {
+	public boolean checkQuyenSuaXoaKeCongViec(Long id){
+		if (core().getNhanVien().getId().equals(id)) {
 			return true;
 		}
 		return false;
