@@ -152,18 +152,6 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		this.selectItems = selectItems;
 	}
 	
-	public List<GiaoViec> getListGiaoViecTheoDoanVao(Long idDoanVao) {
-		List<GiaoViec> list = new ArrayList<GiaoViec>();
-		if (idDoanVao != null && idDoanVao > 0) {
-			JPAQuery<GiaoViec> q = find(GiaoViec.class)
-					.where(QGiaoViec.giaoViec.doanVao.id.eq(Long.valueOf(idDoanVao)));
-			if (q != null && q.fetchCount() > 0) {
-				return q.fetch();
-			}
-		}
-		return list;
-	}
-	
 	public List<TrangThaiGiaoViec> getListTrangThaiCongViec() {
 		List<TrangThaiGiaoViec> list = new ArrayList<TrangThaiGiaoViec>();
 		list.add(null);

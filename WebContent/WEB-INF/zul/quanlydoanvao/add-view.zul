@@ -174,7 +174,7 @@
 								<div class="flex">
 									<x:span class="label-txt-style">Tóm tắt nội dung - KQ tiếp đoàn</x:span> 
 								</div>
-								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.tomTatNoiDungKQ)" placeholder="Nhập nội dung tóm tắt..."></textbox>
+								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.tomTatNoiDungKQ)" placeholder="@load(!action and empty vm.tomTatNoiDungKQ ? 'Nhập nội dung tóm tắt...' : vm.tomTatNoiDungKQ)"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -185,7 +185,7 @@
 								<div class="flex">
 									<x:span class="label-txt-style">Đề xuất của CV phụ trách</x:span> 
 								</div>
-								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.deXuatCVPhuTrach)" placeholder="Nhập đề xuất..."></textbox>
+								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.deXuatCVPhuTrach)" placeholder="@load(!action and empty vm.deXuatCVPhuTrach ? 'Nhập đề xuất...' : vm.deXuatCVPhuTrach)"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -196,7 +196,7 @@
 								<div class="flex">
 									<x:span class="label-txt-style">Ý kiến chỉ đạo</x:span> 
 								</div>
-								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.yKienChiDao)" placeholder="Nhập ý kiến chỉ đạo..."></textbox>
+								<textbox onBlur="self.setValue(self.getValue().trim())" rows="4" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style" maxlength="255" value="@bind(vm.yKienChiDao)" placeholder="@load(!action and empty vm.yKienChiDao ? 'Nhập ý kiến chỉ đạo...' : vm.yKienChiDao)"></textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>

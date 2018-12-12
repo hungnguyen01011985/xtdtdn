@@ -29,9 +29,10 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
-import vn.toancauxanh.gg.model.enums.NoiDungCongViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.rest.model.CongViecModel;
 
@@ -52,26 +53,18 @@ public class GiaoViec extends Model<GiaoViec> {
 	private Date ngayGiao = new Date();
 	private Date hanThucHien;
 	private Date ngayHoanThanh;
-	private NoiDungCongViec noiDungCongViec;
 	private GiaiDoanXucTien giaiDoanXucTien;
 	private TrangThaiGiaoViec trangThaiGiaoViec = TrangThaiGiaoViec.CHUA_LAM;
 	private TepTin taiLieu = new TepTin();
 	private TepTin taiLieuKetQua;
 	private LoaiCongViec loaiCongViec;
 	private String tenNhiemVu;
+	private PhongBan phongBan;
+	private LoaiCongViecKeHoach cha;
 	
 	public GiaoViec() {
 	}
 
-	public GiaoViec(NoiDungCongViec noiDungCongViec, NhanVien nguoiDuocGiao, Date hanThucHien,
-			TrangThaiGiaoViec trangThaiGiaoViec, String ghiChu) {
-		this.noiDungCongViec = noiDungCongViec;
-		this.nguoiDuocGiao = nguoiDuocGiao;
-		this.hanThucHien = hanThucHien;
-		this.trangThaiGiaoViec = trangThaiGiaoViec;
-		this.ghiChu = ghiChu;
-	}
-	
 	public String getTenNhiemVu() {
 		return tenNhiemVu;
 	}
@@ -121,6 +114,15 @@ public class GiaoViec extends Model<GiaoViec> {
 
 	public void setNguoiDuocGiao(NhanVien nguoiDuocGiao) {
 		this.nguoiDuocGiao = nguoiDuocGiao;
+	}
+	
+	@ManyToOne
+	public LoaiCongViecKeHoach getCha() {
+		return cha;
+	}
+
+	public void setCha(LoaiCongViecKeHoach cha) {
+		this.cha = cha;
 	}
 
 	public Date getNgayGiao() {
@@ -216,6 +218,15 @@ public class GiaoViec extends Model<GiaoViec> {
 	public void setGhiChu(String ghiChu) {
 		this.ghiChu = ghiChu;
 	}
+	
+	@ManyToOne
+	public PhongBan getPhongBan() {
+		return phongBan;
+	}
+
+	public void setPhongBan(PhongBan phongBan) {
+		this.phongBan = phongBan;
+	}
 
 	@Command
 	public void saveGiaoViec(@BindingParam("vmArgs") final Object ob, @BindingParam("attr") final String attr,
@@ -228,15 +239,6 @@ public class GiaoViec extends Model<GiaoViec> {
 		BindUtils.postNotifyChange(null, null, ob, attr);
 	}
 	
-	@Enumerated(EnumType.STRING)
-	public NoiDungCongViec getNoiDungCongViec() {
-		return noiDungCongViec;
-	}
-
-	public void setNoiDungCongViec(NoiDungCongViec noiDungCongViec) {
-		this.noiDungCongViec = noiDungCongViec;
-	}
-
 	@Command
 	public void saveNhanViec(@BindingParam("item") final GiaoViec ob,
 			@BindingParam("vm") final Object vm, @BindingParam("wdn") final Window wdn) {
@@ -266,6 +268,21 @@ public class GiaoViec extends Model<GiaoViec> {
 		this.save();
 		BindUtils.postNotifyChange(null, null, this, "*");
 		BindUtils.postNotifyChange(null, null, ob, "*");
+	}
+	
+	@Command
+	public void saveCongViec(@BindingParam("list") DoanVao doanVao, @BindingParam("attr") String attr,
+			@BindingParam("wdn") Window wdn, @BindingParam("isAdd") boolean isAdd) {
+		if (isAdd) {
+			this.setNguoiTao(core().fetchNhanVien(true));
+			this.setTrangThaiGiaoViec(null);
+			doanVao.getListCongViecTheoDoanVao().add(0, this);
+			BindUtils.postNotifyChange(null, null, doanVao, attr);
+			wdn.detach();
+			return;
+		}
+		BindUtils.postNotifyChange(null, null, doanVao, attr);
+		wdn.detach();
 	}
 	
 	@Command
@@ -436,6 +453,28 @@ public class GiaoViec extends Model<GiaoViec> {
 					}
 				}
 				return result;
+			}
+		};
+	}
+	
+	@Transient
+	public AbstractValidator getValidateTenCongViec() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				String tenCongViec = (String) ctx.getProperty().getValue();
+				String param = tenCongViec.trim().replaceAll("\\s+", "");
+				if (!"".equals(param) && param != null && !param.isEmpty()) {
+					JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.tenCongViec.eq(tenCongViec));
+					if (!GiaoViec.this.noId()) {
+						q.where(QGiaoViec.giaoViec.id.ne(getId()));
+					}
+					if (q.fetchCount() > 0) {
+						addInvalidMessage(ctx, "Đã tồn tại công việc này");
+					}
+				} else {
+					addInvalidMessage(ctx, "Không được để trống trường này");
+				}
 			}
 		};
 	}
