@@ -4,8 +4,6 @@ package vn.toancauxanh.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Size;
-
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
@@ -18,8 +16,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 @Entity
 @Table(name = "loaicongviec")
 public class LoaiCongViecKeHoach extends Model<LoaiCongViecKeHoach> {
+	
 	private String ten = "";
-	@Size(max=500)
 	private String moTa = "";
 
 	public String getTen() {
