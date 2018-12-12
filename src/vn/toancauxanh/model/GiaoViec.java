@@ -268,22 +268,16 @@ public class GiaoViec extends Model<GiaoViec> {
 		BindUtils.postNotifyChange(null, null, ob, "*");
 	}
 	
-	private boolean flag;
+	public boolean checkQuyenSua(NhanVien nguoiDuocGiao, Date hanThucHien){
+		if (!"".equals(nguoiDuocGiao.getHoVaTen()) && hanThucHien != null) {
+			return true;
+		}
+		return false;
+	}
 	
-	@Transient
-	public boolean isFlag() {
-		return flag;
-	}
-
-	public void setFlag(boolean flag) {
-		this.flag = flag;
-	}
-
 	@Command
 	public void saveCongViec(@BindingParam("list") DoanVao doanVao, @BindingParam("attr") String attr,
 			@BindingParam("wdn") Window wdn, @BindingParam("isAdd") boolean isAdd) {
-		flag = true;
-		BindUtils.postNotifyChange(null, null, this, "flag");
 		if (isAdd) {
 			this.setNguoiTao(core().fetchNhanVien(true));
 			this.setTrangThaiGiaoViec(null);
