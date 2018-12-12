@@ -105,7 +105,8 @@
 											<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${((vm.checkQuyenSuaXoaKeCongViec(vm.nguoiPhuTrach.id) and hoanThanh ne each.trangThaiGiaoViec) || (entry.quyen.quanlydoanvao_them and hoanThanh ne each.trangThaiGiaoViec)) and !readOnly}"
 												onClick="@command('redirectPage',zul='quanlydoanvao/show-edit-cong-viec.zul', vm = each, vmArgs = vm)">
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Sửa</x:span>
+												<x:span zk:visible="@load(each.flag)">Sửa</x:span>
+												<x:span zk:visible="@load(!each.flag)">Tạo</x:span>
 											</x:a>
 										</div>
 									</row>
