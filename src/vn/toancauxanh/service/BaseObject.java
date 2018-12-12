@@ -742,8 +742,8 @@ public class BaseObject<T> extends CoreObject<T> {
 	public List<NhanVien> getListNguoiPhuTrach() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
 		JPAQuery<NhanVien> q = find(NhanVien.class)
-				.where(QNhanVien.nhanVien.phongBan.id.eq(1l).or(QNhanVien.nhanVien.phongBan.id.eq(2l)))
-				.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN));
+				.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN)
+						.or(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_TRUONG_PHONG)));
 		if (q != null) {
 			list.addAll(q.fetch());
 			return list;

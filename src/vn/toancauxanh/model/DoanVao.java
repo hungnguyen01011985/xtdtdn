@@ -25,6 +25,7 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
@@ -84,6 +85,7 @@ public class DoanVao extends Model<DoanVao> {
 	}
 
 	public void setQuocGia(QuocGiaEnum quocGia) {
+		System.out.println(quocGia.getText());
 		this.quocGia = quocGia;
 	}
 
@@ -476,7 +478,51 @@ public class DoanVao extends Model<DoanVao> {
 	public boolean isCheckTaiLieu() {
 		return checkTaiLieu;
 	}
+	
+	@Command
+	@NotifyChange({"listSearch","key"})
+	public void searchKey(@BindingParam("key") String key) {
+		this.key = key;
+		listSearch.clear();
+		System.out.println("keyyy: " + key);
+		if (key == null || key.equals("") || key == "") {
+			return;
+		}
+		seachByKey(key);
+	}
+	
+	private List<QuocGiaEnum> listSearch = new ArrayList<>();
+	
+	@Transient
+	public List<QuocGiaEnum> getListSearch() {
+		return listSearch;
+	}
 
+	public void setListSearch(List<QuocGiaEnum> listSearch) {
+		this.listSearch = listSearch;
+	}
+	
+	private String key = "";
+	
+	@Transient
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public List<QuocGiaEnum> seachByKey(String key) {
+		List<QuocGiaEnum> list = getListQuocGia();
+		list.forEach(item -> {
+			if (item.getText().toLowerCase().contains(key.toLowerCase())) {
+				listSearch.add(item);
+			}
+		});
+		return list;
+	}
+	
 	@Transient
 	public AbstractValidator getValidatorTenDoan() {
 		return new AbstractValidator() {
@@ -773,5 +819,4 @@ public class DoanVao extends Model<DoanVao> {
 		rs.setThanhVienDoans(getListThanhVienTheoDoan() != null ? getListThanhVienTheoDoan().stream().map(ThanhVienDoan::toThanhVienDoanModel).collect(Collectors.toList()) : null);
 		return rs;
 	}
-	
 }
