@@ -116,10 +116,10 @@
 					<div zclass="col-xs-6" if="${!readOnly}">
 						<div zclass="form-group right">
 							<x:button class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveCongViec', list=vmArgs, attr='listCongViecTheoDoanVao', wdn=wdn, isAdd=isAdd)">
-								<x:image zk:visible="@load(!vm.flag)" class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
-								<x:image zk:visible="@load(vm.flag)" class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-								<span zk:visible="@load(!vm.flag)">Thêm mới</span>
-								<span zk:visible="@load(vm.flag)">Lưu</span>
+								<x:image if="${!vm.checkQuyenSua(vm.nguoiDuocGiao, vm.hanThucHien)}" class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+								<x:image if="${vm.checkQuyenSua(vm.nguoiDuocGiao, vm.hanThucHien)}" class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+								<span if="${!vm.checkQuyenSua(vm.nguoiDuocGiao, vm.hanThucHien)}">Thêm mới</span>
+								<span if="${vm.checkQuyenSua(vm.nguoiDuocGiao, vm.hanThucHien)}">Lưu</span>
 							</x:button>
 						</div>
 					</div>
