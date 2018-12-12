@@ -29,8 +29,6 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import com.querydsl.jpa.impl.JPAQuery;
-
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
@@ -270,9 +268,22 @@ public class GiaoViec extends Model<GiaoViec> {
 		BindUtils.postNotifyChange(null, null, ob, "*");
 	}
 	
+	private boolean flag;
+	
+	@Transient
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
 	@Command
 	public void saveCongViec(@BindingParam("list") DoanVao doanVao, @BindingParam("attr") String attr,
 			@BindingParam("wdn") Window wdn, @BindingParam("isAdd") boolean isAdd) {
+		flag = true;
+		BindUtils.postNotifyChange(null, null, this, "flag");
 		if (isAdd) {
 			this.setNguoiTao(core().fetchNhanVien(true));
 			this.setTrangThaiGiaoViec(null);
@@ -453,28 +464,6 @@ public class GiaoViec extends Model<GiaoViec> {
 					}
 				}
 				return result;
-			}
-		};
-	}
-	
-	@Transient
-	public AbstractValidator getValidateTenCongViec() {
-		return new AbstractValidator() {
-			@Override
-			public void validate(ValidationContext ctx) {
-				String tenCongViec = (String) ctx.getProperty().getValue();
-				String param = tenCongViec.trim().replaceAll("\\s+", "");
-				if (!"".equals(param) && param != null && !param.isEmpty()) {
-					JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.tenCongViec.eq(tenCongViec));
-					if (!GiaoViec.this.noId()) {
-						q.where(QGiaoViec.giaoViec.id.ne(getId()));
-					}
-					if (q.fetchCount() > 0) {
-						addInvalidMessage(ctx, "Đã tồn tại công việc này");
-					}
-				} else {
-					addInvalidMessage(ctx, "Không được để trống trường này");
-				}
 			}
 		};
 	}
