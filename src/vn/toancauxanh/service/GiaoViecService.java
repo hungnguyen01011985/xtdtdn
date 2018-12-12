@@ -172,7 +172,6 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		BindUtils.postNotifyChange(null, null, vm, "arg");
 		BindUtils.postNotifyChange(null, null, vm, "tuNgay");
 		BindUtils.postNotifyChange(null, null, vm, "denNgay");
-		Clients.evalJavaScript("getFocus()");
 	}
 	
 }
