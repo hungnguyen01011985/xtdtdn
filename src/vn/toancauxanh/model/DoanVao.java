@@ -741,7 +741,6 @@ public class DoanVao extends Model<DoanVao> {
 		checkAllNull = false;
 	}
 
-
 	@Command
 	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao,
 			@BindingParam("wdn") final Window wdn) {
@@ -750,8 +749,6 @@ public class DoanVao extends Model<DoanVao> {
 			showNotification("", "Dữ liệu nhập vào chưa đúng. Vui lòng nhập lại", "danger");
 			resetCheck();
 		} else {
-			resetCheck();
-			showNotification("Lưu thành công!", "", "success");
 			wdn.detach();
 		}
 	}
