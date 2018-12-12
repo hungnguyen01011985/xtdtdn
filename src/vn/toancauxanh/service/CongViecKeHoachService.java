@@ -9,10 +9,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.model.CongViecKeHoach;
 import vn.toancauxanh.model.GiaoViec;
-import vn.toancauxanh.model.LoaiCongViecKeHoach;
 import vn.toancauxanh.model.QCongViecKeHoach;
 import vn.toancauxanh.model.QGiaoViec;
-import vn.toancauxanh.model.QLoaiCongViecKeHoach;
 
 public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 
