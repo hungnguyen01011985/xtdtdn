@@ -4,7 +4,7 @@
 	 class="form-list">
 	<zscript>
 		<![CDATA[
-			page.title = "Quản trị hệ thống";
+			page.title = "Quản lý kế hoạch";
 		]]>
 	</zscript>
 	<div>
@@ -76,7 +76,7 @@
 					</grid>
 					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
 						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
-						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')"/>
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">

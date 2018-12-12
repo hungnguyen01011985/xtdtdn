@@ -33,7 +33,7 @@ public class CasController extends BasicService<NhanVien>{
 			String username = pac4j.getName();
 			NhanVien nhanVien = new JPAQuery<NhanVien>(em()).from(QNhanVien.nhanVien)
 					.where(QNhanVien.nhanVien.daXoa.isFalse()).where(QNhanVien.nhanVien.trangThai.ne(core().TT_DA_XOA))
-					.where(QNhanVien.nhanVien.email.eq(username.trim())).fetchFirst();	
+					.where(QNhanVien.nhanVien.email.eq(username.trim())).fetchFirst();
 			
 			if (nhanVien != null) {
 				String cookieToken = nhanVien

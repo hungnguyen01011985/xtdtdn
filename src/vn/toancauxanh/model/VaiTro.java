@@ -168,8 +168,8 @@ public class VaiTro extends Model<VaiTro> {
 
 	@Transient
 	public Set<String> getQuyenAllMacDinhs() {
-		Set<String> quyens1 = new HashSet<>();	
-		// Thêm quyền vào danh sách vai trò các tittle		
+		Set<String> quyens1 = new HashSet<>();
+		// Thêm quyền vào danh sách vai trò các tittle
 		quyens1.add(core().QUANLYDUANLIST);
 		quyens1.add(core().QUANLYDUANSUA);
 		quyens1.add(core().QUANLYDUANTHEM);

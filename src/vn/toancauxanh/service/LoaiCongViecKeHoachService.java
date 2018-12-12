@@ -23,8 +23,7 @@ public class LoaiCongViecKeHoachService extends BasicService<LoaiCongViecKeHoach
 	public List<LoaiCongViecKeHoach> getLoaiCongViecKeHoach() {
 		List<LoaiCongViecKeHoach> list= new ArrayList<>();
 		list.add(null);
-		list = find(LoaiCongViecKeHoach.class).where(QLoaiCongViecKeHoach.loaiCongViecKeHoach.daXoa.isFalse()
-				.and(QLoaiCongViecKeHoach.loaiCongViecKeHoach.trangThai.ne(core().TT_DA_XOA))).fetch();
+		list = find(LoaiCongViecKeHoach.class).where(QLoaiCongViecKeHoach.loaiCongViecKeHoach.daXoa.isFalse()).fetch();		
 		return list;
 	}
 	

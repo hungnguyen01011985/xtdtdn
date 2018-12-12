@@ -1,10 +1,10 @@
 package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Size;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
@@ -20,6 +20,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 public class CongViecKeHoach extends Model<CongViecKeHoach> {
 
 	private String ten = "";
+	@Lob
 	private String moTa = "";
 	
 	private LoaiCongViecKeHoach loaiCongViecKeHoach;

@@ -2,6 +2,7 @@ package vn.toancauxanh.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import org.zkoss.bind.BindUtils;
@@ -18,6 +19,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 public class LoaiCongViecKeHoach extends Model<LoaiCongViecKeHoach> {
 	
 	private String ten = "";
+	@Lob
 	private String moTa = "";
 
 	public String getTen() {
