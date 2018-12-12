@@ -1,15 +1,14 @@
 <idspace>
-	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="800px"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
-		closable="true" onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
-		whatever="@load(false,after='savePhongBan') @converter('vn.toancauxanh.service.DetachConverter')"
-		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
+		closable="true">
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
-			strSave = arg.get("save");
 			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
+			isAdd = arg.get("isAdd");
+			phongBans = entry.phongBans;
 		]]></zscript> 
-		<div class="w-popup-content">
+		<div class="w-popup-content-medium" style="margin:0 15px;" viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
 			<div class="box-title-and-close">
 				<div style="display:flex">
 					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
@@ -19,14 +18,14 @@
 					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
 				</a>
 			</div>
-			<div class="mg-and-bg-and-line" style="padding:15px;">
+			<div class="mg-and-bg-and-line-fix mg-bottom-5">
 				<div class="row">
 					<div zclass="col-md-6">
 						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Tên công việc<n:small class="required"> *</n:small></x:span>
 							</div>
-							<textbox maxlength="255" disabled="${readOnly}" class="form-control textbox-txt-style" value="@bind(vm.tenCongViec)"
+							<textbox maxlength="255" disabled="${readOnly}" class="form-control textbox-txt-style" value="@bind(vm.tenCongViec) @save(vm.tenCongViec, before='saveCongViec') @validator(vm.validateTenCongViec)"
 							 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCongViec', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên công việc..."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -34,10 +33,10 @@
 					<div zclass="col-md-6">
 						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
-								<x:span class="label-txt-style">Loại công việc<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Loại công việc</x:span>
 							</div>
 							<combobox disabled="false" buttonVisible="true" width="100%" class="hv-textbox" readonly="true" model="@load(entry.loaiCongViecKeHoachs.targetQuery.fetch())" placeholder="-Chọn loại công việc-"
-								selectedItem="@bind(vm.loaiCongViec) @save(vm.loaiCongViec, before='saveCongViec') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
+								selectedItem="@bind(vm.cha)">
 								<template name="model">
 									<comboitem label="@load(each.ten)" />
 								</template>
@@ -46,22 +45,79 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row mg-and-bg-and-line">
-				<div zclass="col-xs-6">
-					<div zclass="form-group">
-						<x:button  class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
-							<span>Đóng</span>
-						</x:button>
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group txt-textbox-disable">
+							<div class="flex">
+								<x:span class="label-txt-style">Thực hiện<n:small class="required"> *</n:small></x:span>
+							</div>
+							<combobox disabled="false" buttonVisible="true" width="100%" class="hv-textbox" readonly="true" model="@load(phongBans.allListPhongBan)" placeholder="-Chọn phòng ban-"
+								selectedItem="@bind(vm.phongBan)">
+								<template name="model">
+									<comboitem label="@load(each.ten)" />
+								</template>
+								<attribute name="onCreate">
+									if (vm.phongBan != null) {
+										phongBans.setPhongBanSelected(vm.phongBan);
+									}
+								</attribute>
+								<attribute name="onSelect">
+									cbbNguoiDuocGiao.setRawValue(null);
+									phongBans.setPhongBanSelected(vm.phongBan);
+								</attribute>
+							</combobox>
+						</div>
+					</div>
+					<div zclass="col-md-6" style="margin-top: 16px">
+						<div zclass="form-group txt-textbox-disable">
+							<combobox disabled="false" buttonVisible="true" id="cbbNguoiDuocGiao" width="100%" class="hv-textbox" readonly="true" model="@load(phongBans.listNhanVienTheoPhongBan)" placeholder="-Chọn người thực hiện-"
+								selectedItem="@bind(vm.nguoiDuocGiao) @save(vm.nguoiDuocGiao, before='saveCongViec') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')">
+								<template name="model">
+									<comboitem label="@load(each.hoVaTen)" />
+								</template>
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
 					</div>
 				</div>
-				<div zclass="col-xs-6" if="${!readOnly}">
-					<div zclass="form-group right">
-						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveCongViec', list=vmArgs, attr='listCongViecTheoDoanVao', wdn=wdn)">
-							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-							<span>Lưu</span>
-						</x:button>
+				<div class="row">
+					<div zclass="col-md-6">
+						<div zclass="form-group txt-textbox-disable">
+							<div class="flex">
+								<x:span class="label-txt-style">Thời gian<n:small class="required"> *</n:small></x:span>
+							</div>
+							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.hanThucHien) @save(vm.hanThucHien, before='saveCongViec') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" width="100%" placeholder="Chọn ngày"/>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+					<div zclass="col-md-6">
+						<div zclass="form-group txt-textbox-disable">
+							<div class="flex">
+								<x:span class="label-txt-style">Ghi chú</x:span>
+							</div>
+							<textbox maxlength="255" disabled="${readOnly}" class="form-control textbox-txt-style" value="@bind(vm.ghiChu)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCongViec', list=vmArgs, attr='listCongViecTheoDoanVao', wdn=wdn, isAdd=isAdd)" placeholder="Nhập ghi chú..."></textbox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mg-and-bg-and-line-fix">
+				<div class="row">
+					<div zclass="col-xs-6">
+						<div zclass="form-group">
+							<x:button  class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+								<span>Đóng</span>
+							</x:button>
+						</div>
+					</div>
+					<div zclass="col-xs-6" if="${!readOnly}">
+						<div zclass="form-group right">
+							<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveCongViec', list=vmArgs, attr='listCongViecTheoDoanVao', wdn=wdn, isAdd=isAdd)">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+								<span>Lưu</span>
+							</x:button>
+						</div>
 					</div>
 				</div>
 			</div>
