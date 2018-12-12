@@ -42,12 +42,10 @@
 			} else if (nhanVien.getTatCaQuyens().contains(entry.core().CAPDONVILIST)){
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=capdonvi&action=lietke&file=/WEB-INF/zul/capdonvi/list.zul");
-			} else if (nhanVien.getTatCaQuyens().contains(entry.core().DONVIXUCTIENLIST)){
-				desktop.setCurrentDirectory("/WEB-INF/zul");
-				Executions.forward("/WEB-INF/zul/home.zul?resource=donvixuctien&action=lietke&file=/WEB-INF/zul/donvixuctien/list.zul");
 			} else {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlygiaoviec&action=lietke&file=/WEB-INF/zul/quanlygiaoviec/list.zul");
+
 			}
 			
 		]]>
