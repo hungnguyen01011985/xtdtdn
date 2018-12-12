@@ -271,7 +271,8 @@ public class GiaoViec extends Model<GiaoViec> {
 	}
 	
 	@Command
-	public void saveCongViec(@BindingParam("list") DoanVao doanVao, @BindingParam("attr") String attr, @BindingParam("wdn") Window wdn, @BindingParam("isAdd") boolean isAdd){
+	public void saveCongViec(@BindingParam("list") DoanVao doanVao, @BindingParam("attr") String attr,
+			@BindingParam("wdn") Window wdn, @BindingParam("isAdd") boolean isAdd) {
 		if (isAdd) {
 			this.setNguoiTao(core().fetchNhanVien(true));
 			this.setTrangThaiGiaoViec(null);
