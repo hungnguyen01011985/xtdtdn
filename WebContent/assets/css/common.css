@@ -1217,13 +1217,14 @@ ul.z-tabs-content {
 	max-height: calc(100vh - 60px) !important;
 	margin-top: 0px;
 	height:auto;
+	overflow: auto;
 }
 
 #page-wrapper {
 	padding: 0;
 	background-color: #f4f5f7;
 	height: calc(100vh - 60px);
-	 min-width:1024px;
+	 /* min-width:1024px; */
 	font-family: Roboto-Medium;
 }
 
@@ -1253,7 +1254,7 @@ ul.z-tabs-content {
 
 .box-col-7 {
 	float: right;
-	width: calc(100% - 243px) !important;
+	/* width: calc(100% - 243px) !important; */
 	height: auto !important;
 }
 
@@ -1281,6 +1282,8 @@ ul.z-tabs-content {
 .form-list .z-window-content {
 	padding: 0px !important;
 	background: rgba(121, 149, 216, 0.1);
+	height: calc(100vh - 60px);
+	overflow: auto;
 	/* min-height: calc(100vh - 60px); */
 }
 
@@ -1611,12 +1614,6 @@ ul.z-tabs-content {
 	}
 	.box-header-imgbar {
 		display:none;
-	}
-	.box-col-7 {
-		width: calc(100% - 50px) !important;
-	}
-	.header-top-be {
-		min-width:1024px;
 	}
 }
 

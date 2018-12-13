@@ -13,19 +13,11 @@
 	</style>
 	<zscript>
 		<![CDATA[
-<<<<<<< HEAD
-	         boolean checkActiveHeThong = false;
-	         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource)
-	        		 || "nhadautu".equals(resource) || "capdonvi".equals(resource) || "donvixuctien".equals(resource))  {
-	        	 checkActiveHeThong = true;
-	         }
-=======
 		         boolean checkActiveHeThong = false;
 		         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource)
 		        		 || "nhadautu".equals(resource) || "capdonvi".equals(resource) || "donvixuctien".equals(resource) || "congvieckehoach".equals(resource) || "loaicongvieckehoach".equals(resource))  {
 		        	 checkActiveHeThong = true;
 		         }
->>>>>>> 8552fc60858c8bc743a6f163a74ccce3100cd8de
 		]]>
 	</zscript>
 	<div class="nav-side-menu">
@@ -88,7 +80,7 @@
 						</n:a>
 					</n:ul>
 				</n:li>
-				<n:li class="header-children ${checkActiveHeThong ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke || entry.quyen.nhadautu_lietke || entry.quyen.donvi_lietke entry.quyen.loaicongvieckehoach_lietke || entry.quyen.congvieckehoach_lietke}">
+				<n:li class="header-children ${checkActiveHeThong ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke || entry.quyen.nhadautu_lietke || entry.quyen.donvi_lietke || entry.quyen.loaicongvieckehoach_lietke || entry.quyen.congvieckehoach_lietke}">
 					<n:a onClick="toggleDropdownMenu(this)" style="padding-bottom:10px;">
 						<x:span class="img-menu qlht" zk:if="${resource ne 'phongban'}"></x:span>
 						<x:span class="img-menu qlht" zk:if="${resource eq 'phongban'}"></x:span>
