@@ -460,7 +460,9 @@ html, body {
 .thaotac .up-note span {
 	color: #C73A3A !important;
 }
-
+.thaotac .txt-color-xoa span{
+	color: #C73A3A !important;
+}
 .up-note-del span {
 	color: #C73A3A !important;
 }

@@ -1,0 +1,67 @@
+<idspace>
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="700px"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal reset-width"
+		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.DonViXucTienService')">
+		<zscript>
+		 	<![CDATA[
+		 	    obj = arg.get("vm");
+		 	    vn.toancauxanh.model.DuAn duAn = obj;
+				vmArgs = arg.get("vmArgs");
+				//Chuyển list id đơn vị xúc tiến để query loại bỏ có trong list id này
+				vm.arg.put("listId", duAn.getGiaiDoanDuAn().getListIdDonViXucTien());
+		 	]]>
+		 </zscript>
+		<div class="w-popup-content-medium">
+			<div class="panel-box">
+				<div class="box-title-and-close">
+					<div style="display:flex">
+						<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+						<span class="style-title-popup">Chọn đơn vị</span>
+					</div>
+					<a onClick="wdn.detach()">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
+					</a>
+				</div>
+				<div zclass="row mg-and-bg-and-line">
+					<div zclass="col-md-12">
+						<listbox id="listbox" class="mg-bt-15 ${vm.targetQuery.fetchCount() > 10 ? 'list-box-no-paging' : ''}" selectedItems="@bind(vm.selectedItems)" multiple="true" checkmark="true" model="@load(vm.targetQuery.fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
+							<listhead>
+								<listheader label="" width="40px" align="center"></listheader>
+								<listheader label="STT" width="45px" align="center"></listheader>
+								<listheader label="Đơn vị"></listheader>
+								<listheader label="Cấp đơn vị"></listheader>
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell label="" style="text-align:center;"></listcell>
+									<listcell style="text-align:center;" label="@bind(forEachStatus.index + 1)"></listcell>
+									<listcell label="@load(each.ten)"></listcell>
+									<listcell label="@load(each.capDonVi.ten)"></listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+				</div>
+				<div class="row mg-and-bg-and-line">
+					<div zclass="col-xs-6">
+						<div zclass="form-group">
+							<x:button class="btn bg-btn-dong btn-grey" zk:onClick="wdn.detach()">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+								<span>Đóng</span>
+							</x:button>
+						</div>
+					</div>
+					<div zclass="col-xs-6">
+						<div zclass="form-group right">
+							<x:button onClick="@command('addDonViXucTien', wdn = wdn, obj = obj.giaiDoanDuAn)"
+									class="btn btn-base btn-green mg-btn">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+								<span>Thêm đơn vị</span>
+							</x:button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</window>
+</idspace>

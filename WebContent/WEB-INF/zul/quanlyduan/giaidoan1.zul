@@ -93,12 +93,8 @@
 					</div>
 				</div>
 			</div>
-			<include src="quanlyduan/view-list-don-vi.zul"></include>
-			<div zclass="form-group" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" style="padding-bottom:15px;">
-				<x:button class="btn btn-them-moi-don-vi btn-grey" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" onClick="@command('addNewDonVi', vm = vm)">
-					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
-					<span>Thêm đơn vị nhận CV</span>
-				</x:button>
+			<div class="row mg-and-bg-and-line-fix" style="padding-left:15px; padding-right:15px;padding-top:0;">
+				<include src="quanlyduan/view-list-don-vi.zul"></include>
 			</div>
 			<include src="quanlyduan/view-list-tep-tins.zul"></include>
 			<div class="row mg-and-bg-and-line">
