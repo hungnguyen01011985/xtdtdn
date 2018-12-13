@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
@@ -17,8 +18,6 @@ import javax.persistence.Transient;
 
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.validator.AbstractValidator;
-
-import javax.persistence.JoinColumn;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -175,17 +174,17 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	}
 
 	@Transient
+	public List<HoSoKhuDat> getHoSoKhuDats() {
+		return hoSoKhuDats;
+	}
+	
+	@Transient
 	public List<DonViDuAn> getDonViDuAn() {
 		return donViDuAn;
 	}
 
 	public void setDonViDuAn(List<DonViDuAn> donViDuAn) {
 		this.donViDuAn = donViDuAn;
-	}
-	
-	@Transient
-	public List<HoSoKhuDat> getHoSoKhuDats() {
-		return hoSoKhuDats;
 	}
 
 	public void setHoSoKhuDats(List<HoSoKhuDat> hoSoKhuDats) {
@@ -725,4 +724,14 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 			}
 		};
 	}
+	
+	@Transient
+	public List<Long> getListIdDonViXucTien() {
+		List<Long> list = new ArrayList<Long>();
+		this.donViDuAn.forEach(item -> {
+			list.add(item.getDonVi().getId());
+		});
+		return list;
+	}
+	
 }
