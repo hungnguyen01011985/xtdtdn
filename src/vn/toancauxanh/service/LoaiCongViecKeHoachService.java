@@ -12,7 +12,7 @@ public class LoaiCongViecKeHoachService extends BasicService<LoaiCongViecKeHoach
 	public JPAQuery<LoaiCongViecKeHoach> getTargetQuery() {
 		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		JPAQuery<LoaiCongViecKeHoach> q = find(LoaiCongViecKeHoach.class);
-		if(param !=null && !param.isEmpty() && !"".equals(param)) {
+		if (param !=null && !param.isEmpty() && !"".equals(param)) {
 			String tuKhoa = "%" + param + "%" ;
 			q.where(QLoaiCongViecKeHoach.loaiCongViecKeHoach.ten.like(tuKhoa));
 		}

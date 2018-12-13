@@ -17,7 +17,7 @@ public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 	public JPAQuery<CongViecKeHoach> getTargetQuery() {
 		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		JPAQuery<CongViecKeHoach> q = find(CongViecKeHoach.class);
-		if(param !=null && !param.isEmpty() && !"".equals(param)) {
+		if (param !=null && !param.isEmpty() && !"".equals(param)) {
 			String tuKhoa = "%" + param + "%" ;
 			q.where(QCongViecKeHoach.congViecKeHoach.ten.like(tuKhoa));
 		}
