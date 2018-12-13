@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.collections.MapUtils;
 import com.querydsl.jpa.impl.JPAQuery;
 import vn.toancauxanh.model.LoaiCongViecKeHoach;
+import vn.toancauxanh.model.QCapDonVi;
 import vn.toancauxanh.model.QLoaiCongViecKeHoach;
 
 public class LoaiCongViecKeHoachService extends BasicService<LoaiCongViecKeHoach> {
@@ -23,7 +24,8 @@ public class LoaiCongViecKeHoachService extends BasicService<LoaiCongViecKeHoach
 	public List<LoaiCongViecKeHoach> getLoaiCongViecKeHoach() {
 		List<LoaiCongViecKeHoach> list= new ArrayList<>();
 		list.add(null);
-		list = find(LoaiCongViecKeHoach.class).where(QLoaiCongViecKeHoach.loaiCongViecKeHoach.daXoa.isFalse()).fetch();		
+		list = find(LoaiCongViecKeHoach.class).where(QLoaiCongViecKeHoach.loaiCongViecKeHoach.daXoa.isFalse())
+				.orderBy(QCapDonVi.capDonVi.ten.asc()).fetch();		
 		return list;
 	}
 	
