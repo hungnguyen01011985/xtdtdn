@@ -107,6 +107,10 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYCAPDONVI = "";
 	@Value("${url.donvixuctien}")
 	public String QUANLYDONVIXUCTIEN = "";
+	@Value("${url.loaicongvieckehoach}")
+	public String QUANLYLOAICONGVIECKEHOACH = "";
+	@Value("${url.congvieckehoach}")
+	public String QUANLYCONGVIECKEHOACH = "";
 	// uend
 	public char CHAR_CACH = ':';
 	public String CACH = CHAR_CACH + "";
@@ -270,10 +274,36 @@ public class Entry extends BaseObject<Object> {
 	public String DONVIXUCTIENSUA = "";
 	@Value("${url.donvixuctien}" + ":" + "${action.tim}")
 	public String DONVIXUCTIENTIMKIEM;
+	
+	@Value("${url.loaicongvieckehoach}" + ":" + "${action.xem}")
+	public String LOAIKEHOACHCONGVIECXEM = "";
+	@Value("${url.loaicongvieckehoach}" + ":" + "${action.them}")
+	public String LOAIKEHOACHCONGVIECTHEM = "";
+	@Value("${url.loaicongvieckehoach}" + ":" + "${action.list}")
+	public String LOAIKEHOACHCONGVIECLIST = "";
+	@Value("${url.loaicongvieckehoach}" + ":" + "${action.xoa}")
+	public String LOAIKEHOACHCONGVIECXOA = "";
+	@Value("${url.loaicongvieckehoach}" + ":" + "${action.sua}")
+	public String LOAIKEHOACHCONGVIECSUA = "";
+	@Value("${url.loaicongvieckehoach}" + ":" + "${action.tim}")
+	public String LOAICONGVIECKEHOACHTIMKIEM;
+	
+	@Value("${url.congvieckehoach}" + ":" + "${action.xem}")
+	public String CONGVIECKEHOACHXEM = "";
+	@Value("${url.congvieckehoach}" + ":" + "${action.them}")
+	public String CONGVIECKEHOACHTHEM = "";
+	@Value("${url.congvieckehoach}" + ":" + "${action.list}")
+	public String CONGVIECKEHOACHLIST = "";
+	@Value("${url.congvieckehoach}" + ":" + "${action.xoa}")
+	public String CONGVIECKEHOACHXOA = "";
+	@Value("${url.congvieckehoach}" + ":" + "${action.sua}")
+	public String CONGVIECKEHOACHSUA = "";
+	@Value("${url.congvieckehoach}" + ":" + "${action.tim}")
+	public String CONGVIECKEHOACHTIMKIEM;
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
 		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN, VAITRO, 
-				QUANLYLINHVUCDUAN, BAOCAOTHONGKE, QUANLYNHADAUTU, QUANLYDONVI, QUANLYCAPDONVI, QUANLYDONVIXUCTIEN}; //
+				QUANLYLINHVUCDUAN, BAOCAOTHONGKE, QUANLYNHADAUTU, QUANLYDONVI, QUANLYCAPDONVI, QUANLYDONVIXUCTIEN, QUANLYLOAICONGVIECKEHOACH, QUANLYCONGVIECKEHOACH}; //
 	}
 
 	public String[] getACTIONS() {
