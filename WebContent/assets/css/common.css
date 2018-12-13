@@ -1213,16 +1213,15 @@ ul.z-tabs-content {
 
 .box-col-full {
 	max-height: calc(100vh - 60px) !important;
-	overflow: auto;
 	margin-top: 0px;
-	
+	height:auto;
 }
 
 #page-wrapper {
 	padding: 0;
 	background-color: #f4f5f7;
 	height: calc(100vh - 60px);
-	min-width:1024px;
+	 min-width:1024px;
 	font-family: Roboto-Medium;
 }
 
@@ -1252,7 +1251,8 @@ ul.z-tabs-content {
 
 .box-col-7 {
 	float: right;
-	width: 100%;
+	width: calc(100% - 243px) !important;
+	height: auto !important;
 }
 
 .wrap-fix {
@@ -1279,8 +1279,10 @@ ul.z-tabs-content {
 .form-list .z-window-content {
 	padding: 0px !important;
 	background: rgba(121, 149, 216, 0.1);
-	height: calc(100vh - 60px);
+	/* min-height: calc(100vh - 60px); */
 }
+
+
 
 .doan-vao-tai-lieu .z-window-content {
 	height: auto !important;
@@ -1607,6 +1609,12 @@ ul.z-tabs-content {
 	}
 	.box-header-imgbar {
 		display:none;
+	}
+	.box-col-7 {
+		width: calc(100% - 50px) !important;
+	}
+	.header-top-be {
+		min-width:1024px;
 	}
 }
 
@@ -2332,7 +2340,7 @@ rotate
 	height: 60px;
 	background: #4274ED;
 	justify-content: space-between;
-	min-width: 1024px;
+	/* min-width: 1024px; */
 }
 
 .header-top-be a {

@@ -26,28 +26,46 @@
 			</div>
 			<div zclass="mg-and-bg-and-line-fix">
 				<div class="row">
-					<div zclass="col-md-10" style="padding-left: 15px;">
-						<div class="row">
-							<div zclass="col-md-4">
-								<div zclass="form-group">
-									<span>Từ ngày</span>
-									<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
+					<div style="width: calc(100% - 150px); padding-right:15px;">
+						<div zclass="col-md-12" style="padding-left: 15px;">
+							<div class="row">
+								<div zclass="col-md-4" style="padding-right: 15px;">
+									<div zclass="form-group">
+										<span>Tên đoàn</span>
+										<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')" placeholder="Nhập tên đoàn..."></textbox>
+									</div>
+								</div>
+								<div zclass="col-md-8" style="padding-right: 15px;">
+									<div class="row">
+										<div zclass="col-md-4">
+											<div zclass="form-group">
+												<span>Từ ngày</span>
+												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
+											</div>
+										</div>
+										<div zclass="col-md-4">
+											<div zclass="form-group">
+												<span>Từ ngày</span>
+												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
+											</div>
+										</div>
+										<div zclass="col-md-4">
+											<div zclass="form-group">
+												<span>Đến ngày</span> 
+												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div zclass="col-md-4">
-								<div zclass="form-group">
-									<span>Đến ngày</span> 
-									<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
-								</div>
-							</div>
-							<div zclass="col-md-4" style="padding-top: 25px;">
-								<div zclass="form-group left">
-									<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=vm, attr='targetQuery')">
-										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xem-thong-ke.svg"/>
-										<span>Xem thống kê</span>
-									</x:button>
-								</div>
-							</div>
+						</div>
+					</div>
+					<div style="padding-top: 25px;padding-right:7.5px">
+						<div zclass="form-group right">
+							<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=vm, attr='targetQuery')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xem-thong-ke.svg"/>
+								<span>Xem thống kê</span>
+							</x:button>
 						</div>
 					</div>
 				</div>
