@@ -28,7 +28,9 @@ public class DonViXucTienService extends BasicService<DonViXucTien> {
 		List<Long> giaiDoan = (List<Long>) MapUtils.getObject(argDeco(), "listId");
 		JPAQuery<DonViXucTien> q = find(DonViXucTien.class);
 		// Loại bỏ những đơn vị xúc tiến đã được chọn trước đó
-		q.where(QDonViXucTien.donViXucTien.id.notIn(giaiDoan));
+		if (giaiDoan != null && !giaiDoan.isEmpty()) {
+			q.where(QDonViXucTien.donViXucTien.id.notIn(giaiDoan));
+		}
 		if (param != null && !param.isEmpty() && !"".equals(param)) {
 			String tuKhoa = "%" + param + "%";
 			q.where(QDonViXucTien.donViXucTien.ten.like(tuKhoa));
