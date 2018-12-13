@@ -1106,6 +1106,23 @@
     white-space: nowrap;
     overflow: hidden;
 }
+.box-thongke-title {
+	display:flex;
+	padding:0 15px;
+    margin: 10px 0;
+}
+.style-value-thongke {
+	font-size:16px;
+	line-height: 25px;
+	font-family:Roboto-Bold;
+}
+.mg-r-30 {
+	margin-right:30px;
+}
+.style-title-thongke span{
+	font-size:16px;
+	line-height: 25px;
+}
 .active-children-nav .fa-circle-thin {
 	color: #0067ff !important; 
 }
