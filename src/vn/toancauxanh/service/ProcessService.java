@@ -373,9 +373,18 @@ public class ProcessService extends BasicService<Object> {
 	}
 	
 	public void validateDuLieuGiaiDoanNamVaKetThucDuAn(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
 		DuAn duAn = q.fetchFirst();
+		if (model.getTenDuAn() == null || model.getTenDuAn().isEmpty() || model.getLinhVuc() == null
+				|| model.getDiaDiem() == null || model.getDiaDiem().isEmpty() || model.getQuyMoDuAn() == null
+				|| model.getQuyMoDuAn().isEmpty() || model.getTongVonDauTu() <= 0 || model.getMucTieuDuAn() == null
+				|| model.getMucTieuDuAn().isEmpty() || model.getDienTichSuDungDat() <= 0) {
+			showNotification("", "Bạn phải nhập đầy đủ thông tin *", "danger");
+			((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", false);
+			return;
+		}
 		boolean result = kiemTraCongViecHoanThanh(duAn);
 		if (result) {
 			showNotification("", "Công việc chưa được hoàn thành", "danger");

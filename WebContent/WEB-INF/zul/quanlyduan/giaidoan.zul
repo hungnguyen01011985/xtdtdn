@@ -67,8 +67,7 @@
 					<div zclass="col-md-12">
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Tên dự án</x:span>
-							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.tenDuAn) @save(vm.tenDuAn, before={'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" 
-								placeholder="Nhập tên dự án"/>
+							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.tenDuAn)" placeholder="Nhập tên dự án"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -92,7 +91,7 @@
 						<div zclass="form-group">
 							<x:span class="label-txt-style">Lĩnh vực</x:span>
 							<combobox buttonVisible="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}"
-								readonly="true" model="@load(entry.linhVucs.targetQuery.fetch())" selectedItem="@bind(vm.linhVuc) @save(vm.linhVuc, before={'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Chọn loại lĩnh vực"
+								readonly="true" model="@load(entry.linhVucs.targetQuery.fetch())" selectedItem="@bind(vm.linhVuc)" placeholder="Chọn loại lĩnh vực"
 								class="his ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }" width="100%">
 								<template name="model">
 									<comboitem label="@load(each.ten)" />
@@ -104,7 +103,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Địa điểm</x:span>
-							<textbox class="form-control textbox-txt-style ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.diaDiem) @save(vm.diaDiem, before={'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" 
+							<textbox class="form-control textbox-txt-style ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.diaDiem)" 
 								placeholder="Nhập địa điểm"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -114,7 +113,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Quy mô dự án</x:span>
-							<textbox class="form-control textbox-txt-style ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.quyMoDuAn) @save(vm.quyMoDuAn, before={'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" 
+							<textbox class="form-control textbox-txt-style ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.quyMoDuAn)" 
 								placeholder="Nhập quy mô dự án"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -123,7 +122,7 @@
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Tổng vốn đầu tư(USD)</x:span>
 							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8"
-								width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'goKetThuc', 'saveThongTinDuAn'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư')" />
+								width="100%" value="@bind(vm.tongVonDauTu)" />
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -133,7 +132,7 @@
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Mục tiêu dự án</x:span>
 							<textbox class="form-control textbox-txt-style  ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" rows="3" placeholder="Nhập mục tiêu dự án" 
-								value="@bind(vm.mucTieuDuAn) @save(vm.mucTieuDuAn, before={'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"></textbox>
+								value="@bind(vm.mucTieuDuAn)"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -143,7 +142,7 @@
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Diện tích sử dụng đất(ha)</x:span>
 							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8" 
-								width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'goKetThuc', 'saveThongTinDuAn'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất')" />
+								width="100%" value="@bind(vm.dienTichSuDungDat)" />
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
