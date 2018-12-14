@@ -759,8 +759,8 @@ public class NhanVien extends Model<NhanVien> {
 			@Override
 			public void validate(final ValidationContext ctx) {
 				String value = ((String) ctx.getProperty().getValue()).trim().replaceAll("\\s+", "");
-				if (isChangePass() == true) {
-					if (value.isEmpty() || "".equals(value) || value == null) {
+				if (isChangePass()) {
+					if ("".equals(value) && value.isEmpty()) {
 						addInvalidMessage(ctx, "Mật khẩu mới không để trống");
 					}
 					if (value.length() < 6) {
@@ -779,17 +779,14 @@ public class NhanVien extends Model<NhanVien> {
 				String pass = (String) ctx.getBindContext().getValidatorArg("pass");
 				String value = (String) ctx.getProperty().getValue();
 				String param = value.trim().replaceAll("\\s+", "");
-				if (isChangePass() == true) {
-					if (param.isEmpty() || "".equals(param) || param == null) {
+				if (isChangePass()) {
+					if ("".equals(param) && param.isEmpty()) {
 						addInvalidMessage(ctx, "Xác nhận mật khẩu không để trống");
 					} else {
 						if (!value.equals(pass)) {
 							addInvalidMessage(ctx, "Xác nhận mật khẩu không trùng khớp");
 						}
 					}
-				}
-				if (value.length() < 6) {
-					addInvalidMessage(ctx, "Mật khẩu phải có tối thiểu 6 kí tự");
 				}
 			}
 		};

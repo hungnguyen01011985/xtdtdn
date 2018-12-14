@@ -161,6 +161,12 @@ public class BaseObject<T> extends CoreObject<T> {
 			@BindingParam("notify") Object beanObject, @BindingParam("attr") @Default(value = "*") String fields) {
 		invoke(null, ten, null, beanObject, fields, null, false);
 	}
+	
+	public String removeAccent(String s) {
+		String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		return pattern.matcher(temp).replaceAll("");
+	}
 
 	@Command
 	public final void cmdLoadPageFrontEnd(@BindingParam("ten") @Default(value = "") final String ten,

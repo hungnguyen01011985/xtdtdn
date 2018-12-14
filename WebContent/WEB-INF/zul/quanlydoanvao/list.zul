@@ -147,7 +147,7 @@
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
 					<div zclass="form-group right" if="${entry.quyen.quanlydoanvao_them}">
-						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlydoanvao/show-test">
+						<x:a class="btn btn-blue" href="${execution.contextPath}/cp/quanlydoanvao/show-add-doan-vao">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm đoàn vào</span>
 						</x:a>

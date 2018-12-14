@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
@@ -85,8 +87,9 @@ public class DoanVao extends Model<DoanVao> {
 	}
 
 	public void setQuocGia(QuocGiaEnum quocGia) {
-		System.out.println(quocGia.getText());
 		this.quocGia = quocGia;
+		this.setTenQuocGia(quocGia.getText());
+		BindUtils.postNotifyChange(null, null, this, "tenQuocGia");
 	}
 
 	public int getSoNguoi() {
@@ -313,6 +316,14 @@ public class DoanVao extends Model<DoanVao> {
 			});
 		}
 		
+		if (listXoaCongViecKeHoach != null && !listXoaCongViecKeHoach.isEmpty()) {
+			listXoaCongViecKeHoach.forEach(item -> {
+				item.setDoanVao(this);
+				item.doDelete(true);
+				item.saveNotShowNotification();
+			});
+		}
+		
 		if (nguoiPhuTrachCu != null && nguoiPhuTrachCu.getId() != this.getNguoiPhuTrach().getId()) {
 			thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
 			thongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
@@ -484,8 +495,7 @@ public class DoanVao extends Model<DoanVao> {
 	public void searchKey(@BindingParam("key") String key) {
 		this.key = key;
 		listSearch.clear();
-		System.out.println("keyyy: " + key);
-		if (key == null || key.equals("") || key == "") {
+		if (key == null || "".equals(key)) {
 			return;
 		}
 		seachByKey(key);
@@ -512,15 +522,36 @@ public class DoanVao extends Model<DoanVao> {
 	public void setKey(String key) {
 		this.key = key;
 	}
-
-	public List<QuocGiaEnum> seachByKey(String key) {
+	
+	public static <T> Collector<T, ?, Optional<T>> toSingleton() {
+	    return Collectors.collectingAndThen(
+	            Collectors.toList(),
+	            list -> list.size() == 1 ? Optional.of(list.get(0)) : Optional.empty()
+	    );
+	}
+	
+	public List<QuocGiaEnum> seachByKey(String param) {
+		
+		String keyWord = removeAccent(param).replace("\\s+", "").toLowerCase();
 		List<QuocGiaEnum> list = getListQuocGia();
-		list.forEach(item -> {
-			if (item.getText().toLowerCase().contains(key.toLowerCase())) {
-				listSearch.add(item);
+		List<QuocGiaEnum> listTimKiem = list.stream()
+				.filter(item -> removeAccent(item.getText()).replace("\\s+", "").toLowerCase().contains(keyWord))
+				.collect(Collectors.toList());
+		if (!listTimKiem.isEmpty()) {
+			listSearch.addAll(listTimKiem);
+		}
+		return new ArrayList<>();
+	}
+	
+	@Transient
+	public QuocGiaEnum getQuocGiaByKey(String key) {
+		List<QuocGiaEnum> list = getListQuocGia();
+		for (QuocGiaEnum quocGia : list) {
+			if (quocGia.name().equals(key)) {
+				return quocGia;
 			}
-		});
-		return list;
+		}
+		return null;
 	}
 	
 	@Transient
@@ -561,6 +592,20 @@ public class DoanVao extends Model<DoanVao> {
 			public void validate(final ValidationContext ctx) {
 				String noiDoanDiTham = (String) ctx.getProperty().getValue();
 				if (noiDoanDiTham.trim().isEmpty()) {
+					addInvalidMessage(ctx, "Không được để trống trường này");
+				}
+			}
+		};
+	}
+	
+	@Transient
+	public AbstractValidator getValidateTenQuocGia() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(final ValidationContext ctx) {
+				String noiDoanDiTham = (String) ctx.getValidatorArg("ten");
+				String param = noiDoanDiTham.trim().replaceAll("\\s+", "");
+				if (!"".equals(param) && param != null && !param.isEmpty()) {
 					addInvalidMessage(ctx, "Không được để trống trường này");
 				}
 			}
@@ -662,6 +707,17 @@ public class DoanVao extends Model<DoanVao> {
 	public void setSoThanhVienDoan(int soThanhVienDoan) {
 		this.soThanhVienDoan = soThanhVienDoan;
 	}
+	
+	private String tenQuocGia = "";
+	
+	@Transient
+	public String getTenQuocGia() {
+		return tenQuocGia;
+	}
+
+	public void setTenQuocGia(String tenQuocGia) {
+		this.tenQuocGia = tenQuocGia;
+	}
 
 	@Command
 	public void saveThanhVienDoan() {
@@ -700,7 +756,7 @@ public class DoanVao extends Model<DoanVao> {
 					});
 		}
 	}
-
+	
 	public void reset() {
 		thanhVienDoanTemp = new ThanhVienDoan();
 		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
@@ -753,6 +809,7 @@ public class DoanVao extends Model<DoanVao> {
 	// ======================================================================================
 	
 	private List<GiaoViec> listCongViecTheoDoanVao = new ArrayList<>();
+	private List<GiaoViec> listXoaCongViecKeHoach = new ArrayList<>();
 	
 	@Transient
 	public List<GiaoViec> getListCongViecTheoDoanVao() {
@@ -761,6 +818,15 @@ public class DoanVao extends Model<DoanVao> {
 
 	public void setListCongViecTheoDoanVao(List<GiaoViec> listCongViecTheoDoanVao) {
 		this.listCongViecTheoDoanVao = listCongViecTheoDoanVao;
+	}
+	
+	@Transient
+	public List<GiaoViec> getListXoaCongViecKeHoach() {
+		return listXoaCongViecKeHoach;
+	}
+
+	public void setListXoaCongViecKeHoach(List<GiaoViec> listXoaCongViecKeHoach) {
+		this.listXoaCongViecKeHoach = listXoaCongViecKeHoach;
 	}
 
 	private boolean checkNotAllNull = true;
@@ -779,6 +845,30 @@ public class DoanVao extends Model<DoanVao> {
 			} else {
 				checkAllNull = true;
 			}
+		}
+	}
+	
+	@Command
+	public void deleteCongViecKeHoach(@BindingParam("item") final GiaoViec congViec,
+			@BindingParam("vm") final DoanVao doanVao) {
+		if (!checkInUse()) {
+			Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+					new EventListener<Event>() {
+						@Override
+						public void onEvent(Event event) throws Exception {
+							if (Messagebox.ON_OK.equals(event.getName())) {
+								showNotification("Xóa thành công!", "", "success");
+								if (congViec != null) {
+									doanVao.getListCongViecTheoDoanVao().remove(congViec);
+									if (!congViec.noId()) {
+										listXoaCongViecKeHoach.add(congViec);
+									}
+								}
+								BindUtils.postNotifyChange(null, null, doanVao, "listCongViecTheoDoanVao");
+								BindUtils.postNotifyChange(null, null, this, "listXoaCongViecKeHoach");
+							}
+						}
+					});
 		}
 	}
 

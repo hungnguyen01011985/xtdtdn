@@ -86,12 +86,32 @@
 								<div class="flex">
 									<x:span class="label-txt-style">Quốc gia<n:small class="required"> *</n:small></x:span>
 								</div> 
-								<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" model="@load(vm.listQuocGia)" placeholder="Chọn quốc gia"
-									readonly="true" class="his ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" width="100%" selectedItem="@bind(vm.thanhVienDoanTemp.quocGia) @save(vm.thanhVienDoanTemp.quocGia, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')">
-									<template name="model">
-										<comboitem label="@load(each.text)"/>
-									</template>
-								</combobox>
+								<bandbox width="100%" placeholder="Chọn quốc gia" onOpen="@command('searchKey', key=event.value)"
+								 	buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}"
+								  	class="his bb-quoc-gia ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}"
+								   	disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}"
+								    autodrop="true" id="bandBoxQuocGia" mold="rounded" onChanging="@command('searchKey',key = event.value)">
+									<bandpopup>
+										<listbox model="@load(vm.listSearch)" onSelect="bd.close();" selectedItem="@bind(vm.thanhVienDoanTemp.quocGia)"
+											width="430px" emptyMessage="Không có dữ liệu">
+											<template name="model">
+												<listitem>
+													<listcell>
+														<label value="@load(each.text)"></label>
+													</listcell>
+												</listitem>
+											</template>
+											<attribute name="onSelect" mode="defer">
+												<![CDATA[
+													if (self.selectedItem != null) {
+														bandBoxQuocGia.value = vm.getQuocGiaByKey(self.selectedItem.value.toString()).getText();
+													}
+													bandBoxQuocGia.close();
+												]]>
+											</attribute>
+										</listbox>
+									</bandpopup>
+								</bandbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>

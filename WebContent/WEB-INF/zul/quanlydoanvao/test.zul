@@ -38,25 +38,37 @@
 			</div>
 		</div>
 		<div class="panel-box border-box mg-bottom-15">
-			<bandbox id="bd" autodrop="true" value="@load(vm.quocGia.text)" onChanging="@command('searchKey',key = event.value)">
-					<bandpopup>
-							<listbox model="@load(vm.listSearch)" selectedItem="@bind(vm.quocGia)"
-								width="250px" emptyMessage="No found ">
-								<listhead>
-									<listheader label="Tên quốc gia" />
-								</listhead>
-								<template name="model">
-									<listitem>
-										<listcell>
-											<label
-												value="@load(each.text)">
-											</label>
-										</listcell>
-									</listitem>
-								</template>
-							</listbox>
-					</bandpopup>
-				</bandbox>
+		<div class="row">
+			<div class="col-md-4">
+				<bandbox id="bandBoxChuDauTuKiem" width="100%" autodrop="true" maxlength="255" 
+				placeholder="Nhập tên chủ đầu tư kiêm điều hành dự án" 
+				value="@bind(vm.quocGia.text)"
+				onOpen="@command('searchKey', key=event.value)"
+				onChanging="@command('searchKey', key=event.value)" >
+				<bandpopup hflex="1" fulfill="bandBoxChuDauTuKiem.onOpen">
+					<listbox
+						model="@load(vm.listSearch)" selectedItem="@bind(vm.quocGia)">
+						<attribute name="onSelect">
+						<![CDATA[
+							if (self.selectedItem != null) {
+								bandBoxChuDauTuKiem.value = self.selectedItem.label;
+							}
+							bandBoxChuDauTuKiem.close();
+						]]>
+						</attribute>
+						<listhead>
+							<listheader width="100%" label="Tên quốc gia" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@bind(each)" />
+							</listitem>
+						</template>
+					</listbox>
+				</bandpopup>
+			</bandbox>
+			</div>
+		</div>
 		</div>
 	</div>
 </window>

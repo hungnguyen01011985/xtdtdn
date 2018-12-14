@@ -564,6 +564,24 @@
 	border-radius: 3px !important;
 }
 
+.bb-quoc-gia{
+	width: 100% !important;
+}
+
+.bb-quoc-gia input{
+	width: calc(100% - 36px);
+	color: #292A2D !important;
+    font-family: Roboto-Medium !important;
+}
+
+.bb-quoc-gia .z-bandbox-button{
+	padding-top: 7px;
+}
+
+.z-bandbox{
+	margin-top: 8px !important;
+}
+
 .mg-bottom-15 {
 	margin-bottom: 15px;
 }
