@@ -102,29 +102,40 @@ public class GiaoViecService extends BasicService<GiaoViec> implements Serializa
 		} else {
 			selectItems.forEach(item -> {
 				ThongBao thongBao = new ThongBao();
-				String tenNhiemVu;
-				Long id;
-				if (item.getDoanVao() != null) {
-					tenNhiemVu = item.getDoanVao().getTenDoanVao();
-					id = item.getDoanVao().getId();
+				if (LoaiCongViec.DOAN_VAO.equals(item.getLoaiCongViec())) {
 					thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DOAN_VAO);
-				} else {
-					tenNhiemVu = item.getDuAn().getTenDuAn();
-					id = item.getDuAn().getId();
-					thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DU_AN);
+					if (item.getDoanVao() != null && item.getDoanVao().getId() != null) {
+						thongBao.setIdObject(item.getDoanVao().getId());
+					}
+					if (core().getNhanVien() != null && item.getDoanVao().getTenDoanVao() != null) {
+						thongBao.setNguoiGui(core().getNhanVien());
+						thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @"
+								+ item.getTenCongViec() + "@ của dự án @" + item.getDoanVao().getTenDoanVao()
+								+ "@. Hãy hoàn thành công việc.");
+					}
 				}
-				
-				thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @"
-						+ item.getTenCongViec() + "@ của dự án @" + tenNhiemVu
-						+ "@. Hãy hoàn thành công việc.");
-				thongBao.setNguoiGui(core().getNhanVien());
-				thongBao.setNguoiNhan(item.getNguoiDuocGiao());
-				thongBao.setIdObject(id);
+				if (LoaiCongViec.DU_AN.equals(item.getLoaiCongViec())) {
+					thongBao.setKieuThongBao(ThongBaoEnum.THONG_BAO_DU_AN);
+					if (item.getDuAn() != null && item.getDuAn().getId() != null) {
+						thongBao.setIdObject(item.getDuAn().getId());
+					}
+					if (core().getNhanVien() != null && item.getDuAn().getTenDuAn() != null) {
+						thongBao.setNguoiGui(core().getNhanVien());
+						thongBao.setNoiDung(core().getNhanVien().getHoVaTen() + "@ có nhắc nhở bạn trong công việc @"
+								+ item.getTenCongViec() + "@ của dự án @" + item.getDuAn().getTenDuAn()
+								+ "@. Hãy hoàn thành công việc.");
+					}
+				}
+				if (item.getNguoiDuocGiao() != null) {
+					thongBao.setNguoiNhan(item.getNguoiDuocGiao());
+				}
 				thongBao.setLoaiThongBao(LoaiThongBao.NHAC_NHO_CONG_VIEC);
 				thongBao.saveNotShowNotification();
 			});
 			showNotification("", "Nhắc nhở hoàn thành", "success");
-			wdn.detach();
+			if (wdn != null) {
+				wdn.detach();
+			}
 		}
 
 	}

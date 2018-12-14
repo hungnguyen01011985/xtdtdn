@@ -60,7 +60,7 @@
 								<x:span class="label-txt-style">Địa chỉ<n:small class="required"> *</n:small></x:span>
 							</div>
 							<textbox class="form-control textbox-txt-style ${action and vm.checkDangOGiaiDoan(giaiDoanNam) and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'no-place-holder'}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" 
-								value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.nguoiDaiDienPhapLy, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập địa chỉ"></textbox>
+								value="@bind(vm.giaiDoanDuAn.diaChi) @save(vm.giaiDoanDuAn.diaChi, before={'goNext','doActionWithKey', 'goKetThuc'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" placeholder="Nhập địa chỉ"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

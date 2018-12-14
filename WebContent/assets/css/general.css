@@ -1271,3 +1271,12 @@
 		width:90%;
 	}
 }
+.box-form-thong-ke {
+	width: calc(100% - 151px);
+	padding-right:15px;
+}
+@media ( max-width : 992px) {
+	.box-form-thong-ke {
+		width: 100%;
+	}
+}

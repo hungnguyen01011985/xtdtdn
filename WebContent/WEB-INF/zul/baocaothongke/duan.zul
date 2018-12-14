@@ -26,9 +26,9 @@
 			</div>
 			<div zclass="mg-and-bg-and-line-fix">
 				<div class="row">
-					<div style="width: calc(100% - 150px); padding-right:15px;">
+				<div class="row">
+					<div class="box-form-thong-ke">
 						<div zclass="col-md-12" style="padding-left: 15px;">
-							<div class="row">
 								<div zclass="col-md-4">
 									<div zclass="form-group">
 										<span>Ngày bắt đầu xúc tiến: Từ ngày</span>
@@ -52,10 +52,10 @@
 										</combobox>
 									</div>
 								</div>
-							</div>
+								
 						</div>
 					</div>
-					<div style="padding-top: 25px;padding-right:7.5px">
+					<div style="padding-top: 25px;padding-right:7.5px; margin-right:15px;">
 						<div zclass="form-group right">
 							<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=vm, attr='targetQuery')">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xem-thong-ke.svg"/>
@@ -63,6 +63,7 @@
 							</x:button>
 						</div>
 					</div>
+				</div>
 				</div>
 			</div>
 		</div>
