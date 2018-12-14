@@ -15,7 +15,7 @@
 		<![CDATA[
 		         boolean checkActiveHeThong = false;
 		         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource)
-		        		 || "nhadautu".equals(resource) || "capdonvi".equals(resource) || "donvixuctien".equals(resource))  {
+		        		 || "nhadautu".equals(resource) || "capdonvi".equals(resource) || "donvixuctien".equals(resource) || "congvieckehoach".equals(resource) || "loaicongvieckehoach".equals(resource))  {
 		        	 checkActiveHeThong = true;
 		         }
 		]]>
@@ -23,34 +23,52 @@
 	<div class="nav-side-menu">
         <div class="menu-list">
 			<n:ul class="menu-content collapse out" role="menu">
-				<n:li class="${resource eq 'quanlygiaoviec' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlygiaoviec_lietke}">
+				<n:li class="header-parent ${resource eq 'quanlygiaoviec' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlygiaoviec_lietke}">
 					<n:a href="${execution.contextPath}/cp/quanlygiaoviec">
 						<x:span class="img-menu qlgv" zk:if="${resource ne 'quanlygiaoviec'}"></x:span>
 						<x:span class="img-menu qlgv"  zk:if="${resource eq 'quanlygiaoviec'}"></x:span>
 						<x:span class="text-menu">Quản lý giao việc</x:span>
 					</n:a>
+					<n:div class="box-title-parent">
+						<n:div class="title-menu-parent" style="height:55px;">
+							<span class="txt-menu-parent">Quản lý giao việc</span>
+						</n:div>
+					</n:div>
 				</n:li>
-				<n:li class="${resource eq 'quanlydoanvao' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlydoanvao_lietke}">
+				<n:li class="header-parent ${resource eq 'quanlydoanvao' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlydoanvao_lietke}">
 					<n:a href="${execution.contextPath}/cp/quanlydoanvao">
 						<x:span class="img-menu qldv" zk:if="${resource ne 'quanlydoanvao'}"></x:span>
 						<x:span class="img-menu qldv" zk:if="${resource eq 'quanlydoanvao'}"></x:span>
 						<x:span class="text-menu">Quản lý đoàn vào</x:span>
 					</n:a>
+					<n:div class="box-title-parent">
+						<n:div class="title-menu-parent" style="height:55px;">
+							<span class="txt-menu-parent">Quản lý đoàn vào</span>
+						</n:div>
+					</n:div>
 				</n:li>
-				<n:li class="${resource eq 'quanlyduan' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlyduan_lietke}">
+				<n:li class="header-parent ${resource eq 'quanlyduan' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlyduan_lietke}">
 					<n:a href="${execution.contextPath}/cp/quanlyduan">
 						<x:span class="img-menu qlda" zk:if="${resource ne 'quanlyduan'}"></x:span>
 						<x:span class="img-menu qlda" zk:if="${resource eq 'quanlyduan'}"></x:span>
 						<x:span class="text-menu">Quản lý dự án</x:span>
 					</n:a>
+					<n:div class="box-title-parent">
+						<n:div class="title-menu-parent" style="height:55px;">
+							<span class="txt-menu-parent">Quản lý dự án</span>
+						</n:div>
+					</n:div>
 				</n:li>
 				<n:li class="header-children ${resource eq 'baocaothongke' ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.baocaothongke_duan || entry.quyen.baocaothongke_doanvao || entry.quyen.baocaothongke_congviec}">
-					<n:a onClick="toggleDropdownMenu(this)">
+					<n:a onClick="toggleDropdownMenu(this)" style="padding-bottom:10px;">
 						<x:span class="img-menu bctk" zk:if="${resource ne 'baocaothongke'}"></x:span>
 						<x:span class="img-menu bctk" zk:if="${resource eq 'baocaothongke'}"></x:span>
 						<x:span class="text-menu">Báo cáo thống kê</x:span>
 					</n:a>
 					<n:ul class="children-nav">
+						<n:div class="title-menu-parent">
+							<span class="txt-menu-parent">Báo cáo thống kê</span>
+						</n:div>
 						<n:a href="${execution.contextPath}/cp/baocaothongke/duan" zk:if="${entry.quyen.baocaothongke_duan}">
 							<n:li class="${path eq 'duan' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Dự án</n:li>
 						</n:a>
@@ -62,13 +80,16 @@
 						</n:a>
 					</n:ul>
 				</n:li>
-				<n:li class="header-children ${checkActiveHeThong ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke || entry.quyen.nhadautu_lietke || entry.quyen.donvi_lietke}">
-					<n:a onClick="toggleDropdownMenu(this)">
+				<n:li class="header-children ${checkActiveHeThong ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke || entry.quyen.nhadautu_lietke || entry.quyen.donvi_lietke || entry.quyen.donvixuctien_lietke || entry.quyen.loaicongvieckehoach_lietke || entry.quyen.congvieckehoach_lietke}">
+					<n:a onClick="toggleDropdownMenu(this)" style="padding-bottom:10px;">
 						<x:span class="img-menu qlht" zk:if="${resource ne 'phongban'}"></x:span>
 						<x:span class="img-menu qlht" zk:if="${resource eq 'phongban'}"></x:span>
 						<x:span class="text-menu">Quản trị hệ thống</x:span>
 					</n:a>
 					<n:ul class="children-nav">
+						<n:div class="title-menu-parent">
+							<span class="txt-menu-parent">Quản trị hệ thống</span>
+						</n:div>
 						<n:a href="${execution.contextPath}/cp/phongban" zk:if="${entry.quyen.phongban_lietke}">
 							<n:li class="${resource eq 'phongban' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý phòng ban</n:li>
 						</n:a>
@@ -92,6 +113,12 @@
 						</n:a>
 						<n:a href="${execution.contextPath}/cp/donvixuctien" zk:if="${entry.quyen.donvixuctien_lietke}">
 							<n:li class="${resource eq 'donvixuctien' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý đơn vị xúc tiến</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/loaicongvieckehoach" zk:if="${entry.quyen.loaicongvieckehoach_lietke}">
+							<n:li class="${resource eq 'loaicongvieckehoach' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý loại kế hoạch</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/congvieckehoach" zk:if="${entry.quyen.congvieckehoach_lietke}">
+							<n:li class="${resource eq 'congvieckehoach' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý kế hoạch</n:li>
 						</n:a>
 					</n:ul>
 				</n:li>

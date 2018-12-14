@@ -3,16 +3,25 @@ package vn.toancauxanh.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.MapUtils;
+
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.model.CongViecKeHoach;
 import vn.toancauxanh.model.GiaoViec;
+import vn.toancauxanh.model.QCongViecKeHoach;
 import vn.toancauxanh.model.QGiaoViec;
 
 public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 
 	public JPAQuery<CongViecKeHoach> getTargetQuery() {
+		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		JPAQuery<CongViecKeHoach> q = find(CongViecKeHoach.class);
+		if (param !=null && !param.isEmpty() && !"".equals(param)) {
+			String tuKhoa = "%" + param + "%" ;
+			q.where(QCongViecKeHoach.congViecKeHoach.ten.like(tuKhoa));
+		}
+		q.orderBy(QCongViecKeHoach.congViecKeHoach.ngayTao.desc());
 		return q;
 	}
 

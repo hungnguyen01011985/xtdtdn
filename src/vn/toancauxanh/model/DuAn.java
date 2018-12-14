@@ -808,4 +808,31 @@ public class DuAn extends Model<DuAn> {
 		Executions.getCurrent().sendRedirect(href, "_blank");
 	}
 	
+	@Command
+	public void removeDonViDuAn(@BindingParam("vm") GiaiDoanDuAn giaiDoanDuAn, @BindingParam("item") DonViDuAn donViDuAn) {
+		Messagebox.show("Bạn muốn xóa đơn vị này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+				new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							if (!donViDuAn.noId()) {
+								if (donViDuAn.getCongVanTraLoi() == null || donViDuAn.getCongVanTraLoi().getNameHash() == null) {
+									donViDuAn.setCongVanTraLoi(null);
+								}
+								donViDuAn.doDelete(true);
+							}
+							giaiDoanDuAn.getDonViDuAn().remove(donViDuAn);
+							BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "donViDuAn");
+						}
+					}
+				});
+	}
+	
+	@Transient
+	public boolean checkXoaDonViDuAn(DonViDuAn donViDuAn) {
+		if (!donViDuAn.noId() && donViDuAn.getNgayNhanTraLoi() != null && donViDuAn.getCongVanTraLoi() != null) {
+			return false;
+		}
+		return true;
+	}
 }

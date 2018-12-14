@@ -1,10 +1,10 @@
-<?page title="Quản lý công việc kế hoạch" contentType="text/html;charset=UTF-8"?>
+<?page title="Quản lý kế hoạch" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('vn.toancauxanh.service.CongViecKeHoachService')"
 	 class="form-list">
 	<zscript>
 		<![CDATA[
-			page.title = "Quản trị hệ thống";
+			page.title = "Quản lý kế hoạch";
 		]]>
 	</zscript>
 	<div>
@@ -12,7 +12,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<n:span class="page-header-title">
-						Quản lý công việc kế hoạch
+						Quản lý kế hoạch công việc
 					</n:span>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 			<div zclass="row mg-top-no-line">	
 				<div zclass="col-md-10">
 					<div zclass="form-group">
-						<x:span class="issue-search">Nhập tên kế hoạch</x:span> 
+						<x:span class="issue-search">Nhập tên kế hoạch công việc</x:span> 
 						<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
 							 placeholder="Nhập tên công việc.."></textbox>
 					</div>
@@ -40,7 +40,7 @@
 			<div zclass="row">
 				<div zclass="col-lg-12">
 					<div class="title-form">
-						<span>Danh sách công việc</span>
+						<span>Danh sách kế hoạch công việc</span>
 					</div>
 				</div>
 			</div>
@@ -50,19 +50,23 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
-							<column label="Tên công việc" style="text-align:center" />
-							<column label="Thao tác" style="text-align:center" width="110px"/>
+							<column label="Tên kế hoạch công việc" style="text-align:center" />
+							<column label="Loại kế hoạch công việc" style="text-align:center" width="400px"/>
+							<column label="Thao tác" style="text-align:center" width="140px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex; justify-content:center;"></label>
-								<label value="@load(item.ten)" onClick="@command('redirectPageAction', zul='congvieckehoach/show-edit-cong-viec.zul', vmArgs=vm, vm=item, readOnly=true)" sclass="txt-link-table"/>
+								<label value="@load(item.ten)" zk:if="${entry.quyen.congvieckehoach_xem}"
+									onClick="@command('redirectPageAction', zul='congvieckehoach/show-edit-cong-viec.zul', vmArgs=vm, vm=item, readOnly=true)" sclass="txt-link-table"/>
+								<label value="@load(item.ten)" zk:if="${!entry.quyen.congvieckehoach_xem}"/>	
+								<label value="@load(item.loaiCongViecKeHoach.ten)"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('redirectPage', zul='congvieckehoach/show-edit-cong-viec.zul', vmArgs=vm, vm=item)">
+									<x:a label="Sửa" class="btn-thaotac left" if="${entry.quyen.congvieckehoach_sua}" zk:onClick="@command('redirectPage', zul='congvieckehoach/show-edit-cong-viec.zul', vmArgs=vm, vm=item)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Sửa</x:span>
 									</x:a>
-									<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery', type='phongban')">
+									<x:a label="Xóa" class="btn-thaotac up-note" if="${entry.quyen.congvieckehoach_xoa}" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery', type='phongban')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>
@@ -77,7 +81,7 @@
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
-					<div zclass="form-group right">
+					<div zclass="form-group right" if="${entry.quyen.loaicongvieckehoach_them}">
 						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='congvieckehoach/show-add-cong-viec.zul', vmArgs=vm, vm=null)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm mới</span>
