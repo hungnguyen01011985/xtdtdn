@@ -57,11 +57,12 @@
 									<x:span class="label-txt-style">Phòng ban<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
-									selectedItem="@bind(vm.phongBan)" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
+									selectedItem="@bind(vm.phongBan) @save(vm.phongBan, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
 									<template name="model">
 										<comboitem label="@load(each.ten)" />
 									</template>
 								</combobox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-6">

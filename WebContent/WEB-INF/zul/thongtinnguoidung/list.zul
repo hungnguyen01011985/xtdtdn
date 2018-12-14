@@ -36,7 +36,7 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Họ và tên<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Họ và tên<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div> 
 								<textbox class="form-control textbox-txt-style" readonly="${readOnly}" value="@bind(vm.hoVaTen)@save(vm.hoVaTen, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập tên người dùng..."></textbox>
@@ -46,7 +46,7 @@
 						<div zclass="col-md-6" >
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Vai trò người dùng<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Vai trò người dùng<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<combobox width="100%" class="his" readonly="true" disabled="${readOnly}"
 									model="@load(entry.vaiTros.vaiTroQuery.fetch())" placeholder="-Chọn-"
@@ -63,7 +63,7 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Phòng ban<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Phòng ban<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div> 
 								<combobox readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
 									selectedItem="@bind(vm.phongBan) @save(vm.phongBan, before='saveNhanVien') @validator(vm.validatePhongBan)" class="his" placeholder="Chọn phòng ban" width="100%">
@@ -77,7 +77,7 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Địa chỉ email<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Địa chỉ email<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<textbox class="form-control textbox-txt-style" readonly="${readOnly}"
 									width="100%" maxlength="255"
@@ -114,7 +114,7 @@
 							<div zclass="col-md-6">
 								<div zclass="form-group">
 									<div class="flex">
-										<x:span class="label-txt-style">Mật khẩu<n:small class="required"> *</n:small></x:span>
+										<x:span class="label-txt-style">Mật khẩu<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 									</div>
 									<textbox class="form-control" readonly="${readOnly}"
 										width="100%" type="password" 
@@ -125,7 +125,7 @@
 							<div zclass="col-md-6">
 								<div zclass="form-group">
 									<div class="flex">
-										<x:span class="label-txt-style">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
+										<x:span class="label-txt-style">Nhập lại mật khẩu<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 									</div>
 									<textbox class="form-control" readonly="${readOnly }"
 										width="100%" type="password"
@@ -141,7 +141,7 @@
 							<div zclass="col-md-4" if="${!(entry.nhanVien.quyens eq '[*]')}" visible="@load(vm.changePass)">
 								<div zclass="form-group">
 									<div class="flex">
-										<x:span class="label-txt-style">Mật khẩu cũ<n:small class="required"> *</n:small></x:span>
+										<x:span class="label-txt-style">Mật khẩu cũ<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 									</div>
 									<textbox class="form-control" readonly="${readOnly}"
 										width="100%" type="password" value="@bind(vm.matKhauCu) @save(vm.matKhauCu, before='updateNhanVien') @validator(vm.validateMatKhauCu)"
@@ -152,7 +152,7 @@
 							<div zclass="col-md-4" visible="@load(vm.changePass)">
 								<div zclass="form-group">
 									<div class="flex">
-										<x:span class="label-txt-style">Mật khẩu mới<n:small class="required"> *</n:small></x:span>
+										<x:span class="label-txt-style">Mật khẩu mới<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 									</div>
 									<textbox class="form-control" readonly="${readOnly }"
 										width="100%" type="password" value="@bind(vm.matKhauUpdate) @save(vm.matKhauUpdate, before='updateNhanVien') @validator(vm.validateMatKhauMoiEdit)"
@@ -163,7 +163,7 @@
 							<div zclass="col-md-4" visible="@load(vm.changePass)">
 								<div zclass="form-group">
 									<div class="flex">
-										<x:span class="label-txt-style">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
+										<x:span class="label-txt-style">Nhập lại mật khẩu<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 									</div>
 									<textbox class="form-control" readonly="${readOnly }"
 										width="100%" type="password" value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='updateNhanVien') @validator(vm.validateMatKhauMoi, pass = vm.matKhauUpdate)"
