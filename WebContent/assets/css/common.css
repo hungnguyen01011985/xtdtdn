@@ -67,7 +67,31 @@ html, body {
 	background-color: #fff !important;
     color: #000 !important;
 }
-
+#toast-container > div {
+	box-shadow : none;
+}
+.toast-error {
+	box-shadow : none !important;
+	opacity:1 !important;
+}
+.toast-title {
+	font-family: Roboto-Bold !important;
+}
+.btn-upload-image-avarta {
+	border-radius: 50%;
+    height: 36px;
+    width: 36px;
+    background:#FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-upload-image-avarta:hover {
+	background:#FFF !important;
+}
+.btn-upload-image-avarta:focus {
+	background:#FFF !important;
+}
 /* Header */
 .wd-header {
 	/*background-color: #212121 !important;*/
