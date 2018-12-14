@@ -23,7 +23,7 @@
 					<div zclass="col-md-6">
 						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
-								<x:span class="label-txt-style">Tên công việc<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Tên công việc<n:small class="required" if="${!action}"> *</n:small></x:span>
 							</div>
 							<textbox maxlength="255" disabled="${readOnly}" class="form-control textbox-txt-style" value="@bind(vm.tenCongViec) @save(vm.tenCongViec, before='saveCongViec') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 							 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCongViec', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên công việc..."></textbox>
@@ -49,7 +49,7 @@
 					<div zclass="col-md-6">
 						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
-								<x:span class="label-txt-style">Phòng ban thực hiện<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Phòng ban thực hiện<n:small class="required" if="${!action}"> *</n:small></x:span>
 							</div>
 							<combobox disabled="false" buttonVisible="true" width="100%" class="hv-textbox" readonly="true" model="@load(phongBans.allListPhongBan)" placeholder="-Chọn phòng ban-"
 								selectedItem="@bind(vm.phongBan) @save(vm.phongBan, before='saveCongViec') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')">
@@ -88,7 +88,7 @@
 					<div zclass="col-md-6">
 						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
-								<x:span class="label-txt-style">Hạn thực hiện<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Hạn thực hiện<n:small class="required" if="${!action}"> *</n:small></x:span>
 							</div>
 							<datebox format="dd/MM/yyyy" class="hv-db" value="@bind(vm.hanThucHien) @save(vm.hanThucHien, before='saveCongViec') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" width="100%" placeholder="dd/mm/yyyy"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />

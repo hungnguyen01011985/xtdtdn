@@ -25,8 +25,7 @@ public class CapDonViService extends BasicService<CapDonVi> {
 	public List<CapDonVi> getListCapDonVi() {
 		List<CapDonVi> listCapDonVi = new ArrayList<CapDonVi>();
 		listCapDonVi.add(null);
-		listCapDonVi = find(CapDonVi.class).where(QCapDonVi.capDonVi.daXoa.isFalse())
-				.orderBy(QCapDonVi.capDonVi.ten.asc()).fetch();
+		listCapDonVi = find(CapDonVi.class).orderBy(QCapDonVi.capDonVi.ten.asc()).fetch();
 		return listCapDonVi;
 	}
 }
