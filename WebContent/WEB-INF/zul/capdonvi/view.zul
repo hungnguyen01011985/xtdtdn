@@ -25,8 +25,9 @@
 						<div class="flex">
 							<x:span class="label-txt-style">Tên cấp đơn vị<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 						</div>
-						<textbox disabled="${readOnly}" maxlength="255" class="form-control textbox-txt-style" value="@load(vm.ten) @save(vm.ten, before='saveCapDonVi') @validator(vm.validateTenCapDonVi)"
-						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên cấp đơn vị..."></textbox>
+						<textbox disabled="${readOnly}" maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.ten) @save(vm.ten, before='saveCapDonVi') @validator(vm.validateTenCapDonVi)"
+						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên cấp đơn vị...">
+						 </textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
