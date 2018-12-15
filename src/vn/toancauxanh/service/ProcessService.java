@@ -47,7 +47,7 @@ public class ProcessService extends BasicService<Object> {
 
 	public void luuDuLieuDuAnVaBatDauXucTien(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		String idList = model.getNguoiPhuTrach().getId() + KY_TU;
+		String idList = KY_TU + model.getNguoiPhuTrach().getId() + KY_TU;
 		model.setIdNguoiLienQuan(idList);
 		model.saveNotShowNotification();
 		model.getGiaoViec().setDuAn(model);
@@ -158,7 +158,7 @@ public class ProcessService extends BasicService<Object> {
 		}
 		giaoViec.setLoaiCongViec(LoaiCongViec.DU_AN);
 		giaoViec.saveNotShowNotification();
-		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + KY_TU + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 		duAn.saveNotShowNotification();
 		duAn.setGiaoViec(giaoViec);
 		thongBao(duAn, LoaiThongBao.CONG_VIEC_MOI, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), null, false);

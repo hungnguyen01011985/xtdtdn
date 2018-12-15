@@ -67,7 +67,11 @@ html, body {
 	background-color: #fff !important;
     color: #000 !important;
 }
-
+.z-hbox .z-messagebox {
+	display: flex;
+    align-items: center;
+    height: 100%;
+}
 /* Header */
 .wd-header {
 	/*background-color: #212121 !important;*/
@@ -1224,7 +1228,7 @@ ul.z-tabs-content {
 	padding: 0;
 	background-color: #f4f5f7;
 	height: calc(100vh - 60px);
-	 /* min-width:1024px; */
+	/* min-width:1024px; */
 	font-family: Roboto-Medium;
 }
 
@@ -2627,6 +2631,13 @@ rotate
 	display: block;
 }
 
+.img-avarta-style {
+	width: 200px; 
+	height: 180px;
+	object-fit:cover;
+	border-radius: 50%;
+}
+
 .box-relative .number-box {
 	position: absolute;
 	right: -4px;
@@ -2696,4 +2707,8 @@ rotate
 	background: white !important;
 	height: auto !important;
 	overflow: hidden !important;
+}
+.toast-success {
+	box-shadow: none !important;
+	opacity:1 !important;
 }

@@ -337,7 +337,7 @@ public class DoanVao extends Model<DoanVao> {
 			giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 			thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getTenCongViec());
 			giaoViec.saveNotShowNotification();
-			this.setIdNguoiLienQuan(this.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
+			this.setIdNguoiLienQuan(KY_TU + this.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 			this.saveNotShowNotification();
 		} else {
 			this.setNguoiThucHienCu(getNguoiDuocGiaoCu(giaoViec));
@@ -346,7 +346,7 @@ public class DoanVao extends Model<DoanVao> {
 				saveCongViec(giaoViec);
 				thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getTenCongViec());
 				giaoViec.saveNotShowNotification();
-				this.setIdNguoiLienQuan(resetId + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
+				this.setIdNguoiLienQuan(resetId + KY_TU + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 				this.saveNotShowNotification();
 			} else {
 				giaoViec.saveNotShowNotification();

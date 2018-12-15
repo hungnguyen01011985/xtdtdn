@@ -183,7 +183,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 	}
 	
 	public void notifyNguoiLienQuan(String idNguoiLienQuan, String tenNhiemVu) {
-		subString(idNguoiLienQuan).stream().distinct().forEach(item -> {
+		listSubStringId(idNguoiLienQuan).stream().distinct().forEach(item -> {
 			ThongBao thongBao = new ThongBao();
 			NhanVien nV = new NhanVien();
 			nV.setId(item);
@@ -212,6 +212,26 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 									count = find(NhanVien.class)
 											.where(QNhanVien.nhanVien.vaiTros.contains((VaiTro) Model.this))
 											.fetchCount();
+								}
+								if ("donvi".equals(type)) {
+									count = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.donViChuTri
+											.eq((DonVi) Model.this)
+											.or(QGiaiDoanDuAn.giaiDoanDuAn.donViThucHien.eq((DonVi) Model.this))
+											.or(QGiaiDoanDuAn.giaiDoanDuAn.donViTuVan.eq((DonVi) Model.this))
+											.or(QGiaiDoanDuAn.giaiDoanDuAn.donViLapKeHoach.eq((DonVi) Model.this)))
+											.fetchCount();
+								}
+								if ("nguoidung".equals(type)) {
+									count = find(DuAn.class).where(QDuAn.duAn.idNguoiLienQuan.contains("@"+((NhanVien) Model.this).getId()+"@").or(QDuAn.duAn.nguoiTao.eq((NhanVien) Model.this))).fetchCount();
+									count += find(DoanVao.class)
+											.where(QDoanVao.doanVao.idNguoiLienQuan
+													.contains("@" + ((NhanVien) Model.this).getId() + "@")
+													.or(QDoanVao.doanVao.nguoiTao.eq((NhanVien) Model.this))
+													.or(QDoanVao.doanVao.nguoiPhuTrach.eq((NhanVien) Model.this)))
+											.fetchCount();
+								}
+								if ("linhvucduan".equals(type)) {
+									count = find(DuAn.class).where(QDuAn.duAn.linhVuc.eq((LinhVucDuAn) Model.this)).fetchCount();
 								}
 								if (count == 0) {
 									doDelete(true);
