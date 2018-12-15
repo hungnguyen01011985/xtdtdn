@@ -92,7 +92,7 @@
 						<div zclass="col-md-4">
 							<div zclass="form-group">
 								<x:span class="label-txt-style">Thời gian đến làm việc<n:small class="required" if="${!action}" > *</n:small></x:span>
-								<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" format="dd/MM/yyyy" class="txt-textbox-disable hv-db ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(vm.thoiGianDenLamViec)" width="100%"/>
+								<datebox value="@bind(vm.thoiGianDenLamViec) @save(vm.thoiGianDenLamViec, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', dateValue='date')" buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" mold="rounded" format="dd/MM/yyyy" class="txt-textbox-disable hv-db ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action ? 'datebox-txt-style' : 'input-no-button'}" width="100%"/>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
