@@ -42,9 +42,8 @@
 			<div class="col-md-4">
 				<bandbox id="bandBoxChuDauTuKiem" width="100%" autodrop="true" maxlength="255" 
 				placeholder="Nhập tên chủ đầu tư kiêm điều hành dự án" 
-				value="@bind(vm.quocGia.text)"
-				onOpen="@command('searchKey', key=event.value)"
-				onChanging="@command('searchKey', key=event.value)" >
+				onOpen="@command('searchTenChuDauTu', key=event.value)"
+				onChanging="@command('searchTenChuDauTu', key=event.value)" >
 				<bandpopup hflex="1" fulfill="bandBoxChuDauTuKiem.onOpen">
 					<listbox
 						model="@load(vm.listSearch)" selectedItem="@bind(vm.quocGia)">
