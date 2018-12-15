@@ -26,34 +26,68 @@
 			</div>
 			<div zclass="mg-and-bg-and-line-fix">
 				<div class="row">
-					<div zclass="col-md-10" style="padding-left: 15px;">
-						<div class="row">
-							<div zclass="col-md-4">
-								<div zclass="form-group">
-									<span>Từ ngày</span>
-									<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
+					<div style="width: calc(100% - 150px); padding-right:15px;">
+						<div zclass="col-md-12" style="padding-left: 15px;">
+							<div class="row">
+								<div zclass="col-md-4" style="padding-right: 15px;">
+									<div zclass="form-group">
+										<span>Tên đoàn</span>
+										<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')" placeholder="Nhập tên đoàn..."></textbox>
+									</div>
+								</div>
+								<div zclass="col-md-8" style="padding-right: 15px;">
+									<div class="row">
+										<div zclass="col-md-4">
+											<div zclass="form-group">
+												<span>Quốc gia</span>
+												<combobox readonly="true" class="his" model="@load(vm.listQuocGiaAndNull)" selectedItem="@bind(vm.arg.quocGia)" placeholder="Tất cả" width="100%">
+												<template name="model">
+													<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
+												</template>
+											</combobox>
+											</div>
+										</div>
+										<div zclass="col-md-4">
+											<div zclass="form-group">
+												<span>Từ ngày</span>
+												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
+											</div>
+										</div>
+										<div zclass="col-md-4">
+											<div zclass="form-group">
+												<span>Đến ngày</span> 
+												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div zclass="col-md-4">
-								<div zclass="form-group">
-									<span>Đến ngày</span> 
-									<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
-								</div>
-							</div>
-							<div zclass="col-md-4" style="padding-top: 25px;">
-								<div zclass="form-group left">
-									<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=vm, attr='targetQuery')">
-										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xem-thong-ke.svg"/>
-										<span>Xem thống kê</span>
-									</x:button>
-								</div>
-							</div>
+						</div>
+					</div>
+					<div style="padding-top: 25px;padding-right:7.5px">
+						<div zclass="form-group right">
+							<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=vm, attr='targetQuery')">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/xem-thong-ke.svg"/>
+								<span>Xem thống kê</span>
+							</x:button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="panel-box border-box mg-bottom-15">
+			<div class="row">
+				<div class="col-md-12 box-thongke-title">
+					<div class="mg-r-30">
+						<span class="style-title-thongke">Tổng số đoàn: </span>
+						<label class="style-value-thongke" value="@load(vm.targetQuery.fetchCount())"></label>
+					</div>
+					<div class="mg-r-30">
+						<span class="style-title-thongke">Tổng số thành viên: </span>
+						<label class="style-value-thongke" value="@load(vm.tongSoThanhVien)"></label>
+					</div>
+				</div>
+			</div>
 			<div zclass="row mg-and-bg-and-line">
 				<div zclass="col-md-12">
 					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
@@ -61,9 +95,9 @@
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên đoàn" />
-							<column label="Thành phần đoàn(người)" />
+							<column label="Thành phần đoàn(người)" width="180px"/>
 							<column label="Nơi đoàn đi thăm họp tại" />
-							<column label="Thời gian"/>
+							<column label="Thời gian" width="120px"/>
 							<column label="Tóm tắt nội dung - Kết quả làm việc"/>
 						</columns>
 						<template name="model">

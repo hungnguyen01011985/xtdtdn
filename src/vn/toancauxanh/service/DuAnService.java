@@ -89,7 +89,7 @@ public class DuAnService extends BasicService<DuAn> {
 
 	public List<NhanVien> getListNguoiPhuTrach() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
-		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.id.eq(1l))
+		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.eq(core().getNhanVien().getPhongBan()))
 				.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN));
 		if (q != null) {
 			list.addAll(q.fetch());

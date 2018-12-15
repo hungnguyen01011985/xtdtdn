@@ -1,5 +1,5 @@
 <idspace>
-	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="900px"
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" width="1000px"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal reset-width"
 		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
 		<zscript>
@@ -35,7 +35,7 @@
 								<listheader label="Người được giao" width="140px"></listheader>
 								<listheader label="Ngày giao" width="120px"></listheader>
 								<listheader label="Hạn thực hiện" width="120px"></listheader>
-								<listheader label="Trạng thái" width="90px"></listheader>
+								<listheader label="Trạng thái" width="120px"></listheader>
 							</listhead>
 							<template name="model">
 								<listitem>

@@ -4,10 +4,14 @@
 	<zscript>
 		<![CDATA[
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
-			list = new vn.toancauxanh.service.GiaoViecService().getListGiaoViecTheoDoanVao(doanVao.id);
-			if (list != null || !list.isEmpty()) {
-				doanVao.setListGiaoViecTheoDoan(list);
-				doanVao.loadListGiaoViecTheoDoan();
+			list = new vn.toancauxanh.service.CongViecKeHoachService().getListGiaoViecTheoDoanVao(doanVao.id);
+			if (list != null && !list.isEmpty()) {
+				doanVao.setListCongViecTheoDoanVao(list);
+			} else if(doanVao.getListCongViecTheoDoanVao().isEmpty()) {
+				listKhoiTao = new vn.toancauxanh.service.CongViecKeHoachService().getListCongViecKhoiTao();
+				if (!listKhoiTao.isEmpty()) {
+					doanVao.setListCongViecTheoDoanVao(listKhoiTao);
+				}
 			}
 			vmArgs = arg.get("vmArgs");
 			readOnly = arg.get("readOnly");
@@ -61,416 +65,75 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<grid id="grid">
+						<grid id="grid" model="@load(vm.listCongViecTheoDoanVao)"
+							emptyMessage="Không có dữ liệu nào trong danh sách">
 							<columns>
 								<column label="STT" style="text-align:center" width="42px"/>
 								<column label="Nội dung công việc" style="text-align:center" />
-								<column label="Người thực hiện" width="200px" style="text-align:center" />
-								<column label="Thời gian" width="200px" style="text-align:center" />
-								<column label="Trạng thái" width="200px" style="text-align:center" />
+								<column label="Loại công việc" width="150px" style="text-align:center" />
+								<column label="Người thực hiện" width="150px" style="text-align:center" />
+								<column label="Thời gian" width="150px" style="text-align:center" />
+								<column label="Trạng thái" width="150px" style="text-align:center" />
 								<column label="Ghi chú" style="text-align:center" />
-								<column label="Thao tác" width="120px" style="text-align:center" />
+								<column label="Thao tác" width="220px" style="text-align:center" />
 							</columns>
-								<rows>
+								<template name="model">
 									<row>
-										<label value="1"></label>
-										<label value="@load(doanVao.titleNhanSuLamViec.noiDungCongViec.text)" style="font-weight:bold"></label>
-										<label value=""></label>
-										<label value=""></label>
-										<label value=""></label>
-										<label value=""></label>
-										<label value=""></label>
-									</row>
-									<row>
-										<label value="-"></label>
+										<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
 										<div>
-											<label visible="@load(!doanVao.congViecNguoiDuocPhanCong.noId())" value="@load(doanVao.congViecNguoiDuocPhanCong.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecNguoiDuocPhanCong, vmArgs = congViecNguoiDuocPhanCong, readOnly = false, loaiCongViec = doanVao.congViecNguoiDuocPhanCong.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecNguoiDuocPhanCong.noId())" value="@load(doanVao.congViecNguoiDuocPhanCong.noiDungCongViec.text)"></label>
+											<label visible="@load(!each.noId())" value="@load(each.tenCongViec)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Chi tiết công việc')"/>
+											<label visible="@load(each.noId())" value="@load(each.tenCongViec)"></label>
 										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecNguoiDuocPhanCong.nguoiDuocGiao)" class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecNguoiDuocPhanCong.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecNguoiDuocPhanCong.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecNguoiDuocPhanCong.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecNguoiDuocPhanCong.noId() ? '' : doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecNguoiDuocPhanCong.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecNguoiDuocPhanCong.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecNguoiDuocPhanCong.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec, doanVao.congViecNguoiDuocPhanCong.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecNguoiDuocPhanCong, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecNguoiDuocPhanCong.loaiCongViec, title = 'Báo cáo', attr = 'congViecNguoiDuocPhanCong')">
+										<label value="@load(each.cha.ten)"></label>
+										<label value="@load(each.nguoiDuocGiao.hoVaTen)"></label>
+										<label value="@load(each.hanThucHien) @converter('formatedDate',format='dd/MM/yyyy')" ></label>
+										<label value="@load(each.trangThaiGiaoViec.text)" class="@load(each.trangThaiGiaoViec)"></label>
+										<label value="@load(each.ghiChu)"></label>
+										<div class="thaotac">
+											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(each.trangThaiGiaoViec, each.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = each, vmArgs = vm, readOnly = true, loaiCongViec = each.loaiCongViec, title = 'Báo cáo')">
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 												<x:span>Báo cáo</x:span>
 											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecNguoiDuocPhanCong.trangThaiGiaoViec, doanVao.congViecNguoiDuocPhanCong.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecNguoiDuocPhanCong, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecNguoiDuocPhanCong.loaiCongViec, title = 'Nhận việc', attr = 'congViecNguoiDuocPhanCong')">
+											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(each.trangThaiGiaoViec, each.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Nhận việc')">
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 												<x:span>Nhận việc</x:span>
 											</x:a>
-										</div>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecChuyenVien.noId())" value="@load(doanVao.congViecChuyenVien.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecChuyenVien, vmArgs = congViecChuyenVien, readOnly = false, loaiCongViec = doanVao.congViecChuyenVien.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecChuyenVien.noId())" value="@load(doanVao.congViecChuyenVien.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuyenVien.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuyenVien.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuyenVien.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuyenVien.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecChuyenVien.noId() ? '' : doanVao.congViecChuyenVien.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecChuyenVien.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuyenVien.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecChuyenVien.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuyenVien.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecChuyenVien.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuyenVien.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuyenVien.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuyenVien.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecChuyenVien.trangThaiGiaoViec, doanVao.congViecChuyenVien.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecChuyenVien, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecChuyenVien.loaiCongViec, title = 'Báo cáo', attr = 'congViecChuyenVien')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
+											<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" if="${((vm.checkQuyenSuaXoaKeCongViec(vm.nguoiPhuTrach.id) and hoanThanh ne each.trangThaiGiaoViec) || (entry.quyen.quanlydoanvao_them and hoanThanh ne each.trangThaiGiaoViec)) and !readOnly}" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
+												<x:image class="img-edit" width="20px" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+												<x:span>Xóa</x:span>
 											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecChuyenVien.trangThaiGiaoViec, doanVao.congViecChuyenVien.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecChuyenVien, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecChuyenVien.loaiCongViec, title = 'Nhận việc', attr = 'congViecChuyenVien')">
+											<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${((vm.checkQuyenSuaXoaKeCongViec(vm.nguoiPhuTrach.id) and hoanThanh ne each.trangThaiGiaoViec) || (entry.quyen.quanlydoanvao_them and hoanThanh ne each.trangThaiGiaoViec)) and !readOnly}"
+												onClick="@command('redirectPage',zul='quanlydoanvao/show-edit-cong-viec.zul', vm = each, vmArgs = vm)">
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
+												<x:span zk:visible="@load(each.checkQuyenSua(each.nguoiDuocGiao, each.hanThucHien))">Sửa</x:span>
+												<x:span zk:visible="@load(!each.checkQuyenSua(each.nguoiDuocGiao, each.hanThucHien))">Tạo</x:span>
 											</x:a>
 										</div>
 									</row>
-									<row>
-										<label value="2"></label>
-										<label value="@load(doanVao.titleCongTacHauCan.noiDungCongViec.text)" style="font-weight:bold"></label>
-										<label value=""></label>
-										<label value=""></label>
-										<label value=""></label>
-										<label value=""></label>
-										<label value=""></label>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecChuanBiPhongHop.noId())" value="@load(doanVao.congViecChuanBiPhongHop.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecChuanBiPhongHop, vmArgs = congViecChuanBiPhongHop, readOnly = false, loaiCongViec = doanVao.congViecChuanBiPhongHop.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecChuanBiPhongHop.noId())" value="@load(doanVao.congViecChuanBiPhongHop.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiPhongHop.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiPhongHop.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiPhongHop.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiPhongHop.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecChuanBiPhongHop.noId() ? '' : doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiPhongHop.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiPhongHop.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiPhongHop.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec, doanVao.congViecChuanBiPhongHop.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecChuanBiPhongHop, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecChuanBiPhongHop.loaiCongViec, title = 'Báo cáo', attr = 'congViecChuanBiPhongHop')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
-											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecChuanBiPhongHop.trangThaiGiaoViec, doanVao.congViecChuanBiPhongHop.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecChuanBiPhongHop, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecChuanBiPhongHop.loaiCongViec, title = 'Nhận việc', attr = 'congViecChuanBiPhongHop')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
-											</x:a>
-										</div>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecChuanBiHoaQua.noId())" value="@load(doanVao.congViecChuanBiHoaQua.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecChuanBiHoaQua, vmArgs = congViecChuanBiHoaQua, readOnly = false, loaiCongViec = doanVao.congViecChuanBiHoaQua.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecChuanBiHoaQua.noId())" value="@load(doanVao.congViecChuanBiHoaQua.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiHoaQua.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiHoaQua.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiHoaQua.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiHoaQua.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecChuanBiHoaQua.noId() ? '' : doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiHoaQua.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiHoaQua.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiHoaQua.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec, doanVao.congViecChuanBiHoaQua.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecChuanBiHoaQua, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecChuanBiHoaQua.loaiCongViec, title = 'Báo cáo', attr = 'congViecChuanBiHoaQua')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
-											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecChuanBiHoaQua.trangThaiGiaoViec, doanVao.congViecChuanBiHoaQua.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecChuanBiHoaQua, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecChuanBiHoaQua.loaiCongViec, title = 'Nhận việc', attr = 'congViecChuanBiHoaQua')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
-											</x:a>
-										</div>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecChuanBiThietBi.noId())" value="@load(doanVao.congViecChuanBiThietBi.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecChuanBiThietBi, vmArgs = congViecChuanBiThietBi, readOnly = false, loaiCongViec = doanVao.congViecChuanBiThietBi.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecChuanBiThietBi.noId())" value="@load(doanVao.congViecChuanBiThietBi.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiThietBi.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiThietBi.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiThietBi.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiThietBi.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecChuanBiThietBi.noId() ? '' : doanVao.congViecChuanBiThietBi.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecChuanBiThietBi.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiThietBi.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecChuanBiThietBi.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiThietBi.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecChuanBiThietBi.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiThietBi.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiThietBi.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiThietBi.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecChuanBiThietBi.trangThaiGiaoViec, doanVao.congViecChuanBiThietBi.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecChuanBiThietBi, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecChuanBiThietBi.loaiCongViec, title = 'Báo cáo', attr = 'congViecChuanBiThietBi')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
-											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecChuanBiThietBi.trangThaiGiaoViec, doanVao.congViecChuanBiThietBi.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecChuanBiThietBi, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecChuanBiThietBi.loaiCongViec, title = 'Nhận việc', attr = 'congViecChuanBiThietBi')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
-											</x:a>
-										</div>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecChuanBiTaiLieu.noId())" value="@load(doanVao.congViecChuanBiTaiLieu.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecChuanBiTaiLieu, vmArgs = congViecChuanBiTaiLieu, readOnly = false, loaiCongViec = doanVao.congViecChuanBiTaiLieu.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecChuanBiTaiLieu.noId())" value="@load(doanVao.congViecChuanBiTaiLieu.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiTaiLieu.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiTaiLieu.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiTaiLieu.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiTaiLieu.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecChuanBiTaiLieu.noId() ? '' : doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiTaiLieu.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiTaiLieu.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiTaiLieu.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec, doanVao.congViecChuanBiTaiLieu.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecChuanBiTaiLieu, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecChuanBiTaiLieu.loaiCongViec, title = 'Báo cáo', attr = 'congViecChuanBiTaiLieu')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
-											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecChuanBiTaiLieu.trangThaiGiaoViec, doanVao.congViecChuanBiTaiLieu.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecChuanBiTaiLieu, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecChuanBiTaiLieu.loaiCongViec, title = 'Nhận việc', attr = 'congViecChuanBiTaiLieu')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
-											</x:a>
-										</div>
-									</row>
-									<row>
-										<label value="3"></label>
-										<label value="@load(doanVao.titleCongTacKhac.noiDungCongViec.text)" style="font-weight:bold"></label>
-										<label value=""></label>
-										<label value=""></label>
-										<label value=""></label>
-										<label value=""></label>
-										<label value=""></label>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecXayDungChuongTrinh.noId())" value="@load(doanVao.congViecXayDungChuongTrinh.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecXayDungChuongTrinh, vmArgs = congViecXayDungChuongTrinh, readOnly = false, loaiCongViec = doanVao.congViecXayDungChuongTrinh.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecXayDungChuongTrinh.noId())" value="@load(doanVao.congViecXayDungChuongTrinh.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecXayDungChuongTrinh.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecXayDungChuongTrinh.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecXayDungChuongTrinh.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecXayDungChuongTrinh.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecXayDungChuongTrinh.noId() ? '' : doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecXayDungChuongTrinh.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecXayDungChuongTrinh.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecXayDungChuongTrinh.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec, doanVao.congViecXayDungChuongTrinh.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecXayDungChuongTrinh, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecXayDungChuongTrinh.loaiCongViec, title = 'Báo cáo', attr = 'congViecXayDungChuongTrinh')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
-											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecXayDungChuongTrinh.trangThaiGiaoViec, doanVao.congViecXayDungChuongTrinh.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecXayDungChuongTrinh, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecXayDungChuongTrinh.loaiCongViec, title = 'Nhận việc', attr = 'congViecXayDungChuongTrinh')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
-											</x:a>
-										</div>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecChuanBiBaiGioiThieu.noId())" value="@load(doanVao.congViecChuanBiBaiGioiThieu.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecChuanBiBaiGioiThieu, vmArgs = congViecChuanBiBaiGioiThieu, readOnly = false, loaiCongViec = doanVao.congViecChuanBiBaiGioiThieu.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecChuanBiBaiGioiThieu.noId())" value="@load(doanVao.congViecChuanBiBaiGioiThieu.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecChuanBiBaiGioiThieu.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecChuanBiBaiGioiThieu.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecChuanBiBaiGioiThieu.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecChuanBiBaiGioiThieu.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecChuanBiBaiGioiThieu.noId() ? '' : doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecChuanBiBaiGioiThieu.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecChuanBiBaiGioiThieu.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecChuanBiBaiGioiThieu.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec, doanVao.congViecChuanBiBaiGioiThieu.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecChuanBiBaiGioiThieu, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecChuanBiBaiGioiThieu.loaiCongViec, title = 'Báo cáo', attr = 'congViecChuanBiBaiGioiThieu')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
-											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecChuanBiBaiGioiThieu.trangThaiGiaoViec, doanVao.congViecChuanBiBaiGioiThieu.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecChuanBiBaiGioiThieu, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecChuanBiBaiGioiThieu.loaiCongViec, title = 'Nhận việc', attr = 'congViecChuanBiBaiGioiThieu')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
-											</x:a>
-										</div>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecXacNhanLaiThongTin.noId())" value="@load(doanVao.congViecXacNhanLaiThongTin.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecXacNhanLaiThongTin, vmArgs = congViecXacNhanLaiThongTin, readOnly = false, loaiCongViec = doanVao.congViecXacNhanLaiThongTin.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecXacNhanLaiThongTin.noId())" value="@load(doanVao.congViecXacNhanLaiThongTin.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecXacNhanLaiThongTin.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecXacNhanLaiThongTin.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecXacNhanLaiThongTin.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecXacNhanLaiThongTin.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecXacNhanLaiThongTin.noId() ? '' : doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecXacNhanLaiThongTin.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecXacNhanLaiThongTin.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecXacNhanLaiThongTin.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec, doanVao.congViecXacNhanLaiThongTin.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecXacNhanLaiThongTin, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecXacNhanLaiThongTin.loaiCongViec, title = 'Báo cáo', attr = 'congViecXacNhanLaiThongTin')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
-											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecXacNhanLaiThongTin.trangThaiGiaoViec, doanVao.congViecXacNhanLaiThongTin.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecXacNhanLaiThongTin, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecXacNhanLaiThongTin.loaiCongViec, title = 'Nhận việc', attr = 'congViecXacNhanLaiThongTin')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
-											</x:a>
-										</div>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecGhiBienBan.noId())" value="@load(doanVao.congViecGhiBienBan.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecGhiBienBan, vmArgs = congViecGhiBienBan, readOnly = false, loaiCongViec = doanVao.congViecGhiBienBan.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecGhiBienBan.noId())" value="@load(doanVao.congViecGhiBienBan.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecGhiBienBan.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecGhiBienBan.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecGhiBienBan.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecGhiBienBan.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecGhiBienBan.noId() ? '' : doanVao.congViecGhiBienBan.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecGhiBienBan.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecGhiBienBan.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecGhiBienBan.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecGhiBienBan.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecGhiBienBan.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecGhiBienBan.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecGhiBienBan.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecGhiBienBan.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecGhiBienBan.trangThaiGiaoViec, doanVao.congViecGhiBienBan.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecGhiBienBan, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecGhiBienBan.loaiCongViec, title = 'Báo cáo', attr = 'congViecGhiBienBan')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
-											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecGhiBienBan.trangThaiGiaoViec, doanVao.congViecGhiBienBan.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecGhiBienBan, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecGhiBienBan.loaiCongViec, title = 'Nhận việc', attr = 'congViecGhiBienBan')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
-											</x:a>
-										</div>
-									</row>
-									<row>
-										<label value="-"></label>
-										<div>
-											<label visible="@load(!doanVao.congViecKiemTraLaiCongTacChuanBi.noId())" value="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.noiDungCongViec.text)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = doanVao.congViecKiemTraLaiCongTacChuanBi, vmArgs = congViecKiemTraLaiCongTacChuanBi, readOnly = false, loaiCongViec = doanVao.congViecKiemTraLaiCongTacChuanBi.loaiCongViec, title = 'Chi tiết công việc')"></label>
-											<label visible="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.noId())" value="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.noiDungCongViec.text)"></label>
-										</div>
-										<combobox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" readonly="true" model="@load(vm.listNguoiPhuTrachAndNull)" selectedItem="@bind(doanVao.congViecKiemTraLaiCongTacChuanBi.nguoiDuocGiao)" 
-											class="form-txt-style his reset-mg-pd ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.nguoiDuocGiao.hoVaTen ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}" placeholder="Chọn người thực hiện" width="100%">
-											<template name="model">
-												<comboitem label="@load(not empty each ? each.hoVaTen : '----Chọn lại----')" />
-											</template>
-										</combobox>
-										<datebox buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" constraint="no past" format="dd/MM/yyyy" 
-											class="form-txt-style hv-db edit-datebox-kh pd-top-7 ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.hanThucHien ? 'color-txt' : ''} pd-left-3 ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? 'datebox-txt-style' : 'input-no-button'}" value="@bind(doanVao.congViecKiemTraLaiCongTacChuanBi.hanThucHien)"
-										 	width="100%" placeholder="Chọn ngày"/>
-										<div>
-											<label value="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.noId() ? '' : doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec.text)" class="TRANG_THAI CHUA_LAM" visible="@load(chuaLam eq doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec.text)" class="TRANG_THAI DANG_LAM" visible="@load(dangLam eq doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec)"></label>
-											<label value="@load(doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec.text)" class="TRANG_THAI HOAN_THANH" visible="@load(hoanThanh eq doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec)"></label>
-										</div>
-										<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}" class="form-control ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.ghiChu ? 'color-txt' : ''} edit-textbox-kh" maxlength="255" value="@bind(doanVao.congViecKiemTraLaiCongTacChuanBi.ghiChu)" placeholder="-" style="background: transparent !important; ${not empty doanVao.congViecKiemTraLaiCongTacChuanBi.ghiChu ? 'color: #000000 !important;' : ''} "></textbox>
-										<div>
-											<x:a label="Báo cáo" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenBaoCao(doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec, doanVao.congViecKiemTraLaiCongTacChuanBi.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-bao-cao.zul', vm = doanVao.congViecKiemTraLaiCongTacChuanBi, vmArgs = doanVao, readOnly = true, loaiCongViec = doanVao.congViecKiemTraLaiCongTacChuanBi.loaiCongViec, title = 'Báo cáo', attr = 'congViecKiemTraLaiCongTacChuanBi')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Báo cáo</x:span>
-											</x:a>
-											<x:a label="Nhận việc" class="btn-thaotac btn-left btn-sua-color pointer-cls" zk:visible="@load(vm.checkQuyenNhanViec(doanVao.congViecKiemTraLaiCongTacChuanBi.trangThaiGiaoViec, doanVao.congViecKiemTraLaiCongTacChuanBi.nguoiDuocGiao.id))" zk:onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/add-nhan-viec.zul', vm = doanVao.congViecKiemTraLaiCongTacChuanBi, vmArgs = doanVao, readOnly = false, loaiCongViec = doanVao.congViecKiemTraLaiCongTacChuanBi.loaiCongViec, title = 'Nhận việc', attr = 'congViecKiemTraLaiCongTacChuanBi')">
-												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
-												<x:span>Nhận việc</x:span>
-											</x:a>
-										</div>
-									</row>
-								</rows>
+								</template>
 						</grid>
 					</div>
 				</div>
 			</div>
 			<div class="mg-and-bg-and-line-fix">
 				<div class="row">
-					<div zclass="col-md-6 flex-box">
-						<div zclass="form-group">
-							<x:button class="btn bg-btn-dong btn-grey" onClick="@command('dongKeHoachLamViec', wdn = wdn)">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
-								<span>Đóng</span>
-							</x:button>
-						</div>
+					<div zclass="form-group left-mg flex">
+						<x:button class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='*')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+							<span>Đóng</span>
+						</x:button>
 					</div>
-					<div zclass="col-md-6">
-						<div zclass="form-group right" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
-							<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveKeHoachLamViec', doanVao = doanVao, wdn = wdn)">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-								<span>Lưu</span>
-							</x:button>
-						</div>
+					<div zclass="form-group right-mg flex" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
+						<x:button class="btn btn-blue" zk:onClick="@command('saveKeHoachLamViec', doanVao = doanVao, wdn = wdn)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Lưu</span>
+						</x:button>
+					</div>
+					<div zclass="form-group right-mg flex" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
+						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-add-cong-viec.zul',vmArgs = doanVao, vm=null)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm mới công việc</span>
+						</x:button>
 					</div>
 				</div>
 			</div>

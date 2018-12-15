@@ -118,13 +118,13 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" width="42px"/>
-							<column label="Tên dự án"/>
+							<column label="Tên dự án" width="33%"/>
 							<column label="Địa điểm"/>
-							<column label="Tổng vốn đầu tư (USD)"/>
-							<column label="Ngày BĐ xúc tiến"/>
-							<column label="Lĩnh vực"/>
-							<column label="Tiến độ xúc tiến"/>
-							<column label="Người phụ trách"/>
+							<column label="Tổng vốn đầu tư (USD)" width="160px"/>
+							<column label="Ngày BĐ xúc tiến" width="140px"/>
+							<column label="Lĩnh vực" width="140px"/>
+							<column label="Tiến độ xúc tiến"  width="160px"/>
+							<column label="Người phụ trách" width="140px"/>
 							<column label="Thao tác" width="120px" />
 						</columns>
 						<template name="model">

@@ -1,5 +1,8 @@
 package vn.toancauxanh.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.collections.MapUtils;
 
 import com.querydsl.jpa.impl.JPAQuery;
@@ -17,5 +20,12 @@ public class CapDonViService extends BasicService<CapDonVi> {
 		}
 		q.orderBy(QCapDonVi.capDonVi.ten.asc()).orderBy(QCapDonVi.capDonVi.ngayTao.desc());
 		return q;
+	}
+	
+	public List<CapDonVi> getListCapDonVi() {
+		List<CapDonVi> listCapDonVi = new ArrayList<CapDonVi>();
+		listCapDonVi.add(null);
+		listCapDonVi = find(CapDonVi.class).orderBy(QCapDonVi.capDonVi.ten.asc()).fetch();
+		return listCapDonVi;
 	}
 }

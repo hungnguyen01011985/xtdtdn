@@ -27,7 +27,7 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Họ và tên<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Họ và tên<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<textbox maxlength="255" class="form-control textbox-txt-style" readonly="${readOnly}" value="@bind(vm.hoVaTen)@save(vm.hoVaTen, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="Nhập tên người dùng..."></textbox>
@@ -37,7 +37,7 @@
 						<div zclass="col-md-6" >
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Vai trò người dùng<n:small class="required"> *</n:small></x:span>
+									<x:span class="label-txt-style">Vai trò người dùng<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" width="100%" class="hv-textbox ${!readOnly ? '' : 'input-no-button'}" readonly="true" disabled="${readOnly}"
 									model="@load(entry.vaiTros.vaiTroQuery.fetch())" placeholder="-Chọn-"
@@ -54,24 +54,24 @@
 						<div zclass="col-md-6">
 							<div zclass="form-group">
 								<div class="flex">
-									<x:span class="label-txt-style">Phòng ban</x:span>
+									<x:span class="label-txt-style">Phòng ban<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
-									selectedItem="@bind(vm.phongBan)" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
+									selectedItem="@bind(vm.phongBan) @save(vm.phongBan, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
 									<template name="model">
 										<comboitem label="@load(each.ten)" />
 									</template>
 								</combobox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-6">
 							<div zclass="form-group">
-								<div class="flex">
-									<x:span class="label-txt-style">Địa chỉ email<n:small class="required"> *</n:small></x:span>
-								</div>
-								<textbox class="form-control textbox-txt-style" readonly="${readOnly}" width="100%" maxlength="255"
-									value="@bind(vm.email) @save(vm.email, before={'saveNhanVien'}) @validator(vm.validatorEmail)"
-									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"/>
+								<x:span class="label-txt-style">Số điện thoại</x:span>
+								<textbox class="form-control textbox-txt-style" readonly="${readOnly}" width="100%" maxlength="11"
+									value="@bind(vm.soDienThoai) @save(vm.soDienThoai, before={'saveNhanVien'}) @validator(vm.validateSoDienThoai)" 
+									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" >
+								</textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -79,11 +79,12 @@
 					<div class="row">
 						<div zclass="col-md-12">
 							<div zclass="form-group">
-								<x:span class="label-txt-style">Số điện thoại</x:span>
-								<textbox class="form-control textbox-txt-style" readonly="${readOnly}" width="100%" maxlength="11"
-									value="@bind(vm.soDienThoai) @save(vm.soDienThoai, before={'saveNhanVien'}) @validator(vm.validateSoDienThoai)" 
-									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" >
-								</textbox>
+								<div class="flex">
+									<x:span class="label-txt-style">Địa chỉ email<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
+								</div>
+								<textbox class="form-control textbox-txt-style" readonly="${readOnly}" width="100%" maxlength="255"
+									value="@bind(vm.email) @save(vm.email, before={'saveNhanVien'}) @validator(vm.validatorEmail)"
+									onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"/>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -128,7 +129,7 @@
 										<x:span class="label-txt-style">Mật khẩu mới<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }"
-										width="100%" type="password" value="@bind(vm.matKhauUpdate) @save(vm.matKhauUpdate, before='updateNhanVien') @validator(vm.validateMatKhauMoiEdit)"
+										width="100%" type="password" value="@bind(vm.matKhauUpdate) @save(vm.matKhauUpdate, before='saveNhanVien') @validator(vm.validateMatKhauMoiEdit)"
 											onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"/>
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 								</div>
@@ -139,7 +140,7 @@
 										<x:span class="label-txt-style">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }"
-										width="100%" type="password" value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='updateNhanVien') @validator(vm.validateMatKhauMoi, pass = vm.matKhauUpdate)"
+										width="100%" type="password" value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='saveNhanVien') @validator(vm.validateMatKhauMoi, pass = vm.matKhauUpdate)"
 										onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" />
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 								</div>
@@ -169,25 +170,24 @@
 						</div>
 					</div>
 				</div>
-				
 			</div>
 			<div class="mg-and-bg-and-line">
-					<div zclass="col-md-6">
-						<div zclass="form-group">
-							<x:button  class="btn bg-btn-dong btn-grey" zk:onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQueryNhanVien')">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
-								<span>Đóng</span>
-							</x:button>
-						</div>
+				<div zclass="col-md-6">
+					<div zclass="form-group">
+						<x:button  class="btn bg-btn-dong btn-grey" zk:onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQueryNhanVien')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+							<span>Đóng</span>
+						</x:button>
 					</div>
-					<div zclass="col-md-6">
-						<div zclass="form-group right">
-							<x:button  class="btn btn-blue mg-btn" if="${!readOnly and (!vm.noId() or vm.noId())}" zk:onClick="@command('saveNhanVien', list=vmArgs, attr='targetQueryNhanVien', wdn=wdn)">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-								<span>Lưu</span>
-							</x:button>
-						</div>
+				</div>
+				<div zclass="col-md-6">
+					<div zclass="form-group right">
+						<x:button  class="btn btn-blue mg-btn" if="${!readOnly and (!vm.noId() or vm.noId())}" zk:onClick="@command('saveNhanVien', list=vmArgs, attr='targetQueryNhanVien', wdn=wdn)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Lưu</span>
+						</x:button>
 					</div>
+				</div>
 			</div>
 		</div>
 	</window>

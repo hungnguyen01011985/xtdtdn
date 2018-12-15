@@ -42,7 +42,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<div class="flex">
-								<x:span class="label-txt-style">Ngày gửi<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Ngày gửi<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
 							</div>
 							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!(action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id)}" format="dd/MM/yyyy"
 								class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? 'datebox-txt-style' : 'input-no-button no-place-holder' }" 
@@ -54,7 +54,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group mg-top-8">
 							<div class="flex">
-								<x:span class="label-txt-style">Ngày dự kiến nhận phản hồi<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Ngày dự kiến nhận phản hồi<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
 							</div>
 							<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy" 
 								disabled="@load(empty vm.giaiDoanDuAn.ngayGui or !(action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id))" class="hv-db mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id? 'datebox-txt-style' : 'input-no-button no-place-holder' }" 
@@ -67,7 +67,7 @@
 	    				@validator(vm.validatorTepTin, sms = 'taiLieuGD1', text = 'ngayDuKien', ngayDuKien = vm.giaiDoanDuAn.ngayNhanPhanHoi)">
 						<div zclass="form-group mg-top-8" viewModel="@id('taiLieuGD1') @init(vm.giaiDoanDuAn.taiLieuGD1)">
 							<div class="flex">
-								<x:span class="label-txt-style">Tài liệu đính kèm<n:small class="required"> *</n:small></x:span>
+								<x:span class="label-txt-style">Tài liệu đính kèm<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
 							</div>
 							<button visible="@load(empty vm.giaiDoanDuAn.taiLieuGD1.tenFile)" label="Chọn tài liệu" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
@@ -93,12 +93,8 @@
 					</div>
 				</div>
 			</div>
-			<include src="quanlyduan/view-list-don-vi.zul"></include>
-			<div zclass="form-group" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" style="padding-bottom:15px;">
-				<x:button class="btn btn-them-moi-don-vi btn-grey" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot)}" onClick="@command('addNewDonVi', vm = vm)">
-					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
-					<span>Thêm đơn vị nhận CV</span>
-				</x:button>
+			<div class="row mg-and-bg-and-line-fix" style="padding-left:15px; padding-right:15px;padding-top:0;">
+				<include src="quanlyduan/view-list-don-vi.zul"></include>
 			</div>
 			<include src="quanlyduan/view-list-tep-tins.zul"></include>
 			<div class="row mg-and-bg-and-line">

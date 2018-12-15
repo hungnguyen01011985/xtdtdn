@@ -108,8 +108,8 @@
 						<columns>
 							<column label="STT" width="42px"/>
 							<column label="Tên đoàn" />
-							<column label="Quốc gia"  />
-							<column label="Số người" />
+							<column label="Quốc gia" width="260px"/>
+							<column label="Số người" width="100px"/>
 							<column label="Tóm tắt nội dung" />
 							<column label="Thời gian đến" width="110px"/>
 							<column label="Nơi đoàn đi thăm" width="200px"/>
