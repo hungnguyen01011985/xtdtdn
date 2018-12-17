@@ -32,13 +32,13 @@
 								<div zclass="col-md-4">
 									<div zclass="form-group">
 										<span>Ngày bắt đầu xúc tiến: Từ ngày</span>
-										<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
+										<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
 									</div>
 								</div>
 								<div zclass="col-md-4">
 									<div zclass="form-group">
 										<span>Đến ngày</span> 
-										<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
+										<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
 									</div>
 								</div>
 								<div zclass="col-md-4">
