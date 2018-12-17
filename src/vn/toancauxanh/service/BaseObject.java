@@ -347,14 +347,14 @@ public class BaseObject<T> extends CoreObject<T> {
 		return cellStyle;
 	}
 
-	public List<Long> subString(String text) {
+	public List<Long> listSubStringId(String text) {
 		List<Long> list = new ArrayList<Long>();
-		for (String w : text.split("@", 0)) {
-			try {
-				list.add(Long.parseLong(w));
-			} catch (Exception ex) {
-				return null;
-			}
+		int start = text.indexOf("@");
+		int close = text.indexOf("@", start + 1);
+		while (start != -1 && close != -1) {
+			list.add(Long.valueOf(text.substring(start + 1, close)));
+			start = text.indexOf("@", close + 1);
+			close = text.indexOf("@", start + 1);
 		}
 		return list;
 	}
@@ -392,7 +392,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.eq(giaoViec.getDuAn()));
 		DuAn duAn = q.fetchFirst();
 		duAn.setIdNguoiLienQuan(
-				duAn.getIdNguoiLienQuan().replaceFirst(giaoViec.getNguoiDuocGiao().getId() + KY_TU, ""));
+				duAn.getIdNguoiLienQuan().replaceFirst(KY_TU + giaoViec.getNguoiDuocGiao().getId() + KY_TU, ""));
 		duAn.saveNotShowNotification();
 	}
 
@@ -400,7 +400,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(giaoViec.getDoanVao()));
 		if (q != null) {
 			DoanVao doanVao = q.fetchFirst();
-			doanVao.setIdNguoiLienQuan(doanVao.getIdNguoiLienQuan().replaceFirst(nguoiCu.getId() + KY_TU, ""));
+			doanVao.setIdNguoiLienQuan(KY_TU + doanVao.getIdNguoiLienQuan().replaceFirst(nguoiCu.getId() + KY_TU, ""));
 			return doanVao.getIdNguoiLienQuan();
 		}
 		return "";
@@ -763,7 +763,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
 			return true;
 		}
-		return subString(id).contains(idNV);
+		return id.contains("@"+String.valueOf(idNV)+"@");
 	}
 
 	public boolean checkNguoiLienQuan(Long idNV, String id, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
@@ -774,7 +774,7 @@ public class BaseObject<T> extends CoreObject<T> {
 			return true;
 		}
 		if (id != null && !"".equals(id)) {
-			return subString(id).contains(idNV);
+			return listSubStringId(id).contains(idNV);
 		}
 		return false;
 	}
@@ -804,8 +804,8 @@ public class BaseObject<T> extends CoreObject<T> {
 		if (idNV == null) {
 			return false;
 		}
-		if (id != null && !"".equals(id)) {
-			return subString(id).contains(idNV);
+		if (id != null && !id.isEmpty()) {
+			return listSubStringId(id).contains(idNV);
 		}
 		return false;
 	}

@@ -9,7 +9,7 @@
 <?script type="text/javascript" src="/assets/js/bootstrap.min.js"?>
 <?script type="text/javascript" src="/assets/js/sb-admin-2.js"?>
 <?script type="text/javascript" src="/assets/toastr/build/toastr.min.js" ?>
-<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" id="wdn" mode="modal" xmlns:z="zul" width="400px"
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" id="wdn" mode="modal" xmlns:z="zul" width="400px" class="location-form-login"
 	viewModel="@id('vm') @init('vn.toancauxanh.service.NhanVienService')">
 	<style>
 		.formac-cauhinh {
@@ -22,6 +22,12 @@
 		}
 		.font-text-lg {
 			font-family:Arial;
+		}
+		.location-form-login {
+			top: calc(50vh - 176px) !important;
+		}
+		.z-modal-mask {
+			background:#2980b9 !important;
 		}
 	</style>
 	<zscript><![CDATA[
@@ -63,7 +69,7 @@
 						<x:span class="issue-search">Mật khẩu<n:small class="required"> *</n:small></x:span>
 					</div>  
 					<textbox id="password" placeholder="" class="form-control pass-input" type="password" 
-											onOK='vm.login(account.getValue(), password.getValue());' />
+						onOK='vm.login(account.getValue(), password.getValue());' />
 					<label class="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>

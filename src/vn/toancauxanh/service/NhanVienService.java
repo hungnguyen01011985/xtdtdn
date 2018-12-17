@@ -83,6 +83,10 @@ public final class NhanVienService extends BasicService<NhanVien> {
 
 	@Command
 	public void login(@BindingParam("email") final String email, @BindingParam("password") final String password) {
+		if (email.trim().isEmpty() || password.isEmpty()) {
+			showNotification("Bạn phải nhập email và mật khẩu", "", "danger");
+			return;
+		}
 		NhanVien nhanVien = new JPAQuery<NhanVien>(em()).from(QNhanVien.nhanVien)
 				.where(QNhanVien.nhanVien.daXoa.isFalse()).where(QNhanVien.nhanVien.trangThai.ne(core().TT_DA_XOA))
 				.where(QNhanVien.nhanVien.email.eq(email)).fetchFirst();
@@ -100,7 +104,7 @@ public final class NhanVienService extends BasicService<NhanVien> {
 			res.addCookie(cookie);
 			Executions.sendRedirect("/");
 		} else {
-			showNotification("Đăng nhập không thành công", "", "danger");
+			showNotification("Tài khoản hoặc mật khẩu không đúng", "", "danger");
 		}
 	}
 
