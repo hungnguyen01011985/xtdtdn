@@ -138,7 +138,7 @@
 								<label value="@load(item.giaiDoanXucTien.text)"></label>
 								<label value="@load(item.nguoiPhuTrach.hoVaTen)"></label>
 								<div class="thaotac">
-									<x:a label="Xử lý" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlyduan/${each.id}" if="${vm.checkEdit(entry.nhanVien.id, item.idNguoiLienQuan, item.giaiDoanXucTien, item.nguoiTao, item.nguoiPhuTrach) and entry.quyen.quanlyduan_sua}">
+									<x:a label="Xử lý" class="btn-thaotac left" zk:onClick="@command('redirectXuLyDuAn', id = each.id)" if="${vm.checkEdit(entry.nhanVien.id, item.idNguoiLienQuan, item.giaiDoanXucTien, item.nguoiTao, item.nguoiPhuTrach) and entry.quyen.quanlyduan_sua}">
 										<x:image class="img-edit" width="20px" title="Xử lý" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
 										<x:span>Xử lý</x:span>
 									</x:a>

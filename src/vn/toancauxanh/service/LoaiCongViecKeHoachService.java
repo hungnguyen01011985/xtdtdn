@@ -24,8 +24,7 @@ public class LoaiCongViecKeHoachService extends BasicService<LoaiCongViecKeHoach
 	public List<LoaiCongViecKeHoach> getLoaiCongViecKeHoach() {
 		List<LoaiCongViecKeHoach> list= new ArrayList<>();
 		list.add(null);
-		list = find(LoaiCongViecKeHoach.class).where(QLoaiCongViecKeHoach.loaiCongViecKeHoach.daXoa.isFalse())
-				.orderBy(QCapDonVi.capDonVi.ten.asc()).fetch();		
+		list = find(LoaiCongViecKeHoach.class).orderBy(QLoaiCongViecKeHoach.loaiCongViecKeHoach.ten.asc()).fetch();		
 		return list;
 	}
 	

@@ -65,7 +65,7 @@
 						<x:span class="img-menu bctk" zk:if="${resource eq 'baocaothongke'}"></x:span>
 						<x:span class="text-menu">Báo cáo thống kê</x:span>
 					</n:a>
-					<n:ul class="children-nav">
+					<n:ul class="children-nav show-children-active">
 						<n:div class="title-menu-parent">
 							<span class="txt-menu-parent">Báo cáo thống kê</span>
 						</n:div>
@@ -86,7 +86,7 @@
 						<x:span class="img-menu qlht" zk:if="${resource eq 'phongban'}"></x:span>
 						<x:span class="text-menu">Quản trị hệ thống</x:span>
 					</n:a>
-					<n:ul class="children-nav">
+					<n:ul class="children-nav show-children-active">
 						<n:div class="title-menu-parent">
 							<span class="txt-menu-parent">Quản trị hệ thống</span>
 						</n:div>

@@ -82,7 +82,7 @@
 										<x:span>Sửa</x:span>
 									</x:a>
 									<x:a label="Xóa" class="btn-thaotac up-note" zk:if="${entry.quyen.nguoidung_xoa}"
-										onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQueryNhanVien')">
+										onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQueryNhanVien', type='nguoidung')">
 										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 										<x:span>Xóa</x:span>
 									</x:a>

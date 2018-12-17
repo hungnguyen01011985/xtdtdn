@@ -1086,9 +1086,9 @@
 	visibility: hidden;
 }
 
-/* .active-children .children-nav {
+.active-children .show-children-active {
 	max-height:600px;
-} */
+}
 
 .children-nav {
 	display:flex;
@@ -1269,5 +1269,14 @@
 @media ( max-width : 1200px) {
 	.popup-w-reponsive-1200 {
 		width:90%;
+	}
+}
+.box-form-thong-ke {
+	width: calc(100% - 151px);
+	padding-right:15px;
+}
+@media ( max-width : 992px) {
+	.box-form-thong-ke {
+		width: 100%;
 	}
 }

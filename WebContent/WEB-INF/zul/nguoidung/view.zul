@@ -57,11 +57,12 @@
 									<x:span class="label-txt-style">Phòng ban<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
-									selectedItem="@bind(vm.phongBan)" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
+									selectedItem="@bind(vm.phongBan) @save(vm.phongBan, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
 									<template name="model">
 										<comboitem label="@load(each.ten)" />
 									</template>
 								</combobox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 						<div zclass="col-md-6">
@@ -152,9 +153,10 @@
 						<x:span class="label-txt-style">Ảnh đại diện</x:span>
 				    	<div class="form-group" style="margin-top: 5px;">
 				    		<div class="div-image custom-avatar">
-				    			<image id="imageCmp" style="width: 200px; height: 180px;object-fit:cover;border-radius: 50%;"
+				    			<image visible="@load(vm.avatarImage ne null)" id="imageCmp" class="img-avarta-style"
 									content="@load(vm.avatarImage eq null ? imageNull : vm.avatarImage) @save(vm.avatarImage, before='saveNhanVien')">
 								</image>
+								<image class="img-avarta-style" visible="@load(vm.avatarImage eq null)" src="/assets/img/employeebig.png"></image>
 								<div if="${!readOnly}">
 									<x:button visible="@load(!empty vm.avatarImage)" zk:onClick="@command('deleteAvatarImage', vm=vm)"
 										type="button" class="close custom-remove" aria-label="Close">
