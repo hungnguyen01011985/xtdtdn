@@ -763,7 +763,6 @@ public class BaseObject<T> extends CoreObject<T> {
 		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
 			return true;
 		}
-		System.out.println(id);
 		return id.contains("@"+String.valueOf(idNV)+"@");
 	}
 

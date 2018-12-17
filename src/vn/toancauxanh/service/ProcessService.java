@@ -47,7 +47,7 @@ public class ProcessService extends BasicService<Object> {
 
 	public void luuDuLieuDuAnVaBatDauXucTien(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		String idList = KY_TU + model.getNguoiPhuTrach().getId() + KY_TU;
+		String idList = KY_TU + model.getNguoiPhuTrach().getId() + KY_TU + KY_TU + model.getNguoiPhuTrach().getId() + KY_TU;
 		model.setIdNguoiLienQuan(idList);
 		model.saveNotShowNotification();
 		model.getGiaoViec().setDuAn(model);
@@ -131,9 +131,11 @@ public class ProcessService extends BasicService<Object> {
 		DuAn duAn = q.fetchFirst();
 		if (duAn.getNguoiPhuTrach().getId() != model.getNguoiPhuTrach().getId()) {
 			thongBao(model, LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, duAn.getNguoiPhuTrach(), null, model.getNguoiPhuTrach().getHoVaTen(), false);
-			duAn.setNguoiPhuTrach(model.getNguoiPhuTrach());
 			thongBao(model, LoaiThongBao.PHU_TRACH_CONG_VIEC, model.getNguoiPhuTrach(), null, null, false);
 		}
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan().replaceFirst(KY_TU + duAn.getNguoiPhuTrach().getId() + KY_TU, ""));
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + KY_TU + model.getNguoiPhuTrach().getId() + KY_TU);
+		duAn.setNguoiPhuTrach(model.getNguoiPhuTrach());
 		duAn.save();
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
