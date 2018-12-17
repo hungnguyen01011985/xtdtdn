@@ -20,7 +20,7 @@ public class BaoCaoThongKeDuAnService extends BasicService<GiaiDoanDuAn>{
 		JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
 				.where(QGiaiDoanDuAn.giaiDoanDuAn.daQuaGiaiDoan.ne(false));
 		if (tienDoXucTien != null && !tienDoXucTien.isEmpty()) {
-			q.where(QGiaiDoanDuAn.giaiDoanDuAn.giaiDoanXucTien.eq(GiaiDoanXucTien.valueOf(tienDoXucTien)));
+			q.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.giaiDoanXucTien.eq(GiaiDoanXucTien.valueOf(tienDoXucTien)));
 		}
 		if (getFixTuNgay() != null && getFixDenNgay() == null) {
 			q.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.ngayBatDauXucTien.after(getFixTuNgay()));
