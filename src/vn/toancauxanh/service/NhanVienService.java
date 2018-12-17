@@ -52,6 +52,12 @@ public final class NhanVienService extends BasicService<NhanVien> {
 		return getNhanVien(saving, (HttpServletRequest) Executions.getCurrent().getNativeRequest(),
 				(HttpServletResponse) Executions.getCurrent().getNativeResponse());
 	}
+	
+	public void checkUserIsActive() {
+		if (find(NhanVien.class).setHint("org.hibernate.cacheable", false).where(QNhanVien.nhanVien.eq(getNhanVien())).fetchCount() == 0) {
+			logout();
+		}
+	}
 
 	public JPAQuery<NhanVien> getTargetQueryNhanVien() {
 		String paramtrangThai = MapUtils.getString(argDeco(), "trangThai", "").trim();
@@ -186,4 +192,5 @@ public final class NhanVienService extends BasicService<NhanVien> {
 			}
 		}
 	}
+	
 }
