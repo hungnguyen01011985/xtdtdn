@@ -655,7 +655,7 @@ public class ExcelUtil {
 			sheet1.setColumnWidth(1, 40 * 256);
 			sheet1.setColumnWidth(2, 40 * 256);
 			sheet1.setColumnWidth(3, 40 * 256);
-			sheet1.setColumnWidth(4, 20 * 256);
+			sheet1.setColumnWidth(4, 40 * 256);
 			sheet1.setColumnWidth(5, 20 * 256);
 			sheet1.setColumnWidth(6, 20 * 256);
 			sheet1.setColumnWidth(7, 20 * 256);
@@ -681,32 +681,33 @@ public class ExcelUtil {
 			c = row.createCell(sttHeader);
 			sttHeader++;
 
-			c.setCellValue("Tên nhiệm vụ");
+			c.setCellValue("Tên dự án/ Tên đoàn vào");
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
+			
+			c.setCellValue("Người giao việc");
+			c.setCellStyle(styleLeftHeader);
+			c = row.createCell(sttHeader);
+			sttHeader++;
+			
 			
 			c.setCellValue("Người phụ trách");
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
 			
-			c.setCellValue("Loại công việc");
-			c.setCellStyle(styleLeftHeader);
-			c = row.createCell(sttHeader);
-			sttHeader++;
-			
-			c.setCellValue("Trạng thái");
-			c.setCellStyle(styleLeftHeader);
-			c = row.createCell(sttHeader);
-			sttHeader++;
-			
-			c.setCellValue("Ngày bắt đầu");
+			c.setCellValue("Ngày giao việc");
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
 			
 			c.setCellValue("Hạn thực hiện");
+			c.setCellStyle(styleLeftHeader);
+			c = row.createCell(sttHeader);
+			sttHeader++;
+			
+			c.setCellValue("Trạng thái");
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
@@ -737,17 +738,17 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 				
+				c.setCellValue(giaoViec.getNguoiGiaoViec().getHoVaTen());
+				c.setCellStyle(styleLeft);
+				c = row.createCell(sttData);
+				sttData++;
+				
 				c.setCellValue(giaoViec.getNguoiDuocGiao().getHoVaTen());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(giaoViec.getLoaiCongViec().getText());
-				c.setCellStyle(styleLeft);
-				c = row.createCell(sttData);
-				sttData++;
-				
-				c.setCellValue(giaoViec.getTrangThaiGiaoViec().getText());
+				c.setCellValue(df.format(giaoViec.getHanThucHien()));
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				
@@ -758,7 +759,7 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(df.format(giaoViec.getHanThucHien()));
+				c.setCellValue(giaoViec.getTrangThaiGiaoViec().getText());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				i++;
@@ -876,12 +877,13 @@ public class ExcelUtil {
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
+				
 				c.setCellValue(giaiDoanDuAn.getTenCongTy());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(giaiDoanDuAn.getDuAn().getDiaDiem());
+				c.setCellValue(giaiDoanDuAn.getDuAn().getDiaDiemAndDienTich());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
@@ -897,7 +899,7 @@ public class ExcelUtil {
 				
 				sttData++;
 				
-				c.setCellValue(giaiDoanDuAn.getGiaiDoanXucTien().getText());
+				c.setCellValue(giaiDoanDuAn.getDuAn().getGiaiDoanXucTien().getText());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				i++;
