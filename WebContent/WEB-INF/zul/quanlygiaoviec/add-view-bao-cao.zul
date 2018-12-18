@@ -92,7 +92,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Ngày giao</x:span>
 							</div>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8 txt-textbox-disable" disabled="${!(readOnly and !action)}"
+							<datebox buttonVisible="${(readOnly and !action)}" format="dd/MM/yyyy" class="hv-db mg-top-8 txt-textbox-disable ${readOnly and !action ? '' : 'input-no-button'}" disabled="${!(readOnly and !action)}"
 								  width="100%" placeholder="Chọn ngày" value="@bind(vm.ngayGiao)"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -102,7 +102,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Hạn thực hiện</x:span>
 							</div>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8 txt-textbox-disable" disabled="${!(readOnly and !action)}"
+							<datebox buttonVisible="${(readOnly and !action)}" format="dd/MM/yyyy" class="hv-db mg-top-8 txt-textbox-disable ${readOnly and !action ? '' : 'input-no-button'}" disabled="${!(readOnly and !action)}"
 								  width="100%" placeholder="Chọn ngày" value="@bind(vm.hanThucHien)"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
@@ -148,7 +148,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Ngày hoàn thành<n:small class="required" if="${readOnly}"> *</n:small></x:span>
 							</div>
-							<datebox disabled="${!readOnly}" format="dd/MM/yyyy" class="hv-db mg-top-8 txt-textbox-disable" readonly="${!readOnly}" width="100%"
+							<datebox buttonVisible="${readOnly}" disabled="${!readOnly}" format="dd/MM/yyyy" class="hv-db mg-top-8 txt-textbox-disable ${readOnly ? '' : 'input-no-button'}" readonly="${!readOnly}" width="100%"
 								placeholder="Chọn ngày" value="@bind(vm.ngayHoanThanh) @save(vm.ngayHoanThanh, before={'saveBaoCao'}) @validator(vm.validatorNgay, dateStart = vm.ngayGiao, firstText = 'Ngày giao việc', secondText = 'Ngày hoàn thành', type = false)"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>

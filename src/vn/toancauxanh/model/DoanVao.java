@@ -25,6 +25,7 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
@@ -39,17 +40,17 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
 import vn.toancauxanh.gg.model.enums.LoaiThongBao;
-import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 import vn.toancauxanh.rest.model.DoanVaoModel;
+import vn.toancauxanh.service.BaoCaoThongKeDoanVao;
+import vn.toancauxanh.service.DoanVaoService;
 
 @Entity
 @Table(name = "doanvao")
 public class DoanVao extends Model<DoanVao> {
 	private String tenDoanVao;
-	private QuocGiaEnum quocGia;
 	private TrangThaiTiepDoanEnum trangThaiTiepDoan = TrangThaiTiepDoanEnum.CHUA_TIEP;
 	private String tomTatNoiDungKQ = "";
 	private String deXuatCVPhuTrach = "";
@@ -76,15 +77,6 @@ public class DoanVao extends Model<DoanVao> {
 
 	public void setTenDoanVao(String tenDoanVao) {
 		this.tenDoanVao = tenDoanVao;
-	}
-
-	@Enumerated(EnumType.STRING)
-	public QuocGiaEnum getQuocGia() {
-		return quocGia;
-	}
-
-	public void setQuocGia(QuocGiaEnum quocGia) {
-		this.quocGia = quocGia;
 	}
 
 	public int getSoNguoi() {
@@ -316,6 +308,14 @@ public class DoanVao extends Model<DoanVao> {
 			});
 		}
 		
+		if (listXoaCongViecKeHoach != null && !listXoaCongViecKeHoach.isEmpty()) {
+			listXoaCongViecKeHoach.forEach(item -> {
+				item.setDoanVao(this);
+				item.doDelete(true);
+				item.saveNotShowNotification();
+			});
+		}
+		
 		if (nguoiPhuTrachCu != null && nguoiPhuTrachCu.getId() != this.getNguoiPhuTrach().getId()) {
 			thongBao(LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, this, null, nguoiPhuTrachCu, this.getNguoiTao(), null);
 			thongBao(LoaiThongBao.PHU_TRACH_CONG_VIEC, this, null, this.getNguoiPhuTrach(), this.getNguoiTao(), null);
@@ -476,12 +476,67 @@ public class DoanVao extends Model<DoanVao> {
 	public void redirectPageList(@BindingParam("url") String url, @BindingParam("vm") DoanVao vm) {
 		Executions.getCurrent().sendRedirect(url);
 	}
-
+	
 	@Transient
 	public boolean isCheckTaiLieu() {
 		return checkTaiLieu;
 	}
+	
+	@Command
+	@NotifyChange({ "listSearch", "key" })
+	public void searchKey(@BindingParam("key") String key,
+			@BindingParam("vm") Object vm) {
+		this.key = key;
+		listSearch.clear();
+		if (key == null || "".equals(key)) {
+			return;
+		}
+		if (vm != null) {
+			if (vm instanceof DoanVaoService) {
+				((DoanVaoService) vm).getArg().put("quocGia", null);
+			} else if (vm instanceof BaoCaoThongKeDoanVao) {
+				((BaoCaoThongKeDoanVao) vm).getArg().put("quocGia", null);
+			}
+		}
+		tenQuocGia = null;
+		thanhVienDoanTemp.setTenQuocGia(null);
+		seachByKey(key);
+	}
+	
+	private List<String> listSearch = new ArrayList<>();
+	
+	@Transient
+	public List<String> getListSearch() {
+		return listSearch;
+	}
 
+	public void setListSearch(List<String> listSearch) {
+		this.listSearch = listSearch;
+	}
+	
+	private String key = "";
+	
+	@Transient
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+	
+	public List<String> seachByKey(String param) {
+		String keyWord = removeAccent(param).replace("\\s+", "").toLowerCase();
+		List<String> list = getListQuocGia();
+		List<String> listTimKiem = list.stream()
+				.filter(item -> removeAccent(item).replace("\\s+", "").toLowerCase().contains(keyWord))
+				.collect(Collectors.toList());
+		if (!listTimKiem.isEmpty()) {
+			listSearch.addAll(listTimKiem);
+		}
+		return new ArrayList<>();
+	}
+	
 	@Transient
 	public AbstractValidator getValidatorTenDoan() {
 		return new AbstractValidator() {
@@ -525,7 +580,25 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		};
 	}
-
+	
+	@Transient
+	public AbstractValidator getValidateTenQuocGia() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(final ValidationContext ctx) {
+				String tenQuocGia = (String) ctx.getValidatorArg("ten");
+				String param = tenQuocGia.trim().replaceAll("\\s+", "");
+				if (param.isEmpty() || param == null) {
+					addInvalidMessage(ctx, "Không được để trống trường này");
+				} else {
+					if (!getListQuocGia().contains(tenQuocGia)) {
+						addInvalidMessage(ctx, "Quốc gia này không có trong hệ thống.");
+					}
+				}
+			}
+		};
+	}
+	
 	@Transient
 	public ThanhVienDoan getThanhVienDoanTemp() {
 		return thanhVienDoanTemp;
@@ -621,6 +694,17 @@ public class DoanVao extends Model<DoanVao> {
 	public void setSoThanhVienDoan(int soThanhVienDoan) {
 		this.soThanhVienDoan = soThanhVienDoan;
 	}
+	
+	private String tenQuocGia = "";
+	
+	@NotifyChange("listSearch")
+	public String getTenQuocGia() {
+		return tenQuocGia;
+	}
+
+	public void setTenQuocGia(String tenQuocGia) {
+		this.tenQuocGia = tenQuocGia;
+	}
 
 	@Command
 	public void saveThanhVienDoan() {
@@ -659,7 +743,7 @@ public class DoanVao extends Model<DoanVao> {
 					});
 		}
 	}
-
+	
 	public void reset() {
 		thanhVienDoanTemp = new ThanhVienDoan();
 		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
@@ -672,7 +756,7 @@ public class DoanVao extends Model<DoanVao> {
 			thanhVienDoanTemp.setHoVaTen(null);
 			thanhVienDoanTemp.setChucDanh(null);
 			thanhVienDoanTemp.setDonVi(null);
-			thanhVienDoanTemp.setQuocGia(null);
+			thanhVienDoanTemp.setTenQuocGia(null);
 			thanhVienDoanTemp.setEmail(null);
 			thanhVienDoanTemp.setSoDienThoai(null);
 			BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
@@ -693,8 +777,7 @@ public class DoanVao extends Model<DoanVao> {
 		this.index = index;
 		thanhVienDoanTemp.setHoVaTen(thanhVienDoan.getHoVaTen());
 		thanhVienDoanTemp.setChucDanh(thanhVienDoan.getChucDanh());
-		thanhVienDoanTemp.setDonVi(thanhVienDoan.getDonVi());
-		thanhVienDoanTemp.setQuocGia(thanhVienDoan.getQuocGia());
+		thanhVienDoanTemp.setTenQuocGia(thanhVienDoan.getTenQuocGia());
 		thanhVienDoanTemp.setEmail(thanhVienDoan.getEmail());
 		thanhVienDoanTemp.setSoDienThoai(thanhVienDoan.getSoDienThoai());
 		flag = true;
@@ -712,6 +795,7 @@ public class DoanVao extends Model<DoanVao> {
 	// ======================================================================================
 	
 	private List<GiaoViec> listCongViecTheoDoanVao = new ArrayList<>();
+	private List<GiaoViec> listXoaCongViecKeHoach = new ArrayList<>();
 	
 	@Transient
 	public List<GiaoViec> getListCongViecTheoDoanVao() {
@@ -720,6 +804,15 @@ public class DoanVao extends Model<DoanVao> {
 
 	public void setListCongViecTheoDoanVao(List<GiaoViec> listCongViecTheoDoanVao) {
 		this.listCongViecTheoDoanVao = listCongViecTheoDoanVao;
+	}
+	
+	@Transient
+	public List<GiaoViec> getListXoaCongViecKeHoach() {
+		return listXoaCongViecKeHoach;
+	}
+
+	public void setListXoaCongViecKeHoach(List<GiaoViec> listXoaCongViecKeHoach) {
+		this.listXoaCongViecKeHoach = listXoaCongViecKeHoach;
 	}
 
 	private boolean checkNotAllNull = true;
@@ -740,12 +833,36 @@ public class DoanVao extends Model<DoanVao> {
 			}
 		}
 	}
-
+	
+	@Command
+	public void deleteCongViecKeHoach(@BindingParam("item") final GiaoViec congViec,
+			@BindingParam("vm") final DoanVao doanVao) {
+		if (!checkInUse()) {
+			Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
+					new EventListener<Event>() {
+						@Override
+						public void onEvent(Event event) throws Exception {
+							if (Messagebox.ON_OK.equals(event.getName())) {
+								showNotification("Xóa thành công!", "", "success");
+								if (congViec != null) {
+									doanVao.getListCongViecTheoDoanVao().remove(congViec);
+									if (!congViec.noId()) {
+										listXoaCongViecKeHoach.add(congViec);
+									}
+								}
+								BindUtils.postNotifyChange(null, null, doanVao, "listCongViecTheoDoanVao");
+								BindUtils.postNotifyChange(null, null, this, "listXoaCongViecKeHoach");
+							}
+						}
+					});
+		}
+	}
+	
 	public void resetCheck() {
 		checkNotAllNull = true;
 		checkAllNull = false;
 	}
-
+	
 	@Command
 	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao,
 			@BindingParam("wdn") final Window wdn) {
@@ -763,7 +880,7 @@ public class DoanVao extends Model<DoanVao> {
 		DoanVaoModel rs = new DoanVaoModel();
 		rs.setId(getId() != null ? getId() : null);
 		rs.setTenDoanVao(getTenDoanVao() != null ? getTenDoanVao() : "");
-		rs.setQuocGia(getQuocGia() != null ? getQuocGia().getText() : "");
+		rs.setQuocGia(getTenQuocGia() != null ? getTenQuocGia() : "");
 		rs.setTrangThaiTiepDoan(getTrangThaiTiepDoan() != null ? getTrangThaiTiepDoan().getText() : "");
 		rs.setTomTatNoiDungKq(getTomTatNoiDungKQ() != null ? getTomTatNoiDungKQ() : "");
 		rs.setDeXuatCVPhuTrach(getDeXuatCVPhuTrach() != null ? getDeXuatCVPhuTrach() : "");
@@ -778,5 +895,4 @@ public class DoanVao extends Model<DoanVao> {
 		rs.setThanhVienDoans(getListThanhVienTheoDoan() != null ? getListThanhVienTheoDoan().stream().map(ThanhVienDoan::toThanhVienDoanModel).collect(Collectors.toList()) : null);
 		return rs;
 	}
-	
 }

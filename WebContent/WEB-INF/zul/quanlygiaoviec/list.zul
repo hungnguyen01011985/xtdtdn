@@ -1,6 +1,6 @@
 <?page title="Quản lí giao việc" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')">
+	apply="org.zkoss.bind.BindComposer" class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.GiaoViecService')" validationMessages="@id('vmsgs')">
 	<zscript>
 		<![CDATA[
 			page.title = "Quản lí giao việc";
@@ -72,15 +72,15 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<span>Thời gian bắt đầu: Từ ngày</span> 
-							<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" value="@bind(vm.tuNgay) @save(vm.tuNgay, before={'cmd'}) @validator(vm.validatorNgay, endDate = vm.denNgay, type = true, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" width="100%" placeholder="dd/mm/yyyy" />
+							<label zclass="error" value="@load(vmsgs['dateStart'])" />
 						</div>
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<span>Đến ngày</span> 
-							<datebox format="dd/MM/yyyy" value="@bind(vm.denNgay)" class="hv-db" width="100%" placeholder="Chọn ngày"/>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							<datebox format="dd/MM/yyyy" value="@bind(vm.denNgay) @save(vm.denNgay, before={'cmd'}) @validator(vm.validatorNgay, dateStart = vm.tuNgay, type = false, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" class="hv-db" width="100%" placeholder="dd/mm/yyyy"/>
+							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>
 					</div>
 				</div>
@@ -131,8 +131,8 @@
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
 								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-								<label value="@load(each.tenCongViec)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = item, vmArgs = vm, readOnly = false, loaiCongViec = item.loaiCongViec, title = 'Chi tiết công việc')"></label>
-								<label value="@load(duAnCV eq each.loaiCongViec ? each.duAn.tenDuAn : each.doanVao.tenDoanVao)"></label>
+								<label value="@load(each.subString(each.tenCongViec, 60))" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = item, vmArgs = vm, readOnly = false, loaiCongViec = item.loaiCongViec, title = 'Chi tiết công việc')"></label>
+								<label value="@load(duAnCV eq each.loaiCongViec ? each.subString(each.duAn.tenDuAn, 60) : each.subString(each.doanVao.tenDoanVao, 60))"></label>
 								<label value="@load(each.nguoiDuocGiao.hoVaTen)"></label>
 								<label value="@load(each.loaiCongViec.text)"></label>
 								<label value="@load(each.trangThaiGiaoViec.text)" class="@load(each.trangThaiGiaoViec)"></label>
