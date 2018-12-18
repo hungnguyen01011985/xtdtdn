@@ -52,30 +52,15 @@
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div class="col-md-12">
 					<div children="@bind(vm.listParentVaiTro1)" style="display:flex; flex-direction:column;">
-						<template name="children">
-							<label value="@load(vm.getLabelParentVaiTro(each))"></label>
-							<div style="display:flex;" children="@bind(vm.getListChildrenVaiTro(each))">
+						<template name="children" var="parent">
+							<label value="@load(vm.getLabelParentVaiTro(parent))"></label>
+							<div style="display:flex;" children="@bind(vm.getListChildrenVaiTro(parent))">
 								<template name="children">
-									<label value="@load(vm.getLabelChildrenVaiTro(each))"></label>
+									<checkbox label="@load(each)" checked="@load(vm.selectItemVaiTro.contains(each))" onCheck="@command('doChecked', children = each, parent = parent)"></checkbox>
 								</template>
 							</div>
 						</template>
 					</div>
-					<!-- <tree multiple="true" checkmark="${!readOnly}"
-						model="@load(vm.model)" selectedItems="@bind(vm.selectedItems)">
-						<treecols >
-							<treecol label="Tên chức năng và quyền"></treecol>
-						</treecols>
-						<template name="model" var="node">
-							<treeitem open="true">
-								<treerow>
-									<treecell>
-										<label value="@load(node.data[0])"></label>
-									</treecell>
-								</treerow>
-							</treeitem>
-						</template>
-					</tree> -->
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">

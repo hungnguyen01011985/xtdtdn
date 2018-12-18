@@ -33,6 +33,7 @@ import org.zkoss.zul.DefaultTreeNode;
 import org.zkoss.zul.TreeNode;
 import org.zkoss.zul.Window;
 
+import com.google.api.services.youtube.YouTube.LiveBroadcasts.Bind;
 import com.google.common.base.Strings;
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -133,19 +134,42 @@ public class VaiTro extends Model<VaiTro> {
 	public List<String> getListChildrenVaiTro(String resource) {
 		List<String> list = new ArrayList<String>();
 		final Set<String> allQuyens = new HashSet<>();
-		for (String vaiTro : VAITRO_DEFAULTS) {
-			allQuyens.addAll(getQuyenMacDinhs(vaiTro));
-		}
+		allQuyens.addAll(getQuyenAllMacDinhs());
+		list.add("tatca");
 		for (String action : core().getACTIONS()) {
 			String quyen = resource + Quyen.CACH + action;
-			System.out.println(quyen);
 			if (allQuyens.contains(quyen)) {
-				System.out.println("zo dc day");
-				list.add(action);
+				list.add(quyen);
 			}
 		}
-		System.out.println(list.size() + "size");
 		return list;
+	}
+	
+	Set<String> selectItemVaiTro = new HashSet<String>();
+	
+	@Transient
+	public Set<String> getSelectItemVaiTro() {
+		return selectItemVaiTro;
+	}
+
+	public void setSelectItemVaiTro(Set<String> selectItemVaiTro) {
+		this.selectItemVaiTro = selectItemVaiTro;
+	}
+
+	@Command
+	public void doChecked(@BindingParam("children") String children, @BindingParam("parent") String parent) {
+		if ("tatca".equals(children)) {
+			selectItemVaiTro.addAll(getQuyenByVaiTro(parent));
+			System.out.println("parent:" + parent);
+			
+		} else if (selectItemVaiTro.contains(children)) {
+			selectItemVaiTro.remove(children);
+		} else {
+			selectItemVaiTro.add(children);
+		}
+		System.out.println(selectItemVaiTro.size());
+		selectItemVaiTro.forEach(item -> System.out.println(item));
+		BindUtils.postNotifyChange(null, null, this, "selectItemVaiTro");
 	}
 	
 	@Transient
@@ -206,7 +230,17 @@ public class VaiTro extends Model<VaiTro> {
 	public String getAlias() {
 		return alias;
 	}
-
+	
+	@Transient
+	public Set<String> getQuyenByVaiTro(String vaitro) {
+		Set<String> list = new HashSet<String>();
+			list.add(core().NGUOIDUNGLIST);
+			list.add(core().NGUOIDUNGXEM);
+			list.add(core().NGUOIDUNGTHEM);
+			list.add(core().NGUOIDUNGSUA);
+			list.add(core().NGUOIDUNGXOA);
+		return list;
+	}
 
 	@Transient
 	public Set<String> getQuyenAllMacDinhs() {
