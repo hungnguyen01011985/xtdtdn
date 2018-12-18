@@ -61,7 +61,7 @@
 								<label value="@load(item.ten)" zk:if="${entry.quyen.donvixuctien_xem}"
 									onClick="@command('redirectPageAction', zul='donvixuctien/show-edit-don-vi.zul', vmArgs=vm, vm=item, readOnly=true)" sclass="txt-link-table"/>
 								<label value="@load(item.ten)" zk:if="${!entry.quyen.donvixuctien_xem}" sclass="txt-link-table"/>
-								<label value="@load(item.moTa)"></label>
+								<label value="@load(item.subString(item.moTa , 110))"></label>
 								<label value="@load(item.capDonVi.ten)"/>
 								<div class="thaotac" style="text-align:center">
 									<x:a label="Sửa" class="btn-thaotac left" if="${entry.quyen.donvixuctien_sua}" zk:onClick="@command('redirectPage', zul='donvixuctien/show-edit-don-vi.zul', vmArgs=vm, vm=item)">
