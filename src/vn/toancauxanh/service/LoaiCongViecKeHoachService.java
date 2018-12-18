@@ -2,10 +2,12 @@ package vn.toancauxanh.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.collections.MapUtils;
+
 import com.querydsl.jpa.impl.JPAQuery;
+
 import vn.toancauxanh.model.LoaiCongViecKeHoach;
-import vn.toancauxanh.model.QCapDonVi;
 import vn.toancauxanh.model.QLoaiCongViecKeHoach;
 
 public class LoaiCongViecKeHoachService extends BasicService<LoaiCongViecKeHoach> {

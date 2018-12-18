@@ -201,12 +201,12 @@ public class DuAn extends Model<DuAn> {
 	@Transient
 	public String getDiaDiemAndDienTich() {
 		if (diaDiem != null && dienTichSuDungDat != 0) {
-			return diaDiem + ", " + dienTichSuDungDat;
+			return diaDiem + ", " + dienTichSuDungDat.intValue();
 		}
 		if (diaDiem == null && dienTichSuDungDat == 0) {
 			return "Chưa xác định";
 		}
-		return (diaDiem == null ? dienTichSuDungDat + "" : diaDiem );
+		return (diaDiem == null ? dienTichSuDungDat.intValue() + "" : diaDiem );
 	}
 	
 	@Transient
