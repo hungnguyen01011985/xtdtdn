@@ -2736,6 +2736,12 @@ rotate
 	height: auto !important;
 	overflow: hidden !important;
 }
+
+.z-bandbox-popup {
+    right: 48px;
+    overflow-x: hidden; 
+}
+
 .toast-success {
 	box-shadow: none !important;
 	opacity:1 !important;

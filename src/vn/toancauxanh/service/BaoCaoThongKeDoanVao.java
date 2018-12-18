@@ -10,7 +10,6 @@ import org.zkoss.bind.annotation.Command;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.model.QDoanVao;
 
@@ -23,7 +22,7 @@ public class BaoCaoThongKeDoanVao extends BasicService<DoanVao>{
 			q.where(QDoanVao.doanVao.tenDoanVao.like("%" + param + "%"));
 		}
 		if (quocGia != null && !quocGia.isEmpty()) {
-			q.where(QDoanVao.doanVao.quocGia.eq(QuocGiaEnum.valueOf(quocGia)));
+			q.where(QDoanVao.doanVao.tenQuocGia.eq(quocGia));
 		}
 		if (getFixTuNgay() != null && getFixDenNgay() == null) {
 			q.where(QDoanVao.doanVao.thoiGianDenLamViec.after(getFixTuNgay()));
