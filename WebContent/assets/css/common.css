@@ -1223,7 +1223,7 @@ ul.z-tabs-content {
 	width: 243px;
 	color: #e1ffff;
 	float: left;
-	height: calc(100vh - 60px);
+	min-height: calc(100vh - 60px);
 	overflow: auto;
 	box-shadow: 0 1px 2px 0 rgba(38, 50, 69, 0.16);
 	transition: all .5s ease;
@@ -1246,6 +1246,7 @@ ul.z-tabs-content {
 }
 
 .box-col-full {
+	width:100%;
 	margin-top: 0px;
 	height:auto;
 	overflow: auto;
@@ -1253,15 +1254,18 @@ ul.z-tabs-content {
 
 #page-wrapper {
 	padding: 0;
-	background-color: #f4f5f7;
+	background-color: #F4F6F8;
 	min-width:1007px;
+	min-height:calc(100vh - 60px) !important;
+	height:auto;
+	width:auto;
 	font-family: Roboto-Medium;
+	display:flex;
 }
 
 .form-list {
-	background: #FFFFFF;
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
 	border-radius: 8px;
+	background: transparent;
 }
 
 .panel-list {
@@ -1284,7 +1288,6 @@ ul.z-tabs-content {
 
 .box-col-7 {
 	float: right;
-	/* width: calc(100% - 243px) !important; */
 	height: auto !important;
 }
 
@@ -1292,7 +1295,7 @@ ul.z-tabs-content {
 }
 
 .content-popup .z-window-content {
-	background: white !important;
+	/* background: white !important; */
 	height: auto !important;
 	overflow: hidden !important;
 }
@@ -1309,8 +1312,7 @@ ul.z-tabs-content {
 
 .form-list .z-window-content {
 	padding: 0px !important;
-	background: rgba(121, 149, 216, 0.1);
-	overflow: auto;
+	background:transparent;
 }
 
 
@@ -2345,7 +2347,7 @@ rotate
 	height: 60px;
 	background: #4274ED;
 	justify-content: space-between;
-	/* min-width: 1024px; */
+	min-width: 1007px;
 }
 
 .header-top-be a {
