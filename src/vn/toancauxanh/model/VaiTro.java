@@ -105,7 +105,48 @@ public class VaiTro extends Model<VaiTro> {
 	}
 
 	Set<TreeNode<String[]>> selectedItems = new HashSet<>();
-
+	
+	@Transient
+	public List<String> getListParentVaiTro() {
+		List<String> list = new ArrayList<String>();
+		for(String parent : core().getRESOURCES()) {
+			list.add(parent);
+		}
+		return list;
+	}
+	
+	@Transient
+	public String[] getListParentVaiTro1() {
+		return core().getRESOURCES();
+	}
+	
+	@Transient
+	public String getLabelParentVaiTro(String resource) {
+		return Labels.getLabel("url." + resource + ".mota");
+	}
+	
+	@Transient
+	public String getLabelChildrenVaiTro(String action) {
+		return Labels.getLabel("action." + action + ".mota");
+	}
+	@Transient
+	public List<String> getListChildrenVaiTro(String resource) {
+		List<String> list = new ArrayList<String>();
+		final Set<String> allQuyens = new HashSet<>();
+		for (String vaiTro : VAITRO_DEFAULTS) {
+			allQuyens.addAll(getQuyenMacDinhs(vaiTro));
+		}
+		allQuyens.forEach(item -> System.out.println(item));
+		for (String action : core().getACTIONS()) {
+			String quyen = resource + Quyen.CACH + action;
+			if (quyens.contains(quyen)) {
+				list.add(action);
+			}
+		}
+		System.out.println(list.size() + "size");
+		return list;
+	}
+	
 	@Transient
 	@NotifyChange({ "selectedItems", "model", "*" })
 	public DefaultTreeModel<String[]> getModel() {

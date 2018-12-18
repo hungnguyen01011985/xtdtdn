@@ -51,7 +51,17 @@
 			</div>
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div class="col-md-12">
-					<tree multiple="true" checkmark="${!readOnly}"
+					<div children="@bind(vm.listParentVaiTro1)" style="display:flex; flex-direction:column;">
+						<template name="children">
+							<label value="@load(vm.getLabelParentVaiTro(each))"></label>
+							<div style="display:flex;" children="@bind(vm.getListChildrenVaiTro(each))">
+								<template name="children">
+									<label value="@load(vm.getLabelChildrenVaiTro(each))"></label>
+								</template>
+							</div>
+						</template>
+					</div>
+					<!-- <tree multiple="true" checkmark="${!readOnly}"
 						model="@load(vm.model)" selectedItems="@bind(vm.selectedItems)">
 						<treecols >
 							<treecol label="Tên chức năng và quyền"></treecol>
@@ -65,7 +75,7 @@
 								</treerow>
 							</treeitem>
 						</template>
-					</tree>
+					</tree> -->
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
