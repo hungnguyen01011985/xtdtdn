@@ -1,11 +1,12 @@
 <?page title="Kế hoạch làm việc" contentType="text/html;charset=UTF-8"?>
+<idspace>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
 	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true" validationMessages="@id('vmsgs')" class="content-popup pop-up-width1">
 	<zscript>
 		<![CDATA[
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
 			list = new vn.toancauxanh.service.CongViecKeHoachService().getListGiaoViecTheoDoanVao(doanVao.id);
-			if (list != null && !list.isEmpty()) {
+			if (list != null && !list.isEmpty() && doanVao.getListCongViecTheoDoanVao().isEmpty()) {
 				doanVao.setListCongViecTheoDoanVao(list);
 			} else if(doanVao.getListCongViecTheoDoanVao().isEmpty()) {
 				listKhoiTao = new vn.toancauxanh.service.CongViecKeHoachService().getListCongViecKhoiTao();
@@ -81,7 +82,7 @@
 									<row>
 										<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
 										<div>
-											<label visible="@load(!each.noId())" value="@load(each.tenCongViec)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Chi tiết công việc')"/>
+											<label visible="@load(!each.noId())" value="@load(vm.subString(each.tenCongViec, 40))" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Chi tiết công việc')"/>
 											<label visible="@load(each.noId())" value="@load(each.tenCongViec)"></label>
 										</div>
 										<label value="@load(each.cha.ten)"></label>
@@ -98,11 +99,11 @@
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 												<x:span>Nhận việc</x:span>
 											</x:a>
-											<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" if="${((vm.checkQuyenSuaXoaKeCongViec(vm.nguoiPhuTrach.id) and hoanThanh ne each.trangThaiGiaoViec) || (entry.quyen.quanlydoanvao_them and hoanThanh ne each.trangThaiGiaoViec)) and !readOnly}" zk:onClick="@command('delete',vm = vm, item = item , attr='*')">
+											<x:a label="Xóa" class="btn-thaotac btn-right btn-xoa-color" if="${((vm.checkQuyenSuaXoaKeCongViec(each.nguoiTao.id) and hoanThanh ne each.trangThaiGiaoViec) and !readOnly) or (each.noId() and !readOnly)}" zk:onClick="@command('deleteCongViecKeHoach',vm = vm, item = each , attr='*')">
 												<x:image class="img-edit" width="20px" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 												<x:span>Xóa</x:span>
 											</x:a>
-											<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${((vm.checkQuyenSuaXoaKeCongViec(vm.nguoiPhuTrach.id) and hoanThanh ne each.trangThaiGiaoViec) || (entry.quyen.quanlydoanvao_them and hoanThanh ne each.trangThaiGiaoViec)) and !readOnly}"
+											<x:a label="Sửa" class="btn-thaotac btn-right btn-sua-color" if="${((vm.checkQuyenSuaXoaKeCongViec(each.nguoiTao.id) and hoanThanh ne each.trangThaiGiaoViec) and !readOnly) or (each.noId() and !readOnly)}"
 												onClick="@command('redirectPage',zul='quanlydoanvao/show-edit-cong-viec.zul', vm = each, vmArgs = vm)">
 												<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 												<x:span zk:visible="@load(each.checkQuyenSua(each.nguoiDuocGiao, each.hanThucHien))">Sửa</x:span>
@@ -140,3 +141,4 @@
 		</div>
 	</div>
 </window>
+</idspace>

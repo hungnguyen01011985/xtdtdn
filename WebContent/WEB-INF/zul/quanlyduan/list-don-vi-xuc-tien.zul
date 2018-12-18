@@ -24,7 +24,7 @@
 				</div>
 				<div zclass="row mg-and-bg-and-line">
 					<div zclass="col-md-12">
-						<listbox id="listbox" class="mg-bt-15 ${vm.targetQuery.fetchCount() > 10 ? 'list-box-no-paging' : ''}" selectedItems="@bind(vm.selectedItems)" multiple="true" checkmark="true" model="@load(vm.targetQuery.fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
+						<listbox id="listbox" class="mg-bt-15 ${vm.targetQuery.fetchCount() > 10 ? 'list-box-no-paging edit-style-list' : ''}" selectedItems="@bind(vm.selectedItems)" multiple="true" checkmark="true" model="@load(vm.targetQuery.fetch())" emptyMessage="Không có dữ liệu nào trong danh sách">
 							<listhead>
 								<listheader label="" width="40px" align="center"></listheader>
 								<listheader label="STT" width="45px" align="center"></listheader>
