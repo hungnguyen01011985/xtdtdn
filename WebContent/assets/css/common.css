@@ -1246,7 +1246,6 @@ ul.z-tabs-content {
 }
 
 .box-col-full {
-	max-height: calc(100vh - 60px) !important;
 	margin-top: 0px;
 	height:auto;
 	overflow: auto;
@@ -1255,8 +1254,7 @@ ul.z-tabs-content {
 #page-wrapper {
 	padding: 0;
 	background-color: #f4f5f7;
-	height: calc(100vh - 60px);
-	min-width:1024px;
+	min-width:1007px;
 	font-family: Roboto-Medium;
 }
 
@@ -1291,8 +1289,6 @@ ul.z-tabs-content {
 }
 
 .wrap-fix {
-	/* margin-bottom: 90px !important; */
-	height: 90vh;
 }
 
 .content-popup .z-window-content {
@@ -1314,9 +1310,7 @@ ul.z-tabs-content {
 .form-list .z-window-content {
 	padding: 0px !important;
 	background: rgba(121, 149, 216, 0.1);
-	height: calc(100vh - 60px);
 	overflow: auto;
-	/* min-height: calc(100vh - 60px); */
 }
 
 
@@ -1647,43 +1641,19 @@ ul.z-tabs-content {
 	.box-header-imgbar {
 		display:none;
 	}
+	.header-parent {
+		width:50px;
+	}
+	.header-children {
+		width:50px;
+	}
+	
 }
 
 .form-group .z-datebox-button {
 	padding-top: 7px;
 }
 
-
-/* @media ( max-width : 1299px) {
-	 .btn-custom, .z-grid-header, .z-listheader, .z-column,
-	 .z-auxheader-content, .z-listheader-content, .z-column-content, .z-label, .z-radio-content, .z-checkbox-content, .z-loading, 
-	 .z-a, .z-row-content, .z-group-content, .z-groupfoot-content, .z-footer-content
-	 ,.z-paging-button.z-paging-selected {
-		font-size: 12px !important;
-	}
-	.box-col-full {
-		max-height: calc(100vh - 210px);
-		overflow: auto;
-	}
-	.box-col-full:after {
-		content: "";
-		display: table;
-		clear: both;
-	}
-	.page-header {
-		font-size: 14px;
-	}
-	.panel-list {
-		margin: 10px;
-	}
-	.item-foot, .form-group .control-label {
-		font-size: 11px;
-	}
-	.tt_info {
-		width: 800px;
-	}
-}
- */
 body {
 	margin: 0px;
 	padding: 0px;
@@ -1852,7 +1822,11 @@ body {
 .fix-menu .z-menu-content:hover {
 	background: none !important;
 }
-
+.menu-content {
+	position: absolute;
+	width:243px;
+	transition: width .5s ease;
+}
 .fix-menu li {
 	border: none !important;
 	width: 99% !important;

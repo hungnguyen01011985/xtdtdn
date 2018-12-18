@@ -98,7 +98,7 @@
 	padding-bottom:0;
 }
 .menu-sub-children {
-	position: fixed;
+	position: absolute;
 	z-index: 99999999999;
 	left: 50px;
 	height:auto !important;
@@ -111,7 +111,7 @@
 }
 .box-title-parent {
 	z-index: 99999999999;
-    position: fixed;
+    position: absolute;
     background: #FFFFFF;
     left: 50px;
     width: 220px;
@@ -815,6 +815,10 @@
 	display:flex;
 	flex-direction:column;
 	position: relative;
+	transition:width .5s ease;
+}
+.header-parent {
+	transition:width .5s ease;
 }
 .mg-and-bg {
 	padding-bottom: 6px;
