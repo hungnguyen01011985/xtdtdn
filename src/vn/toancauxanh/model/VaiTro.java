@@ -28,6 +28,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.resource.Labels;
+import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.DefaultTreeModel;
 import org.zkoss.zul.DefaultTreeNode;
 import org.zkoss.zul.TreeNode;
@@ -232,13 +233,104 @@ public class VaiTro extends Model<VaiTro> {
 	}
 	
 	@Transient
-	public Set<String> getQuyenByVaiTro(String vaitro) {
+	public Set<String> getQuyenByVaiTro(String parent) {
 		Set<String> list = new HashSet<String>();
-			list.add(core().NGUOIDUNGLIST);
-			list.add(core().NGUOIDUNGXEM);
-			list.add(core().NGUOIDUNGTHEM);
-			list.add(core().NGUOIDUNGSUA);
-			list.add(core().NGUOIDUNGXOA);
+		if ("quanlyduan".equals(parent)) {
+			list.add(core().QUANLYDUANLIST);
+			list.add(core().QUANLYDUANSUA);
+			list.add(core().QUANLYDUANTHEM);
+			list.add(core().QUANLYDUANXOA);
+			list.add(core().QUANLYDUANXEM);
+			list.add(core().QUANLYDUANGIAOVIEC);
+			list.add(core().QUANLYDUANPHUTRACH);
+		} else if ("quanlydoanvao".equals(parent)) {
+			
+		}
+		
+
+		list.add(core().QUANLYDOANVAOLIST);
+		list.add(core().QUANLYDOANVAOSUA);
+		list.add(core().QUANLYDOANVAOXEM);
+		list.add(core().QUANLYDOANVAOTHEM);
+		list.add(core().QUANLYDOANVAOXOA);
+
+		list.add(core().QUANLYGIAOVIECLIST);
+		list.add(core().QUANLYGIAOVIECSUA);
+		list.add(core().QUANLYGIAOVIECTHEM);
+		list.add(core().QUANLYGIAOVIECXOA);
+		list.add(core().QUANLYGIAOVIECXEM);
+		list.add(core().QUANLYGIAOVIECNHACNHO);
+
+		list.add(core().QUANLYPHONGBANLIST);
+		list.add(core().QUANLYPHONGBANXEM);
+		list.add(core().QUANLYPHONGBANSUA);
+		list.add(core().QUANLYPHONGBANTHEM);
+		list.add(core().QUANLYPHONGBANXOA);
+
+		list.add(core().LINHVUCDUANLIST);
+		list.add(core().LINHVUCDUANXEM);
+		list.add(core().LINHVUCDUANTHEM);
+		list.add(core().LINHVUCDUANSUA);
+		list.add(core().LINHVUCDUANXOA);
+
+		list.add(core().VAITROLIST);
+		list.add(core().VAITROXEM);
+		list.add(core().VAITROTHEM);
+		list.add(core().VAITROSUA);
+		list.add(core().VAITROXOA);
+		list.add(core().VAITROTIMKIEM);
+
+		list.add(core().NGUOIDUNGLIST);
+		list.add(core().NGUOIDUNGXEM);
+		list.add(core().NGUOIDUNGTHEM);
+		list.add(core().NGUOIDUNGSUA);
+		list.add(core().NGUOIDUNGXOA);
+		
+		list.add(core().BAOCAOTHONGKEDUAN);
+		list.add(core().BAOCAOTHONGKEDOANVAO);
+		list.add(core().BAOCAOTHONGKECONGVIEC);
+		
+		list.add(core().DONVILIST);
+		list.add(core().DONVIXEM);
+		list.add(core().DONVITHEM);
+		list.add(core().DONVISUA);
+		list.add(core().DONVIXOA);
+		list.add(core().DONVITIMKIEM);
+		
+		list.add(core().NHADAUTULIST);
+		list.add(core().NHADAUTUXEM);
+		list.add(core().NHADAUTUTHEM);
+		list.add(core().NHADAUTUSUA);
+		list.add(core().NHADAUTUXOA);
+		list.add(core().NHADAUTUTIMKIEM);
+		
+		list.add(core().CAPDONVILIST);
+		list.add(core().CAPDONVIXEM);
+		list.add(core().CAPDONVITHEM);
+		list.add(core().CAPDONVISUA);
+		list.add(core().CAPDONVIXOA);
+		list.add(core().CAPDONVITIMKIEM);
+		
+		list.add(core().DONVIXUCTIENLIST);
+		list.add(core().DONVIXUCTIENXEM);
+		list.add(core().DONVIXUCTIENTHEM);
+		list.add(core().DONVIXUCTIENSUA);
+		list.add(core().DONVIXUCTIENXOA);
+		list.add(core().DONVIXUCTIENTIMKIEM);
+		
+		list.add(core().LOAIKEHOACHCONGVIECXEM);
+		list.add(core().LOAIKEHOACHCONGVIECTHEM);
+		list.add(core().LOAIKEHOACHCONGVIECLIST);
+		list.add(core().LOAIKEHOACHCONGVIECXOA);
+		list.add(core().LOAIKEHOACHCONGVIECSUA);
+		list.add(core().LOAICONGVIECKEHOACHTIMKIEM);
+		
+		list.add(core().CONGVIECKEHOACHXEM);
+		list.add(core().CONGVIECKEHOACHTHEM);
+		list.add(core().CONGVIECKEHOACHLIST);
+		list.add(core().CONGVIECKEHOACHXOA);
+		list.add(core().CONGVIECKEHOACHSUA);
+		list.add(core().CONGVIECKEHOACHTIMKIEM);
 		return list;
 	}
 
