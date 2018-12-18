@@ -36,6 +36,14 @@
 						<textbox disabled="${readOnly}" rows="3" class="form-control textbox-txt-style" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('savePhongBan', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
+				<div zclass="col-md-12">
+					<div zclass="form-group txt-textbox-disable">
+						<x:span class="label-txt-style">Liên kết đơn vị sở nội vụ</x:span> 
+						<x:button style="margin-top: 8px;" class="btn btn-blue" zk:onClick="@command('savePhongBan', list=vmArgs, attr='targetQuery', wdn=wdn)">
+							<span>Chọn đơn vị</span>
+						</x:button>
+					</div>
+				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-xs-6">
