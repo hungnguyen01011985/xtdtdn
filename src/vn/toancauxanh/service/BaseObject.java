@@ -57,7 +57,7 @@ import vn.toancauxanh.sso.Utils;
 
 public class BaseObject<T> extends CoreObject<T> {
 	
-	public boolean live = true;
+	public boolean live = false;
 	
 	public boolean isLive() {
 		return live;
