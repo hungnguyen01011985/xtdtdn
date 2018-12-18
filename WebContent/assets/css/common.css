@@ -67,7 +67,39 @@ html, body {
 	background-color: #fff !important;
     color: #000 !important;
 }
-
+.z-hbox .z-messagebox {
+	display: flex;
+    align-items: center;
+    height: 100%;
+}
+#toast-container > div {
+	box-shadow : none;
+}
+.toast-error {
+	box-shadow : none !important;
+	opacity:1 !important;
+}
+.toast-title {
+	font-family: Roboto-Bold !important;
+}
+.btn-upload-image-avarta {
+	border-radius: 50%;
+    height: 36px;
+    width: 36px;
+    background:#FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-upload-image-avarta:hover {
+	background:#FFF !important;
+}
+.btn-upload-image-avarta:focus {
+	background:#FFF !important;
+}
+.edit-style-list .z-listbox-header {
+	padding-right:10px;
+}
 /* Header */
 .wd-header {
 	/*background-color: #212121 !important;*/
@@ -1224,7 +1256,7 @@ ul.z-tabs-content {
 	padding: 0;
 	background-color: #f4f5f7;
 	height: calc(100vh - 60px);
-	 /* min-width:1024px; */
+	/* min-width:1024px; */
 	font-family: Roboto-Medium;
 }
 
@@ -2627,6 +2659,13 @@ rotate
 	display: block;
 }
 
+.img-avarta-style {
+	width: 200px; 
+	height: 180px;
+	object-fit:cover;
+	border-radius: 50%;
+}
+
 .box-relative .number-box {
 	position: absolute;
 	right: -4px;
@@ -2696,4 +2735,8 @@ rotate
 	background: white !important;
 	height: auto !important;
 	overflow: hidden !important;
+}
+.toast-success {
+	box-shadow: none !important;
+	opacity:1 !important;
 }

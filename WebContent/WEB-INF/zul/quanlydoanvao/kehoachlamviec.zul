@@ -75,7 +75,7 @@
 								<column label="Thời gian" width="150px" style="text-align:center" />
 								<column label="Trạng thái" width="150px" style="text-align:center" />
 								<column label="Ghi chú" style="text-align:center" />
-								<column label="Thao tác" width="220px" style="text-align:center" />
+								<column label="Thao tác" width="210px" style="text-align:center" />
 							</columns>
 								<template name="model">
 									<row>

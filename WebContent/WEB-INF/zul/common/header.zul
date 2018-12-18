@@ -129,11 +129,6 @@
 		    $(obj).children(".title-menu-parent").css("display", "none");
 		  }
 		);
-		$(window).load(function() {
-			if ($(".nav-side-menu").css("width") == "243px") {
-				$(".active-children").children(".children-nav").css("max-height", "600px");
-			}
-		});
 		function toggleMenu() {
 			if ($(".nav-side-menu").css("display") == "none"){
 				$(".nav-side-menu").css("display","block");

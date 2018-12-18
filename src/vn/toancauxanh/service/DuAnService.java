@@ -7,6 +7,7 @@ import org.apache.commons.collections.MapUtils;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.util.Clients;
 
 import com.querydsl.jpa.impl.JPAQuery;
@@ -89,8 +90,11 @@ public class DuAnService extends BasicService<DuAn> {
 
 	public List<NhanVien> getListNguoiPhuTrach() {
 		List<NhanVien> list = new ArrayList<NhanVien>();
-		JPAQuery<NhanVien> q = find(NhanVien.class).where(QNhanVien.nhanVien.phongBan.eq(core().getNhanVien().getPhongBan()))
+		JPAQuery<NhanVien> q = find(NhanVien.class)
 				.where(QNhanVien.nhanVien.vaiTros.any().loaiVaiTro.eq(LoaiVaiTro.VAI_TRO_CHUYEN_VIEN));
+		if (core().getNhanVien().getPhongBan() != null) {
+			q.where(QNhanVien.nhanVien.phongBan.eq(core().getNhanVien().getPhongBan()));
+		}
 		if (q != null) {
 			list.addAll(q.fetch());
 			return list;

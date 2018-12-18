@@ -90,6 +90,11 @@ public class DoanVao extends Model<DoanVao> {
 	public int getSoNguoi() {
 		return soNguoi;
 	}
+	
+	@Transient
+	public String getSoNguoiAndText() {
+		return soNguoi + " người";
+	}
 
 	public void setSoNguoi(int soNguoi) {
 		this.soNguoi = soNguoi;
@@ -337,7 +342,7 @@ public class DoanVao extends Model<DoanVao> {
 			giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 			thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getTenCongViec());
 			giaoViec.saveNotShowNotification();
-			this.setIdNguoiLienQuan(this.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
+			this.setIdNguoiLienQuan(KY_TU + this.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 			this.saveNotShowNotification();
 		} else {
 			this.setNguoiThucHienCu(getNguoiDuocGiaoCu(giaoViec));
@@ -346,7 +351,7 @@ public class DoanVao extends Model<DoanVao> {
 				saveCongViec(giaoViec);
 				thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getTenCongViec());
 				giaoViec.saveNotShowNotification();
-				this.setIdNguoiLienQuan(resetId + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
+				this.setIdNguoiLienQuan(resetId + KY_TU + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 				this.saveNotShowNotification();
 			} else {
 				giaoViec.saveNotShowNotification();
@@ -745,8 +750,8 @@ public class DoanVao extends Model<DoanVao> {
 	public void saveKeHoachLamViec(@BindingParam("doanVao") final DoanVao doanVao,
 			@BindingParam("wdn") final Window wdn) {
 		listCongViecTheoDoanVao.forEach(item -> checkCongViec(item));
-		if (!checkNotAllNull || !checkAllNull) {
-			showNotification("", "Dữ liệu nhập vào chưa đúng. Vui lòng nhập lại", "danger");
+		if (!checkAllNull || !checkNotAllNull) {
+			showNotification("", "Bạn chưa tạo công việc nào. Vui lòng tạo công việc", "danger");
 			resetCheck();
 		} else {
 			wdn.detach();

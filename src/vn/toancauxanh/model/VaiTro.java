@@ -544,6 +544,10 @@ public class VaiTro extends Model<VaiTro> {
 	public void saveVaiTro(@BindingParam("list") final Object listObject,
 			@BindingParam("attr") final String attr,
 			@BindingParam("wdn") final Window wdn) {
+		if (quyenEdits.isEmpty()) {
+			showNotification("", "Bạn chưa chọn quyền nào cho vai trò này", "danger");
+			return;
+		}
 		setTenVaiTro(getTenVaiTro().trim().replaceAll("\\s+", " "));
 		setQuyens(quyenEdits);
 		save();

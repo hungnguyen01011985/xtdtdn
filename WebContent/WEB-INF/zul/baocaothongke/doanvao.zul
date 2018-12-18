@@ -1,6 +1,6 @@
 <?page title="Báo cáo thống kê" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
-	apply="org.zkoss.bind.BindComposer" class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.BaoCaoThongKeDoanVao')">
+	apply="org.zkoss.bind.BindComposer" class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.BaoCaoThongKeDoanVao')" validationMessages="@id('vmsgs')">
 	<zscript>
 		<![CDATA[
 			page.title = "Báo cáo thống kê";
@@ -50,13 +50,15 @@
 										<div zclass="col-md-4">
 											<div zclass="form-group">
 												<span>Từ ngày</span>
-												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày" />
+												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" value="@bind(vm.tuNgay) @save(vm.tuNgay, before={'cmd'}) @validator(vm.validatorNgay, endDate = vm.denNgay, type = true, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" width="100%" placeholder="dd/mm/yyyy" />
+												<label zclass="error" value="@load(vmsgs['dateStart'])" />
 											</div>
 										</div>
 										<div zclass="col-md-4">
 											<div zclass="form-group">
 												<span>Đến ngày</span> 
-												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" readonly="true" value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày" />
+												<datebox format="dd/MM/yyyy" value="@bind(vm.denNgay) @save(vm.denNgay, before={'cmd'}) @validator(vm.validatorNgay, dateStart = vm.tuNgay, type = false, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" class="hv-db" width="100%" placeholder="dd/mm/yyyy"/>
+												<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 											</div>
 										</div>
 									</div>
@@ -95,19 +97,21 @@
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên đoàn" />
-							<column label="Thành phần đoàn(người)" width="180px"/>
-							<column label="Nơi đoàn đi thăm họp tại" />
+							<column label="Thành phần đoàn (người)" width="180px"/>
 							<column label="Thời gian" width="120px"/>
+							<column label="Quốc gia" width="260px"></column>
+							<column label="Nơi đoàn đi thăm" />
 							<column label="Tóm tắt nội dung - Kết quả làm việc"/>
 						</columns>
 						<template name="model">
 							<row>
 								<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
 								<label value="@load(each.subString(each.tenDoanVao , 50))"></label>
-								<label value="@load(each.soNguoi)"></label>
-								<label value="@load(each.noiDoanDiTham)"></label>
+								<label value="@load(each.soNguoiAndText)"></label>
 								<label value="@load(each.thoiGianDenLamViec) @converter('formatedDate',format='dd/MM/yyyy')"></label>
-								<label value="@load(each.subString(each.tomTatNoiDungKQ , 60))"></label>
+								<label value="@load(each.tenQuocGia)"></label>
+								<label value="@load(each.noiDoanDiTham)"></label>
+								<label value="@load(each.tomTatNoiDungKQ)"></label>
 							</row>
 						</template>
 					</grid>

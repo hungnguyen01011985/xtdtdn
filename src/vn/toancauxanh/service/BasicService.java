@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.annotation.Nullable;
+import javax.persistence.Transient;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.zkoss.bind.ValidationContext;
+import org.zkoss.bind.sys.ValidationMessages;
+import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.resource.Labels;
 
 import vn.toancauxanh.model.NhanVien;
@@ -114,5 +118,50 @@ public class BasicService<T> extends BaseObject<T> {
 			req.setAttribute(key, nhanVien);
 		}
 		return isSave && nhanVien != null && nhanVien.noId() ? null : nhanVien;
+	}
+	
+	public AbstractValidator getValidatorNgay() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+				if (vmsgs != null) {
+					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
+					vmsgs.clearMessages(ctx.getBindContext().getComponent());
+				}
+				validateNgayHoanThanh(ctx);
+			}
+
+			private boolean validateNgayHoanThanh(final ValidationContext ctx) {
+				Boolean type = (Boolean) ctx.getValidatorArg("type");
+				String firstText = (String) ctx.getValidatorArg("firstText");
+				String secondText = (String) ctx.getValidatorArg("secondText");
+				Date endDate = (Date) ctx.getValidatorArg("endDate");
+				Date dateStart = (Date) ctx.getValidatorArg("dateStart");
+				boolean result = true;
+				if (type) {
+					Date checkDate = (Date) ctx.getProperty().getValue();
+					if (checkDate == null) {
+						result = true;
+					}
+					if (checkDate != null && endDate != null && resetHourMinuteSecondMilli(checkDate).compareTo(endDate) > 0) {
+						addInvalidMessage(ctx, "dateEnd",
+								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
+						result = false;
+					}
+				} else {
+					Date checkDate = (Date) ctx.getProperty().getValue();
+					if (checkDate == null) {
+						result = true;
+					}
+					if (dateStart != null && checkDate != null && resetHourMinuteSecondMilli(dateStart).compareTo(checkDate) > 0) {
+						addInvalidMessage(ctx, "dateEnd",
+								secondText + " phải lớn hơn hoặc bằng " + firstText.toLowerCase());
+						result = false;
+					}
+				}
+				return result;
+			}
+		};
 	}
 }
