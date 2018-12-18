@@ -1,8 +1,6 @@
 package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -12,7 +10,6 @@ import org.zkoss.bind.validator.AbstractValidator;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.rest.model.ThanhVienDoanModel;
 
 @Entity
@@ -21,7 +18,7 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 	private String hoVaTen = "";
 	private String donVi = "";
 	private String chucDanh = "";
-	private QuocGiaEnum quocGia;
+	private String tenQuocGia;
 	private String email = "";
 	private String soDienThoai = "";
 	private DoanVao doanVao;
@@ -53,13 +50,12 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 		this.chucDanh = chucDanh;
 	}
 
-	@Enumerated(EnumType.STRING)
-	public QuocGiaEnum getQuocGia() {
-		return quocGia;
+	public String getTenQuocGia() {
+		return tenQuocGia;
 	}
 
-	public void setQuocGia(QuocGiaEnum quocGia) {
-		this.quocGia = quocGia;
+	public void setTenQuocGia(String tenQuocGia) {
+		this.tenQuocGia = tenQuocGia;
 	}
 
 	public String getEmail() {
@@ -133,7 +129,7 @@ public class ThanhVienDoan extends Model<ThanhVienDoan> {
 		rs.setChucDanh(getChucDanh() != null ? getChucDanh() : "");
 		rs.setEmail(getEmail() != null ? getEmail() : "");
 		rs.setSoDienThoai(getSoDienThoai() != null ? getSoDienThoai() : "");
-		rs.setQuocGia(getQuocGia() != null ? getQuocGia().getText() : "");
+		rs.setQuocGia(getTenQuocGia() != null ? getTenQuocGia() : "");
 		return rs;
 	}
 }

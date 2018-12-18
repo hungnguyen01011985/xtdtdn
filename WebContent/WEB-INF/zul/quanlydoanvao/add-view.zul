@@ -69,15 +69,16 @@
 								<div class="flex">
 									<x:span class="label-txt-style">Quốc gia<n:small class="required" if="${!action}"> *</n:small></x:span>
 								</div>
-								<bandbox id="bd" value="@bind(vm.tenQuocGia) @save(vm.tenQuocGia, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
-								 placeholder="Chọn quốc gia" buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}" autodrop="true" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="his bb-quoc-gia ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action ? '' : 'input-no-button'}" mold="rounded" onChanging="@command('searchKey',key = event.value)">
+								<bandbox id="bd" width="auto" value="@bind(vm.tenQuocGia) @save(vm.tenQuocGia, before='saveDoanVao') @validator(vm.validateTenQuocGia, ten = self.value)"
+									 placeholder="Chọn quốc gia" buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}" autodrop="true" 
+									 disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="his bb-quoc-gia ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action ? '' : 'input-no-button'}" mold="rounded" onChanging="@command('searchKey',key = event.value)">
 									<bandpopup>
-										<listbox model="@load(vm.listSearch)" width="384px" onSelect="bd.close();" selectedItem="@bind(vm.quocGia)" emptyMessage="Không có dữ liệu">
+										<listbox model="@load(vm.listSearch)" onSelect="bd.close();" selectedItem="@bind(vm.tenQuocGia)" emptyMessage="Không có dữ liệu">
 											<template name="model">
 												<listitem>
 													<listcell>
 														<label
-															value="@load(each.text)">
+															value="@load(each)">
 														</label>
 													</listcell>
 												</listitem>
@@ -85,7 +86,7 @@
 											<attribute name="onSelect">
 												<![CDATA[
 													if (self.selectedItem != null) {
-														bd.value = vm.getQuocGiaByKey(self.selectedItem.value.toString()).getText();
+														bd.value = self.selectedItem.value;
 													}
 													bd.close();
 												]]>
