@@ -53,7 +53,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Người được giao</x:span>
 							</div>
-							<textbox class="form-control textbox-txt-style" value="@load(vm.duAn.nguoiPhuTrach.hoVaTen)" disabled="true"></textbox>
+							<textbox class="form-control textbox-txt-style" value="@load(vm.nguoiDuocGiao.hoVaTen)" disabled="true"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

@@ -1104,9 +1104,9 @@
 	visibility: hidden;
 }
 
-/* .active-children .children-nav {
+.active-children .show-children-active {
 	max-height:600px;
-} */
+}
 
 .children-nav {
 	display:flex;

@@ -47,7 +47,7 @@ public class ProcessService extends BasicService<Object> {
 
 	public void luuDuLieuDuAnVaBatDauXucTien(Execution execution) {
 		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
-		String idList = model.getNguoiPhuTrach().getId() + KY_TU;
+		String idList = KY_TU + model.getNguoiPhuTrach().getId() + KY_TU + KY_TU + model.getNguoiPhuTrach().getId() + KY_TU;
 		model.setIdNguoiLienQuan(idList);
 		model.saveNotShowNotification();
 		model.getGiaoViec().setDuAn(model);
@@ -131,9 +131,11 @@ public class ProcessService extends BasicService<Object> {
 		DuAn duAn = q.fetchFirst();
 		if (duAn.getNguoiPhuTrach().getId() != model.getNguoiPhuTrach().getId()) {
 			thongBao(model, LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH, duAn.getNguoiPhuTrach(), null, model.getNguoiPhuTrach().getHoVaTen(), false);
-			duAn.setNguoiPhuTrach(model.getNguoiPhuTrach());
 			thongBao(model, LoaiThongBao.PHU_TRACH_CONG_VIEC, model.getNguoiPhuTrach(), null, null, false);
 		}
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan().replaceFirst(KY_TU + duAn.getNguoiPhuTrach().getId() + KY_TU, ""));
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + KY_TU + model.getNguoiPhuTrach().getId() + KY_TU);
+		duAn.setNguoiPhuTrach(model.getNguoiPhuTrach());
 		duAn.save();
 		if (object != null) {
 			BindUtils.postNotifyChange(null, null, object, attr);
@@ -158,7 +160,7 @@ public class ProcessService extends BasicService<Object> {
 		}
 		giaoViec.setLoaiCongViec(LoaiCongViec.DU_AN);
 		giaoViec.saveNotShowNotification();
-		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
+		duAn.setIdNguoiLienQuan(duAn.getIdNguoiLienQuan() + KY_TU + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 		duAn.saveNotShowNotification();
 		duAn.setGiaoViec(giaoViec);
 		thongBao(duAn, LoaiThongBao.CONG_VIEC_MOI, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), null, false);
@@ -373,9 +375,18 @@ public class ProcessService extends BasicService<Object> {
 	}
 	
 	public void validateDuLieuGiaiDoanNamVaKetThucDuAn(Execution execution) {
+		DuAn model = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		Long duAnId = Long.valueOf(((ExecutionEntity) execution).getVariable("duAnId").toString());
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(duAnId));
 		DuAn duAn = q.fetchFirst();
+		if (model.getTenDuAn() == null || model.getTenDuAn().isEmpty() || model.getLinhVuc() == null
+				|| model.getDiaDiem() == null || model.getDiaDiem().isEmpty() || model.getQuyMoDuAn() == null
+				|| model.getQuyMoDuAn().isEmpty() || model.getTongVonDauTu() <= 0 || model.getMucTieuDuAn() == null
+				|| model.getMucTieuDuAn().isEmpty() || model.getDienTichSuDungDat() <= 0) {
+			showNotification("", "Bạn phải nhập đầy đủ thông tin *", "danger");
+			((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", false);
+			return;
+		}
 		boolean result = kiemTraCongViecHoanThanh(duAn);
 		if (result) {
 			showNotification("", "Công việc chưa được hoàn thành", "danger");

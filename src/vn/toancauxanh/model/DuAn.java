@@ -400,6 +400,12 @@ public class DuAn extends Model<DuAn> {
 	}
 	
 	@Command
+	public void redirectXuLyDuAn(@BindingParam("id") Long id) {
+		String url = "/cp/quanlyduan/";
+		Executions.sendRedirect(url.concat(id.toString()));
+	}
+	
+	@Command
 	public void redirectGiaiDoanDuAn(@BindingParam("giaiDoan") GiaiDoanXucTien giaiDoan) {
 		int index = -1;
 		if (giaiDoan.ordinal() > this.getGiaiDoanXucTien().ordinal()) {

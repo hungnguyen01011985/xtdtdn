@@ -156,7 +156,7 @@
 							<div zclass="form-group txt-link-style" style="${action ? 'display:flex; flex-direction:column' : ''}">
 								<x:span class="label-txt-style">Link</x:span> 
 								<textbox maxlength="255" if="${!action}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style txt-link-inline" value="@bind(vm.link)" placeholder="Nhập link tham khảo..."></textbox>
-								<a if="${action}" href="http://${vm.link}" style="color:#4274ED !important;font-family:Roboto-Bold;margin-top:5px;">http://${vm.link}</a>
+								<a if="${action and vm.link ne null}" href="http://${vm.link}" style="color:#4274ED !important;font-family:Roboto-Bold;margin-top:5px;">http://${vm.link}</a>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -169,7 +169,7 @@
 							<div zclass="form-group flex">
 								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width" zk:onClick="@command('redirectPageAction', zul='quanlydoanvao/kehoachlamviec.zul',vm = vm, readOnly = action)">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ke-hoach-lam-viec.svg"/>
-									<span>Tạo kế hoạch làm việc</span>
+									<span>${action ? 'Xem kế hoạch làm việc' : 'Tạo kế hoạch làm việc'}</span>
 								</x:a>
 								<x:a  class="btn bg-btn-tailieu dv-color mg-btn-top btn-width mg-btn" zk:onClick="@command('redirectPageAction', zul='quanlydoanvao/show-danh-sach-thanh-vien.zul', vm = vm, readOnly = action)">
 									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ds-giao-viec.svg"/>

@@ -635,10 +635,10 @@ public class ExcelUtil {
 			sheet1.getPrintSetup().setPaperSize(HSSFPrintSetup.A4_PAPERSIZE);
 			sheet1.createFreezePane(0, 3);
 
-			CellStyle styleLeft = setBorderAndFont(wb, 1, false, 8, "", "LEFT");
-			CellStyle styleLeftHeader = setBorderAndFont(wb, 1, true, 9, "", "LEFT");
-			CellStyle styleCenter = setBorderAndFont(wb, 1, false, 8, "", "CENTER");
-			CellStyle styleCenterHeader = setBorderAndFont(wb, 1, true, 9, "", "CENTER");
+			CellStyle styleLeft = setBorderAndFont(wb, 1, false, 12, "", "LEFT");
+			CellStyle styleLeftHeader = setBorderAndFont(wb, 1, true, 13, "", "LEFT");
+			CellStyle styleCenter = setBorderAndFont(wb, 1, false, 12, "", "CENTER");
+			CellStyle styleCenterHeader = setBorderAndFont(wb, 1, true, 13, "", "CENTER");
 			// Row and column indexes
 			int idx = 0;
 			// Generate column headings
@@ -655,7 +655,7 @@ public class ExcelUtil {
 			sheet1.setColumnWidth(1, 40 * 256);
 			sheet1.setColumnWidth(2, 40 * 256);
 			sheet1.setColumnWidth(3, 40 * 256);
-			sheet1.setColumnWidth(4, 20 * 256);
+			sheet1.setColumnWidth(4, 40 * 256);
 			sheet1.setColumnWidth(5, 20 * 256);
 			sheet1.setColumnWidth(6, 20 * 256);
 			sheet1.setColumnWidth(7, 20 * 256);
@@ -681,27 +681,23 @@ public class ExcelUtil {
 			c = row.createCell(sttHeader);
 			sttHeader++;
 
-			c.setCellValue("Tên nhiệm vụ");
+			c.setCellValue("Tên dự án/ Tên đoàn vào");
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
+			
+			c.setCellValue("Người giao việc");
+			c.setCellStyle(styleLeftHeader);
+			c = row.createCell(sttHeader);
+			sttHeader++;
+			
 			
 			c.setCellValue("Người phụ trách");
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
 			
-			c.setCellValue("Loại công việc");
-			c.setCellStyle(styleLeftHeader);
-			c = row.createCell(sttHeader);
-			sttHeader++;
-			
-			c.setCellValue("Trạng thái");
-			c.setCellStyle(styleLeftHeader);
-			c = row.createCell(sttHeader);
-			sttHeader++;
-			
-			c.setCellValue("Ngày bắt đầu");
+			c.setCellValue("Ngày giao việc");
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
@@ -710,9 +706,14 @@ public class ExcelUtil {
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
+			
+			c.setCellValue("Trạng thái");
+			c.setCellStyle(styleLeftHeader);
+			c = row.createCell(sttHeader);
+			sttHeader++;
 
 			int i = 1;
-			DateFormat df = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			for (GiaoViec giaoViec : list) {
 				row = sheet1.createRow(idx);
 				int sttData = 0;
@@ -737,17 +738,17 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 				
+				c.setCellValue(giaoViec.getNguoiGiaoViec().getHoVaTen());
+				c.setCellStyle(styleLeft);
+				c = row.createCell(sttData);
+				sttData++;
+				
 				c.setCellValue(giaoViec.getNguoiDuocGiao().getHoVaTen());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(giaoViec.getLoaiCongViec().getText());
-				c.setCellStyle(styleLeft);
-				c = row.createCell(sttData);
-				sttData++;
-				
-				c.setCellValue(giaoViec.getTrangThaiGiaoViec().getText());
+				c.setCellValue(df.format(giaoViec.getHanThucHien()));
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				
@@ -758,7 +759,7 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(df.format(giaoViec.getHanThucHien()));
+				c.setCellValue(giaoViec.getTrangThaiGiaoViec().getText());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				i++;
@@ -790,10 +791,10 @@ public class ExcelUtil {
 			sheet1.getPrintSetup().setPaperSize(HSSFPrintSetup.A4_PAPERSIZE);
 			sheet1.createFreezePane(0, 3);
 
-			CellStyle styleLeft = setBorderAndFont(wb, 1, false, 8, "", "LEFT");
-			CellStyle styleLeftHeader = setBorderAndFont(wb, 1, true, 9, "", "LEFT");
-			CellStyle styleCenter = setBorderAndFont(wb, 1, false, 8, "", "CENTER");
-			CellStyle styleCenterHeader = setBorderAndFont(wb, 1, true, 9, "", "CENTER");
+			CellStyle styleLeft = setBorderAndFont(wb, 1, false, 12, "", "LEFT");
+			CellStyle styleLeftHeader = setBorderAndFont(wb, 1, true, 13, "", "LEFT");
+			CellStyle styleCenter = setBorderAndFont(wb, 1, false, 12, "", "CENTER");
+			CellStyle styleCenterHeader = setBorderAndFont(wb, 1, true, 13, "", "CENTER");
 			// Row and column indexes
 			int idx = 0;
 			// Generate column headings
@@ -876,12 +877,13 @@ public class ExcelUtil {
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
+				
 				c.setCellValue(giaiDoanDuAn.getTenCongTy());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(giaiDoanDuAn.getDuAn().getDiaDiem());
+				c.setCellValue(giaiDoanDuAn.getDuAn().getDiaDiemAndDienTich());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
@@ -897,7 +899,7 @@ public class ExcelUtil {
 				
 				sttData++;
 				
-				c.setCellValue(giaiDoanDuAn.getGiaiDoanXucTien().getText());
+				c.setCellValue(giaiDoanDuAn.getDuAn().getGiaiDoanXucTien().getText());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				i++;
@@ -918,42 +920,33 @@ public class ExcelUtil {
 	
 	public static void exportThongKeDoanVao(String fileName, String sheetName, List<DoanVao> list, String title)
 			throws IOException {
-		// New Workbook
 		Workbook wb = new XSSFWorkbook();
 		try {
 			Cell c = null;
-			// New Sheet
 			Sheet sheet1 = null;
 			sheet1 = wb.createSheet(sheetName);
 			sheet1.getPrintSetup().setLandscape(true);
 			sheet1.getPrintSetup().setPaperSize(HSSFPrintSetup.A4_PAPERSIZE);
 			sheet1.createFreezePane(0, 3);
-
-			CellStyle styleLeft = setBorderAndFont(wb, 1, false, 8, "", "LEFT");
-			CellStyle styleLeftHeader = setBorderAndFont(wb, 1, true, 9, "", "LEFT");
-			CellStyle styleCenter = setBorderAndFont(wb, 1, false, 8, "", "CENTER");
-			CellStyle styleCenterHeader = setBorderAndFont(wb, 1, true, 9, "", "CENTER");
-			// Row and column indexes
+			CellStyle styleLeft = setBorderAndFont(wb, 1, false, 12, "", "LEFT");
+			CellStyle styleLeftHeader = setBorderAndFont(wb, 1, true, 13, "", "LEFT");
+			CellStyle styleCenter = setBorderAndFont(wb, 1, false, 12, "", "CENTER");
+			CellStyle styleCenterHeader = setBorderAndFont(wb, 1, true, 13, "", "CENTER");
 			int idx = 0;
-			// Generate column headings
 			Row row;
 			row = sheet1.createRow(idx);
 			c = row.createCell(0);
 			c.setCellValue("DANH SÁCH " + title.toUpperCase());
 			c.setCellStyle(setBorderAndFont(wb, 0, true, 14, "BLUE", "CENTER"));
 			sheet1.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
-
-			// set column width
-
 			sheet1.setColumnWidth(0, 10 * 256);
 			sheet1.setColumnWidth(1, 40 * 256);
-			sheet1.setColumnWidth(2, 20 * 256);
-			sheet1.setColumnWidth(3, 40 * 256);
-			sheet1.setColumnWidth(4, 20 * 256);
+			sheet1.setColumnWidth(2, 30 * 256);
+			sheet1.setColumnWidth(3, 20 * 256);
+			sheet1.setColumnWidth(4, 40 * 256);
 			sheet1.setColumnWidth(5, 40 * 256);
 			sheet1.setColumnWidth(6, 40 * 256);
-
-			// Generate rows header of grid
+			sheet1.setColumnWidth(7, 40 * 256);
 			idx++;
 			idx++;
 			row = sheet1.createRow(idx);
@@ -979,12 +972,17 @@ public class ExcelUtil {
 			c = row.createCell(sttHeader);
 			sttHeader++;
 			
-			c.setCellValue("Nơi đoàn đi thăm họp tại");
+			c.setCellValue("Thời gian");
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
 			
-			c.setCellValue("Thời gian");
+			c.setCellValue("Quốc gia");
+			c.setCellStyle(styleLeftHeader);
+			c = row.createCell(sttHeader);
+			sttHeader++;
+			
+			c.setCellValue("Nơi đoàn đi thăm");
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
@@ -993,10 +991,8 @@ public class ExcelUtil {
 			c.setCellStyle(styleLeftHeader);
 			c = row.createCell(sttHeader);
 			sttHeader++;
-			
-
 			int i = 1;
-			DateFormat df = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			for (DoanVao doanVao : list) {
 				row = sheet1.createRow(idx);
 				int sttData = 0;
@@ -1012,17 +1008,23 @@ public class ExcelUtil {
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
-				c.setCellValue(doanVao.getSoNguoi()+" người");
-				c.setCellStyle(styleLeft);
-				c = row.createCell(sttData);
-				sttData++;
 				
-				c.setCellValue(doanVao.getNoiDoanDiTham());
+				c.setCellValue(doanVao.getSoNguoiAndText());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
 				
 				c.setCellValue(df.format(doanVao.getThoiGianDenLamViec()));
+				c.setCellStyle(styleLeft);
+				c = row.createCell(sttData);
+				sttData++;
+				
+				c.setCellValue(doanVao.getQuocGia().getText());
+				c.setCellStyle(styleLeft);
+				c = row.createCell(sttData);
+				sttData++;
+				
+				c.setCellValue(doanVao.getNoiDoanDiTham());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
@@ -1034,10 +1036,8 @@ public class ExcelUtil {
 				i++;
 				idx++;
 			}
-
 			idx++;
 			idx++;
-
 			ByteArrayOutputStream fileOut = new ByteArrayOutputStream();
 			wb.write(fileOut);
 			Filedownload.save(new ByteArrayInputStream(fileOut.toByteArray()), "application/octet-stream",
