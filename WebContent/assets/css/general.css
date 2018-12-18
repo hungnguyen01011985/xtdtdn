@@ -1291,10 +1291,34 @@
 }
 .box-form-thong-ke {
 	width: calc(100% - 151px);
-	padding-right:15px;
+	padding-right:25px;
+	padding-left: 15px;
 }
-@media ( max-width : 992px) {
+/* @media ( max-width : 992px) {
 	.box-form-thong-ke {
 		width: 100%;
+	}
+} */
+@media ( max-width : 1024px) {
+	.col-md-4 {
+	    width: 33.33333333% !important;
+	}
+	.col-md-3 {
+	    width: 25% !important;
+	}
+	.col-md-9 {
+	    width: 75% !important;
+	}
+	.col-md-10 {
+	    width: 83.33333333% !important;
+	}
+	.col-md-7 {
+	    width: 58.33333333% !important;
+	}
+	.col-md-2 {
+	    width: 16.66666667% !important;
+	}
+	.col-md-6 {
+	    width: 50% !important;
 	}
 }

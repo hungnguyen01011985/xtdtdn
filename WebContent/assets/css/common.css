@@ -1256,7 +1256,7 @@ ul.z-tabs-content {
 	padding: 0;
 	background-color: #f4f5f7;
 	height: calc(100vh - 60px);
-	/* min-width:1024px; */
+	min-width:1024px;
 	font-family: Roboto-Medium;
 }
 
