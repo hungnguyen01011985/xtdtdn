@@ -647,6 +647,17 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return false;
 	}
+	
+	@Override
+	public String subString(String text, int size) {
+		int l = text.length();
+		int index = size > l ? l : size;
+		while (index < l && ' ' != text.charAt(index)) {
+			index++;
+		}
+		String tail = index < l ? " ..." : "";
+		return text.substring(0, index) + tail;
+	}
 
 	public List<NhanVien> getListNguoiPhuTrachAndNull() {
 		List<NhanVien> list = new ArrayList<NhanVien>();

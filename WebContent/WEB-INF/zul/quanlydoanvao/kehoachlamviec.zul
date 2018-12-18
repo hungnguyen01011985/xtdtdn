@@ -82,7 +82,7 @@
 									<row>
 										<label value="@load(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
 										<div>
-											<label visible="@load(!each.noId())" value="@load(each.tenCongViec)" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Chi tiết công việc')"/>
+											<label visible="@load(!each.noId())" value="@load(vm.subString(each.tenCongViec, 40))" sclass="txt-link-table" onClick="@command('redirectPageActionGiaoViec', zul='quanlygiaoviec/show-cong-viec.zul', vm = each, vmArgs = vm, readOnly = false, loaiCongViec = each.loaiCongViec, title = 'Chi tiết công việc')"/>
 											<label visible="@load(each.noId())" value="@load(each.tenCongViec)"></label>
 										</div>
 										<label value="@load(each.cha.ten)"></label>
