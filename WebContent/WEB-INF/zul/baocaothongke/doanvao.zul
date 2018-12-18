@@ -4,6 +4,7 @@
 	<zscript>
 		<![CDATA[
 			page.title = "Báo cáo thống kê";
+			doanVao = new vn.toancauxanh.model.DoanVao();
 		]]>
 	</zscript>
 	<div> 
@@ -40,11 +41,30 @@
 										<div zclass="col-md-4">
 											<div zclass="form-group">
 												<span>Quốc gia</span>
-												<combobox readonly="true" class="his" model="@load(vm.listQuocGiaAndNull)" selectedItem="@bind(vm.arg.quocGia)" placeholder="Tất cả" width="100%">
-												<template name="model">
-													<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
-												</template>
-											</combobox>
+												<bandbox viewModel="@id('bandBoxDoanVao') @init(doanVao)" id="bdDoanVao" width="auto" value="@bind(vm.arg.quocGia)" autodrop="true"
+													 placeholder="Chọn quốc gia" class="his bb-quoc-gia" mold="rounded" onChanging="@command('searchKey', key = event.value, vm=vm)" >
+													<bandpopup>
+														<listbox model="@load(bandBoxDoanVao.listSearch)" onSelect="bdDoanVao.close();" selectedItem="@bind(vm.arg.quocGia)" emptyMessage="Không có dữ liệu">
+															<template name="model">
+																<listitem>
+																	<listcell>
+																		<label
+																			value="@load(each)">
+																		</label>
+																	</listcell>
+																</listitem>
+															</template>
+															<attribute name="onSelect">
+																<![CDATA[
+																	if (self.selectedItem != null) {
+																		bdDoanVao.value = self.selectedItem.value;
+																	}
+																	bdDoanVao.close();
+																]]>
+															</attribute>
+														</listbox>
+													</bandpopup>
+												</bandbox>
 											</div>
 										</div>
 										<div zclass="col-md-4">

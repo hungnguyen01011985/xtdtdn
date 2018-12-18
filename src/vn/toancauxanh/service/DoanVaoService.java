@@ -11,7 +11,6 @@ import org.zkoss.zk.ui.util.Clients;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import vn.toancauxanh.gg.model.enums.QuocGiaEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 import vn.toancauxanh.model.DoanVao;
 import vn.toancauxanh.model.QDoanVao;
@@ -28,7 +27,7 @@ public class DoanVaoService extends BasicService<DoanVao> {
 			q.where(QDoanVao.doanVao.tenDoanVao.like(tuKhoa));
 		}
 		if (quocGia != null && !quocGia.isEmpty()) {
-			q.where(QDoanVao.doanVao.quocGia.eq(QuocGiaEnum.valueOf(quocGia)));
+			q.where(QDoanVao.doanVao.tenQuocGia.eq(quocGia));
 		}
 		if (trangThai != null && !trangThai.isEmpty()) {
 			q.where(QDoanVao.doanVao.trangThaiTiepDoan.eq(TrangThaiTiepDoanEnum.valueOf(trangThai)));
