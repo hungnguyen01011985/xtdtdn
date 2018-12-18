@@ -58,7 +58,7 @@
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
 								<label value="@load(item.ten)" zk:if="${entry.quyen.linhvucduan_xem}"
 									onClick="@command('redirectPageAction', zul='linhvucduan/show-edit-linh-vuc.zul', vmArgs=vm, vm=item, readOnly=true)" sclass="txt-link-table"/>
-								<label value="@load(item.moTa)"></label>
+								<label value="@load(item.subString(item.moTa, 120))"></label>
 								<div class="thaotac" style="text-align:center">
 									<x:a label="Sửa" class="btn-thaotac left" zk:if="${entry.quyen.linhvucduan_sua}" zk:onClick="@command('redirectPage', zul='linhvucduan/show-edit-linh-vuc.zul', vmArgs=vm, vm=item)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
