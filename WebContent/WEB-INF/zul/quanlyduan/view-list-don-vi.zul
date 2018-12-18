@@ -21,8 +21,8 @@
 			<columns>
 				<column label="STT" width="42px"/>
 				<column label="Đơn vị"/>
-				<column label="Ngày phát hành công văn" width="230px" />
-				<column label="Tài liệu đính kèm"/>
+				<column label="Ngày phát hành công văn (*)" width="230px" />
+				<column label="Tài liệu đính kèm (*)"/>
 				<column label="Thao tác" width="100px"/>
 			</columns>
 			<template name="model">

@@ -97,6 +97,9 @@ html, body {
 .btn-upload-image-avarta:focus {
 	background:#FFF !important;
 }
+.edit-style-list .z-listbox-header {
+	padding-right:10px;
+}
 /* Header */
 .wd-header {
 	/*background-color: #212121 !important;*/
