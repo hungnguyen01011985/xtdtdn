@@ -1019,7 +1019,7 @@ public class ExcelUtil {
 				c = row.createCell(sttData);
 				sttData++;
 				
-				c.setCellValue(doanVao.getQuocGia().getText());
+				c.setCellValue(doanVao.getTenQuocGia());
 				c.setCellStyle(styleLeft);
 				c = row.createCell(sttData);
 				sttData++;
