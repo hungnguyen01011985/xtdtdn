@@ -68,6 +68,42 @@ INSERT INTO `capdonvi` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `moTa`
 	(2, b'0', '2018-11-05 18:03:35', '2018-11-05 18:03:35', 'ap_dung', NULL, 'Quận huyện', 1, 1);
 /*!40000 ALTER TABLE `capdonvi` ENABLE KEYS */;
 
+-- Dumping structure for table bxtdtdn.congvieckehoach
+DROP TABLE IF EXISTS `congvieckehoach`;
+CREATE TABLE IF NOT EXISTS `congvieckehoach` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `daXoa` bit(1) NOT NULL,
+  `ngaySua` datetime DEFAULT NULL,
+  `ngayTao` datetime DEFAULT NULL,
+  `trangThai` varchar(255) DEFAULT NULL,
+  `moTa` varchar(255) DEFAULT NULL,
+  `ten` varchar(255) DEFAULT NULL,
+  `nguoiSua_id` bigint(20) DEFAULT NULL,
+  `nguoiTao_id` bigint(20) DEFAULT NULL,
+  `loaiCongViecKeHoach_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKdk0gka7y5b5ja5d4mxxcr9x0` (`nguoiSua_id`),
+  KEY `FKg6qlp80xqcapiblc5jnlp3r0n` (`nguoiTao_id`),
+  KEY `FKf5u84k64js8si4aq8t7h9ovfq` (`loaiCongViecKeHoach_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table bxtdtdn.congvieckehoach: ~11 rows (approximately)
+DELETE FROM `congvieckehoach`;
+/*!40000 ALTER TABLE `congvieckehoach` DISABLE KEYS */;
+INSERT INTO `congvieckehoach` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `moTa`, `ten`, `nguoiSua_id`, `nguoiTao_id`, `loaiCongViecKeHoach_id`) VALUES
+	(1, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Lãnh đạo, người được phân công', 1, 1, 1),
+	(2, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Chuyên viên', 1, 1, 1),
+	(3, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Chuẩn bị phòng họp (nếu cần)', 1, 1, 2),
+	(4, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Nước, quà, hoa quả (nếu cần)', 1, 1, 2),
+	(5, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Thiết bị phục vụ phòng họp', 1, 1, 2),
+	(6, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Chuẩn bị tài liệu giới thiệu', 1, 1, 2),
+	(7, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Xây dựng chương trình làm việc cho đoàn', 1, 1, 3),
+	(8, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Chuẩn bị bài giới thiệu', 1, 1, 3),
+	(9, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Xác nhận lại thông tin thời gian làm việc với đoàn', 1, 1, 3),
+	(10, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Ghi biên bản nội dung làm việc', 1, 1, 3),
+	(11, b'0', '2018-12-13 14:20:25', '2018-12-13 14:20:26', 'ap_dung', NULL, 'Kiểm tra lại công tác chuẩn bị', 1, 1, 3);
+/*!40000 ALTER TABLE `congvieckehoach` ENABLE KEYS */;
+
 -- Dumping structure for table bxtdtdn.doanvao
 DROP TABLE IF EXISTS `doanvao`;
 CREATE TABLE IF NOT EXISTS `doanvao` (
@@ -516,6 +552,9 @@ CREATE TABLE IF NOT EXISTS `giaoviec` (
   `ghiChu` longtext,
   `ketQua` longtext,
   `yKienChiDao` longtext,
+  `tenNhiemVu` varchar(255) DEFAULT NULL,
+  `cha_id` bigint(20) DEFAULT NULL,
+  `phongBan_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK1jkhxiuynhv7kg8lpysxgxa36` (`nguoiSua_id`),
   KEY `FKrtob3779e4wj2cn2uo88tjlku` (`nguoiTao_id`),
@@ -525,10 +564,12 @@ CREATE TABLE IF NOT EXISTS `giaoviec` (
   KEY `FK8wvh4hnwxwkr081alfgiaatsp` (`taiLieu_id`),
   KEY `FKl7t2w9u86m83h4j1e0g1u0qnw` (`taiLieuKetQua_id`),
   KEY `FKkh11optenfh7r9eu6jlylbd88` (`doanVao_id`),
+  KEY `FKd7jsaqo2y9lerub0g6b596qm2` (`phongBan_id`),
   CONSTRAINT `FK1jkhxiuynhv7kg8lpysxgxa36` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
   CONSTRAINT `FK7koe49gx4fwfrtqjt5c1mnpju` FOREIGN KEY (`nguoiGiaoViec_id`) REFERENCES `nhanvien` (`id`),
   CONSTRAINT `FK8wvh4hnwxwkr081alfgiaatsp` FOREIGN KEY (`taiLieu_id`) REFERENCES `teptin` (`id`),
   CONSTRAINT `FKc03v84oo8ne7yrq07j0xbk3nx` FOREIGN KEY (`duAn_id`) REFERENCES `duan` (`id`),
+  CONSTRAINT `FKd7jsaqo2y9lerub0g6b596qm2` FOREIGN KEY (`phongBan_id`) REFERENCES `phongban` (`id`),
   CONSTRAINT `FKjpb7j625yctta0ar1as62ea79` FOREIGN KEY (`nguoiDuocGiao_id`) REFERENCES `nhanvien` (`id`),
   CONSTRAINT `FKkh11optenfh7r9eu6jlylbd88` FOREIGN KEY (`doanVao_id`) REFERENCES `doanvao` (`id`),
   CONSTRAINT `FKl7t2w9u86m83h4j1e0g1u0qnw` FOREIGN KEY (`taiLieuKetQua_id`) REFERENCES `teptin` (`id`),
@@ -752,6 +793,32 @@ INSERT INTO `linhvucduan` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `mo
 	(10, b'0', '2018-11-05 15:56:27', '2018-11-05 15:56:27', 'ap_dung', 'CNPT', 'CNPT', 1, 1);
 /*!40000 ALTER TABLE `linhvucduan` ENABLE KEYS */;
 
+-- Dumping structure for table bxtdtdn.loaicongviec
+DROP TABLE IF EXISTS `loaicongviec`;
+CREATE TABLE IF NOT EXISTS `loaicongviec` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `daXoa` bit(1) NOT NULL,
+  `ngaySua` datetime DEFAULT NULL,
+  `ngayTao` datetime DEFAULT NULL,
+  `trangThai` varchar(255) DEFAULT NULL,
+  `moTa` varchar(255) DEFAULT NULL,
+  `ten` varchar(255) DEFAULT NULL,
+  `nguoiSua_id` bigint(20) DEFAULT NULL,
+  `nguoiTao_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK8pgkbv8iopdbrm03dwosq78hx` (`nguoiSua_id`),
+  KEY `FKbi4mfocvx2docrnvice2pheaa` (`nguoiTao_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table bxtdtdn.loaicongviec: ~3 rows (approximately)
+DELETE FROM `loaicongviec`;
+/*!40000 ALTER TABLE `loaicongviec` DISABLE KEYS */;
+INSERT INTO `loaicongviec` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `moTa`, `ten`, `nguoiSua_id`, `nguoiTao_id`) VALUES
+	(1, b'0', '2018-12-13 14:21:46', '2018-12-13 14:21:47', 'ap_dung', NULL, 'Nhân sự làm việc', 1, 1),
+	(2, b'0', '2018-12-13 14:21:46', '2018-12-13 14:21:47', 'ap_dung', NULL, 'Công tác hậu cần', 1, 1),
+	(3, b'0', '2018-12-13 14:21:46', '2018-12-13 14:21:47', 'ap_dung', NULL, 'Công tác khác', 1, 1);
+/*!40000 ALTER TABLE `loaicongviec` ENABLE KEYS */;
+
 -- Dumping structure for table bxtdtdn.loaidisan
 DROP TABLE IF EXISTS `loaidisan`;
 CREATE TABLE IF NOT EXISTS `loaidisan` (
@@ -826,6 +893,31 @@ CREATE TABLE IF NOT EXISTS `loailehoi` (
 DELETE FROM `loailehoi`;
 /*!40000 ALTER TABLE `loailehoi` DISABLE KEYS */;
 /*!40000 ALTER TABLE `loailehoi` ENABLE KEYS */;
+
+-- Dumping structure for table bxtdtdn.nhadautu
+DROP TABLE IF EXISTS `nhadautu`;
+CREATE TABLE IF NOT EXISTS `nhadautu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `daXoa` bit(1) NOT NULL,
+  `ngaySua` datetime DEFAULT NULL,
+  `ngayTao` datetime DEFAULT NULL,
+  `trangThai` varchar(255) DEFAULT NULL,
+  `diaChi` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `nguoiDaiDienPhapLy` varchar(255) DEFAULT NULL,
+  `soDienThoai` varchar(255) DEFAULT NULL,
+  `tenNhaDauTu` varchar(255) DEFAULT NULL,
+  `nguoiSua_id` bigint(20) DEFAULT NULL,
+  `nguoiTao_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK5oppdlv87e8ehglwru9oimy5o` (`nguoiSua_id`),
+  KEY `FKix16fcj5hepelskq55ilign66` (`nguoiTao_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table bxtdtdn.nhadautu: ~0 rows (approximately)
+DELETE FROM `nhadautu`;
+/*!40000 ALTER TABLE `nhadautu` DISABLE KEYS */;
+/*!40000 ALTER TABLE `nhadautu` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.nhanvien
 DROP TABLE IF EXISTS `nhanvien`;
@@ -1161,6 +1253,7 @@ CREATE TABLE IF NOT EXISTS `thongbao` (
   `nguoiGui_id` bigint(20) DEFAULT NULL,
   `nguoiNhan_id` bigint(20) DEFAULT NULL,
   `kieuThongBao` varchar(255) DEFAULT NULL,
+  `xemChiTiet` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FKpieyg7mkasgkf1jl4gxj3qsvw` (`nguoiSua_id`),
   KEY `FK83hv7q7ahv7mbktsy8tn4mwb7` (`nguoiTao_id`),
