@@ -136,10 +136,11 @@ public class VaiTro extends Model<VaiTro> {
 		for (String vaiTro : VAITRO_DEFAULTS) {
 			allQuyens.addAll(getQuyenMacDinhs(vaiTro));
 		}
-		allQuyens.forEach(item -> System.out.println(item));
 		for (String action : core().getACTIONS()) {
 			String quyen = resource + Quyen.CACH + action;
-			if (quyens.contains(quyen)) {
+			System.out.println(quyen);
+			if (allQuyens.contains(quyen)) {
+				System.out.println("zo dc day");
 				list.add(action);
 			}
 		}
