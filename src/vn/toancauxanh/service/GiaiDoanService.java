@@ -1,5 +1,8 @@
 package vn.toancauxanh.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.GiaiDoanXucTien;
@@ -11,9 +14,7 @@ public class GiaiDoanService extends BasicService<GiaiDoanDuAn>{
 		if (idDuAn != null) {
 			JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
 					.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(idDuAn))
-					.where(QGiaiDoanDuAn.giaiDoanDuAn.trangThai.ne(core().TT_DA_XOA))
-					.where(QGiaiDoanDuAn.giaiDoanDuAn.giaiDoanXucTien.eq(giaiDoanXucTien))
-					.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc());
+					.where(QGiaiDoanDuAn.giaiDoanDuAn.giaiDoanXucTien.eq(giaiDoanXucTien));
 			q.setHint("org.hibernate.cacheable", false);
 			if(q.fetchCount() > 0) {
 				return q.fetchFirst();
@@ -21,5 +22,18 @@ public class GiaiDoanService extends BasicService<GiaiDoanDuAn>{
 			
 		}
 		return new GiaiDoanDuAn();
+	}
+	
+	public List<GiaiDoanDuAn> getListGiaiDoanDuAnById(Long idDuAn) {
+		List<GiaiDoanDuAn> list = new ArrayList<>();
+		if (idDuAn != null) {
+			JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class).where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(idDuAn));
+			q.setHint("org.hibernate.cacheable", false);
+			if (q.fetchCount() > 0) {
+				list.addAll(q.fetch());
+				return list;
+			}
+		}
+		return list;
 	}
 }

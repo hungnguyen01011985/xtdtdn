@@ -487,11 +487,17 @@ public class GiaoViec extends Model<GiaoViec> {
 	public CongViecModel toGiaoViecModel(){
 		CongViecModel rs = new CongViecModel();
 		rs.setId(getId() != null ? getId() : null);
+		rs.setIdDoanVao(this.getDoanVao() != null ? this.getDoanVao().getId() : null);
+		rs.setTenDoanVao(this.getDoanVao() != null ? this.getDoanVao().getTenDoanVao() : "");
+		rs.setIdDuAn(this.getDuAn() != null ? this.getDuAn().getId() : null);
+		rs.setTenDuAn(this.getDuAn() != null ? this.getDuAn().getTenDuAn() : "");
 		rs.setTenCongViec(getTenCongViec() != null ? getTenCongViec() : "");
 		rs.setyKienChiDao(getyKienChiDao() != null ? getyKienChiDao() : "");
 		rs.setKetQua(getKetQua() != null ? getKetQua() : "");
 		rs.setGhiChu(getGhiChu() != null ? getGhiChu() : "");
+		rs.setIdNguoiGiaoViec(this.getNguoiGiaoViec() != null ? this.getNguoiGiaoViec().getId() : null);
 		rs.setNguoiGiaoViec(getNguoiGiaoViec() != null ? getNguoiGiaoViec().getHoVaTen() : "");
+		rs.setIdNguoiDuocGiao(this.getNguoiDuocGiao() != null ? this.getNguoiDuocGiao().getId() : null);
 		rs.setNguoiDuocGiao(getNguoiDuocGiao() != null ? getNguoiDuocGiao().getHoVaTen() : "");
 		rs.setGiaiDoanXucTien(getGiaiDoanXucTien() != null ? getGiaiDoanXucTien().getText() : "");
 		rs.setTrangThaiCongViec(getTrangThaiGiaoViec() != null ? getTrangThaiGiaoViec().getText() : "");
@@ -499,6 +505,8 @@ public class GiaoViec extends Model<GiaoViec> {
 		rs.setNgayGiao(getNgayGiao() != null ? getNgayGiao() : null);
 		rs.setHanThucHien(getHanThucHien() != null ? getHanThucHien() : null);
 		rs.setNgayHoanThanh(getNgayHoanThanh() != null ? getNgayHoanThanh() : null);
+		rs.setIdLoaiCongViecKeHoach(this.getCha() != null ? this.getCha().getId() : null);
+		rs.setTenLoaiCongViecKeHoach(this.getCha() != null ? this.getCha().getTen() : "");
 		return rs;
 	}
 }
