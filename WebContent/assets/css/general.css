@@ -1024,6 +1024,7 @@
 	max-width: calc(100% - 55px);
 	overflow: hidden;
 	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .txt-link-tailieu-khu-dat {

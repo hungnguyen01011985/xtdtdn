@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" >
-	<div>
+	<div class="w-table-no-scroll">
 		<div zclass="row">
 			<div zclass="col-lg-6">
 				<div class="title-form">
@@ -56,7 +56,7 @@
 										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 									</div>
 									<label visible="@load(each.congVanTraLoi.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = each.congVanTraLoi)" value="@load(each.congVanTraLoi.tenFile)"/>
-									<a visible="@load(!each.congVanTraLoi.noId())" label="@bind(each.congVanTraLoi.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = each.congVanTraLoi)"></a>
+									<a class="txt-link-tailieu pointer-cls" visible="@load(!each.congVanTraLoi.noId())" label="@bind(each.congVanTraLoi.tenFile)" zk:onClick="@command('redirect', ob = each.congVanTraLoi)"></a>
 									<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
 										<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 									</x:button>
