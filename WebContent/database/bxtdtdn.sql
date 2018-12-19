@@ -68,6 +68,100 @@ INSERT INTO `capdonvi` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `moTa`
 	(2, b'0', '2018-11-05 18:03:35', '2018-11-05 18:03:35', 'ap_dung', NULL, 'Quận huyện', 1, 1);
 /*!40000 ALTER TABLE `capdonvi` ENABLE KEYS */;
 
+-- Dumping structure for table bxtdtdn.congchucsonoivu
+DROP TABLE IF EXISTS `congchucsonoivu`;
+CREATE TABLE IF NOT EXISTS `congchucsonoivu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `daXoa` bit(1) NOT NULL,
+  `ngaySua` datetime DEFAULT NULL,
+  `ngayTao` datetime DEFAULT NULL,
+  `nguoiSua_id` bigint(20) DEFAULT NULL,
+  `nguoiTao_id` bigint(20) DEFAULT NULL,
+  `bacLuong` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `chucVuId` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `chucVuTuongDuong` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `diDong` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `dienThoaiLamViec` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `donViId` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `donVi_maSo` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `emailTinhThanh` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `fileAnhThe` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `fileCmnd` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `gioiTinh` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `heSoLuong` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `hoSo_ngayHieuChinh` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `hoTen` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `hoVaTen` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `idHeThong` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `maNgach` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `maSo` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `ngayCapCmnd` datetime DEFAULT NULL,
+  `ngaySinh` datetime DEFAULT NULL,
+  `noiCapCmnd` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `phongId` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `phong_maSo` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `search` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `soCmnd` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenChucVu` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenDonVi` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenDonViSearch` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenNgach` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenPhong` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenPhongSearch` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenTrangThai` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `trangThaiId` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `updated` bit(1) NOT NULL,
+  `vuotKhung` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39640 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+-- Dumping data for table bxtdtdn.congchucsonoivu: ~40 rows (approximately)
+DELETE FROM `congchucsonoivu`;
+/*!40000 ALTER TABLE `congchucsonoivu` DISABLE KEYS */;
+INSERT INTO `congchucsonoivu` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `nguoiSua_id`, `nguoiTao_id`, `bacLuong`, `chucVuId`, `chucVuTuongDuong`, `diDong`, `dienThoaiLamViec`, `donViId`, `donVi_maSo`, `email`, `emailTinhThanh`, `fileAnhThe`, `fileCmnd`, `gioiTinh`, `heSoLuong`, `hoSo_ngayHieuChinh`, `hoTen`, `hoVaTen`, `idHeThong`, `maNgach`, `maSo`, `ngayCapCmnd`, `ngaySinh`, `noiCapCmnd`, `phongId`, `phong_maSo`, `search`, `soCmnd`, `tenChucVu`, `tenDonVi`, `tenDonViSearch`, `tenNgach`, `tenPhong`, `tenPhongSearch`, `tenTrangThai`, `trangThaiId`, `updated`, `vuotKhung`) VALUES
+	(29292, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '0', '99', '0933331191', '3880243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/2014042105115913589.jpg', 'http://49.156.54.87/uploader/files/cmnd/20140519034001105.pdf', 'Nữ', '2.67', '2016-08-12', 'vũ xuân cẩm tú', 'Vũ Xuân Cẩm Tú', '184708', '01003', '0030359', '2008-01-23 00:08:00', '1991-01-30 00:11:00', 'Thành phố Đà Nẵng', '151720', '00033.5', 'vu xuan cam tu', '201625206', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Tư vấn đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29293, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '11024', '4', '0905509560', '3812 340', '151710', '00033', 'anhnk@danang.gov.vn', 'anhnk@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014040102332222847.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014042605131418916.pdf', 'Nam', '4.74', '2018-01-02', 'nguyễn kỳ anh', 'Nguyễn Kỳ Anh', '152299', '01002', '0013331', '2002-01-19 00:11:00', '1974-01-03 00:10:00', 'Hà Tĩnh', '151723', '00033.2', 'nguyen ky anh', '181 965 319', 'Phó Giám đốc', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên Chính', 'Ban Lãnh đạo', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29294, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '0', '99', '0935399138', '3886243', '151710', '00033', 'mynh@danang.gov.vn', 'mynh@danang.gov.vn', 'http://49.156.54.87/uploader/files/201404210447569669.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014042106334913075.pdf', 'Nữ', '2.67', '2016-06-27', 'nguyễn hạ my', 'Nguyễn Hạ My', '176982', '01003', '0030424', '2007-01-19 00:06:00', '1990-01-13 00:08:00', 'Thành phố Đà Nẵng', '151722', '00033.3', 'nguyen ha my', '201608139', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Xúc tiến đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29295, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '3', '11024', '4', '0905211755', '0511-3886243', '151710', '00033', 'phuonghl@danang.gov.vn', 'phuonghl@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014042204354623226.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041510501726147.pdf', 'Nữ', '5.08', '2017-01-16', 'huỳnh liên phương', 'Huỳnh Liên Phương', '154502', '01002', '0015303', '2002-01-03 00:09:00', '1969-01-17 00:12:00', 'Thành phố Đà Nẵng', '151723', '00033.2', 'huynh lien phuong', '201046426', 'Phó Giám đốc', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên Chính', 'Ban Lãnh đạo', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29296, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '11020', '3', '0983134059', '0511-3886243', '151710', '00033', 'duonglc@danang.gov.vn', 'duonglc@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014042203370428013.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041510400229715.pdf', 'Nam', '4.74', '2017-01-16', 'lê cảnh dương', 'Lê Cảnh Dương', '154402', '01002', '0015302', '2011-01-10 00:05:00', '1975-01-14 00:04:00', 'Thành phố Đà Nẵng', '151723', '00033.2', 'le canh duong', '201328883', 'Giám đốc', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên Chính', 'Ban Lãnh đạo', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29297, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '9', '11024', '4', '0913403599', '3886243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/2014042204470329544.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041510432924764.pdf', 'Nam', '4.98', '2015-07-07', 'trương hào', 'Trương Hào', '154506', '01003', '0015305', '2004-01-23 00:08:00', '1955-01-10 00:06:00', 'Thành phố Đà Nẵng', '151723', '00033.2', 'truong hao', '201546124', 'Phó Giám đốc', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Ban Lãnh đạo', NULL, 'Đã nghỉ hưu', '02', b'0', '9'),
+	(29298, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '4', '11032', '6', '', '', '151710', '00033', 'hienptb@danang.gov.vn', 'hienptb@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014041805361226830.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014051903510923185.pdf', 'Nữ', '3.33', '2017-09-18', 'phạm thị bích hiền', 'Phạm Thị Bích Hiền', '154575', '01003', '0030274', '2013-01-12 00:01:00', '1986-01-13 00:12:00', 'Thành phố Đà Nẵng', '151721', '00033.4', 'pham thi bich hien', '201523612', 'Phó Trưởng phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Hỗ trợ đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29299, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '5', '11028', '5', '0914251181', '3886243', '151710', '00033', 'tramdtq@danang.gov.vn', 'tramdtq@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014042115593318530.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014042203070430892.pdf', 'Nữ', '3.66', '2017-10-23', 'đỗ thị quỳnh trâm', 'Đỗ Thị Quỳnh Trâm', '154579', '01003', '0020482', '2009-01-31 00:12:00', '1981-01-25 00:11:00', 'Thành phố Đà Nẵng', '151722', '00033.3', 'do thi quynh tram', '201392918', 'Trưởng phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Xúc tiến đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29300, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '1', '0', '99', '', '3886243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/2014041805385314354.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041805391819084.pdf', 'Nam', '2.34', '2015-01-13', 'bùi ngọc quang', 'Bùi Ngọc Quang', '154594', '01003', '0022374', '2002-01-19 00:09:00', '1984-01-05 00:09:00', 'Thành phố Đà Nẵng', '151721', '00033.4', 'bui ngoc quang', '201519633', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Hỗ trợ đầu tư', NULL, 'Đã thôi việc', '03', b'0', ''),
+	(29301, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '4', '', '99', '0905159199', '3886243', '151710', '00033', 'trangdt1@danang.gov.vn', 'trangdt1@danang.gov.vn', 'http://49.156.54.87/uploader/files/201404210557426790.jpg', 'http://49.156.54.87/uploader/files/cmnd/201404160403459638.pdf', 'Nữ', '3.33', '2018-01-02', 'đinh thùy trang', 'Đinh Thùy Trang', '154659', '01003', '0022370', '2003-01-07 00:08:00', '1986-01-06 00:08:00', 'Thành phố Đà Nẵng', '151722', '00033.3', 'dinh thuy trang', '201531116', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Xúc tiến đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29302, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '3', '0', '99', '', '3886243', '151710', '00033', 'ngochnt@danang.gov.vn', 'ngochnt@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014041805295427068.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041805303826789.pdf', 'Nữ', '3.00', '2016-12-01', 'huỳnh nguyễn thiên ngọc', 'Huỳnh Nguyễn Thiên Ngọc', '154631', '01003', '0021072', '2013-01-07 00:05:00', '1987-01-10 00:05:00', 'Thành phố Đà Nẵng', '151721', '00033.4', 'huynh nguyen thien ngoc', '201523071', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Hỗ trợ đầu tư', NULL, 'Đã thôi việc', '03', b'0', ''),
+	(29303, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '6', '11028', '5', '0905000555', '3886243', '151710', '00033', 'phuchtd2@danang.gov.vn', 'phuchtd2@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014042104472717486.jpg', 'http://49.156.54.87/uploader/files/cmnd/201404220315413951.pdf', 'Nữ', '3.99', '2017-04-25', 'hường thị diễm phúc', 'Hường Thị Diễm Phúc', '154633', '01003', '0020307', '2001-01-04 00:05:00', '1979-01-21 00:04:00', 'Thành phố Đà Nẵng', '151721', '00033.4', 'huong thi diem phuc', '201386621', 'Trưởng phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Hỗ trợ đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29304, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '0', '99', '01265086992', '3886243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/2014042103521828740.jpg', 'http://49.156.54.87/uploader/files/cmnd/201404210632299441.pdf', 'Nữ', '2.67', '2014-11-05', 'phan kim dung', 'Phan Kim Dung', '154635', '01003', '0030351', '2004-01-17 00:06:00', '1987-01-04 00:11:00', 'Thành phố Đà Nẵng', '151722', '00033.3', 'phan kim dung', '201543543', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Xúc tiến đầu tư', NULL, 'Đã thôi việc', '03', b'0', ''),
+	(29305, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '1', '0', '99', '0905112095', '3886243', '151710', '00033', '', '', '', '', 'Nam', '2.34', '', 'nguyễn thành long', 'Nguyễn Thành Long', '154637', '01003', '', NULL, '1988-01-26 00:10:00', '', '151722', '00033.3', 'nguyen thanh long', '', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Xúc tiến đầu tư', NULL, 'Đã thôi việc', '03', b'0', ''),
+	(29306, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '5', '11032', '6', '0905154415', '3886243', '151710', '00033', 'nhidt@danang.gov.vn', 'nhidt@danang.gov.vn', 'http://49.156.54.87/uploader/files/201405060352336370.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041510222323175.pdf', 'Nữ', '5.76', '2017-03-27', 'dương thị nhi', 'Dương Thị Nhi', '154640', '01002', '0030270', '2007-01-27 00:02:00', '1965-01-14 00:07:00', 'Thành phố Đà Nẵng', '151728', '00033.1', 'duong thi nhi', '200778941', 'Phó Chánh Văn phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên Chính', 'Văn phòng', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29307, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '9', '', '99', '0914025996', '3886243', '151710', '00033', 'dungtt1@danang.gov.vn', 'dungtt1@danang.gov.vn', 'http://49.156.54.87/uploader/files/201405051134215465.jpg', 'http://49.156.54.87/uploader/files/cmnd/201404151100144721.pdf', 'Nam', '4.98', '2017-04-25', 'trần tuấn dũng', 'Trần Tuấn Dũng', '154646', '01003', '0030362', '2009-01-25 00:04:00', '1963-01-31 00:03:00', 'Thành phố Đà Nẵng', '151728', '00033.1', 'tran tuan dung', '200687006', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Tổ chức - Hành chính', NULL, 'Đang làm việc', '00', b'0', '8'),
+	(29308, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '5', '11032', '6', '', '3886243', '151710', '00033', 'thunta3@danang.gov.vn', 'thunta3@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014042106284424896.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014042106301621674.pdf', 'Nữ', '3.66', '2017-11-08', 'nguyễn thị anh thư', 'Nguyễn Thị Anh Thư', '154648', '01003', '0020312', '2010-01-28 00:10:00', '1979-01-28 00:06:00', 'Thành phố Đà Nẵng', '151728', '00033.1', 'nguyen thi anh thu', '201359651', 'Phó Chánh Văn phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Văn phòng', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29309, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '0', '99', '', '3886243', '151710', '00033', '', '', '', '', 'Nữ', '2.67', '', 'nguyễn kim chi', 'Nguyễn Kim Chi', '154662', '01003', '', NULL, '1985-01-10 00:06:00', '', '151720', '00033.5', 'nguyen kim chi', '', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Tư vấn đầu tư', NULL, 'Đã thôi việc', '03', b'0', ''),
+	(29310, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '4', '0', '99', '', '3886243', '151710', '00033', 'diepnt@danang.gov.vn', 'diepnt@danang.gov.vn', 'http://49.156.54.87/uploader/files/201404210503257348.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041512131514943.pdf', 'Nữ', '3.33', '2017-04-25', 'nguyễn thị điệp', 'Nguyễn Thị Điệp', '154650', '01003', '0015319', '2014-01-13 00:03:00', '1984-01-16 00:09:00', 'Thành phố Đà Nẵng', '151728', '00033.1', 'nguyen thi diep', '201508145', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Văn phòng', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29311, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '6', '11032', '6', '0982500868', '3886243', '151710', '00033', 'nhinh2@danang.gov.vn', 'nhinh2@danang.gov.vn', 'http://49.156.54.87/uploader/files/201404220334536662.jpg', 'http://49.156.54.87/uploader/files/cmnd/201404151056351743.pdf', 'Nam', '3.99', '2017-10-23', 'nguyễn hữu nhĩ', 'Nguyễn Hữu Nhĩ', '154652', '01003', '0012266', '2010-01-10 00:08:00', '1974-01-30 00:01:00', 'Thành phố Đà Nẵng', '151728', '00033.1', 'nguyen huu nhi', '201274348', 'Phó Chánh Văn phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Văn phòng', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29312, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '', '99', '', '3886243', '151710', '00033', 'tramttt@danang.gov.vn', 'tramttt@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014042204574727940.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014042510595729049.pdf', 'Nữ', '2.67', '2014-11-03', 'trần thị thùy trâm', 'Trần Thị Thùy Trâm', '154655', '01003', '0030275', NULL, '1988-01-17 00:01:00', '', '151721', '00033.4', 'tran thi thuy tram', '', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Hỗ trợ đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29313, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '4', '11028', '5', '', '3886243', '151710', '00033', 'trangvtk@danang.gov.vn', 'trangvtk@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014042104583819293.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041603540926583.pdf', 'Nữ', '3.33', '2017-01-06', 'võ thị kiều trang', 'Võ Thị Kiều Trang', '154657', '01003', '0030272', '2001-01-07 00:08:00', '1984-01-30 00:08:00', 'Thành phố Đà Nẵng', '151720', '00033.5', 'vo thi kieu trang', '201504347', 'Trưởng phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Tư vấn đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29314, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '4', '11032', '6', '0905078079', '', '151710', '00033', 'maintt2@danang.gov.vn', 'maintt2@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014042105002121378.jpg', 'http://49.156.54.87/uploader/files/cmnd/201404160402559654.pdf', 'Nữ', '3.33', '2018-01-16', 'nguyễn thị tuyết mai', 'Nguyễn Thị Tuyết Mai', '154660', '01003', '0020478', '2007-01-14 00:08:00', '1983-01-07 00:08:00', 'Thành phố Đà Nẵng', '151720', '00033.5', 'nguyen thi tuyet mai', '201485928', 'Phó Trưởng phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Tư vấn đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29315, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '9', '0', '99', '', '3886243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/201404151200116611.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041512003129231.pdf', 'Nam', '3.49', '2017-10-31', 'trương cự', 'Trương Cự', '154664', '01010', '0031139', '2014-01-10 00:07:00', '1958-01-02 00:10:00', 'Thành phố Hồ Chí Minh', '151728', '00033.1', 'truong cu', '023627446', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Lái xe cơ quan (cũ)', 'Văn phòng', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29316, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '8', '0', '99', '0934776670', '3886243', '151710', '00033', '', '', '', '', 'Nam', '2.76', '', 'kiều xuân lễ', 'Kiều Xuân Lễ', '154665', '01011', '', NULL, '1954-01-02 00:02:00', '', '151728', '00033.1', 'kieu xuan le', '', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Nhân viên bảo vệ', 'Văn phòng', NULL, 'Đã thôi việc', '03', b'0', ''),
+	(29317, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '', '0', '99', '0932560536', '3886243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/2014042105022126263.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014051903465729975.pdf', 'Nữ', '', '2014-11-10', 'phan thị sỹ', 'Phan Thị Sỹ', '154667', '', '0031398', '2014-01-01 00:04:00', '1958-01-05 00:02:00', 'Quảng Nam', '151728', '00033.1', 'phan thi sy', '206185658', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, '', 'Văn phòng', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29318, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '5', '', '99', '', '3886243', '151710', '00033', 'letth2@danang.gov.vn', 'letth2@danang.gov.vn', 'http://49.156.54.87/uploader/files/201404151219269805.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041512194823567.pdf', 'Nữ', '3.66', '2016-04-11', 'trần thị hoài lê', 'Trần Thị Hoài Lê', '154669', '01003', '0030276', '2010-01-06 00:05:00', '1977-01-12 00:01:00', '', '151728', '00033.1', 'tran thi hoai le', '201264004', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Văn phòng', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29319, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '0', '99', '', '0511-3886243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/201404210627387799.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014042106030014102.pdf', 'Nữ', '2.67', '2017-05-29', 'trần thị quỳnh trang', 'Trần Thị Quỳnh Trang', '155465', '01003', '0030352', '2006-01-29 00:06:00', '1989-01-21 00:10:00', 'Thành phố Đà Nẵng', '151721', '00033.4', 'tran thi quynh trang', '201577443', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Hỗ trợ đầu tư', NULL, 'Đã thôi việc', '03', b'0', ''),
+	(29320, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '', '99', '0905.855.551', '05113.683.146', '151710', '00033', 'hieutt2@danang.gov.vn', 'hieutt2@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014082609274714342.jpg', '', 'Nam', '2.67', '2016-08-11', 'trần trung hiếu', 'Trần Trung Hiếu', '157885', '01003', '', '2003-01-23 00:01:00', '1986-01-07 00:01:00', 'Thành phố Đà Nẵng', '151720', '00033.5', 'tran trung hieu', '201.506.403', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Tư vấn đầu tư', NULL, 'Hồ sơ đã xóa', '15', b'0', ''),
+	(29321, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '0', '0', '99', '', '', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/201404210501552695.jpg', 'http://49.156.54.87/uploader/files/cmnd/201404151203263713.pdf', 'Nam', '', '2014-11-04', 'đặng văn vương', 'Đặng Văn Vương', '171258', '', '', '2007-01-01 00:03:00', '1954-01-02 00:03:00', 'Thành phố Đà Nẵng', '151728', '00033.1', 'dang van vuong', '200195512', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, '', 'Văn phòng', NULL, 'Đã thôi việc', '03', b'0', '0'),
+	(29322, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '3', '11032', '6', '0935031008', '', '151710', '00033', 'huongvtm1@danang.gov.vn', 'huongvtm1@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014042105112715698.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041604053927354.pdf', 'Nữ', '3.00', '2018-01-16', 'võ thị mai hương', 'Võ Thị Mai Hương', '173526', '01003', '0030353', '2004-01-20 00:07:00', '1988-01-03 00:10:00', 'Thành phố Đà Nẵng', '154953', '', 'vo thi mai huong', '201544743', 'Phó Trưởng phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Phát triển dự án', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29323, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '3', '0', '99', '0935278157', '', '151710', '00033', 'hanhvth@danang.gov.vn', 'hanhvth@danang.gov.vn', 'http://49.156.54.87/uploader/files/201404210448286183.jpg', 'http://49.156.54.87/uploader/files/cmnd/201404181008086015.pdf', 'Nữ', '3.00', '2016-03-11', 'vũ thị hồng hạnh', 'Vũ Thị Hồng Hạnh', '173947', '01003', '0030354', '2004-01-11 00:03:00', '1987-01-28 00:11:00', 'Thành phố Đà Nẵng', '151722', '00033.3', 'vu thi hong hanh', '201540672', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Xúc tiến đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29324, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '0', '99', '', '3886243', '151710', '00033', 'thudta@danang.gov.vn', 'thudta@danang.gov.vn', 'http://49.156.54.87/uploader/files/2014050511273927631.jpg', 'http://49.156.54.87/uploader/files/cmnd/201404180542416070.pdf', 'Nữ', '2.67', '2016-05-09', 'đinh thị anh thư', 'Đinh thị Anh Thư', '174503', '01003', '0030355', '2009-01-28 00:05:00', '1988-01-12 00:10:00', 'Thành phố Đà Nẵng', '151721', '00033.4', 'dinh thi anh thu', '201545022', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Hỗ trợ đầu tư', NULL, 'Đã thôi việc', '03', b'0', ''),
+	(29325, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '2', '', '99', '0941770603', '', '151710', '00033', 'longld@danang.gov.vn', 'longld@danang.gov.vn', 'http://49.156.54.87/uploader/files/20140421045658840.jpg', 'http://49.156.54.87/uploader/files/cmnd/2014041811000531912.pdf', 'Nam', '2.67', '2018-01-02', 'lê đức long', 'Lê Đức Long', '183919', '01003', '0031400', '2004-01-27 00:07:00', '1988-01-06 00:03:00', 'Thành phố Đà Nẵng', '151722', '00033.3', 'le duc long', '201544950', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Xúc tiến đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29326, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '3', '', '99', '', '', '151710', '00033', 'hieutt3@danang.gov.vn', 'hieutt3@danang.gov.vn', 'http://49.156.54.87/uploader/files/TRAN_TRUNG_HIEU.jpg', 'http://49.156.54.87/uploader/?file=3924dd40ae1773be14aadd35fa9a93c7&download=1', 'Nam', '3.00', '2016-08-12', 'trần trung hiếu', 'Trần Trung Hiếu', '1113638', '01003', '0382573', NULL, '1986-01-07 00:01:00', '', '151720', '00033.5', 'tran trung hieu', '', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Tư vấn đầu tư', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29327, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '1', '11024', '4', '0905883482', '', '151710', '00033', 'tuonglm@danang.gov.vn', 'tuonglm@danang.gov.vn', 'http://49.156.54.87/uploader/files/IMG%20%285%29.jpg', '', 'Nam', '4.40', '2017-03-22', 'lê minh tường ', 'Lê Minh Tường ', '1115350', '01002', '0037422', NULL, '1982-01-03 00:04:00', '', '151723', '00033.2', 'le minh tuong ', '', 'Phó Giám đốc', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên Chính', 'Ban Lãnh đạo', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29328, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '1', '', '99', '0905551099', '3886243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/14743566593_x_4_lam.jpg', 'http://49.156.54.87/uploader/files/1474357645CMND_mat_truoc.jpg', 'Nữ', '2.34', '2016-11-24', 'huỳnh thị mai lâm', 'Huỳnh Thị Mai Lâm', '1117237', '01003', '0040423', '2012-01-11 00:05:00', '1993-01-05 00:04:00', 'Quảng Nam', '154953', '', 'huynh thi mai lam', '205702442', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Phát triển dự án', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29329, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '1', '', '99', '0935304803', '3886243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/1477467902thao_ipc_3_x_4.jpg', 'http://49.156.54.87/uploader/?file=dd5790f76f53ca21c905290b5617c70c&download=1', 'Nữ', '2.34', '2016-10-28', 'nguyễn thu thảo', 'Nguyễn Thu Thảo', '1117493', '01003', '0041056', NULL, '1991-01-08 00:03:00', '', '154953', '', 'nguyen thu thao', '', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Phát triển dự án', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29330, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '1', '', '99', '', '', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/1502247123Minh_Duc.jpg', 'http://49.156.54.87/uploader/?file=b2634c24fd9d345b9867fd49a625c3f7&download=1', 'Nữ', '2.34', '2017-12-06', 'vũ thị minh đức', 'Vũ Thị Minh Đức', '1119147', '01003', '0045941', '2013-01-30 00:07:00', '1978-01-23 00:09:00', 'Thành phố Hà Nội', '154953', '', 'vu thi minh duc', '', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Phát triển dự án', NULL, 'Đang làm việc', '00', b'0', ''),
+	(29331, b'0', '2018-01-19 00:58:00', '2018-01-19 00:58:00', 1, 1, '1', '', '99', '', '2363886243', '151710', '00033', '', '', 'http://49.156.54.87/uploader/files/1509358405thang_4_x_6.jpg', 'http://49.156.54.87/uploader/?file=0c56b5c622f9f92b93070c7dcb736194&download=1', 'Nam', '2.34', '2017-11-01', 'trần nguyễn an thắng', 'Trần Nguyễn An Thắng', '1119724', '01003', '0047469', '2009-01-20 00:08:00', '1994-01-16 00:02:00', 'Quảng Nam', '151721', '00033.4', 'tran nguyen an thang', '205687790', '', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Chuyên viên', 'Phòng Hỗ trợ đầu tư', NULL, 'Đang làm việc', '00', b'0', '');
+/*!40000 ALTER TABLE `congchucsonoivu` ENABLE KEYS */;
+
 -- Dumping structure for table bxtdtdn.congvieckehoach
 DROP TABLE IF EXISTS `congvieckehoach`;
 CREATE TABLE IF NOT EXISTS `congvieckehoach` (
@@ -84,7 +178,10 @@ CREATE TABLE IF NOT EXISTS `congvieckehoach` (
   PRIMARY KEY (`id`),
   KEY `FKdk0gka7y5b5ja5d4mxxcr9x0` (`nguoiSua_id`),
   KEY `FKg6qlp80xqcapiblc5jnlp3r0n` (`nguoiTao_id`),
-  KEY `FKf5u84k64js8si4aq8t7h9ovfq` (`loaiCongViecKeHoach_id`)
+  KEY `FKf5u84k64js8si4aq8t7h9ovfq` (`loaiCongViecKeHoach_id`),
+  CONSTRAINT `FKdk0gka7y5b5ja5d4mxxcr9x0` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKf5u84k64js8si4aq8t7h9ovfq` FOREIGN KEY (`loaiCongViecKeHoach_id`) REFERENCES `loaicongviec` (`id`),
+  CONSTRAINT `FKg6qlp80xqcapiblc5jnlp3r0n` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.congvieckehoach: ~11 rows (approximately)
@@ -115,7 +212,6 @@ CREATE TABLE IF NOT EXISTS `doanvao` (
   `deXuatCVPhuTrach` varchar(255) DEFAULT NULL,
   `link` longtext,
   `noiDoanDiTham` varchar(255) DEFAULT NULL,
-  `quocGia` varchar(50) NOT NULL,
   `soNguoi` int(11) NOT NULL,
   `tenDoanVao` varchar(255) DEFAULT NULL,
   `thoiGianDenLamViec` datetime DEFAULT NULL,
@@ -128,6 +224,7 @@ CREATE TABLE IF NOT EXISTS `doanvao` (
   `nguoiPhuTrach_id` bigint(20) DEFAULT NULL,
   `taiLieu_id` bigint(20) DEFAULT NULL,
   `idNguoiLienQuan` varchar(255) DEFAULT NULL,
+  `tenQuocGia` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK7yboq69ojpgbter6d99b5ebt2` (`nguoiSua_id`),
   KEY `FKp3mnmxf3nr816yi313x8mchy` (`nguoiTao_id`),
@@ -233,6 +330,52 @@ CREATE TABLE IF NOT EXISTS `donviduan` (
 DELETE FROM `donviduan`;
 /*!40000 ALTER TABLE `donviduan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `donviduan` ENABLE KEYS */;
+
+-- Dumping structure for table bxtdtdn.donvisonoivu
+DROP TABLE IF EXISTS `donvisonoivu`;
+CREATE TABLE IF NOT EXISTS `donvisonoivu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `daXoa` bit(1) NOT NULL,
+  `ngaySua` datetime DEFAULT NULL,
+  `ngayTao` datetime DEFAULT NULL,
+  `nguoiSua_id` bigint(20) DEFAULT NULL,
+  `nguoiTao_id` bigint(20) DEFAULT NULL,
+  `capDonViId` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `chaId` bigint(20) DEFAULT NULL,
+  `diaChi` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `dienThoai` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `donViCapTrenId` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `fax` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `idHeThong` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `level` int(11) NOT NULL,
+  `lftType` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `maSoDonViCapTren` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `maSoToChuc` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `rgtType` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `search` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenCapDonVi` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenCapDonViSearch` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenDonVi` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenDonViCapTren` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenDonViCapTrenSearch` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `tenVietTat` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `updated` bit(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4116 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+-- Dumping data for table bxtdtdn.donvisonoivu: ~6 rows (approximately)
+DELETE FROM `donvisonoivu`;
+/*!40000 ALTER TABLE `donvisonoivu` DISABLE KEYS */;
+INSERT INTO `donvisonoivu` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `nguoiSua_id`, `nguoiTao_id`, `capDonViId`, `chaId`, `diaChi`, `dienThoai`, `donViCapTrenId`, `email`, `fax`, `idHeThong`, `level`, `lftType`, `maSoDonViCapTren`, `maSoToChuc`, `rgtType`, `search`, `tenCapDonVi`, `tenCapDonViSearch`, `tenDonVi`, `tenDonViCapTren`, `tenDonViCapTrenSearch`, `tenVietTat`, `type`, `updated`) VALUES
+	(1001, b'0', '2018-01-18 18:08:15', '2018-01-18 18:08:15', 1, 1, '', 151710, '', '', '154666', '', '', '154953', 2, '7969', '00048', '', '7970', 'phong phat trien du an', '', NULL, 'Phòng Phát triển dự án', 'UBND thành phố Đà Nẵng', NULL, 'Phòng Phát triển dự án', '0', b'0'),
+	(1002, b'0', '2018-01-18 18:08:15', '2018-01-18 18:08:15', 1, 1, '0', 151710, '', '', '151710', '', '', '151728', 2, '7967', '00033', '00033.1', '7968', 'van phong', '', NULL, 'Văn phòng', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Văn phòng', '0', b'0'),
+	(1003, b'0', '2018-01-18 18:08:15', '2018-01-18 18:08:15', 1, 1, '0', 151710, '', '', '151710', '', '', '151723', 2, '7965', '00033', '00033.2', '7966', 'ban lanh dao', '', NULL, 'Ban Lãnh đạo', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Lãnh đạo', '0', b'0'),
+	(1004, b'0', '2018-01-18 18:08:15', '2018-01-18 18:08:15', 1, 1, '0', 151710, '', '', '151710', '', '', '151722', 2, '7963', '00033', '00033.3', '7964', 'phong xuc tien dau tu', '', NULL, 'Phòng Xúc tiến đầu tư', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Phòng Xúc tiến đầu tư', '0', b'0'),
+	(1005, b'0', '2018-01-18 18:08:15', '2018-01-18 18:08:15', 1, 1, '0', 151710, '', '', '151710', '', '', '151721', 2, '7961', '00033', '00033.4', '7962', 'phong ho tro dau tu', '', NULL, 'Phòng Hỗ trợ đầu tư', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Phòng Hỗ trợ đầu tư', '0', b'0'),
+	(1006, b'0', '2018-01-18 18:08:15', '2018-01-18 18:08:15', 1, 1, '0', 151710, '', '', '151710', '', '', '151720', 2, '7959', '00033', '00033.5', '7960', 'phong tu van dau tu', '', NULL, 'Phòng Tư vấn đầu tư', 'Ban Xúc tiến và Hỗ trợ đầu tư Đà Nẵng', NULL, 'Phòng Tư vấn đầu tư', '0', b'0');
+/*!40000 ALTER TABLE `donvisonoivu` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.donvixuctien
 DROP TABLE IF EXISTS `donvixuctien`;
@@ -565,7 +708,9 @@ CREATE TABLE IF NOT EXISTS `giaoviec` (
   KEY `FKl7t2w9u86m83h4j1e0g1u0qnw` (`taiLieuKetQua_id`),
   KEY `FKkh11optenfh7r9eu6jlylbd88` (`doanVao_id`),
   KEY `FKd7jsaqo2y9lerub0g6b596qm2` (`phongBan_id`),
+  KEY `FK63vdkg2eldlorjm817kt81po9` (`cha_id`),
   CONSTRAINT `FK1jkhxiuynhv7kg8lpysxgxa36` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FK63vdkg2eldlorjm817kt81po9` FOREIGN KEY (`cha_id`) REFERENCES `loaicongviec` (`id`),
   CONSTRAINT `FK7koe49gx4fwfrtqjt5c1mnpju` FOREIGN KEY (`nguoiGiaoViec_id`) REFERENCES `nhanvien` (`id`),
   CONSTRAINT `FK8wvh4hnwxwkr081alfgiaatsp` FOREIGN KEY (`taiLieu_id`) REFERENCES `teptin` (`id`),
   CONSTRAINT `FKc03v84oo8ne7yrq07j0xbk3nx` FOREIGN KEY (`duAn_id`) REFERENCES `duan` (`id`),
@@ -701,6 +846,27 @@ DELETE FROM `kehoachlamviec`;
 /*!40000 ALTER TABLE `kehoachlamviec` DISABLE KEYS */;
 /*!40000 ALTER TABLE `kehoachlamviec` ENABLE KEYS */;
 
+-- Dumping structure for table bxtdtdn.keyapi
+DROP TABLE IF EXISTS `keyapi`;
+CREATE TABLE IF NOT EXISTS `keyapi` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `daXoa` bit(1) NOT NULL,
+  `ngaySua` datetime DEFAULT NULL,
+  `ngayTao` datetime DEFAULT NULL,
+  `trangThai` varchar(255) DEFAULT NULL,
+  `keyApi` varchar(255) DEFAULT NULL,
+  `nguoiSua_id` bigint(20) DEFAULT NULL,
+  `nguoiTao_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKmap8n5qejxoidgdvdfy39mpey` (`nguoiSua_id`),
+  KEY `FKrby5gt0i0vigtj2a83xdq051x` (`nguoiTao_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- Dumping data for table bxtdtdn.keyapi: 0 rows
+DELETE FROM `keyapi`;
+/*!40000 ALTER TABLE `keyapi` DISABLE KEYS */;
+/*!40000 ALTER TABLE `keyapi` ENABLE KEYS */;
+
 -- Dumping structure for table bxtdtdn.language
 DROP TABLE IF EXISTS `language`;
 CREATE TABLE IF NOT EXISTS `language` (
@@ -807,7 +973,9 @@ CREATE TABLE IF NOT EXISTS `loaicongviec` (
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK8pgkbv8iopdbrm03dwosq78hx` (`nguoiSua_id`),
-  KEY `FKbi4mfocvx2docrnvice2pheaa` (`nguoiTao_id`)
+  KEY `FKbi4mfocvx2docrnvice2pheaa` (`nguoiTao_id`),
+  CONSTRAINT `FK8pgkbv8iopdbrm03dwosq78hx` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKbi4mfocvx2docrnvice2pheaa` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.loaicongviec: ~3 rows (approximately)
@@ -911,7 +1079,9 @@ CREATE TABLE IF NOT EXISTS `nhadautu` (
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK5oppdlv87e8ehglwru9oimy5o` (`nguoiSua_id`),
-  KEY `FKix16fcj5hepelskq55ilign66` (`nguoiTao_id`)
+  KEY `FKix16fcj5hepelskq55ilign66` (`nguoiTao_id`),
+  CONSTRAINT `FK5oppdlv87e8ehglwru9oimy5o` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
+  CONSTRAINT `FKix16fcj5hepelskq55ilign66` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table bxtdtdn.nhadautu: ~0 rows (approximately)
@@ -1217,11 +1387,11 @@ CREATE TABLE IF NOT EXISTS `thanhviendoan` (
   `donVi` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `hoVaTen` varchar(255) DEFAULT NULL,
-  `quocGia` varchar(50) NOT NULL,
   `soDienThoai` varchar(255) DEFAULT NULL,
   `nguoiSua_id` bigint(20) DEFAULT NULL,
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   `doanVao_id` bigint(20) DEFAULT NULL,
+  `tenQuocGia` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKj8n046ax6xssf8bjkcne8pcas` (`nguoiSua_id`),
   KEY `FK2wq0t5b2bxasdrybft9vq5v93` (`nguoiTao_id`),
