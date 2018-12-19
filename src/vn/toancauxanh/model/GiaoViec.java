@@ -484,7 +484,7 @@ public class GiaoViec extends Model<GiaoViec> {
 		Executions.getCurrent().sendRedirect(href, "_blank");
 	}
 
-	public CongViecModel toGiaoViecModel(){
+	public CongViecModel toGiaoViecModel() {
 		CongViecModel rs = new CongViecModel();
 		rs.setId(getId() != null ? getId() : null);
 		rs.setIdDoanVao(this.getDoanVao() != null ? this.getDoanVao().getId() : null);

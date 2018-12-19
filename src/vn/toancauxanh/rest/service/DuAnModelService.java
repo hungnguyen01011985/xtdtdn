@@ -23,7 +23,7 @@ public class DuAnModelService {
 		this.duAnRepository = duAnRepository;
 	}
 	
-	public PagingObject<DuAnModel> duAns(Pageable pageable, String tenDuAn){
+	public PagingObject<DuAnModel> duAns(Pageable pageable, String tenDuAn) {
 		if (pageable.getPageSize() > 1000) throw new RuntimeException("Page size too big");
 		PagingObject<DuAnModel> rs = new PagingObject<>();
 		Page<DuAn> duAnPage;
