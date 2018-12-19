@@ -90,9 +90,6 @@
 	</n:nav>
 	
 	<n:script>
-		$(document).ready(function() {
-		 <!--  $(".nav-side-menu").css("height", $("#page-wrapper").height() + 33); -->
-		});
 		function toggleMenuDesktop() {
 			if ($(".nav-side-menu").css("width") == "243px") {
 				$(".text-menu").css("display","none");

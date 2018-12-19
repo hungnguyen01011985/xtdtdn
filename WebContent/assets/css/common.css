@@ -2140,7 +2140,15 @@ a>span.glyphicon.add-category {
 .custom-time-box {
 	padding-left: 0px !important;
 }
-
+.w-table-no-scroll .z-grid-body{
+	min-width:auto;
+}
+.w-table-no-scroll .z-grid-header{
+	min-width:auto;
+}
+.w-table-no-scroll .z-grid-header-border{
+	min-width:auto;
+}
 .z-grid-body {
 	border-bottom: 1px solid #cfcfcf;
 	width: 100% !important;
