@@ -51,6 +51,9 @@
 			} else if (nhanVien.getTatCaQuyens().contains(entry.core().CONGVIECKEHOACHLIST)){
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=congvieckehoach&action=lietke&file=/WEB-INF/zul/congvieckehoach/list.zul");
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().MASUDUNGAPILIST)){
+				desktop.setCurrentDirectory("/WEB-INF/zul");
+				Executions.forward("/WEB-INF/zul/home.zul?resource=masudungapi&action=lietke&file=/WEB-INF/zul/masudungapi/list.zul");
 			} else {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=quanlygiaoviec&action=lietke&file=/WEB-INF/zul/quanlygiaoviec/list.zul");
