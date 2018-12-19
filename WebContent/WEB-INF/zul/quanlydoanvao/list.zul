@@ -146,7 +146,7 @@
 								<label value="@load(item.noiDoanDiTham)"></label>
 								<label value="@load(item.trangThaiTiepDoan.text)" class="TRANG_THAI ${item.trangThaiTiepDoan}"></label>
 								<div class="thaotac" style="text-align:center">
-									<x:a label="Sửa" class="btn-thaotac left" href="${contexPath}/bxtdn/cp/quanlydoanvao/edit/${each.id}" zk:if="${entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, item.idNguoiLienQuan, item.nguoiTao, item.nguoiPhuTrach)}">
+									<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('redirectDoanVao', id = each.id)" zk:if="${entry.quyen.quanlydoanvao_sua and vm.checkNguoiLienQuan(entry.nhanVien.id, item.idNguoiLienQuan, item.nguoiTao, item.nguoiPhuTrach)}">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/cap-nhat-table.svg"/>
 										<x:span>Cập nhật</x:span>
 									</x:a>

@@ -264,7 +264,7 @@
 							</x:button>
 						</div>
 						<div zclass="form-group right" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and action}">
-							<x:a class="btn btn-blue mg-btn" href="${contexPath}/bxtdn/cp/quanlydoanvao/edit/${id}" zk:if="${vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
+							<x:a class="btn btn-blue mg-btn" zk:onClick="@command('redirectDoanVao', id = id)" zk:if="${vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
 								<span>Cập nhật</span>
 							</x:a>

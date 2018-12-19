@@ -859,6 +859,12 @@ public class DoanVao extends Model<DoanVao> {
 		}
 	}
 	
+	@Command
+	public void redirectDoanVao(@BindingParam("id") Long id) {
+		String url = "/cp/quanlydoanvao/edit/";
+		Executions.sendRedirect(url.concat(id.toString()));
+	}
+	
 	public void resetCheck() {
 		checkNotAllNull = true;
 		checkAllNull = false;
