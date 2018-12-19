@@ -381,8 +381,8 @@ public class ProcessService extends BasicService<Object> {
 		DuAn duAn = q.fetchFirst();
 		if (model.getTenDuAn() == null || model.getTenDuAn().isEmpty() || model.getLinhVuc() == null
 				|| model.getDiaDiem() == null || model.getDiaDiem().isEmpty() || model.getQuyMoDuAn() == null
-				|| model.getQuyMoDuAn().isEmpty() || model.getTongVonDauTu() <= 0 || model.getMucTieuDuAn() == null
-				|| model.getMucTieuDuAn().isEmpty() || model.getDienTichSuDungDat() <= 0) {
+				|| model.getQuyMoDuAn().isEmpty() || model.getTongVonDauTu() == null || model.getTongVonDauTu() <= 0 || model.getMucTieuDuAn() == null
+				|| model.getMucTieuDuAn().isEmpty() || model.getMucTieuDuAn() == null || model.getDienTichSuDungDat() <= 0) {
 			showNotification("", "Bạn phải nhập đầy đủ thông tin *", "danger");
 			((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", false);
 			return;
