@@ -111,6 +111,8 @@ public class Entry extends BaseObject<Object> {
 	public String QUANLYLOAICONGVIECKEHOACH = "";
 	@Value("${url.congvieckehoach}")
 	public String QUANLYCONGVIECKEHOACH = "";
+	@Value("${url.masudungapi}")
+	public String MASUDUNGAPI = "";
 	// uend
 	public char CHAR_CACH = ':';
 	public String CACH = CHAR_CACH + "";
@@ -300,9 +302,22 @@ public class Entry extends BaseObject<Object> {
 	public String CONGVIECKEHOACHSUA = "";
 	@Value("${url.congvieckehoach}" + ":" + "${action.tim}")
 	public String CONGVIECKEHOACHTIMKIEM;
+	
+	@Value("${url.masudungapi}" + ":" + "${action.xem}")
+	public String MASUDUNGAPIXEM = "";
+	@Value("${url.masudungapi}" + ":" + "${action.them}")
+	public String MASUDUNGAPITHEM = "";
+	@Value("${url.masudungapi}" + ":" + "${action.list}")
+	public String MASUDUNGAPILIST = "";
+	@Value("${url.masudungapi}" + ":" + "${action.xoa}")
+	public String MASUDUNGAPIXOA = "";
+	@Value("${url.masudungapi}" + ":" + "${action.sua}")
+	public String MASUDUNGAPISUA = "";
+	@Value("${url.masudungapi}" + ":" + "${action.tim}")
+	public String MASUDUNGAPITIMKIEM;
 	// aend
 	public String[] getRESOURCES() { // Các title của vai trò
-		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN, VAITRO, 
+		return new String[] { NGUOIDUNG, QUANLYDUAN, QUANLYGIAOVIEC, QUANLYDOANVAO, QUANLYPHONGBAN, VAITRO, MASUDUNGAPI,
 				QUANLYLINHVUCDUAN, BAOCAOTHONGKE, QUANLYNHADAUTU, QUANLYDONVI, QUANLYCAPDONVI, QUANLYDONVIXUCTIEN, QUANLYLOAICONGVIECKEHOACH, QUANLYCONGVIECKEHOACH}; //
 	}
 
@@ -493,6 +508,10 @@ public class Entry extends BaseObject<Object> {
 
 	public final LanguageService getLanguages() {
 		return new LanguageService();
+	}
+	
+	public final KeyApiService getKeyApis() {
+		return new KeyApiService();
 	}
 
 	public boolean checkVaiTro(String vaiTro) {

@@ -14,7 +14,7 @@
 	<zscript>
 		<![CDATA[
 		         boolean checkActiveHeThong = false;
-		         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource)
+		         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource) || "masudungapi".equals(resource)
 		        		 || "nhadautu".equals(resource) || "capdonvi".equals(resource) || "donvixuctien".equals(resource) || "congvieckehoach".equals(resource) || "loaicongvieckehoach".equals(resource))  {
 		        	 checkActiveHeThong = true;
 		         }
@@ -80,7 +80,9 @@
 						</n:a>
 					</n:ul>
 				</n:li>
-				<n:li class="header-children ${checkActiveHeThong ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke || entry.quyen.nhadautu_lietke || entry.quyen.donvi_lietke || entry.quyen.donvixuctien_lietke || entry.quyen.loaicongvieckehoach_lietke || entry.quyen.congvieckehoach_lietke}">
+				<n:li class="header-children ${checkActiveHeThong ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke
+						 || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke || entry.quyen.nhadautu_lietke || entry.quyen.donvi_lietke || entry.quyen.donvixuctien_lietke 
+						 || entry.quyen.loaicongvieckehoach_lietke || entry.quyen.congvieckehoach_lietke || entry.quyen.masudungapi_lietke}">
 					<n:a onClick="toggleDropdownMenu(this)" style="padding-bottom:10px;">
 						<x:span class="img-menu qlht" zk:if="${resource ne 'phongban'}"></x:span>
 						<x:span class="img-menu qlht" zk:if="${resource eq 'phongban'}"></x:span>
@@ -119,6 +121,9 @@
 						</n:a>
 						<n:a href="${execution.contextPath}/cp/congvieckehoach" zk:if="${entry.quyen.congvieckehoach_lietke}">
 							<n:li class="${resource eq 'congvieckehoach' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý kế hoạch</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/masudungapi" zk:if="${entry.quyen.masudungapi_lietke}">
+							<n:li class="${resource eq 'masudungapi' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Mã sử dụng API</n:li>
 						</n:a>
 					</n:ul>
 				</n:li>

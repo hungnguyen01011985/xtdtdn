@@ -826,6 +826,10 @@
 	padding: 15px 7.5px 0 7.5px;;
 }
 
+.mg-top-no-line-width {
+	padding: 20px 7.5px 5px 7.5px;;
+}
+
 .mg-top-8 {
 	margin-top: 8px;
 }
