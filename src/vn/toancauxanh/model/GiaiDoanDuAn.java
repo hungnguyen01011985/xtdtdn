@@ -34,7 +34,7 @@ public class GiaiDoanDuAn extends Model<GiaiDoanDuAn> {
 	private Date ngayGui;
 	private Date ngayNhanPhanHoi;
 	private TepTin taiLieuGD1;
-	private List<DonViDuAn> donViDuAn = new ArrayList<DonViDuAn>();
+	private List<DonViDuAn> donViDuAn = new ArrayList<>();
 	// Thông tin giai đoạn 2
 	private Date ngayKhaoSat;
 	@Lob
