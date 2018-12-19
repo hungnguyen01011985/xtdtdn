@@ -12,19 +12,13 @@
     font-family: SourceSansPro-Regular;
     src: url(../fonts/SourceSansPro-Regular.otf);
 }
-
-
-/* *********  notifications  **************************** */
-
-
-
-/********* login ****************/
-
+@font-face {
+	font-family: 'Roboto-Bold';
+	src: url('../fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+}
 a.hiddenanchor {
   display: none;
 }
-
-/** The wrapper that will contain our two forms **/
 
 #wrapper {
   right: 0px;
@@ -408,14 +402,13 @@ input:-webkit-autofill {
 }
 
 body {
-	background: url(../img/bgheaddragon.png) no-repeat center center fixed !important;
+	background: url(../img/background.png) no-repeat center center fixed !important;
     background-size: cover !important;
 }
 
 .login-icon {
-	background: url('../img/icon-danang.png') no-repeat !important;
-	width: 90px;
-	height: 90px;
+	background: url('../img/logo.png') no-repeat !important;
+	background-size:90px 90px;
 	float: left;
 }
 

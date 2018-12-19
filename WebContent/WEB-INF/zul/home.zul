@@ -63,7 +63,7 @@ xmlns:w="http://www.zkoss.org/2005/zk/client">
 	<backendheader/>
 	<n:div>
 		<n:div id="page-wrapper" class="wrap-fix">
-			<include src="/WEB-INF/zul/common/menu-left.zul" />
+			<include src="/WEB-INF/zul/common/menu-left.zul" style="display:flex;"/>
 			<div zclass="body-include box-col-full">
 				<include if="${coquyen}" instant="true" src="${file}" class="box-col-7"></include>
 				<div if="${!coquyen}" class="alert alert-danger" style="width:80%;margin:0 auto;margin-top:30px;">

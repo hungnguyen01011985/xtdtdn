@@ -67,7 +67,7 @@
 					<div zclass="col-md-12">
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Tên dự án<n:small class="required" if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id and vm.checkDangOGiaiDoan(giaiDoanNam)}"> *</n:small></x:span>
-							<textbox class="form-control textbox-txt-style" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.tenDuAn)" placeholder="Nhập tên dự án"/>
+							<textbox class="form-control textbox-txt-style" rows="3" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" maxlength="255" value="@bind(vm.tenDuAn)" placeholder="Nhập tên dự án"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -84,7 +84,7 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<x:span class="label-txt-style">Ngày bắt đầu xúc tiến</x:span>
-							<datebox format="dd/MM/yyyy" class="hv-db mg-top-8 txt-textbox-disable" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
+							<datebox buttonVisible="false" format="dd/MM/yyyy" class="hv-db mg-top-8 txt-textbox-disable input-no-button" disabled="true" value="@bind(vm.ngayBatDauXucTien)" width="100%" placeholder="Chọn ngày"/>
 						</div>
 					</div>
 					<div zclass="col-md-3">

@@ -9,31 +9,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.zkoss.bind.BindUtils;
-
 import com.querydsl.jpa.impl.JPAQuery;
+
+import vn.toancauxanh.rest.model.DonViDuAnModel;
 
 @Entity
 @Table(name="donviduan")
 public class DonViDuAn extends Model<DonViDuAn>{
-	private CapDonVi capDonVi;
 	private DonViXucTien donVi = new DonViXucTien();
 	private Date ngayNhanTraLoi;
 	private TepTin congVanTraLoi;
 	private GiaiDoanDuAn giaiDoanDuAn;
 	
-	@ManyToOne
-	public CapDonVi getCapDonVi() {
-		return capDonVi;
-	}
-
-	public void setCapDonVi(CapDonVi capDonVi) {
-		this.capDonVi = capDonVi;
-		donVi = new DonViXucTien();
-		BindUtils.postNotifyChange(null, null, this, "listDonViXucTien");
-		BindUtils.postNotifyChange(null, null, this, "donVi");
-	}
-
 	@ManyToOne
 	public DonViXucTien getDonVi() {
 		return donVi;
@@ -42,7 +29,16 @@ public class DonViDuAn extends Model<DonViDuAn>{
 	public void setDonVi(DonViXucTien donVi) {
 		this.donVi = donVi;
 	}
-
+	
+	@Transient
+	public List<CapDonVi> getListCapDonVi() {
+		List<CapDonVi> list = new ArrayList<>();
+		JPAQuery<CapDonVi> q = find(CapDonVi.class);
+		q.orderBy(QCapDonVi.capDonVi.ten.desc());
+		list.addAll(q.fetch());
+		return list;
+	}
+	
 	public Date getNgayNhanTraLoi() {
 		return ngayNhanTraLoi;
 	}
@@ -68,25 +64,12 @@ public class DonViDuAn extends Model<DonViDuAn>{
 	public void setGiaiDoanDuAn(GiaiDoanDuAn giaiDoanDuAn) {
 		this.giaiDoanDuAn = giaiDoanDuAn;
 	}
-	
+
 	@Transient
-	public List<CapDonVi> getListCapDonVi() {
-		List<CapDonVi> list = new ArrayList<>();
-		JPAQuery<CapDonVi> q = find(CapDonVi.class);
-		q.orderBy(QCapDonVi.capDonVi.ten.desc());
-		list.addAll(q.fetch());
-		return list;
-	}
-	
-	@Transient
-	public List<DonViXucTien> getListDonViXucTien() {
-		List<DonViXucTien> list = new ArrayList<>();
-		JPAQuery<DonViXucTien> q = find(DonViXucTien.class);
-		if (capDonVi != null) {
-			q.where(QDonViXucTien.donViXucTien.capDonVi.eq(capDonVi));
-		}
-		q.orderBy(QDonViXucTien.donViXucTien.ten.desc());
-		list.addAll(q.fetch());
-		return list;
+	public DonViDuAnModel toDonViDuAnModel() {
+		DonViDuAnModel rs = new DonViDuAnModel();
+		rs.setTenDonViXucTien(this.getDonVi() != null ? this.getDonVi().getTen() : "");
+		rs.setNgayNhanTraLoi(this.getNgayNhanTraLoi() != null ? this.getNgayNhanTraLoi() : null);
+		return rs;
 	}
 }
