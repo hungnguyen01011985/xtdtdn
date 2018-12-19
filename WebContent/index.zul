@@ -33,25 +33,25 @@
 			} else if (nhanVien.getTatCaQuyens().contains(entry.core().LINHVUCDUANLIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=linhvucduan&action=lietke&file=/WEB-INF/zul/linhvucduan/list.zul");
-			} else if (nhanVien.getTatCaQuyens().contains(entry.core().DONVILIST)){
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().DONVILIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=linhvucduan&action=lietke&file=/WEB-INF/zul/donvi/list.zul");
-			} else if (nhanVien.getTatCaQuyens().contains(entry.core().NHADAUTULIST)){
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().NHADAUTULIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=nhadautu&action=lietke&file=/WEB-INF/zul/nhadautu/list.zul");
-			} else if (nhanVien.getTatCaQuyens().contains(entry.core().CAPDONVILIST)){
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().CAPDONVILIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=capdonvi&action=lietke&file=/WEB-INF/zul/capdonvi/list.zul");
-			} else if (nhanVien.getTatCaQuyens().contains(entry.core().DONVIXUCTIENLIST)){
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().DONVIXUCTIENLIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=donvixuctien&action=lietke&file=/WEB-INF/zul/donvixuctien/list.zul");
-			} else if (nhanVien.getTatCaQuyens().contains(entry.core().LOAIKEHOACHCONGVIECLIST)){
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().LOAIKEHOACHCONGVIECLIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=loaicongvieckehoach&action=lietke&file=/WEB-INF/zul/loaicongvieckehoach/list.zul");
-			} else if (nhanVien.getTatCaQuyens().contains(entry.core().CONGVIECKEHOACHLIST)){
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().CONGVIECKEHOACHLIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=congvieckehoach&action=lietke&file=/WEB-INF/zul/congvieckehoach/list.zul");
-			} else if (nhanVien.getTatCaQuyens().contains(entry.core().MASUDUNGAPILIST)){
+			} else if (nhanVien.getTatCaQuyens().contains(entry.core().MASUDUNGAPILIST)) {
 				desktop.setCurrentDirectory("/WEB-INF/zul");
 				Executions.forward("/WEB-INF/zul/home.zul?resource=masudungapi&action=lietke&file=/WEB-INF/zul/masudungapi/list.zul");
 			} else {

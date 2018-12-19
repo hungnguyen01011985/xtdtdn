@@ -7,7 +7,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import vn.toancauxanh.model.KeyApi;
 import vn.toancauxanh.model.QKeyApi;
 
-public class KeyApiService extends BasicService<KeyApi>{
+public class KeyApiService extends BasicService<KeyApi> {
 	public JPAQuery<KeyApi> getTargetQuery() {
 		String param = MapUtils.getString(argDeco(), "tuKhoa", "").trim();
 		JPAQuery<KeyApi> q = find(KeyApi.class);
@@ -25,5 +25,4 @@ public class KeyApiService extends BasicService<KeyApi>{
 		list = find(KeyApi.class).orderBy(QKeyApi.keyApi1.keyApi.asc()).fetch();		
 		return list;
 	}
-
 }
