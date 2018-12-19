@@ -70,7 +70,7 @@
 									<x:span class="label-txt-style">Quốc gia<n:small class="required" if="${!action}"> *</n:small></x:span>
 								</div>
 								<bandbox id="bd" width="auto" value="@bind(vm.tenQuocGia) @save(vm.tenQuocGia, before='saveDoanVao') @validator(vm.validateTenQuocGia, ten = self.value)"
-									 placeholder="Chọn quốc gia" buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}" autodrop="true" 
+									 placeholder="Chọn quốc gia" buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action}" autodrop="true" onOpen="@command('searchKey',key = event.value)"
 									 disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="his bb-quoc-gia ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !action ? '' : 'input-no-button'}" mold="rounded" onChanging="@command('searchKey',key = event.value)">
 									<bandpopup>
 										<listbox model="@load(vm.listSearch)" onSelect="bd.close();" selectedItem="@bind(vm.tenQuocGia)" emptyMessage="Không có dữ liệu">
