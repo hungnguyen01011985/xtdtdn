@@ -57,16 +57,16 @@
 				</div>
 			</div>
 			<div zclass="row mg-and-bg-and-line">
-				<div zclass="col-md-12">
+				<div zclass="col-md-12 w-table-no-scroll">
 					<grid id="grid" model="@load(vm.page(vm.targetQueryNhanVien).fetch())"
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
-							<column label="Tên" style="text-align:center" width="30%" />
-							<column label="Email" style="text-align:center" width="30%"/>
-							<column label="Phòng ban" style="text-align:center" width="15%%"/>
-							<column label="Vị trí" style="text-align:center" width="15%" />
-							<column label="Thao tác" style="text-align:center" width="110px"/>
+							<column label="Tên"/>
+							<column label="Email"/>
+							<column label="Phòng ban" width="160px"/>
+							<column label="Vị trí" width="110px" />
+							<column label="Thao tác" width="120px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
