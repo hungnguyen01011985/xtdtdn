@@ -45,8 +45,8 @@ import vn.toancauxanh.gg.model.enums.PhuongThucLuaChonNDT;
 import vn.toancauxanh.rest.model.DuAnModel;
 import vn.toancauxanh.rest.model.GiaiDoanBaModel;
 import vn.toancauxanh.rest.model.GiaiDoanBonModel;
+import vn.toancauxanh.rest.model.GiaiDoanDuAnModel;
 import vn.toancauxanh.rest.model.GiaiDoanHaiModel;
-import vn.toancauxanh.rest.model.GiaiDoanMotModel;
 import vn.toancauxanh.rest.model.GiaiDoanNamModel;
 import vn.toancauxanh.service.DonViDuAnService;
 import vn.toancauxanh.service.GiaiDoanService;
@@ -856,7 +856,14 @@ public class DuAn extends Model<DuAn> {
 		DuAnModel rs = new DuAnModel();
 		GiaiDoanService giaiDoans = new GiaiDoanService();
 		List<GiaiDoanDuAn> listGiaiDoanDuAn = new ArrayList<>();
+		List<GiaiDoanDuAnModel> listGiaiDoanDuAnModel = new ArrayList<>();
 		listGiaiDoanDuAn = giaiDoans.getListGiaiDoanDuAnById(this.getId());
+		GiaiDoanDuAn giaiDoanHienTai = new GiaiDoanDuAn();
+		if (!listGiaiDoanDuAn.isEmpty()) {
+			giaiDoanHienTai = listGiaiDoanDuAn.get(listGiaiDoanDuAn.size() - 1);
+		}
+		this.setGiaiDoanDuAn(giaiDoanHienTai);
+		
 		rs.setId(this.getId() != null ? this.getId() : null);
 		rs.setIdNguoiPhuTrach(this.getNguoiPhuTrach() != null ? this.getNguoiPhuTrach().getId() : null);
 		rs.setTenDuAn(this.getTenDuAn() != null ? this.getTenDuAn() : "");
@@ -870,45 +877,87 @@ public class DuAn extends Model<DuAn> {
 		rs.setTongVonDauTu(this.getTongVonDauTu());
 		rs.setDienTichSuDungDat(this.getDienTichSuDungDat());
 		rs.setNgayBatDauXucTien(this.getNgayBatDauXucTien() != null ? this.getNgayBatDauXucTien() : null);
-		if (!listGiaiDoanDuAn.isEmpty()) {
-			listGiaiDoanDuAn.forEach(item -> {
-				if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(item.getGiaiDoanXucTien())) {
-					rs.setGiaiDoanMot(setDuLieuGiaiDoanMot(item));
-				} else if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(item.getGiaiDoanXucTien())) {
-					rs.setGiaiDoanHai(setDuLieuGiaiDoanHai(item));
-				} else if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(item.getGiaiDoanXucTien())) {
-					rs.setGiaiDoanBa(setDuLieuGiaiDoanBa(item));
-				} else if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(item.getGiaiDoanXucTien())) {
-					rs.setGiaiDoanBon(setDuLieuGiaiDoanBon(item));
-				} else if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(item.getGiaiDoanXucTien())) {
-					rs.setGiaiDoanNam(setDuLieuGiaiDoanNam(item));
-				} else if (GiaiDoanXucTien.HOAN_THANH.equals(item.getGiaiDoanXucTien())) {
-					rs.setGiaiDoanMot(setDuLieuGiaiDoanMot(item));
-					rs.setGiaiDoanHai(setDuLieuGiaiDoanHai(item));
-					rs.setGiaiDoanBa(setDuLieuGiaiDoanBa(item));
-					rs.setGiaiDoanBon(setDuLieuGiaiDoanBon(item));
-					rs.setGiaiDoanNam(setDuLieuGiaiDoanNam(item));
-				} else if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(item.getGiaiDoanXucTien())) {
-					rs.setGiaiDoanMot(setDuLieuGiaiDoanMot(item));
-					rs.setGiaiDoanHai(setDuLieuGiaiDoanHai(item));
-					rs.setGiaiDoanBa(setDuLieuGiaiDoanBa(item));
-				}
-			});
-		}
+		rs.setGiaiDoanHienTai(toGiaiDoanDuAnModel(this.getGiaiDoanDuAn()));
+		listGiaiDoanDuAn.stream().forEach(item -> {
+			GiaiDoanDuAnModel result = new GiaiDoanDuAnModel();
+			result = item.getDuAn().toGiaiDoanDuAnModel(item);
+			listGiaiDoanDuAnModel.add(result);
+		});
+		rs.setGiaiDoanDuAns(listGiaiDoanDuAnModel);
+//		if (!listGiaiDoanDuAn.isEmpty()) {
+//			listGiaiDoanDuAn.forEach(item -> {
+//				if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(item.getGiaiDoanXucTien())) {
+//					rs.setGiaiDoanMot(setDuLieuGiaiDoanMot(item));
+//				} else if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(item.getGiaiDoanXucTien())) {
+//					rs.setGiaiDoanHai(setDuLieuGiaiDoanHai(item));
+//				} else if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(item.getGiaiDoanXucTien())) {
+//					rs.setGiaiDoanBa(setDuLieuGiaiDoanBa(item));
+//				} else if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(item.getGiaiDoanXucTien())) {
+//					rs.setGiaiDoanBon(setDuLieuGiaiDoanBon(item));
+//				} else if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(item.getGiaiDoanXucTien())) {
+//					rs.setGiaiDoanNam(setDuLieuGiaiDoanNam(item));
+//				} else if (GiaiDoanXucTien.HOAN_THANH.equals(item.getGiaiDoanXucTien())) {
+//					rs.setGiaiDoanMot(setDuLieuGiaiDoanMot(item));
+//					rs.setGiaiDoanHai(setDuLieuGiaiDoanHai(item));
+//					rs.setGiaiDoanBa(setDuLieuGiaiDoanBa(item));
+//					rs.setGiaiDoanBon(setDuLieuGiaiDoanBon(item));
+//					rs.setGiaiDoanNam(setDuLieuGiaiDoanNam(item));
+//				} else if (GiaiDoanXucTien.CHUA_HOAN_THANH.equals(item.getGiaiDoanXucTien())) {
+//					rs.setGiaiDoanMot(setDuLieuGiaiDoanMot(item));
+//					rs.setGiaiDoanHai(setDuLieuGiaiDoanHai(item));
+//					rs.setGiaiDoanBa(setDuLieuGiaiDoanBa(item));
+//				}listGiaiDoanDuAnModel
+//			});
+//		}
 		return rs;
 	}
 	
-	public GiaiDoanMotModel setDuLieuGiaiDoanMot(GiaiDoanDuAn giaiDoanDuAn) {
-		GiaiDoanMotModel giaiDoanMot = new GiaiDoanMotModel();
+	public GiaiDoanDuAnModel toGiaiDoanDuAnModel(GiaiDoanDuAn giaiDoanDuAn) {
+		GiaiDoanDuAnModel rs = new GiaiDoanDuAnModel();
 		
 		// giai doan mot
 		DonViDuAnService donViDuAns = new DonViDuAnService();
 		List<DonViDuAn> listDonViDuAn = new ArrayList<>();
 		listDonViDuAn = donViDuAns.getListDonViById(giaiDoanDuAn.getId());
-		giaiDoanMot.setNgayGui(giaiDoanDuAn.getNgayGui() != null ? giaiDoanDuAn.getNgayGui() : null);
-		giaiDoanMot.setNgayNhanPhanHoi(giaiDoanDuAn.getNgayNhanPhanHoi() != null ? giaiDoanDuAn.getNgayNhanPhanHoi() : null);
-		giaiDoanMot.setDonViDuAns(listDonViDuAn != null ? listDonViDuAn.stream().map(DonViDuAn::toDonViDuAnModel).collect(Collectors.toList()) : null);
-		return giaiDoanMot;
+		rs.setTenGiaiDoan(giaiDoanDuAn != null ? giaiDoanDuAn.getGiaiDoanXucTien().getText() : "");
+		rs.setNgayGui(giaiDoanDuAn.getNgayGui() != null ? giaiDoanDuAn.getNgayGui() : null);
+		rs.setNgayNhanPhanHoi(giaiDoanDuAn.getNgayNhanPhanHoi() != null ? giaiDoanDuAn.getNgayNhanPhanHoi() : null);
+		rs.setDonViDuAns(listDonViDuAn != null ? listDonViDuAn.stream().map(DonViDuAn::toDonViDuAnModel).collect(Collectors.toList()) : null);
+		
+		// giai doan hai
+		rs.setNgayKhaoSat(giaiDoanDuAn.getNgayKhaoSat() != null ? giaiDoanDuAn.getNgayKhaoSat() : null);
+		rs.setNgayPhatHanhCVGD2(giaiDoanDuAn.getNgayPhatHanhCVGD2() != null ? giaiDoanDuAn.getNgayPhatHanhCVGD2() : null);
+		rs.setGhiChu(giaiDoanDuAn.getGhiChu() != null ? giaiDoanDuAn.getGhiChu() : "");
+		
+		// giai doan ba
+		rs.setNgayGuiUBND(giaiDoanDuAn.getNgayGuiUBND() != null ? giaiDoanDuAn.getNgayGuiUBND() : null);
+		rs.setNgayDuKienNhanPhanHoi(giaiDoanDuAn.getNgayDuKienNhanPhanHoi() != null ? giaiDoanDuAn.getNgayDuKienNhanPhanHoi() : null);
+		rs.setNgayPhatHanhCV3(giaiDoanDuAn.getNgayPhatHanhCV3() != null ? giaiDoanDuAn.getNgayPhatHanhCV3() : null);
+		
+		// Giai doan bon
+		HoSoKhuDatService hoSoKhuDats = new HoSoKhuDatService();
+		List<HoSoKhuDat> list = new ArrayList<>();
+		list = hoSoKhuDats.getListHoSoKhuDatById(giaiDoanDuAn.getId());
+		rs.setPhuongThucChonNhaDauTu(giaiDoanDuAn.getPhuongThucLuaChonNDT() != null ? giaiDoanDuAn.getPhuongThucLuaChonNDT().getText() : "");
+		rs.setTenDonViChuTri(giaiDoanDuAn.getDonViChuTri() != null ? giaiDoanDuAn.getDonViChuTri().getTen() : "");
+		rs.setIdDonViChuTri(giaiDoanDuAn.getDonViChuTri() != null ? giaiDoanDuAn.getDonViChuTri().getId() : null);
+		rs.setTenDonViTuVan(giaiDoanDuAn.getDonViTuVan() != null ? giaiDoanDuAn.getDonViTuVan().getTen() : "");
+		rs.setIdDonViTuVan(giaiDoanDuAn.getDonViTuVan() != null ? giaiDoanDuAn.getDonViTuVan().getId() : null);
+		rs.setTenDonViLapKeHoach(giaiDoanDuAn.getDonViLapKeHoach() != null ? giaiDoanDuAn.getDonViLapKeHoach().getTen() : "");
+		rs.setIdDonViLapKeHoach(giaiDoanDuAn.getDonViLapKeHoach() != null ? giaiDoanDuAn.getDonViLapKeHoach().getId() : null);
+		rs.setTenDonViThucHien(giaiDoanDuAn.getDonViThucHien() != null ? giaiDoanDuAn.getDonViThucHien().getTen() : "");
+		rs.setIdDonViThucHien(giaiDoanDuAn.getDonViThucHien() != null ? giaiDoanDuAn.getDonViThucHien().getId() : null);
+		rs.setGiaDatKhoiDiemDauGia(giaiDoanDuAn.getGiaDatKhoiDiemDauGia());
+		rs.setHoSoKhuDats(list != null ? list.stream().map(HoSoKhuDat::toHoSoKhuDatModel).collect(Collectors.toList()) : null);
+		
+		// giai doan nam
+		rs.setTenCongTy(giaiDoanDuAn.getTenCongTy() != null ? giaiDoanDuAn.getTenCongTy() : "");
+		rs.setNguoiDaiDienPhapLy(giaiDoanDuAn.getNguoiDaiDienPhapLy() != null ? giaiDoanDuAn.getNguoiDaiDienPhapLy() : "");
+		rs.setDiaChi(giaiDoanDuAn.getDiaChi() != null ? giaiDoanDuAn.getDiaChi() : "");
+		rs.setSoDienThoai(giaiDoanDuAn.getSoDienThoai() != null ? giaiDoanDuAn.getSoDienThoai() : "");
+		rs.setEmail(giaiDoanDuAn.getEmail() != null ? giaiDoanDuAn.getEmail() : "");
+		
+		return rs;
 	}
 	
 	public GiaiDoanHaiModel setDuLieuGiaiDoanHai(GiaiDoanDuAn giaiDoanDuAn) {

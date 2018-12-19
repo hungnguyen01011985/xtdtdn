@@ -14,12 +14,12 @@ public class GiaiDoanService extends BasicService<GiaiDoanDuAn>{
 		if (idDuAn != null) {
 			JPAQuery<GiaiDoanDuAn> q = find(GiaiDoanDuAn.class)
 					.where(QGiaiDoanDuAn.giaiDoanDuAn.duAn.id.eq(idDuAn))
+					.orderBy(QGiaiDoanDuAn.giaiDoanDuAn.id.desc())
 					.where(QGiaiDoanDuAn.giaiDoanDuAn.giaiDoanXucTien.eq(giaiDoanXucTien));
 			q.setHint("org.hibernate.cacheable", false);
 			if(q.fetchCount() > 0) {
 				return q.fetchFirst();
 			}
-			
 		}
 		return new GiaiDoanDuAn();
 	}

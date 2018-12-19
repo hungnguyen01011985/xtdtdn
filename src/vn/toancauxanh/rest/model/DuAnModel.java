@@ -1,6 +1,8 @@
 package vn.toancauxanh.rest.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DuAnModel {
 	private Long id;
@@ -16,11 +18,8 @@ public class DuAnModel {
 	private Date ngayBatDauXucTien;
 	private Double tongVonDauTu;
 	private Double dienTichSuDungDat;
-	private GiaiDoanMotModel giaiDoanMot;
-	private GiaiDoanHaiModel giaiDoanHai;
-	private GiaiDoanBaModel giaiDoanBa;
-	private GiaiDoanBonModel giaiDoanBon;
-	private GiaiDoanNamModel giaiDoanNam;
+	private GiaiDoanDuAnModel giaiDoanHienTai;
+	private List<GiaiDoanDuAnModel> giaiDoanDuAns = new ArrayList<>();
 
 	public String getTenDuAn() {
 		return tenDuAn;
@@ -110,44 +109,20 @@ public class DuAnModel {
 		this.ngayBatDauXucTien = ngayBatDauXucTien;
 	}
 
-	public GiaiDoanMotModel getGiaiDoanMot() {
-		return giaiDoanMot;
+	public GiaiDoanDuAnModel getGiaiDoanHienTai() {
+		return giaiDoanHienTai;
 	}
 
-	public void setGiaiDoanMot(GiaiDoanMotModel giaiDoanMot) {
-		this.giaiDoanMot = giaiDoanMot;
+	public void setGiaiDoanHienTai(GiaiDoanDuAnModel giaiDoanHienTai) {
+		this.giaiDoanHienTai = giaiDoanHienTai;
 	}
 
-	public GiaiDoanHaiModel getGiaiDoanHai() {
-		return giaiDoanHai;
+	public List<GiaiDoanDuAnModel> getGiaiDoanDuAns() {
+		return giaiDoanDuAns;
 	}
 
-	public void setGiaiDoanHai(GiaiDoanHaiModel giaiDoanHai) {
-		this.giaiDoanHai = giaiDoanHai;
-	}
-
-	public GiaiDoanBaModel getGiaiDoanBa() {
-		return giaiDoanBa;
-	}
-
-	public void setGiaiDoanBa(GiaiDoanBaModel giaiDoanBa) {
-		this.giaiDoanBa = giaiDoanBa;
-	}
-
-	public GiaiDoanBonModel getGiaiDoanBon() {
-		return giaiDoanBon;
-	}
-
-	public void setGiaiDoanBon(GiaiDoanBonModel giaiDoanBon) {
-		this.giaiDoanBon = giaiDoanBon;
-	}
-
-	public GiaiDoanNamModel getGiaiDoanNam() {
-		return giaiDoanNam;
-	}
-
-	public void setGiaiDoanNam(GiaiDoanNamModel giaiDoanNam) {
-		this.giaiDoanNam = giaiDoanNam;
+	public void setGiaiDoanDuAns(List<GiaiDoanDuAnModel> giaiDoanDuAns) {
+		this.giaiDoanDuAns = giaiDoanDuAns;
 	}
 
 	public Long getId() {
