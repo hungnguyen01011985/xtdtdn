@@ -98,7 +98,7 @@
 	padding-bottom:0;
 }
 .menu-sub-children {
-	position: fixed;
+	position: absolute;
 	z-index: 99999999999;
 	left: 50px;
 	height:auto !important;
@@ -111,7 +111,7 @@
 }
 .box-title-parent {
 	z-index: 99999999999;
-    position: fixed;
+    position: absolute;
     background: #FFFFFF;
     left: 50px;
     width: 220px;
@@ -815,6 +815,10 @@
 	display:flex;
 	flex-direction:column;
 	position: relative;
+	transition:width .5s ease;
+}
+.header-parent {
+	transition:width .5s ease;
 }
 .mg-and-bg {
 	padding-bottom: 6px;
@@ -1020,6 +1024,7 @@
 	max-width: calc(100% - 55px);
 	overflow: hidden;
 	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .txt-link-tailieu-khu-dat {
@@ -1291,10 +1296,34 @@
 }
 .box-form-thong-ke {
 	width: calc(100% - 151px);
-	padding-right:15px;
+	padding-right:25px;
+	padding-left: 15px;
 }
-@media ( max-width : 992px) {
+/* @media ( max-width : 992px) {
 	.box-form-thong-ke {
 		width: 100%;
+	}
+} */
+@media ( max-width : 1024px) {
+	.col-md-4 {
+	    width: 33.33333333% !important;
+	}
+	.col-md-3 {
+	    width: 25% !important;
+	}
+	.col-md-9 {
+	    width: 75% !important;
+	}
+	.col-md-10 {
+	    width: 83.33333333% !important;
+	}
+	.col-md-7 {
+	    width: 58.33333333% !important;
+	}
+	.col-md-2 {
+	    width: 16.66666667% !important;
+	}
+	.col-md-6 {
+	    width: 50% !important;
 	}
 }

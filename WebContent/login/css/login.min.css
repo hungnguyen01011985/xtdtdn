@@ -1,4 +1,8 @@
 /*bootstrap*/
+@font-face {
+	font-family: 'Roboto-Bold';
+	src: url('../fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+}
 html {
 	font-family: sans-serif;
 	-webkit-text-size-adjust: 100%;
@@ -7661,7 +7665,7 @@ a.hiddenanchor {
 	right: 0;
 	margin: 0 auto;
 	position: relative;
-	max-width: 414px
+	max-width: 500px;
 }
 
 #tologin:target ~#wrapper #login, #toregister:target ~#wrapper #register
@@ -8036,7 +8040,7 @@ input:-webkit-autofill {
 }
 
 body {
-	background: url(../img/bgheaddragon.png) center center no-repeat fixed
+	background: url(../img/background.png) center center no-repeat fixed
 		!important;
 	background-size: cover !important
 }
@@ -8065,4 +8069,21 @@ body {
 		font-size: 16px;
 		line-height: 21px
 	}
+}
+.btn-gray {
+    background: #23A76E;
+    border: 1px solid #23A76E;
+    color:#FFF;
+}
+.btn-base {
+    height: 36px;
+    text-shadow:none;
+    border-radius: 3px !important;
+    font-family: Roboto-Bold !important;
+	font-size: 13px;
+}
+.z-button:hover {
+	background: #23A76E;
+    border: 1px solid #23A76E;
+    color:#FFF;
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 public class DoanVaoModel {
 	private Long id;
+	private Long idNguoiPhuTrach;
 	private String tenDoanVao = "";
 	private String quocGia = "";
 	private String trangThaiTiepDoan = "";
@@ -16,7 +17,6 @@ public class DoanVaoModel {
 	private String link = "";
 	private String congVanChiDaoUB = "";
 	private String nguoiPhuTrach = "";
-	private Long idNguoiPhuTrach;
 	private int soNguoi;
 	private Date thoiGianDenLamViec;
 	private List<ThanhVienDoanModel> thanhVienDoans = new ArrayList<>();

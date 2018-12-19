@@ -12,41 +12,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import vn.toancauxanh.model.DoanVao;
-import vn.toancauxanh.rest.model.DoanVaoModel;
+import vn.toancauxanh.model.DuAn;
+import vn.toancauxanh.rest.model.DuAnModel;
 import vn.toancauxanh.rest.model.PagingObject;
-import vn.toancauxanh.rest.service.DoanVaoModelService;
+import vn.toancauxanh.rest.service.DuAnModelService;
 import vn.toancauxanh.rest.service.KeyApiService;
 
 @RestController
-@RequestMapping(path = "/api/v1/doanVaos", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ApiDoanVaoController {
+@RequestMapping(path = "/api/v1/duAns", produces = MediaType.APPLICATION_JSON_VALUE)
+public class ApiDuAnController {
 
 	@Autowired
-	private DoanVaoModelService doanVaoModelService;
+	private DuAnModelService duAnModelService;
 	
 	@Autowired
 	private KeyApiService keyApiService;
 	
 	@GetMapping
-	public ResponseEntity<PagingObject<DoanVaoModel>> findAll(
-			@RequestHeader(value = "authentication", required = true) String authentication, Pageable pageable,
-			@RequestParam(required = false, defaultValue = "") String keyWord) {
+	public ResponseEntity<PagingObject<DuAnModel>> findAll(Pageable pageable,
+			@RequestParam(required = false, defaultValue = "") String keyWord,
+			@RequestHeader(value = "authentication", required = true) String authentication) {
 		boolean checkQuyen = keyApiService.checkKey(authentication);
 		if (checkQuyen) {
-			return new ResponseEntity<>(doanVaoModelService.doanVaos(pageable, keyWord), HttpStatus.OK);
+			return new ResponseEntity<>(duAnModelService.duAns(pageable, keyWord), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<DoanVaoModel> show(@PathVariable("id") Long id,
+	public ResponseEntity<DuAnModel> show(@PathVariable("id") Long id,
 			@RequestHeader(value = "authentication", required = true) String authentication) {
 		boolean checkQuyen = keyApiService.checkKey(authentication);
 		if (checkQuyen) {
-			DoanVao doanVao = doanVaoModelService.getById(id);
-			if (doanVao != null) {
-				return new ResponseEntity<>(doanVao.toDoanVaoModel(), HttpStatus.OK);
+			DuAn duAn = duAnModelService.getById(id);
+			if (duAn != null) {
+				return new ResponseEntity<>(duAn.toDuAnModel(), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
