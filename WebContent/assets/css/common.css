@@ -2734,3 +2734,6 @@ rotate
 	box-shadow: none !important;
 	opacity:1 !important;
 }
+.z-row-content span {
+	word-break: break-word;
+}
