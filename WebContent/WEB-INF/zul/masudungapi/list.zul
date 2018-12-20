@@ -1,0 +1,91 @@
+<?page title="Mã sử  dụng Api" contentType="text/html;charset=UTF-8"?>
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('vn.toancauxanh.service.KeyApiService')"
+	 class="form-list">
+	<zscript>
+		<![CDATA[
+			page.title = "Mã sử  dụng Api";
+		]]>
+	</zscript>
+	<div> 
+		<div class="panel-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<n:span class="page-header-title">
+						Mã sử  dụng Api
+					</n:span>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row mg-top-no-line">	
+				<div zclass="col-md-10">
+					<div zclass="form-group">
+						<x:span class="issue-search">Nhập mã sử  dụng Api</x:span> 
+						<textbox class="form-control" value="@bind(vm.arg.tuKhoa)" onOK="@command('cmd', notify=vm, attr='targetQuery')"
+							 placeholder="Nhập mã sử  dụng Api.."></textbox>
+					</div>
+				</div>
+				<div zclass="col-md-2">
+					<div zclass="form-group">
+						<x:a class="btn btn-base btn-green mgn-top-26" zk:onClick="@command('cmd', notify=vm, attr='targetQuery')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+							<span>Tìm kiếm</span>
+						</x:a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-box border-box">
+			<div zclass="row">
+				<div zclass="col-lg-12">
+					<div class="title-form">
+						<span>Danh sách mã sử dụng Api</span>
+					</div>
+				</div>
+			</div>
+			<div zclass="row mg-and-bg-and-line">
+				<div zclass="col-md-12 w-table-no-scroll">
+					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
+						emptyMessage="Không có dữ liệu nào trong danh sách">
+						<columns>
+							<column label="STT" width="42px"/>
+							<column label="Mã sử dụng Api"/>
+							<column label="Thao tác" width="110px"/>
+						</columns>
+						<template name="model">
+							<row viewModel="@id('item') @init(each)">
+								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
+								<label value="@load(item.keyApi)" zk:if="${entry.quyen.masudungapi_xem}"
+									onClick="@command('redirectPageAction', zul='masudungapi/show-edit-ma-api.zul', vmArgs=vm, vm=item, readOnly=true)" sclass="txt-link-table"/>
+								<div class="thaotac" style="text-align:center">
+									<x:a label="Sửa" class="btn-thaotac left" if="${entry.quyen.masudungapi_sua}" zk:onClick="@command('redirectPage', zul='masudungapi/show-edit-ma-api.zul', vmArgs=vm, vm=item)">
+										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+										<x:span>Sửa</x:span>
+									</x:a>
+									<x:a label="Xóa" class="btn-thaotac up-note" if="${entry.quyen.masudungapi_xoa}" zk:onClick="@command('deleteTrangThaiConfirmAndNotifyAndCheck', notify=vm, attr='targetQuery')">
+										<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+										<x:span>Xóa</x:span>
+									</x:a>
+								</div>
+							</row>
+						</template>
+					</grid>
+					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+				</div>
+			</div>
+			<div class="row mg-and-bg-and-line">
+				<div zclass="col-md-12">
+					<div zclass="form-group right" if="${entry.quyen.masudungapi_them}">
+						<x:button class="btn btn-blue" zk:onClick="@command('redirectPage', zul='masudungapi/show-add-ma-api.zul', vmArgs=vm, vm=null)">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+							<span>Thêm mới</span>
+						</x:button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</window>

@@ -489,7 +489,9 @@ public class DoanVao extends Model<DoanVao> {
 			@BindingParam("vm") Object vm) {
 		this.key = key;
 		listSearch.clear();
-		if (key == null || "".equals(key)) {
+		
+		if (key == null || "".equals(key.replaceAll("\\s+", ""))) {
+			listSearch.addAll(getListQuocGia());
 			return;
 		}
 		if (vm != null) {

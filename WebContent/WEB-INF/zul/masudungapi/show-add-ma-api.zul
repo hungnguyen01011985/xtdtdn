@@ -1,0 +1,3 @@
+<?component name="view" inline="true" macroURI="view.zul"?>
+<view model="${entry.keyApis.type().newInstance()}"  vmArgs="${arg.vmArgs}" save="Tạo mã sử dụng API" />
+
