@@ -8,6 +8,10 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.w3c.dom.Node;
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.zul.Window;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -260,26 +264,14 @@ public class DonViSoNoiVu extends Model<DonViSoNoiVu> {
 	public void setUpdated(boolean updated) {
 		this.updated = updated;
 	}
-	/*
-	 * @Override public String toString() { StringBuilder builder = new
-	 * StringBuilder(); builder.append("ToChucDonVi [id="); builder.append(id);
-	 * builder.append(", chaId="); builder.append(chaId);
-	 * builder.append(", maSoToChuc="); builder.append(maSoToChuc);
-	 * builder.append(", tenDonVi="); builder.append(tenDonVi);
-	 * builder.append(", tenVietTat="); builder.append(tenVietTat);
-	 * builder.append(", diaChi="); builder.append(diaChi);
-	 * builder.append(", email="); builder.append(email);
-	 * builder.append(", dienThoai="); builder.append(dienThoai);
-	 * builder.append(", fax="); builder.append(fax);
-	 * builder.append(", donViCapTrenId="); builder.append(donViCapTrenId);
-	 * builder.append(", tenDonViCapTren="); builder.append(tenDonViCapTren);
-	 * builder.append(", maSoDonViCapTren="); builder.append(maSoDonViCapTren);
-	 * builder.append(", capDonViId="); builder.append(capDonViId);
-	 * builder.append(", tenCapDonVi="); builder.append(tenCapDonVi);
-	 * builder.append(", lftType="); builder.append(lftType);
-	 * builder.append(", rgtType="); builder.append(rgtType);
-	 * builder.append(", type="); builder.append(type); builder.append("]");
-	 * return builder.toString(); }
-	 */
+	
+	@Command
+	public void selectDonViSoNoiVu(@BindingParam("vm") PhongBan phongBan,
+			@BindingParam("item") DonViSoNoiVu donViSoNoiVu,
+			@BindingParam("wdn") Window wdn) {
+		phongBan.setTen(donViSoNoiVu.getTenDonVi());
+		BindUtils.postNotifyChange(null, null, phongBan, "ten");
+		wdn.detach();
+	}
 
 }

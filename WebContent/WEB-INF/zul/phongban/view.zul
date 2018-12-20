@@ -39,7 +39,8 @@
 				<div zclass="col-md-12">
 					<div zclass="form-group txt-textbox-disable">
 						<x:span class="label-txt-style">Liên kết đơn vị sở nội vụ</x:span> 
-						<x:button style="margin-top: 8px;" class="btn btn-blue" zk:onClick="@command('savePhongBan', list=vmArgs, attr='targetQuery', wdn=wdn)">
+						<x:button zk:onClick="@command('redirectPage',zul='phongban/list-don-vu-so-noi-vu.zul', vm = vm)"
+							style="margin-top: 8px;" class="btn btn-blue">
 							<span>Chọn đơn vị</span>
 						</x:button>
 					</div>
