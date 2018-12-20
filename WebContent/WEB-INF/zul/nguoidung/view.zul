@@ -163,9 +163,9 @@
 										<x:image class="img-edit" src="${contexPath}/assets/img/front/close.svg"/>
 									</x:button>
 									<div class="div-image-btn">
-										<button class="btn-ad-image" upload="true,maxsize=50000"
+										<button class="btn-upload-image-avarta" image="${contexPath}/assets/img/front/camera.svg" upload="true,maxsize=50000"
 										onUpload="@command('attachImages',media=event.media,vmsgs=vmsgs)"/>												
-									</div>	
+									</div>
 								</div>
 				    		</div>			
 						</div>
