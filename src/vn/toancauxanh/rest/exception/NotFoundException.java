@@ -1,4 +1,4 @@
-package vn.toancauxanh.rest.model;
+package vn.toancauxanh.rest.exception;
 
 public class NotFoundException extends RuntimeException {
 

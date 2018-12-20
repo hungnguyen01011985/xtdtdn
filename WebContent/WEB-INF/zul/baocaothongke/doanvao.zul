@@ -42,7 +42,7 @@
 											<div zclass="form-group">
 												<span>Quốc gia</span>
 												<bandbox viewModel="@id('bandBoxDoanVao') @init(doanVao)" id="bdDoanVao" width="auto" value="@bind(vm.arg.quocGia)" autodrop="true"
-													 placeholder="Chọn quốc gia" class="his bb-quoc-gia" mold="rounded" onChanging="@command('searchKey', key = event.value, vm=vm)" >
+													 placeholder="Chọn quốc gia" class="his bb-quoc-gia" mold="rounded" onOpen="@command('searchKey', key = event.value, vm=vm)" onChanging="@command('searchKey', key = event.value, vm=vm)" >
 													<bandpopup>
 														<listbox model="@load(bandBoxDoanVao.listSearch)" onSelect="bdDoanVao.close();" selectedItem="@bind(vm.arg.quocGia)" emptyMessage="Không có dữ liệu">
 															<template name="model">

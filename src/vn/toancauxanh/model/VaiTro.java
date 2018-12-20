@@ -28,13 +28,11 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.resource.Labels;
-import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.DefaultTreeModel;
 import org.zkoss.zul.DefaultTreeNode;
 import org.zkoss.zul.TreeNode;
 import org.zkoss.zul.Window;
 
-import com.google.api.services.youtube.YouTube.LiveBroadcasts.Bind;
 import com.google.common.base.Strings;
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -124,19 +122,25 @@ public class VaiTro extends Model<VaiTro> {
 	
 	@Transient
 	public String getLabelParentVaiTro(String resource) {
-		return Labels.getLabel("url." + resource + ".mota");
+		return Labels.getLabel("url." + resource + ".mota").toLowerCase();
 	}
 	
 	@Transient
 	public String getLabelChildrenVaiTro(String action) {
 		return Labels.getLabel("action." + action + ".mota");
 	}
+	
+	@Transient
+	public String getLabelAction(String action, String parent) {
+		return Labels.getLabel("action." + action.replaceFirst(parent+":", "") + ".mota");
+	}
+	
+	
 	@Transient
 	public List<String> getListChildrenVaiTro(String resource) {
 		List<String> list = new ArrayList<String>();
 		final Set<String> allQuyens = new HashSet<>();
 		allQuyens.addAll(getQuyenAllMacDinhs());
-		list.add("tatca");
 		for (String action : core().getACTIONS()) {
 			String quyen = resource + Quyen.CACH + action;
 			if (allQuyens.contains(quyen)) {
@@ -156,20 +160,27 @@ public class VaiTro extends Model<VaiTro> {
 	public void setSelectItemVaiTro(Set<String> selectItemVaiTro) {
 		this.selectItemVaiTro = selectItemVaiTro;
 	}
-
+	
 	@Command
 	public void doChecked(@BindingParam("children") String children, @BindingParam("parent") String parent) {
-		if ("tatca".equals(children)) {
-			selectItemVaiTro.addAll(getQuyenByVaiTro(parent));
-			System.out.println("parent:" + parent);
-			
+		String paramAll = "all".concat(parent);
+		if (children == null) {
+			if (!selectItemVaiTro.contains(paramAll)) {
+				selectItemVaiTro.add(paramAll);
+				selectItemVaiTro.addAll(getQuyenByVaiTro(parent));
+			} else {
+				selectItemVaiTro.remove(paramAll);
+				selectItemVaiTro.removeAll(getQuyenByVaiTro(parent));
+			}
 		} else if (selectItemVaiTro.contains(children)) {
 			selectItemVaiTro.remove(children);
+			selectItemVaiTro.remove(paramAll);
 		} else {
 			selectItemVaiTro.add(children);
+			if (selectItemVaiTro.containsAll(getQuyenByVaiTro(parent))) {
+				selectItemVaiTro.add(paramAll);
+			}
 		}
-		System.out.println(selectItemVaiTro.size());
-		selectItemVaiTro.forEach(item -> System.out.println(item));
 		BindUtils.postNotifyChange(null, null, this, "selectItemVaiTro");
 	}
 	
@@ -178,26 +189,27 @@ public class VaiTro extends Model<VaiTro> {
 	public DefaultTreeModel<String[]> getModel() {
 		getQuyens();
 		selectedItems.clear();
-		
+
 		final HashSet<TreeNode<String[]>> openItems_ = new HashSet<>();
-		
-		final TreeNode<String[]> rootNode = new DefaultTreeNode<>(new String[] {}, new ArrayList<DefaultTreeNode<String[]>>());
-		
+
+		final TreeNode<String[]> rootNode = new DefaultTreeNode<>(new String[] {},
+				new ArrayList<DefaultTreeNode<String[]>>());
+
 		final DefaultTreeModel<String[]> model = new DefaultTreeModel<>(rootNode, true);
-		
+
 		model.setMultiple(true);
 		final Set<String> allQuyens = new HashSet<>();
-		
+
 		final long q = find(VaiTro.class).fetchCount();
-		
-		if(q==0){
+
+		if (q == 0) {
 			for (String vaiTro : VAITRO_DEFAULTS) {
 				allQuyens.addAll(getQuyenMacDinhs(vaiTro));
 			}
 		} else {
 			allQuyens.addAll(getQuyenAllMacDinhs());
 		}
-		
+
 		for (String resource : core().getRESOURCES()) {
 			DefaultTreeNode<String[]> parentNode = new DefaultTreeNode<>(
 					new String[] { Labels.getLabel("url." + resource + ".mota"), resource },
@@ -244,93 +256,100 @@ public class VaiTro extends Model<VaiTro> {
 			list.add(core().QUANLYDUANGIAOVIEC);
 			list.add(core().QUANLYDUANPHUTRACH);
 		} else if ("quanlydoanvao".equals(parent)) {
-			
+			list.add(core().QUANLYDOANVAOLIST);
+			list.add(core().QUANLYDOANVAOSUA);
+			list.add(core().QUANLYDOANVAOXEM);
+			list.add(core().QUANLYDOANVAOTHEM);
+			list.add(core().QUANLYDOANVAOXOA);
+		} else if ("quanlygiaoviec".equals(parent)) {
+			list.add(core().QUANLYGIAOVIECLIST);
+			list.add(core().QUANLYGIAOVIECSUA);
+			list.add(core().QUANLYGIAOVIECTHEM);
+			list.add(core().QUANLYGIAOVIECXOA);
+			list.add(core().QUANLYGIAOVIECXEM);
+			list.add(core().QUANLYGIAOVIECNHACNHO);
+		} else if ("phongban".equals(parent)) {
+			list.add(core().QUANLYPHONGBANLIST);
+			list.add(core().QUANLYPHONGBANXEM);
+			list.add(core().QUANLYPHONGBANSUA);
+			list.add(core().QUANLYPHONGBANTHEM);
+			list.add(core().QUANLYPHONGBANXOA);
+		} else if ("linhVucDuAn".equals(parent)) {
+
+			list.add(core().LINHVUCDUANLIST);
+			list.add(core().LINHVUCDUANXEM);
+			list.add(core().LINHVUCDUANTHEM);
+			list.add(core().LINHVUCDUANSUA);
+			list.add(core().LINHVUCDUANXOA);
+		} else if ("vaitro".equals(parent)) {
+			list.add(core().VAITROLIST);
+			list.add(core().VAITROXEM);
+			list.add(core().VAITROTHEM);
+			list.add(core().VAITROSUA);
+			list.add(core().VAITROXOA);
+			list.add(core().VAITROTIMKIEM);
+		} else if ("nguoidung".equals(parent)) {
+
+			list.add(core().NGUOIDUNGLIST);
+			list.add(core().NGUOIDUNGXEM);
+			list.add(core().NGUOIDUNGTHEM);
+			list.add(core().NGUOIDUNGSUA);
+			list.add(core().NGUOIDUNGXOA);
+		} else if ("baocaothongke".equals(parent)) {
+			list.add(core().BAOCAOTHONGKEDUAN);
+			list.add(core().BAOCAOTHONGKEDOANVAO);
+			list.add(core().BAOCAOTHONGKECONGVIEC);
+		} else if ("donvi".equals(parent)) {
+
+			list.add(core().DONVILIST);
+			list.add(core().DONVIXEM);
+			list.add(core().DONVITHEM);
+			list.add(core().DONVISUA);
+			list.add(core().DONVIXOA);
+			list.add(core().DONVITIMKIEM);
+		} else if ("nhadautu".equals(parent)) {
+			list.add(core().NHADAUTULIST);
+			list.add(core().NHADAUTUXEM);
+			list.add(core().NHADAUTUTHEM);
+			list.add(core().NHADAUTUSUA);
+			list.add(core().NHADAUTUXOA);
+			list.add(core().NHADAUTUTIMKIEM);
+		} else if ("capdonvi".equals(parent)) {
+			list.add(core().CAPDONVILIST);
+			list.add(core().CAPDONVIXEM);
+			list.add(core().CAPDONVITHEM);
+			list.add(core().CAPDONVISUA);
+			list.add(core().CAPDONVIXOA);
+			list.add(core().CAPDONVITIMKIEM);
+		} else if ("donvixuctien".equals(parent)) {
+			list.add(core().DONVIXUCTIENLIST);
+			list.add(core().DONVIXUCTIENXEM);
+			list.add(core().DONVIXUCTIENTHEM);
+			list.add(core().DONVIXUCTIENSUA);
+			list.add(core().DONVIXUCTIENXOA);
+			list.add(core().DONVIXUCTIENTIMKIEM);
+		} else if ("loaicongvieckehoach".equals(parent)) {
+			list.add(core().LOAIKEHOACHCONGVIECXEM);
+			list.add(core().LOAIKEHOACHCONGVIECTHEM);
+			list.add(core().LOAIKEHOACHCONGVIECLIST);
+			list.add(core().LOAIKEHOACHCONGVIECXOA);
+			list.add(core().LOAIKEHOACHCONGVIECSUA);
+			list.add(core().LOAICONGVIECKEHOACHTIMKIEM);
+		} else if ("congvieckehoach".equals(parent)) {
+			list.add(core().CONGVIECKEHOACHXEM);
+			list.add(core().CONGVIECKEHOACHTHEM);
+			list.add(core().CONGVIECKEHOACHLIST);
+			list.add(core().CONGVIECKEHOACHXOA);
+			list.add(core().CONGVIECKEHOACHSUA);
+			list.add(core().CONGVIECKEHOACHTIMKIEM);
+		} else if ("masudungapi".equals(parent)) {
+			list.add(core().MASUDUNGAPIXEM);
+			list.add(core().MASUDUNGAPITHEM);
+			list.add(core().MASUDUNGAPILIST);
+			list.add(core().MASUDUNGAPIXOA);
+			list.add(core().MASUDUNGAPISUA);
+			list.add(core().MASUDUNGAPITIMKIEM);
 		}
-		
-
-		list.add(core().QUANLYDOANVAOLIST);
-		list.add(core().QUANLYDOANVAOSUA);
-		list.add(core().QUANLYDOANVAOXEM);
-		list.add(core().QUANLYDOANVAOTHEM);
-		list.add(core().QUANLYDOANVAOXOA);
-
-		list.add(core().QUANLYGIAOVIECLIST);
-		list.add(core().QUANLYGIAOVIECSUA);
-		list.add(core().QUANLYGIAOVIECTHEM);
-		list.add(core().QUANLYGIAOVIECXOA);
-		list.add(core().QUANLYGIAOVIECXEM);
-		list.add(core().QUANLYGIAOVIECNHACNHO);
-
-		list.add(core().QUANLYPHONGBANLIST);
-		list.add(core().QUANLYPHONGBANXEM);
-		list.add(core().QUANLYPHONGBANSUA);
-		list.add(core().QUANLYPHONGBANTHEM);
-		list.add(core().QUANLYPHONGBANXOA);
-
-		list.add(core().LINHVUCDUANLIST);
-		list.add(core().LINHVUCDUANXEM);
-		list.add(core().LINHVUCDUANTHEM);
-		list.add(core().LINHVUCDUANSUA);
-		list.add(core().LINHVUCDUANXOA);
-
-		list.add(core().VAITROLIST);
-		list.add(core().VAITROXEM);
-		list.add(core().VAITROTHEM);
-		list.add(core().VAITROSUA);
-		list.add(core().VAITROXOA);
-		list.add(core().VAITROTIMKIEM);
-
-		list.add(core().NGUOIDUNGLIST);
-		list.add(core().NGUOIDUNGXEM);
-		list.add(core().NGUOIDUNGTHEM);
-		list.add(core().NGUOIDUNGSUA);
-		list.add(core().NGUOIDUNGXOA);
-		
-		list.add(core().BAOCAOTHONGKEDUAN);
-		list.add(core().BAOCAOTHONGKEDOANVAO);
-		list.add(core().BAOCAOTHONGKECONGVIEC);
-		
-		list.add(core().DONVILIST);
-		list.add(core().DONVIXEM);
-		list.add(core().DONVITHEM);
-		list.add(core().DONVISUA);
-		list.add(core().DONVIXOA);
-		list.add(core().DONVITIMKIEM);
-		
-		list.add(core().NHADAUTULIST);
-		list.add(core().NHADAUTUXEM);
-		list.add(core().NHADAUTUTHEM);
-		list.add(core().NHADAUTUSUA);
-		list.add(core().NHADAUTUXOA);
-		list.add(core().NHADAUTUTIMKIEM);
-		
-		list.add(core().CAPDONVILIST);
-		list.add(core().CAPDONVIXEM);
-		list.add(core().CAPDONVITHEM);
-		list.add(core().CAPDONVISUA);
-		list.add(core().CAPDONVIXOA);
-		list.add(core().CAPDONVITIMKIEM);
-		
-		list.add(core().DONVIXUCTIENLIST);
-		list.add(core().DONVIXUCTIENXEM);
-		list.add(core().DONVIXUCTIENTHEM);
-		list.add(core().DONVIXUCTIENSUA);
-		list.add(core().DONVIXUCTIENXOA);
-		list.add(core().DONVIXUCTIENTIMKIEM);
-		
-		list.add(core().LOAIKEHOACHCONGVIECXEM);
-		list.add(core().LOAIKEHOACHCONGVIECTHEM);
-		list.add(core().LOAIKEHOACHCONGVIECLIST);
-		list.add(core().LOAIKEHOACHCONGVIECXOA);
-		list.add(core().LOAIKEHOACHCONGVIECSUA);
-		list.add(core().LOAICONGVIECKEHOACHTIMKIEM);
-		
-		list.add(core().CONGVIECKEHOACHXEM);
-		list.add(core().CONGVIECKEHOACHTHEM);
-		list.add(core().CONGVIECKEHOACHLIST);
-		list.add(core().CONGVIECKEHOACHXOA);
-		list.add(core().CONGVIECKEHOACHSUA);
-		list.add(core().CONGVIECKEHOACHTIMKIEM);
 		return list;
 	}
 
@@ -429,6 +448,13 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().CONGVIECKEHOACHXOA);
 		quyens1.add(core().CONGVIECKEHOACHSUA);
 		quyens1.add(core().CONGVIECKEHOACHTIMKIEM);
+		
+		quyens1.add(core().MASUDUNGAPIXEM);
+		quyens1.add(core().MASUDUNGAPITHEM);
+		quyens1.add(core().MASUDUNGAPILIST);
+		quyens1.add(core().MASUDUNGAPIXOA);
+		quyens1.add(core().MASUDUNGAPISUA);
+		quyens1.add(core().MASUDUNGAPITIMKIEM);
 		
 		return quyens1;
 	}
@@ -712,20 +738,18 @@ public class VaiTro extends Model<VaiTro> {
 	public void saveVaiTro(@BindingParam("list") final Object listObject,
 			@BindingParam("attr") final String attr,
 			@BindingParam("wdn") final Window wdn) {
-		if (quyenEdits.isEmpty()) {
+		if (selectItemVaiTro.isEmpty()) {
 			showNotification("", "Bạn chưa chọn quyền nào cho vai trò này", "danger");
 			return;
 		}
 		setTenVaiTro(getTenVaiTro().trim().replaceAll("\\s+", " "));
-		setQuyens(quyenEdits);
+		setQuyens(selectItemVaiTro);
 		save();
 		wdn.detach();
 		BindUtils.postNotifyChange(null, null, listObject, "vaiTroQuery");
 	}
 	@Override
 	public void save() {
-		setTenVaiTro(getTenVaiTro().trim().replaceAll("\\s+", " "));
-		setQuyens(quyenEdits);
 		if (noId()) {
 			showNotification("Đã lưu thành công!", "", "success");
 		} else {

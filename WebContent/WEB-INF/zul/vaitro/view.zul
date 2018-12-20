@@ -1,5 +1,5 @@
 <idspace>
-	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" class="content-popup width-50"
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer" class="content-popup" width="850px;"
 		id="wdn" border="normal" mode="modal" action="show: slideIn" closable="true"
 		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
 		whatever="@load(false,after='savePhongBan') @converter('vn.toancauxanh.service.DetachConverter')"
@@ -20,6 +20,7 @@
 					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
 				</a>
 			</div>
+			
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div zclass="col-md-12">
 					<div zclass="form-group txt-textbox-disable">
@@ -49,20 +50,39 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div class="col-md-12">
-					<div children="@bind(vm.listParentVaiTro1)" style="display:flex; flex-direction:column;">
+					<div children="@bind(vm.listParentVaiTro1)">
 						<template name="children" var="parent">
-							<label value="@load(vm.getLabelParentVaiTro(parent))"></label>
-							<div style="display:flex;" children="@bind(vm.getListChildrenVaiTro(parent))">
-								<template name="children">
-									<checkbox label="@load(each)" checked="@load(vm.selectItemVaiTro.contains(each))" onCheck="@command('doChecked', children = each, parent = parent)"></checkbox>
-								</template>
+							<div class="row col-md-12 mg-bottom-5" style="padding: 0 15px;">
+								<label class="title-phanquyen-vaitro" value="@load('Phân quyền '.concat(vm.getLabelParentVaiTro(parent)))"></label>
+								<div style="display:flex; margin-top: 10px;" children="@bind(vm.getListChildrenVaiTro(parent))">
+									<template name="children">
+										<div class="item-checkbox" if="${forEachStatus.first}">
+											<div zclass="form-group">
+												<div class="checkbox checkbox-primary">
+													<checkbox checked="@load(vm.selectItemVaiTro.contains('all'.concat(parent)))" onCheck="@command('doChecked', parent = parent)"></checkbox>
+													<label class="title-checkbox" value="Tất cả"></label>
+												</div>
+											</div>
+										</div>
+										<div class="${forEachStatus.last ? 'item-last' : 'item-checkbox'}" if="${!forEachStatus.first}">
+											<div zclass="form-group">
+												<div class="checkbox checkbox-primary">
+													<checkbox checked="@load(vm.selectItemVaiTro.contains(each))" onCheck="@command('doChecked', children = each, parent = parent)"></checkbox>
+													<label class="title-checkbox" value="@load(vm.getLabelAction(each, parent))"></label>
+												</div>
+											</div>
+										</div>
+									</template>
+								</div>
 							</div>
 						</template>
 					</div>
 				</div>
 			</div>
+			
 			<div class="row mg-and-bg-and-line">
 				<div zclass="col-md-6">
 					<div zclass="form-group">
