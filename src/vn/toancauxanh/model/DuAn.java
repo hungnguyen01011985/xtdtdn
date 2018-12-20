@@ -594,16 +594,11 @@ public class DuAn extends Model<DuAn> {
 				} catch (NullPointerException e) {
 					addInvalidMessage(ctx, "Bạn phải nhập số");
 				}
-				if (type != null) {
-					if (vonDauTu <= 0) {
-						addInvalidMessage(ctx, text + " phải lớn hơn 0");
-						rs = false;
-					}
-				} else {
-					if (vonDauTu < 0) {
-						addInvalidMessage(ctx, text + " phải lớn hơn bằng 0");
-						rs = false;
-					}
+				if (vonDauTu < 0) {
+					addInvalidMessage(ctx, text + " phải lớn hơn bằng 0");
+					rs = false;
+				} else if (String.valueOf(vonDauTu).length() > 16 && type) {
+					addInvalidMessage(ctx, text + " chỉ tối đa 12 số");
 				}
 				return rs;
 			}

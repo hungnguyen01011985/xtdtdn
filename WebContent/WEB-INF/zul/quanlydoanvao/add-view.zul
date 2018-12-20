@@ -60,7 +60,8 @@
 									<x:span class="label-txt-style">Tên đoàn<n:small class="required" if="${!action}"> *</n:small></x:span>
 								</div>
 								<textbox rows="3" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" id="ten" class="form-control textbox-txt-style" placeholder="Nhập tên đoàn.." maxlength="255"
-								value="@bind(vm.tenDoanVao) @save(vm.tenDoanVao, before='saveDoanVao') @validator(vm.validatorTenDoan)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())"></textbox>
+								value="@bind(vm.tenDoanVao) @save(vm.tenDoanVao, before='saveDoanVao') @validator(vm.validatorTenDoan)" onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())">
+								</textbox>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -156,7 +157,7 @@
 							<div zclass="form-group txt-link-style" style="${action ? 'display:flex; flex-direction:column' : ''}">
 								<x:span class="label-txt-style">Link</x:span> 
 								<textbox maxlength="255" if="${!action}" disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or action}" class="form-control textbox-txt-style txt-link-inline" value="@bind(vm.link)" placeholder="Nhập link tham khảo..."></textbox>
-								<a if="${action and vm.link ne null}" href="http://${vm.link}" style="color:#4274ED !important;font-family:Roboto-Bold;margin-top:5px;">http://${vm.link}</a>
+								<a if="${action and vm.link ne null}" target="_blank" href="${vm.getEditURL(vm.link)}" style="color:#4274ED !important;font-family:Roboto-Bold;margin-top:5px;">${vm.getEditURL(vm.link)}</a>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
@@ -264,7 +265,7 @@
 							</x:button>
 						</div>
 						<div zclass="form-group right" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and action}">
-							<x:a class="btn btn-blue mg-btn" href="${contexPath}/bxtdn/cp/quanlydoanvao/edit/${id}" zk:if="${vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
+							<x:a class="btn btn-blue mg-btn" zk:onClick="@command('redirectDoanVao', id = id)" zk:if="${vm.checkNguoiLienQuan(entry.nhanVien.id, vm.idNguoiLienQuan, vm.nguoiTao, vm.nguoiPhuTrach) and entry.quyen.quanlydoanvao_sua}">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
 								<span>Cập nhật</span>
 							</x:a>
