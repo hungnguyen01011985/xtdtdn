@@ -33,12 +33,6 @@
 				</div>
 				<div zclass="col-md-12">
 					<div zclass="form-group txt-textbox-disable">
-						<x:span class="label-txt-style">Mô tả</x:span> 
-						<textbox disabled="${readOnly}" rows="3" class="form-control textbox-txt-style" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveDonViXucTien', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
-					</div>
-				</div>
-				<div zclass="col-md-12">
-					<div zclass="form-group txt-textbox-disable">
 						<div class="flex">
 							<x:span class="label-txt-style">Chọn Cấp đơn vị<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 						</div>
@@ -51,6 +45,12 @@
 							</template>
 						</combobox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])"/>
+					</div>
+				</div>
+				<div zclass="col-md-12">
+					<div zclass="form-group txt-textbox-disable">
+						<x:span class="label-txt-style">Mô tả</x:span> 
+						<textbox disabled="${readOnly}" rows="3" class="form-control textbox-txt-style" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveDonViXucTien', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
 			</div>
