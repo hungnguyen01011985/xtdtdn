@@ -32,7 +32,7 @@
 				</div>
 				<div zclass="col-md-12">
 					<div zclass="form-group">
-						<x:span class="label-txt-style">Loại đơn vị</x:span> 
+						<x:span class="label-txt-style">Loại đơn vị<n:small class="required" if="${!readOnly}"> *</n:small></x:span> 
 						<combobox disabled="${readOnly}" buttonVisible="${!readOnly}" width="100%" class="hv-textbox ${!readOnly ? '' : 'input-no-button'}" readonly="true" model="@load(vm.listDonVi)" placeholder="-Chọn loại đơn vị-"
 							selectedItem="@bind(vm.loaiDonVi) @save(vm.loaiDonVi, before='saveDonVi') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
 							<template name="model">

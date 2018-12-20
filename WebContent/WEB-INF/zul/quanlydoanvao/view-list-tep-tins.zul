@@ -9,7 +9,8 @@
 								<x:span zk:if="${forEachStatus.first}" class="label-txt-style">Tên tài liệu</x:span>
 							</div>
 							<div zclass="form-group txt-textbox-disable">
-								<textbox class="form-control textbox-txt-style" disabled="${action}" maxlength="255" value="@bind(item.tenFile)"></textbox>
+								<textbox class="form-control textbox-txt-style" disabled="${action}" maxlength="255" value="@load(item.tenFile) @save(item.tenFile)">
+								</textbox>
 							</div>
 						</div>
 						<div class="col-md-3">

@@ -142,6 +142,18 @@ public class DoanVao extends Model<DoanVao> {
 	public void setIdNguoiLienQuan(String idNguoiLienQuan) {
 		this.idNguoiLienQuan = idNguoiLienQuan;
 	}
+	
+	@Transient
+	public String getEditURL(String link) {
+		if (link != null && !link.isEmpty()) {
+			if (link.contains("http://")) {
+				return link;
+			} else {
+				return "http://" + link;
+			}
+		}
+		return null;
+	}
 
 	@Enumerated(EnumType.STRING)
 	public TrangThaiTiepDoanEnum getTrangThaiTiepDoan() {
@@ -859,6 +871,12 @@ public class DoanVao extends Model<DoanVao> {
 						}
 					});
 		}
+	}
+	
+	@Command
+	public void redirectDoanVao(@BindingParam("id") Long id) {
+		String url = "/cp/quanlydoanvao/edit/";
+		Executions.sendRedirect(url.concat(id.toString()));
 	}
 	
 	public void resetCheck() {
