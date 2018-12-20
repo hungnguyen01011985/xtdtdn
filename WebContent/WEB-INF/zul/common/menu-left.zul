@@ -15,7 +15,7 @@
 		<![CDATA[
 		         boolean checkActiveHeThong = false;
 		         if ("phongban".equals(resource) || "nguoidung".equals(resource) || "vaitro".equals(resource) || "linhvucduan".equals(resource) || "donvi".equals(resource) || "masudungapi".equals(resource)
-		        		 || "nhadautu".equals(resource) || "capdonvi".equals(resource) || "donvixuctien".equals(resource) || "congvieckehoach".equals(resource) || "loaicongvieckehoach".equals(resource))  {
+		        		  || "capdonvi".equals(resource) || "donvixuctien".equals(resource) || "congvieckehoach".equals(resource) || "loaicongvieckehoach".equals(resource))  {
 		        	 checkActiveHeThong = true;
 		         }
 		]]>
@@ -47,17 +47,24 @@
 						</n:div>
 					</n:div>
 				</n:li>
-				<n:li class="header-parent ${resource eq 'quanlyduan' ? 'active-heder-li flex' : 'flex'}" zk:if="${entry.quyen.quanlyduan_lietke}">
-					<n:a href="${execution.contextPath}/cp/quanlyduan">
+				<n:li class="header-children ${resource eq 'quanlyduan' or resource eq 'nhadautu' ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.quanlyduan_lietke || entry.quyen.nhadautu_lietke}">
+					<n:a onClick="toggleDropdownMenu(this)" style="padding-bottom:10px;">
 						<x:span class="img-menu qlda" zk:if="${resource ne 'quanlyduan'}"></x:span>
 						<x:span class="img-menu qlda" zk:if="${resource eq 'quanlyduan'}"></x:span>
 						<x:span class="text-menu">Quản lý dự án</x:span>
 					</n:a>
-					<n:div class="box-title-parent">
-						<n:div class="title-menu-parent" style="height:55px;">
+					<n:ul class="children-nav show-children-active">
+						<n:div class="title-menu-parent">
 							<span class="txt-menu-parent">Quản lý dự án</span>
 						</n:div>
-					</n:div>
+						<n:a href="${execution.contextPath}/cp/quanlyduan" zk:if="${entry.quyen.quanlyduan_lietke}">
+							<n:li class="${resource eq 'quanlyduan' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý dự án</n:li>
+						</n:a>
+						<n:a href="${execution.contextPath}/cp/nhadautu" zk:if="${entry.quyen.nhadautu_lietke}">
+							<n:li class="${resource eq 'nhadautu' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý nhà đầu tư</n:li>
+						</n:a>
+						
+					</n:ul>
 				</n:li>
 				<n:li class="header-children ${resource eq 'baocaothongke' ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.baocaothongke_duan || entry.quyen.baocaothongke_doanvao || entry.quyen.baocaothongke_congviec}">
 					<n:a onClick="toggleDropdownMenu(this)" style="padding-bottom:10px;">
@@ -81,7 +88,7 @@
 					</n:ul>
 				</n:li>
 				<n:li class="header-children ${checkActiveHeThong ? 'active-heder-li-children active-children' : ''}" zk:if="${entry.quyen.phongban_lietke || entry.quyen.nguoidung_lietke
-						 || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke || entry.quyen.nhadautu_lietke || entry.quyen.donvi_lietke || entry.quyen.donvixuctien_lietke 
+						 || entry.quyen.linhVucDuAn_lietke || entry.quyen.vaitro_lietke || entry.quyen.donvi_lietke || entry.quyen.donvixuctien_lietke 
 						 || entry.quyen.loaicongvieckehoach_lietke || entry.quyen.congvieckehoach_lietke || entry.quyen.masudungapi_lietke}">
 					<n:a onClick="toggleDropdownMenu(this)" style="padding-bottom:10px;">
 						<x:span class="img-menu qlht" zk:if="${resource ne 'phongban'}"></x:span>
@@ -106,9 +113,6 @@
 						</n:a>
 						<n:a href="${execution.contextPath}/cp/donvi" zk:if="${entry.quyen.donvi_lietke}">
 							<n:li class="${resource eq 'donvi' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý đơn vị</n:li>
-						</n:a>
-						<n:a href="${execution.contextPath}/cp/nhadautu" zk:if="${entry.quyen.nhadautu_lietke}">
-							<n:li class="${resource eq 'nhadautu' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý nhà đầu tư</n:li>
 						</n:a>
 						<n:a href="${execution.contextPath}/cp/capdonvi" zk:if="${entry.quyen.capdonvi_lietke}">
 							<n:li class="${resource eq 'capdonvi' ? 'active-children-nav' : '' }"><n:i class="fa fa-circle-thin" style="font-size:0.7em; padding: 0 37px 0 31px;"></n:i> Quản lý cấp đơn vị</n:li>

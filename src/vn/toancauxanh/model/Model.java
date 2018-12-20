@@ -218,7 +218,8 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 											.eq((DonVi) Model.this)
 											.or(QGiaiDoanDuAn.giaiDoanDuAn.donViThucHien.eq((DonVi) Model.this))
 											.or(QGiaiDoanDuAn.giaiDoanDuAn.donViTuVan.eq((DonVi) Model.this))
-											.or(QGiaiDoanDuAn.giaiDoanDuAn.donViLapKeHoach.eq((DonVi) Model.this)))
+											.or(QGiaiDoanDuAn.giaiDoanDuAn.donViLapKeHoach.eq((DonVi) Model.this))
+											.or(QGiaiDoanDuAn.giaiDoanDuAn.donViChuTri.eq((DonVi) Model.this)))
 											.fetchCount();
 								}
 								if ("nguoidung".equals(type)) {
@@ -232,6 +233,9 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 								}
 								if ("linhvucduan".equals(type)) {
 									count = find(DuAn.class).where(QDuAn.duAn.linhVuc.eq((LinhVucDuAn) Model.this)).fetchCount();
+								}
+								if ("capdonvi".equals(type)) {
+									count = find(DonViXucTien.class).where(QDonViXucTien.donViXucTien.capDonVi.eq((CapDonVi) Model.this)).fetchCount();
 								}
 								if (count == 0) {
 									doDelete(true);
