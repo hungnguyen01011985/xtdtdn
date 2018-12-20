@@ -53,7 +53,7 @@
 			
 			<div class="row mg-and-bg-and-line mg-bottom-5">
 				<div class="col-md-12">
-					<div children="@bind(vm.listParentVaiTro1)">
+					<div children="@bind(vm.listParentVaiTro1)" style="max-height: 500px; overflow: auto;">
 						<template name="children" var="parent">
 							<div class="row col-md-12 mg-bottom-5" style="padding: 0 15px;">
 								<label class="title-phanquyen-vaitro" value="@load('Phân quyền '.concat(vm.getLabelParentVaiTro(parent)))"></label>
