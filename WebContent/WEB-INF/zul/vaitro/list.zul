@@ -44,14 +44,14 @@
 				</div>
 			</div>
 			<div zclass="row mg-and-bg-and-line">
-				<div zclass="col-md-12">
+				<div zclass="col-md-12 w-table-no-scroll">
 					<grid id="grid" model="@load(vm.page(vm.vaiTroQuery).fetch())" 
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên vai trò" />
 							<column label="Loại vai trò" />
-							<column label="Ngày cập nhật" width="140px" />
+							<column label="Ngày cập nhật" width="120px" />
 							<column label="Thao tác" style="text-align:center" width="110px" />
 						</columns>
 						<template name="model">

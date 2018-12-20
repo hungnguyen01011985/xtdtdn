@@ -40,15 +40,6 @@ input {
     background-color: #fff;
 }
 
-@media(min-width:768px) {
-    #page-wrapper {
-        position: inherit;
-        margin: 0 0 0 0px;
-        padding: 0 20px;
-        border-left: 1px solid #e7e7e7;
-    }
-}
-
 .page-header {
 	margin: 6px 0 10px;
 	border-bottom: 1px solid #ddd
@@ -158,21 +149,6 @@ input {
 }
 .z-listheader-content, .z-listcell-content, .z-listgroup-content, .z-listgroupfoot-content, .z-listfooter-content {
 	font-family: Roboto-Regular;	
-}
-
-@media(min-width:768px) {
-    .sidebar {
-        z-index: 1;
-        position: absolute;
-        width: 250px;
-        margin-top: 51px;
-    }
-
-    .navbar-top-links .dropdown-messages,
-    .navbar-top-links .dropdown-tasks,
-    .navbar-top-links .dropdown-alerts {
-        margin-left: auto;
-    }
 }
 
 .btn-outline {

@@ -45,15 +45,15 @@
 				</div>
 			</div>
 			<div zclass="row mg-and-bg-and-line">
-				<div zclass="col-md-12">
+				<div zclass="col-md-12 w-table-no-scroll">
 					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
-							<column label="STT" style="text-align:center" width="42px"/>
-							<column label="Tên đơn vị" style="text-align:center" />
-							<column label="Mô tả" style="text-align:center" width="400px" />
-							<column label="Cấp đơn vị" style="text-align:center" width="300px"/>
-							<column label="Thao tác" style="text-align:center" width="110px"/>
+							<column label="STT" width="42px"/>
+							<column label="Tên đơn vị"/>
+							<column label="Mô tả"/>
+							<column label="Cấp đơn vị" width="140px"/>
+							<column label="Thao tác" width="110px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">

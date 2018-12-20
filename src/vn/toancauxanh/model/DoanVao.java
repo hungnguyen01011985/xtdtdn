@@ -45,6 +45,7 @@ import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
 import vn.toancauxanh.rest.model.DoanVaoModel;
 import vn.toancauxanh.service.BaoCaoThongKeDoanVao;
+import vn.toancauxanh.service.CongViecKeHoachService;
 import vn.toancauxanh.service.DoanVaoService;
 
 @Entity
@@ -488,7 +489,9 @@ public class DoanVao extends Model<DoanVao> {
 			@BindingParam("vm") Object vm) {
 		this.key = key;
 		listSearch.clear();
-		if (key == null || "".equals(key)) {
+		
+		if (key == null || "".equals(key.replaceAll("\\s+", ""))) {
+			listSearch.addAll(getListQuocGia());
 			return;
 		}
 		if (vm != null) {
@@ -877,6 +880,9 @@ public class DoanVao extends Model<DoanVao> {
 	
 	@Transient
 	public DoanVaoModel toDoanVaoModel() {
+		CongViecKeHoachService congViecKeHoach = new CongViecKeHoachService();
+		List<GiaoViec> listCongViecTheoDoan = new ArrayList<>();
+		listCongViecTheoDoan = congViecKeHoach.getListGiaoViecTheoDoanVao(this.getId());
 		DoanVaoModel rs = new DoanVaoModel();
 		rs.setId(getId() != null ? getId() : null);
 		rs.setTenDoanVao(getTenDoanVao() != null ? getTenDoanVao() : "");
@@ -893,6 +899,7 @@ public class DoanVao extends Model<DoanVao> {
 		rs.setSoNguoi(getSoNguoi());
 		rs.setThoiGianDenLamViec(getThoiGianDenLamViec() != null ? getThoiGianDenLamViec() : null);
 		rs.setThanhVienDoans(getListThanhVienTheoDoan() != null ? getListThanhVienTheoDoan().stream().map(ThanhVienDoan::toThanhVienDoanModel).collect(Collectors.toList()) : null);
+		rs.setCongViecs(listCongViecTheoDoan != null ? listCongViecTheoDoan.stream().map(GiaoViec::toGiaoViecModel).collect(Collectors.toList()) : null);
 		return rs;
 	}
 }

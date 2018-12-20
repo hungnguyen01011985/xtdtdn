@@ -3,6 +3,9 @@ package vn.toancauxanh.model;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import vn.toancauxanh.rest.model.HoSoKhuDatModel;
 
 @Entity
 @Table(name = "hosokhudat")
@@ -36,6 +39,14 @@ public class HoSoKhuDat extends Model<HoSoKhuDat> {
 
 	public void setGiaiDoanDuAn(GiaiDoanDuAn giaiDoanDuAn) {
 		this.giaiDoanDuAn = giaiDoanDuAn;
+	}
+
+	@Transient
+	public HoSoKhuDatModel toHoSoKhuDatModel() {
+		HoSoKhuDatModel rs = new HoSoKhuDatModel();
+		rs.setId(this.getId() != null ? this.getId() : null);
+		rs.setTenHoSoKhuDat(this.getTenHoSoKhuDat());
+		return rs;
 	}
 
 }

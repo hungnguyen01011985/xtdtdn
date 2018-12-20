@@ -262,6 +262,13 @@ public class VaiTro extends Model<VaiTro> {
 		quyens1.add(core().CONGVIECKEHOACHSUA);
 		quyens1.add(core().CONGVIECKEHOACHTIMKIEM);
 		
+		quyens1.add(core().MASUDUNGAPIXEM);
+		quyens1.add(core().MASUDUNGAPITHEM);
+		quyens1.add(core().MASUDUNGAPILIST);
+		quyens1.add(core().MASUDUNGAPIXOA);
+		quyens1.add(core().MASUDUNGAPISUA);
+		quyens1.add(core().MASUDUNGAPITIMKIEM);
+		
 		return quyens1;
 	}
 	
