@@ -35,9 +35,9 @@
 	]]></zscript>      
 	<div class="line-panel">
 	</div>
-	<div zclass="panel-list ho-tro panel-list-fit">
+	<div zclass="panel-list ho-tro">
 		<div zclass="row">
-			<div zclass="col-lg-12">
+			<div zclass="col-md-4 col-md-offset-4">
 				<n:h3 class="page-header">
 					Đăng nhập
 				</n:h3>
@@ -57,7 +57,7 @@
 						<x:span class="issue-search">Tài khoản đăng nhập<n:small class="required"> *</n:small></x:span>
 					</div> 
 					<textbox type="text" onOK='vm.login(account.getValue(), password.getValue());'
-						class="form-control user-input font-text-lg" id="account" placeholder="" onCreate="self.focus()" onBlur="password.focus()"/> 
+						class="form-control user-input font-text-lg" id="account" placeholder="Nhập tài khoản" onCreate="self.focus()" onBlur="password.focus()"/> 
 					<label class="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
@@ -68,13 +68,12 @@
 					<div class="flex">
 						<x:span class="issue-search">Mật khẩu<n:small class="required"> *</n:small></x:span>
 					</div>  
-					<textbox id="password" placeholder="" class="form-control pass-input" type="password" 
+					<textbox id="password" placeholder="Nhập mật khẩu" class="form-control pass-input" type="password"
 						onOK='vm.login(account.getValue(), password.getValue());' />
 					<label class="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
 		</div>
-		<!-- <n:button id="check-cookies">check</n:button> -->
 		<div zclass="row">
 			<div zclass="col-md-12">
 				<div class="formac-cauhinh">
@@ -86,15 +85,5 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div zclass="row">
-			<div zclass="col-md-12">
-				<div class="box-bottom-login">
-		          <div class="box-remember checkbox checkbox-primary">
-		          		<checkbox class="ip-checkbox" checked="@bind(vm.remember)" label="Ghi nhớ"/>
-		          	 <a href="/reset-password" class="link-forget" >Quên mật khẩu?</a>
-		          </div>
-		        </div>
-		    </div>
-		</div> -->
 	</div>
 </window>
