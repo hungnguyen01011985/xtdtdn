@@ -2730,3 +2730,6 @@ rotate
 	box-shadow: none !important;
 	opacity:1 !important;
 }
+.z-combobox-content {
+	max-width:800px;
+}
