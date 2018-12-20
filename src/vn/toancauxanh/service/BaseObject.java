@@ -405,7 +405,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(giaoViec.getDoanVao()));
 		if (q != null) {
 			DoanVao doanVao = q.fetchFirst();
-			doanVao.setIdNguoiLienQuan(KY_TU + doanVao.getIdNguoiLienQuan().replaceFirst(nguoiCu.getId() + KY_TU, ""));
+			doanVao.setIdNguoiLienQuan(doanVao.getIdNguoiLienQuan().replaceFirst(KY_TU + nguoiCu.getId() + KY_TU, ""));
 			return doanVao.getIdNguoiLienQuan();
 		}
 		return "";
