@@ -527,6 +527,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 
 	@Transient
 	public Task getCurrentTask() {
+		System.out.println("zo getcurrent");
 		List<Task> listPage = core().getProcess().getTaskService().createTaskQuery()
 				.processInstanceBusinessKey(businessKey()).orderByTaskCreateTime().desc().listPage(0, 1);
 		return listPage.isEmpty() ? null : listPage.get(0);

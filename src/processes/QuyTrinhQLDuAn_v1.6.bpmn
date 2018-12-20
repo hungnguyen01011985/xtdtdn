@@ -131,7 +131,7 @@
       <bpmn:incoming>SequenceFlow_15r7j7k</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_105y5df</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="UserTask_05znw4l" name="Giai đoạn ba">
+    <bpmn:userTask id="UserTask_GiaiDoanBa" name="Giai đoạn ba">
       <bpmn:incoming>SequenceFlow_11kyk83</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0g77tuz</bpmn:outgoing>
     </bpmn:userTask>
@@ -191,7 +191,7 @@
       <bpmn:outgoing>SequenceFlow_1utc2rn</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1m6rdn8</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="UserTask_0jquzxa" name="Giai đoạn bốn">
+    <bpmn:userTask id="UserTask_GiaiDoanBon" name="Giai đoạn bốn">
       <bpmn:incoming>SequenceFlow_01ju1de</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_09xuq9k</bpmn:outgoing>
     </bpmn:userTask>
@@ -292,7 +292,7 @@
       <bpmn:incoming>SequenceFlow_1yblehk</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0nofr9o</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="UserTask_0goocz4" name="Giai đoạn hai" camunda:candidateGroups="chuyenvien">
+    <bpmn:userTask id="UserTask_GiaiDoanHai" name="Giai đoạn hai" camunda:candidateGroups="chuyenvien">
       <bpmn:incoming>SequenceFlow_0nofr9o</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1jvseme</bpmn:outgoing>
     </bpmn:userTask>
@@ -331,7 +331,7 @@
       <bpmn:incoming>SequenceFlow_1p4pnvm</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0d7k5dm</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="UserTask_0nyhs9j" name="Giai đoạn một" camunda:candidateGroups="chuyenvien">
+    <bpmn:userTask id="UserTask_GiaiDoanMot" name="Giai đoạn một" camunda:candidateGroups="chuyenvien">
       <bpmn:incoming>SequenceFlow_0jbxxrs</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1gq1j00</bpmn:outgoing>
     </bpmn:userTask>
@@ -424,7 +424,7 @@
       <bpmn:incoming>SequenceFlow_18fbv0l</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1fvg0wz</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="UserTask_03pqo05" name="Giai đoạn năm">
+    <bpmn:userTask id="UserTask_GiaiDoanNam" name="Giai đoạn năm">
       <bpmn:incoming>SequenceFlow_1dlsqrf</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0gcvp1v</bpmn:outgoing>
     </bpmn:userTask>
@@ -497,7 +497,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0dsdfpn" name="Kết thúc dự án" sourceRef="ExclusiveGateway_0042x1e" targetRef="ServiceTask_0gtx97b">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_ketThucDuAn'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0gcvp1v" sourceRef="UserTask_03pqo05" targetRef="ExclusiveGateway_0042x1e" />
+    <bpmn:sequenceFlow id="SequenceFlow_0gcvp1v" sourceRef="UserTask_GiaiDoanNam" targetRef="ExclusiveGateway_0042x1e" />
     <bpmn:sequenceFlow id="SequenceFlow_18fbv0l" name="Lưu dữ liệu giai đoạn năm" sourceRef="ExclusiveGateway_0042x1e" targetRef="ServiceTask_0yw9wbq">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanNam'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -513,7 +513,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuDeKetThucDuAnHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1qw7q1h" sourceRef="ServiceTask_0gtx97b" targetRef="ExclusiveGateway_0gky3h3" />
-    <bpmn:sequenceFlow id="SequenceFlow_1dlsqrf" sourceRef="ExclusiveGateway_1t8mxki" targetRef="UserTask_03pqo05" />
+    <bpmn:sequenceFlow id="SequenceFlow_1dlsqrf" sourceRef="ExclusiveGateway_1t8mxki" targetRef="UserTask_GiaiDoanNam" />
     <bpmn:sequenceFlow id="SequenceFlow_0tg4345" sourceRef="ExclusiveGateway_0obbkoa" targetRef="ExclusiveGateway_1t8mxki" />
     <bpmn:sequenceFlow id="SequenceFlow_1tji1dk" sourceRef="ExclusiveGateway_0ajun51" targetRef="ExclusiveGateway_1t8mxki" />
     <bpmn:sequenceFlow id="SequenceFlow_0o5mg7h" sourceRef="ServiceTask_1xqnaqs" targetRef="ExclusiveGateway_1t8mxki" />
@@ -560,7 +560,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1jvau6h" name="Cập nhật người phụ trách" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="UserTask_0m3a5kv">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_nguoiPhuTrach'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0g77tuz" sourceRef="UserTask_05znw4l" targetRef="ExclusiveGateway_1rcxp8h" />
+    <bpmn:sequenceFlow id="SequenceFlow_0g77tuz" sourceRef="UserTask_GiaiDoanBa" targetRef="ExclusiveGateway_1rcxp8h" />
     <bpmn:sequenceFlow id="SequenceFlow_1wgsv1n" name="Lưu dữ liệu giai đoạn ba" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="ServiceTask_04e9xqr">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanBa'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -596,7 +596,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1utc2rn" name="Tiếp tục giai đoạn năm" sourceRef="ExclusiveGateway_0t089n7" targetRef="ServiceTask_1mhrn6z">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_09xuq9k" sourceRef="UserTask_0jquzxa" targetRef="ExclusiveGateway_0t089n7" />
+    <bpmn:sequenceFlow id="SequenceFlow_09xuq9k" sourceRef="UserTask_GiaiDoanBon" targetRef="ExclusiveGateway_0t089n7" />
     <bpmn:sequenceFlow id="SequenceFlow_1m6rdn8" name="Lưu dữ liệu giai đoạn bốn" sourceRef="ExclusiveGateway_0t089n7" targetRef="ServiceTask_1touapt">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanBon'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -613,7 +613,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0qo9lv1" name="Dữ liệu để tiếp tục giai đoạn năm không hợp lệ" sourceRef="ExclusiveGateway_16xez2l" targetRef="ExclusiveGateway_0zr9s2a">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuTiepTucGiaiDoanNam}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_01ju1de" sourceRef="ExclusiveGateway_0vzrunh" targetRef="UserTask_0jquzxa" />
+    <bpmn:sequenceFlow id="SequenceFlow_01ju1de" sourceRef="ExclusiveGateway_0vzrunh" targetRef="UserTask_GiaiDoanBon" />
     <bpmn:sequenceFlow id="SequenceFlow_0diubb7" sourceRef="ExclusiveGateway_1rxz3le" targetRef="ExclusiveGateway_0vzrunh" />
     <bpmn:sequenceFlow id="SequenceFlow_100f1hv" sourceRef="ExclusiveGateway_0zr9s2a" targetRef="ExclusiveGateway_0vzrunh" />
     <bpmn:sequenceFlow id="SequenceFlow_0nlamzd" sourceRef="ServiceTask_10cbp0x" targetRef="ExclusiveGateway_0vzrunh" />
@@ -643,7 +643,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0917xia" sourceRef="ServiceTask_07oikjd" targetRef="ExclusiveGateway_1eiyajj" />
     <bpmn:sequenceFlow id="SequenceFlow_0dpatgt" sourceRef="ExclusiveGateway_1eiyajj" targetRef="ExclusiveGateway_1ae7j0r" />
     <bpmn:sequenceFlow id="SequenceFlow_113xkn1" sourceRef="ServiceTask_0t5371j" targetRef="ExclusiveGateway_1ae7j0r" />
-    <bpmn:sequenceFlow id="SequenceFlow_0nofr9o" sourceRef="ExclusiveGateway_1ae7j0r" targetRef="UserTask_0goocz4" />
+    <bpmn:sequenceFlow id="SequenceFlow_0nofr9o" sourceRef="ExclusiveGateway_1ae7j0r" targetRef="UserTask_GiaiDoanHai" />
     <bpmn:sequenceFlow id="SequenceFlow_11zkpc0" name="Giao việc" sourceRef="ExclusiveGateway_1oztk68" targetRef="Task_077kf83">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_giaoViec'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -659,7 +659,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1nj5j18" name="Tiếp tục giai đoạn ba" sourceRef="ExclusiveGateway_1oztk68" targetRef="ServiceTask_1denx3d">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuVaTiepTucGiaiDoanBa'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1jvseme" sourceRef="UserTask_0goocz4" targetRef="ExclusiveGateway_1oztk68" />
+    <bpmn:sequenceFlow id="SequenceFlow_1jvseme" sourceRef="UserTask_GiaiDoanHai" targetRef="ExclusiveGateway_1oztk68" />
     <bpmn:sequenceFlow id="SequenceFlow_1hypp42" name="Giao việc" sourceRef="ExclusiveGateway_06m6egx" targetRef="task_GiaoViec">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_giaoViec'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -690,8 +690,8 @@
     <bpmn:sequenceFlow id="SequenceFlow_1oeh5b4" name="Dữ liệu giai đoạn hai không hợp lệ" sourceRef="ExclusiveGateway_0krkb4l" targetRef="ExclusiveGateway_0fcrskk">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuGiaiDoanHaiHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1gq1j00" sourceRef="UserTask_0nyhs9j" targetRef="ExclusiveGateway_06m6egx" />
-    <bpmn:sequenceFlow id="SequenceFlow_0jbxxrs" sourceRef="ExclusiveGateway_0kitq1d" targetRef="UserTask_0nyhs9j" />
+    <bpmn:sequenceFlow id="SequenceFlow_1gq1j00" sourceRef="UserTask_GiaiDoanMot" targetRef="ExclusiveGateway_06m6egx" />
+    <bpmn:sequenceFlow id="SequenceFlow_0jbxxrs" sourceRef="ExclusiveGateway_0kitq1d" targetRef="UserTask_GiaiDoanMot" />
     <bpmn:sequenceFlow id="SequenceFlow_0hgvi6m" sourceRef="ExclusiveGateway_1a7lpko" targetRef="ExclusiveGateway_0kitq1d" />
     <bpmn:sequenceFlow id="SequenceFlow_1dtp8zr" sourceRef="ExclusiveGateway_1lblyc2" targetRef="ExclusiveGateway_0kitq1d" />
     <bpmn:sequenceFlow id="SequenceFlow_1g1fhki" sourceRef="ServiceTask_1jsojcu" targetRef="ExclusiveGateway_0kitq1d" />
@@ -703,7 +703,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1oszu9z" name="Dữ liệu để tiếp tục giai đoạn ba hợp lệ" sourceRef="ExclusiveGateway_1gkiay3" targetRef="ServiceTask_0kedp0o">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidateDuLieuDeTiepTucGiaiDoanBaHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_11kyk83" sourceRef="ExclusiveGateway_18r5hjp" targetRef="UserTask_05znw4l" />
+    <bpmn:sequenceFlow id="SequenceFlow_11kyk83" sourceRef="ExclusiveGateway_18r5hjp" targetRef="UserTask_GiaiDoanBa" />
     <bpmn:sequenceFlow id="SequenceFlow_0biy4nt" sourceRef="ExclusiveGateway_0g1ya66" targetRef="ExclusiveGateway_18r5hjp" />
     <bpmn:sequenceFlow id="SequenceFlow_0xkrpko" sourceRef="ExclusiveGateway_1barm6y" targetRef="ExclusiveGateway_18r5hjp" />
     <bpmn:sequenceFlow id="SequenceFlow_1dtdj49" sourceRef="ServiceTask_0kedp0o" targetRef="ExclusiveGateway_18r5hjp" />
@@ -959,7 +959,7 @@
           <dc:Bounds x="3499" y="379" width="78" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_05znw4l_di" bpmnElement="UserTask_05znw4l">
+      <bpmndi:BPMNShape id="UserTask_05znw4l_di" bpmnElement="UserTask_GiaiDoanBa">
         <dc:Bounds x="3770" y="550" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0g77tuz_di" bpmnElement="SequenceFlow_0g77tuz">
@@ -1102,7 +1102,7 @@
           <dc:Bounds x="5200" y="314" width="86" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_0jquzxa_di" bpmnElement="UserTask_0jquzxa">
+      <bpmndi:BPMNShape id="UserTask_0jquzxa_di" bpmnElement="UserTask_GiaiDoanBon">
         <dc:Bounds x="5150" y="550" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_09xuq9k_di" bpmnElement="SequenceFlow_09xuq9k">
@@ -1365,7 +1365,7 @@
         <di:waypoint x="2072" y="718" />
         <di:waypoint x="2383" y="718" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_0goocz4_di" bpmnElement="UserTask_0goocz4">
+      <bpmndi:BPMNShape id="UserTask_0goocz4_di" bpmnElement="UserTask_GiaiDoanHai">
         <dc:Bounds x="2358" y="550" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0nofr9o_di" bpmnElement="SequenceFlow_0nofr9o">
@@ -1520,7 +1520,7 @@
           <dc:Bounds x="2506" y="616" width="84" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_0nyhs9j_di" bpmnElement="UserTask_0nyhs9j">
+      <bpmndi:BPMNShape id="UserTask_0nyhs9j_di" bpmnElement="UserTask_GiaiDoanMot">
         <dc:Bounds x="977" y="368" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1gq1j00_di" bpmnElement="SequenceFlow_1gq1j00">
@@ -1682,7 +1682,7 @@
       <bpmndi:BPMNShape id="ServiceTask_0yw9wbq_di" bpmnElement="ServiceTask_0yw9wbq">
         <dc:Bounds x="6681" y="368" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="UserTask_03pqo05_di" bpmnElement="UserTask_03pqo05">
+      <bpmndi:BPMNShape id="UserTask_03pqo05_di" bpmnElement="UserTask_GiaiDoanNam">
         <dc:Bounds x="6534" y="550" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_0042x1e_di" bpmnElement="ExclusiveGateway_0042x1e" isMarkerVisible="true">

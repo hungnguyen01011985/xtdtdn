@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.camunda.bpm.engine.task.Task;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.annotation.BindingParam;
@@ -28,6 +29,7 @@ import org.zkoss.bind.annotation.DependsOn;
 import org.zkoss.bind.sys.ValidationMessages;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.util.media.Media;
+import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -316,23 +318,44 @@ public class DuAn extends Model<DuAn> {
 
 	private String srcGiaiDoanDuAn;
 	
+	private Task taskID;
+	
+	public void initCurrentTask() {
+		if (getCurrentTask() != null) {
+			setTaskID(getCurrentTask());
+		}
+	}
+	
+	@Transient
+	public Task getTaskID() {
+		return taskID;
+	}
+
+	public void setTaskID(Task taskID) {
+		this.taskID = taskID;
+	}
+
 	@Transient
 	public String getSrcGiaiDoanDuAn() {
 		if (srcGiaiDoanDuAn == null || srcGiaiDoanDuAn.isEmpty()) {
-			if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien()) || GiaiDoanXucTien.CHUA_HOAN_THANH.equals(getGiaiDoanXucTien()) || GiaiDoanXucTien.HOAN_THANH.equals(getGiaiDoanXucTien())) {
+			if (taskID != null && !taskID.getTaskDefinitionKey().isEmpty()) {
+				if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(getGiaiDoanXucTien()) && Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
+					return "quanlyduan/giaidoan1.zul";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(getGiaiDoanXucTien()) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
+					return "quanlyduan/giaidoan2.zul";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(getGiaiDoanXucTien()) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+					return "quanlyduan/giaidoan3.zul";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(getGiaiDoanXucTien()) && Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
+					return "quanlyduan/giaidoan4.zul";
+				}
+				if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(getGiaiDoanXucTien()) && Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+					return "quanlyduan/giaidoan5.zul";
+				}
+			} else {
 				return "quanlyduan/giaidoan1.zul";
-			}
-			if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(getGiaiDoanXucTien())) {
-				return "quanlyduan/giaidoan2.zul";
-			}
-			if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(getGiaiDoanXucTien())) {
-				return "quanlyduan/giaidoan3.zul";
-			}
-			if (GiaiDoanXucTien.GIAI_DOAN_BON.equals(getGiaiDoanXucTien())) {
-				return "quanlyduan/giaidoan4.zul";
-			}
-			if (GiaiDoanXucTien.GIAI_DOAN_NAM.equals(getGiaiDoanXucTien())) {
-				return "quanlyduan/giaidoan5.zul";
 			}
 		}
 		return srcGiaiDoanDuAn;
