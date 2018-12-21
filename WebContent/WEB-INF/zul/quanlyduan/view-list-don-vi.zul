@@ -70,7 +70,7 @@
 										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 									</button>
 								</div>
-								<label zclass="error" value="@load(vm.isCheckMessage(forEachStatus.index, 1) ? vm.listMessageDonViDuAn.get(forEachStatus.index).get(1) : '')" />
+								<label zclass="error" value="@load(vm.listMessageDonViDuAn.get(forEachStatus.index).get(1))" />
 							</div>
 						</div>
 					</idspace>
