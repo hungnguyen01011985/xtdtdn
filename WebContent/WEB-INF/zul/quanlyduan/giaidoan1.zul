@@ -7,6 +7,7 @@
 			list = new vn.toancauxanh.service.DonViDuAnService().getListDonViById(item.getId());
 			if (list != null){
 				vm.getGiaiDoanDuAn().getDonViDuAn().addAll(list);
+				vm.initDonVi();
 			}
 			if (vm.getGiaiDoanDuAn().getTaiLieuGD1() == null) {
 				vm.getGiaiDoanDuAn().setTaiLieuGD1(new vn.toancauxanh.model.TepTin());
@@ -105,11 +106,13 @@
 					</x:button>
 				</div>
 				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanMot) and entry.quyen.quanlyduan_sua}">
-					<x:button onClick="@command('goNext', task = 'task_luuVaTiepTucGiaiDoanHai')"
-						class="btn btn-base btn-green">
-						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tiep-tuc.svg"/>
-						<span>Tiếp tục</span>
-					</x:button>
+					<button onClick="@command('goNext', task = 'task_luuVaTiepTucGiaiDoanHai')" image="${contexPath}/assets/icon-bxtdn/tiep-tuc.svg" label="Tiếp tục" class="btn btn-base btn-green">
+						<attribute name="onClick">
+							<![CDATA[
+								vm.validateDonViDuAn();
+							]]>
+						</attribute>
+					</button>
 				</div>
 				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanMot) and entry.quyen.quanlyduan_sua}">
 					<x:button onClick="@command('goTask', task = 'task_luuGiaiDoanMot')"

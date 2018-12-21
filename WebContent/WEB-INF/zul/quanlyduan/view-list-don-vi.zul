@@ -20,10 +20,10 @@
 			emptyMessage="Không có dữ liệu nào trong danh sách">
 			<columns>
 				<column label="STT" width="42px"/>
-				<column label="Đơn vị"/>
+				<column label="Đơn vị" />
 				<column label="Ngày phát hành công văn (*)" width="230px" />
 				<column label="Tài liệu đính kèm (*)"/>
-				<column label="Thao tác" width="100px"/>
+				<column label="Thao tác" width="80px" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"/>
 			</columns>
 			<template name="model">
 				<zscript>
@@ -38,25 +38,30 @@
 					<label value="@load(each.donVi.ten)"></label>
 					<div style="margin-top: 8px;">
 						<datebox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" format="dd/MM/yyyy" class="hv-db ${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? 'datebox-txt-style' : 'input-no-button no-place-holder' }"
-							value="@bind(each.ngayNhanTraLoi) @save(each.ngayNhanTraLoi, before='goNext') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')" width="100%" placeholder="Chọn ngày"
-							disabled="${!(action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id)}"/>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							value="@bind(each.ngayNhanTraLoi)" width="100%" placeholder="Chọn ngày" disabled="${!(action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id)}">
+							<attribute name="onChange">
+								<![CDATA[
+									vm.checkDateAndResetMessage(self.getValue(), forEachStatus.index);
+								]]>
+							</attribute>
+						</datebox>
+						<label zclass="error" value="@load(vm.listMessageDonViDuAn.get(forEachStatus.index).get(0))" />
 					</div>
 					<idspace>
-						<div style="width:100%;" id="idCongVanTraLoi" zclass="col-md-3" form="@id('fx') @load(each.congVanTraLoi) @save(each.congVanTraLoi, before={'goTask','goNext'}) 
-    						@validator(vm.validatorTepTinDonVi, text = 'ngayNhanTraLoi', ngayNhanTraLoi = each.ngayNhanTraLoi)">
+						<div style="width:100%;" id="idCongVanTraLoi" zclass="col-md-3">
 							<div viewModel="@id('congVanTraLoi') @init(each.congVanTraLoi)">
 								<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
 									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
-									onUpload="@command('uploadFile', medias=event.getMedia(), vm = each, name = 'congVanTraLoi', error = errorCongVanTraLoi)"
+									onUpload="@command('uploadFileAndResetMessage', medias=event.getMedia(), vm = each, name = 'congVanTraLoi', duAn = vm, index = forEachStatus.index)"
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
 								<div class="flex mg-btn-top" visible="@load(not empty each.congVanTraLoi.tenFile)">
 									<div class="box-img-tai-lieu">
 										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
 									</div>
-									<label visible="@load(each.congVanTraLoi.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = each.congVanTraLoi)" value="@load(each.congVanTraLoi.tenFile)"/>
-									<a class="txt-link-tailieu pointer-cls" visible="@load(!each.congVanTraLoi.noId())" label="@bind(each.congVanTraLoi.tenFile)" zk:onClick="@command('redirect', ob = each.congVanTraLoi)"></a>
+									<label visible="@load(each.congVanTraLoi.noId())" class="txt-link-tailieu pointer-cls" onClick="@command('downLoadTepTin', ob = each.congVanTraLoi)" value="@load(each.congVanTraLoi.tenFile)"></label>
+									<a class="txt-link-tailieu pointer-cls" visible="@load(!each.congVanTraLoi.noId())" label="@bind(each.congVanTraLoi.tenFile)" zk:onClick="@command('redirect', ob = each.congVanTraLoi)">
+									</a>
 									<x:button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu btn-grey" zk:onClick="@command('deleteFile', ob = each.congVanTraLoi , vm = each, name = 'congVanTraLoi')">
 										<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
 									</x:button>
@@ -65,12 +70,12 @@
 										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 									</button>
 								</div>
-								<label zclass="error" value="@load(vmsgs[idCongVanTraLoi])" id="errorCongVanTraLoi"/>
+								<label zclass="error" value="@load(vm.listMessageDonViDuAn.get(forEachStatus.index).get(1))" />
 							</div>
 						</div>
 					</idspace>
-					<div class="thaotac">
-						<x:a label="Xóa" class="btn-thaotac txt-color-xoa" if="${vm.checkXoaDonViDuAn(each) and action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" onClick="@command('removeDonViDuAn', vm = vm.giaiDoanDuAn, item = each)">
+					<div class="thaotac" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}">
+						<x:a label="Xóa" class="btn-thaotac txt-color-xoa" if="${vm.checkXoaDonViDuAn(each) and action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" onClick="@command('removeDonViDuAn', vm = vm.giaiDoanDuAn, item = each, index = forEachStatus.index)">
 							<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 							<x:span>Xóa</x:span>
 						</x:a>

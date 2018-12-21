@@ -181,7 +181,39 @@ public class TepTin extends Model<TepTin> {
 			}
 		}
 	}
+	
+	@Command
+	public void uploadFileAndResetMessage(@BindingParam("medias") final Object medias, @BindingParam("vm") final Object object,
+			@BindingParam("name") final String name, @BindingParam("duAn") DuAn duAn, @BindingParam("index") int index) throws IOException {
+		Media media = (Media) medias;
+		if (media.getName().toLowerCase().endsWith(".pdf") || media.getName().toLowerCase().endsWith(".doc")
+				|| media.getName().toLowerCase().endsWith(".docx") || media.getName().toLowerCase().endsWith(".xls")
+				|| media.getName().toLowerCase().endsWith(".xlsx")) {
+			if (media.getByteData().length > 50000000) {
+				showNotification("Tệp tin quá 50 MB", "Tệp tin quá lớn", "error");
+			} else {
+				String tenFile = media.getName().substring(0, media.getName().lastIndexOf(".")) + "_"
+						+ Calendar.getInstance().getTimeInMillis()
+						+ media.getName().substring(media.getName().lastIndexOf(".")).toLowerCase();
 
+				this.setNameHash(tenFile);
+				this.setTypeFile(tenFile.substring(tenFile.lastIndexOf(".")));
+				this.setTenFile(media.getName().substring(0, media.getName().lastIndexOf(".")));
+				this.setPathFile(folderStoreFilesLink() + folderStoreTepTin());
+				this.setMedia(media);
+				this.setNgayTao(null);
+				duAn.getListMessageDonViDuAn().get(index).set(1, "");
+				saveFileTepTin();
+				BindUtils.postNotifyChange(null, null, this, "*");
+				BindUtils.postNotifyChange(null, null, object, name);
+				BindUtils.postNotifyChange(null, null, duAn, "listMessageDonViDuAn");
+			}
+		} else {
+			showNotification("Chỉ chấp nhận các tệp nằm trong các định dạng sau : pdf, doc, docx, xls, xlsx",
+					"Có tệp không đúng định dạng", "danger");
+		}
+	}
+	
 	@Command
 	public void uploadFile(@BindingParam("medias") final Object medias, @BindingParam("vm") final Object object,
 			@BindingParam("name") final String name, @BindingParam("error") Label error) throws IOException {
