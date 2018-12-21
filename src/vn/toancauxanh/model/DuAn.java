@@ -2,7 +2,6 @@ package vn.toancauxanh.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -287,12 +287,20 @@ public class DuAn extends Model<DuAn> {
 	// hàm set task khi ấn quay lại giai đoạn 1
 	@Command
 	public void goBack(@BindingParam("task") final String task) {
-		Map<String, Object> variables = new HashMap<>();
-		variables.put("model", this);
-		if (task != null) {
-			variables.put("goTask", task);
-		}
-		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+		DuAn duAnTmp = this;
+		Messagebox.show("Quay lại sẽ mất hết dữ liệu giai đoạn dự án?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
+				Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) throws IOException {
+						Map<String, Object> variables = new HashMap<>();
+						variables.put("model", duAnTmp);
+						if (task != null) {
+							variables.put("goTask", task);
+						}
+						core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+					}
+		});
+		
 	}
 
 	@Command
@@ -513,12 +521,6 @@ public class DuAn extends Model<DuAn> {
 		}
 		BindUtils.postNotifyChange(null, null, duAn, "srcGiaiDoan4");
 		BindUtils.postNotifyChange(null, null, duAn, "option");
-	}
-
-	@Command
-	public void addNewDonVi(@BindingParam("vm") DuAn duAn) {
-		duAn.getGiaiDoanDuAn().getDonViDuAn().add(new DonViDuAn());
-		BindUtils.postNotifyChange(null, null, duAn.getGiaiDoanDuAn().getDonViDuAn(), "*");
 	}
 
 	@Transient
@@ -821,7 +823,7 @@ public class DuAn extends Model<DuAn> {
 	}
 	
 	@Command
-	public void removeDonViDuAn(@BindingParam("vm") GiaiDoanDuAn giaiDoanDuAn, @BindingParam("item") DonViDuAn donViDuAn) {
+	public void removeDonViDuAn(@BindingParam("vm") GiaiDoanDuAn giaiDoanDuAn, @BindingParam("item") DonViDuAn donViDuAn, @BindingParam("index") int index) {
 		Messagebox.show("Bạn muốn xóa đơn vị này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
 				new EventListener<Event>() {
 					@Override
@@ -833,6 +835,7 @@ public class DuAn extends Model<DuAn> {
 								}
 								donViDuAn.doDelete(true);
 							}
+							listMessageDonViDuAn.remove(index);
 							giaiDoanDuAn.getDonViDuAn().remove(donViDuAn);
 							BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "donViDuAn");
 						}
@@ -846,6 +849,62 @@ public class DuAn extends Model<DuAn> {
 			return false;
 		}
 		return true;
+	}
+	
+	
+	
+	private List<List<String>> listMessageDonViDuAn = new ArrayList<>();
+	
+	public void checkDateAndResetMessage(Date ngayNhan, int index) {
+		if (ngayNhan != null) {
+			listMessageDonViDuAn.get(index).set(0, "");
+		}
+		BindUtils.postNotifyChange(null, null, this, "listMessageDonViDuAn");
+	}
+	
+	@Transient
+	public List<List<String>> getListMessageDonViDuAn() {
+		return listMessageDonViDuAn;
+	}
+
+	public void setListMessageDonViDuAn(List<List<String>> listMessageDonViDuAn) {
+		this.listMessageDonViDuAn = listMessageDonViDuAn;
+	}
+	@Transient
+	public boolean isCheckMessage(int index, int location) {
+		try {
+			if (!listMessageDonViDuAn.get(index).get(location).isEmpty()) {
+				return true;
+			}
+			return false;
+		} catch (Exception ex) {
+			return false;
+		}
+	}
+	
+	public void initDonVi() {
+		giaiDoanDuAn.getDonViDuAn().forEach(item -> {
+			List<String> list = new ArrayList<String>();
+			list.add("");
+			list.add("");
+			listMessageDonViDuAn.add(list);
+		});
+	}
+	
+	
+	public void validateDonViDuAn() {
+		int index = 0;
+		for(DonViDuAn donVi : giaiDoanDuAn.getDonViDuAn()) {
+			if (donVi.getNgayNhanTraLoi() == null) {
+				listMessageDonViDuAn.get(index).set(0, "Không được bỏ trống trường này");
+			}
+			if (donVi.getCongVanTraLoi().getNameHash() == null) {
+				listMessageDonViDuAn.get(index).set(1, "Không được bỏ trống trường này");
+			}
+			index++;
+		}
+		BindUtils.postNotifyChange(null, null, this, "listMessageDonViDuAn");
+		BindUtils.postNotifyChange(null, null, this.giaiDoanDuAn, "donViDuAn");
 	}
 	
 	public DuAnModel toDuAnModel() {

@@ -15,7 +15,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.model.DonViDuAn;
 import vn.toancauxanh.model.DonViXucTien;
-import vn.toancauxanh.model.GiaiDoanDuAn;
+import vn.toancauxanh.model.DuAn;
 import vn.toancauxanh.model.QDonViXucTien;
 
 public class DonViXucTienService extends BasicService<DonViXucTien> {
@@ -76,15 +76,20 @@ public class DonViXucTienService extends BasicService<DonViXucTien> {
 	}
 	
 	@Command
-	public void addDonViXucTien(@BindingParam("obj") GiaiDoanDuAn giaiDoanDuAn, @BindingParam("wdn") Window wdn) {
+	public void addDonViXucTien(@BindingParam("obj") DuAn duAn, @BindingParam("wdn") Window wdn) {
 		wdn.detach();
 		//Mỗi đơn vị xúc tiến thì tạo ra 1 đơn vị dự án
 		selectedItems.forEach(item -> {
 			DonViDuAn donViDuAn = new DonViDuAn();
 			donViDuAn.setDonVi(item);
-			giaiDoanDuAn.getDonViDuAn().add(0, donViDuAn);
+			duAn.getGiaiDoanDuAn().getDonViDuAn().add(0, donViDuAn);
+			List<String> list = new ArrayList<String>();
+			list.add("");
+			list.add("");
+			duAn.getListMessageDonViDuAn().add(0, list);
 		});
-		BindUtils.postNotifyChange(null, null, giaiDoanDuAn, "*");
+		System.out.println("size init"+duAn.getListMessageDonViDuAn().size());
+		BindUtils.postNotifyChange(null, null, duAn.getGiaiDoanDuAn(), "*");
 	}
 	
 }

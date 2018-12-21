@@ -53,7 +53,7 @@
 					</div>
 					<div zclass="col-xs-6">
 						<div zclass="form-group right">
-							<x:button onClick="@command('addDonViXucTien', wdn = wdn, obj = obj.giaiDoanDuAn)"
+							<x:button onClick="@command('addDonViXucTien', wdn = wdn, obj = obj)"
 									class="btn btn-base btn-green mg-btn">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 								<span>Thêm đơn vị</span>
