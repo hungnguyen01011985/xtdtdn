@@ -41,17 +41,19 @@
 					</div>
 				</div>
 				<div class="row">
-					<div zclass="col-md-8">
-						<div zclass="form-group txt-textbox-disable">
-							<x:span class="label-txt-style">Tên đoàn</x:span> 
-							<textbox class="form-control" disabled="true" value="@bind(vm.tenDoanVao)" placeholder="Nhập tên đoàn.."></textbox>
-						</div>
-					</div>
-					<div zclass="col-md-4">
+					<div zclass="col-md-2">
 						<div zclass="form-group">
 							<x:span class="label-txt-style">Thời gian đến làm việc</x:span> 
-							<datebox buttonVisible="false" disabled="true" format="dd/MM/yyyy" class="hv-db input-no-button txt-textbox-disable" value="@bind(vm.thoiGianDenLamViec)" width="100%" placeholder="Chọn ngày"/>
+							<datebox buttonVisible="false" disabled="true" format="dd/MM/yyyy" class="hv-db input-no-button txt-textbox-disable" value="@bind(vm.thoiGianDenLamViec)" width="100%"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group txt-textbox-disable">
+							<x:span class="label-txt-style">Tên đoàn</x:span> 
+							<textbox rows="3" class="form-control" disabled="true" value="@bind(vm.tenDoanVao)"></textbox>
 						</div>
 					</div>
 				</div>

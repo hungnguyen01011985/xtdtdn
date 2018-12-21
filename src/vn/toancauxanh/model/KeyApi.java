@@ -1,13 +1,10 @@
 package vn.toancauxanh.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
@@ -78,8 +75,11 @@ public class KeyApi extends Model<KeyApi> {
 				}
 				if (!value.isEmpty()) {
 					JPAQuery<KeyApi> q = find(KeyApi.class).where(QKeyApi.keyApi1.ten.eq(value));
+					if (!KeyApi.this.noId()) {
+						q.where(QKeyApi.keyApi1.id.ne(getId()));
+					}
 					if (q.fetchCount() > 0) {
-						addInvalidMessage(ctx, "Mã này đã được sử dụng");
+						addInvalidMessage(ctx, "Tên này đã được sử dụng");
 					}
 				}	
 			}
