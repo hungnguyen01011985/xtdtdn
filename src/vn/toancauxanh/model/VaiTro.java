@@ -132,13 +132,14 @@ public class VaiTro extends Model<VaiTro> {
 	
 	@Transient
 	public String getLabelAction(String action, String parent) {
-		return Labels.getLabel("action." + action.replaceFirst(parent+":", "") + ".mota");
+		return Labels.getLabel("action." + action.replaceFirst(parent + (core().CHAR_CACH), "") + ".mota");
 	}
 	
 	
 	@Transient
 	public List<String> getListChildrenVaiTro(String resource) {
 		List<String> list = new ArrayList<String>();
+		list.add(null);
 		final Set<String> allQuyens = new HashSet<>();
 		allQuyens.addAll(getQuyenAllMacDinhs());
 		for (String action : core().getACTIONS()) {
@@ -275,7 +276,6 @@ public class VaiTro extends Model<VaiTro> {
 			list.add(core().QUANLYPHONGBANTHEM);
 			list.add(core().QUANLYPHONGBANXOA);
 		} else if ("linhVucDuAn".equals(parent)) {
-
 			list.add(core().LINHVUCDUANLIST);
 			list.add(core().LINHVUCDUANXEM);
 			list.add(core().LINHVUCDUANTHEM);
@@ -289,7 +289,6 @@ public class VaiTro extends Model<VaiTro> {
 			list.add(core().VAITROXOA);
 			list.add(core().VAITROTIMKIEM);
 		} else if ("nguoidung".equals(parent)) {
-
 			list.add(core().NGUOIDUNGLIST);
 			list.add(core().NGUOIDUNGXEM);
 			list.add(core().NGUOIDUNGTHEM);
@@ -300,7 +299,6 @@ public class VaiTro extends Model<VaiTro> {
 			list.add(core().BAOCAOTHONGKEDOANVAO);
 			list.add(core().BAOCAOTHONGKECONGVIEC);
 		} else if ("donvi".equals(parent)) {
-
 			list.add(core().DONVILIST);
 			list.add(core().DONVIXEM);
 			list.add(core().DONVITHEM);
