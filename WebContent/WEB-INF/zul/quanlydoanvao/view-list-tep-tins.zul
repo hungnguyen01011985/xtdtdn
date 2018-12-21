@@ -1,18 +1,19 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
-	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style="overflow:visible; margin-bottom:15px; margin-top:15px;">
+	<window class="no-all-window" xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" style="overflow:visible; margin-bottom:15px; margin-top:15px;" validationMessages="@id('vmsgs')">
 		<div class="w-popup-content-medium">
 			<div children="@bind(vm.tepTins)" style="padding:0 7.5px; margin-top: 4px;">
 				<template name="children">
-					<div class="row" viewModel="@id('item') @init(each)">
+					<div class="row">
 						<div class="col-md-4">
 							<div class="flex">
-								<x:span zk:if="${forEachStatus.first}" class="label-txt-style">Tên tài liệu</x:span>
+								<x:span zk:if="${forEachStatus.first}" class="label-txt-style">Tên tài liệu <n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 							</div>
 							<div zclass="form-group txt-textbox-disable">
-								<textbox class="form-control textbox-txt-style" disabled="${action}" maxlength="255" value="@load(item.tenFile) @save(item.tenFile)">
-								</textbox>
+								<textbox class="form-control textbox-txt-style" disabled="${action}" maxlength="255" value="@bind(each.tenTaiLieu) @save(each.tenTaiLieu, before='saveDoanVao') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
+						<div viewModel="@id('item') @init(each)">
 						<div class="col-md-3">
 							<div class="flex">
 								<x:span zk:if="${forEachStatus.first}" class="label-txt-style">Tài liệu đính kèm</x:span>
@@ -37,6 +38,7 @@
 									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
 								</button>
 							</div>
+						</div>
 						</div>
 					</div>
 				</template>
