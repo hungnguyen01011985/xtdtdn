@@ -385,6 +385,10 @@
 	background: #30B350 !important;
 	border-color:#30B350 !important;
 }
+.btn-green:focus {
+	background: #30B350 !important;
+	border-color:#30B350 !important;
+}
 .box-img-tai-lieu {
 	height:36px;
 	display:flex;

@@ -23,7 +23,7 @@
 				<column label="Đơn vị" />
 				<column label="Ngày phát hành công văn (*)" width="230px" />
 				<column label="Tài liệu đính kèm (*)"/>
-				<column label="Thao tác" width="80px"/>
+				<column label="Thao tác" width="80px" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"/>
 			</columns>
 			<template name="model">
 				<zscript>
@@ -41,7 +41,7 @@
 							value="@bind(each.ngayNhanTraLoi)" width="100%" placeholder="Chọn ngày" disabled="${!(action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id)}">
 							<attribute name="onChange">
 								<![CDATA[
-								         vm.checkDateAndResetMessage(self.getValue(), forEachStatus.index);
+									vm.checkDateAndResetMessage(self.getValue(), forEachStatus.index);
 								]]>
 							</attribute>
 						</datebox>
@@ -74,7 +74,7 @@
 							</div>
 						</div>
 					</idspace>
-					<div class="thaotac">
+					<div class="thaotac" if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}">
 						<x:a label="Xóa" class="btn-thaotac txt-color-xoa" if="${vm.checkXoaDonViDuAn(each) and action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" onClick="@command('removeDonViDuAn', vm = vm.giaiDoanDuAn, item = each, index = forEachStatus.index)">
 							<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
 							<x:span>Xóa</x:span>

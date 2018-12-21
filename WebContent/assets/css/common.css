@@ -2392,12 +2392,12 @@ rotate
 }
 
 .bg-popup-box {
-	width: 100vw;
+	width: calc(100vw - 17px);
 	height: 100vh;
 	background-color: #262A35;
 	opacity: 0.9;
 	z-index: 1798;
-	position: absolute;
+	position: fixed;
 	display: none;
 	cursor: pointer;
 }

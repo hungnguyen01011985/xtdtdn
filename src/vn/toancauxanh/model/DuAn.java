@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -300,17 +299,27 @@ public class DuAn extends Model<DuAn> {
 						core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 					}
 		});
-		
 	}
 
 	@Command
 	public void goNext(@BindingParam("task") final String task) {
+		if (GiaiDoanXucTien.GIAI_DOAN_MOT.equals(giaiDoanXucTien)) {
+			for (int i = 0; i < listMessageDonViDuAn.size(); i++) {
+				if (!listMessageDonViDuAn.get(i).get(0).isEmpty()) {
+					return;
+				}
+				if (!listMessageDonViDuAn.get(i).get(1).isEmpty()) {
+					return;
+				}
+			}
+		}
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("model", this);
 		if (task != null) {
 			variables.put("goTask", task);
 		}
 		core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
+		
 	}
 	
 	@Command
@@ -869,17 +878,6 @@ public class DuAn extends Model<DuAn> {
 
 	public void setListMessageDonViDuAn(List<List<String>> listMessageDonViDuAn) {
 		this.listMessageDonViDuAn = listMessageDonViDuAn;
-	}
-	@Transient
-	public boolean isCheckMessage(int index, int location) {
-		try {
-			if (!listMessageDonViDuAn.get(index).get(location).isEmpty()) {
-				return true;
-			}
-			return false;
-		} catch (Exception ex) {
-			return false;
-		}
 	}
 	
 	public void initDonVi() {
