@@ -88,7 +88,6 @@ public class DonViXucTienService extends BasicService<DonViXucTien> {
 			list.add("");
 			duAn.getListMessageDonViDuAn().add(0, list);
 		});
-		System.out.println("size init"+duAn.getListMessageDonViDuAn().size());
 		BindUtils.postNotifyChange(null, null, duAn.getGiaiDoanDuAn(), "*");
 	}
 	
