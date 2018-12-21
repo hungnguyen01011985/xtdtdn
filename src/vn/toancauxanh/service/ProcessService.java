@@ -223,13 +223,13 @@ public class ProcessService extends BasicService<Object> {
 		DuAn duAn = (DuAn) ((ExecutionEntity) execution).getVariable("model");
 		duAn.getGiaiDoanDuAn().setGiaiDoanXucTien(model.getGiaiDoanXucTien());
 		duAn.getGiaiDoanDuAn().setDuAn(model);
-		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		if (GiaiDoanXucTien.GIAI_DOAN_HAI.equals(model.getGiaiDoanXucTien())) {
 			saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_HAI, true);
 		}
 		if (GiaiDoanXucTien.GIAI_DOAN_BA.equals(model.getGiaiDoanXucTien())) {
 			saveNotShowNotificationTaiLieuGiaiDoan(duAn.getGiaiDoanDuAn(), GiaiDoanXucTien.GIAI_DOAN_BA, true);
 		}
+		duAn.getGiaiDoanDuAn().saveNotShowNotification();
 		luuTaiLieuDuAnAndCheck(duAn);
 		luuTaiLieuKhac(duAn.getGiaiDoanDuAn(), true);
 		removeGiaiDoanDuAnList(duAn);
@@ -381,8 +381,11 @@ public class ProcessService extends BasicService<Object> {
 		DuAn duAn = q.fetchFirst();
 		if (model.getTenDuAn() == null || model.getTenDuAn().isEmpty() || model.getLinhVuc() == null
 				|| model.getDiaDiem() == null || model.getDiaDiem().isEmpty() || model.getQuyMoDuAn() == null
-				|| model.getQuyMoDuAn().isEmpty() || model.getTongVonDauTu() <= 0 || model.getMucTieuDuAn() == null
-				|| model.getMucTieuDuAn().isEmpty() || model.getDienTichSuDungDat() <= 0) {
+				|| model.getQuyMoDuAn().isEmpty() || model.getTongVonDauTu() == null || model.getTongVonDauTu() <= 0
+				|| model.getMucTieuDuAn() == null || model.getMucTieuDuAn().isEmpty()
+				|| model.getDienTichSuDungDat() == null || model.getDienTichSuDungDat() <= 0
+				|| model.getMucDoUuTien() == null || model.getKhaNangDauTu() == null || model.getTaiLieuNDT() == null
+				|| model.getTaiLieuNDT().getNameHash() == null) {
 			showNotification("", "Bạn phải nhập đầy đủ thông tin *", "danger");
 			((ExecutionEntity) execution).setVariable("isValidateDuLieuDeKetThucDuAnHopLe", false);
 			return;

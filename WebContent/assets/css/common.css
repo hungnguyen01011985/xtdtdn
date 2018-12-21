@@ -82,6 +82,10 @@ html, body {
 .toast-title {
 	font-family: Roboto-Bold !important;
 }
+
+.z-checkbox-toggle-off > .z-checkbox-mold {
+    background-color: red;
+}
 .btn-upload-image-avarta {
 	border-radius: 50%;
     height: 36px;
@@ -2729,4 +2733,7 @@ rotate
 .toast-success {
 	box-shadow: none !important;
 	opacity:1 !important;
+}
+.z-combobox-content {
+	max-width:800px;
 }
