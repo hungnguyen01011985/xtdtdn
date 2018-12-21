@@ -7,7 +7,7 @@
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
 			item = arg.get("item");
-			if (item != null && arg.get("readOnly") == null){
+			if (item != null && arg.get("readOnly") == null) {
 				vm.setTen("");
 			}
 			strSave = arg.get("save");
