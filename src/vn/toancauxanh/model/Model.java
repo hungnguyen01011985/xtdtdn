@@ -148,7 +148,7 @@ public class Model<T extends Model<T>> extends BaseObject<T> {
 		Object obj = this;
 		String tenNhiemVu = "";
 		if (obj instanceof DoanVao) {
-			tenNhiemVu = "đoàn vào" + ((DoanVao) obj).getTenDoanVao();
+			tenNhiemVu = "đoàn vào " + ((DoanVao) obj).getTenDoanVao();
 		} else {
 			tenNhiemVu = "dự án " + ((DuAn) obj).getTenDuAn();
 		}
