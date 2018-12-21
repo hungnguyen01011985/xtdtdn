@@ -770,6 +770,41 @@ public class NhanVien extends Model<NhanVien> {
 			}
 		};
 	}
+	
+	@Transient
+	public AbstractValidator getValidateMatKhau() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(final ValidationContext ctx) {
+				String value = ((String) ctx.getProperty().getValue()).trim().replaceAll("\\s+", "");
+				if ("".equals(value) && value.isEmpty()) {
+					addInvalidMessage(ctx, "Mật khẩu mới không để trống");
+				}
+				if (value.length() < 6) {
+					addInvalidMessage(ctx, "Mật khẩu phải có tối thiểu 6 kí tự");
+				}
+			}
+		};
+	}
+	
+	@Transient
+	public AbstractValidator getValidateTrungKhop() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(final ValidationContext ctx) {
+				String pass = (String) ctx.getBindContext().getValidatorArg("pass");
+				String value = (String) ctx.getProperty().getValue();
+				String param = value.trim().replaceAll("\\s+", "");
+				if ("".equals(param) && param.isEmpty()) {
+					addInvalidMessage(ctx, "Xác nhận mật khẩu không để trống");
+				} else {
+					if (!value.equals(pass)) {
+						addInvalidMessage(ctx, "Xác nhận mật khẩu không trùng khớp");
+					}
+				}
+			}
+		};
+	}
 
 	@Transient
 	public AbstractValidator getValidateMatKhauMoi() {

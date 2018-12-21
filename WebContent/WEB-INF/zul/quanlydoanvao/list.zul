@@ -155,6 +155,18 @@
 										<x:span>Xóa</x:span>
 									</x:a>
 								</div>
+								<!-- <zscript>
+									<![CDATA[
+									         if (forEachStatus.isFirst()) {
+									        	 vm.setFirst(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+									         }
+									         if(forEachStatus.isLast()){
+									        	 vm.setLast(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+									         }
+											BindUtils.postNotifyChange(null, null, vm, "first");
+											BindUtils.postNotifyChange(null, null, vm, "last");
+									]]>
+								</zscript> -->
 							</row>
 						</template>
 					</grid>

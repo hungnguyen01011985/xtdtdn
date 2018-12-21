@@ -12,7 +12,7 @@
 			<div class="box-title-and-close">
 				<div style="display:flex">
 					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
-					<span class="style-title-popup">${arg.save}</span>
+					<span class="style-title-popup">${vm.checkQuyenSua(vm.nguoiDuocGiao, vm.hanThucHien) ? 'Chỉnh sửa công việc' : 'Tạo công việc'}</span>
 				</div>
 				<a onClick="wdn.detach()">
 					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
