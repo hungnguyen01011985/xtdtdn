@@ -12,6 +12,10 @@ import javax.persistence.Transient;
 
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.zul.Window;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -408,6 +412,26 @@ public class CongChucSoNoiVu extends Model<CongChucSoNoiVu> {
 
 	public void setUpdated(boolean updated) {
 		this.updated = updated;
+	}
+	
+	@Command
+	public void selectCongChucSoNoiVu(@BindingParam("vm") NhanVien nhanVien,
+			@BindingParam("item") CongChucSoNoiVu congChucSoNoiVu,
+			@BindingParam("wdn") Window wdn) {
+		nhanVien.setHoVaTen(congChucSoNoiVu.getHoTen());
+		nhanVien.setEmail(congChucSoNoiVu.getEmail());
+//		if (congChucSoNoiVu.getPhongId() != null && !"".equals(congChucSoNoiVu.getPhongId())) {
+//			PhongBan phongBan = find(PhongBan.class)
+//					.where(QPhongBan.phongBan.id.eq(Long.valueOf(congChucSoNoiVu.getPhongId().trim().toString()))).fetchFirst();
+//			if (phongBan != null) {
+//				nhanVien.setPhongBan(phongBan);
+//			}
+//		}
+		
+		BindUtils.postNotifyChange(null, null, nhanVien, "hoVaTen");
+		BindUtils.postNotifyChange(null, null, nhanVien, "email");
+//		BindUtils.postNotifyChange(null, null, nhanVien, "phongBan");
+		wdn.detach();
 	}
 
 }
