@@ -43,7 +43,6 @@ public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 				obj.setTenCongViec(item.getTen());
 				obj.setTrangThaiGiaoViec(null);
 				obj.setHanThucHien(null);
-				System.out.println(obj.getHanThucHien());
 				list.add(obj);
 			});
 		}
