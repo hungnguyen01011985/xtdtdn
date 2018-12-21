@@ -56,6 +56,27 @@ import vn.toancauxanh.sso.Utils;
 
 public class BaseObject<T> extends CoreObject<T> {
 	
+	private int first = 0;
+	private int last = 0;
+
+	@Transient
+	public int getFirst() {
+		return first;
+	}
+
+	public void setFirst(int first) {
+		this.first = first;
+	}
+
+	@Transient
+	public int getLast() {
+		return last;
+	}
+
+	public void setLast(int last) {
+		this.last = last;
+	}
+
 	public boolean live = true;
 	
 	public boolean isLive() {
@@ -405,7 +426,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(giaoViec.getDoanVao()));
 		if (q != null) {
 			DoanVao doanVao = q.fetchFirst();
-			doanVao.setIdNguoiLienQuan(KY_TU + doanVao.getIdNguoiLienQuan().replaceFirst(nguoiCu.getId() + KY_TU, ""));
+			doanVao.setIdNguoiLienQuan(doanVao.getIdNguoiLienQuan().replaceFirst(KY_TU + nguoiCu.getId() + KY_TU, ""));
 			return doanVao.getIdNguoiLienQuan();
 		}
 		return "";
