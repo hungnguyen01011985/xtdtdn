@@ -155,9 +155,28 @@
 										<x:span>Xóa</x:span>
 									</x:a>
 								</div>
+								<!-- <zscript>
+									<![CDATA[
+									         if (forEachStatus.isFirst()) {
+									        	 vm.setFirst(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+									         }
+									         if(forEachStatus.isLast()){
+									        	 vm.setLast(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+									         }
+											BindUtils.postNotifyChange(null, null, vm, "first");
+											BindUtils.postNotifyChange(null, null, vm, "last");
+									]]>
+								</zscript> -->
 							</row>
 						</template>
 					</grid>
+					<label value="Hiển thị từ "></label>
+					<label value="@load(vm.first)"></label>
+					<label value="-"></label>
+					<label value="@load(vm.last)"></label>
+					<label value=" trong tổng số  "></label>
+					<label value="@load(vm.targetQuery.fetchCount())"></label>
+					<label value=" kết quả"></label>
 					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
 						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
 						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />

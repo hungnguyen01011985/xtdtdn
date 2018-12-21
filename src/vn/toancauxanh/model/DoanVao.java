@@ -382,6 +382,7 @@ public class DoanVao extends Model<DoanVao> {
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
 		giaoViec.setTenNhiemVu(this.getTenDoanVao());
 		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
+		resetCheck();
 	}
 
 	public void thongBao(LoaiThongBao loaiThongBao, DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan,
@@ -894,6 +895,7 @@ public class DoanVao extends Model<DoanVao> {
 		} else {
 			wdn.detach();
 		}
+		resetCheck();
 	}
 	
 	@Transient

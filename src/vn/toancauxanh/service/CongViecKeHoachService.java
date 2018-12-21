@@ -42,6 +42,8 @@ public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 				GiaoViec obj = new GiaoViec();
 				obj.setTenCongViec(item.getTen());
 				obj.setTrangThaiGiaoViec(null);
+				obj.setHanThucHien(null);
+				System.out.println(obj.getHanThucHien());
 				list.add(obj);
 			});
 		}
@@ -53,6 +55,7 @@ public class CongViecKeHoachService extends BasicService<CongViecKeHoach> {
 		if (idDoanVao != null && idDoanVao > 0) {
 			JPAQuery<GiaoViec> q = find(GiaoViec.class).where(QGiaoViec.giaoViec.doanVao.id.eq(idDoanVao))
 					.orderBy(QGiaoViec.giaoViec.cha.ten.asc()).orderBy(QGiaoViec.giaoViec.ngayTao.desc());
+			q.setHint("org.hibernate.cacheable", false);
 			if (q != null && q.fetchCount() > 0) {
 				return q.fetch();
 			}
