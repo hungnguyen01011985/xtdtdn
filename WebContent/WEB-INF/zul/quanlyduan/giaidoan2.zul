@@ -155,37 +155,41 @@
 						<span>Đóng</span>
 					</x:button>
 				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_sua}">
-					<x:button onClick="@command('goNext', task = 'task_luuVaTiepTucGiaiDoanBa')" class="btn btn-base btn-green">
-						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tiep-tuc.svg" />
-						<span>Tiếp tục</span>
-					</x:button>
-				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_sua}">
-					<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanHai')" class="btn btn-blue">
-						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
-						<span>Lưu</span>
-					</x:button>
-				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_sua}">
-					<x:button onClick="@command('goBack', task = 'task_quayLaigiaiDoanHai')" class="btn btn-blue">
-						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
-						<span>Quay lại giai đoạn một</span>
-					</x:button>
-				</div>
-				<div zclass="form-group right-mg flex" if="${action and vm.checkDangOGiaiDoan(giaiDoanHai)}">
-					<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
-						class="btn btn-blue">
-						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ds-giao-viec.svg"/>
-						<span>Danh sách giao việc</span>
-					</x:button>
-				</div>
-				<div zclass="form-group right-mg flex" if="${vm.nguoiTao.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_phutrach}">
-					<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
-						class="btn btn-blue">
-						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/doi-nguoi-phu-trach.svg"/>
-						<span>Đổi người phụ trách</span>
-					</x:button>
+				<div children="@load(vm.listBPMN)">
+					<template name="children">
+						<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('TiepTuc', each.id) and vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_sua}">
+							<x:button onClick="@command('goNext', task = 'task_luuVaTiepTucGiaiDoanBa')" class="btn btn-base btn-green">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tiep-tuc.svg" />
+								<span>Tiếp tục</span>
+							</x:button>
+						</div>
+						<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('Luu', each.id) and vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_sua}">
+							<x:button onClick="@command('goTask', task = 'task_luuDuLieuGiaiDoanHai')" class="btn btn-blue">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
+								<span>Lưu</span>
+							</x:button>
+						</div>
+						<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('QuayLai', each.id) and vm.nguoiPhuTrach.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_sua}">
+							<x:button onClick="@command('goBack', task = 'task_quayLaigiaiDoanHai')" class="btn btn-blue">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
+								<span>Quay lại giai đoạn một</span>
+							</x:button>
+						</div>
+						<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('GiaoViec', each.id) and action and vm.checkDangOGiaiDoan(giaiDoanHai)}">
+							<x:button onClick="@command('redirectPage',zul='quanlyduan/list-giao-viec.zul', vm = vm)"
+								class="btn btn-blue">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ds-giao-viec.svg"/>
+								<span>Danh sách giao việc</span>
+							</x:button>
+						</div>
+						<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('DoiNguoi', each.id) and vm.nguoiTao.id == entry.nhanVien.id and action and vm.checkDangOGiaiDoan(giaiDoanHai) and entry.quyen.quanlyduan_phutrach}">
+							<x:button onClick="@command('redirectPage',zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
+								class="btn btn-blue">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/doi-nguoi-phu-trach.svg"/>
+								<span>Đổi người phụ trách</span>
+							</x:button>
+						</div>
+					</template>
 				</div>
 			</div>
 		</div>

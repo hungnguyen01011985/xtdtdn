@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.camunda.bpm.engine.impl.pvm.PvmTransition;
 import org.camunda.bpm.engine.task.Task;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
@@ -341,9 +342,22 @@ public class DuAn extends Model<DuAn> {
 	public void initCurrentTask() {
 		if (getCurrentTask() != null) {
 			setTaskID(getCurrentTask());
+			listBPMN = core().getProcessService().getTransitions(getCurrentTask());
 		}
 	}
 	
+	//list chưa các hướng (button) với task hiện tại
+	public List<PvmTransition> listBPMN = new ArrayList<>();
+	
+	@Transient
+	public List<PvmTransition> getListBPMN() {
+		return listBPMN;
+	}
+
+	public void setListBPMN(List<PvmTransition> listBPMN) {
+		this.listBPMN = listBPMN;
+	}
+
 	@Transient
 	public Task getTaskID() {
 		return taskID;
@@ -554,7 +568,93 @@ public class DuAn extends Model<DuAn> {
 		BindUtils.postNotifyChange(null, null, duAn, "srcGiaiDoan4");
 		BindUtils.postNotifyChange(null, null, duAn, "option");
 	}
-
+	
+	@Transient
+	public boolean checkButtonGiaiDoan(String txt, String id) {
+		if ("DoiNguoi".equals(txt)) {
+			if (Labels.getLabel("bpmn.doinguoi.gd1").equals(id) && Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.doinguoi.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.doinguoi.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.doinguoi.gd4").equals(id) && Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.doinguoi.gd5").equals(id) && Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+		}
+		if ("Luu".equals(txt)) {
+			if (Labels.getLabel("bpmn.luu.gd1").equals(id) && Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.luu.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.luu.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.luu.gd4").equals(id) && Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.luu.gd5").equals(id) && Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+		}
+		if ("TiepTuc".equals(txt)) {
+			if (Labels.getLabel("bpmn.tieptuc.gd1").equals(id) && Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.tieptuc.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.tieptuc.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.tieptuc.gd4").equals(id) && Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+		}
+		if ("GiaoViec".equals(txt)) {
+			if (Labels.getLabel("bpmn.giaoviec.gd1").equals(id) && Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.giaoviec.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.giaoviec.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.giaoviec.gd4").equals(id) && Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.giaoviec.gd5").equals(id) && Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+		}
+		if ("QuayLai".equals(txt)) {
+			if (Labels.getLabel("bpmn.quaylai.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.quaylai.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+		}
+		if ("KetThuc".equals(txt)) {
+			if (Labels.getLabel("bpmn.ketthuc.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+			if (Labels.getLabel("bpmn.ketthuc.gd5").equals(id) && Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Transient
 	public AbstractValidator getValidatorNgay() {
 		return new AbstractValidator() {
