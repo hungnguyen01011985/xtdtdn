@@ -89,10 +89,11 @@
 									<x:span class="label-txt-style">Quốc gia<n:small class="required" if="${!action}"> *</n:small></x:span>
 								</div> 
 								<bandbox width="100%" placeholder="Chọn quốc gia" onOpen="@command('searchKey', key=event.value)" value="@bind(vm.thanhVienDoanTemp.tenQuocGia) @save(vm.thanhVienDoanTemp.tenQuocGia, before='saveThanhVienDoan') @validator(vm.validateTenQuocGia, ten = self.value)"
-								 	buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}"
-								  	class="his bb-quoc-gia ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}"
+								 	buttonVisible="false"
+								  	class="his bb-quoc-gia input-no-button"
 								   	disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}"
-								    autodrop="true" id="bandBoxQuocGia" mold="rounded" onChanging="@command('searchKey', key = event.value)">
+								    autodrop="true" id="bandBoxQuocGia" mold="rounded" onChanging="@command('searchKey', key = event.value)"
+								    onClick="@command('searchKeyByOnClick', key = self.value, vm=vm, bandbox=bandBoxQuocGia)">
 									<bandpopup>
 										<listbox model="@load(vm.listSearch)" onSelect="bd.close();" selectedItem="@bind(vm.thanhVienDoanTemp.tenQuocGia)" emptyMessage="Không có dữ liệu">
 											<template name="model">
