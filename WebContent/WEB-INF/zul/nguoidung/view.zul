@@ -150,10 +150,10 @@
 					<div class="row">
 						<div zclass="col-md-6">
 							<div zclass="form-group txt-textbox-disable">
-								<x:span class="label-txt-style">Liên kết đơn vị sở nội vụ</x:span> 
+								<x:span class="label-txt-style">Liên kết công chức sở nội vụ</x:span> 
 								<x:button zk:onClick="@command('redirectPage', zul='nguoidung/list-cong-chuc-so-noi-vu.zul', vm = vm)"
 									style="margin-top: 8px;" class="btn btn-blue">
-									<span>Chọn đơn vị</span>
+									<span>Chọn công chức</span>
 								</x:button>
 							</div>
 						</div>

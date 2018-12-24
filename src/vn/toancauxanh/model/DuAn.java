@@ -55,6 +55,8 @@ import vn.toancauxanh.service.HoSoKhuDatService;
 @Entity
 @Table(name = "duan")
 public class DuAn extends Model<DuAn> {
+	
+	@Lob
 	private String tenDuAn;
 	private String diaDiem;
 	private String quyMoDuAn;
