@@ -1,2 +1,2 @@
 <?component name="view" inline="true" macroURI="view.zul"?>
-<view model="${arg.vm}" vmArgs="${arg.vmArgs}" item="${arg.vm}" readOnly="${arg.readOnly}" save="Thông tin mã sử dụng Api" />
+<view model="${arg.vm}" vmArgs="${arg.vmArgs}" item="${arg.vm}" readOnly="${arg.readOnly}" buttonName="Cập nhật" save="Thông tin mã sử dụng Api" />
