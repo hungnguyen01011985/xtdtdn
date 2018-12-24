@@ -32,6 +32,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -499,12 +500,18 @@ public class DoanVao extends Model<DoanVao> {
 	@Command
 	@NotifyChange({ "listSearch", "key" })
 	public void searchKey(@BindingParam("key") String key,
-			@BindingParam("vm") Object vm) {
+			@BindingParam("vm") Object vm, @BindingParam("bandbox") Bandbox bb) {
 		this.key = key;
 		listSearch.clear();
-		
-		if (key == null || "".equals(key.replaceAll("\\s+", ""))) {
+		if (key == null || "".equals(key) || "".equals(key.replaceAll("\\s+", ""))) {
 			listSearch.addAll(getListQuocGia());
+			if (bb != null) {
+				if (!bb.isOpen()) {
+					bb.setOpen(true);
+				} else {
+					bb.setOpen(false);
+				}
+			}
 			return;
 		}
 		if (vm != null) {
@@ -512,11 +519,46 @@ public class DoanVao extends Model<DoanVao> {
 				((DoanVaoService) vm).getArg().put("quocGia", null);
 			} else if (vm instanceof BaoCaoThongKeDoanVao) {
 				((BaoCaoThongKeDoanVao) vm).getArg().put("quocGia", null);
+				
 			}
 		}
 		tenQuocGia = null;
 		thanhVienDoanTemp.setTenQuocGia(null);
 		seachByKey(key);
+		if (bb != null) {
+			if (!bb.isOpen()) {
+				bb.setOpen(true);
+			} else {
+				bb.setOpen(false);
+			}
+		}
+	}
+	
+	@Command
+	@NotifyChange("listSearch")
+	public void searchKeyByOnClick(@BindingParam("key") String key,
+			@BindingParam("vm") Object vm, @BindingParam("bandbox") Bandbox bb) {
+		this.key = key;
+		listSearch.clear();
+		if (key == null || "".equals(key) || "".equals(key.replaceAll("\\s+", ""))) {
+			listSearch.addAll(getListQuocGia());
+			if (bb != null) {
+				if (!bb.isOpen()) {
+					bb.setOpen(true);
+				} else {
+					bb.setOpen(false);
+				}
+			}
+			return;
+		}
+		seachByKey(key);
+		if (bb != null) {
+			if (!bb.isOpen()) {
+				bb.setOpen(true);
+			} else {
+				bb.setOpen(false);
+			}
+		}
 	}
 	
 	private List<String> listSearch = new ArrayList<>();
@@ -796,6 +838,7 @@ public class DoanVao extends Model<DoanVao> {
 		thanhVienDoanTemp.setTenQuocGia(thanhVienDoan.getTenQuocGia());
 		thanhVienDoanTemp.setEmail(thanhVienDoan.getEmail());
 		thanhVienDoanTemp.setSoDienThoai(thanhVienDoan.getSoDienThoai());
+		thanhVienDoan.doDelete(true);
 		flag = true;
 		BindUtils.postNotifyChange(null, null, this, "flag");
 		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
