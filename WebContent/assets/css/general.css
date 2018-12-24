@@ -1360,6 +1360,9 @@
 .popup-w-reponsive-1200 {
 	width:1200px;
 }
+.popup-w-reponsive-800 {
+	width:800px;
+}
 
 @media ( max-width : 1300px) {
 	.popup-w-reponsive-1300 {
