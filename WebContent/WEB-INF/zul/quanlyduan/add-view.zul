@@ -81,7 +81,7 @@
 							<div zclass="form-group">
 								<x:span class="label-txt-style">Ngày BĐ Xúc tiến<n:small class="required"> *</n:small></x:span>  
 								<datebox value="@bind(vm.ngayBatDauXucTien) @save(vm.ngayBatDauXucTien, before={'doAction','doActionWithKey'}) @validator(vm.validatorNgay, endDate = vm.giaoViec.hanThucHien, firstText = 'Ngày bắt đầu xúc tiến', secondText = 'Ngày hoàn thành', type = true)"
-								 width="100%" placeholder="Chọn ngày" class="hv-db mg-top-8 datebox-txt-style" format="dd/MM/yyyy"/>
+								 width="100%" placeholder="dd/MM/yyyy" class="hv-db mg-top-8 datebox-txt-style" format="dd/MM/yyyy"/>
 								<label zclass="error" value="@load(vmsgs['dateStart'])" />
 							</div>
 						</div>
@@ -109,7 +109,7 @@
 									<x:span class="label-txt-style">Ngày hoàn thành<n:small class="required"> *</n:small></x:span>
 								</div>
 								<datebox value="@bind(vm.giaoViec.hanThucHien) @save(vm.giaoViec.hanThucHien, before={'doAction','doActionWithKey'}) @validator(vm.validatorNgay, dateStart = vm.ngayBatDauXucTien, firstText = 'Ngày bắt đầu xúc tiến', secondText = 'Ngày hoàn thành', type = false)"
-									 width="100%" placeholder="Chọn ngày" format="dd/MM/yyyy" class="hv-db mg-top-8 datebox-txt-style" />
+									 width="100%" placeholder="dd/MM/yyyy" format="dd/MM/yyyy" class="hv-db mg-top-8 datebox-txt-style" />
 								<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 							</div>
 						</div>

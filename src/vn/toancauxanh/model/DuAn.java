@@ -570,85 +570,86 @@ public class DuAn extends Model<DuAn> {
 	}
 	
 	@Transient
+	public String getNameTask(String txt) {
+		if ("Luu".equals(txt)) {
+			if (Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
+				return "task_luuDuLieuGiaiDoanMot";
+			}
+			if (Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
+				return "task_luuDuLieuGiaiDoanHai";
+			}
+			if (Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+				return "task_luuDuLieuGiaiDoanBa";
+			}
+			if (Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
+				return "task_luuDuLieuGiaiDoanBon";
+			}
+			if (Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+				return "task_luuDuLieuGiaiDoanNam";
+			}
+		}
+		if ("TiepTuc".equals(txt)) {
+			if (Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
+				return "task_luuVaTiepTucGiaiDoanHai";
+			}
+			if (Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
+				return "task_luuVaTiepTucGiaiDoanBa";
+			}
+			if (Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+				return "task_luuVaTiepTucGiaiDoanBon";
+			}
+			if (Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
+				return "task_luuVaTiepTucGiaiDoanNam";
+			}
+		}
+		if ("QuayLai".equals(txt)) {
+			return "task_quayLaiGiaiDoanMot";
+		}
+		if ("KetThuc".equals(txt)) {
+			return "task_ketThucDuAn";
+		}
+		return null;
+	}
+	
+	@Transient
 	public boolean checkButtonGiaiDoan(String txt, String id) {
 		if ("DoiNguoi".equals(txt)) {
-			if (Labels.getLabel("bpmn.doinguoi.gd1").equals(id) && Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.doinguoi.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.doinguoi.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.doinguoi.gd4").equals(id) && Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.doinguoi.gd5").equals(id) && Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+			if (Labels.getLabel("bpmn.doinguoi.gd1").equals(id) || Labels.getLabel("bpmn.doinguoi.gd2").equals(id)
+					|| Labels.getLabel("bpmn.doinguoi.gd3").equals(id)
+					|| Labels.getLabel("bpmn.doinguoi.gd4").equals(id)
+					|| Labels.getLabel("bpmn.doinguoi.gd5").equals(id)) {
 				return true;
 			}
 		}
 		if ("Luu".equals(txt)) {
-			if (Labels.getLabel("bpmn.luu.gd1").equals(id) && Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.luu.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.luu.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.luu.gd4").equals(id) && Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.luu.gd5").equals(id) && Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+			if (Labels.getLabel("bpmn.luu.gd1").equals(id) || Labels.getLabel("bpmn.luu.gd2").equals(id)
+					|| Labels.getLabel("bpmn.luu.gd3").equals(id) || Labels.getLabel("bpmn.luu.gd4").equals(id)
+					|| Labels.getLabel("bpmn.luu.gd5").equals(id)) {
 				return true;
 			}
 		}
 		if ("TiepTuc".equals(txt)) {
-			if (Labels.getLabel("bpmn.tieptuc.gd1").equals(id) && Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.tieptuc.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.tieptuc.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.tieptuc.gd4").equals(id) && Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
+			if (Labels.getLabel("bpmn.tieptuc.gd1").equals(id) || Labels.getLabel("bpmn.tieptuc.gd2").equals(id)
+					|| Labels.getLabel("bpmn.tieptuc.gd3").equals(id)
+					|| Labels.getLabel("bpmn.tieptuc.gd4").equals(id)) {
 				return true;
 			}
 		}
 		if ("GiaoViec".equals(txt)) {
-			if (Labels.getLabel("bpmn.giaoviec.gd1").equals(id) && Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.giaoviec.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.giaoviec.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.giaoviec.gd4").equals(id) && Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.giaoviec.gd5").equals(id) && Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+			if (Labels.getLabel("bpmn.giaoviec.gd1").equals(id) || Labels.getLabel("bpmn.giaoviec.gd2").equals(id)
+					|| Labels.getLabel("bpmn.giaoviec.gd3").equals(id)
+					|| Labels.getLabel("bpmn.giaoviec.gd4").equals(id)
+					|| Labels.getLabel("bpmn.giaoviec.gd5").equals(id)) {
 				return true;
 			}
 		}
 		if ("QuayLai".equals(txt)) {
-			if (Labels.getLabel("bpmn.quaylai.gd2").equals(id) && Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.quaylai.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
+			if (Labels.getLabel("bpmn.quaylai.gd2").equals(id) || Labels.getLabel("bpmn.quaylai.gd3").equals(id)) {
 				return true;
 			}
 		}
 		if ("KetThuc".equals(txt)) {
-			if (Labels.getLabel("bpmn.ketthuc.gd3").equals(id) && Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
-				return true;
-			}
-			if (Labels.getLabel("bpmn.ketthuc.gd5").equals(id) && Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
+			if (Labels.getLabel("bpmn.ketthuc.gd3").equals(id) || Labels.getLabel("bpmn.ketthuc.gd5").equals(id)) {
 				return true;
 			}
 		}
