@@ -105,19 +105,19 @@
 							</row>
 						</template>
 					</grid>
-					<div style="margin:0 -7.5px" visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)">
+					<div style="margin:0 -7.5px" visible="@load(vm.targetQueryNhanVien.fetchCount() > vm.arg.pagesize ? true : false)">
 						<div class="col-md-6" style="margin-top:10px;">
 							<label value="Hiển thị từ "></label>
 							<label value="@load(vm.first)"></label>
 							<label value="-"></label>
 							<label value="@load(vm.last)"></label>
 							<label value=" trong tổng số  "></label>
-							<label value="@load(vm.targetQuery.fetchCount())"></label>
+							<label value="@load(vm.targetQueryNhanVien.fetchCount())"></label>
 							<label value=" kết quả"></label>
 						</div>
 						<div class="col-md-6">
-							<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
-							activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, attr='targetQuery')" />
+							<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQueryNhanVien.fetchCount())" mold="os"
+							activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, attr='targetQueryNhanVien')" />
 						</div>
 					</div>
 				</div>

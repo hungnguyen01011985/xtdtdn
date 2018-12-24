@@ -97,7 +97,7 @@
 							<label value="-"></label>
 							<label value="@load(vm.last)"></label>
 							<label value=" trong tổng số  "></label>
-							<label value="@load(vm.targetQuery.fetchCount())"></label>
+							<label value="@load(vm.vaiTroQuery.fetchCount())"></label>
 							<label value=" kết quả"></label>
 						</div>
 						<div class="col-md-6">

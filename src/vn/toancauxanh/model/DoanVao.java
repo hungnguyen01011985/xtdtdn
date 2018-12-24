@@ -838,6 +838,7 @@ public class DoanVao extends Model<DoanVao> {
 		thanhVienDoanTemp.setTenQuocGia(thanhVienDoan.getTenQuocGia());
 		thanhVienDoanTemp.setEmail(thanhVienDoan.getEmail());
 		thanhVienDoanTemp.setSoDienThoai(thanhVienDoan.getSoDienThoai());
+		thanhVienDoan.doDelete(true);
 		flag = true;
 		BindUtils.postNotifyChange(null, null, this, "flag");
 		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");

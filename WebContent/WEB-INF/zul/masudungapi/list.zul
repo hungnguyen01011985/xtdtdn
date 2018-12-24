@@ -50,8 +50,8 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" width="42px"/>
-							<column label="Tên"/>
-							<column label="Mã sử dụng Api" width="500px"/>
+							<column label="Tên" width="300px"/>
+							<column label="Mã sử dụng Api"/>
 							<column label="Thao tác" width="110px"/>
 						</columns>
 						<template name="model">
