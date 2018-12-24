@@ -100,13 +100,13 @@
 								<label value="@load(item.trangThaiGiaoViec.text)" class="@load(item.trangThaiGiaoViec)"></label>
 								<zscript>
 									<![CDATA[
-											if(vm.getArg().get("page") == null){
+											if(vm.getArg().get("page") == null) {
 												vm.getArg().put("page", 0);
 											}
 									         if (forEachStatus.isFirst()) {
 									        	 vm.setFirst(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
 									         }
-									         if(forEachStatus.isLast()){
+									         if(forEachStatus.isLast()) {
 									        	 vm.setLast(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
 									         }
 											BindUtils.postNotifyChange(null, null, vm, "first");
