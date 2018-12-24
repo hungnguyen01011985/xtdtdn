@@ -374,6 +374,20 @@
 .btn-green {
 	background: #30B350;
 	border: 1px solid #30B350;
+	font-family: Roboto-Bold !important;
+    font-size: 13px;
+    color: #FFFFFF;
+    line-height: 18px;
+    text-shadow:none;
+    
+}
+.btn-green:hover {
+	background: #30B350 !important;
+	border-color:#30B350 !important;
+}
+.btn-green:focus {
+	background: #30B350 !important;
+	border-color:#30B350 !important;
 }
 .box-img-tai-lieu {
 	height:36px;
