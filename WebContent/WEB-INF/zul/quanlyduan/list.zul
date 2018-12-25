@@ -117,8 +117,8 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" width="42px"/>
-							<column label="Tên dự án" width="33%"/>
-							<column label="Địa điểm"/>
+							<column label="Tên dự án"/>
+							<column label="Địa điểm" width="100px"/>
 							<column label="Tổng vốn đầu tư (USD)" width="160px"/>
 							<column label="Ngày BĐ xúc tiến" width="140px"/>
 							<column label="Lĩnh vực" width="140px"/>
