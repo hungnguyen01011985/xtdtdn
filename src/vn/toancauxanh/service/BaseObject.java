@@ -1,5 +1,7 @@
 package vn.toancauxanh.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.Normalizer;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -16,6 +18,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
@@ -24,6 +29,8 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.util.SystemPropertyUtils;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -967,5 +974,13 @@ public class BaseObject<T> extends CoreObject<T> {
 			q = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.id.eq(Long.valueOf(id)));
 		}
 		q.fetch().forEach(item -> item.doDelete(true));
+	}
+	
+	public Document getDOMDocument(String output) throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document dom = db.parse(new ByteArrayInputStream(output.getBytes()));
+		dom.getDocumentElement().normalize();
+		return dom;
 	}
 }

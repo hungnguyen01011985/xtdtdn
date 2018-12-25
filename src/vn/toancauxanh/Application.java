@@ -81,10 +81,32 @@ public class Application extends SpringBootServletInitializer {
 	@Value("${salt}")
 	private String salt;
 	
+	@Value("${tichhop.ccvc.congchuc}")
+	public String apiCongChuc;
+
+	@Value("${tichhop.ccvc.donvi}")
+	public String apiDonVi;
+	
 	@Autowired
 	private CasProperties casProperties;
 	
 	public CasProperties getCasProperties() {
 		return casProperties;
+	}
+	
+	public String getApiCongChuc() {
+		return apiCongChuc;
+	}
+
+	public void setApiCongChuc(String apiCongChuc) {
+		this.apiCongChuc = apiCongChuc;
+	}
+
+	public String getApiDonVi() {
+		return apiDonVi;
+	}
+
+	public void setApiDonVi(String apiDonVi) {
+		this.apiDonVi = apiDonVi;
 	}
 }

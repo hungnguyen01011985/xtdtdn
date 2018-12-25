@@ -2,6 +2,7 @@ package vn.toancauxanh.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -18,9 +19,11 @@ import com.querydsl.jpa.impl.JPAQuery;
 @Table(name = "phongban")
 public class PhongBan extends Model<PhongBan> {
 	private String ten = "";
-	
+
 	@Lob
 	private String moTa = "";
+
+	private DonViSoNoiVu donViSoNoiVu;
 
 	public PhongBan() {
 	}
@@ -39,6 +42,15 @@ public class PhongBan extends Model<PhongBan> {
 
 	public void setMoTa(String moTa) {
 		this.moTa = moTa;
+	}
+
+	@ManyToOne
+	public DonViSoNoiVu getDonViSoNoiVu() {
+		return donViSoNoiVu;
+	}
+
+	public void setDonViSoNoiVu(DonViSoNoiVu donViSoNoiVu) {
+		this.donViSoNoiVu = donViSoNoiVu;
 	}
 
 	@Command

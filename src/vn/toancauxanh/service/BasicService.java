@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.annotation.Nullable;
-import javax.persistence.Transient;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

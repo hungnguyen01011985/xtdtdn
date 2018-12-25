@@ -54,6 +54,8 @@ import vn.toancauxanh.service.DoanVaoService;
 @Entity
 @Table(name = "doanvao")
 public class DoanVao extends Model<DoanVao> {
+	
+	@Lob
 	private String tenDoanVao;
 	private TrangThaiTiepDoanEnum trangThaiTiepDoan = TrangThaiTiepDoanEnum.CHUA_TIEP;
 	private String tomTatNoiDungKQ = "";

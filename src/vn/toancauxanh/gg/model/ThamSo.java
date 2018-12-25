@@ -3,22 +3,19 @@ package vn.toancauxanh.gg.model;
 import java.io.IOException;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.zul.Window;
 
-import vn.toancauxanh.gg.model.enums.ThamSoEnum;
 import vn.toancauxanh.model.Model;
 
 @Entity
 @Table(name = "thamso")
 public class ThamSo extends Model<ThamSo> {
 	
-	private ThamSoEnum ma;
+	private String ma;
 	private String value;
 	
 	
@@ -28,12 +25,11 @@ public class ThamSo extends Model<ThamSo> {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
-	@Enumerated(EnumType.STRING)
-	public ThamSoEnum getMa() {
+
+	public String getMa() {
 		return ma;
 	}
-	public void setMa(ThamSoEnum ma) {
+	public void setMa(String ma) {
 		this.ma = ma;
 	}
 	
