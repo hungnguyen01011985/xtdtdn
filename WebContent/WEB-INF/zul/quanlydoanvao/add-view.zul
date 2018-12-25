@@ -94,7 +94,7 @@
 									  onChanging="@command('searchKey',key = event.value)"
 									  onClick="@command('searchKeyByOnClick', key = self.value, vm=vm, bandbox=bd)">
 									<bandpopup>
-										<listbox model="@load(vm.listSearch)" onSelect="bd.close();" selectedItem="@bind(vm.tenQuocGia)" emptyMessage="Không có dữ liệu">
+										<listbox model="@load(vm.listSearch)" class="m-height-lb" onSelect="bd.close();" selectedItem="@bind(vm.tenQuocGia)" emptyMessage="Không có dữ liệu">
 											<template name="model">
 												<listitem>
 													<listcell>

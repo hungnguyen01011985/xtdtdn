@@ -47,7 +47,7 @@
 													 onChanging="@command('searchKey', key = event.value, vm=vm)"
 													 onClick="@command('searchKeyByOnClick', key = self.value, vm=vm, bandbox=bdDoanVao)" >
 													<bandpopup>
-														<listbox model="@load(bandBoxDoanVao.listSearch)" selectedItem="@bind(vm.arg.quocGia)" emptyMessage="Không có dữ liệu">
+														<listbox model="@load(bandBoxDoanVao.listSearch)" class="m-height-lb" selectedItem="@bind(vm.arg.quocGia)" emptyMessage="Không có dữ liệu">
 															<template name="model">
 																<listitem>
 																	<listcell>
@@ -72,14 +72,14 @@
 										<div zclass="col-md-4">
 											<div zclass="form-group">
 												<span>Từ ngày</span>
-												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" value="@bind(vm.tuNgay) @save(vm.tuNgay, before={'cmd'}) @validator(vm.validatorNgay, endDate = vm.denNgay, type = true, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" width="100%" placeholder="dd/mm/yyyy" />
+												<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" value="@bind(vm.tuNgay) @save(vm.tuNgay, before={'cmd'}) @validator(vm.validatorNgay, endDate = vm.denNgay, type = true, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" width="100%" placeholder="dd/MM/yyyy" />
 												<label zclass="error" value="@load(vmsgs['dateStart'])" />
 											</div>
 										</div>
 										<div zclass="col-md-4">
 											<div zclass="form-group">
 												<span>Đến ngày</span> 
-												<datebox format="dd/MM/yyyy" value="@bind(vm.denNgay) @save(vm.denNgay, before={'cmd'}) @validator(vm.validatorNgay, dateStart = vm.tuNgay, type = false, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" class="hv-db" width="100%" placeholder="dd/mm/yyyy"/>
+												<datebox format="dd/MM/yyyy" value="@bind(vm.denNgay) @save(vm.denNgay, before={'cmd'}) @validator(vm.validatorNgay, dateStart = vm.tuNgay, type = false, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" class="hv-db" width="100%" placeholder="dd/MM/yyyy"/>
 												<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 											</div>
 										</div>

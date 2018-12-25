@@ -83,6 +83,7 @@ public class NhanVien extends Model<NhanVien> {
 	private Image avatarImage;
 	private PhongBan phongBan;
 	private VaiTro vaiTro;
+	private CongChucSoNoiVu congChucSoNoiVu;
 
 	@ManyToOne
 	public PhongBan getPhongBan() {
@@ -156,7 +157,7 @@ public class NhanVien extends Model<NhanVien> {
 	public void setMatKhau2(String matKhau2) {
 		this.matKhau2 = matKhau2;
 	}
-	
+
 	@ManyToOne
 	public VaiTro getVaiTro() {
 		return vaiTro;
@@ -164,6 +165,15 @@ public class NhanVien extends Model<NhanVien> {
 
 	public void setVaiTro(VaiTro vaiTro) {
 		this.vaiTro = vaiTro;
+	}
+
+	@ManyToOne
+	public CongChucSoNoiVu getCongChucSoNoiVu() {
+		return congChucSoNoiVu;
+	}
+
+	public void setCongChucSoNoiVu(CongChucSoNoiVu congChucSoNoiVu) {
+		this.congChucSoNoiVu = congChucSoNoiVu;
 	}
 
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -383,32 +393,32 @@ public class NhanVien extends Model<NhanVien> {
 			showNotification("Không thể khóa SuperUser", "", "warning");
 		} else {
 			Messagebox.show("Bạn muốn khóa nhân viên này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-			Messagebox.QUESTION, new EventListener<Event>() {
-				@Override
-				public void onEvent(final Event event) {
-					if (Messagebox.ON_OK.equals(event.getName())) {
-						setCheckApDung(false);
-						save();
-						BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");
-					}
-				}
-			});
+					Messagebox.QUESTION, new EventListener<Event>() {
+						@Override
+						public void onEvent(final Event event) {
+							if (Messagebox.ON_OK.equals(event.getName())) {
+								setCheckApDung(false);
+								save();
+								BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");
+							}
+						}
+					});
 		}
 	}
 
 	@Command
 	public void moKhoaThanhVien(@BindingParam("vm") final Object vm) {
 		Messagebox.show("Bạn muốn mở khóa nhân viên này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
-		Messagebox.QUESTION, new EventListener<Event>() {
-			@Override
-			public void onEvent(final Event event) {
-				if (Messagebox.ON_OK.equals(event.getName())) {
-					setCheckApDung(true);
-					save();
-					BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");
-				}
-			}
-		});
+				Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							setCheckApDung(true);
+							save();
+							BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");
+						}
+					}
+				});
 	}
 
 	private boolean checkKichHoat;
@@ -430,37 +440,37 @@ public class NhanVien extends Model<NhanVien> {
 			dialogText = "Bạn muốn kích hoạt người dùng đã chọn?";
 		}
 		Messagebox.show(dialogText, "Xác nhận", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION,
-			new EventListener<Event>() {
-				@Override
-				public void onEvent(final Event event) {
-					if (Messagebox.ON_OK.equals(event.getName())) {
-						if (checkKichHoat) {
-							setCheckKichHoat(false);
-						} else {
-							setCheckKichHoat(true);
+				new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							if (checkKichHoat) {
+								setCheckKichHoat(false);
+							} else {
+								setCheckKichHoat(true);
+							}
+							save();
+							BindUtils.postNotifyChange(null, null, obj, "targetQueryNhanVien");
 						}
-						save();
-						BindUtils.postNotifyChange(null, null, obj, "targetQueryNhanVien");
 					}
-				}
-			});
+				});
 	}
 
 	@Command
 	public void deleteNhanVienInListVaiTro(@BindingParam("vaitro") final VaiTro vt,
 			@BindingParam("nhanvien") final NhanVien nv) {
 		Messagebox.show("Bạn có chắc chắn muốn xóa vai trò " + vt.getTenVaiTro() + " của nhân viên " + nv.getHoVaTen(),
-			"Xác nhận", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, new EventListener<Event>() {
-				@Override
-				public void onEvent(final Event event) {
-					if (Messagebox.ON_OK.equals(event.getName())) {
-						vaiTros.remove(vt);
+				"Xác nhận", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							vaiTros.remove(vt);
 
-						save();
-						BindUtils.postNotifyChange(null, null, vt, "listNhanVien");
+							save();
+							BindUtils.postNotifyChange(null, null, vt, "listNhanVien");
+						}
 					}
-				}
-			});
+				});
 	}
 
 	@Command
@@ -497,17 +507,17 @@ public class NhanVien extends Model<NhanVien> {
 	@Command
 	public void deleteAvatarImage(@BindingParam("vm") NhanVien nhanVien) {
 		Messagebox.show("Bạn có chắc chắn muốn xóa hình ảnh này ", "Xác nhận", Messagebox.OK | Messagebox.CANCEL,
-			Messagebox.QUESTION, new EventListener<Event>() {
-				@Override
-				public void onEvent(final Event event) {
-					if (Messagebox.ON_OK.equals(event.getName())) {
-						setAvatarImage(null);
-						setPathAvatar(null);
-						BindUtils.postNotifyChange(null, null, nhanVien, "avatarImage");
-						showNotification("Đã xóa", "", "success");
+				Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(final Event event) {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							setAvatarImage(null);
+							setPathAvatar(null);
+							BindUtils.postNotifyChange(null, null, nhanVien, "avatarImage");
+							showNotification("Đã xóa", "", "success");
+						}
 					}
-				}
-			});
+				});
 	}
 
 	protected void saveImage() throws IOException {
@@ -569,7 +579,7 @@ public class NhanVien extends Model<NhanVien> {
 		if (salkey == null || salkey.equals("")) {
 			salkey = encryptor.encryptPassword((new Date()).toString());
 		}
-		
+
 		String passNoHash = pass + salkey;
 		String passHash = encryptor.encryptPassword(passNoHash);
 		setSalkey(salkey);
@@ -658,36 +668,36 @@ public class NhanVien extends Model<NhanVien> {
 	@Command
 	public void lockNhanVien(@BindingParam("vm") Object vm, @BindingParam("object") NhanVien object) {
 		Messagebox.show("Bạn có muốn khóa nhân viên này ?", "Khóa nhân viên", Messagebox.OK | Messagebox.CANCEL,
-			Messagebox.QUESTION, new EventListener<Event>() {
-				@Override
-				public void onEvent(Event event) throws Exception {
-					if (Messagebox.ON_OK.equals(event.getName())) {
-						setCheckApDung(false);
-						save();
-						BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");
+				Messagebox.QUESTION, new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) throws Exception {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							setCheckApDung(false);
+							save();
+							BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");
+						}
+
 					}
-	
-				}
-	
-			});
+
+				});
 	}
 
 	@Command
 	public void openLockNhanVien(@BindingParam("vm") Object vm) {
 		Messagebox.show("Bạn có muốn mở khóa nhân viên này ?", "Mở khóa nhân viên", Messagebox.OK | Messagebox.CANCEL,
-			Messagebox.QUESTION, new EventListener<Event>() {
+				Messagebox.QUESTION, new EventListener<Event>() {
 
-				@Override
-				public void onEvent(Event event) throws Exception {
-					if (Messagebox.ON_OK.equals(event.getName())) {
-						setCheckApDung(true);
-						save();
-						BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");
+					@Override
+					public void onEvent(Event event) throws Exception {
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							setCheckApDung(true);
+							save();
+							BindUtils.postNotifyChange(null, null, vm, "targetQueryNhanVien");
+						}
+
 					}
 
-				}
-
-			});
+				});
 	}
 
 	@Transient
@@ -703,7 +713,7 @@ public class NhanVien extends Model<NhanVien> {
 			}
 		};
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidateMatKhauCu() {
 		NhanVien nhanVien = this;
@@ -734,7 +744,7 @@ public class NhanVien extends Model<NhanVien> {
 			}
 		};
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidatePhongBan() {
 		return new AbstractValidator() {
@@ -770,7 +780,7 @@ public class NhanVien extends Model<NhanVien> {
 			}
 		};
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidateMatKhau() {
 		return new AbstractValidator() {
@@ -786,7 +796,7 @@ public class NhanVien extends Model<NhanVien> {
 			}
 		};
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidateTrungKhop() {
 		return new AbstractValidator() {
@@ -873,7 +883,7 @@ public class NhanVien extends Model<NhanVien> {
 		Executions.createComponents(zul, null, args);
 
 	}
-	
+
 	@Transient
 	public List<String> getListNhom() {
 		List<String> listNhom = new ArrayList<>();

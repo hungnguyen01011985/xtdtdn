@@ -270,7 +270,9 @@ public class DonViSoNoiVu extends Model<DonViSoNoiVu> {
 			@BindingParam("item") DonViSoNoiVu donViSoNoiVu,
 			@BindingParam("wdn") Window wdn) {
 		phongBan.setTen(donViSoNoiVu.getTenDonVi());
+		phongBan.setDonViSoNoiVu(donViSoNoiVu);
 		BindUtils.postNotifyChange(null, null, phongBan, "ten");
+		BindUtils.postNotifyChange(null, null, phongBan, "donViSoNoiVu");
 		wdn.detach();
 	}
 
