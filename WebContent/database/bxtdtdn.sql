@@ -500,7 +500,7 @@ CREATE TABLE IF NOT EXISTS `giaidoanduan` (
   `trangThai` varchar(255) DEFAULT NULL,
   `diaChi` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `ghiChu` varchar(255) DEFAULT NULL,
+  `ghiChu` longtext,
   `giaDatKhoiDiemDauGia` bigint(20) NOT NULL,
   `giaiDoanXucTien` varchar(255) DEFAULT NULL,
   `kiemTraThongBao` bit(1) NOT NULL,
