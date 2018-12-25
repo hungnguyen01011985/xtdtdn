@@ -583,6 +583,18 @@ public class DuAn extends Model<DuAn> {
 			}
 		};
 	}
+	@Transient
+	public AbstractValidator getValidatorVonDauTu() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+				if (vmsgs != null) {
+					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
+					vmsgs.clearMessages(ctx.getBindContext().getComponent());
+				}
+				validateNumber(ctx);
+			}
 
 			private boolean validateNumber(ValidationContext ctx) {
 				boolean rs = true;
@@ -608,7 +620,7 @@ public class DuAn extends Model<DuAn> {
 			}
 		};
 	}
-	
+
 	@Transient
 	public AbstractValidator getValidatorTepTin() {
 		return new AbstractValidator() {
@@ -654,41 +666,6 @@ public class DuAn extends Model<DuAn> {
 		};
 	}
 	
-	@Transient
-	public AbstractValidator getValidatorVonDauTu() {
-		return new AbstractValidator() {
-			@Override
-			public void validate(ValidationContext ctx) {
-				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
-				if (vmsgs != null) {
-					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
-					vmsgs.clearMessages(ctx.getBindContext().getComponent());
-				}
-				validateNumber(ctx);
-			}
-
-			private boolean validateNumber(ValidationContext ctx) {
-				boolean rs = true;
-				String text = (String) ctx.getValidatorArg("text");
-				Boolean type = (Boolean) ctx.getValidatorArg("type");
-				Double vonDauTu = 0.0;
-				try {
-					vonDauTu = Double.parseDouble(ctx.getProperty().getValue().toString()) ;
-				} catch (NumberFormatException e) {
-					addInvalidMessage(ctx, "Bạn phải nhập số");
-				} catch (NullPointerException e) {
-					addInvalidMessage(ctx, "Bạn phải nhập số");
-				}
-				if (vonDauTu < 0) {
-					addInvalidMessage(ctx, text + " phải lớn hơn bằng 0");
-					rs = false;
-				} else if (String.valueOf(vonDauTu).length() > 16 && type) {
-					addInvalidMessage(ctx, text + " chỉ tối đa 12 số");
-				}
-				return rs;
-			}
-		};
-	}
 
 //	private boolean checkValidateNumber;
 //
@@ -716,7 +693,7 @@ public class DuAn extends Model<DuAn> {
 //			checkValidateNumber = true;
 //		}
 //	}
-
+	
 	@Command
 	public void saveThongTinDuAn() {
 		this.getTaiLieuNDT().saveNotShowNotification();
@@ -731,7 +708,7 @@ public class DuAn extends Model<DuAn> {
 		this.save();
 		BindUtils.postNotifyChange(null, null, this, "taiLieuNDT");
 	}
-
+	
 	@Command
 	public void uploadFile(@BindingParam("medias") Object[] medias) {
 		for (Object item : medias) {
@@ -768,7 +745,7 @@ public class DuAn extends Model<DuAn> {
 			}
 		}
 	}
-
+	
 	@Command
 	public void downLoadTepTin(@BindingParam("ob") final TepTin object) throws MalformedURLException {
 		if (!object.getPathFile().isEmpty()) {
@@ -785,7 +762,7 @@ public class DuAn extends Model<DuAn> {
 			}
 		}
 	}
-
+	
 	@Command
 	public void deleteFile(@BindingParam("index") final int index) {
 		Messagebox.show("Bạn muốn xóa tệp tin này không?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK,
@@ -800,7 +777,7 @@ public class DuAn extends Model<DuAn> {
 					}
 				});
 	}
-
+	
 	@Command
 	public void reUploadFile(@BindingParam("medias") final Object medias, @BindingParam("index") final int index) {
 		Media media = (Media) medias;
@@ -835,20 +812,20 @@ public class DuAn extends Model<DuAn> {
 					"Có tệp không đúng định dạng", "danger");
 		}
 	}
-
+	
 	@Command
 	public void swap() {
 		checkTab = !checkTab;
 		Clients.evalJavaScript("toggleTabThongTinDuAn()");
 		BindUtils.postNotifyChange(null, null, this, "checkTab");
 	}
-
+	
 	@Command
 	public void addNewHoSoKhuDat(@BindingParam("vm") DuAn duAn) {
 		duAn.getGiaiDoanDuAn().getHoSoKhuDats().add(new HoSoKhuDat());
 		BindUtils.postNotifyChange(null, null, duAn , "*");
 	}
-
+	
 	@Command
 	public void deleteHoSoKhuDat(@BindingParam("obj") final HoSoKhuDat item, @BindingParam("vm") DuAn duAn){
 		Messagebox.show("Bạn muốn xóa mục này?", "Xác nhận", Messagebox.CANCEL | Messagebox.OK, Messagebox.QUESTION,
@@ -863,7 +840,7 @@ public class DuAn extends Model<DuAn> {
 			}
 		});
 	}
-
+	
 	@Command
 	public void redirect(@BindingParam("ob") TepTin ob) {
 		String serverName = "";
@@ -906,7 +883,7 @@ public class DuAn extends Model<DuAn> {
 					}
 				});
 	}
-
+	
 	@Transient
 	public boolean checkXoaDonViDuAn(DonViDuAn donViDuAn) {
 		if (!donViDuAn.noId() && donViDuAn.getNgayNhanTraLoi() != null && donViDuAn.getCongVanTraLoi() != null) {
@@ -914,7 +891,9 @@ public class DuAn extends Model<DuAn> {
 		}
 		return true;
 	}
-
+	
+	
+	
 	private List<List<String>> listMessageDonViDuAn = new ArrayList<>();
 	
 	public void checkDateAndResetMessage(Date ngayNhan, int index) {
@@ -923,7 +902,7 @@ public class DuAn extends Model<DuAn> {
 		}
 		BindUtils.postNotifyChange(null, null, this, "listMessageDonViDuAn");
 	}
-
+	
 	@Transient
 	public List<List<String>> getListMessageDonViDuAn() {
 		return listMessageDonViDuAn;
@@ -941,7 +920,8 @@ public class DuAn extends Model<DuAn> {
 			listMessageDonViDuAn.add(list);
 		});
 	}
-
+	
+	
 	public void validateDonViDuAn() {
 		int index = 0;
 		for(DonViDuAn donVi : giaiDoanDuAn.getDonViDuAn()) {
