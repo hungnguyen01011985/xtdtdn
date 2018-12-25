@@ -114,11 +114,10 @@
 							<label value=" kết quả"></label>
 						</div>
 						<div class="col-md-6">
-							aging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
-							activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+							<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+							activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, attr='targetQuery')" />
 						</div>
 					</div>
-					<p
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">
