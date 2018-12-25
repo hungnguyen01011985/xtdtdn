@@ -1160,6 +1160,14 @@ public class DuAn extends Model<DuAn> {
 	}
 	
 	@Transient
+	public String getOrderCss(String id) {
+		String text = Labels.getLabel("bpmn.kytu.sort");
+		int start = id.indexOf(text);
+		int end = id.indexOf(text, start + 1);
+		return "order:" + id.substring(start + text.length(), end);
+	}
+	
+	@Transient
 	public boolean checkButton(String id, String type) {
 		String kyTu = Labels.getLabel("bpmn.kytu.end.sequen");
 		if ("DoiNguoi".equals(type)) {
