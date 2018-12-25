@@ -104,7 +104,7 @@
 										<x:span class="label-txt-style">Mật khẩu<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }" width="100%" type="password" 
-										value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" />
+										value="@bind(vm.matKhauEdit) @save(vm.matKhauEdit, before='saveNhanVien') @validator(vm.validateMatKhau)" />
 									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 								</div>
 							</div>
@@ -114,7 +114,7 @@
 										<x:span class="label-txt-style">Nhập lại mật khẩu<n:small class="required"> *</n:small></x:span>
 									</div>
 									<textbox maxlength="255" class="form-control" readonly="${readOnly }" width="100%" type="password"
-										value="@bind(vm.matKhau2) @save(vm.matKhau2, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty', password=vm.matKhauEdit)" />
+										value="@bind(vm.matKhau2) @save(vm.matKhau2, before='saveNhanVien') @validator(vm.validateTrungKhop, pass = vm.matKhauEdit)" />
 									<label zclass="error"
 										value="@load(vmsgs[self.previousSibling])" />
 								</div>
@@ -147,6 +147,17 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div zclass="col-md-6">
+							<div zclass="form-group txt-textbox-disable">
+								<x:span class="label-txt-style">Liên kết công chức sở nội vụ</x:span> 
+								<x:button zk:onClick="@command('redirectPage', zul='nguoidung/list-cong-chuc-so-noi-vu.zul', vm = vm)"
+									style="margin-top: 8px;" class="btn btn-blue">
+									<span>Chọn công chức</span>
+								</x:button>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4">
 					<div style="text-align:center;">
@@ -163,9 +174,9 @@
 										<x:image class="img-edit" src="${contexPath}/assets/img/front/close.svg"/>
 									</x:button>
 									<div class="div-image-btn">
-										<button class="btn-ad-image" upload="true,maxsize=50000"
+										<button class="btn-upload-image-avarta" image="${contexPath}/assets/img/front/camera.svg" upload="true,maxsize=50000"
 										onUpload="@command('attachImages',media=event.media,vmsgs=vmsgs)"/>												
-									</div>	
+									</div>
 								</div>
 				    		</div>			
 						</div>

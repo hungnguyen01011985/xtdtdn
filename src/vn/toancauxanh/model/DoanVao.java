@@ -32,6 +32,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -51,6 +52,8 @@ import vn.toancauxanh.service.DoanVaoService;
 @Entity
 @Table(name = "doanvao")
 public class DoanVao extends Model<DoanVao> {
+	
+	@Lob
 	private String tenDoanVao;
 	private TrangThaiTiepDoanEnum trangThaiTiepDoan = TrangThaiTiepDoanEnum.CHUA_TIEP;
 	private String tomTatNoiDungKQ = "";
@@ -141,6 +144,18 @@ public class DoanVao extends Model<DoanVao> {
 
 	public void setIdNguoiLienQuan(String idNguoiLienQuan) {
 		this.idNguoiLienQuan = idNguoiLienQuan;
+	}
+	
+	@Transient
+	public String getEditURL(String link) {
+		if (link != null && !link.isEmpty()) {
+			if (link.contains("http://")) {
+				return link;
+			} else {
+				return "http://" + link;
+			}
+		}
+		return null;
 	}
 
 	@Enumerated(EnumType.STRING)
@@ -343,7 +358,7 @@ public class DoanVao extends Model<DoanVao> {
 			giaoViec.getNguoiDuocGiao().saveNotShowNotification();
 			thongBao(LoaiThongBao.CONG_VIEC_MOI, this, giaoViec, giaoViec.getNguoiDuocGiao(), giaoViec.getNguoiGiaoViec(), giaoViec.getTenCongViec());
 			giaoViec.saveNotShowNotification();
-			this.setIdNguoiLienQuan(KY_TU + this.getIdNguoiLienQuan() + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
+			this.setIdNguoiLienQuan(this.getIdNguoiLienQuan() + KY_TU + giaoViec.getNguoiDuocGiao().getId() + KY_TU);
 			this.saveNotShowNotification();
 		} else {
 			this.setNguoiThucHienCu(getNguoiDuocGiaoCu(giaoViec));
@@ -370,6 +385,7 @@ public class DoanVao extends Model<DoanVao> {
 		giaoViec.setLoaiCongViec(LoaiCongViec.DOAN_VAO);
 		giaoViec.setTenNhiemVu(this.getTenDoanVao());
 		giaoViec.getNguoiDuocGiao().saveNotShowNotification();
+		resetCheck();
 	}
 
 	public void thongBao(LoaiThongBao loaiThongBao, DoanVao doanVao, GiaoViec giaoViec, NhanVien nguoiNhan,
@@ -486,12 +502,18 @@ public class DoanVao extends Model<DoanVao> {
 	@Command
 	@NotifyChange({ "listSearch", "key" })
 	public void searchKey(@BindingParam("key") String key,
-			@BindingParam("vm") Object vm) {
+			@BindingParam("vm") Object vm, @BindingParam("bandbox") Bandbox bb) {
 		this.key = key;
 		listSearch.clear();
-		
-		if (key == null || "".equals(key.replaceAll("\\s+", ""))) {
+		if (key == null || "".equals(key) || "".equals(key.replaceAll("\\s+", ""))) {
 			listSearch.addAll(getListQuocGia());
+			if (bb != null) {
+				if (!bb.isOpen()) {
+					bb.setOpen(true);
+				} else {
+					bb.setOpen(false);
+				}
+			}
 			return;
 		}
 		if (vm != null) {
@@ -499,11 +521,46 @@ public class DoanVao extends Model<DoanVao> {
 				((DoanVaoService) vm).getArg().put("quocGia", null);
 			} else if (vm instanceof BaoCaoThongKeDoanVao) {
 				((BaoCaoThongKeDoanVao) vm).getArg().put("quocGia", null);
+				
 			}
 		}
 		tenQuocGia = null;
 		thanhVienDoanTemp.setTenQuocGia(null);
 		seachByKey(key);
+		if (bb != null) {
+			if (!bb.isOpen()) {
+				bb.setOpen(true);
+			} else {
+				bb.setOpen(false);
+			}
+		}
+	}
+	
+	@Command
+	@NotifyChange("listSearch")
+	public void searchKeyByOnClick(@BindingParam("key") String key,
+			@BindingParam("vm") Object vm, @BindingParam("bandbox") Bandbox bb) {
+		this.key = key;
+		listSearch.clear();
+		if (key == null || "".equals(key) || "".equals(key.replaceAll("\\s+", ""))) {
+			listSearch.addAll(getListQuocGia());
+			if (bb != null) {
+				if (!bb.isOpen()) {
+					bb.setOpen(true);
+				} else {
+					bb.setOpen(false);
+				}
+			}
+			return;
+		}
+		seachByKey(key);
+		if (bb != null) {
+			if (!bb.isOpen()) {
+				bb.setOpen(true);
+			} else {
+				bb.setOpen(false);
+			}
+		}
 	}
 	
 	private List<String> listSearch = new ArrayList<>();
@@ -783,6 +840,7 @@ public class DoanVao extends Model<DoanVao> {
 		thanhVienDoanTemp.setTenQuocGia(thanhVienDoan.getTenQuocGia());
 		thanhVienDoanTemp.setEmail(thanhVienDoan.getEmail());
 		thanhVienDoanTemp.setSoDienThoai(thanhVienDoan.getSoDienThoai());
+		thanhVienDoan.doDelete(true);
 		flag = true;
 		BindUtils.postNotifyChange(null, null, this, "flag");
 		BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
@@ -861,6 +919,12 @@ public class DoanVao extends Model<DoanVao> {
 		}
 	}
 	
+	@Command
+	public void redirectDoanVao(@BindingParam("id") Long id) {
+		String url = "/cp/quanlydoanvao/edit/";
+		Executions.sendRedirect(url.concat(id.toString()));
+	}
+	
 	public void resetCheck() {
 		checkNotAllNull = true;
 		checkAllNull = false;
@@ -876,6 +940,7 @@ public class DoanVao extends Model<DoanVao> {
 		} else {
 			wdn.detach();
 		}
+		resetCheck();
 	}
 	
 	@Transient

@@ -1,5 +1,7 @@
 package vn.toancauxanh.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.Normalizer;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -16,6 +18,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
@@ -24,6 +29,8 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.util.SystemPropertyUtils;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -55,9 +62,30 @@ import vn.toancauxanh.model.ThanhVienDoan;
 import vn.toancauxanh.sso.Utils;
 
 public class BaseObject<T> extends CoreObject<T> {
-	
-	public boolean live = false;
-	
+
+	private int first = 0;
+	private int last = 0;
+
+	@Transient
+	public int getFirst() {
+		return first;
+	}
+
+	public void setFirst(int first) {
+		this.first = first;
+	}
+
+	@Transient
+	public int getLast() {
+		return last;
+	}
+
+	public void setLast(int last) {
+		this.last = last;
+	}
+
+	public boolean live = true;
+
 	public boolean isLive() {
 		return live;
 	}
@@ -65,7 +93,7 @@ public class BaseObject<T> extends CoreObject<T> {
 	public void setLive(boolean live) {
 		this.live = live;
 	}
-	
+
 	@Override
 	public Map<Object, Object> getArg() {
 		Map<Object, Object> arg = super.getArg();
@@ -160,7 +188,7 @@ public class BaseObject<T> extends CoreObject<T> {
 			@BindingParam("notify") Object beanObject, @BindingParam("attr") @Default(value = "*") String fields) {
 		invoke(null, ten, null, beanObject, fields, null, false);
 	}
-	
+
 	public String removeAccent(String s) {
 		String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
 		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
@@ -405,7 +433,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.eq(giaoViec.getDoanVao()));
 		if (q != null) {
 			DoanVao doanVao = q.fetchFirst();
-			doanVao.setIdNguoiLienQuan(KY_TU + doanVao.getIdNguoiLienQuan().replaceFirst(nguoiCu.getId() + KY_TU, ""));
+			doanVao.setIdNguoiLienQuan(doanVao.getIdNguoiLienQuan().replaceFirst(KY_TU + nguoiCu.getId() + KY_TU, ""));
 			return doanVao.getIdNguoiLienQuan();
 		}
 		return "";
@@ -724,7 +752,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		list.add("Yemen");
 		list.add("Zambia");
 		list.add("Zimbabwe");
-		
+
 		return list;
 	}
 
@@ -769,7 +797,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		if (nguoiTao.equals(core().getNhanVien()) || nguoiPhuTrach.equals(core().getNhanVien())) {
 			return true;
 		}
-		return id.contains("@"+String.valueOf(idNV)+"@");
+		return id.contains("@" + String.valueOf(idNV) + "@");
 	}
 
 	public boolean checkNguoiLienQuan(Long idNV, String id, NhanVien nguoiTao, NhanVien nguoiPhuTrach) {
@@ -825,7 +853,7 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String subString(String text, int size) {
 		int l = text.length();
@@ -875,26 +903,26 @@ public class BaseObject<T> extends CoreObject<T> {
 		}
 		return false;
 	}
-	
+
 	public boolean checkQuyenSuaXoa(TrangThaiGiaoViec trangThai, Long id) {
 		if (!TrangThaiGiaoViec.HOAN_THANH.equals(trangThai) && core().getNhanVien().getId().equals(id)) {
 			return true;
 		}
 		return false;
 	}
-	
-	public boolean checkQuyenSuaXoaKeCongViec(Long id){
+
+	public boolean checkQuyenSuaXoaKeCongViec(Long id) {
 		if (core().getNhanVien().getId().equals(id)) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public String thoiHanConLai(Date thoiHan, TrangThaiGiaoViec trangThai) {
 		if (TrangThaiGiaoViec.HOAN_THANH.equals(trangThai)) {
 			return null;
 		}
-		if (thoiHan.compareTo(resetHourMinuteSecondMilli(new Date())) > 0){
+		if (thoiHan.compareTo(resetHourMinuteSecondMilli(new Date())) > 0) {
 			StringBuilder txt = new StringBuilder();
 			txt.append("<span class='color-txt-blue'>(Còn ");
 			txt.append((thoiHan.getTime() - resetHourMinuteSecondMilli(new Date()).getTime()) / (24 * 60 * 60 * 1000));
@@ -940,11 +968,20 @@ public class BaseObject<T> extends CoreObject<T> {
 		JPAQuery<GiaoViec> q = find(GiaoViec.class);
 		if (LoaiCongViec.DOAN_VAO.equals(loaiCongViec)) {
 			q.where(QGiaoViec.giaoViec.doanVao.id.eq(Long.valueOf(id)));
-			JPAQuery<ThanhVienDoan> query = find(ThanhVienDoan.class).where(QThanhVienDoan.thanhVienDoan.doanVao.id.eq(Long.valueOf(id)));
+			JPAQuery<ThanhVienDoan> query = find(ThanhVienDoan.class)
+					.where(QThanhVienDoan.thanhVienDoan.doanVao.id.eq(Long.valueOf(id)));
 			query.fetch().forEach(item -> item.doDelete(true));
 		} else if (LoaiCongViec.DU_AN.equals(loaiCongViec)) {
 			q = find(GiaoViec.class).where(QGiaoViec.giaoViec.duAn.id.eq(Long.valueOf(id)));
 		}
 		q.fetch().forEach(item -> item.doDelete(true));
+	}
+
+	public Document getDOMDocument(String output) throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document dom = db.parse(new ByteArrayInputStream(output.getBytes()));
+		dom.getDocumentElement().normalize();
+		return dom;
 	}
 }

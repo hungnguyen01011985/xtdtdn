@@ -1,0 +1,95 @@
+<idspace>
+	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal reset-width popup-w-reponsive-800"
+		closable="true" viewModel="@id('vm') @init('vn.toancauxanh.service.DonViSoNoiVuService')">
+
+		<zscript><![CDATA[
+			phongBan = arg.get("vm");
+		]]></zscript> 
+
+		<div class="w-popup-content-medium">
+			<div class="panel-box">
+				<div class="box-title-and-close">
+					<div style="display:flex">
+						<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/danh-sach-popup.svg"/>
+						<span class="style-title-popup">Danh sách đơn vị sở nội vụ</span>
+					</div>
+					<a onClick="wdn.detach()">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
+					</a>
+				</div>
+				<div zclass="mg-and-bg-and-line-fix" style="padding-left:30px;">
+					<div class="row">
+						<div style="width: calc(100% - 122px); padding-right:15px;">
+							<div zclass="col-md-12">
+								<div class="row">
+									<div zclass="col-md-12">
+										<div zclass="form-group">
+											<span>Tên đơn vị/phòng ban</span> 
+											<textbox class="form-control textbox-txt-style" onOK="@command('cmd', notify=vm, attr='targetQuery')"
+												value="@bind(vm.arg.tuKhoa)" placeholder="Nhập tên đơn vị/phòng ban..."></textbox>
+											<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="padding-top : 25px; padding-right : 7.5px">
+							<div zclass="form-group right">
+								<x:button class="btn btn-base btn-green" onClick="@command('cmd', notify=vm, attr='targetQuery')">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/search.svg"/>
+									<span>Tìm kiếm</span>
+								</x:button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-box">
+				<div zclass="row mg-and-bg-and-line">
+					<div zclass="col-md-12 w-table-no-scroll">
+						<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
+							emptyMessage="Không có dữ liệu nào trong danh sách">
+							<columns>
+								<column label="STT" width="42px"/>
+								<column label="Tên đơn vị/phòng ban"/>
+								<column label="Thao tác" hflex="min" />
+							</columns>
+							<template name="model">
+								<row viewModel="@id('item') @init(each)">
+									<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" />
+									<label value="@load(item.tenDonVi)" />
+									<x:button zk:onClick="@command('selectDonViSoNoiVu', vm = phongBan, item=item, wdn=wdn)"
+										style="margin-top: 8px;" class="btn btn-blue">
+										<span>Chọn</span>
+									</x:button>
+								</row>
+							</template>
+						</grid>
+						<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+							visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+							activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+					</div>
+				</div>
+				<div class="row mg-and-bg-and-line">
+					<div zclass="col-xs-6">
+						<div zclass="form-group">
+							<x:button class="btn bg-btn-dong btn-grey" zk:onClick="wdn.detach();">
+								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+								<span>Đóng</span>
+							</x:button>
+						</div>
+					</div>
+					<div zclass="col-xs-6" if="${!readOnly}">
+					<div zclass="form-group right">
+						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('getAllPhongThuocDonVi')">
+							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+							<span>Update dữ liệu từ sở nội vụ</span>
+						</x:button>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</window>
+</idspace>

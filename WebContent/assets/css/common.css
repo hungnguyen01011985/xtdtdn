@@ -82,6 +82,10 @@ html, body {
 .toast-title {
 	font-family: Roboto-Bold !important;
 }
+
+.z-checkbox-toggle-off > .z-checkbox-mold {
+    background-color: red;
+}
 .btn-upload-image-avarta {
 	border-radius: 50%;
     height: 36px;
@@ -2388,12 +2392,12 @@ rotate
 }
 
 .bg-popup-box {
-	width: 100vw;
+	width: calc(100vw - 17px);
 	height: 100vh;
 	background-color: #262A35;
 	opacity: 0.9;
 	z-index: 1798;
-	position: absolute;
+	position: fixed;
 	display: none;
 	cursor: pointer;
 }
@@ -2729,4 +2733,12 @@ rotate
 .toast-success {
 	box-shadow: none !important;
 	opacity:1 !important;
+}
+
+.z-row-content span {
+	word-break: break-word;
+}
+
+.z-combobox-content {
+	max-width: 800px;
 }

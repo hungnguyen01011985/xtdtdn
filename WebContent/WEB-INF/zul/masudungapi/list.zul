@@ -50,14 +50,16 @@
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>
 							<column label="STT" width="42px"/>
+							<column label="Tên" width="300px"/>
 							<column label="Mã sử dụng Api"/>
 							<column label="Thao tác" width="110px"/>
 						</columns>
 						<template name="model">
 							<row viewModel="@id('item') @init(each)">
 								<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="display:flex;justify-content:center;"></label>
-								<label value="@load(item.keyApi)" zk:if="${entry.quyen.masudungapi_xem}"
+								<label value="@load(item.ten)" zk:if="${entry.quyen.masudungapi_xem}"
 									onClick="@command('redirectPageAction', zul='masudungapi/show-edit-ma-api.zul', vmArgs=vm, vm=item, readOnly=true)" sclass="txt-link-table"/>
+								<label value="@load(item.keyApi)"/>
 								<div class="thaotac" style="text-align:center">
 									<x:a label="Sửa" class="btn-thaotac left" if="${entry.quyen.masudungapi_sua}" zk:onClick="@command('redirectPage', zul='masudungapi/show-edit-ma-api.zul', vmArgs=vm, vm=item)">
 										<x:image class="img-edit" width="20px" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
@@ -68,12 +70,39 @@
 										<x:span>Xóa</x:span>
 									</x:a>
 								</div>
+								<zscript>
+									<![CDATA[
+											if(vm.getArg().get("page") == null) {
+												vm.getArg().put("page", 0);
+											}
+									         if (forEachStatus.isFirst()) {
+									        	 vm.setFirst(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+									         }
+									         if(forEachStatus.isLast()) {
+									        	 vm.setLast(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+									         }
+											BindUtils.postNotifyChange(null, null, vm, "first");
+											BindUtils.postNotifyChange(null, null, vm, "last");
+									]]>
+								</zscript>
 							</row>
 						</template>
 					</grid>
-					<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
-						visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
-						activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+					<div style="margin:0 -7.5px" visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)">
+						<div class="col-md-6" style="margin-top:10px;">
+							<label value="Hiển thị từ "></label>
+							<label value="@load(vm.first)"></label>
+							<label value="-"></label>
+							<label value="@load(vm.last)"></label>
+							<label value=" trong tổng số  "></label>
+							<label value="@load(vm.targetQuery.fetchCount())"></label>
+							<label value=" kết quả"></label>
+						</div>
+						<div class="col-md-6">
+							<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())" mold="os"
+							activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, attr='targetQuery')" />
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row mg-and-bg-and-line">

@@ -30,17 +30,19 @@
 					</div>
 				</div>
 				<div class="row">
-					<div zclass="col-md-8">
-						<div zclass="form-group txt-textbox-disable">
-							<x:span class="label-txt-style">Tên đoàn</x:span> 
-							<textbox class="form-control" disabled="true" value="@bind(vm.tenDoanVao)" placeholder="Nhập tên đoàn.."></textbox>
-						</div>
-					</div>
-					<div zclass="col-md-4">
+					<div zclass="col-md-2">
 						<div zclass="form-group">
 							<x:span class="label-txt-style">Thời gian đến làm việc</x:span> 
-							<datebox buttonVisible="false" disabled="true" format="dd/MM/yyyy" class="hv-db input-no-button txt-textbox-disable" value="@bind(vm.thoiGianDenLamViec)" width="100%" placeholder="Chọn ngày"/>
+							<datebox buttonVisible="false" disabled="true" format="dd/MM/yyyy" class="hv-db input-no-button txt-textbox-disable" value="@bind(vm.thoiGianDenLamViec)" width="100%"/>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div zclass="col-md-12">
+						<div zclass="form-group txt-textbox-disable">
+							<x:span class="label-txt-style">Tên đoàn</x:span> 
+							<textbox rows="3" class="form-control" disabled="true" value="@bind(vm.tenDoanVao)"></textbox>
 						</div>
 					</div>
 				</div>
@@ -87,10 +89,11 @@
 									<x:span class="label-txt-style">Quốc gia<n:small class="required" if="${!action}"> *</n:small></x:span>
 								</div> 
 								<bandbox width="100%" placeholder="Chọn quốc gia" onOpen="@command('searchKey', key=event.value)" value="@bind(vm.thanhVienDoanTemp.tenQuocGia) @save(vm.thanhVienDoanTemp.tenQuocGia, before='saveThanhVienDoan') @validator(vm.validateTenQuocGia, ten = self.value)"
-								 	buttonVisible="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}"
-								  	class="his bb-quoc-gia ${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly ? '' : 'input-no-button'}"
+								 	buttonVisible="false"
+								  	class="his bb-quoc-gia input-no-button"
 								   	disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) or readOnly}"
-								    autodrop="true" id="bandBoxQuocGia" mold="rounded" onChanging="@command('searchKey', key = event.value)">
+								    autodrop="true" id="bandBoxQuocGia" mold="rounded" onChanging="@command('searchKey', key = event.value)"
+								    onClick="@command('searchKeyByOnClick', key = self.value, vm=vm, bandbox=bandBoxQuocGia)">
 									<bandpopup>
 										<listbox model="@load(vm.listSearch)" onSelect="bd.close();" selectedItem="@bind(vm.thanhVienDoanTemp.tenQuocGia)" emptyMessage="Không có dữ liệu">
 											<template name="model">
@@ -191,12 +194,38 @@
 											<x:span>Xóa</x:span>
 										</x:a>
 									</div>
+									<zscript>
+										<![CDATA[
+												if(vm.getArg().get("page") == null) {
+													vm.getArg().put("page", 0);
+												}
+										         if (forEachStatus.isFirst()) {
+										        	 vm.setFirst(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+										         }
+										         if(forEachStatus.isLast()) {
+										        	 vm.setLast(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+										         }
+												BindUtils.postNotifyChange(null, null, vm, "first");
+												BindUtils.postNotifyChange(null, null, vm, "last");
+										]]>
+									</zscript>
 								</row>
 							</template>
 						</grid>
-						<paging pageSize="@load(vm.argDoanVao.pagesize)" totalSize="@load(vm.soThanhVienDoan)" mold="os"
-							visible="@load(vm.soThanhVienDoan > vm.arg.pagesize ? true : false)"
+						<div style="margin:0 -7.5px" visible="@load(vm.soThanhVienDoan > vm.arg.pagesize ? true : false)">
+							<div class="col-md-6" style="margin-top:10px;">
+								<label value="Hiển thị từ "></label>
+								<label value="@load(vm.first)"></label>
+								<label value="-"></label>
+								<label value="@load(vm.last)"></label>
+								<label value=" trong tổng số  "></label>
+								<label value="@load(vm.soThanhVienDoan)"></label>
+								<label value=" kết quả"></label>
+							</div>
+							<paging pageSize="@load(vm.argDoanVao.pagesize)" totalSize="@load(vm.soThanhVienDoan)" mold="os"
 							activePage="@bind(vm.argDoanVao.page)" onPaging="@command('notifyDoanVao', notify=vm, attr='listThanhVienDoan')" />
+						</div>
+						
 					</div>
 				</div>
 			</div>

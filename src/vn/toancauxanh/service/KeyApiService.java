@@ -13,7 +13,7 @@ public class KeyApiService extends BasicService<KeyApi> {
 		JPAQuery<KeyApi> q = find(KeyApi.class);
 		if (param !=null && !param.isEmpty() && !"".equals(param)) {
 			String tuKhoa = "%" + param + "%" ;
-			q.where(QKeyApi.keyApi1.keyApi.like(tuKhoa));
+			q.where(QKeyApi.keyApi1.keyApi.like(tuKhoa).or(QKeyApi.keyApi1.ten.like(tuKhoa)));
 		}
 		q.orderBy(QKeyApi.keyApi1.ngayTao.desc());
 		return q;

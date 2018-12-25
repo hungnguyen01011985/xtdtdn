@@ -122,7 +122,7 @@
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Tổng vốn đầu tư(USD)<n:small class="required" if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id and vm.checkDangOGiaiDoan(giaiDoanNam)}"> *</n:small></x:span>
 							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8"
-								width="100%" value="@bind(vm.tongVonDauTu)" />
+								width="100%" value="@bind(vm.tongVonDauTu) @save(vm.tongVonDauTu, before={'saveThongTinDuAn', 'goKetThuc'}) @validator(vm.validatorVonDauTu, text = 'Tổng vốn đầu tư', type = true)" />
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -142,7 +142,7 @@
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Diện tích sử dụng đất(ha)<n:small class="required" if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id and vm.checkDangOGiaiDoan(giaiDoanNam)}"> *</n:small></x:span>
 							<decimalbox format="#,##0" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" locale="it" style="text-align: right;" class="form-control textbox-txt-style mg-top-8" 
-								width="100%" value="@bind(vm.dienTichSuDungDat)" />
+								width="100%" value="@bind(vm.dienTichSuDungDat) @save(vm.dienTichSuDungDat, before={'saveThongTinDuAn', 'goKetThuc'}) @validator(vm.validatorVonDauTu, text = 'Diện tích sử dụng đất', type = true)" />
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 				<div class="row">
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<x:span class="label-txt-style">Mức độ ưu tiên</x:span>
+							<x:span class="label-txt-style">Mức độ ưu tiên<n:small class="required" if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id and vm.checkDangOGiaiDoan(giaiDoanNam)}"> *</n:small></x:span>
 							<combobox buttonVisible="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" readonly="true" 
 								model="@load(vm.listMucDoUuTien)" selectedItem="@bind(vm.mucDoUuTien)"
 								class="his ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }" placeholder="Chọn mức độ ưu tiên" width="100%">
@@ -162,7 +162,7 @@
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
-							<x:span class="label-txt-style">Khả năng đầu tư</x:span>
+							<x:span class="label-txt-style">Khả năng đầu tư<n:small class="required" if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id and vm.checkDangOGiaiDoan(giaiDoanNam)}"> *</n:small></x:span>
 							<combobox buttonVisible="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" disabled="${!action or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
 								readonly="true" model="@load(vm.listKhaNangDauTu)" selectedItem="@bind(vm.khaNangDauTu)"
 								class="his ${action and vm.nguoiPhuTrach.id == entry.nhanVien.id? '' : 'input-no-button no-place-holder' }" placeholder="Chọn khả năng đầu tư" width="100%">
@@ -174,7 +174,7 @@
 					</div>
 					<div class="col-md-3">
 						<div zclass="form-group" viewModel="@id('taiLieuNDT')@init(vm.taiLieuNDT)">
-							<x:span class="label-txt-style">Văn bản đề nghị của NĐT</x:span>
+							<x:span class="label-txt-style">Văn bản đề nghị của NĐT<n:small class="required" if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id and vm.checkDangOGiaiDoan(giaiDoanNam)}"> *</n:small></x:span>
 							<button if="${action and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty vm.taiLieuNDT.tenFile)" label="Chọn tài liệu" 
 								class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"
 								onUpload="@command('uploadFile', medias=event.getMedia(), vm = vm, name = 'taiLieuNDT')"

@@ -533,7 +533,7 @@ public class Entry extends BaseObject<Object> {
 	public static class MvcConfig extends WebMvcConfigurerAdapter {
 		@Override
 		public void addResourceHandlers(ResourceHandlerRegistry registry) {
-			registry.addResourceHandler("/files/**").addResourceLocations("file:/home/hdndhoavangdata/hdndfiles/");
+			registry.addResourceHandler("/files/**").addResourceLocations("/home/bxtdtdndata/bxtdtdnfiles/");
 			registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
 			registry.addResourceHandler("/backend/**").addResourceLocations("/backend/");
 			registry.addResourceHandler("/img/**").addResourceLocations("/img/");

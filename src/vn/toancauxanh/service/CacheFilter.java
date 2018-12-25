@@ -16,17 +16,19 @@ public final class CacheFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
 		HttpServletResponse res = (HttpServletResponse) response;
-		int hour = 24*30;
-		res.setDateHeader("Expires", System.currentTimeMillis() + hour*60*60*1000); 
-		res.addHeader("Cache-Control", "max-age="+hour*60*60);
-		//if ((validEncodings != null) && (validEncodings.indexOf("gzip") > -1)) {
-        //    CompressionResponseWrapper wrappedResponse = new CompressionResponseWrapper(res);
-        //    filterChain.doFilter(request, wrappedResponse);
-        //    wrappedResponse.finish();
-        //}
-        //else {
-        	filterChain.doFilter(request, response);
-        //}
+		int hour = 24 * 30;
+		res.setDateHeader("Expires", System.currentTimeMillis() + hour * 60 * 60 * 1000);
+		res.addHeader("Cache-Control", "max-age=" + hour * 60 * 60);
+		// if ((validEncodings != null) && (validEncodings.indexOf("gzip") >
+		// -1)) {
+		// CompressionResponseWrapper wrappedResponse = new
+		// CompressionResponseWrapper(res);
+		// filterChain.doFilter(request, wrappedResponse);
+		// wrappedResponse.finish();
+		// }
+		// else {
+		filterChain.doFilter(request, response);
+		// }
 	}
 
 	@Override
