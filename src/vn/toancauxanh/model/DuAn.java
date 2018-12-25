@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -621,8 +622,43 @@ public class DuAn extends Model<DuAn> {
 			}
 		};
 	}
+	@Transient
+	public AbstractValidator getValidatorVonDauTu() {
+		return new AbstractValidator() {
+			@Override
+			public void validate(ValidationContext ctx) {
+				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
+				if (vmsgs != null) {
+					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
+					vmsgs.clearMessages(ctx.getBindContext().getComponent());
+				}
+				validateNumber(ctx);
+			}
 
-
+			private boolean validateNumber(ValidationContext ctx) {
+				boolean rs = true;
+				String text = (String) ctx.getValidatorArg("text");
+				Boolean type = (Boolean) ctx.getValidatorArg("type");
+				Double vonDauTu = 0.0;
+				try {
+					vonDauTu = Double.parseDouble(ctx.getProperty().getValue().toString().trim()) ;
+				} catch (NumberFormatException e) {
+					addInvalidMessage(ctx, "Bạn phải nhập số");
+				} catch (NullPointerException e) {
+					addInvalidMessage(ctx, "Bạn phải nhập số");
+				}
+				DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+				String vonDauTuString = decimalFormat.format(vonDauTu);
+				if (vonDauTu < 0) {
+					addInvalidMessage(ctx, text + " phải lớn hơn bằng 0");
+					rs = false;
+				} else if (String.valueOf(vonDauTuString).length() > 16 && type) {
+					addInvalidMessage(ctx, text + " chỉ tối đa 12 số");
+				}
+				return rs;
+			}
+		};
+	}
 
 	@Transient
 	public AbstractValidator getValidatorTepTin() {
@@ -669,41 +705,6 @@ public class DuAn extends Model<DuAn> {
 		};
 	}
 	
-	@Transient
-	public AbstractValidator getValidatorVonDauTu() {
-		return new AbstractValidator() {
-			@Override
-			public void validate(ValidationContext ctx) {
-				final ValidationMessages vmsgs = (ValidationMessages) ctx.getValidatorArg("vmsg");
-				if (vmsgs != null) {
-					vmsgs.clearKeyMessages(Throwable.class.getSimpleName());
-					vmsgs.clearMessages(ctx.getBindContext().getComponent());
-				}
-				validateNumber(ctx);
-			}
-
-			private boolean validateNumber(ValidationContext ctx) {
-				boolean rs = true;
-				String text = (String) ctx.getValidatorArg("text");
-				Boolean type = (Boolean) ctx.getValidatorArg("type");
-				Double vonDauTu = 0.0;
-				try {
-					vonDauTu = Double.parseDouble(ctx.getProperty().getValue().toString()) ;
-				} catch (NumberFormatException e) {
-					addInvalidMessage(ctx, "Bạn phải nhập số");
-				} catch (NullPointerException e) {
-					addInvalidMessage(ctx, "Bạn phải nhập số");
-				}
-				if (vonDauTu < 0) {
-					addInvalidMessage(ctx, text + " phải lớn hơn bằng 0");
-					rs = false;
-				} else if (String.valueOf(vonDauTu).length() > 16 && type) {
-					addInvalidMessage(ctx, text + " chỉ tối đa 12 số");
-				}
-				return rs;
-			}
-		};
-	}
 
 //	private boolean checkValidateNumber;
 //
