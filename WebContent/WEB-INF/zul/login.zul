@@ -9,7 +9,7 @@
 <?script type="text/javascript" src="/assets/js/bootstrap.min.js"?>
 <?script type="text/javascript" src="/assets/js/sb-admin-2.js"?>
 <?script type="text/javascript" src="/assets/toastr/build/toastr.min.js" ?>
-<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" id="wdn" mode="modal" xmlns:z="zul" width="400px" class="location-form-login"
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" mode="modal" id="wdn" xmlns:z="zul" width="400px" class="location-form-login"
 	viewModel="@id('vm') @init('vn.toancauxanh.service.NhanVienService')">
 	<style>
 		.formac-cauhinh {

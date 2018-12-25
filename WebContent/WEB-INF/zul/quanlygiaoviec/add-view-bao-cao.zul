@@ -27,51 +27,73 @@
 			</div>
 			<div class="mg-and-bg-and-line-fix mg-bottom-5">
 				<div class="row">
-					<div zclass="col-md-6" if="${duAnCV eq loaiCongViec}">
+					<div zclass="col-md-12" if="${duAnCV eq loaiCongViec}">
 						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Tên dự án</x:span>
 							</div>
-							<textbox class="form-control" value="@load(vm.duAn.tenDuAn)" disabled="true"></textbox>
+							<textbox rows="4" class="form-control" value="@load(vm.duAn.tenDuAn)" disabled="true"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
-					<div zclass="col-md-6" if="${duAnCV eq loaiCongViec}">
-						<div zclass="form-group txt-textbox-disable">
-							<div class="flex">
-								<x:span class="label-txt-style">Giai đoạn</x:span>
-							</div>
-							<textbox class="form-control" value="@bind(vm.duAn.giaiDoanXucTien.text)" disabled="true"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-					</div>
-					<div zclass="col-md-6" if="${doanVaoCV eq loaiCongViec}">
+					<div zclass="col-md-12" if="${doanVaoCV eq loaiCongViec}">
 						<div zclass="form-group txt-textbox-disable">
 							<div class="flex">
 								<x:span class="label-txt-style">Tên đoàn vào</x:span>
 							</div>
-							<textbox class="form-control" value="@load(vm.doanVao.tenDoanVao)" disabled="true"></textbox>
+							<textbox rows="4" class="form-control" value="@load(vm.doanVao.tenDoanVao)" disabled="true"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div zclass="col-md-6">
-						<div zclass="form-group txt-textbox-disable">
-							<div class="flex">
-								<x:span class="label-txt-style">Người giao</x:span>
+					<div if="${duAnCV eq loaiCongViec}">
+						<div zclass="col-md-4">
+							<div zclass="form-group txt-textbox-disable">
+								<div class="flex">
+									<x:span class="label-txt-style">Người giao</x:span>
+								</div>
+								<textbox class="form-control" value="@load(vm.nguoiGiaoViec.hoVaTen)" disabled="true"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
-							<textbox class="form-control" value="@load(vm.nguoiGiaoViec.hoVaTen)" disabled="true"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+						<div zclass="col-md-4">
+							<div zclass="form-group txt-textbox-disable">
+								<div class="flex">
+									<x:span class="label-txt-style">Người được giao</x:span>
+								</div>
+								<textbox class="form-control" value="@load(vm.nguoiDuocGiao.hoVaTen)" disabled="true"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
+						</div>
+						<div zclass="col-md-4">
+							<div zclass="form-group txt-textbox-disable">
+								<div class="flex">
+									<x:span class="label-txt-style">Giai đoạn</x:span>
+								</div>
+								<textbox class="form-control" value="@bind(vm.duAn.giaiDoanXucTien.text)" disabled="true"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
 					</div>
-					<div zclass="col-md-6">
-						<div zclass="form-group txt-textbox-disable">
-							<div class="flex">
-								<x:span class="label-txt-style">Người được giao</x:span>
+					<div if="${doanVaoCV eq loaiCongViec}">
+						<div zclass="col-md-6">
+							<div zclass="form-group txt-textbox-disable">
+								<div class="flex">
+									<x:span class="label-txt-style">Người giao</x:span>
+								</div>
+								<textbox class="form-control" value="@load(vm.nguoiGiaoViec.hoVaTen)" disabled="true"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
-							<textbox class="form-control" value="@load(vm.nguoiDuocGiao.hoVaTen)" disabled="true"></textbox>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+						</div>
+						<div zclass="col-md-6">
+							<div zclass="form-group txt-textbox-disable">
+								<div class="flex">
+									<x:span class="label-txt-style">Người được giao</x:span>
+								</div>
+								<textbox class="form-control" value="@load(vm.nguoiDuocGiao.hoVaTen)" disabled="true"></textbox>
+								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+							</div>
 						</div>
 					</div>
 				</div>
