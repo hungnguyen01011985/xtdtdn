@@ -239,7 +239,7 @@ public class BaseObject<T> extends CoreObject<T> {
 			url.append(":").append(req.getServerPort()); // app name
 		}
 		try {
-			if (live) {
+			if (!live) {
 				res.sendRedirect(url + req.getContextPath() + "/login");
 			} else {
 				res.sendRedirect(Utils.getLogoutCasUrl());
