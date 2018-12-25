@@ -117,6 +117,11 @@ public class VaiTro extends Model<VaiTro> {
 	
 	@Transient
 	public String[] getListParentVaiTro1() {
+		Set<String> quyens = new HashSet<>();
+		quyens.addAll(getQuyens());
+		if (!quyens.isEmpty()) {
+			selectItemVaiTro.addAll(quyens);
+		}
 		return core().getRESOURCES();
 	}
 	
