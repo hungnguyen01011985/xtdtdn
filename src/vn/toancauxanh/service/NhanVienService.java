@@ -176,7 +176,7 @@ public final class NhanVienService extends BasicService<NhanVien> {
  			cookie.setMaxAge(0);
  			res.addCookie(cookie);
 			try {
-				if (live) {
+				if (!live) {
 					res.sendRedirect(req.getContextPath()+"/login");
 				} else {
 					res.sendRedirect(Utils.getLogoutCasUrl());
