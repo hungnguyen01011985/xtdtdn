@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1qjxklc" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:collaboration id="Collaboration_1lwxicr">
-    <bpmn:participant id="_zz" name="Quản lý dự án" processRef="quanLyDuAn" />
+    <bpmn:participant id="process_quanLyDuAn" name="Quản lý dự án" processRef="quanLyDuAn" />
   </bpmn:collaboration>
   <bpmn:process id="quanLyDuAn" name="Quản lý dự án" isExecutable="true" camunda:versionTag="v1.0.0">
     <bpmn:sequenceFlow id="SequenceFlow_0nueqcx" name="Dữ liệu để kết thúc dự án hợp lệ" sourceRef="ExclusiveGateway_0gky3h3" targetRef="ExclusiveGateway_1tp0qkv">
@@ -752,7 +752,7 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1lwxicr">
-      <bpmndi:BPMNShape id="Participant_1kzeb8d_di" bpmnElement="_zz">
+      <bpmndi:BPMNShape id="Participant_1kzeb8d_di" bpmnElement="process_quanLyDuAn">
         <dc:Bounds x="46" y="17" width="7435" height="911" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_1jsojcu_di" bpmnElement="ServiceTask_1jsojcu">
