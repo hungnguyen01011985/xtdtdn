@@ -26,7 +26,7 @@
 						<div class="flex">
 							<x:span class="label-txt-style">Tên dự án</x:span>
 						</div>
-						<textbox class="form-control textbox-txt-style" value="@bind(vm.tenDuAn)" disabled="true"></textbox>
+						<textbox rows="4" class="form-control textbox-txt-style" value="@bind(vm.tenDuAn)" disabled="true"></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
