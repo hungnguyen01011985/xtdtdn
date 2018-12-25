@@ -876,7 +876,7 @@ CREATE TABLE IF NOT EXISTS `keyapi` (
   CONSTRAINT `FKrby5gt0i0vigtj2a83xdq051x` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.keyapi: ~1 rows (approximately)
+-- Dumping data for table bxtdtdn.keyapi: ~0 rows (approximately)
 DELETE FROM `keyapi`;
 /*!40000 ALTER TABLE `keyapi` DISABLE KEYS */;
 INSERT INTO `keyapi` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `keyApi`, `nguoiSua_id`, `nguoiTao_id`, `ten`) VALUES
@@ -1128,32 +1128,50 @@ CREATE TABLE IF NOT EXISTS `nhanvien` (
   `nguoiTao_id` bigint(20) DEFAULT NULL,
   `phongBan_id` bigint(20) DEFAULT NULL,
   `vaiTro_id` bigint(20) DEFAULT NULL,
+  `congChucSoNoiVu_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKea6is3f6do1ybghqu5uo8xiap` (`nguoiSua_id`),
   KEY `FKlyyrr2uas0f50iupka9ergm8x` (`nguoiTao_id`),
   KEY `FK3qvwtuxp7rmr2kvksmb0bh34g` (`phongBan_id`),
   KEY `FKj6192ntptfiiw2ie88p77jb5n` (`vaiTro_id`),
+  KEY `FK3bddmwpy7ds3jy3k0f5hn90yp` (`congChucSoNoiVu_id`),
+  CONSTRAINT `FK3bddmwpy7ds3jy3k0f5hn90yp` FOREIGN KEY (`congChucSoNoiVu_id`) REFERENCES `congchucsonoivu` (`id`),
   CONSTRAINT `FK3qvwtuxp7rmr2kvksmb0bh34g` FOREIGN KEY (`phongBan_id`) REFERENCES `phongban` (`id`),
   CONSTRAINT `FKea6is3f6do1ybghqu5uo8xiap` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`),
   CONSTRAINT `FKj6192ntptfiiw2ie88p77jb5n` FOREIGN KEY (`vaiTro_id`) REFERENCES `vaitro` (`id`),
   CONSTRAINT `FKlyyrr2uas0f50iupka9ergm8x` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.nhanvien: ~11 rows (approximately)
+-- Dumping data for table bxtdtdn.nhanvien: ~26 rows (approximately)
 DELETE FROM `nhanvien`;
 /*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
-INSERT INTO `nhanvien` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `checkKichHoat`, `chucVu`, `diaChi`, `email`, `hoVaTen`, `matKhau`, `ngaySinh`, `pathAvatar`, `salkey`, `selectedDV`, `soDienThoai`, `nguoiSua_id`, `nguoiTao_id`, `phongBan_id`, `vaiTro_id`) VALUES
-	(1, b'0', '2018-11-05 15:34:08', '2018-11-05 15:34:08', 'ap_dung', b'0', '', '', 'admin@greenglobal.vn', 'Super Admin', 'RvxJVVj3R+X7PNPj9AcCJuvTMlGtPSI8', NULL, '', 'iZz36mQl2qfG4ZZEnjUSdTzdTWjn4wQo', b'0', '', NULL, NULL, NULL, 1),
-	(2, b'0', '2018-11-16 08:48:01', '2018-11-05 15:59:11', 'ap_dung', b'0', '', '', 'trangvtk@danang.gov.vn', 'Võ Thị Kiều Trang', 'laazf97nxzQtNu3Js3q1D5p1UySHgNNi', NULL, '', 'urCf2zlLSw806FGDDHSt5TSwPSJryvE+', b'0', '', 1, 1, 1, 4),
-	(3, b'0', '2018-11-16 08:47:58', '2018-11-05 15:59:29', 'ap_dung', b'0', '', '', 'maintt@danang.gov.vn', 'Nguyễn Thị Tuyết Mai', 'A9UePq+rNdWznt2kqIkgeN8hFfEgfTiW', NULL, '', 'fRgJ//2MonOykjh0RKrSjk0of3F6AO9E', b'0', '', 1, 1, 1, 2),
-	(4, b'0', '2018-11-16 08:47:53', '2018-11-05 15:59:45', 'ap_dung', b'0', '', '', 'hieutt@danang.gov.vn', 'Trần Trung Hiếu', 'U7B1QJ4mQPHD/yy6XE7rwFVEvn5Qq87N', NULL, '', 'ZrehvZoll2UZnIRmG6bjNHphP9ZdYMTn', b'0', '', 1, 1, 1, 2),
-	(5, b'0', '2018-11-16 08:47:49', '2018-11-05 16:00:03', 'ap_dung', b'0', '', '', 'tuvxc@danang.gov.vn', 'Vũ Xuân Cẩm Tú', 'mTByyoF0OaJ6W937c3kiBXO4RL9Vzy1s', NULL, '', 't1l2bAchxVu8a0+ASCApYUpinZAoOET1', b'0', '', 1, 1, 1, 2),
-	(6, b'0', '2018-11-16 08:47:44', '2018-11-05 16:00:22', 'ap_dung', b'0', '', '', 'lamhtm@danang.gov.vn', 'Huỳnh Thị Mai Lâm', 'zj2eKBA+hhZUSjL0kto9TWzPTL3LNjC4', NULL, '', '+Edm/m+2dfD6aWUMip6h5Hx8D+Tbi1SG', b'0', '', 1, 1, 1, 2),
-	(7, b'0', '2018-11-16 08:47:41', '2018-11-05 16:00:53', 'ap_dung', b'0', '', '', 'ducvm@danang.gov.vn', 'Vũ Minh Đức', '/xWfDKYK5ppTL9nxaHvHkMR5A/JXhJA6', NULL, '', 'VJvoywVC2jgjCgvYO7roOkvDtl/pZwPQ', b'0', '', 1, 1, 1, 2),
-	(8, b'0', '2018-11-16 08:47:37', '2018-11-05 16:01:12', 'ap_dung', b'0', '', '', 'thangtna@danang.gov.vn', 'Trần Nguyễn An Thắng', 'GGCEslJSPxt241k3bBoJrDqRV5jY4N71', NULL, '', 'DTOPo0OfXNeb5IJM0fxOZa1p0V6cJczr', b'0', '', 1, 1, 1, 2),
-	(9, b'0', '2018-11-16 08:47:26', '2018-11-05 16:01:51', 'ap_dung', b'0', '', '', 'lanhdao@danang.gov.vn', 'Lãnh đạo', '7FxtkTr3iHy+XvvbSoG6GAV5DJy9ieXc', NULL, '', 'dEUMni2ho6g6yqAGShJFdwoV/FYRQd1A', b'0', '', 1, 1, 1, 3),
-	(10, b'0', '2018-11-16 08:47:19', '2018-11-05 16:02:12', 'ap_dung', b'0', '', '', 'truongphong001@danang.gov.vn', 'Trưởng phòng 001', '1Vm9Fxiuo6tWGUyQPGKVa8jTSYocHArO', NULL, '', 'lUy2xOQeHJgu6gSIkAo4gZP1XcAjGtoA', b'0', '', 1, 1, 1, 4),
-	(11, b'0', '2018-11-16 08:47:13', '2018-11-05 16:02:28', 'ap_dung', b'0', '', '', 'truongphong002@danang.gov.vn', 'Trưởng phòng 002', 'rYOm6Ldi0Kw0+XUM1cC1jQdKQYWMrNo6', NULL, '', 'UpNRrh7hRBCkYnd/H8TYHsx3qZ+7oPlj', b'0', '', 1, 1, 1, 4);
+INSERT INTO `nhanvien` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `checkKichHoat`, `chucVu`, `diaChi`, `email`, `hoVaTen`, `matKhau`, `ngaySinh`, `pathAvatar`, `salkey`, `selectedDV`, `soDienThoai`, `nguoiSua_id`, `nguoiTao_id`, `phongBan_id`, `vaiTro_id`, `congChucSoNoiVu_id`) VALUES
+	(1, b'0', '2018-12-25 11:42:13', '2018-11-05 15:34:08', 'ap_dung', b'0', '', '', 'gopy@danang.gov.vn', 'Super Admin', 'RvxJVVj3R+X7PNPj9AcCJuvTMlGtPSI8', NULL, '', 'iZz36mQl2qfG4ZZEnjUSdTzdTWjn4wQo', b'0', '', 1, NULL, NULL, 1, NULL),
+	(2, b'0', '2018-12-25 09:56:23', '2018-11-05 15:59:11', 'ap_dung', b'0', '', '', 'trangvtk@danang.gov.vn', 'Võ Thị Kiều Trang', 'laazf97nxzQtNu3Js3q1D5p1UySHgNNi', NULL, '', 'urCf2zlLSw806FGDDHSt5TSwPSJryvE+', b'0', '', 1, 1, 1, 4, 22),
+	(3, b'0', '2018-12-25 10:31:38', '2018-11-05 15:59:29', 'ap_dung', b'0', '', '', 'maintt2@danang.gov.vn', 'Nguyễn Thị Tuyết Mai', 'A9UePq+rNdWznt2kqIkgeN8hFfEgfTiW', NULL, '', 'fRgJ//2MonOykjh0RKrSjk0of3F6AO9E', b'0', '', 1, 1, 1, 4, 23),
+	(4, b'0', '2018-12-25 10:27:45', '2018-11-05 15:59:45', 'ap_dung', b'0', '', '', 'hieutt3@danang.gov.vn', 'Trần Trung Hiếu', 'U7B1QJ4mQPHD/yy6XE7rwFVEvn5Qq87N', NULL, '', 'ZrehvZoll2UZnIRmG6bjNHphP9ZdYMTn', b'0', '', 1, 1, 1, 2, 35),
+	(5, b'0', '2018-12-25 10:28:16', '2018-11-05 16:00:03', 'ap_dung', b'0', '', '', 'diepnt@danang.gov.vn', 'Nguyễn Thị Điệp', 'mTByyoF0OaJ6W937c3kiBXO4RL9Vzy1s', NULL, '', 't1l2bAchxVu8a0+ASCApYUpinZAoOET1', b'0', '', 1, 1, 2, 2, 19),
+	(6, b'0', '2018-12-25 10:31:55', '2018-11-05 16:00:22', 'ap_dung', b'0', '', '', 'nhinh2@danang.gov.vn', 'Nguyễn Hữu Nhĩ', 'zj2eKBA+hhZUSjL0kto9TWzPTL3LNjC4', NULL, '', '+Edm/m+2dfD6aWUMip6h5Hx8D+Tbi1SG', b'0', '', 1, 1, 2, 4, 20),
+	(7, b'0', '2018-12-25 10:28:52', '2018-11-05 16:00:53', 'ap_dung', b'0', '', '', 'tramttt@danang.gov.vn', 'Trần Thị Thùy Trâm', '/xWfDKYK5ppTL9nxaHvHkMR5A/JXhJA6', NULL, '', 'VJvoywVC2jgjCgvYO7roOkvDtl/pZwPQ', b'0', '', 1, 1, 4, 2, 21),
+	(8, b'0', '2018-12-25 10:29:26', '2018-11-05 16:01:12', 'ap_dung', b'0', '', '', 'letth2@danang.gov.vn', 'Trần Thị Hoài Lê', 'GGCEslJSPxt241k3bBoJrDqRV5jY4N71', NULL, '', 'DTOPo0OfXNeb5IJM0fxOZa1p0V6cJczr', b'0', '', 1, 1, 2, 2, 27),
+	(9, b'0', '2018-12-25 10:25:17', '2018-11-05 16:01:51', 'ap_dung', b'0', '', '', 'tuonglm@danang.gov.vn', 'Lê Minh Tường', '7FxtkTr3iHy+XvvbSoG6GAV5DJy9ieXc', NULL, '', 'dEUMni2ho6g6yqAGShJFdwoV/FYRQd1A', b'0', '', 1, 1, 6, 3, 36),
+	(10, b'0', '2018-12-25 10:32:47', '2018-11-05 16:02:12', 'ap_dung', b'0', '', '', 'hieutt2@danang.gov.vn', 'Trần Trung Hiếu', '1Vm9Fxiuo6tWGUyQPGKVa8jTSYocHArO', NULL, '', 'lUy2xOQeHJgu6gSIkAo4gZP1XcAjGtoA', b'0', '', 1, 1, 5, 2, 29),
+	(11, b'0', '2018-12-25 10:33:04', '2018-11-05 16:02:28', 'ap_dung', b'0', '', '', 'huongvtm1@danang.gov.vn', 'Võ Thị Mai Hương', 'rYOm6Ldi0Kw0+XUM1cC1jQdKQYWMrNo6', NULL, '', 'UpNRrh7hRBCkYnd/H8TYHsx3qZ+7oPlj', b'0', '', 1, 1, 1, 4, 31),
+	(12, b'0', '2018-12-25 11:41:52', '2018-12-25 10:33:24', 'ap_dung', b'0', '', '', 'haichau1@danang.gov.vn', 'Vũ Thị Hồng Hạnh', '6YQufFwbofjM+CBmtsqQ0r82lMCFhlOk', NULL, '', '2/tV4rIaCJ+t8xiop0Kz/WY1S8vANNsO', b'0', '', 1, 1, 3, 2, 32),
+	(13, b'0', '2018-12-25 10:36:16', '2018-12-25 10:36:16', 'ap_dung', b'0', '', '', 'thudta@danang.gov.vn', 'Đinh Thị Anh Thư', '/gQ14R6ZcNddZiSHBTSDvf7DilImbT4u', NULL, '', 'L6SjN7MdNtBJ+Db6Vn8ku2p9iG5Wg4un', b'0', '', 1, 1, 4, 2, 33),
+	(14, b'0', '2018-12-25 11:41:40', '2018-12-25 10:36:32', 'ap_dung', b'0', '', '', 'quanhaichau@danang.gov.vn', 'Lê Đức Long', 'y9E0tWnQeF2Qdti5MkNMabBeHvouxdOk', NULL, '', 'RMTjymaTwl1gyFZpDeRGEOIWhhSfQU70', b'0', '', 1, 1, 3, 2, 34),
+	(15, b'0', '2018-12-25 10:37:41', '2018-12-25 10:37:41', 'ap_dung', b'0', '', '', 'anhnk@danang.gov.vn', 'Nguyễn Kỳ Anh', 'vL3N3ivi0Mn4KDALXubDxd8/SdHpZr68', NULL, '', 'RqzfICQIw4K/GNlz/RHYbHOBuboCekeB', b'0', '', 1, 1, 6, 3, 2),
+	(16, b'0', '2018-12-25 11:41:25', '2018-12-25 10:38:00', 'ap_dung', b'0', '', '', 'stttt@danang.gov.vn', 'Nguyễn Hạ My', 'DZzl5wdd20yM+xw2kEC7dMv/qdVUqs3g', NULL, '', 'ao2iXqfsAhsGMKpVGe3+StvJlaV5HUaC', b'0', '', 1, 1, 3, 2, 3),
+	(17, b'0', '2018-12-25 10:38:15', '2018-12-25 10:38:15', 'ap_dung', b'0', '', '', 'phuonghl@danang.gov.vn', 'Huỳnh Liên Phương', 'hhpOy0JHhvCpMYwkB5WfRdZuKffVhoqw', NULL, '', 'w0laTkmLKrHXXYfW92t1fEYkrwqv/sLg', b'0', '', 1, 1, 6, 3, 4),
+	(18, b'0', '2018-12-25 10:38:30', '2018-12-25 10:38:30', 'ap_dung', b'0', '', '', 'duonglc@danang.gov.vn', 'Lê Cảnh Dương', 'J4wnNmksKFtnnDJ/STT5ey1U88I6pbaS', NULL, '', 'XUldoOv+hV9AYuAQ58PKEA4WOrkq4/IU', b'0', '', 1, 1, 6, 2, 5),
+	(19, b'0', '2018-12-25 11:41:05', '2018-12-25 10:38:47', 'ap_dung', b'0', '', '', 'sgtvt@danang.gov.vn', 'Phạm Thị Bích Hiền', 'gixD4Qy4LExcYOIZ4Xm17ZAhz1leDzfa', NULL, '', '8FfzfxxUWUP7BT2VfCgFwh0n+lxAzkie', b'0', '', 1, 1, 3, 4, 7),
+	(20, b'0', '2018-12-25 11:40:51', '2018-12-25 10:39:06', 'ap_dung', b'0', '', '', 'lanhn@danang.gov.vn', 'Đỗ Thị Quỳnh Trâm', '2Or1KroiTiTaXQF3K4mh6RoHwdYv3sER', NULL, '', 'JakI1M6FP7QLvrlrom13HUoeRrDxgp1V', b'0', '', 1, 1, 3, 4, 8),
+	(21, b'0', '2018-12-25 11:41:16', '2018-12-25 10:39:20', 'ap_dung', b'0', '', '', 'stnmt@danang.gov.vn', 'Đinh Thùy Trang', 'JUQCsCsYAVHuhnlYiGtec/76Zdd7+7mM', NULL, '', 'wIxbeunhFIdSDNEXPgeNP1JDwv4nMN0v', b'0', '', 1, 1, 3, 2, 10),
+	(22, b'0', '2018-12-25 10:39:34', '2018-12-25 10:39:34', 'ap_dung', b'0', '', '', 'ngochnt@danang.gov.vn', 'Huỳnh Nguyễn Thiên Ngọc', 'O3DtlhEITDCceN30oX5B/IL3YIhnrrBV', NULL, '', '4zcdxLEI6XZfK7GdgkRKNfYF3NPwAUa/', b'0', '', 1, 1, 4, 2, 11),
+	(23, b'0', '2018-12-25 10:39:55', '2018-12-25 10:39:55', 'ap_dung', b'0', '', '', 'phuchtd2@danang.gov.vn', 'Hường Thị Diễm Phúc', 'hmdtcfVMvoXXfdMPv7LVZr51rALch45u', NULL, '', 'yQEB6cooWi7/B2HrtKGvHssW0R397CA+', b'0', '', 1, 1, 2, 4, 12),
+	(24, b'0', '2018-12-25 10:40:10', '2018-12-25 10:40:10', 'ap_dung', b'0', '', '', 'nhidt@danang.gov.vn', 'Dương Thị Nhi', '0eV7sbaZ6K07IKSVlDTjzV4EV5wdU8b1', NULL, '', 'vZkGmskS7Jwhd1bE7rcVz1oep0K7pKKl', b'0', '', 1, 1, 2, 4, 15),
+	(25, b'0', '2018-12-25 10:40:21', '2018-12-25 10:40:21', 'ap_dung', b'0', '', '', 'dungtt1@danang.gov.vn', 'Trần Tuấn Dũng', 'n/dQsAPSarplaYYQmP70Z0nW2gzSMvxz', NULL, '', 'WGrPxz+Zeoq3UlU7xEo3fII6OH174MvK', b'0', '', 1, 1, 2, 2, 16),
+	(26, b'0', '2018-12-25 10:40:41', '2018-12-25 10:40:41', 'ap_dung', b'0', '', '', 'thunta3@danang.gov.vn', 'Nguyễn Thị Anh Thư', '1l0murN6QpMIn9Ye1UT+0nnBLLZmpxLm', NULL, '', 'RDMaEQl79xeASf9hXTiPHDUVrEatrF4X', b'0', '', 1, 1, 2, 4, 17);
 /*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.nhanvien_quyens
@@ -1183,20 +1201,35 @@ CREATE TABLE IF NOT EXISTS `nhanvien_vaitro` (
   CONSTRAINT `FKidefm6rhsejb07ce6hcdlecg` FOREIGN KEY (`vaitros_id`) REFERENCES `vaitro` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.nhanvien_vaitro: ~10 rows (approximately)
+-- Dumping data for table bxtdtdn.nhanvien_vaitro: ~25 rows (approximately)
 DELETE FROM `nhanvien_vaitro`;
 /*!40000 ALTER TABLE `nhanvien_vaitro` DISABLE KEYS */;
 INSERT INTO `nhanvien_vaitro` (`nhanvien_id`, `vaitros_id`) VALUES
 	(2, 4),
-	(3, 2),
+	(3, 4),
 	(4, 2),
 	(5, 2),
-	(6, 2),
+	(6, 4),
 	(7, 2),
 	(8, 2),
 	(9, 3),
-	(10, 4),
-	(11, 4);
+	(10, 2),
+	(11, 4),
+	(12, 2),
+	(13, 2),
+	(14, 2),
+	(15, 3),
+	(16, 2),
+	(17, 3),
+	(18, 2),
+	(19, 4),
+	(20, 4),
+	(21, 2),
+	(22, 2),
+	(23, 4),
+	(24, 4),
+	(25, 2),
+	(26, 4);
 /*!40000 ALTER TABLE `nhanvien_vaitro` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.phongban
@@ -1219,16 +1252,18 @@ CREATE TABLE IF NOT EXISTS `phongban` (
   CONSTRAINT `FK83r8l6d4jlq533pfe27yel4np` FOREIGN KEY (`donViSoNoiVu_id`) REFERENCES `donvisonoivu` (`id`),
   CONSTRAINT `FKfobc77hmqd3hx4kgmoc2fnmyn` FOREIGN KEY (`nguoiTao_id`) REFERENCES `nhanvien` (`id`),
   CONSTRAINT `FKn1jfu4n83q1rny3eqlxx7q2j6` FOREIGN KEY (`nguoiSua_id`) REFERENCES `nhanvien` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bxtdtdn.phongban: ~4 rows (approximately)
+-- Dumping data for table bxtdtdn.phongban: ~6 rows (approximately)
 DELETE FROM `phongban`;
 /*!40000 ALTER TABLE `phongban` DISABLE KEYS */;
 INSERT INTO `phongban` (`id`, `daXoa`, `ngaySua`, `ngayTao`, `trangThai`, `moTa`, `ten`, `nguoiSua_id`, `nguoiTao_id`, `donViSoNoiVu_id`) VALUES
-	(1, b'0', '2018-11-05 15:57:34', '2018-11-05 15:57:34', 'ap_dung', 'Tư vấn đầu tư - Phát triển dự án', 'Tư vấn đầu tư - Phát triển dự án', 1, 1, NULL),
-	(2, b'0', '2018-11-05 15:57:40', '2018-11-05 15:57:40', 'ap_dung', 'Văn phòng', 'Văn phòng', 1, 1, NULL),
-	(3, b'0', '2018-11-05 15:57:45', '2018-11-05 15:57:45', 'ap_dung', 'Xúc tiến đầu tư', 'Xúc tiến đầu tư', 1, 1, NULL),
-	(4, b'0', '2018-11-05 15:57:50', '2018-11-05 15:57:50', 'ap_dung', 'Hỗ trợ đầu tư', 'Hỗ trợ đầu tư', 1, 1, NULL);
+	(1, b'0', '2018-12-25 09:55:21', '2018-11-05 15:57:34', 'ap_dung', 'Phòng Phát triển dự án', 'Phòng Phát triển dự án', 1, 1, 1),
+	(2, b'0', '2018-12-25 09:53:47', '2018-11-05 15:57:40', 'ap_dung', 'Văn phòng', 'Văn phòng', 1, 1, 2),
+	(3, b'0', '2018-12-25 09:53:39', '2018-11-05 15:57:45', 'ap_dung', 'Phòng Xúc tiến đầu tư', 'Phòng Xúc tiến đầu tư', 1, 1, 4),
+	(4, b'0', '2018-12-25 09:53:31', '2018-11-05 15:57:50', 'ap_dung', 'Phòng Hỗ trợ đầu tư', 'Phòng Hỗ trợ đầu tư', 1, 1, 5),
+	(5, b'0', '2018-12-25 09:55:40', '2018-12-25 09:55:40', 'ap_dung', 'Phòng Tư vấn đầu tư', 'Phòng Tư vấn đầu tư', 1, 1, 6),
+	(6, b'0', '2018-12-25 09:55:47', '2018-12-25 09:55:47', 'ap_dung', 'Ban Lãnh đạo', 'Ban Lãnh đạo', 1, 1, 3);
 /*!40000 ALTER TABLE `phongban` ENABLE KEYS */;
 
 -- Dumping structure for table bxtdtdn.sessioncount
