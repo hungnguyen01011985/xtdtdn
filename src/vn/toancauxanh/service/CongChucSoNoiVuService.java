@@ -26,7 +26,7 @@ public class CongChucSoNoiVuService extends BasicService<CongChucSoNoiVu> {
 		JPAQuery<CongChucSoNoiVu> q = find(CongChucSoNoiVu.class);
 
 		if (param != null && !param.isEmpty() && !"".equals(param)) {
-			q.where(QCongChucSoNoiVu.congChucSoNoiVu.email.eq(param.trim()));
+			q.where(QCongChucSoNoiVu.congChucSoNoiVu.email.like("%" + param.trim() + "%"));
 		}
 
 		q.orderBy(QCongChucSoNoiVu.congChucSoNoiVu.ngaySua.desc());

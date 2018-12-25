@@ -418,19 +418,21 @@ public class CongChucSoNoiVu extends Model<CongChucSoNoiVu> {
 	public void selectCongChucSoNoiVu(@BindingParam("vm") NhanVien nhanVien,
 			@BindingParam("item") CongChucSoNoiVu congChucSoNoiVu,
 			@BindingParam("wdn") Window wdn) {
-		nhanVien.setHoVaTen(congChucSoNoiVu.getHoTen());
+		nhanVien.setHoVaTen(congChucSoNoiVu.getHoVaTen());
 		nhanVien.setEmail(congChucSoNoiVu.getEmail());
-//		if (congChucSoNoiVu.getPhongId() != null && !"".equals(congChucSoNoiVu.getPhongId())) {
-//			PhongBan phongBan = find(PhongBan.class)
-//					.where(QPhongBan.phongBan.id.eq(Long.valueOf(congChucSoNoiVu.getPhongId().trim().toString()))).fetchFirst();
-//			if (phongBan != null) {
-//				nhanVien.setPhongBan(phongBan);
-//			}
-//		}
+		if (congChucSoNoiVu.getPhongId() != null && !"".equals(congChucSoNoiVu.getPhongId())) {
+			PhongBan phongBan = find(PhongBan.class)
+					.where(QPhongBan.phongBan.donViSoNoiVu.idHeThong.eq(congChucSoNoiVu.getPhongId().toString())).fetchFirst();
+			if (phongBan != null) {
+				nhanVien.setPhongBan(phongBan);
+			}
+		}
+		nhanVien.setCongChucSoNoiVu(congChucSoNoiVu);
 		
 		BindUtils.postNotifyChange(null, null, nhanVien, "hoVaTen");
 		BindUtils.postNotifyChange(null, null, nhanVien, "email");
-//		BindUtils.postNotifyChange(null, null, nhanVien, "phongBan");
+		BindUtils.postNotifyChange(null, null, nhanVien, "phongBan");
+		BindUtils.postNotifyChange(null, null, nhanVien, "congChucSoNoiVu");
 		wdn.detach();
 	}
 
