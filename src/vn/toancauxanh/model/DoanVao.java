@@ -37,6 +37,7 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import vn.toancauxanh.gg.model.enums.LoaiCongViec;
@@ -44,6 +45,7 @@ import vn.toancauxanh.gg.model.enums.LoaiThongBao;
 import vn.toancauxanh.gg.model.enums.ThongBaoEnum;
 import vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec;
 import vn.toancauxanh.gg.model.enums.TrangThaiTiepDoanEnum;
+import vn.toancauxanh.model.util.CustomDateSerializer;
 import vn.toancauxanh.rest.model.DoanVaoModel;
 import vn.toancauxanh.service.BaoCaoThongKeDoanVao;
 import vn.toancauxanh.service.CongViecKeHoachService;
@@ -62,6 +64,7 @@ public class DoanVao extends Model<DoanVao> {
 	@Lob
 	private String link;
 	private int soNguoi;
+	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date thoiGianDenLamViec = new Date();
 	private NhanVien nguoiPhuTrach;
 	private boolean checkTaiLieu;

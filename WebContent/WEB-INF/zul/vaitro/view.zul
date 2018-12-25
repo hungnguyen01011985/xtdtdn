@@ -7,6 +7,7 @@
 		validationMessages="@id('vmsgs')">
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
+			vm = arg.get("vm");
 			strSave = arg.get("save");
 			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
 		]]></zscript> 
