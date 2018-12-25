@@ -4,484 +4,6 @@
     <bpmn:participant id="process_quanLyDuAn" name="Quản lý dự án" processRef="quanLyDuAn" />
   </bpmn:collaboration>
   <bpmn:process id="quanLyDuAn" name="Quản lý dự án" isExecutable="true" camunda:versionTag="v1.0.0">
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1tp0qkv">
-      <bpmn:incoming>SequenceFlow_0bsyk35</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0nueqcx</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_19shu5s</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_0exy6dk" name="Lưu dữ liệu kết thúc dự án" camunda:expression="${entry.processService.luuDuLieuKetThucDuAn(execution)}">
-      <bpmn:incoming>SequenceFlow_19shu5s</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ugxu8w</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:endEvent id="EndEvent_0kiivlw" name="Kết thúc dự án">
-      <bpmn:incoming>SequenceFlow_0ugxu8w</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0s6izfv" name="Kiểm tra thời gian thông báo">
-      <bpmn:incoming>SequenceFlow_0fcbzv8</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0e8k95t</bpmn:outgoing>
-      <bpmn:timerEventDefinition>
-        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanBa}</bpmn:timeDate>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0saec3c" name="Kiểm tra thời gian thông báo">
-      <bpmn:incoming>SequenceFlow_12igmge</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_17yzmva</bpmn:outgoing>
-      <bpmn:timerEventDefinition>
-        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanMot}</bpmn:timeDate>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="ServiceTask_16inqqe" name="&#10;&#10;Validate dữ liệu giai đoạn một và tiếp tục giai đoạn hai&#10;" camunda:expression="${entry.processService.validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(execution)}">
-      <bpmn:incoming>seqFlow_validateGD1TiepTuc</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0w4yiqy</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_0g7288y" name="Thông báo dữ liệu không hợp lệ" camunda:expression="${entry.processService.thongBaoDuLieuDuAnKhongHopLe(execution)}">
-      <bpmn:incoming>SequenceFlow_03m0eqh</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1jivqr9</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="UserTask_1rmnevk" name="Thêm mới dự án">
-      <bpmn:incoming>SequenceFlow_14ruv6p</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1jivqr9</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_01gd2kn</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:startEvent id="StartEvent_06ohm2d" name="Bắt đầu dự án&#10;">
-      <bpmn:outgoing>SequenceFlow_14ruv6p</bpmn:outgoing>
-    </bpmn:startEvent>
-    <bpmn:serviceTask id="ServiceTask_18jl8qd" name="Validate dữ liệu thông tin dự án" camunda:expression="${entry.processService.validateDuLieuThongTinDuAn(execution)}">
-      <bpmn:incoming>SequenceFlow_01gd2kn</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0fpxong</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_17hppw6">
-      <bpmn:incoming>SequenceFlow_0fpxong</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0koqi84</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_03m0eqh</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1jsojcu" name="&#10;Lưu dữ liệu dự án và bắt đầu xúc tiến" camunda:expression="${entry.processService.luuDuLieuDuAnVaBatDauXucTien(execution)}">
-      <bpmn:incoming>SequenceFlow_0koqi84</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1g1fhki</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1a7lpko">
-      <bpmn:incoming>SequenceFlow_0pgo8px</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0w66kw4</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0hgvi6m</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="task_GiaoViec" name="Popup giao việc" camunda:candidateGroups="lanhdao">
-      <bpmn:incoming>SequenceFlow_1hypp42</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ei6h72</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Task_1vopk7j" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
-      <bpmn:incoming>SequenceFlow_0ei6h72</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0pgo8px</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_1blsitl" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
-      <bpmn:incoming>SequenceFlow_0fqkm4i</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0w66kw4</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="task_NguoiPhuTrach" name="Popup thay đổi người phụ trách" camunda:candidateGroups="lanhdao">
-      <bpmn:incoming>SequenceFlow_0h4634s</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0fqkm4i</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Task_08tbrax" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
-      <bpmn:incoming>SequenceFlow_0ireszk</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_173cvg3</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1rxz3le">
-      <bpmn:incoming>SequenceFlow_173cvg3</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0c8ifup</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0diubb7</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_0cw4fk5" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
-      <bpmn:incoming>SequenceFlow_0jdwx34</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0c8ifup</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="UserTask_0e1zhv0" name="Popup thay đổi người phụ trách">
-      <bpmn:incoming>SequenceFlow_11jvphj</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0jdwx34</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="Task_07rhvsi" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
-      <bpmn:incoming>SequenceFlow_0tcjvxz</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1e0m03m</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0g1ya66">
-      <bpmn:incoming>SequenceFlow_1e0m03m</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1hllwjn</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0biy4nt</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_10cbp0x" name="Lưu dữ liệu giai đoạn ba và tiếp tục giai đoạn bốn" camunda:expression="${entry.processService.luuDuLieuGIaiDoanBaVaTiepTucGiaiDoanBon(execution)}">
-      <bpmn:incoming>SequenceFlow_1xc7fta</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0nlamzd</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_19sy91r">
-      <bpmn:incoming>SequenceFlow_105y5df</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1xc7fta</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0dyoqal</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1dxpjbu" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
-      <bpmn:incoming>SequenceFlow_0lknika</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1hllwjn</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="UserTask_0m3a5kv" name="Popup thay đổi người phụ trách">
-      <bpmn:incoming>SequenceFlow_1jvau6h</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0lknika</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="ServiceTask_1yrsfyc" name="Validate dữ liệu giai đoạn ba và kết thúc dự án" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBaVaKetThucDuAn(execution)}">
-      <bpmn:incoming>SequenceFlow_1p9x8wq</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1lpt2rj</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_0xu5ozm" name="Validate dữ liệu giai đoạn ba và tiếp tục giai đoạn bốn" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon(execution)}">
-      <bpmn:incoming>SequenceFlow_15r7j7k</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_105y5df</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="UserTask_05znw4l" name="Giai đoạn ba">
-      <bpmn:incoming>SequenceFlow_11kyk83</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0g77tuz</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_11m7n9b">
-      <bpmn:incoming>SequenceFlow_0ptub5a</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ulnnjy</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0jiqyka</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1barm6y">
-      <bpmn:incoming>SequenceFlow_0ulnnjy</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0dyoqal</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0vqylvu</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0xkrpko</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0dntw9s">
-      <bpmn:incoming>SequenceFlow_0sxm0tg</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ffrmqg</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1pun5yj</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0j6scak">
-      <bpmn:incoming>SequenceFlow_1pun5yj</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1lvwgek</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1nomya8</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1cqbili" name="Thông báo trễ hạn giai đoạn ba" camunda:expression="${entry.processService.thongBaoTreHanGiaiDoanBa(execution)}">
-      <bpmn:incoming>SequenceFlow_0ffrmqg</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1lvwgek</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_1e60z0l" name="Lưu dữ liệu giai đoạn ba" camunda:expression="${entry.processService.luuDuLieuGiaiDoanBa(execution)}">
-      <bpmn:incoming>SequenceFlow_0jiqyka</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0luke82</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:parallelGateway id="ParallelGateway_14q7yfd">
-      <bpmn:incoming>SequenceFlow_0luke82</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0fcbzv8</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0vqylvu</bpmn:outgoing>
-    </bpmn:parallelGateway>
-    <bpmn:serviceTask id="ServiceTask_1rolhrt" name="Kiểm tra đang ở giai đoạn ba" camunda:expression="${entry.processService.kiemTraDangOGiaiDoanBa(execution)}">
-      <bpmn:incoming>SequenceFlow_0e8k95t</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0sxm0tg</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_04e9xqr" name="Validate dữ liệu giai đoạn ba" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBa(execution)}">
-      <bpmn:incoming>SequenceFlow_1wgsv1n</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ptub5a</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:endEvent id="EndEvent_1dm382b">
-      <bpmn:incoming>SequenceFlow_1nomya8</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:serviceTask id="ServiceTask_1mhrn6z" name="Validate dữ liệu giai đoạn ba và tiếp tục giai đoạn năm" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam(execution)}">
-      <bpmn:incoming>SequenceFlow_1utc2rn</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1vec4wn</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0t089n7">
-      <bpmn:incoming>SequenceFlow_09xuq9k</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_10e3h3j</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_11jvphj</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1utc2rn</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1m6rdn8</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="UserTask_0jquzxa" name="Giai đoạn bốn">
-      <bpmn:incoming>SequenceFlow_01ju1de</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_09xuq9k</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="ServiceTask_1touapt" name="Validate dữ liệu giai đoạn bốn" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBon(execution)}">
-      <bpmn:incoming>SequenceFlow_1m6rdn8</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0i70sdu</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_14c5aty">
-      <bpmn:incoming>SequenceFlow_0i70sdu</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0nnz48n</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1bar2i9</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0zr9s2a">
-      <bpmn:incoming>SequenceFlow_1bar2i9</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0qo9lv1</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1hqcl2t</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_100f1hv</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1e1phts" name="Lưu dữ liệu giai đoạn bốn" camunda:expression="${entry.processService.luuDuLieuGiaiDoanBon(execution)}">
-      <bpmn:incoming>SequenceFlow_0nnz48n</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1hqcl2t</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_16xez2l">
-      <bpmn:incoming>SequenceFlow_1vec4wn</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0qo9lv1</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1b9y1he</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0vzrunh">
-      <bpmn:incoming>SequenceFlow_0diubb7</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_100f1hv</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0nlamzd</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_01ju1de</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Task_1qxvk1s" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
-      <bpmn:incoming>SequenceFlow_04jadoz</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0uey89i</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="Task_077kf83" name="Popup giao việc">
-      <bpmn:incoming>SequenceFlow_11zkpc0</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_04jadoz</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1eiyajj">
-      <bpmn:incoming>SequenceFlow_0uey89i</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0917xia</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0dpatgt</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="UserTask_16n1daf" name="Popup thay đổi người phụ trách">
-      <bpmn:incoming>SequenceFlow_01eh24n</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0u7e4pr</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1gkiay3">
-      <bpmn:incoming>SequenceFlow_1pxo55w</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0cfmnw7</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1oszu9z</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="EndEvent_0r0huug">
-      <bpmn:incoming>SequenceFlow_0e2jp9i</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_07h63l5">
-      <bpmn:incoming>SequenceFlow_1eii5d0</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_08wble0</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0e2jp9i</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1v6jnxr">
-      <bpmn:incoming>SequenceFlow_16s4pwe</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1eii5d0</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_12fxcu6</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1abwru9" name="Thông báo trễ hạn giai đoạn một" camunda:expression="${entry.processService.thongBaoTreHanGiaiDoanMot(execution)}">
-      <bpmn:incoming>SequenceFlow_12fxcu6</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_08wble0</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_1qkld0c" name="Kiểm tra đang ở giai đoạn một" camunda:expression="${entry.processService.kiemTraDangOGiaiDoanMot(execution)}">
-      <bpmn:incoming>SequenceFlow_17yzmva</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_16s4pwe</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0okseg3">
-      <bpmn:incoming>SequenceFlow_0mfzokw</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_02mf8dl</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_119i4gy</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1denx3d" name="Validate dữ liệu giai đoạn hai và tiếp tục giai đoạn ba" camunda:expression="${entry.processService.validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(execution)}">
-      <bpmn:incoming>SequenceFlow_1nj5j18</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1pxo55w</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_07oikjd" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
-      <bpmn:incoming>SequenceFlow_0u7e4pr</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0917xia</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_0t5371j" name="Lưu dữ liệu giai đoạn một và tiếp tục giai đoạn hai" camunda:expression="${entry.processService.luuDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(execution)}">
-      <bpmn:incoming>SequenceFlow_1201z6s</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_113xkn1</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1ae7j0r">
-      <bpmn:incoming>SequenceFlow_0dpatgt</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_113xkn1</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0d7k5dm</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1yblehk</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0nofr9o</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="UserTask_0goocz4" name="Giai đoạn hai" camunda:candidateGroups="chuyenvien">
-      <bpmn:incoming>SequenceFlow_0nofr9o</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1jvseme</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1oztk68">
-      <bpmn:incoming>SequenceFlow_1jvseme</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_11zkpc0</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_01eh24n</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1nj5j18</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1iera2z</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1xj2ebh</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_06m6egx">
-      <bpmn:incoming>SequenceFlow_1gq1j00</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1hypp42</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0h4634s</bpmn:outgoing>
-      <bpmn:outgoing>seqFlow_validateGD1TiepTuc</bpmn:outgoing>
-      <bpmn:outgoing>seqFlow_validateGD1</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_04l71ir">
-      <bpmn:incoming>SequenceFlow_0w4yiqy</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1h39uel</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1201z6s</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1e8ai5q" name="Validate dữ liệu giai đoạn hai" camunda:expression="${entry.processService.validateDuLieuGiaiDoanHai(execution)}">
-      <bpmn:incoming>SequenceFlow_1iera2z</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1vq1k7a</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0krkb4l">
-      <bpmn:incoming>SequenceFlow_1vq1k7a</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1oeh5b4</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_17wmo45</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0fcrskk">
-      <bpmn:incoming>SequenceFlow_0cfmnw7</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1oeh5b4</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1p4pnvm</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0d7k5dm</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="UserTask_0nyhs9j" name="Giai đoạn một" camunda:candidateGroups="chuyenvien">
-      <bpmn:incoming>SequenceFlow_0jbxxrs</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1gq1j00</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0kitq1d">
-      <bpmn:incoming>SequenceFlow_0hgvi6m</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1dtp8zr</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1g1fhki</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_02v1mw7</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0jbxxrs</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_0rj6eej" name="Lưu dữ liệu giai đoạn hai" camunda:expression="${entry.processService.luuDuLieuGiaiDoanHai(execution)}">
-      <bpmn:incoming>SequenceFlow_17wmo45</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1p4pnvm</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_0kedp0o" name="Lưu dữ liệu giai đoạn hai tiếp tục giai đoạn ba" camunda:expression="${entry.processService.luuDuLieuGIaiDoanHaiVaTiepTucGiaiDoanBa(execution)}">
-      <bpmn:incoming>SequenceFlow_1oszu9z</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1dtdj49</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_18r5hjp">
-      <bpmn:incoming>SequenceFlow_0biy4nt</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0xkrpko</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1dtdj49</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_06rr3yp</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0dvsccu</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_11kyk83</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1mfraoe" name="Validate dữ liệu giai đoạn một" camunda:expression="${entry.processService.validateDuLieuGiaiDoanMot(execution)}">
-      <bpmn:incoming>seqFlow_validateGD1</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0mfzokw</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_0sblo5j" name="Lưu dữ liệu giai đoạn một" camunda:expression="${entry.processService.luuDuLieuGiaiDoanMot(execution)}">
-      <bpmn:incoming>SequenceFlow_119i4gy</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1xvbkx4</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1lblyc2">
-      <bpmn:incoming>SequenceFlow_02mf8dl</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1qvo6k9</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1h39uel</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1dtp8zr</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:parallelGateway id="ParallelGateway_16vebs2">
-      <bpmn:incoming>SequenceFlow_1xvbkx4</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1qvo6k9</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_12igmge</bpmn:outgoing>
-    </bpmn:parallelGateway>
-    <bpmn:userTask id="Task_1taohjy" name="Popup giao việc">
-      <bpmn:incoming>SequenceFlow_1ejtpt3</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0tcjvxz</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:userTask id="Task_11hr4sg" name="Popup giao việc">
-      <bpmn:incoming>SequenceFlow_10e3h3j</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ireszk</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0pomr1e">
-      <bpmn:incoming>SequenceFlow_1lpt2rj</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0vo38qz</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0bsyk35</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="UserTask_1brwlsz" name="Popup giao việc">
-      <bpmn:incoming>SequenceFlow_1ttrkfe</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1c625zu</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1t8mxki">
-      <bpmn:incoming>SequenceFlow_0o5mg7h</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1tji1dk</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0tg4345</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1dlsqrf</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0gky3h3">
-      <bpmn:incoming>SequenceFlow_1qw7q1h</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0b3d8w1</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0nueqcx</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_0i0cigw" name="Lưu dữ liệu giai đoạn năm" camunda:expression="${entry.processService.luuDuLieuGiaiDoanNam(execution)}">
-      <bpmn:incoming>SequenceFlow_1b4pxsz</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1tebcyy</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0ajun51">
-      <bpmn:incoming>SequenceFlow_0b3d8w1</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1tebcyy</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0jai6gr</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1tji1dk</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1umxvly">
-      <bpmn:incoming>SequenceFlow_1fvg0wz</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1b4pxsz</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0jai6gr</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_0yw9wbq" name="Validate dữ liệu giai đoạn năm" camunda:expression="${entry.processService.validateDuLieuGiaiDoanNam(execution)}">
-      <bpmn:incoming>SequenceFlow_18fbv0l</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1fvg0wz</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="UserTask_03pqo05" name="Giai đoạn năm">
-      <bpmn:incoming>SequenceFlow_1dlsqrf</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0gcvp1v</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0042x1e">
-      <bpmn:incoming>SequenceFlow_0gcvp1v</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1ttrkfe</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_18fbv0l</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0dsdfpn</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1ac083i</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_0gtx97b" name="&#10;Validate dữ liệu giai đoạn năm và kết thúc dự án" camunda:expression="${entry.processService.validateDuLieuGiaiDoanNamVaKetThucDuAn(execution)}">
-      <bpmn:incoming>SequenceFlow_0dsdfpn</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1qw7q1h</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:userTask id="UserTask_0yiwuju" name="Popup thay đổi người phụ trách">
-      <bpmn:incoming>SequenceFlow_1ac083i</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1azbyws</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:serviceTask id="ServiceTask_1xxfqks" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
-      <bpmn:incoming>SequenceFlow_1azbyws</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0fju5iw</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0obbkoa">
-      <bpmn:incoming>SequenceFlow_0fju5iw</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0n78t84</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0tg4345</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="ServiceTask_1xxnh0g" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
-      <bpmn:incoming>SequenceFlow_1c625zu</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0n78t84</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_1xqnaqs" name="Lưu dữ liệu giai đoạn bốn và tiếp tục giai đoạn năm" camunda:expression="${entry.processService.luuDuLieuGIaiDoanBonVaTiepTucGiaiDoanNam(execution)}">
-      <bpmn:incoming>SequenceFlow_1b9y1he</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0o5mg7h</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0guxmoj">
-      <bpmn:incoming>SequenceFlow_0vo38qz</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0dvsccu</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1rcxp8h">
-      <bpmn:incoming>SequenceFlow_0g77tuz</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1ejtpt3</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_15r7j7k</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1jvau6h</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1wgsv1n</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1p9x8wq</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0uj6lve</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Task_1af08ka" name="Validate dữ liệu quay lại giai đoạn một" camunda:expression="${entry.processService.validateDuLieuQuayLaiGiaiDoanMot(execution)}">
-      <bpmn:incoming>SequenceFlow_0uj6lve</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0u1mdax</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_05u28v9">
-      <bpmn:incoming>SequenceFlow_0u1mdax</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0q1rfi2</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_06rr3yp</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_0nueqcx" name="Dữ liệu để kết thúc dự án hợp lệ" sourceRef="ExclusiveGateway_0gky3h3" targetRef="ExclusiveGateway_1tp0qkv">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidateDuLieuDeKetThucDuAnHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -491,15 +13,15 @@
     <bpmn:sequenceFlow id="SequenceFlow_0n78t84" sourceRef="ServiceTask_1xxnh0g" targetRef="ExclusiveGateway_0obbkoa" />
     <bpmn:sequenceFlow id="SequenceFlow_0fju5iw" sourceRef="ServiceTask_1xxfqks" targetRef="ExclusiveGateway_0obbkoa" />
     <bpmn:sequenceFlow id="SequenceFlow_1azbyws" sourceRef="UserTask_0yiwuju" targetRef="ServiceTask_1xxfqks" />
-    <bpmn:sequenceFlow id="SequenceFlow_1ac083i" sourceRef="ExclusiveGateway_0042x1e" targetRef="UserTask_0yiwuju">
+    <bpmn:sequenceFlow id="seqFlow_capNhatGiaiDoanNam_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_" name="Cập nhật người phụ trách" sourceRef="ExclusiveGateway_0042x1e" targetRef="UserTask_0yiwuju">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_nguoiPhuTrach'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0dsdfpn" name="Kết thúc dự án" sourceRef="ExclusiveGateway_0042x1e" targetRef="ServiceTask_0gtx97b">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_ketThucDuAn'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="seqFlow_ketThucGiaiDoanNam_sqf__sort_4_sort__btn_goKetThuc_btn__icon_ket-thuc-du-an.svg_icon__class_btn-green-style_class_" name="Kết thúc dự án" sourceRef="ExclusiveGateway_0042x1e" targetRef="ServiceTask_0gtx97b">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'seqFlow_ketThucGiaiDoanNam'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0gcvp1v" sourceRef="UserTask_03pqo05" targetRef="ExclusiveGateway_0042x1e" />
-    <bpmn:sequenceFlow id="SequenceFlow_18fbv0l" name="Lưu dữ liệu giai đoạn năm" sourceRef="ExclusiveGateway_0042x1e" targetRef="ServiceTask_0yw9wbq">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanNam'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="SequenceFlow_0gcvp1v" sourceRef="UserTask_GiaiDoanNam" targetRef="ExclusiveGateway_0042x1e" />
+    <bpmn:sequenceFlow id="seqFlow_luuGiaiDoanNam_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_" name="Lưu" sourceRef="ExclusiveGateway_0042x1e" targetRef="ServiceTask_0yw9wbq">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'seqFlow_luuGiaiDoanNam'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1fvg0wz" sourceRef="ServiceTask_0yw9wbq" targetRef="ExclusiveGateway_1umxvly" />
     <bpmn:sequenceFlow id="SequenceFlow_0jai6gr" name="Dữ liệu giai đoạn năm không hợp lệ" sourceRef="ExclusiveGateway_1umxvly" targetRef="ExclusiveGateway_0ajun51">
@@ -513,12 +35,12 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuDeKetThucDuAnHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1qw7q1h" sourceRef="ServiceTask_0gtx97b" targetRef="ExclusiveGateway_0gky3h3" />
-    <bpmn:sequenceFlow id="SequenceFlow_1dlsqrf" sourceRef="ExclusiveGateway_1t8mxki" targetRef="UserTask_03pqo05" />
+    <bpmn:sequenceFlow id="SequenceFlow_1dlsqrf" sourceRef="ExclusiveGateway_1t8mxki" targetRef="UserTask_GiaiDoanNam" />
     <bpmn:sequenceFlow id="SequenceFlow_0tg4345" sourceRef="ExclusiveGateway_0obbkoa" targetRef="ExclusiveGateway_1t8mxki" />
     <bpmn:sequenceFlow id="SequenceFlow_1tji1dk" sourceRef="ExclusiveGateway_0ajun51" targetRef="ExclusiveGateway_1t8mxki" />
     <bpmn:sequenceFlow id="SequenceFlow_0o5mg7h" sourceRef="ServiceTask_1xqnaqs" targetRef="ExclusiveGateway_1t8mxki" />
     <bpmn:sequenceFlow id="SequenceFlow_1c625zu" sourceRef="UserTask_1brwlsz" targetRef="ServiceTask_1xxnh0g" />
-    <bpmn:sequenceFlow id="SequenceFlow_1ttrkfe" name="Giao việc" sourceRef="ExclusiveGateway_0042x1e" targetRef="UserTask_1brwlsz">
+    <bpmn:sequenceFlow id="seqFlow_giaoViecGiaiDoanNam_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_" name="Danh sách giao việc" sourceRef="ExclusiveGateway_0042x1e" targetRef="UserTask_1brwlsz">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_giaoViec'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0bsyk35" name="Dữ liệu giai đoạn ba kết thúc dự án hợp lệ" sourceRef="ExclusiveGateway_0pomr1e" targetRef="ExclusiveGateway_1tp0qkv">
@@ -551,18 +73,18 @@
     <bpmn:sequenceFlow id="SequenceFlow_1hllwjn" sourceRef="ServiceTask_1dxpjbu" targetRef="ExclusiveGateway_0g1ya66" />
     <bpmn:sequenceFlow id="SequenceFlow_0lknika" sourceRef="UserTask_0m3a5kv" targetRef="ServiceTask_1dxpjbu" />
     <bpmn:sequenceFlow id="SequenceFlow_105y5df" sourceRef="ServiceTask_0xu5ozm" targetRef="ExclusiveGateway_19sy91r" />
-    <bpmn:sequenceFlow id="SequenceFlow_1ejtpt3" name="Giao việc" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="Task_1taohjy">
+    <bpmn:sequenceFlow id="seqFlow_giaoViecGiaiDoanBa_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_" name="Danh sách giao việc" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="Task_1taohjy">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_giaoViec'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_15r7j7k" name="Tiếp tục giai đoạn bốn" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="ServiceTask_0xu5ozm">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="seqFlow_tiepTucGiaiDoanBa_sqf__sort_5_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_" name="Tiếp tục" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="ServiceTask_0xu5ozm">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'seqFlow_tiepTucGiaiDoanBa'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1jvau6h" name="Cập nhật người phụ trách" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="UserTask_0m3a5kv">
+    <bpmn:sequenceFlow id="seqFlow_capNhatGiaiDoanBa_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_" name="Cập nhật người phụ trách" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="UserTask_0m3a5kv">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_nguoiPhuTrach'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0g77tuz" sourceRef="UserTask_05znw4l" targetRef="ExclusiveGateway_1rcxp8h" />
-    <bpmn:sequenceFlow id="SequenceFlow_1wgsv1n" name="Lưu dữ liệu giai đoạn ba" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="ServiceTask_04e9xqr">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanBa'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="SequenceFlow_0g77tuz" sourceRef="UserTask_GiaiDoanBa" targetRef="ExclusiveGateway_1rcxp8h" />
+    <bpmn:sequenceFlow id="seqFlow_luuGiaiDoanBa_sqf__sort_4_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_" name="Lưu" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="ServiceTask_04e9xqr">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'seqFlow_luuGiaiDoanBa'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0ulnnjy" name="Dữ liệu giai đoạn ba không hợp lệ" sourceRef="ExclusiveGateway_11m7n9b" targetRef="ExclusiveGateway_1barm6y">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuGiaiDoanBaHopLe}</bpmn:conditionExpression>
@@ -587,18 +109,18 @@
     <bpmn:sequenceFlow id="SequenceFlow_0ptub5a" sourceRef="ServiceTask_04e9xqr" targetRef="ExclusiveGateway_11m7n9b" />
     <bpmn:sequenceFlow id="SequenceFlow_0e8k95t" sourceRef="IntermediateCatchEvent_0s6izfv" targetRef="ServiceTask_1rolhrt" />
     <bpmn:sequenceFlow id="SequenceFlow_1nomya8" sourceRef="ExclusiveGateway_0j6scak" targetRef="EndEvent_1dm382b" />
-    <bpmn:sequenceFlow id="SequenceFlow_10e3h3j" name="Giao việc" sourceRef="ExclusiveGateway_0t089n7" targetRef="Task_11hr4sg">
+    <bpmn:sequenceFlow id="seqFlow_giaoViecGiaiDoanBon_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_" name="Danh sách giao việc" sourceRef="ExclusiveGateway_0t089n7" targetRef="Task_11hr4sg">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_giaoViec'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_11jvphj" sourceRef="ExclusiveGateway_0t089n7" targetRef="UserTask_0e1zhv0">
+    <bpmn:sequenceFlow id="seqFlow_capNhatGiaiDoanBon_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_" name="Cập nhật người phụ trách" sourceRef="ExclusiveGateway_0t089n7" targetRef="UserTask_0e1zhv0">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_nguoiPhuTrach'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1utc2rn" name="Tiếp tục giai đoạn năm" sourceRef="ExclusiveGateway_0t089n7" targetRef="ServiceTask_1mhrn6z">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="seqFlow_tiepTucGiaiDoanBon_sqf__sort_4_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_" name="Tiếp tục" sourceRef="ExclusiveGateway_0t089n7" targetRef="ServiceTask_1mhrn6z">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'seqFlow_tiepTucGiaiDoanBon'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_09xuq9k" sourceRef="UserTask_0jquzxa" targetRef="ExclusiveGateway_0t089n7" />
-    <bpmn:sequenceFlow id="SequenceFlow_1m6rdn8" name="Lưu dữ liệu giai đoạn bốn" sourceRef="ExclusiveGateway_0t089n7" targetRef="ServiceTask_1touapt">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanBon'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="SequenceFlow_09xuq9k" sourceRef="UserTask_GiaiDoanBon" targetRef="ExclusiveGateway_0t089n7" />
+    <bpmn:sequenceFlow id="seqFlow_luuGiaiDoanBon_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_" name="Lưu" sourceRef="ExclusiveGateway_0t089n7" targetRef="ServiceTask_1touapt">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'seqFlow_luuGiaiDoanBon'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0i70sdu" sourceRef="ServiceTask_1touapt" targetRef="ExclusiveGateway_14c5aty" />
     <bpmn:sequenceFlow id="SequenceFlow_0nnz48n" name="Dữ liệu giai đoạn bốn hợp lệ" sourceRef="ExclusiveGateway_14c5aty" targetRef="ServiceTask_1e1phts">
@@ -613,7 +135,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0qo9lv1" name="Dữ liệu để tiếp tục giai đoạn năm không hợp lệ" sourceRef="ExclusiveGateway_16xez2l" targetRef="ExclusiveGateway_0zr9s2a">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuTiepTucGiaiDoanNam}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_01ju1de" sourceRef="ExclusiveGateway_0vzrunh" targetRef="UserTask_0jquzxa" />
+    <bpmn:sequenceFlow id="SequenceFlow_01ju1de" sourceRef="ExclusiveGateway_0vzrunh" targetRef="UserTask_GiaiDoanBon" />
     <bpmn:sequenceFlow id="SequenceFlow_0diubb7" sourceRef="ExclusiveGateway_1rxz3le" targetRef="ExclusiveGateway_0vzrunh" />
     <bpmn:sequenceFlow id="SequenceFlow_100f1hv" sourceRef="ExclusiveGateway_0zr9s2a" targetRef="ExclusiveGateway_0vzrunh" />
     <bpmn:sequenceFlow id="SequenceFlow_0nlamzd" sourceRef="ServiceTask_10cbp0x" targetRef="ExclusiveGateway_0vzrunh" />
@@ -643,31 +165,31 @@
     <bpmn:sequenceFlow id="SequenceFlow_0917xia" sourceRef="ServiceTask_07oikjd" targetRef="ExclusiveGateway_1eiyajj" />
     <bpmn:sequenceFlow id="SequenceFlow_0dpatgt" sourceRef="ExclusiveGateway_1eiyajj" targetRef="ExclusiveGateway_1ae7j0r" />
     <bpmn:sequenceFlow id="SequenceFlow_113xkn1" sourceRef="ServiceTask_0t5371j" targetRef="ExclusiveGateway_1ae7j0r" />
-    <bpmn:sequenceFlow id="SequenceFlow_0nofr9o" sourceRef="ExclusiveGateway_1ae7j0r" targetRef="UserTask_0goocz4" />
-    <bpmn:sequenceFlow id="SequenceFlow_11zkpc0" name="Giao việc" sourceRef="ExclusiveGateway_1oztk68" targetRef="Task_077kf83">
+    <bpmn:sequenceFlow id="SequenceFlow_0nofr9o" sourceRef="ExclusiveGateway_1ae7j0r" targetRef="UserTask_GiaiDoanHai" />
+    <bpmn:sequenceFlow id="seqFlow_giaoViecGiaiDoanHai_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_" name="Danh sách giao việc" sourceRef="ExclusiveGateway_1oztk68" targetRef="Task_077kf83">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_giaoViec'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1p9x8wq" name="Kết thúc dự án" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="ServiceTask_1yrsfyc">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_ketThucDuAn'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="seqFlow_ketThucGiaiDoanBa_sqf__sort_5_sort__btn_goKetThuc_btn__icon_ket-thuc-du-an.svg_icon__class_btn-green-style_class_" name="Kết thúc dự án" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="ServiceTask_1yrsfyc">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'seqFlow_ketThucGiaiDoanBa'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_01eh24n" name="Cập nhật người phụ trách" sourceRef="ExclusiveGateway_1oztk68" targetRef="UserTask_16n1daf">
+    <bpmn:sequenceFlow id="seqFlow_capNhatGiaiDoanHai_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_" name="Cập nhật người phụ trách" sourceRef="ExclusiveGateway_1oztk68" targetRef="UserTask_16n1daf">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_nguoiPhuTrach'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0uj6lve" name="Quay lại giai đoạn một" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="Task_1af08ka">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_quayLaiGiaiDoanMot'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="seqFlow_quayLaiGiaiDoanBa_sqf__sort_3_sort__btn_goBack_btn__icon_luu.svg_icon__class_btn-blue-style_class_" name="Quay lại giai đoạn một" sourceRef="ExclusiveGateway_1rcxp8h" targetRef="Task_1af08ka">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'seqFlow_quayLaiGiaiDoanBa'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1nj5j18" name="Tiếp tục giai đoạn ba" sourceRef="ExclusiveGateway_1oztk68" targetRef="ServiceTask_1denx3d">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuVaTiepTucGiaiDoanBa'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="seqFlow_tiepTucGiaiDoanHai_sqf__sort_5_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_" name="Tiếp tục" sourceRef="ExclusiveGateway_1oztk68" targetRef="ServiceTask_1denx3d">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'seqFlow_tiepTucGiaiDoanHai'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1jvseme" sourceRef="UserTask_0goocz4" targetRef="ExclusiveGateway_1oztk68" />
-    <bpmn:sequenceFlow id="SequenceFlow_1hypp42" name="Giao việc" sourceRef="ExclusiveGateway_06m6egx" targetRef="task_GiaoViec">
+    <bpmn:sequenceFlow id="SequenceFlow_1jvseme" sourceRef="UserTask_GiaiDoanHai" targetRef="ExclusiveGateway_1oztk68" />
+    <bpmn:sequenceFlow id="seqFlow_giaoViecGiaiDoanMot_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_" name="Danh sách giao việc" sourceRef="ExclusiveGateway_06m6egx" targetRef="task_GiaoViec">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_giaoViec'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0h4634s" name="Cập nhật người phụ trách" sourceRef="ExclusiveGateway_06m6egx" targetRef="task_NguoiPhuTrach">
+    <bpmn:sequenceFlow id="seqFlow_capNhatGiaiDoanMot_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_" name="Cập nhật người phụ trách" sourceRef="ExclusiveGateway_06m6egx" targetRef="task_NguoiPhuTrach">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_nguoiPhuTrach'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="seqFlow_validateGD1TiepTuc" name="Tiếp tục giai đoạn hai" sourceRef="ExclusiveGateway_06m6egx" targetRef="ServiceTask_16inqqe">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_luuVaTiepTucGiaiDoanHai'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="seqFlow_tiepTucGiaiDoanMot_sqf__sort_4_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_" name="Tiếp tục" sourceRef="ExclusiveGateway_06m6egx" targetRef="ServiceTask_16inqqe">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'seqFlow_tiepTucGiaiDoanMot'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0q1rfi2" name="Dữ liệu quay lại giai đoạn một hợp lệ" sourceRef="ExclusiveGateway_05u28v9" targetRef="ExclusiveGateway_018wevf">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidateDuLieuQuayLaiGIaiDoanMotHopLe}</bpmn:conditionExpression>
@@ -679,8 +201,8 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidateDuLieuDeTiepTucGiaiDoanHaiHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0w4yiqy" sourceRef="ServiceTask_16inqqe" targetRef="ExclusiveGateway_04l71ir" />
-    <bpmn:sequenceFlow id="SequenceFlow_1iera2z" name="Lưu dữ liệu giai đoạn hai" sourceRef="ExclusiveGateway_1oztk68" targetRef="ServiceTask_1e8ai5q">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'task_luuDuLieuGiaiDoanHai'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="seqFlow_luuGiaiDoanHai_sqf__sort_4_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_" name="Lưu" sourceRef="ExclusiveGateway_1oztk68" targetRef="ServiceTask_1e8ai5q">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask == 'seqFlow_luuGiaiDoanHai'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1vq1k7a" sourceRef="ServiceTask_1e8ai5q" targetRef="ExclusiveGateway_0krkb4l" />
     <bpmn:sequenceFlow id="SequenceFlow_0d7k5dm" sourceRef="ExclusiveGateway_0fcrskk" targetRef="ExclusiveGateway_1ae7j0r" />
@@ -690,8 +212,8 @@
     <bpmn:sequenceFlow id="SequenceFlow_1oeh5b4" name="Dữ liệu giai đoạn hai không hợp lệ" sourceRef="ExclusiveGateway_0krkb4l" targetRef="ExclusiveGateway_0fcrskk">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuGiaiDoanHaiHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1gq1j00" sourceRef="UserTask_0nyhs9j" targetRef="ExclusiveGateway_06m6egx" />
-    <bpmn:sequenceFlow id="SequenceFlow_0jbxxrs" sourceRef="ExclusiveGateway_0kitq1d" targetRef="UserTask_0nyhs9j" />
+    <bpmn:sequenceFlow id="SequenceFlow_1gq1j00" sourceRef="UserTask_GiaiDoanMot" targetRef="ExclusiveGateway_06m6egx" />
+    <bpmn:sequenceFlow id="SequenceFlow_0jbxxrs" sourceRef="ExclusiveGateway_0kitq1d" targetRef="UserTask_GiaiDoanMot" />
     <bpmn:sequenceFlow id="SequenceFlow_0hgvi6m" sourceRef="ExclusiveGateway_1a7lpko" targetRef="ExclusiveGateway_0kitq1d" />
     <bpmn:sequenceFlow id="SequenceFlow_1dtp8zr" sourceRef="ExclusiveGateway_1lblyc2" targetRef="ExclusiveGateway_0kitq1d" />
     <bpmn:sequenceFlow id="SequenceFlow_1g1fhki" sourceRef="ServiceTask_1jsojcu" targetRef="ExclusiveGateway_0kitq1d" />
@@ -703,14 +225,14 @@
     <bpmn:sequenceFlow id="SequenceFlow_1oszu9z" name="Dữ liệu để tiếp tục giai đoạn ba hợp lệ" sourceRef="ExclusiveGateway_1gkiay3" targetRef="ServiceTask_0kedp0o">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidateDuLieuDeTiepTucGiaiDoanBaHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_11kyk83" sourceRef="ExclusiveGateway_18r5hjp" targetRef="UserTask_05znw4l" />
+    <bpmn:sequenceFlow id="SequenceFlow_11kyk83" sourceRef="ExclusiveGateway_18r5hjp" targetRef="UserTask_GiaiDoanBa" />
     <bpmn:sequenceFlow id="SequenceFlow_0biy4nt" sourceRef="ExclusiveGateway_0g1ya66" targetRef="ExclusiveGateway_18r5hjp" />
     <bpmn:sequenceFlow id="SequenceFlow_0xkrpko" sourceRef="ExclusiveGateway_1barm6y" targetRef="ExclusiveGateway_18r5hjp" />
     <bpmn:sequenceFlow id="SequenceFlow_1dtdj49" sourceRef="ServiceTask_0kedp0o" targetRef="ExclusiveGateway_18r5hjp" />
     <bpmn:sequenceFlow id="SequenceFlow_0ei6h72" sourceRef="task_GiaoViec" targetRef="Task_1vopk7j" />
     <bpmn:sequenceFlow id="SequenceFlow_1vec4wn" sourceRef="ServiceTask_1mhrn6z" targetRef="ExclusiveGateway_16xez2l" />
-    <bpmn:sequenceFlow id="seqFlow_validateGD1" name="Lưu dữ liệu giai đoạn một" sourceRef="ExclusiveGateway_06m6egx" targetRef="ServiceTask_1mfraoe">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'task_luuGiaiDoanMot'}</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="seqFlow_luuGiaiDoanMot_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_" name="Lưu" sourceRef="ExclusiveGateway_06m6egx" targetRef="ServiceTask_1mfraoe">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'seqFlow_luuGiaiDoanMot'}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_12igmge" sourceRef="ParallelGateway_16vebs2" targetRef="IntermediateCatchEvent_0saec3c" />
     <bpmn:sequenceFlow id="SequenceFlow_0vo38qz" name="Dữ liệu giai đoạn ba kết thúc dự án không hợp lệ" sourceRef="ExclusiveGateway_0pomr1e" targetRef="ExclusiveGateway_0guxmoj">
@@ -720,33 +242,513 @@
     <bpmn:sequenceFlow id="SequenceFlow_06rr3yp" name="Dữ liệu quay lại giai đoạn một không hợp lệ" sourceRef="ExclusiveGateway_05u28v9" targetRef="ExclusiveGateway_18r5hjp">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuQuayLaiGIaiDoanMotHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="ServiceTask_16k2phd" name="Xử lý dữ liệu quay lại giai đoạn một" camunda:expression="${entry.processService.luuDuLieuQuayLaiGiaiDoanMot(execution)}">
-      <bpmn:incoming>SequenceFlow_0ngs015</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_02v1mw7</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_0ngs015" sourceRef="ExclusiveGateway_018wevf" targetRef="ServiceTask_16k2phd" />
-    <bpmn:sequenceFlow id="SequenceFlow_1xj2ebh" sourceRef="ExclusiveGateway_1oztk68" targetRef="Task_1xwppwa" />
+    <bpmn:sequenceFlow id="seqFlow_quayLaiGiaiDoanHai_sqf__sort_3_sort__btn_goBack_btn__icon_luu.svg_icon__class_btn-blue-style_class_" name="Quay lại giai đoạn một" sourceRef="ExclusiveGateway_1oztk68" targetRef="Task_1xwppwa">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${goTask== 'seqFlow_quayLaiGiaiDoanHai'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0n6szhn" sourceRef="Task_1xwppwa" targetRef="ExclusiveGateway_1wg2ftq" />
     <bpmn:sequenceFlow id="SequenceFlow_1q8i82u" name="Dữ liệu quay lại giai đoạn một hợp lệ" sourceRef="ExclusiveGateway_1wg2ftq" targetRef="ExclusiveGateway_018wevf">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidateDuLieuQuayLaiGIaiDoanMotHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_018wevf">
-      <bpmn:incoming>SequenceFlow_0q1rfi2</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1q8i82u</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ngs015</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_1yblehk" name="Dữ liệu quay lại giai đoạn một không hợp lệ" sourceRef="ExclusiveGateway_1wg2ftq" targetRef="ExclusiveGateway_1ae7j0r">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isValidateDuLieuQuayLaiGIaiDoanMotHopLe}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="Task_1xwppwa" name="Validate dữ liệu quay lại giai đoạn một" camunda:expression="${entry.processService.validateDuLieuQuayLaiGiaiDoanMot(execution)}">
+      <bpmn:incoming>seqFlow_quayLaiGiaiDoanHai_sqf__sort_3_sort__btn_goBack_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0n6szhn</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:exclusiveGateway id="ExclusiveGateway_1wg2ftq">
       <bpmn:incoming>SequenceFlow_0n6szhn</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1q8i82u</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1yblehk</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Task_1xwppwa" name="Validate dữ liệu quay lại giai đoạn một" camunda:expression="${entry.processService.validateDuLieuQuayLaiGiaiDoanMot(execution)}">
-      <bpmn:incoming>SequenceFlow_1xj2ebh</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0n6szhn</bpmn:outgoing>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_018wevf">
+      <bpmn:incoming>SequenceFlow_0q1rfi2</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1q8i82u</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ngs015</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_16k2phd" name="Xử lý dữ liệu quay lại giai đoạn một" camunda:expression="${entry.processService.luuDuLieuQuayLaiGiaiDoanMot(execution)}">
+      <bpmn:incoming>SequenceFlow_0ngs015</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_02v1mw7</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_05u28v9">
+      <bpmn:incoming>SequenceFlow_0u1mdax</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0q1rfi2</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_06rr3yp</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Task_1af08ka" name="Validate dữ liệu quay lại giai đoạn một" camunda:expression="${entry.processService.validateDuLieuQuayLaiGiaiDoanMot(execution)}">
+      <bpmn:incoming>seqFlow_quayLaiGiaiDoanBa_sqf__sort_3_sort__btn_goBack_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0u1mdax</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1rcxp8h">
+      <bpmn:incoming>SequenceFlow_0g77tuz</bpmn:incoming>
+      <bpmn:outgoing>seqFlow_giaoViecGiaiDoanBa_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_tiepTucGiaiDoanBa_sqf__sort_5_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_capNhatGiaiDoanBa_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_luuGiaiDoanBa_sqf__sort_4_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_ketThucGiaiDoanBa_sqf__sort_5_sort__btn_goKetThuc_btn__icon_ket-thuc-du-an.svg_icon__class_btn-green-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_quayLaiGiaiDoanBa_sqf__sort_3_sort__btn_goBack_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0guxmoj">
+      <bpmn:incoming>SequenceFlow_0vo38qz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0dvsccu</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_1xqnaqs" name="Lưu dữ liệu giai đoạn bốn và tiếp tục giai đoạn năm" camunda:expression="${entry.processService.luuDuLieuGIaiDoanBonVaTiepTucGiaiDoanNam(execution)}">
+      <bpmn:incoming>SequenceFlow_1b9y1he</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0o5mg7h</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1xxnh0g" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
+      <bpmn:incoming>SequenceFlow_1c625zu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0n78t84</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0obbkoa">
+      <bpmn:incoming>SequenceFlow_0fju5iw</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0n78t84</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0tg4345</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_1xxfqks" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
+      <bpmn:incoming>SequenceFlow_1azbyws</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0fju5iw</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UserTask_0yiwuju" name="Popup thay đổi người phụ trách">
+      <bpmn:incoming>seqFlow_capNhatGiaiDoanNam_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1azbyws</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_0gtx97b" name="&#10;Validate dữ liệu giai đoạn năm và kết thúc dự án" camunda:expression="${entry.processService.validateDuLieuGiaiDoanNamVaKetThucDuAn(execution)}">
+      <bpmn:incoming>seqFlow_ketThucGiaiDoanNam_sqf__sort_4_sort__btn_goKetThuc_btn__icon_ket-thuc-du-an.svg_icon__class_btn-green-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1qw7q1h</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0042x1e">
+      <bpmn:incoming>SequenceFlow_0gcvp1v</bpmn:incoming>
+      <bpmn:outgoing>seqFlow_giaoViecGiaiDoanNam_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_luuGiaiDoanNam_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_ketThucGiaiDoanNam_sqf__sort_4_sort__btn_goKetThuc_btn__icon_ket-thuc-du-an.svg_icon__class_btn-green-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_capNhatGiaiDoanNam_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="UserTask_GiaiDoanNam" name="Giai đoạn năm">
+      <bpmn:incoming>SequenceFlow_1dlsqrf</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0gcvp1v</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_0yw9wbq" name="Validate dữ liệu giai đoạn năm" camunda:expression="${entry.processService.validateDuLieuGiaiDoanNam(execution)}">
+      <bpmn:incoming>seqFlow_luuGiaiDoanNam_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1fvg0wz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1umxvly">
+      <bpmn:incoming>SequenceFlow_1fvg0wz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1b4pxsz</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0jai6gr</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0ajun51">
+      <bpmn:incoming>SequenceFlow_0b3d8w1</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1tebcyy</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0jai6gr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1tji1dk</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_0i0cigw" name="Lưu dữ liệu giai đoạn năm" camunda:expression="${entry.processService.luuDuLieuGiaiDoanNam(execution)}">
+      <bpmn:incoming>SequenceFlow_1b4pxsz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1tebcyy</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0gky3h3">
+      <bpmn:incoming>SequenceFlow_1qw7q1h</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0b3d8w1</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0nueqcx</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1t8mxki">
+      <bpmn:incoming>SequenceFlow_0o5mg7h</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1tji1dk</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0tg4345</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1dlsqrf</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="UserTask_1brwlsz" name="Popup giao việc">
+      <bpmn:incoming>seqFlow_giaoViecGiaiDoanNam_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1c625zu</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0pomr1e">
+      <bpmn:incoming>SequenceFlow_1lpt2rj</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0vo38qz</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0bsyk35</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_11hr4sg" name="Popup giao việc">
+      <bpmn:incoming>seqFlow_giaoViecGiaiDoanBon_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ireszk</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_1taohjy" name="Popup giao việc">
+      <bpmn:incoming>seqFlow_giaoViecGiaiDoanBa_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0tcjvxz</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:parallelGateway id="ParallelGateway_16vebs2">
+      <bpmn:incoming>SequenceFlow_1xvbkx4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1qvo6k9</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_12igmge</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1lblyc2">
+      <bpmn:incoming>SequenceFlow_02mf8dl</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1qvo6k9</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1h39uel</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1dtp8zr</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_0sblo5j" name="Lưu dữ liệu giai đoạn một" camunda:expression="${entry.processService.luuDuLieuGiaiDoanMot(execution)}">
+      <bpmn:incoming>SequenceFlow_119i4gy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1xvbkx4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1mfraoe" name="Validate dữ liệu giai đoạn một" camunda:expression="${entry.processService.validateDuLieuGiaiDoanMot(execution)}">
+      <bpmn:incoming>seqFlow_luuGiaiDoanMot_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0mfzokw</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_18r5hjp">
+      <bpmn:incoming>SequenceFlow_0biy4nt</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0xkrpko</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1dtdj49</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_06rr3yp</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0dvsccu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_11kyk83</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_0kedp0o" name="Lưu dữ liệu giai đoạn hai tiếp tục giai đoạn ba" camunda:expression="${entry.processService.luuDuLieuGIaiDoanHaiVaTiepTucGiaiDoanBa(execution)}">
+      <bpmn:incoming>SequenceFlow_1oszu9z</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1dtdj49</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_0rj6eej" name="Lưu dữ liệu giai đoạn hai" camunda:expression="${entry.processService.luuDuLieuGiaiDoanHai(execution)}">
+      <bpmn:incoming>SequenceFlow_17wmo45</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1p4pnvm</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0kitq1d">
+      <bpmn:incoming>SequenceFlow_0hgvi6m</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1dtp8zr</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1g1fhki</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_02v1mw7</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0jbxxrs</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="UserTask_GiaiDoanMot" name="Giai đoạn một" camunda:candidateGroups="chuyenvien">
+      <bpmn:incoming>SequenceFlow_0jbxxrs</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1gq1j00</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0fcrskk">
+      <bpmn:incoming>SequenceFlow_0cfmnw7</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1oeh5b4</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1p4pnvm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0d7k5dm</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0krkb4l">
+      <bpmn:incoming>SequenceFlow_1vq1k7a</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1oeh5b4</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_17wmo45</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_1e8ai5q" name="Validate dữ liệu giai đoạn hai" camunda:expression="${entry.processService.validateDuLieuGiaiDoanHai(execution)}">
+      <bpmn:incoming>seqFlow_luuGiaiDoanHai_sqf__sort_4_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1vq1k7a</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_04l71ir">
+      <bpmn:incoming>SequenceFlow_0w4yiqy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1h39uel</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1201z6s</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_06m6egx">
+      <bpmn:incoming>SequenceFlow_1gq1j00</bpmn:incoming>
+      <bpmn:outgoing>seqFlow_giaoViecGiaiDoanMot_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_capNhatGiaiDoanMot_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_tiepTucGiaiDoanMot_sqf__sort_4_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_luuGiaiDoanMot_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1oztk68">
+      <bpmn:incoming>SequenceFlow_1jvseme</bpmn:incoming>
+      <bpmn:outgoing>seqFlow_giaoViecGiaiDoanHai_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_capNhatGiaiDoanHai_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_tiepTucGiaiDoanHai_sqf__sort_5_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_luuGiaiDoanHai_sqf__sort_4_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_quayLaiGiaiDoanHai_sqf__sort_3_sort__btn_goBack_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="UserTask_GiaiDoanHai" name="Giai đoạn hai" camunda:candidateGroups="chuyenvien">
+      <bpmn:incoming>SequenceFlow_0nofr9o</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1jvseme</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1ae7j0r">
+      <bpmn:incoming>SequenceFlow_0dpatgt</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_113xkn1</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0d7k5dm</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1yblehk</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0nofr9o</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_0t5371j" name="Lưu dữ liệu giai đoạn một và tiếp tục giai đoạn hai" camunda:expression="${entry.processService.luuDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(execution)}">
+      <bpmn:incoming>SequenceFlow_1201z6s</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_113xkn1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_07oikjd" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
+      <bpmn:incoming>SequenceFlow_0u7e4pr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0917xia</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1denx3d" name="Validate dữ liệu giai đoạn hai và tiếp tục giai đoạn ba" camunda:expression="${entry.processService.validateDuLieuGiaiDoanHaiVaTiepTucGiaiDoanBa(execution)}">
+      <bpmn:incoming>seqFlow_tiepTucGiaiDoanHai_sqf__sort_5_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1pxo55w</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0okseg3">
+      <bpmn:incoming>SequenceFlow_0mfzokw</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_02mf8dl</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_119i4gy</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_1qkld0c" name="Kiểm tra đang ở giai đoạn một" camunda:expression="${entry.processService.kiemTraDangOGiaiDoanMot(execution)}">
+      <bpmn:incoming>SequenceFlow_17yzmva</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_16s4pwe</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1abwru9" name="Thông báo trễ hạn giai đoạn một" camunda:expression="${entry.processService.thongBaoTreHanGiaiDoanMot(execution)}">
+      <bpmn:incoming>SequenceFlow_12fxcu6</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_08wble0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1v6jnxr">
+      <bpmn:incoming>SequenceFlow_16s4pwe</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1eii5d0</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_12fxcu6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_07h63l5">
+      <bpmn:incoming>SequenceFlow_1eii5d0</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_08wble0</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0e2jp9i</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_0r0huug">
+      <bpmn:incoming>SequenceFlow_0e2jp9i</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1gkiay3">
+      <bpmn:incoming>SequenceFlow_1pxo55w</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0cfmnw7</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1oszu9z</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="UserTask_16n1daf" name="Popup thay đổi người phụ trách">
+      <bpmn:incoming>seqFlow_capNhatGiaiDoanHai_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0u7e4pr</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1eiyajj">
+      <bpmn:incoming>SequenceFlow_0uey89i</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0917xia</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0dpatgt</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_077kf83" name="Popup giao việc">
+      <bpmn:incoming>seqFlow_giaoViecGiaiDoanHai_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_04jadoz</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_1qxvk1s" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
+      <bpmn:incoming>SequenceFlow_04jadoz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0uey89i</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0vzrunh">
+      <bpmn:incoming>SequenceFlow_0diubb7</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_100f1hv</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0nlamzd</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_01ju1de</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_16xez2l">
+      <bpmn:incoming>SequenceFlow_1vec4wn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0qo9lv1</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1b9y1he</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_1e1phts" name="Lưu dữ liệu giai đoạn bốn" camunda:expression="${entry.processService.luuDuLieuGiaiDoanBon(execution)}">
+      <bpmn:incoming>SequenceFlow_0nnz48n</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1hqcl2t</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0zr9s2a">
+      <bpmn:incoming>SequenceFlow_1bar2i9</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0qo9lv1</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1hqcl2t</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_100f1hv</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_14c5aty">
+      <bpmn:incoming>SequenceFlow_0i70sdu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0nnz48n</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1bar2i9</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_1touapt" name="Validate dữ liệu giai đoạn bốn" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBon(execution)}">
+      <bpmn:incoming>seqFlow_luuGiaiDoanBon_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0i70sdu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UserTask_GiaiDoanBon" name="Giai đoạn bốn">
+      <bpmn:incoming>SequenceFlow_01ju1de</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_09xuq9k</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0t089n7">
+      <bpmn:incoming>SequenceFlow_09xuq9k</bpmn:incoming>
+      <bpmn:outgoing>seqFlow_giaoViecGiaiDoanBon_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_capNhatGiaiDoanBon_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_tiepTucGiaiDoanBon_sqf__sort_4_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_</bpmn:outgoing>
+      <bpmn:outgoing>seqFlow_luuGiaiDoanBon_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_1mhrn6z" name="Validate dữ liệu giai đoạn ba và tiếp tục giai đoạn năm" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBonVaTiepTucGiaiDoanNam(execution)}">
+      <bpmn:incoming>seqFlow_tiepTucGiaiDoanBon_sqf__sort_4_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1vec4wn</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_1dm382b">
+      <bpmn:incoming>SequenceFlow_1nomya8</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="ServiceTask_04e9xqr" name="Validate dữ liệu giai đoạn ba" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBa(execution)}">
+      <bpmn:incoming>seqFlow_luuGiaiDoanBa_sqf__sort_4_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ptub5a</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1rolhrt" name="Kiểm tra đang ở giai đoạn ba" camunda:expression="${entry.processService.kiemTraDangOGiaiDoanBa(execution)}">
+      <bpmn:incoming>SequenceFlow_0e8k95t</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0sxm0tg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:parallelGateway id="ParallelGateway_14q7yfd">
+      <bpmn:incoming>SequenceFlow_0luke82</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0fcbzv8</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0vqylvu</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:serviceTask id="ServiceTask_1e60z0l" name="Lưu dữ liệu giai đoạn ba" camunda:expression="${entry.processService.luuDuLieuGiaiDoanBa(execution)}">
+      <bpmn:incoming>SequenceFlow_0jiqyka</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0luke82</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1cqbili" name="Thông báo trễ hạn giai đoạn ba" camunda:expression="${entry.processService.thongBaoTreHanGiaiDoanBa(execution)}">
+      <bpmn:incoming>SequenceFlow_0ffrmqg</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1lvwgek</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0j6scak">
+      <bpmn:incoming>SequenceFlow_1pun5yj</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1lvwgek</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1nomya8</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0dntw9s">
+      <bpmn:incoming>SequenceFlow_0sxm0tg</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ffrmqg</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1pun5yj</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1barm6y">
+      <bpmn:incoming>SequenceFlow_0ulnnjy</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0dyoqal</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0vqylvu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0xkrpko</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_11m7n9b">
+      <bpmn:incoming>SequenceFlow_0ptub5a</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ulnnjy</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0jiqyka</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="UserTask_GiaiDoanBa" name="Giai đoạn ba">
+      <bpmn:incoming>SequenceFlow_11kyk83</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0g77tuz</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_0xu5ozm" name="Validate dữ liệu giai đoạn ba và tiếp tục giai đoạn bốn" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBaVaTiepTucGiaiDoanBon(execution)}">
+      <bpmn:incoming>seqFlow_tiepTucGiaiDoanBa_sqf__sort_5_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_105y5df</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_1yrsfyc" name="Validate dữ liệu giai đoạn ba và kết thúc dự án" camunda:expression="${entry.processService.validateDuLieuGiaiDoanBaVaKetThucDuAn(execution)}">
+      <bpmn:incoming>seqFlow_ketThucGiaiDoanBa_sqf__sort_5_sort__btn_goKetThuc_btn__icon_ket-thuc-du-an.svg_icon__class_btn-green-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1lpt2rj</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UserTask_0m3a5kv" name="Popup thay đổi người phụ trách">
+      <bpmn:incoming>seqFlow_capNhatGiaiDoanBa_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0lknika</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_1dxpjbu" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
+      <bpmn:incoming>SequenceFlow_0lknika</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1hllwjn</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_19sy91r">
+      <bpmn:incoming>SequenceFlow_105y5df</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1xc7fta</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0dyoqal</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_10cbp0x" name="Lưu dữ liệu giai đoạn ba và tiếp tục giai đoạn bốn" camunda:expression="${entry.processService.luuDuLieuGIaiDoanBaVaTiepTucGiaiDoanBon(execution)}">
+      <bpmn:incoming>SequenceFlow_1xc7fta</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0nlamzd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0g1ya66">
+      <bpmn:incoming>SequenceFlow_1e0m03m</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1hllwjn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0biy4nt</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Task_07rhvsi" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
+      <bpmn:incoming>SequenceFlow_0tcjvxz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1e0m03m</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UserTask_0e1zhv0" name="Popup thay đổi người phụ trách">
+      <bpmn:incoming>seqFlow_capNhatGiaiDoanBon_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0jdwx34</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_0cw4fk5" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
+      <bpmn:incoming>SequenceFlow_0jdwx34</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0c8ifup</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1rxz3le">
+      <bpmn:incoming>SequenceFlow_173cvg3</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0c8ifup</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0diubb7</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Task_08tbrax" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
+      <bpmn:incoming>SequenceFlow_0ireszk</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_173cvg3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="task_NguoiPhuTrach" name="Popup thay đổi người phụ trách" camunda:candidateGroups="lanhdao">
+      <bpmn:incoming>seqFlow_capNhatGiaiDoanMot_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0fqkm4i</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_1blsitl" name="Cập nhật người phụ trách" camunda:expression="${entry.processService.capNhatNguoiPhuTrach(execution)}">
+      <bpmn:incoming>SequenceFlow_0fqkm4i</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0w66kw4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_1vopk7j" name="Thực hiện giao việc" camunda:expression="${entry.processService.giaoViecDuAn(execution)}">
+      <bpmn:incoming>SequenceFlow_0ei6h72</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0pgo8px</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="task_GiaoViec" name="Popup giao việc" camunda:candidateGroups="lanhdao">
+      <bpmn:incoming>seqFlow_giaoViecGiaiDoanMot_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ei6h72</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1a7lpko">
+      <bpmn:incoming>SequenceFlow_0pgo8px</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0w66kw4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0hgvi6m</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_1jsojcu" name="&#10;Lưu dữ liệu dự án và bắt đầu xúc tiến" camunda:expression="${entry.processService.luuDuLieuDuAnVaBatDauXucTien(execution)}">
+      <bpmn:incoming>SequenceFlow_0koqi84</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1g1fhki</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_17hppw6">
+      <bpmn:incoming>SequenceFlow_0fpxong</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0koqi84</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_03m0eqh</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_18jl8qd" name="Validate dữ liệu thông tin dự án" camunda:expression="${entry.processService.validateDuLieuThongTinDuAn(execution)}">
+      <bpmn:incoming>SequenceFlow_01gd2kn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0fpxong</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="StartEvent_06ohm2d" name="Bắt đầu dự án&#10;">
+      <bpmn:outgoing>SequenceFlow_14ruv6p</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="UserTask_1rmnevk" name="Thêm mới dự án">
+      <bpmn:incoming>SequenceFlow_14ruv6p</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1jivqr9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_01gd2kn</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_0g7288y" name="Thông báo dữ liệu không hợp lệ" camunda:expression="${entry.processService.thongBaoDuLieuDuAnKhongHopLe(execution)}">
+      <bpmn:incoming>SequenceFlow_03m0eqh</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1jivqr9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_16inqqe" name="&#10;&#10;Validate dữ liệu giai đoạn một và tiếp tục giai đoạn hai&#10;" camunda:expression="${entry.processService.validateDuLieuGiaiDoanMotVaTiepTucGiaiDoanHai(execution)}">
+      <bpmn:incoming>seqFlow_tiepTucGiaiDoanMot_sqf__sort_4_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0w4yiqy</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0saec3c" name="Kiểm tra thời gian thông báo">
+      <bpmn:incoming>SequenceFlow_12igmge</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_17yzmva</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanMot}</bpmn:timeDate>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0s6izfv" name="Kiểm tra thời gian thông báo">
+      <bpmn:incoming>SequenceFlow_0fcbzv8</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0e8k95t</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${thoiHanGiaiDoanBa}</bpmn:timeDate>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="EndEvent_0kiivlw" name="Kết thúc dự án">
+      <bpmn:incoming>SequenceFlow_0ugxu8w</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="ServiceTask_0exy6dk" name="Lưu dữ liệu kết thúc dự án" camunda:expression="${entry.processService.luuDuLieuKetThucDuAn(execution)}">
+      <bpmn:incoming>SequenceFlow_19shu5s</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ugxu8w</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1tp0qkv">
+      <bpmn:incoming>SequenceFlow_0bsyk35</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0nueqcx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_19shu5s</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1lwxicr">
@@ -796,7 +798,7 @@
         <di:waypoint x="322" y="408" />
         <di:waypoint x="472" y="408" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="354" y="374" width="83" height="27" />
+          <dc:Bounds x="371" y="374" width="50" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_14ruv6p_di" bpmnElement="SequenceFlow_14ruv6p">
@@ -935,23 +937,23 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_1rcxp8h_di" bpmnElement="ExclusiveGateway_1rcxp8h" isMarkerVisible="true">
         <dc:Bounds x="3795" y="383" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1ejtpt3_di" bpmnElement="SequenceFlow_1ejtpt3">
+      <bpmndi:BPMNEdge id="SequenceFlow_1ejtpt3_di" bpmnElement="seqFlow_giaoViecGiaiDoanBa_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="3810" y="423" />
         <di:waypoint x="3628" y="423" />
         <di:waypoint x="3628" y="590" />
         <di:waypoint x="3524" y="590" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3638" y="433" width="47" height="14" />
+          <dc:Bounds x="3625" y="433" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_15r7j7k_di" bpmnElement="SequenceFlow_15r7j7k">
+      <bpmndi:BPMNEdge id="SequenceFlow_15r7j7k_di" bpmnElement="seqFlow_tiepTucGiaiDoanBa_sqf__sort_5_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_">
         <di:waypoint x="3820" y="383" />
         <di:waypoint x="3820" y="292" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3824" y="309" width="86" height="27" />
+          <dc:Bounds x="3848" y="309" width="39" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1jvau6h_di" bpmnElement="SequenceFlow_1jvau6h">
+      <bpmndi:BPMNEdge id="SequenceFlow_1jvau6h_di" bpmnElement="seqFlow_capNhatGiaiDoanBa_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="3795" y="408" />
         <di:waypoint x="3474" y="408" />
         <di:waypoint x="3474" y="442" />
@@ -959,7 +961,7 @@
           <dc:Bounds x="3499" y="379" width="78" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_05znw4l_di" bpmnElement="UserTask_05znw4l">
+      <bpmndi:BPMNShape id="UserTask_05znw4l_di" bpmnElement="UserTask_GiaiDoanBa">
         <dc:Bounds x="3770" y="550" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0g77tuz_di" bpmnElement="SequenceFlow_0g77tuz">
@@ -969,11 +971,11 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_11m7n9b_di" bpmnElement="ExclusiveGateway_11m7n9b" isMarkerVisible="true">
         <dc:Bounds x="3954" y="565" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1wgsv1n_di" bpmnElement="SequenceFlow_1wgsv1n">
+      <bpmndi:BPMNEdge id="SequenceFlow_1wgsv1n_di" bpmnElement="seqFlow_luuGiaiDoanBa_sqf__sort_4_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="3845" y="408" />
         <di:waypoint x="3929" y="408" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3842" y="379" width="78" height="27" />
+          <dc:Bounds x="3871" y="379" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_1barm6y_di" bpmnElement="ExclusiveGateway_1barm6y" isMarkerVisible="true">
@@ -1082,27 +1084,30 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_0t089n7_di" bpmnElement="ExclusiveGateway_0t089n7" isMarkerVisible="true">
         <dc:Bounds x="5175" y="383" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_10e3h3j_di" bpmnElement="SequenceFlow_10e3h3j">
+      <bpmndi:BPMNEdge id="SequenceFlow_10e3h3j_di" bpmnElement="seqFlow_giaoViecGiaiDoanBon_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="5189" y="422" />
         <di:waypoint x="4989" y="422" />
         <di:waypoint x="4989" y="590" />
         <di:waypoint x="4920" y="590" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4996" y="440" width="47" height="14" />
+          <dc:Bounds x="4982" y="440" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_11jvphj_di" bpmnElement="SequenceFlow_11jvphj">
+      <bpmndi:BPMNEdge id="SequenceFlow_11jvphj_di" bpmnElement="seqFlow_capNhatGiaiDoanBon_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="5175" y="408" />
         <di:waypoint x="4920" y="408" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="5009" y="390" width="78" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1utc2rn_di" bpmnElement="SequenceFlow_1utc2rn">
+      <bpmndi:BPMNEdge id="SequenceFlow_1utc2rn_di" bpmnElement="seqFlow_tiepTucGiaiDoanBon_sqf__sort_4_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_">
         <di:waypoint x="5200" y="383" />
         <di:waypoint x="5200" y="292" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="5200" y="314" width="86" height="27" />
+          <dc:Bounds x="5224" y="314" width="39" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_0jquzxa_di" bpmnElement="UserTask_0jquzxa">
+      <bpmndi:BPMNShape id="UserTask_0jquzxa_di" bpmnElement="UserTask_GiaiDoanBon">
         <dc:Bounds x="5150" y="550" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_09xuq9k_di" bpmnElement="SequenceFlow_09xuq9k">
@@ -1112,11 +1117,11 @@
       <bpmndi:BPMNShape id="ServiceTask_1touapt_di" bpmnElement="ServiceTask_1touapt">
         <dc:Bounds x="5297" y="368" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1m6rdn8_di" bpmnElement="SequenceFlow_1m6rdn8">
+      <bpmndi:BPMNEdge id="SequenceFlow_1m6rdn8_di" bpmnElement="seqFlow_luuGiaiDoanBon_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="5225" y="408" />
         <di:waypoint x="5297" y="409" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="5214" y="378" width="78" height="27" />
+          <dc:Bounds x="5243" y="378" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_14c5aty_di" bpmnElement="ExclusiveGateway_14c5aty" isMarkerVisible="true">
@@ -1365,7 +1370,7 @@
         <di:waypoint x="2072" y="718" />
         <di:waypoint x="2383" y="718" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_0goocz4_di" bpmnElement="UserTask_0goocz4">
+      <bpmndi:BPMNShape id="UserTask_0goocz4_di" bpmnElement="UserTask_GiaiDoanHai">
         <dc:Bounds x="2358" y="550" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0nofr9o_di" bpmnElement="SequenceFlow_0nofr9o">
@@ -1375,15 +1380,15 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_1oztk68_di" bpmnElement="ExclusiveGateway_1oztk68" isMarkerVisible="true">
         <dc:Bounds x="2383" y="383" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_11zkpc0_di" bpmnElement="SequenceFlow_11zkpc0">
+      <bpmndi:BPMNEdge id="SequenceFlow_11zkpc0_di" bpmnElement="seqFlow_giaoViecGiaiDoanHai_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="2397" y="422" />
         <di:waypoint x="2022" y="422" />
         <di:waypoint x="2022" y="442" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2030" y="401" width="47" height="14" />
+          <dc:Bounds x="2015" y="401" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1p9x8wq_di" bpmnElement="SequenceFlow_1p9x8wq">
+      <bpmndi:BPMNEdge id="SequenceFlow_1p9x8wq_di" bpmnElement="seqFlow_ketThucGiaiDoanBa_sqf__sort_5_sort__btn_goKetThuc_btn__icon_ket-thuc-du-an.svg_icon__class_btn-green-style_class_">
         <di:waypoint x="3809" y="394" />
         <di:waypoint x="3745" y="306" />
         <di:waypoint x="3654" y="306" />
@@ -1393,7 +1398,7 @@
           <dc:Bounds x="3659" y="286" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_01eh24n_di" bpmnElement="SequenceFlow_01eh24n">
+      <bpmndi:BPMNEdge id="SequenceFlow_01eh24n_di" bpmnElement="seqFlow_capNhatGiaiDoanHai_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="2396" y="423" />
         <di:waypoint x="2345" y="482" />
         <di:waypoint x="2248" y="482" />
@@ -1401,20 +1406,20 @@
           <dc:Bounds x="2266" y="452" width="78" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0uj6lve_di" bpmnElement="SequenceFlow_0uj6lve">
+      <bpmndi:BPMNEdge id="SequenceFlow_0uj6lve_di" bpmnElement="seqFlow_quayLaiGiaiDoanBa_sqf__sort_3_sort__btn_goBack_btn__icon_luu.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="3808" y="395" />
         <di:waypoint x="3627" y="395" />
         <di:waypoint x="3452" y="109" />
         <di:waypoint x="3142" y="109" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3623" y="366" width="62" height="27" />
+          <dc:Bounds x="3624" y="366" width="62" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1nj5j18_di" bpmnElement="SequenceFlow_1nj5j18">
+      <bpmndi:BPMNEdge id="SequenceFlow_1nj5j18_di" bpmnElement="seqFlow_tiepTucGiaiDoanHai_sqf__sort_5_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_">
         <di:waypoint x="2408" y="383" />
         <di:waypoint x="2408" y="292" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2411" y="309" width="86" height="27" />
+          <dc:Bounds x="2435" y="309" width="39" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1jvseme_di" bpmnElement="SequenceFlow_1jvseme">
@@ -1424,27 +1429,27 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_06m6egx_di" bpmnElement="ExclusiveGateway_06m6egx" isMarkerVisible="true">
         <dc:Bounds x="908" y="565" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1hypp42_di" bpmnElement="SequenceFlow_1hypp42">
+      <bpmndi:BPMNEdge id="SequenceFlow_1hypp42_di" bpmnElement="seqFlow_giaoViecGiaiDoanMot_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="919" y="601" />
         <di:waypoint x="919" y="718" />
         <di:waypoint x="766" y="718" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="792" y="701" width="47" height="14" />
+          <dc:Bounds x="786" y="688" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0h4634s_di" bpmnElement="SequenceFlow_0h4634s">
+      <bpmndi:BPMNEdge id="SequenceFlow_0h4634s_di" bpmnElement="seqFlow_capNhatGiaiDoanMot_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="908" y="590" />
         <di:waypoint x="766" y="590" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="789" y="559" width="78" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_05fhvm0_di" bpmnElement="seqFlow_validateGD1TiepTuc">
+      <bpmndi:BPMNEdge id="SequenceFlow_05fhvm0_di" bpmnElement="seqFlow_tiepTucGiaiDoanMot_sqf__sort_4_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_">
         <di:waypoint x="933" y="615" />
         <di:waypoint x="933" y="718" />
         <di:waypoint x="1160" y="718" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="947" y="682" width="86" height="27" />
+          <dc:Bounds x="968" y="695" width="39" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_16k2phd_di" bpmnElement="ServiceTask_16k2phd">
@@ -1483,11 +1488,11 @@
       <bpmndi:BPMNShape id="ServiceTask_1e8ai5q_di" bpmnElement="ServiceTask_1e8ai5q">
         <dc:Bounds x="2546" y="368" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1iera2z_di" bpmnElement="SequenceFlow_1iera2z">
+      <bpmndi:BPMNEdge id="SequenceFlow_1iera2z_di" bpmnElement="seqFlow_luuGiaiDoanHai_sqf__sort_4_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="2433" y="408" />
         <di:waypoint x="2546" y="408" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2436" y="380" width="78" height="27" />
+          <dc:Bounds x="2465" y="380" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_0krkb4l_di" bpmnElement="ExclusiveGateway_0krkb4l" isMarkerVisible="true">
@@ -1520,7 +1525,7 @@
           <dc:Bounds x="2506" y="616" width="84" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_0nyhs9j_di" bpmnElement="UserTask_0nyhs9j">
+      <bpmndi:BPMNShape id="UserTask_0nyhs9j_di" bpmnElement="UserTask_GiaiDoanMot">
         <dc:Bounds x="977" y="368" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1gq1j00_di" bpmnElement="SequenceFlow_1gq1j00">
@@ -1611,11 +1616,11 @@
         <di:waypoint x="5250" y="252" />
         <di:waypoint x="5691" y="252" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_15ime04_di" bpmnElement="seqFlow_validateGD1">
+      <bpmndi:BPMNEdge id="SequenceFlow_15ime04_di" bpmnElement="seqFlow_luuGiaiDoanMot_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="958" y="590" />
         <di:waypoint x="1160" y="590" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="959" y="556" width="78" height="27" />
+          <dc:Bounds x="987" y="567" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_12igmge_di" bpmnElement="SequenceFlow_12igmge">
@@ -1682,7 +1687,7 @@
       <bpmndi:BPMNShape id="ServiceTask_0yw9wbq_di" bpmnElement="ServiceTask_0yw9wbq">
         <dc:Bounds x="6681" y="368" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="UserTask_03pqo05_di" bpmnElement="UserTask_03pqo05">
+      <bpmndi:BPMNShape id="UserTask_03pqo05_di" bpmnElement="UserTask_GiaiDoanNam">
         <dc:Bounds x="6534" y="550" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_0042x1e_di" bpmnElement="ExclusiveGateway_0042x1e" isMarkerVisible="true">
@@ -1706,13 +1711,13 @@
       <bpmndi:BPMNShape id="ServiceTask_1xqnaqs_di" bpmnElement="ServiceTask_1xqnaqs">
         <dc:Bounds x="5833" y="212" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1ttrkfe_di" bpmnElement="SequenceFlow_1ttrkfe">
+      <bpmndi:BPMNEdge id="SequenceFlow_1ttrkfe_di" bpmnElement="seqFlow_giaoViecGiaiDoanNam_sqf__sort_2_sort__icon_ds-giao-viec.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="6573" y="422" />
         <di:waypoint x="6373" y="422" />
         <di:waypoint x="6373" y="590" />
         <di:waypoint x="6304" y="590" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="6380" y="440" width="47" height="14" />
+          <dc:Bounds x="6366" y="440" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1c625zu_di" bpmnElement="SequenceFlow_1c625zu">
@@ -1774,27 +1779,30 @@
         <di:waypoint x="6731" y="448" />
         <di:waypoint x="6731" y="565" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_18fbv0l_di" bpmnElement="SequenceFlow_18fbv0l">
+      <bpmndi:BPMNEdge id="SequenceFlow_18fbv0l_di" bpmnElement="seqFlow_luuGiaiDoanNam_sqf__sort_3_sort__btn_goTask_btn__icon_luu.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="6609" y="408" />
         <di:waypoint x="6681" y="409" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="6598" y="379" width="78" height="27" />
+          <dc:Bounds x="6627" y="379" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0gcvp1v_di" bpmnElement="SequenceFlow_0gcvp1v">
         <di:waypoint x="6584" y="550" />
         <di:waypoint x="6584" y="433" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0dsdfpn_di" bpmnElement="SequenceFlow_0dsdfpn">
+      <bpmndi:BPMNEdge id="SequenceFlow_0dsdfpn_di" bpmnElement="seqFlow_ketThucGiaiDoanNam_sqf__sort_4_sort__btn_goKetThuc_btn__icon_ket-thuc-du-an.svg_icon__class_btn-green-style_class_">
         <di:waypoint x="6584" y="383" />
         <di:waypoint x="6584" y="292" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="6590" y="315" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1ac083i_di" bpmnElement="SequenceFlow_1ac083i">
+      <bpmndi:BPMNEdge id="SequenceFlow_1ac083i_di" bpmnElement="seqFlow_capNhatGiaiDoanNam_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="6559" y="408" />
         <di:waypoint x="6304" y="408" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="6393" y="390" width="78" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1azbyws_di" bpmnElement="SequenceFlow_1azbyws">
         <di:waypoint x="6204" y="408" />
@@ -1849,10 +1857,13 @@
         <di:waypoint x="1738" y="109" />
         <di:waypoint x="1487" y="109" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1xj2ebh_di" bpmnElement="SequenceFlow_1xj2ebh">
+      <bpmndi:BPMNEdge id="SequenceFlow_1xj2ebh_di" bpmnElement="seqFlow_quayLaiGiaiDoanHai_sqf__sort_3_sort__btn_goBack_btn__icon_luu.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="2383" y="408" />
         <di:waypoint x="2198" y="408" />
         <di:waypoint x="2198" y="292" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2259" y="381" width="62" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_1wg2ftq_di" bpmnElement="ExclusiveGateway_1wg2ftq" isMarkerVisible="true">
         <dc:Bounds x="1874" y="227" width="50" height="50" />
