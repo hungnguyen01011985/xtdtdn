@@ -149,7 +149,7 @@
 				</div>
 			</div>
 			<include src="quanlyduan/view-list-tep-tins.zul"></include>
-			<div class="row mg-and-bg-and-line-fix">
+			<div class="row mg-and-bg-and-line">
 				<include src="quanlyduan/list-action.zul"></include>
 			</div>
 		</div>

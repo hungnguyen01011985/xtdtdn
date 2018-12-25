@@ -296,12 +296,14 @@ public class DuAn extends Model<DuAn> {
 				Messagebox.QUESTION, new EventListener<Event>() {
 					@Override
 					public void onEvent(final Event event) throws IOException {
-						Map<String, Object> variables = new HashMap<>();
-						variables.put("model", duAnTmp);
-						if (task != null) {
-							variables.put("goTask", task);
+						if (Messagebox.ON_OK.equals(event.getName())) {
+							Map<String, Object> variables = new HashMap<>();
+							variables.put("model", duAnTmp);
+							if (task != null) {
+								variables.put("goTask", task);
+							}
+							core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 						}
-						core().getProcess().getTaskService().complete(getCurrentTask().getId(), variables);
 					}
 		});
 	}
@@ -569,93 +571,6 @@ public class DuAn extends Model<DuAn> {
 		}
 		BindUtils.postNotifyChange(null, null, duAn, "srcGiaiDoan4");
 		BindUtils.postNotifyChange(null, null, duAn, "option");
-	}
-	
-	@Transient
-	public String getNameTask(String txt) {
-		if ("Luu".equals(txt)) {
-			if (Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
-				return "task_luuDuLieuGiaiDoanMot";
-			}
-			if (Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
-				return "task_luuDuLieuGiaiDoanHai";
-			}
-			if (Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
-				return "task_luuDuLieuGiaiDoanBa";
-			}
-			if (Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
-				return "task_luuDuLieuGiaiDoanBon";
-			}
-			if (Labels.getLabel("task.giaidoannam").equals(taskID.getTaskDefinitionKey())) {
-				return "task_luuDuLieuGiaiDoanNam";
-			}
-		}
-		if ("TiepTuc".equals(txt)) {
-			if (Labels.getLabel("task.giaidoanmot").equals(taskID.getTaskDefinitionKey())) {
-				return "task_luuVaTiepTucGiaiDoanHai";
-			}
-			if (Labels.getLabel("task.giaidoanhai").equals(taskID.getTaskDefinitionKey())) {
-				return "task_luuVaTiepTucGiaiDoanBa";
-			}
-			if (Labels.getLabel("task.giaidoanba").equals(taskID.getTaskDefinitionKey())) {
-				return "task_luuVaTiepTucGiaiDoanBon";
-			}
-			if (Labels.getLabel("task.giaidoanbon").equals(taskID.getTaskDefinitionKey())) {
-				return "task_luuVaTiepTucGiaiDoanNam";
-			}
-		}
-		if ("QuayLai".equals(txt)) {
-			return "task_quayLaiGiaiDoanMot";
-		}
-		if ("KetThuc".equals(txt)) {
-			return "task_ketThucDuAn";
-		}
-		return null;
-	}
-	
-	@Transient
-	public boolean checkButtonGiaiDoan(String txt, String id) {
-		if ("DoiNguoi".equals(txt)) {
-			if (Labels.getLabel("bpmn.doinguoi.gd1").equals(id) || Labels.getLabel("bpmn.doinguoi.gd2").equals(id)
-					|| Labels.getLabel("bpmn.doinguoi.gd3").equals(id)
-					|| Labels.getLabel("bpmn.doinguoi.gd4").equals(id)
-					|| Labels.getLabel("bpmn.doinguoi.gd5").equals(id)) {
-				return true;
-			}
-		}
-		if ("Luu".equals(txt)) {
-			if (Labels.getLabel("bpmn.luu.gd1").equals(id) || Labels.getLabel("bpmn.luu.gd2").equals(id)
-					|| Labels.getLabel("bpmn.luu.gd3").equals(id) || Labels.getLabel("bpmn.luu.gd4").equals(id)
-					|| Labels.getLabel("bpmn.luu.gd5").equals(id)) {
-				return true;
-			}
-		}
-		if ("TiepTuc".equals(txt)) {
-			if (Labels.getLabel("bpmn.tieptuc.gd1").equals(id) || Labels.getLabel("bpmn.tieptuc.gd2").equals(id)
-					|| Labels.getLabel("bpmn.tieptuc.gd3").equals(id)
-					|| Labels.getLabel("bpmn.tieptuc.gd4").equals(id)) {
-				return true;
-			}
-		}
-		if ("GiaoViec".equals(txt)) {
-			if (Labels.getLabel("bpmn.giaoviec.gd1").equals(id) || Labels.getLabel("bpmn.giaoviec.gd2").equals(id)
-					|| Labels.getLabel("bpmn.giaoviec.gd3").equals(id)
-					|| Labels.getLabel("bpmn.giaoviec.gd4").equals(id)
-					|| Labels.getLabel("bpmn.giaoviec.gd5").equals(id)) {
-				return true;
-			}
-		}
-		if ("QuayLai".equals(txt)) {
-			if (Labels.getLabel("bpmn.quaylai.gd2").equals(id) || Labels.getLabel("bpmn.quaylai.gd3").equals(id)) {
-				return true;
-			}
-		}
-		if ("KetThuc".equals(txt)) {
-			if (Labels.getLabel("bpmn.ketthuc.gd3").equals(id) || Labels.getLabel("bpmn.ketthuc.gd5").equals(id)) {
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	@Transient
@@ -986,8 +901,6 @@ public class DuAn extends Model<DuAn> {
 		return true;
 	}
 	
-	
-	
 	private List<List<String>> listMessageDonViDuAn = new ArrayList<>();
 	
 	public void checkDateAndResetMessage(Date ngayNhan, int index) {
@@ -1187,4 +1100,103 @@ public class DuAn extends Model<DuAn> {
 		giaiDoanNam.setEmail(giaiDoanDuAn.getEmail() != null ? giaiDoanDuAn.getEmail() : "");
 		return giaiDoanNam;
 	}
+	
+	@Transient
+	public String getCommand(String id) {
+		String text = Labels.getLabel("bpmn.kytu.button");
+		int start = id.indexOf(text);
+		int end = id.indexOf(text, start + 1);
+		return id.substring(start + text.length(), end);
+	}
+	
+	@Transient
+	public String getParamGoTask(String id) {
+		return id.substring(0, id.indexOf(Labels.getLabel("bpmn.kytu.end.sequen")));
+	}
+	
+	@Transient
+	public String getNameImage(String id) {
+		String text = Labels.getLabel("bpmn.kytu.icon");
+		int start = id.indexOf(text);
+		int end = id.indexOf(text, start + 1);
+		return id.substring(start + text.length(), end);
+	}
+	
+	@Transient
+	public String getClassCss(String id) {
+		String text = Labels.getLabel("bpmn.kytu.class");
+		int start = id.indexOf(text);
+		int end = id.indexOf(text, start + 1);
+		return id.substring(start + text.length(), end);
+	}
+	
+	@Transient
+	public boolean checkButton(String id, String type) {
+		String kyTu = Labels.getLabel("bpmn.kytu.end.sequen");
+		if ("DoiNguoi".equals(type)) {
+			if (id.substring(0, id.indexOf(kyTu))
+					.equals(Labels.getLabel("bpmn.doinguoi.gd1"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.doinguoi.gd2"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.doinguoi.gd3"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.doinguoi.gd4"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.doinguoi.gd5"))) {
+				return true;
+			}
+		}
+		if ("GiaoViec".equals(type)) {
+			if (id.substring(0, id.indexOf(kyTu))
+					.equals(Labels.getLabel("bpmn.giaoviec.gd1"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.giaoviec.gd2"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.giaoviec.gd3"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.giaoviec.gd4"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.giaoviec.gd5"))) {
+				return true;
+			}
+		}
+		if ("Action".equals(type)){
+			if (id.substring(0, id.indexOf(kyTu))
+					.equals(Labels.getLabel("bpmn.doinguoi.gd1"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.doinguoi.gd2"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.doinguoi.gd3"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.doinguoi.gd4"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.doinguoi.gd5"))) {
+				return false;
+			}
+			if (id.substring(0, id.indexOf(kyTu))
+					.equals(Labels.getLabel("bpmn.giaoviec.gd1"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.giaoviec.gd2"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.giaoviec.gd3"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.giaoviec.gd4"))
+					|| id.substring(0, id.indexOf(kyTu))
+							.equals(Labels.getLabel("bpmn.giaoviec.gd5"))) {
+				return false;
+			}
+			if (id.substring(0, id.indexOf(kyTu)).equals(Labels.getLabel("bpmn.tieptuc.gd1"))) {
+				return false;
+			}
+			return true;
+		}
+		if ("GiaiDoanMot".equals(type)) {
+			if (id.substring(0, id.indexOf(kyTu)).equals(Labels.getLabel("bpmn.tieptuc.gd1"))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

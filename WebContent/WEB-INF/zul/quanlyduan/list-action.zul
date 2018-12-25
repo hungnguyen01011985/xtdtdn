@@ -9,49 +9,34 @@
 	</div>
 	<div children="@load(vm.listBPMN)">
 		<template name="children">
-			<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('KetThuc', each.id) and vm.checkDangOGiaiDoan(giaiDoanHienTai) and vm.nguoiPhuTrach.id == entry.nhanVien.id and action and entry.quyen.quanlyduan_sua}">
-				<x:button onClick="@command('goKetThuc', task = vm.getNameTask('KetThuc'))"
-					class="btn btn-base btn-green">
-					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ket-thuc-du-an.svg"/>
+			<div zclass="form-group right-mg flex" if="${vm.checkButton(each.id, 'Action') and vm.checkDangOGiaiDoan(giaiDoanHienTai) and vm.nguoiPhuTrach.id == entry.nhanVien.id and action and entry.quyen.quanlyduan_sua}">
+				<x:button onClick="@command(vm.getCommand(each.id), task = vm.getParamGoTask(each.id))"
+					class="btn ${vm.getClassCss(each.id)}">
+					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/${vm.getNameImage(each.id)}"/>
 					<span>${each.getProperty('name')}</span>
 				</x:button>
 			</div>
-			<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('Luu', each.id) and vm.checkDangOGiaiDoan(giaiDoanHienTai) and vm.nguoiPhuTrach.id == entry.nhanVien.id and action and entry.quyen.quanlyduan_sua}">
-				<x:button onClick="@command('goTask', task = vm.getNameTask('Luu'))"
-					class="btn btn-blue">
-					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-					<span>${each.getProperty('name')}</span>
-				</x:button>
-			</div>
-			<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('TiepTuc', each.id) and vm.checkDangOGiaiDoan(giaiDoanHienTai) and vm.nguoiPhuTrach.id == entry.nhanVien.id and action and entry.quyen.quanlyduan_sua}">
-				<button onClick="@command('goNext', task = vm.getNameTask('TiepTuc'))" image="${contexPath}/assets/icon-bxtdn/tiep-tuc.svg" label="${each.getProperty('name')}" class="btn btn-base btn-green">
+			<div zclass="form-group right-mg flex" if="${vm.checkButton(each.id, 'GiaiDoanMot') and vm.checkDangOGiaiDoan(giaiDoanHienTai) and vm.nguoiPhuTrach.id == entry.nhanVien.id and action and entry.quyen.quanlyduan_sua}">
+				<button onClick="@command(vm.getCommand(each.id), task = vm.getParamGoTask(each.id))" label="${each.getProperty('name')}" image="${contexPath}/assets/icon-bxtdn/${vm.getNameImage(each.id)}"
+					class="btn ${vm.getClassCss(each.id)}">
 					<attribute name="onClick">
 						<![CDATA[
-						    if (giaiDoanHienTai.equals(giaiDoanMot)) {
-						    	vm.validateDonViDuAn();
-						    }
-							
+						    vm.validateDonViDuAn();
 						]]>
 					</attribute>
 				</button>
 			</div>
-			<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('QuayLai', each.id) and vm.checkDangOGiaiDoan(giaiDoanHienTai) and vm.nguoiPhuTrach.id == entry.nhanVien.id and action and entry.quyen.quanlyduan_sua}">
-				<x:button onClick="@command('goBack', task = vm.getNameTask('QuayLai'))" class="btn btn-blue">
-					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg" />
-					<span>${each.getProperty('name')}</span>
-				</x:button>
-			</div>
-			<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('GiaoViec', each.id) and vm.checkDangOGiaiDoan(giaiDoanHienTai) and action}">
-				<x:button onClick="@command('redirectPage', zul='quanlyduan/list-giao-viec.zul', vm = vm)"
-					class="btn btn-blue">
-					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/ds-giao-viec.svg"/>
-					<span>${each.getProperty('name')}</span>
-				</x:button>
-			</div>
-			<div zclass="form-group right-mg flex" if="${vm.checkButtonGiaiDoan('DoiNguoi', each.id) and vm.checkDangOGiaiDoan(giaiDoanHienTai) and vm.nguoiTao.id == entry.nhanVien.id and action and entry.quyen.quanlyduan_phutrach}">
+			<div zclass="form-group right-mg flex" if="${vm.checkButton(each.id, 'DoiNguoi') and vm.checkDangOGiaiDoan(giaiDoanHienTai) and vm.nguoiTao.id == entry.nhanVien.id and action and entry.quyen.quanlyduan_phutrach}">
 				<x:button onClick="@command('redirectPage', zul='quanlyduan/add-nguoi-phu-trach.zul', vm = vm)"
-					class="btn btn-blue">
-					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/doi-nguoi-phu-trach.svg"/>
+					class="btn ${vm.getClassCss(each.id)}">
+					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/${vm.getNameImage(each.id)}"/>
+					<span>${each.getProperty('name')}</span>
+				</x:button>
+			</div>
+			<div zclass="form-group right-mg flex" if="${vm.checkButton(each.id, 'GiaoViec') and vm.checkDangOGiaiDoan(giaiDoanHienTai) and action}">
+				<x:button onClick="@command('redirectPage', zul='quanlyduan/list-giao-viec.zul', vm = vm)"
+					class="btn ${vm.getClassCss(each.id)}">
+					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/${vm.getNameImage(each.id)}"/>
 					<span>${each.getProperty('name')}</span>
 				</x:button>
 			</div>
