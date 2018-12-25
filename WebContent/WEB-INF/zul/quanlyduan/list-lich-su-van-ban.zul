@@ -84,7 +84,7 @@
 								<label value="@load(each.giaiDoanXucTien.text)"></label>
 								<label value="@load(each.nguoiNhap.hoVaTen)"></label>
 								<label value="@load(each.vanBan.ngaySua) @converter('formatedDate',format='dd/MM/YYYY')" ></label>
-								<label viewModel="@id('tepTin') @init(each.vanBan)" value="@load(tepTin.tenFile)" onClick="@command('redirect', ob = tepTin)" style="color: #4274ED;cursor:pointer;"></label>
+								<label class="l-file-name" viewModel="@id('tepTin') @init(each.vanBan)" value="@load(tepTin.tenFile)" onClick="@command('redirect', ob = tepTin)" style="color: #4274ED;cursor:pointer;"></label>
 								<zscript>
 									<![CDATA[
 											if(vm.getArg().get("page") == null) {

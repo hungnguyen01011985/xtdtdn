@@ -142,6 +142,9 @@
 	line-height: 38px;
 	margin: 0;
 }
+.m-height-lb{
+	min-height: 20px;
+}
 .box-btn-donvi {
 	display: flex;
     justify-content: flex-end;
@@ -228,6 +231,12 @@
 	font-size: 14px;
 	color: #292A2D;
 	line-height: 25px;
+}
+.l-file-name{
+	display: block;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .item-tep-tin {
 	display:flex; 
