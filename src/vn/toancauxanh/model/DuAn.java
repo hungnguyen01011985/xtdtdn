@@ -694,7 +694,7 @@ public class DuAn extends Model<DuAn> {
 //	}
 	
 	@Command
-	public void saveThongTinDuAn(){
+	public void saveThongTinDuAn() {
 		this.getTaiLieuNDT().saveNotShowNotification();
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(this.getId()));
 		if (!q.fetchFirst().getTenDuAn().equals(this.getTenDuAn())) {
