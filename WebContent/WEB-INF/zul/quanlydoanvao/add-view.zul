@@ -8,6 +8,15 @@
 		<![CDATA[
 				String id = execution.getParameter("id");
 		        vn.toancauxanh.model.DoanVao vm = new vn.toancauxanh.service.DoanVaoService().getDoanVaoById(id);
+		        list = new vn.toancauxanh.service.CongViecKeHoachService().getListGiaoViecTheoDoanVao(vm.id);
+				if (list != null && !list.isEmpty() && vm.getListCongViecTheoDoanVao().isEmpty()) {
+					vm.setListCongViecTheoDoanVao(list);
+				} else if(vm.getListCongViecTheoDoanVao().isEmpty()) {
+					listKhoiTao = new vn.toancauxanh.service.CongViecKeHoachService().getListCongViecKhoiTao();
+					if (!listKhoiTao.isEmpty()) {
+						vm.setListCongViecTheoDoanVao(listKhoiTao);
+					}
+				}
 		        actionDoanVao = arg.get("actionDoanVao");
 		        checkCapNhat = arg.get("checkCapNhat");
 		        if (vm != null && vm.getCongVanChiDaoUB() == null) {
