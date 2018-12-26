@@ -824,11 +824,11 @@ public class BaseObject<T> extends CoreObject<T> {
 		return false;
 	}
 
-	public boolean checkOnlyNguoiPhuTrach(NhanVien nguoiPhuTrach, Long idNV) {
+	public boolean checkOnlyNguoiPhuTrach(NhanVien nguoiPhuTrach, NhanVien nguoiTao, Long idNV) {
 		if (idNV == null) {
 			return false;
 		}
-		if (nguoiPhuTrach != null && nguoiPhuTrach.equals(core().getNhanVien())) {
+		if (nguoiPhuTrach != null && nguoiPhuTrach.equals(core().getNhanVien()) && !nguoiPhuTrach.equals(nguoiTao)) {
 			return true;
 		}
 		return false;

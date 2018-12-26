@@ -126,13 +126,13 @@
 							<span>Đóng</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right-mg flex" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
+					<div zclass="form-group right-mg flex" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
 						<x:button class="btn btn-blue" zk:onClick="@command('saveKeHoachLamViec', doanVao = doanVao, wdn = wdn)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
 							<span>Lưu</span>
 						</x:button>
 					</div>
-					<div zclass="form-group right-mg flex" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, entry.nhanVien.id)) and !readOnly}">
+					<div zclass="form-group right-mg flex" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
 						<x:button class="btn btn-blue mg-btn" zk:onClick="@command('redirectPage', zul='quanlydoanvao/show-add-cong-viec.zul',vmArgs = doanVao, vm=null)">
 							<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
 							<span>Thêm mới công việc</span>

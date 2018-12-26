@@ -453,7 +453,7 @@ public class DoanVao extends Model<DoanVao> {
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung("Đoàn vào @" + doanVao.getTenDoanVao() + "@ mà bạn đang phụ trách được chuyển cho @" + nguoiPhuTrachCu.getHoVaTen() + "@ phụ trách.");
+			thongBao.setNoiDung("Đoàn vào @" + doanVao.getTenDoanVao() + "@ mà bạn đang phụ trách được chuyển cho @" + this.getNguoiPhuTrach().getHoVaTen() + "@ phụ trách.");
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
