@@ -81,14 +81,14 @@
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<x:span class="label-txt-style">Thời gian đến: từ ngày</x:span> 
-							<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" value="@bind(vm.tuNgay) @save(vm.tuNgay, before={'cmd'}) @validator(vm.validatorNgay, endDate = vm.denNgay, type = true, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" width="100%" placeholder="dd/MM/yyyy" />
+							<datebox format="dd/MM/yyyy" class="hv-db datebox-txt-style" value="@bind(vm.tuNgay) @save(vm.tuNgay, before={'cmd'}) @validator(vm.validatorNgay, endDate = vm.denNgay, type = true, firstText = 'Từ ngày', secondText = 'Đến ngày')" width="100%" placeholder="dd/MM/yyyy" />
 							<label zclass="error" value="@load(vmsgs['dateStart'])" />
 						</div>
 					</div>
 					<div zclass="col-md-3">
 						<div zclass="form-group">
 							<x:span class="label-txt-style">Đến ngày</x:span> 
-							<datebox format="dd/MM/yyyy" value="@bind(vm.denNgay) @save(vm.denNgay, before={'cmd'}) @validator(vm.validatorNgay, dateStart = vm.tuNgay, type = false, firstText = 'Ngày bắt đầu', secondText = 'Ngày kết thúc')" class="hv-db" width="100%" placeholder="dd/MM/yyyy"/>
+							<datebox format="dd/MM/yyyy" value="@bind(vm.denNgay) @save(vm.denNgay, before={'cmd'}) @validator(vm.validatorNgay, dateStart = vm.tuNgay, type = false, firstText = 'Từ ngày', secondText = 'Đến ngày')" class="hv-db" width="100%" placeholder="dd/MM/yyyy"/>
 							<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 						</div>
 					</div>

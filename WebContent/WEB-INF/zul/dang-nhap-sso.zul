@@ -33,6 +33,16 @@
 			display: flex;
 			justify-content: center;
 		}
+		.z-button:hover {
+			background: #23A76E;
+		    border: 1px solid #23A76E;
+		    color:#FFF;
+		}
+		.z-button:focus {
+			background: #23A76E;
+		    border: 1px solid #23A76E;
+		    color:#FFF;
+		}
 	</style>
 	<div class="" apply="org.zkoss.bind.BindComposer">
 		<include src="/WEB-INF/zul/notification.zul"></include>

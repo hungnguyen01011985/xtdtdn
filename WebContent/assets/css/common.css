@@ -1295,9 +1295,6 @@ ul.z-tabs-content {
 	height: auto !important;
 }
 
-.wrap-fix {
-}
-
 .content-popup .z-window-content {
 	/* background: white !important; */
 	height: auto !important;
@@ -1318,8 +1315,6 @@ ul.z-tabs-content {
 	padding: 0px !important;
 	background:transparent;
 }
-
-
 
 .doan-vao-tai-lieu .z-window-content {
 	height: auto !important;
@@ -2140,7 +2135,7 @@ a>span.glyphicon.add-category {
 	width: 5px;
 	border-radius: 0px;
 }
-
+ 
 .custom-time-box {
 	padding-left: 0px !important;
 }
@@ -2152,6 +2147,15 @@ a>span.glyphicon.add-category {
 }
 .w-table-no-scroll .z-grid-header-border{
 	min-width:auto;
+}
+.w-table-qlda .z-grid-body{
+	min-width:1200px;
+}
+.w-table-qlda .z-grid-header{
+	min-width:1200px;
+}
+.w-table-qlda .z-grid-header-border{
+	min-width:1200px;
 }
 .z-grid-body {
 	border-bottom: 1px solid #cfcfcf;
@@ -2392,7 +2396,7 @@ rotate
 }
 
 .bg-popup-box {
-	width: calc(100vw - 17px);
+	width: 100vw;
 	height: 100vh;
 	background-color: #262A35;
 	opacity: 0.9;
@@ -2614,7 +2618,7 @@ rotate
 	font-size: 13px;
 	color: #292A2D;
 	line-height: 18px;
-	word-break: break-all;
+	word-break: break-word;
 }
 .z-button-image {
 	margin-right:5px;
@@ -2743,5 +2747,5 @@ rotate
 }
 
 .z-combobox-content {
-	max-width: 800px;
+	max-width: 600px;
 }
