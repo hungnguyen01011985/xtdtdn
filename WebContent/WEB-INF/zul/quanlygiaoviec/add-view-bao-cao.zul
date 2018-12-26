@@ -246,7 +246,7 @@
 							</x:button>
 						</div>
 					</div>
-					<div zclass="col-xs-6" if="${action eq false}">
+					<div zclass="col-xs-6" if="${!action and !view}">
 						<div zclass="form-group right">
 							<x:button  class="btn btn-base btn-green mg-btn" zk:onClick="@command('saveNhanViec', wdn=wdn, item = vm, vm=vmArgs, attr = attr)">
 								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/giao-viec-moi.svg"/>

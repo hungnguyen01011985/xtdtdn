@@ -2614,8 +2614,11 @@ rotate
 	font-size: 13px;
 	color: #292A2D;
 	line-height: 18px;
+	word-break: break-all;
 }
-
+.z-button-image {
+	margin-right:5px;
+}
 .content-notify .box-content-notify .text-regular-notify {
 	font-family: Roboto-Regular;
 	font-size: 13px;
