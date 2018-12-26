@@ -285,6 +285,18 @@ public class DoanVao extends Model<DoanVao> {
 	public void saveDoanVao() {
 		if (!this.noId()) {
 			nguoiPhuTrachCu = getNguoiPhuTrachCu(this);
+			JPAQuery<DoanVao> q = find(DoanVao.class).where(QDoanVao.doanVao.id.eq(this.getId()));
+			if (!q.fetchFirst().getTenDoanVao().equals(this.getTenDoanVao())) {
+				if (listCongViecTheoDoanVao.isEmpty()) {
+					JPAQuery<GiaoViec> query = find(GiaoViec.class)
+							.where(QGiaoViec.giaoViec.doanVao.id.eq(this.getId()))
+							.orderBy(QGiaoViec.giaoViec.cha.ten.asc()).orderBy(QGiaoViec.giaoViec.ngayTao.desc());
+					query.setHint("org.hibernate.cacheable", false);
+					if (q.fetchCount() > 0) {
+						listCongViecTheoDoanVao.addAll(query.fetch());
+					}
+				}
+			}
 		}
 		if (this.getCongVanChiDaoUB().getTenFile() == null) {
 			this.setCongVanChiDaoUB(null);
@@ -441,7 +453,7 @@ public class DoanVao extends Model<DoanVao> {
 		}
 		if (LoaiThongBao.CHUYEN_NGUOI_PHU_TRACH.equals(loaiThongBao)) {
 			ThongBao thongBao = new ThongBao();
-			thongBao.setNoiDung("Đoàn vào @" + doanVao.getTenDoanVao() + "@ mà bạn đang phụ trách được chuyển cho @" + nguoiPhuTrachCu.getHoVaTen() + "@ phụ trách.");
+			thongBao.setNoiDung("Đoàn vào @" + doanVao.getTenDoanVao() + "@ mà bạn đang phụ trách được chuyển cho @" + this.getNguoiPhuTrach().getHoVaTen() + "@ phụ trách.");
 			thongBao.setNguoiNhan(nguoiNhan);
 			if (nguoiGui != null) {
 				thongBao.setNguoiGui(nguoiGui);
