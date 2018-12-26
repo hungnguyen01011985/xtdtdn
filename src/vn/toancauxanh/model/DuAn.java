@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
@@ -704,7 +706,6 @@ public class DuAn extends Model<DuAn> {
 			}
 		};
 	}
-	
 
 //	private boolean checkValidateNumber;
 //
@@ -733,8 +734,39 @@ public class DuAn extends Model<DuAn> {
 //		}
 //	}
 	
+	@Transient
+	public boolean getValidateThongTinDuAn(Double input, String errorDescription) {
+		boolean status = false;
+		DecimalFormat decimalFormat = new DecimalFormat("###0");
+		String inputString = decimalFormat.format(input);
+		Pattern patternNumberType = Pattern.compile("\\d{1,}");
+		Matcher matcherNumberType = patternNumberType.matcher(inputString);
+		if (!matcherNumberType.matches()) {
+			showNotification(errorDescription + " phải là số", "Lỗi", "danger");
+			status = true;
+		} else {
+			Pattern patternNumberQty = Pattern.compile("\\d{1,12}");
+			Matcher matcherNumberQty = patternNumberQty.matcher(inputString);
+			if (!matcherNumberQty.matches()) {
+				showNotification(errorDescription + " phải nhỏ hơn 12 chữ số", "Lỗi", "danger");
+				status = true;
+			}
+		}
+		return status;
+	}
+	
 	@Command
 	public void saveThongTinDuAn() {
+		if (tongVonDauTu != null) {
+			if(getValidateThongTinDuAn(tongVonDauTu, "Tổng vốn đầu tư")) {
+				return;
+			}
+		}
+		if (dienTichSuDungDat != null) {
+			if(getValidateThongTinDuAn(dienTichSuDungDat, "Diện tích sử dụng đất")) {
+				return;
+			}
+		}
 		this.getTaiLieuNDT().saveNotShowNotification();
 		JPAQuery<DuAn> q = find(DuAn.class).where(QDuAn.duAn.id.eq(this.getId()));
 		if (!q.fetchFirst().getTenDuAn().equals(this.getTenDuAn())) {
