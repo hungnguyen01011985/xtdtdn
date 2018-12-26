@@ -5,6 +5,15 @@
 	<zscript>
 		<![CDATA[
 			vn.toancauxanh.model.DoanVao doanVao = arg.get("vm");
+			list = new vn.toancauxanh.service.CongViecKeHoachService().getListGiaoViecTheoDoanVao(doanVao.id);
+			if (list != null && !list.isEmpty() && doanVao.getListCongViecTheoDoanVao().isEmpty()) {
+				doanVao.setListCongViecTheoDoanVao(list);
+			} else if (doanVao.getListCongViecTheoDoanVao().isEmpty()) {
+				listKhoiTao = new vn.toancauxanh.service.CongViecKeHoachService().getListCongViecKhoiTao();
+				if (!listKhoiTao.isEmpty()) {
+					doanVao.setListCongViecTheoDoanVao(listKhoiTao);
+				}
+			}
 			vmArgs = arg.get("vmArgs");
 			readOnly = arg.get("readOnly");
 			chuaLam = vn.toancauxanh.gg.model.enums.TrangThaiGiaoViec.CHUA_LAM;
