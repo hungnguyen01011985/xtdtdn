@@ -1,7 +1,17 @@
 /*bootstrap*/
 @font-face {
 	font-family: 'Roboto-Bold';
-	src: url('../fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+	src: url('../fonts/Roboto-Bold.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Roboto-Regular';
+	src: url('../fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+.ft-style-bold {
+	font-family: Roboto-Bold !important;
+}
+.ft-style-regular {
+	font-family: Roboto-Regular;
 }
 html {
 	font-family: sans-serif;

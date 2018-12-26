@@ -48,7 +48,7 @@
 						<label zclass="error" value="@load(vm.listMessageDonViDuAn.get(forEachStatus.index).get(0))" />
 					</div>
 					<idspace>
-						<div style="width:100%;" id="idCongVanTraLoi" zclass="col-md-3">
+						<div style="width:100%;" id="idCongVanTraLoi">
 							<div viewModel="@id('congVanTraLoi') @init(each.congVanTraLoi)">
 								<button if="${action and vm.checkDangOGiaiDoan(giaiDoanMot) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" visible="@load(empty each.congVanTraLoi.tenFile)" label="Chọn tài liệu" 
 									class="btn bg-btn-tailieu mg-btn-top" image="/assets/icon-bxtdn/tai-tai-lieu.png"

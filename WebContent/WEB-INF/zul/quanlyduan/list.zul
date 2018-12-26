@@ -112,7 +112,7 @@
 				</div>
 			</div>
 			<div zclass="row mg-and-bg-and-line">
-				<div zclass="col-md-12">
+				<div zclass="col-md-12 w-table-qlda">
 					<grid id="grid" model="@load(vm.page(vm.targetQuery).fetch())"
 						emptyMessage="Không có dữ liệu nào trong danh sách">
 						<columns>

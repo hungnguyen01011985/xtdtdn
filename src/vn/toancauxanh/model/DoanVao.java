@@ -152,7 +152,7 @@ public class DoanVao extends Model<DoanVao> {
 	@Transient
 	public String getEditURL(String link) {
 		if (link != null && !link.isEmpty()) {
-			if (link.contains("http://")) {
+			if (link.contains("http://") || link.contains("https://")) {
 				return link;
 			} else {
 				return "http://" + link;

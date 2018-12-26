@@ -103,7 +103,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Tên công việc</x:span>
 							</div>
-							<textbox class="form-control" value="@bind(vm.tenCongViec)" disabled="${!(readOnly and !action)}"></textbox>
+							<textbox class="form-control" rows="3" value="@bind(vm.tenCongViec)" disabled="${!(readOnly and !action)}"></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

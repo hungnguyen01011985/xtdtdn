@@ -2,6 +2,11 @@
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('vn.toancauxanh.service.NhanVienService')"
 	class="form-list">
+	<style>
+		.z-combobox-content {
+			max-width: 294px;
+		}
+	</style>
 	<zscript>
 		<![CDATA[
 			page.title = "Quản trị hệ thống";
@@ -63,8 +68,8 @@
 						<columns>
 							<column label="STT" style="text-align:center" width="42px"/>
 							<column label="Tên"/>
-							<column label="Email"/>
-							<column label="Phòng ban" width="160px"/>
+							<column label="Email" width="190px"/>
+							<column label="Phòng ban" width="120px"/>
 							<column label="Vị trí" width="110px" />
 							<column label="Thao tác" width="120px"/>
 						</columns>
