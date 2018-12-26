@@ -26,7 +26,9 @@
 								<x:span class="label-txt-style">Tên công việc<n:small class="required" if="${!action}"> *</n:small></x:span>
 							</div>
 							<textbox maxlength="255" disabled="${readOnly}" class="form-control textbox-txt-style" value="@bind(vm.tenCongViec) @save(vm.tenCongViec, before='saveCongViec') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
-							 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCongViec', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên công việc..."></textbox>
+							 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveCongViec', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên công việc...">
+							 	<custom-attributes org.zkoss.bind.event.deferPost="true"/>
+							 </textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
