@@ -43,8 +43,8 @@
 												<span>Quốc gia</span>
 												<bandbox buttonVisible="false" viewModel="@id('bandBoxDoanVao') @init(doanVao)" id="bdDoanVao" width="auto" value="@load(vm.arg.quocGia)" autodrop="true"
 													 placeholder="Chọn quốc gia" class="his bb-quoc-gia input-no-button" mold="rounded"
-													 onOpen="@command('searchKey', key = event.value, vm=vm)"
-													 onChanging="@command('searchKey', key = event.value, vm=vm)"
+													 onOpen="@command('searchKey', key = event.value, vm=vm, type = 'list')"
+													 onChanging="@command('searchKey', key = event.value, vm=vm, type = 'list')"
 													 onClick="@command('searchKeyByOnClick', key = self.value, vm=vm, bandbox=bdDoanVao)" >
 													<bandpopup>
 														<listbox model="@load(bandBoxDoanVao.listSearch)" class="m-height-lb" selectedItem="@bind(vm.arg.quocGia)" emptyMessage="Không có dữ liệu">
