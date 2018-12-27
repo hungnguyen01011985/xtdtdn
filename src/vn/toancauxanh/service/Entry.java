@@ -31,6 +31,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zhtml.Object;
+import org.zkoss.zk.ui.Executions;
 
 import vn.toancauxanh.cms.service.HomeService;
 import vn.toancauxanh.cms.service.LanguageService;
@@ -361,7 +362,10 @@ public class Entry extends BaseObject<Object> {
 	}
 
 	@RequestMapping(value = "/login")
-	public String login() {
+	public String login(HttpServletRequest request, HttpServletResponse response) {
+		if (getNhanVien(true, request, response) != null) {
+			return "forward:/WEB-INF/zul/home.zul?resource=quanlygiaoviec&action=lietke&file=/WEB-INF/zul/quanlygiaoviec/list.zul";
+		}
 		return "forward:/WEB-INF/zul/login.zul";
 	}
 
