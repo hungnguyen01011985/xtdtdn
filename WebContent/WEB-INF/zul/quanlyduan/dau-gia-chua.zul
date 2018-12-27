@@ -124,7 +124,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div zclass="col-md-4">
+			<div zclass="col-md-8 mw-col-md-8">
 				<div zclass="form-group mg-top-8">
 					<div class="flex">
 						<x:span class="label-txt-style">Đơn vị tư vấn<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
@@ -139,6 +139,8 @@
 					<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
+		</div>
+		<div class="row">
 			<div zclass="col-md-4">
 				<div zclass="form-group mg-top-8" viewModel="@id('hoSoQuyHoachLQH') @init(vm.giaiDoanDuAn.hoSoQuyHoachLQH)">
 					<x:span class="label-txt-style">Hồ sơ quy hoạch</x:span>
@@ -357,7 +359,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div zclass="col-md-4">
+			<div zclass="col-md-8 mw-col-md-8">
 				<div zclass="form-group mg-top-8">
 					<div class="flex">
 						<x:span class="label-txt-style">Đơn vị thực hiện<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
