@@ -735,9 +735,13 @@ public class DuAn extends Model<DuAn> {
 //	}
 	
 	@Transient
-	public boolean getValidateThongTinDuAn(Double input, String errorDescription) {
+	public boolean getValidateThongTinDuAn(Double input, String errorDescription, Enum<GiaiDoanXucTien> giaiDoan) {
 		boolean status = false;
-		if (input < 0) {
+		if (!giaiDoan.equals(GiaiDoanXucTien.GIAI_DOAN_NAM) && input < 0) {
+			showNotification(errorDescription + " phải lớn hơn hoặc bằng 0", "Lỗi", "danger");
+			return true;
+		}
+		if (giaiDoan.equals(GiaiDoanXucTien.GIAI_DOAN_NAM) && input <= 0 ) {
 			showNotification(errorDescription + " phải lớn hơn 0", "Lỗi", "danger");
 			return true;
 		}
@@ -762,12 +766,12 @@ public class DuAn extends Model<DuAn> {
 	@Command
 	public void saveThongTinDuAn() {
 		if (tongVonDauTu != null) {
-			if (getValidateThongTinDuAn(tongVonDauTu, "Tổng vốn đầu tư")) {
+			if (getValidateThongTinDuAn(tongVonDauTu, "Tổng vốn đầu tư", getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 				return;
 			}
 		}
 		if (dienTichSuDungDat != null) {
-			if (getValidateThongTinDuAn(dienTichSuDungDat, "Diện tích sử dụng đất")) {
+			if (getValidateThongTinDuAn(dienTichSuDungDat, "Diện tích sử dụng đất", getGiaiDoanDuAn().getGiaiDoanXucTien())) {
 				return;
 			}
 		}
