@@ -36,9 +36,9 @@
 						<textbox disabled="${readOnly}" rows="3" class="form-control textbox-txt-style" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('savePhongBan', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
-				<div zclass="col-md-12">
-					<div zclass="form-group txt-textbox-disable">
-						<x:span class="label-txt-style">Liên kết công chức sở nội vụ</x:span> 
+				<div zclass="col-md-12" if="${!readOnly}">
+					<div zclass="form-group txt-textbox-disable" >
+						<x:span class="label-txt-style" >Liên kết công chức sở nội vụ</x:span> 
 						<x:button zk:onClick="@command('redirectPage', zul='phongban/list-don-vi-so-noi-vu.zul', vm = vm)"
 							style="margin-top: 8px;" class="btn btn-blue">
 							<span>Chọn công chức</span>

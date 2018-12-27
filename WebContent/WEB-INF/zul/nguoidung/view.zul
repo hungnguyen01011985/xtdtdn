@@ -149,7 +149,7 @@
 					</div>
 					<div class="row">
 						<div zclass="col-md-6">
-							<div zclass="form-group txt-textbox-disable">
+							<div if="${!readOnly}" zclass="form-group txt-textbox-disable">
 								<x:span class="label-txt-style">Liên kết công chức sở nội vụ</x:span> 
 								<x:button zk:onClick="@command('redirectPage', zul='nguoidung/list-cong-chuc-so-noi-vu.zul', vm = vm)"
 									style="margin-top: 8px;" class="btn btn-blue">

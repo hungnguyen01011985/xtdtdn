@@ -711,7 +711,7 @@ public class DuAn extends Model<DuAn> {
 //
 //	public void validateNumber(Double number, String title, boolean type) {
 //		checkValidateNumber = false;
-//		try {
+//		try {<label zclass="error" value="@load(vmsgs['dateEnd'])" />
 //			if (number != null) {
 //				System.out.println("Vo day di ne");
 //				if (number < 0) {
@@ -758,12 +758,12 @@ public class DuAn extends Model<DuAn> {
 	@Command
 	public void saveThongTinDuAn() {
 		if (tongVonDauTu != null) {
-			if(getValidateThongTinDuAn(tongVonDauTu, "Tổng vốn đầu tư")) {
+			if (getValidateThongTinDuAn(tongVonDauTu, "Tổng vốn đầu tư")) {
 				return;
 			}
 		}
 		if (dienTichSuDungDat != null) {
-			if(getValidateThongTinDuAn(dienTichSuDungDat, "Diện tích sử dụng đất")) {
+			if (getValidateThongTinDuAn(dienTichSuDungDat, "Diện tích sử dụng đất")) {
 				return;
 			}
 		}
