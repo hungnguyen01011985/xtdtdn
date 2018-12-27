@@ -62,7 +62,7 @@
 									<template name="children">
 										<div class="item-checkbox" if="${empty each}">
 											<div zclass="form-group">
-												<div class="checkbox checkbox-primary">
+												<div class="checkbox checkbox-primary ${readOnly and !vm.selectItemVaiTro.contains('all'.concat(parent))? 'checkbox-readonly' : (readOnly and vm.selectItemVaiTro.contains('all'.concat(parent)) ? 'cursor-readonly' : '')}">
 													<checkbox disabled="${readOnly}" checked="@load(vm.selectItemVaiTro.contains('all'.concat(parent)))" onCheck="@command('doChecked', parent = parent)"></checkbox>
 													<label class="title-checkbox" value="Tất cả"></label>
 												</div>
@@ -70,7 +70,7 @@
 										</div>
 										<div class="${forEachStatus.last ? 'item-last' : 'item-checkbox'}" if="${not empty each}">
 											<div zclass="form-group">
-												<div class="checkbox checkbox-primary">
+												<div class="checkbox checkbox-primary ${readOnly and !vm.selectItemVaiTro.contains(each)? 'checkbox-readonly' : (readOnly and vm.selectItemVaiTro.contains(each) ? 'cursor-readonly' : '')}">
 													<checkbox disabled="${readOnly}" checked="@load(vm.selectItemVaiTro.contains(each))" onCheck="@command('doChecked', children = each, parent = parent)"></checkbox>
 													<label class="title-checkbox" value="@load(vm.getLabelAction(each, parent))"></label>
 												</div>
