@@ -300,6 +300,18 @@
 	font-family: FontAwesome;
     content: "\f00c";
 }
+.m-check-box-10 {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.checkbox-readonly label::after, .checkbox-readonly label::before {
+	background: #F9F9F9 !important;
+	cursor: not-allowed !important;
+}
+.cursor-readonly label::after, .cursor-readonly label::before {
+	cursor: not-allowed !important;
+}
 .checkbox label::after {
 	width: 16px;
     height: 16px;

@@ -469,25 +469,30 @@ public class VaiTro extends Model<VaiTro> {
 			if (QUANTRIHETHONG.equals(vaiTro)) {
 
 				// Thêm quyền vào danh sách vai trò các tittle
-			
+
+				quyens1.add("all".concat(core().QUANLYPHONGBAN));
 				quyens1.add(core().QUANLYPHONGBANLIST);
 				quyens1.add(core().QUANLYPHONGBANXEM);
 				quyens1.add(core().QUANLYPHONGBANSUA);
 				quyens1.add(core().QUANLYPHONGBANTHEM);
 				quyens1.add(core().QUANLYPHONGBANXOA);
 
+				quyens1.add("all".concat(core().QUANLYLINHVUCDUAN));
 				quyens1.add(core().LINHVUCDUANLIST);
 				quyens1.add(core().LINHVUCDUANXEM);
 				quyens1.add(core().LINHVUCDUANTHEM);
 				quyens1.add(core().LINHVUCDUANSUA);
 				quyens1.add(core().LINHVUCDUANXOA);
 
+				quyens1.add("all".concat(core().VAITRO));
+				quyens1.add(core().VAITROLIST);
 				quyens1.add(core().VAITROXEM);
 				quyens1.add(core().VAITROTHEM);
 				quyens1.add(core().VAITROSUA);
 				quyens1.add(core().VAITROXOA);
 				quyens1.add(core().VAITROTIMKIEM);
 
+				quyens1.add("all".concat(core().NGUOIDUNG));
 				quyens1.add(core().NGUOIDUNGLIST);
 				quyens1.add(core().NGUOIDUNGXEM);
 				quyens1.add(core().NGUOIDUNGTHEM);
@@ -499,18 +504,21 @@ public class VaiTro extends Model<VaiTro> {
 				// Thêm quyền vào danh sách vai trò các tittle
 				quyens1.add(core().QUANLYDUANLIST);
 
+				quyens1.add("all".concat(core().QUANLYDOANVAO));
 				quyens1.add(core().QUANLYDOANVAOLIST);
 				quyens1.add(core().QUANLYDOANVAOSUA);
 				quyens1.add(core().QUANLYDOANVAOXEM);
 				quyens1.add(core().QUANLYDOANVAOTHEM);
 				quyens1.add(core().QUANLYDOANVAOXOA);
 
+				quyens1.add("all".concat(core().QUANLYPHONGBAN));
 				quyens1.add(core().QUANLYPHONGBANLIST);
 				quyens1.add(core().QUANLYPHONGBANXEM);
 				quyens1.add(core().QUANLYPHONGBANSUA);
 				quyens1.add(core().QUANLYPHONGBANTHEM);
 				quyens1.add(core().QUANLYPHONGBANXOA);
 
+				quyens1.add("all".concat(core().QUANLYLINHVUCDUAN));
 				quyens1.add(core().LINHVUCDUANLIST);
 				quyens1.add(core().LINHVUCDUANXEM);
 				quyens1.add(core().LINHVUCDUANTHEM);
@@ -522,7 +530,8 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().VAITROSUA);
 				quyens1.add(core().VAITROXOA);
 				quyens1.add(core().VAITROTIMKIEM);
-
+				
+				quyens1.add("all".concat(core().NGUOIDUNG));
 				quyens1.add(core().NGUOIDUNGLIST);
 				quyens1.add(core().NGUOIDUNGXEM);
 				quyens1.add(core().NGUOIDUNGTHEM);
@@ -530,6 +539,7 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().NGUOIDUNGXOA);
 			} else if (LANHDAO.equals(vaiTro)) {
 				// Thêm quyền vào danh sách vai trò các tittle
+				quyens1.add("all".concat(core().QUANLYDUAN));
 				quyens1.add(core().QUANLYDUANLIST);
 				quyens1.add(core().QUANLYDUANSUA);
 				quyens1.add(core().QUANLYDUANTHEM);
@@ -538,12 +548,14 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYDUANGIAOVIEC);
 				quyens1.add(core().QUANLYDUANPHUTRACH);
 
+				quyens1.add("all".concat(core().QUANLYDOANVAO));
 				quyens1.add(core().QUANLYDOANVAOLIST);
 				quyens1.add(core().QUANLYDOANVAOSUA);
 				quyens1.add(core().QUANLYDOANVAOXEM);
 				quyens1.add(core().QUANLYDOANVAOTHEM);
 				quyens1.add(core().QUANLYDOANVAOXOA);
 
+				quyens1.add("all".concat(core().QUANLYGIAOVIEC));
 				quyens1.add(core().QUANLYGIAOVIECLIST);
 				quyens1.add(core().QUANLYGIAOVIECSUA);
 				quyens1.add(core().QUANLYGIAOVIECTHEM);
@@ -551,24 +563,28 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYGIAOVIECXEM);
 				quyens1.add(core().QUANLYGIAOVIECNHACNHO);
 
+				quyens1.add("all".concat(core().QUANLYPHONGBAN));
 				quyens1.add(core().QUANLYPHONGBANLIST);
 				quyens1.add(core().QUANLYPHONGBANXEM);
 				quyens1.add(core().QUANLYPHONGBANSUA);
 				quyens1.add(core().QUANLYPHONGBANTHEM);
 				quyens1.add(core().QUANLYPHONGBANXOA);
 
+				quyens1.add("all".concat(core().QUANLYLINHVUCDUAN));
 				quyens1.add(core().LINHVUCDUANLIST);
 				quyens1.add(core().LINHVUCDUANXEM);
 				quyens1.add(core().LINHVUCDUANTHEM);
 				quyens1.add(core().LINHVUCDUANSUA);
 				quyens1.add(core().LINHVUCDUANXOA);
 
+				quyens1.add("all".concat(core().VAITRO));
 				quyens1.add(core().VAITROXEM);
 				quyens1.add(core().VAITROTHEM);
 				quyens1.add(core().VAITROSUA);
 				quyens1.add(core().VAITROXOA);
 				quyens1.add(core().VAITROTIMKIEM);
 
+				quyens1.add("all".concat(core().NGUOIDUNG));
 				quyens1.add(core().NGUOIDUNGLIST);
 				quyens1.add(core().NGUOIDUNGXEM);
 				quyens1.add(core().NGUOIDUNGTHEM);
@@ -577,6 +593,7 @@ public class VaiTro extends Model<VaiTro> {
 			} else if (TRUONGPHONG.equals(vaiTro)) {
 				// Thêm quyền vào danh sách vai trò các tittle
 
+				quyens1.add("all".concat(core().QUANLYDUAN));
 				quyens1.add(core().QUANLYDUANLIST);
 				quyens1.add(core().QUANLYDUANSUA);
 				quyens1.add(core().QUANLYDUANTHEM);
@@ -585,12 +602,14 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYDUANGIAOVIEC);
 				quyens1.add(core().QUANLYDUANPHUTRACH);
 
+				quyens1.add("all".concat(core().QUANLYDOANVAO));
 				quyens1.add(core().QUANLYDOANVAOLIST);
 				quyens1.add(core().QUANLYDOANVAOSUA);
 				quyens1.add(core().QUANLYDOANVAOXEM);
 				quyens1.add(core().QUANLYDOANVAOTHEM);
 				quyens1.add(core().QUANLYDOANVAOXOA);
 
+				quyens1.add("all".concat(core().QUANLYGIAOVIEC));
 				quyens1.add(core().QUANLYGIAOVIECLIST);
 				quyens1.add(core().QUANLYGIAOVIECSUA);
 				quyens1.add(core().QUANLYGIAOVIECTHEM);
@@ -598,24 +617,28 @@ public class VaiTro extends Model<VaiTro> {
 				quyens1.add(core().QUANLYGIAOVIECXEM);
 				quyens1.add(core().QUANLYGIAOVIECNHACNHO);
 
+				quyens1.add("all".concat(core().QUANLYPHONGBAN));
 				quyens1.add(core().QUANLYPHONGBANLIST);
 				quyens1.add(core().QUANLYPHONGBANXEM);
 				quyens1.add(core().QUANLYPHONGBANSUA);
 				quyens1.add(core().QUANLYPHONGBANTHEM);
 				quyens1.add(core().QUANLYPHONGBANXOA);
 
+				quyens1.add("all".concat(core().QUANLYLINHVUCDUAN));
 				quyens1.add(core().LINHVUCDUANLIST);
 				quyens1.add(core().LINHVUCDUANXEM);
 				quyens1.add(core().LINHVUCDUANTHEM);
 				quyens1.add(core().LINHVUCDUANSUA);
 				quyens1.add(core().LINHVUCDUANXOA);
 
+				quyens1.add("all".concat(core().VAITRO));
 				quyens1.add(core().VAITROXEM);
 				quyens1.add(core().VAITROTHEM);
 				quyens1.add(core().VAITROSUA);
 				quyens1.add(core().VAITROXOA);
 				quyens1.add(core().VAITROTIMKIEM);
 
+				quyens1.add("all".concat(core().NGUOIDUNG));
 				quyens1.add(core().NGUOIDUNGLIST);
 				quyens1.add(core().NGUOIDUNGXEM);
 				quyens1.add(core().NGUOIDUNGTHEM);
