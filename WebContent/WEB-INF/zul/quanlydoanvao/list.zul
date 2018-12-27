@@ -50,9 +50,9 @@
 						<div zclass="form-group">
 							<x:span class="label-txt-style">Quốc gia</x:span> 
 							<bandbox buttonVisible="false" viewModel="@id('bandBoxDoanVao') @init(doanVao)" id="bdDoanVao" width="auto" value="@bind(vm.arg.quocGia)"
-								onOpen="@command('searchKey', key = event.value, vm=vm)"
+								onOpen="@command('searchKey', key = event.value, vm=vm, type = 'list')"
 								placeholder="Chọn quốc gia" class="his bb-quoc-gia input-no-button" readonly="false"
-								onChanging="@command('searchKey', key = event.value, vm=vm)"
+								onChanging="@command('searchKey', key = event.value, vm=vm, type= 'list')"
 								onClick="@command('searchKeyByOnClick', key = self.value, vm=vm, bandbox=bdDoanVao)" autodrop="true" >
 									<bandpopup>
 										<listbox model="@load(bandBoxDoanVao.listSearch)" class="m-height-lb" emptyMessage="Không có dữ liệu" selectedItem="@bind(vm.arg.quocGia)">

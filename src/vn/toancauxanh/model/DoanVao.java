@@ -517,10 +517,28 @@ public class DoanVao extends Model<DoanVao> {
 	@Command
 	@NotifyChange({ "listSearch", "key" })
 	public void searchKey(@BindingParam("key") String key,
-			@BindingParam("vm") Object vm, @BindingParam("bandbox") Bandbox bb) {
+			@BindingParam("vm") Object vm, @BindingParam("bandbox") Bandbox bb, @BindingParam("type") String type) {
 		this.key = key;
 		listSearch.clear();
 		if (key == null || "".equals(key) || "".equals(key.replaceAll("\\s+", ""))) {
+			if ("thanhVienDoan".equals(type)) {
+				thanhVienDoanTemp.setTenQuocGia(null);
+				BindUtils.postNotifyChange(null, null, this, "thanhVienDoanTemp");
+
+			} else if ("list".equals(type)) {
+				if (vm != null) {
+					if (vm instanceof DoanVaoService) {
+						((DoanVaoService) vm).getArg().put("quocGia", null);
+					} else if (vm instanceof BaoCaoThongKeDoanVao) {
+						((BaoCaoThongKeDoanVao) vm).getArg().put("quocGia", null);
+
+					}
+				}
+				BindUtils.postNotifyChange(null, null, vm, "arg");
+			} else if ("add".equals(type)) {
+				tenQuocGia = null;
+				BindUtils.postNotifyChange(null, null, this, "tenQuocGia");
+			}
 			listSearch.addAll(getListQuocGia());
 			if (bb != null) {
 				if (!bb.isOpen()) {
