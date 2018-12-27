@@ -1413,6 +1413,9 @@
 	.col-md-3 {
 	    width: 25% !important;
 	}
+	.col-md-8 {
+		width:66.66666667% !important;
+	}
 	.col-md-9 {
 	    width: 75% !important;
 	}
@@ -1485,4 +1488,7 @@
 	border-bottom: 1px solid #D3D9E2;
 	border-top: 1px solid #D3D9E2;
 	padding-top:6px;
+}
+.mw-col-md-8 {
+	max-width:540px;
 }
