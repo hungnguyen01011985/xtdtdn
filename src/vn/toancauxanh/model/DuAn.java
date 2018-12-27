@@ -758,12 +758,12 @@ public class DuAn extends Model<DuAn> {
 	@Command
 	public void saveThongTinDuAn() {
 		if (tongVonDauTu != null) {
-			if(getValidateThongTinDuAn(tongVonDauTu, "Tổng vốn đầu tư")) {
+			if (getValidateThongTinDuAn(tongVonDauTu, "Tổng vốn đầu tư")) {
 				return;
 			}
 		}
 		if (dienTichSuDungDat != null) {
-			if(getValidateThongTinDuAn(dienTichSuDungDat, "Diện tích sử dụng đất")) {
+			if (getValidateThongTinDuAn(dienTichSuDungDat, "Diện tích sử dụng đất")) {
 				return;
 			}
 		}
