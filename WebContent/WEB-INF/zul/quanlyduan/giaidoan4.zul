@@ -24,38 +24,42 @@
 				</div>
 			</div>
 			<include src="quanlyduan/step-giai-doan.zul"></include>
-			<div class="row mg-top-no-line">
-				<div zclass="col-md-4">
-					<div zclass="form-group mg-top-8">
-						<div class="flex">
-							<x:span class="issue-search">Phương thức lựa chọn nhà đầu tư<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
+			<div class="mg-top-no-line">
+				<div class="row">
+					<div zclass="col-md-4">
+						<div zclass="form-group mg-top-8">
+							<div class="flex">
+								<x:span class="issue-search">Phương thức lựa chọn nhà đầu tư<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
+							</div>
+							<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
+								disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }" 
+								model="@load(vm.getListPhuongThucLuaChonNDT())" readonly="true" width="100%" placeholder="--Chọn--" selectedItem="@bind(vm.giaiDoanDuAn.phuongThucLuaChonNDT) @save(vm.giaiDoanDuAn.phuongThucLuaChonNDT, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+								onSelect="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)" onCreate="@command('srcGiaiDoanBon',giatri=vm.giaiDoanDuAn.option, vmArgs = vm)" value="@load(vm.giaiDoanDuAn.phuongThucLuaChonNDT.text)">
+								<template name="model">
+									<comboitem label="@load(each.text)"></comboitem>
+								</template>
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
-						<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
-							disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }" 
-							model="@load(vm.getListPhuongThucLuaChonNDT())" readonly="true" width="100%" placeholder="--Chọn--" selectedItem="@bind(vm.giaiDoanDuAn.phuongThucLuaChonNDT) @save(vm.giaiDoanDuAn.phuongThucLuaChonNDT, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
-							onSelect="@command('srcGiaiDoanBon',giatri=true, vmArgs = vm)" onCreate="@command('srcGiaiDoanBon',giatri=vm.giaiDoanDuAn.option, vmArgs = vm)" value="@load(vm.giaiDoanDuAn.phuongThucLuaChonNDT.text)">
-							<template name="model">
-								<comboitem label="@load(each.text)"></comboitem>
-							</template>
-						</combobox>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
-				<div zclass="col-md-4">
-					<div zclass="form-group mg-top-8">
-						<div class="flex">
-							<x:span class="issue-search">Đơn vị chủ trì<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
+				<div class="row">
+					<div zclass="col-md-8 mw-col-md-8">
+						<div zclass="form-group mg-top-8">
+							<div class="flex">
+								<x:span class="issue-search">Đơn vị chủ trì<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
+							</div>
+							<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
+								disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
+								class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }" 
+								width="100%" readonly="true" model="@load(vm.giaiDoanDuAn.getListDonViChuTri())" placeholder="--Chọn--"
+								selectedItem="@bind(vm.giaiDoanDuAn.donViChuTri) @save(vm.giaiDoanDuAn.donViChuTri, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
+								<template name="model">
+									<comboitem label="@load(each.ten)"></comboitem>
+								</template>
+							</combobox>
+							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
-						<combobox buttonVisible="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" 
-							disabled="${!action or !vm.checkDangOGiaiDoan(giaiDoanBon) or vm.nguoiPhuTrach.id != entry.nhanVien.id}" 
-							class="his mg-top-8 ${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id ? '' : 'input-no-button no-place-holder' }" 
-							width="100%" readonly="true" model="@load(vm.giaiDoanDuAn.getListDonViChuTri())" placeholder="--Chọn--"
-							selectedItem="@bind(vm.giaiDoanDuAn.donViChuTri) @save(vm.giaiDoanDuAn.donViChuTri, before={'goTask','goNext'}) @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
-							<template name="model">
-								<comboitem label="@load(each.ten)"></comboitem>
-							</template>
-						</combobox>
-						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
 				</div>
 			</div>
