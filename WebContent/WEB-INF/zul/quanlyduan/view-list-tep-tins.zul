@@ -22,29 +22,27 @@
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-8">
 							<div class="flex">
 								<x:span zk:if="${forEachStatus.first}" class="label-txt-style">Tài liệu đính kèm</x:span>
 							</div>
-							<div zclass="form-group mg-top-8">
+							<div style="display:flex" class="mg-top-8">
 								<a href="">
-									<div class="box-img-tai-lieu">
+									<div class="box-img-tai-lieu flex-a-tep-tin" style="padding-right: 15px;">
 										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/cong-van-dinh-kem.svg"/>
-										<label visible="@load(each.noId())" value="@load(each.tenFile)" onClick="@command('downLoadTepTin', ob = each)" class="txt-link-tai-lieu-fix"></label>
-										<a visible="@load(!each.noId())" label="@bind(each.tenFile)" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = each)"></a>
+										<label visible="@load(each.noId())" value="@load(each.tenFile)" onClick="@command('downLoadTepTin', ob = each)" class="txt-link-tai-lieu-don-vi"></label>
+										<a visible="@load(!each.noId())" label="@bind(each.tenFile)" style="max-width:300px;" class="txt-link-tailieu pointer-cls" zk:onClick="@command('redirect', ob = each)"></a>
 									</div>
 								</a>
-							</div>
-						</div>
-						<div class="col-md-4 ${forEachStatus.first ? 'margin-top-17' : ''}">
-							<div class="flex mg-btn-top">
-								<x:button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
-									<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
-								</x:button>
-								<button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
-									onUpload="@command('reUploadFile', medias=event.media, index = forEachStatus.index)"
-									upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
-								</button>
+								<div class="flex">
+									<x:button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn bg-btn-dongtailieu rs-mg-left" zk:onClick="@command('deleteFile', index = forEachStatus.index)">
+										<x:image src="${contexPath}/assets/icon-bxtdn/remove.png" width="13px" height="13px"/>
+									</x:button>
+									<button if="${action and vm.checkDangOGiaiDoan(vm.giaiDoanDuAn.giaiDoanXucTien) and vm.nguoiPhuTrach.id == entry.nhanVien.id}" class="btn btn-refesh-tai-lieu" image="/assets/icon-bxtdn/reupload.svg"
+										onUpload="@command('reUploadFile', medias=event.media, index = forEachStatus.index)"
+										upload="true,accept=.pdf|.xls|.xlsx|.doc|.docx">
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>

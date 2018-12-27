@@ -32,6 +32,26 @@ import vn.toancauxanh.sso.Utils;
 public final class NhanVienService extends BasicService<NhanVien> {
 
 	private boolean remember;
+	
+	private String username;
+	
+	private String password;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public void setTacGiasTimKiem(List<NhanVien> tacGiasTimKiem) {
 		this.tacGiasTimKiem = tacGiasTimKiem;
@@ -89,10 +109,6 @@ public final class NhanVienService extends BasicService<NhanVien> {
 
 	@Command
 	public void login(@BindingParam("email") final String email, @BindingParam("password") final String password) {
-		if (email.trim().isEmpty() || password.isEmpty()) {
-			showNotification("Bạn phải nhập email và mật khẩu", "", "danger");
-			return;
-		}
 		NhanVien nhanVien = new JPAQuery<NhanVien>(em()).from(QNhanVien.nhanVien)
 				.where(QNhanVien.nhanVien.daXoa.isFalse()).where(QNhanVien.nhanVien.trangThai.ne(core().TT_DA_XOA))
 				.where(QNhanVien.nhanVien.email.eq(email)).fetchFirst();

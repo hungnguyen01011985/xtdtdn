@@ -333,7 +333,7 @@
 	padding-bottom: 15px;
 }
 .color-txt-red {
-	color: #721c24 !important; 
+	color: #ff0018 !important; 
 }
 .color-txt-orange {
 	color: #856404 !important;
@@ -602,7 +602,7 @@
 	height: 1px;
 	width: 81%;
 	position: absolute;
-	top: 34px;
+	top: 40px;
 }
 
 .box-plan {
@@ -871,6 +871,19 @@
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.txt-link-tai-lieu-don-vi {
+	font-family: Roboto-Medium;
+    font-size: 13px;
+    color: #4274ED;
+    text-align: left;
+    line-height: 18px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.flex-a-tep-tin > a:first-child {
+	display:flex;
 }
 .bg-btn-dongtailieu {
 	color: #5C6376;
@@ -1467,4 +1480,9 @@
 .btn-green-style:focus {
 	background: #30B350;
 	border: 1px solid #30B350;
+}
+.border-bt-step {
+	border-bottom: 1px solid #D3D9E2;
+	border-top: 1px solid #D3D9E2;
+	padding-top:6px;
 }

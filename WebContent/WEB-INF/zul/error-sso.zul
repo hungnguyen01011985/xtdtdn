@@ -40,13 +40,23 @@
 		    height: 36px;
 		    text-shadow:none;
 		    border-radius: 3px !important;
-		    font-family: Roboto-Bold !important;
+		    
    			font-size: 13px;
 		}
 		.z-button:hover {
 			background: #23A76E;
 		    border: 1px solid #23A76E;
 		    color:#FFF;
+		}
+		.z-button:focus {
+			background: #23A76E;
+		    border: 1px solid #23A76E;
+		    color:#FFF;
+		}
+		.style-text-login span{
+			font-family: Roboto-Regular !important;
+			color:#FFF;
+			font-size:14px;
 		}
 	</style>
 	<div class="" apply="org.zkoss.bind.BindComposer">
@@ -68,11 +78,11 @@
 				</div>
 			</div>
 			<div>
-				 <span style="text-align:center; display:block;">Tài khoản của bạn hiện không tồn tại trong phần mềm quản lý. 
+				 <span style="text-align:center; display:block;" class="style-text-login">Tài khoản của bạn hiện không tồn tại trong phần mềm quản lý. 
 				 Vui lòng liên hệ với administrator để được cung cấp tài khoản truy cập vào phần mềm quản lý.</span>			
 			</div>
 			<div style="text-align:center;margin-top:15px;">
-				<button href="/dang-nhap-sso" class="btn-gray btn-base">Quay về</button>
+				<button href="/dang-nhap-sso" class="btn-gray btn-base ft-style-bold">Quay về</button>
 			</div>
 		</n:div>
 	</div>	

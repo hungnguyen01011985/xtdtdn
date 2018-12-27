@@ -9,9 +9,14 @@
 <?script type="text/javascript" src="/assets/js/bootstrap.min.js"?>
 <?script type="text/javascript" src="/assets/js/sb-admin-2.js"?>
 <?script type="text/javascript" src="/assets/toastr/build/toastr.min.js" ?>
-<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" mode="modal" id="wdn" xmlns:z="zul" width="400px" class="location-form-login"
-	viewModel="@id('vm') @init('vn.toancauxanh.service.NhanVienService')">
+<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" id="wdn" xmlns:z="zul" width="400px" class="location-form-login"
+	viewModel="@id('vm') @init('vn.toancauxanh.service.NhanVienService')" validationMessages="@id('vmsgs')">
 	<style>
+		.z-page {
+			background-image: url("login/img/background.png");
+			background-size: 100% 100%;
+			background-repeat:no-repeat;
+		}
 		.formac-cauhinh {
 			margin: 10px 0px;
 		}
@@ -24,11 +29,14 @@
 			font-family:Arial;
 		}
 		.location-form-login {
+		    margin: 0 auto;
+    		position: relative;
 			top: calc(50vh - 176px) !important;
 		}
 		.z-modal-mask {
 			background:#2980b9 !important;
 		}
+		
 	</style>
 	<zscript><![CDATA[
 	       String type = execution.getParameter("type");
@@ -56,8 +64,8 @@
 					<div class="flex">
 						<x:span class="issue-search">Tài khoản đăng nhập<n:small class="required"> *</n:small></x:span>
 					</div> 
-					<textbox type="text" onOK='vm.login(account.getValue(), password.getValue());'
-						class="form-control user-input font-text-lg" id="account" placeholder="Nhập tài khoản" onCreate="self.focus()" onBlur="password.focus()"/> 
+					<textbox type="text" onOK="@command('login', email = vm.username, password = vm.password)" value="@bind(vm.username) @save(vm.username, before='login') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						class="form-control user-input font-text-lg" id="account" placeholder="Nhập tài khoản" onCreate="self.focus()"/> 
 					<label class="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
@@ -68,8 +76,8 @@
 					<div class="flex">
 						<x:span class="issue-search">Mật khẩu<n:small class="required"> *</n:small></x:span>
 					</div>  
-					<textbox id="password" placeholder="Nhập mật khẩu" class="form-control pass-input" type="password"
-						onOK='vm.login(account.getValue(), password.getValue());' />
+					<textbox id="password" placeholder="Nhập mật khẩu" class="form-control pass-input" type="password" value="@bind(vm.password) @save(vm.password, before='login') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')"
+						onOK="@command('login', email = vm.username, password = vm.password)" />
 					<label class="error" value="@load(vmsgs[self.previousSibling])" />
 				</div>
 			</div>
@@ -79,7 +87,7 @@
 				<div class="formac-cauhinh">
 					<x:button type="submit" style="width:100%"
 						class="btn primary"
-						zk:onClick='vm.login(account.getValue(), password.getValue());'>
+						zk:onClick="@command('login', email = vm.username, password = vm.password)">
 						Đăng nhập
 					</x:button>
 				</div>
