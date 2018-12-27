@@ -737,6 +737,10 @@ public class DuAn extends Model<DuAn> {
 	@Transient
 	public boolean getValidateThongTinDuAn(Double input, String errorDescription) {
 		boolean status = false;
+		if (input < 0) {
+			showNotification(errorDescription + " phải lớn hơn 0", "Lỗi", "danger");
+			return true;
+		}
 		DecimalFormat decimalFormat = new DecimalFormat("###0");
 		String inputString = decimalFormat.format(input);
 		Pattern patternNumberType = Pattern.compile("\\d{1,}");
