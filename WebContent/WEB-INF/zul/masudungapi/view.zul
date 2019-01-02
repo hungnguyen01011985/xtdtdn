@@ -27,7 +27,7 @@
 						<div class="flex">
 							<x:span class="label-txt-style">Tên đơn vị sử dụng API<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 						</div>
-						<textbox disabled="${readOnly}" maxlength="58" class="form-control textbox-txt-style" 
+						<textbox disabled="${readOnly}" maxlength="55" class="form-control textbox-txt-style" 
 								value="@bind(vm.ten) @save(vm.ten, before='saveKeyApi') @validator(vm.validateKeyApi)"
 								onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveKeyApi', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên đơn vị sử dụng API...">
 						 </textbox>
