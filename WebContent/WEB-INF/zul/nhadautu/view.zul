@@ -27,7 +27,7 @@
 							<div class="flex">
 								<x:span class="label-txt-style">Tên nhà đầu tư<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 							</div>
-							<textbox disabled="${readOnly}" maxlength="58" class="form-control textbox-txt-style" value="@bind(vm.tenNhaDauTu) @save(vm.tenNhaDauTu, before={'saveNhaDauTu'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
+							<textbox disabled="${readOnly}" maxlength="55" class="form-control textbox-txt-style" value="@bind(vm.tenNhaDauTu) @save(vm.tenNhaDauTu, before={'saveNhaDauTu'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
 								 placeholder="Nhập tên nhà đầu tư..."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>

@@ -1,6 +1,6 @@
 <idspace>
 	<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
-		id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width content-popup"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" width="500px" class="tcx-modal pop-up-width content-popup"
 		closable="true" onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
 		whatever="@load(false,after='saveDonVi') @converter('vn.toancauxanh.service.DetachConverter')"
 		viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
@@ -9,7 +9,7 @@
 			strSave = arg.get("save");
 			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
 		]]></zscript> 
-		<div class="w-popup-content">
+		<div class="w-popup-content" width="500px">
 			<div class="box-title-and-close">
 				<div style="display:flex">
 					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
@@ -25,7 +25,7 @@
 						<div class="flex">
 							<x:span class="label-txt-style">Tên đơn vị<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 						</div>
-						<textbox disabled="${readOnly}" maxlength="58" class="form-control textbox-txt-style" value="@bind(vm.ten) @save(vm.ten, before='saveDonVi') @validator(vm.validateTenDonVi)"
+						<textbox disabled="${readOnly}" maxlength="65" class="form-control textbox-txt-style" value="@bind(vm.ten) @save(vm.ten, before='saveDonVi') @validator(vm.validateTenDonVi)"
 						 onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)" placeholder="Nhập tên đơn vị..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
