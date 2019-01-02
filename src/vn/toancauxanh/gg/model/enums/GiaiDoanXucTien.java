@@ -15,4 +15,5 @@ public enum GiaiDoanXucTien{
 	public String getText() {
 		return text;
 	}
+
 }
