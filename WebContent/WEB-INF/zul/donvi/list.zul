@@ -4,7 +4,7 @@
 	 class="form-list">
 	<zscript>
 		<![CDATA[
-			page.title = "Quản trị hệ thống";
+			page.title = "Quản lý đơn vị";
 		]]>
 	</zscript>
 	<div>
