@@ -1,9 +1,9 @@
-<?page title="Báo cáo thống kê" contentType="text/html;charset=UTF-8"?>
+<?page title="Thống kê đoàn vào" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
 	apply="org.zkoss.bind.BindComposer" class="form-list" viewModel="@id('vm') @init('vn.toancauxanh.service.BaoCaoThongKeDoanVao')" validationMessages="@id('vmsgs')">
 	<zscript>
 		<![CDATA[
-			page.title = "Báo cáo thống kê";
+			page.title = "Thống kê đoàn vào";
 			doanVao = new vn.toancauxanh.model.DoanVao();
 		]]>
 	</zscript>

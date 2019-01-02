@@ -1,4 +1,4 @@
-<?page title="Thông tin văn bản" contentType="text/html;charset=UTF-8"?>
+<?page title="Quản lý dự án" contentType="text/html;charset=UTF-8"?>
 <window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" viewModel="@id('vm')@init('vn.toancauxanh.service.DuAnService')" validationMessages="@id('vmsgs')"
 	apply="org.zkoss.bind.BindComposer" class="form-list">
 	<zscript>
