@@ -943,7 +943,7 @@
         <di:waypoint x="3628" y="590" />
         <di:waypoint x="3524" y="590" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3625" y="433" width="77" height="27" />
+          <dc:Bounds x="3641" y="429" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_15r7j7k_di" bpmnElement="seqFlow_tiepTucGiaiDoanBa_sqf__sort_5_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_">
@@ -1090,14 +1090,14 @@
         <di:waypoint x="4989" y="590" />
         <di:waypoint x="4920" y="590" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4982" y="440" width="77" height="27" />
+          <dc:Bounds x="5000" y="440" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_11jvphj_di" bpmnElement="seqFlow_capNhatGiaiDoanBon_sqf__sort_1_sort__icon_doi-nguoi-phu-trach.svg_icon__class_btn-blue-style_class_">
         <di:waypoint x="5175" y="408" />
         <di:waypoint x="4920" y="408" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="5009" y="390" width="78" height="27" />
+          <dc:Bounds x="5009" y="381" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1utc2rn_di" bpmnElement="seqFlow_tiepTucGiaiDoanBon_sqf__sort_4_sort__btn_goNext_btn__icon_tiep-tuc.svg_icon__class_btn-green-style_class_">
@@ -1385,7 +1385,7 @@
         <di:waypoint x="2022" y="422" />
         <di:waypoint x="2022" y="442" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2015" y="401" width="77" height="27" />
+          <dc:Bounds x="2022" y="394" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1p9x8wq_di" bpmnElement="seqFlow_ketThucGiaiDoanBa_sqf__sort_5_sort__btn_goKetThuc_btn__icon_ket-thuc-du-an.svg_icon__class_btn-green-style_class_">
@@ -1717,7 +1717,7 @@
         <di:waypoint x="6373" y="590" />
         <di:waypoint x="6304" y="590" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="6366" y="440" width="77" height="27" />
+          <dc:Bounds x="6384" y="440" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1c625zu_di" bpmnElement="SequenceFlow_1c625zu">
@@ -1801,7 +1801,7 @@
         <di:waypoint x="6559" y="408" />
         <di:waypoint x="6304" y="408" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="6393" y="390" width="78" height="27" />
+          <dc:Bounds x="6408" y="381" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1azbyws_di" bpmnElement="SequenceFlow_1azbyws">
