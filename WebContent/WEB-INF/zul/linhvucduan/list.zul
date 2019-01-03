@@ -3,7 +3,7 @@
 	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('vn.toancauxanh.service.LinhVucDuAnService')" class="form-list">
 	<zscript>
 		<![CDATA[
-			page.title = "Quản trị hệ thống";
+			page.title = "Quản lý lĩnh vực dự án";
 		]]>
 	</zscript>
 	<div>

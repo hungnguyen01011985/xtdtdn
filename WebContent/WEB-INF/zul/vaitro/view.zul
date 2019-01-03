@@ -28,7 +28,7 @@
 						<div class="flex">
 							<x:span class="label-txt-style">Tên vai trò<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 						</div>
-						<textbox disabled="${readOnly}" maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.tenVaiTro) @save(vm.tenVaiTro, before='saveVaiTro') @validator(vm.validateTenVaiTro)"
+						<textbox disabled="${readOnly}" maxlength="120" class="form-control textbox-txt-style" value="@bind(vm.tenVaiTro) @save(vm.tenVaiTro, before='saveVaiTro') @validator(vm.validateTenVaiTro)"
 							onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" onOK="@command('saveVaiTro',list=vmArgs, attr='vaiTroQuery', wdn=wdn)" placeholder="Nhập tên vai trò..."></textbox>
 						<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 					</div>
