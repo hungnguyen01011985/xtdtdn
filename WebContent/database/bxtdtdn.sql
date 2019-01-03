@@ -457,7 +457,7 @@ CREATE TABLE IF NOT EXISTS `duan` (
   `ngayTao` datetime DEFAULT NULL,
   `trangThai` varchar(255) DEFAULT NULL,
   `diaDiem` varchar(255) DEFAULT NULL,
-  `dienTichSuDungDat` bigint(20) NOT NULL,
+  `dienTichSuDungDat` double NOT NULL,
   `giaiDoanXucTien` varchar(255) DEFAULT NULL,
   `idNguoiLienQuan` varchar(255) DEFAULT NULL,
   `khaNangDauTu` varchar(255) DEFAULT NULL,
