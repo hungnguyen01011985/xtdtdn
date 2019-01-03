@@ -3,7 +3,7 @@
 <?meta http-equiv="X-UA-Compatible" content="IE=edge"?>
 <?meta name="viewport" content="width=device-width, initial-scale=1"?>
 <?script type="text/javascript"  src="/login/js/login.min.js"?>
-<?link rel="icon" href="/img/favicon.png" type="image/x-icon" ?>
+<?link rel="icon" href="/assets/icon-bxtdn/logo_new.ico" type="image/x-icon" ?>
 <zk xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" xmlns:w="client" xmlns:ca="client/attribute">
 	<style>
 		body {background: #E9EEF3}
