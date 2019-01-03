@@ -2,6 +2,7 @@ package vn.toancauxanh.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -746,6 +747,7 @@ public class DuAn extends Model<DuAn> {
 			return true;
 		}
 		DecimalFormat decimalFormat = new DecimalFormat("###0");
+		decimalFormat.setRoundingMode(RoundingMode.DOWN);
 		String inputString = decimalFormat.format(input);
 		Pattern patternNumberType = Pattern.compile("\\d{1,}");
 		Matcher matcherNumberType = patternNumberType.matcher(inputString);
