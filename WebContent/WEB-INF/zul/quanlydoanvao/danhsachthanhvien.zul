@@ -1,262 +1,264 @@
 <?page title="Danh sách thành viên đoàn" contentType="text/html;charset=UTF-8"?>
-<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" xmlns:w="client"
-	id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true"
-	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')" class="tcx-modal reset-width pop-up-width1">
-	<zscript>
-		<![CDATA[
-			strSave = arg.get("save");
-			readOnly = arg.get("readOnly");
-			vm.setThanhVienDoanTemp(new vn.toancauxanh.model.ThanhVienDoan());
-			vm.setFlag(false);
-		]]>
-	</zscript>
-	<div class="w-popup-content-medium"> 
-		<div class="panel-box">
-			<div class="box-title-and-close">
-				<div style="display:flex">
-					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/danh-sach-popup.svg"/>
-					<span class="style-title-popup">${arg.save}</span>
-				</div>
-				<a onClick="wdn.detach()">
-					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
-				</a>
-			</div>
-			<div class="mg-and-bg-and-line-fix" style="padding-top:0;">
-				<div class="row">
-					<div zclass="col-md-12">
-						<div class="title-form-medium">
-							<span>Thông tin đoàn vào</span>
-						</div>
+<idspace>
+	<window xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml" xmlns:w="client"
+		id="wdn" border="normal" mode="modal" action="show: slideIn" contentStyle="overflow:auto;" closable="true"
+		onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')" viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')" class="tcx-modal reset-width pop-up-width1">
+		<zscript>
+			<![CDATA[
+				strSave = arg.get("save");
+				readOnly = arg.get("readOnly");
+				vm.setThanhVienDoanTemp(new vn.toancauxanh.model.ThanhVienDoan());
+				vm.setFlag(false);
+			]]>
+		</zscript>
+		<div class="w-popup-content-medium"> 
+			<div class="panel-box">
+				<div class="box-title-and-close">
+					<div style="display:flex">
+						<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/danh-sach-popup.svg"/>
+						<span class="style-title-popup">${arg.save}</span>
 					</div>
+					<a onClick="wdn.detach()">
+						<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
+					</a>
 				</div>
-				<div class="row">
-					<div zclass="col-md-2">
-						<div zclass="form-group">
-							<x:span class="label-txt-style">Thời gian đến làm việc</x:span> 
-							<datebox buttonVisible="false" disabled="true" format="dd/MM/yyyy" class="hv-db input-no-button txt-textbox-disable" value="@bind(vm.thoiGianDenLamViec)" width="100%"/>
-							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div zclass="col-md-12">
-						<div zclass="form-group txt-textbox-disable">
-							<x:span class="label-txt-style">Tên đoàn</x:span> 
-							<textbox rows="3" class="form-control" disabled="true" value="@bind(vm.tenDoanVao)"></textbox>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="mg-and-bg-and-line-fix" style="padding-top:0;">
-				<div class="row mgn-lr-10">
+				<div class="mg-and-bg-and-line-fix" style="padding-top:0;">
 					<div class="row">
 						<div zclass="col-md-12">
 							<div class="title-form-medium">
-								<span>Thông tin thêm mới</span>
+								<span>Thông tin đoàn vào</span>
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div zclass="col-md-4">
-							<div zclass="form-group focus">
-								<div class="flex">
-									<x:span class="label-txt-style">Họ và tên<n:small class="required" if="${!action}"> *</n:small></x:span>
-								</div>  
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}" maxlength="255"
-								 class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
-								  onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.hoVaTen ? 'Nhập họ tên...' : vm.thanhVienDoanTemp.hoVaTen)">
-									<custom-attributes org.zkoss.bind.event.deferPost="true"/>
-								</textbox>
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-							</div>
-						</div>
-						<div zclass="col-md-4">
+						<div zclass="col-md-2">
 							<div zclass="form-group">
-								<x:span class="label-txt-style">Chức danh</x:span>  
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
-								 maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.chucDanh)" placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.chucDanh ? 'Nhập chức danh...' : vm.thanhVienDoanTemp.chucDanh)"></textbox>
-							</div>
-						</div>
-						<div zclass="col-md-4">
-							<div zclass="form-group">
-								<x:span class="label-txt-style">Đơn vị</x:span> 
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
-								 maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.donVi)" placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.donVi ? 'Nhập đơn vị...' : vm.thanhVienDoanTemp.donVi)"></textbox>
+								<x:span class="label-txt-style">Thời gian đến làm việc</x:span> 
+								<datebox buttonVisible="false" disabled="true" format="dd/MM/yyyy" class="hv-db input-no-button txt-textbox-disable" value="@bind(vm.thoiGianDenLamViec)" width="100%"/>
 								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div zclass="col-md-4">
-							<div zclass="form-group">
-								<div class="flex">
-									<x:span class="label-txt-style">Quốc gia<n:small class="required" if="${!action}"> *</n:small></x:span>
-								</div> 
-								<bandbox width="100%" placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.tenQuocGia ? 'Chọn quốc gia...' : vm.thanhVienDoanTemp.tenQuocGia)" onOpen="@command('searchKey', key=event.value, type = 'thanhVienDoan')" value="@bind(vm.thanhVienDoanTemp.tenQuocGia) @save(vm.thanhVienDoanTemp.tenQuocGia, before='saveThanhVienDoan') @validator(vm.validateTenQuocGia, ten = self.value)"
-								 	buttonVisible="false"
-								  	class="his bb-quoc-gia input-no-button"
-								   	disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
-								    autodrop="true" id="bandBoxQuocGia" mold="rounded" onChanging="@command('searchKey', key = event.value, type = 'thanhVienDoan')"
-								    onClick="@command('searchKeyByOnClick', key = self.value, vm=vm, bandbox=bandBoxQuocGia)">
-									<bandpopup>
-										<listbox model="@load(vm.listSearch)" class="m-height-lb" onSelect="bd.close();" selectedItem="@bind(vm.thanhVienDoanTemp.tenQuocGia)" emptyMessage="Không có dữ liệu">
-											<template name="model">
-												<listitem>
-													<listcell>
-														<label value="@load(each)"></label>
-													</listcell>
-												</listitem>
-											</template>
-											<attribute name="onSelect" mode="defer">
-												<![CDATA[
-													if (self.selectedItem != null) {
-														bandBoxQuocGia.value = self.selectedItem.value;
+						<div zclass="col-md-12">
+							<div zclass="form-group txt-textbox-disable">
+								<x:span class="label-txt-style">Tên đoàn</x:span> 
+								<textbox rows="3" class="form-control" disabled="true" value="@bind(vm.tenDoanVao)"></textbox>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mg-and-bg-and-line-fix" style="padding-top:0;">
+					<div class="row mgn-lr-10">
+						<div class="row">
+							<div zclass="col-md-12">
+								<div class="title-form-medium">
+									<span>Thông tin thêm mới</span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div zclass="col-md-4">
+								<div zclass="form-group focus">
+									<div class="flex">
+										<x:span class="label-txt-style">Họ và tên<n:small class="required" if="${!action}"> *</n:small></x:span>
+									</div>  
+									<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}" maxlength="255"
+									 class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.hoVaTen) @save(vm.thanhVienDoanTemp.hoVaTen, before='saveThanhVienDoan') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
+									  onFocus="self.select()" onBlur="self.setValue(self.getValue().trim())" placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.hoVaTen ? 'Nhập họ tên...' : vm.thanhVienDoanTemp.hoVaTen)">
+										<custom-attributes org.zkoss.bind.event.deferPost="true"/>
+									</textbox>
+									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								</div>
+							</div>
+							<div zclass="col-md-4">
+								<div zclass="form-group">
+									<x:span class="label-txt-style">Chức danh</x:span>  
+									<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
+									 maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.chucDanh)" placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.chucDanh ? 'Nhập chức danh...' : vm.thanhVienDoanTemp.chucDanh)"></textbox>
+								</div>
+							</div>
+							<div zclass="col-md-4">
+								<div zclass="form-group">
+									<x:span class="label-txt-style">Đơn vị</x:span> 
+									<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
+									 maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.donVi)" placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.donVi ? 'Nhập đơn vị...' : vm.thanhVienDoanTemp.donVi)"></textbox>
+									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div zclass="col-md-4">
+								<div zclass="form-group">
+									<div class="flex">
+										<x:span class="label-txt-style">Quốc gia<n:small class="required" if="${!action}"> *</n:small></x:span>
+									</div> 
+									<bandbox width="100%" placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.tenQuocGia ? 'Chọn quốc gia...' : vm.thanhVienDoanTemp.tenQuocGia)" onOpen="@command('searchKey', key=event.value, type = 'thanhVienDoan')" value="@bind(vm.thanhVienDoanTemp.tenQuocGia) @save(vm.thanhVienDoanTemp.tenQuocGia, before='saveThanhVienDoan') @validator(vm.validateTenQuocGia, ten = self.value)"
+									 	buttonVisible="false"
+									  	class="his bb-quoc-gia input-no-button"
+									   	disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
+									    autodrop="true" id="bandBoxQuocGia" mold="rounded" onChanging="@command('searchKey', key = event.value, type = 'thanhVienDoan')"
+									    onClick="@command('searchKeyByOnClick', key = self.value, vm=vm, bandbox=bandBoxQuocGia)">
+										<bandpopup>
+											<listbox model="@load(vm.listSearch)" class="m-height-lb" onSelect="bd.close();" selectedItem="@bind(vm.thanhVienDoanTemp.tenQuocGia)" emptyMessage="Không có dữ liệu">
+												<template name="model">
+													<listitem>
+														<listcell>
+															<label value="@load(each)"></label>
+														</listcell>
+													</listitem>
+												</template>
+												<attribute name="onSelect" mode="defer">
+													<![CDATA[
+														if (self.selectedItem != null) {
+															bandBoxQuocGia.value = self.selectedItem.value;
+														}
+														bandBoxQuocGia.close();
+													]]>
+												</attribute>
+											</listbox>
+										</bandpopup>
+									</bandbox>
+									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								</div>
+							</div>
+							<div zclass="col-md-4">
+								<div zclass="form-group">
+									<x:span class="label-txt-style">Email</x:span>  
+									<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
+									 class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.email) @save(vm.thanhVienDoanTemp.email, before='saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validatorEmail)"
+									  placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.email ? 'Nhập email...' : vm.thanhVienDoanTemp.email)"></textbox>
+									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								</div>
+							</div>
+							<div zclass="col-md-4">
+								<div zclass="form-group">
+									<x:span class="label-txt-style">Điện thoại</x:span>  
+									<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
+									 class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.soDienThoai) @save(vm.thanhVienDoanTemp.soDienThoai, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validateSoDienThoai)"
+									  placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.soDienThoai ? 'Nhập số  điện thoại...' : vm.thanhVienDoanTemp.soDienThoai)"></textbox>
+									<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+								</div>
+							</div>
+						</div>
+						<div class="row" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
+							<div zclass="col-md-6">
+								<div zclass="form-group">
+									<x:button class="btn bg-btn-dong btn-grey" zk:onClick="@command('reset', vm = vm)">
+										<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
+										<span>Nhập lại</span>
+									</x:button>
+								</div>
+							</div>
+							<div zclass="col-md-6">
+								<div zclass="form-group right">
+									<x:button class="btn btn-blue" zk:onClick="@command('saveThanhVienDoan', item = vm)">
+										<x:image zk:visible="@load(vm.flag)" class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
+										<x:image zk:visible="@load(!vm.flag)" class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
+										<label value="@load(vm.flag ? 'Chỉnh sửa thông tin thành viên' : 'Thêm mới vào danh sách bên dưới')"></label>
+									</x:button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mg-and-bg-and-line-fix mg-bottom-15" style="padding-top:0;">
+					<div zclass="row">
+						<div zclass="col-md-12">
+							<div class="title-form-medium">
+								<span>Danh sách thành viên đoàn</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<grid id="grid" model="@load(vm.pageListDoanVao(vm.listThanhVienDoan))" 
+								emptyMessage="Không có dữ liệu nào trong danh sách">
+								<columns>
+									<column label="STT" style="text-align:left" width="42px"/>
+									<column label="Họ và tên" style="text-align:left" width="200px" />
+									<column label="Chức danh" style="text-align:left" />
+									<column label="Đơn vị" style="text-align:left" />
+									<column label="Quốc gia" style="text-align:left" />
+									<column label="Email" style="text-align:left" />
+									<column label="Số điện thoại" style="text-align:left" />
+									<column label="Thao tác" style="text-align:left" width="140px" />
+								</columns>
+								<template name="model">
+									<row>
+										<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
+										<label value="@load(each.hoVaTen)" style="text-align:left; display: block;"></label>
+										<label value="@load(each.chucDanh)" style="text-align:left; display: block;"></label>
+										<label value="@load(each.donVi)" style="text-align:left; display: block;"></label>
+										<label value="@load(each.tenQuocGia)" style="text-align:left; display: block;"></label>
+										<label value="@load(each.email)" style="text-align:left; display: block;"></label>
+										<label value="@load(each.soDienThoai)" style="text-align:left; display: block;"></label>
+										<div class="thaotac" style="text-align:left">
+											<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('editThanhVienDoan', item = each, index = forEachStatus.index + vm.arg.page * vm.arg.pagesize)" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
+												<x:image width="20px" class="img-edit" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
+												<x:span>Sửa</x:span>
+											</x:a>
+											<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('deleteThanhVienDoan',vm = vm, item = each)" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
+												<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
+												<x:span>Xóa</x:span>
+											</x:a>
+										</div>
+										<zscript>
+											<![CDATA[
+													if(vm.getArg().get("page") == null) {
+														vm.getArg().put("page", 0);
 													}
-													bandBoxQuocGia.close();
-												]]>
-											</attribute>
-										</listbox>
-									</bandpopup>
-								</bandbox>
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
+											         if (forEachStatus.isFirst()) {
+											        	 vm.setFirst(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+											         }
+											         if(forEachStatus.isLast()) {
+											        	 vm.setLast(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
+											         }
+													BindUtils.postNotifyChange(null, null, vm, "first");
+													BindUtils.postNotifyChange(null, null, vm, "last");
+											]]>
+										</zscript>
+									</row>
+								</template>
+							</grid>
+							<div style="margin:0 -7.5px" visible="@load(vm.soThanhVienDoan > vm.arg.pagesize ? true : false)">
+								<div class="col-md-6" style="margin-top:10px;">
+									<label value="Hiển thị từ "></label>
+									<label value="@load(vm.first)"></label>
+									<label value="-"></label>
+									<label value="@load(vm.last)"></label>
+									<label value=" trong tổng số  "></label>
+									<label value="@load(vm.soThanhVienDoan)"></label>
+									<label value=" kết quả"></label>
+								</div>
+								<paging pageSize="@load(vm.argDoanVao.pagesize)" totalSize="@load(vm.soThanhVienDoan)" mold="os"
+								activePage="@bind(vm.argDoanVao.page)" onPaging="@command('notifyDoanVao', notify=vm, attr='listThanhVienDoan')" />
 							</div>
-						</div>
-						<div zclass="col-md-4">
-							<div zclass="form-group">
-								<x:span class="label-txt-style">Email</x:span>  
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
-								 class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.email) @save(vm.thanhVienDoanTemp.email, before='saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validatorEmail)"
-								  placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.email ? 'Nhập email...' : vm.thanhVienDoanTemp.email)"></textbox>
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-							</div>
-						</div>
-						<div zclass="col-md-4">
-							<div zclass="form-group">
-								<x:span class="label-txt-style">Điện thoại</x:span>  
-								<textbox disabled="${!(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) or readOnly}"
-								 class="form-control textbox-txt-style" value="@bind(vm.thanhVienDoanTemp.soDienThoai) @save(vm.thanhVienDoanTemp.soDienThoai, before= 'saveThanhVienDoan') @validator(vm.thanhVienDoanTemp.validateSoDienThoai)"
-								  placeholder="@load(!readOnly and empty vm.thanhVienDoanTemp.soDienThoai ? 'Nhập số  điện thoại...' : vm.thanhVienDoanTemp.soDienThoai)"></textbox>
-								<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
-							</div>
+							
 						</div>
 					</div>
-					<div class="row" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
-						<div zclass="col-md-6">
+				</div>
+				<div class="mg-and-bg-and-line-fix">
+					<div class="row">
+						<div zclass="col-xs-6">
 							<div zclass="form-group">
-								<x:button class="btn bg-btn-dong btn-grey" zk:onClick="@command('reset', vm = vm)">
-									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/tim-kiem-lai.svg"/>
-									<span>Nhập lại</span>
+								<x:button class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='*')">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
+									<span>Đóng</span>
 								</x:button>
 							</div>
 						</div>
-						<div zclass="col-md-6">
-							<div zclass="form-group right">
-								<x:button class="btn btn-blue" zk:onClick="@command('saveThanhVienDoan', item = vm)">
-									<x:image zk:visible="@load(vm.flag)" class="img-title" src="${contexPath}/assets/icon-bxtdn/dieu-chinh.svg"/>
-									<x:image zk:visible="@load(!vm.flag)" class="img-title" src="${contexPath}/assets/icon-bxtdn/them-moi.svg"/>
-									<label value="@load(vm.flag ? 'Chỉnh sửa thông tin thành viên' : 'Thêm mới vào danh sách bên dưới')"></label>
+						<div zclass="col-xs-6">
+							<div zclass="form-group right" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
+								<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveDanhSachThanhVienDoan', wdn = wdn)">
+									<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
+									<span>Lưu</span>
 								</x:button>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="mg-and-bg-and-line-fix mg-bottom-15" style="padding-top:0;">
-				<div zclass="row">
-					<div zclass="col-md-12">
-						<div class="title-form-medium">
-							<span>Danh sách thành viên đoàn</span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<grid id="grid" model="@load(vm.pageListDoanVao(vm.listThanhVienDoan))" 
-							emptyMessage="Không có dữ liệu nào trong danh sách">
-							<columns>
-								<column label="STT" style="text-align:left" width="42px"/>
-								<column label="Họ và tên" style="text-align:left" width="200px" />
-								<column label="Chức danh" style="text-align:left" />
-								<column label="Đơn vị" style="text-align:left" />
-								<column label="Quốc gia" style="text-align:left" />
-								<column label="Email" style="text-align:left" />
-								<column label="Số điện thoại" style="text-align:left" />
-								<column label="Thao tác" style="text-align:left" width="140px" />
-							</columns>
-							<template name="model">
-								<row>
-									<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"></label>
-									<label value="@load(each.hoVaTen)" style="text-align:left; display: block;"></label>
-									<label value="@load(each.chucDanh)" style="text-align:left; display: block;"></label>
-									<label value="@load(each.donVi)" style="text-align:left; display: block;"></label>
-									<label value="@load(each.tenQuocGia)" style="text-align:left; display: block;"></label>
-									<label value="@load(each.email)" style="text-align:left; display: block;"></label>
-									<label value="@load(each.soDienThoai)" style="text-align:left; display: block;"></label>
-									<div class="thaotac" style="text-align:left">
-										<x:a label="Sửa" class="btn-thaotac left" zk:onClick="@command('editThanhVienDoan', item = each, index = forEachStatus.index + vm.arg.page * vm.arg.pagesize)" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
-											<x:image width="20px" class="img-edit" title="Sửa" src="${contexPath}/assets/icon-bxtdn/sua.svg"/>
-											<x:span>Sửa</x:span>
-										</x:a>
-										<x:a label="Xóa" class="btn-thaotac up-note" zk:onClick="@command('deleteThanhVienDoan',vm = vm, item = each)" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
-											<x:image class="img-edit" title="Xóa" src="${contexPath}/assets/icon-bxtdn/xoa.svg"/>
-											<x:span>Xóa</x:span>
-										</x:a>
-									</div>
-									<zscript>
-										<![CDATA[
-												if(vm.getArg().get("page") == null) {
-													vm.getArg().put("page", 0);
-												}
-										         if (forEachStatus.isFirst()) {
-										        	 vm.setFirst(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
-										         }
-										         if(forEachStatus.isLast()) {
-										        	 vm.setLast(forEachStatus.getIndex() + 1 + vm.getArg().get("page") * vm.getArg().get("pagesize"));
-										         }
-												BindUtils.postNotifyChange(null, null, vm, "first");
-												BindUtils.postNotifyChange(null, null, vm, "last");
-										]]>
-									</zscript>
-								</row>
-							</template>
-						</grid>
-						<div style="margin:0 -7.5px" visible="@load(vm.soThanhVienDoan > vm.arg.pagesize ? true : false)">
-							<div class="col-md-6" style="margin-top:10px;">
-								<label value="Hiển thị từ "></label>
-								<label value="@load(vm.first)"></label>
-								<label value="-"></label>
-								<label value="@load(vm.last)"></label>
-								<label value=" trong tổng số  "></label>
-								<label value="@load(vm.soThanhVienDoan)"></label>
-								<label value=" kết quả"></label>
-							</div>
-							<paging pageSize="@load(vm.argDoanVao.pagesize)" totalSize="@load(vm.soThanhVienDoan)" mold="os"
-							activePage="@bind(vm.argDoanVao.page)" onPaging="@command('notifyDoanVao', notify=vm, attr='listThanhVienDoan')" />
-						</div>
-						
-					</div>
-				</div>
-			</div>
-			<div class="mg-and-bg-and-line-fix">
-				<div class="row">
-					<div zclass="col-xs-6">
-						<div zclass="form-group">
-							<x:button class="btn bg-btn-dong btn-grey" onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='*')">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/dong.svg"/>
-								<span>Đóng</span>
-							</x:button>
-						</div>
-					</div>
-					<div zclass="col-xs-6">
-						<div zclass="form-group right" if="${(entry.quyen.quanlydoanvao_them or vm.checkOnlyNguoiPhuTrach(vm.nguoiPhuTrach, vm.nguoiTao, entry.nhanVien.id)) and !readOnly}">
-							<x:button class="btn btn-blue mg-btn" zk:onClick="@command('saveDanhSachThanhVienDoan', wdn = wdn)">
-								<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/luu.svg"/>
-								<span>Lưu</span>
-							</x:button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</window>
+	</window>
+</idspace>
