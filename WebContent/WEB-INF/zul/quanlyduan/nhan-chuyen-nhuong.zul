@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div zclass="col-md-8">
+			<div zclass="col-md-8 mw-col-md-8">
 				<div zclass="form-group mg-top-8">
 					<div class="flex">
 						<x:span class="label-txt-style">Đơn vị tư vấn<n:small class="required" if="${action and vm.checkDangOGiaiDoan(giaiDoanBon) and vm.nguoiPhuTrach.id == entry.nhanVien.id}"> *</n:small></x:span>
