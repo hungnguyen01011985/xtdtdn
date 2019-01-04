@@ -37,6 +37,7 @@ public class CasSecurityConfig extends WebSecurityConfigurerAdapter {
 				.clearAuthentication(true)
 				.invalidateHttpSession(true);
 		http.headers().frameOptions().sameOrigin();
+		http.headers().cacheControl().disable();
 	}
 
 }
