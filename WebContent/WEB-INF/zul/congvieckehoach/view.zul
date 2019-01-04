@@ -40,7 +40,7 @@
 						</div>
 						<combobox disabled="${readOnly}" buttonVisible="${!readOnly}" class="hv-textbox ${!readOnly ? '' : 'input-no-button'}" readonly="true"
 							selectedItem="@bind(vm.loaiCongViecKeHoach) @save(vm.loaiCongViecKeHoach, before='saveCongViecKeHoach') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" 
-							autodrop ="true" placeholder="Chọn loại kế hoạch công việc" width="100%" 
+							autodrop ="true" placeholder="${readOnly ? '' : 'Chọn loại kế hoạch công việc'}" width="100%" 
 		                    model="@load(loaiCongViecKeHoachService.loaiCongViecKeHoach)">							
 		                    <template name="model">
 							    <comboitem label="@load(each.ten)"></comboitem>

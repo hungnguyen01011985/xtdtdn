@@ -41,7 +41,7 @@
 							<x:span class="label-txt-style">Loại vai trò<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 						</div>
 						<combobox buttonVisible="${!readOnly}" width="100%" class="hv-textbox ${!readOnly ? '' : 'input-no-button'}" readonly="true" disabled="${readOnly}"
-							model="@load(vm.listLoaiVaiTro)" placeholder="-Chọn loại vai trò-"
+							model="@load(vm.listLoaiVaiTro)" placeholder="${readOnly ? '' : '-Chọn loại vai trò-'}"
 							selectedItem="@bind(vm.loaiVaiTro) @save(vm.loaiVaiTro, before='saveVaiTro') @validator('vn.toancauxanh.vm.BaseValid', constraint = 'no empty')">
 							<template name="model">
 								<comboitem label="@load(each.text)" />
