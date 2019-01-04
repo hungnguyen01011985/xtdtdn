@@ -7,13 +7,15 @@
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
 			strSave = arg.get("save");
+			strXem = arg.get("xem");
 			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
 		]]></zscript> 
 		<div class="w-popup-content">
 			<div class="box-title-and-close">
 				<div style="display:flex">
 					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
-					<span class="style-title-popup">${arg.save}</span>
+					<span class="style-title-popup" if="${!readOnly}">${arg.save}</span>
+					<span class="style-title-popup" if="${readOnly}">${arg.xem}</span>
 				</div>
 				<a onClick="wdn.detach()">
 					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
@@ -34,7 +36,7 @@
 				<div zclass="col-md-12">
 					<div zclass="form-group txt-textbox-disable">
 						<x:span class="label-txt-style">Mô tả</x:span> 
-						<textbox disabled="${readOnly}" rows="3" class="form-control textbox-txt-style" value="@bind(vm.moTa)" placeholder="Nhập mô tả..." onOK="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
+						<textbox disabled="${readOnly}" rows="3" class="form-control textbox-txt-style" value="@bind(vm.moTa)" placeholder="${readOnly ? '' : 'Nhập mô tả...'}" onOK="@command('saveCapDonVi', list=vmArgs, attr='targetQuery', wdn=wdn)"></textbox>
 					</div>
 				</div>
 			</div>

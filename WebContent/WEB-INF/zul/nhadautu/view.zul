@@ -8,13 +8,15 @@
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
 			strSave = arg.get("save");
+			strXem = arg.get("xem");
 			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
 		]]></zscript> 
 		<div class="panel-box" style="margin-top:0;">
 			<div class="box-title-and-close">
 				<div style="display:flex">
 					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
-					<span class="style-title-popup">${arg.save}</span>
+					<span class="style-title-popup" if="${!readOnly}">${arg.save}</span>
+					<span class="style-title-popup" if="${readOnly}">${arg.xem}</span>
 				</div>
 				<a onClick="wdn.detach()">
 					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
@@ -36,7 +38,7 @@
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Người đại diện pháp lý <n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 							<textbox disabled="${readOnly}" maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.nguoiDaiDienPhapLy) @save(vm.nguoiDaiDienPhapLy, before={'saveNhaDauTu'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"
-								 placeholder="Nhập tên nhà đầu tư..."></textbox>
+								 placeholder="Người đại diện pháp lý..."></textbox>
 							<label zclass="error" value="@load(vmsgs[self.previousSibling])" />
 						</div>
 					</div>
@@ -56,7 +58,7 @@
 						<div zclass="form-group txt-textbox-disable">
 							<x:span class="label-txt-style">Số điện thoại</x:span>
 							<textbox disabled="${readOnly}" maxlength="255" class="form-control textbox-txt-style" value="@bind(vm.soDienThoai) @save(vm.soDienThoai, before={'saveNhaDauTu'}) @validator(vm.validateSoDienThoai)"
-								placeholder="Nhập địa chỉ..."></textbox>
+								placeholder="${readOnly ? '' : 'Nhập số điện thoại'}"></textbox>
 							<label zclass="error" value="@bind(vmsgs[self.previousSibling])" />
 						</div>
 					</div>

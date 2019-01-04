@@ -7,6 +7,7 @@
 		<zscript><![CDATA[
 			vmArgs = arg.get("vmArgs");
 			strSave = arg.get("save");
+			strXem = arg.get("xem");
 			readOnly = arg.get("readOnly") == null ? false : arg.get("readOnly");
 			import java.awt.image.*;
 			BufferedImage imageNull = new BufferedImage(400, 300, BufferedImage.TYPE_INT_ARGB);
@@ -15,7 +16,8 @@
 			<div class="box-title-and-close" style="padding:15px;">
 				<div style="display:flex">
 					<x:image class="img-popup-title" src="${contexPath}/assets/icon-bxtdn/tao-icon-popup.svg"/>
-					<span class="style-title-popup">${arg.save}</span>
+					<span class="style-title-popup" if="${!readOnly}">${arg.save}</span>
+					<span class="style-title-popup" if="${readOnly}">${arg.xem}</span>
 				</div>
 				<a onClick="wdn.detach()">
 					<x:image class="img-title" src="${contexPath}/assets/icon-bxtdn/close-popup.svg"/>
@@ -40,7 +42,7 @@
 									<x:span class="label-txt-style">Vai trò người dùng<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" width="100%" class="hv-textbox ${!readOnly ? '' : 'input-no-button'}" readonly="true" disabled="${readOnly}"
-									model="@load(entry.vaiTros.vaiTroQuery.fetch())" placeholder="-Chọn-"
+									model="@load(entry.vaiTros.vaiTroQuery.fetch())" placeholder="${readOnly ? '' : '-Chọn-'}"
 									selectedItem="@bind(vm.vaiTro) @save(vm.vaiTro, before='saveNhanVien') @validator(vm.validateVaiTro)">
 									<template name="model">
 										<comboitem label="@load(each.tenVaiTro)" />
@@ -57,7 +59,7 @@
 									<x:span class="label-txt-style">Phòng ban<n:small class="required" if="${!readOnly}"> *</n:small></x:span>
 								</div>
 								<combobox buttonVisible="${!readOnly}" readonly="true" disabled="${readOnly}" model="@load(entry.phongBans.targetQuery.fetch())"
-									selectedItem="@bind(vm.phongBan) @save(vm.phongBan, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="Chọn phòng ban" width="100%">
+									selectedItem="@bind(vm.phongBan) @save(vm.phongBan, before='saveNhanVien') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')" class="his ${!readOnly ? '' : 'input-no-button'}" placeholder="${readOnly ? '' : 'Chọn phòng ban'}" width="100%">
 									<template name="model">
 										<comboitem label="@load(each.ten)" />
 									</template>
